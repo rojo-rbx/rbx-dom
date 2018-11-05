@@ -9,6 +9,7 @@ use crate::{
 
 /// Represents an instance that is rooted in a tree.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct RootedRbxInstance {
     #[serde(flatten)]
     inner: RbxInstance,
@@ -147,8 +148,41 @@ impl RbxTree {
 
     /// Given an ID, remove the instance from the tree with that ID, along with
     /// all of its descendants.
-    pub fn unroot(&mut self, _id: RbxId) -> Option<RbxTree> {
-        unimplemented!()
+    pub fn unroot(&mut self, root_id: RbxId) -> Option<RbxTree> {
+        let mut ids_to_visit = vec![root_id];
+        let mut new_tree_instances = HashMap::new();
+
+        let parent_id = match self.instances.get(&root_id) {
+            Some(instance) => instance.parent,
+            None => return None,
+        };
+
+        if let Some(parent_id) = parent_id {
+            let mut parent = self.get_instance_mut(parent_id).unwrap();
+            let index = parent.children.iter().position(|&id| id == root_id).unwrap();
+
+            parent.children.remove(index);
+        }
+
+        loop {
+            let id = match ids_to_visit.pop() {
+                Some(id) => id,
+                None => break,
+            };
+
+            match self.instances.get(&id) {
+                Some(instance) => ids_to_visit.extend_from_slice(&instance.children),
+                None => continue,
+            }
+
+            let instance = self.instances.remove(&id).unwrap();
+            new_tree_instances.insert(id, instance);
+        }
+
+        Some(RbxTree {
+            instances: new_tree_instances,
+            root_id,
+        })
     }
 
     /// Returns an iterator over all of the descendants of the given instance by
@@ -158,6 +192,12 @@ impl RbxTree {
             tree: self,
             ids_to_visit: vec![id],
         }
+    }
+}
+
+impl Clone for RbxTree {
+    fn clone(&self) -> RbxTree {
+        unimplemented!()
     }
 }
 
