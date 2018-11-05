@@ -7,8 +7,9 @@ use crate::{
     instance::RbxInstance,
 };
 
+/// Represents an instance that is rooted in a tree.
 #[derive(Debug, Serialize, Deserialize)]
-pub struct RbxTreeInstance {
+pub struct RootedRbxInstance {
     #[serde(flatten)]
     inner: RbxInstance,
 
@@ -22,9 +23,9 @@ pub struct RbxTreeInstance {
     parent: Option<RbxId>,
 }
 
-impl RbxTreeInstance {
-    fn new(instance: RbxInstance, parent: RbxId) -> RbxTreeInstance {
-        RbxTreeInstance {
+impl RootedRbxInstance {
+    fn new(instance: RbxInstance, parent: RbxId) -> RootedRbxInstance {
+        RootedRbxInstance {
             inner: instance,
             id: RbxId::new(),
             parent: Some(parent),
@@ -32,8 +33,8 @@ impl RbxTreeInstance {
         }
     }
 
-    fn new_without_parent(instance: RbxInstance) -> RbxTreeInstance {
-        RbxTreeInstance {
+    fn new_without_parent(instance: RbxInstance) -> RootedRbxInstance {
+        RootedRbxInstance {
             inner: instance,
             id: RbxId::new(),
             parent: None,
@@ -41,20 +42,23 @@ impl RbxTreeInstance {
         }
     }
 
+    /// Returns the unique ID associated with the rooted instance.
     pub fn get_id(&self) -> RbxId {
         self.id
     }
 
+    /// Returns the ID of the parent of this instance, if it has a parent.
     pub fn get_parent_id(&self) -> Option<RbxId> {
         self.parent
     }
 
+    /// Returns a list of the IDs of the children of this instance.
     pub fn get_children_ids(&self) -> &[RbxId] {
         &self.children
     }
 }
 
-impl std::ops::Deref for RbxTreeInstance {
+impl std::ops::Deref for RootedRbxInstance {
     type Target = RbxInstance;
 
     fn deref(&self) -> &Self::Target {
@@ -62,15 +66,19 @@ impl std::ops::Deref for RbxTreeInstance {
     }
 }
 
+/// Represents a tree containing one or more rooted instances.
+///
+/// Rooted instances are described by
+/// [RootedRbxInstance](struct.RootedRbxInstance.html).
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RbxTree {
-    instances: HashMap<RbxId, RbxTreeInstance>,
+    instances: HashMap<RbxId, RootedRbxInstance>,
     root_id: RbxId,
 }
 
 impl RbxTree {
     pub fn new(root: RbxInstance) -> RbxTree {
-        let root = RbxTreeInstance::new_without_parent(root);
+        let root = RootedRbxInstance::new_without_parent(root);
         let root_id = root.id;
 
         let mut instances = HashMap::new();
@@ -86,11 +94,11 @@ impl RbxTree {
         self.root_id
     }
 
-    pub fn get_instance(&self, id: RbxId) -> Option<&RbxTreeInstance> {
+    pub fn get_instance(&self, id: RbxId) -> Option<&RootedRbxInstance> {
         self.instances.get(&id)
     }
 
-    pub fn get_instance_mut(&mut self, id: RbxId) -> Option<&mut RbxTreeInstance> {
+    pub fn get_instance_mut(&mut self, id: RbxId) -> Option<&mut RootedRbxInstance> {
         self.instances.get_mut(&id)
     }
 
@@ -115,7 +123,7 @@ impl RbxTree {
         }
     }
 
-    fn insert_instance_internal(&mut self, instance: RbxTreeInstance) {
+    fn insert_instance_internal(&mut self, instance: RootedRbxInstance) {
         let parent_id = instance.parent
             .expect("Cannot insert_instance_internal with an instance without a parent");
 
@@ -129,7 +137,7 @@ impl RbxTree {
     }
 
     pub fn insert_instance(&mut self, instance: RbxInstance, parent_id: RbxId) -> RbxId {
-        let tree_instance = RbxTreeInstance::new(instance, parent_id);
+        let tree_instance = RootedRbxInstance::new(instance, parent_id);
         let id = tree_instance.get_id();
 
         self.insert_instance_internal(tree_instance);
@@ -159,7 +167,7 @@ pub struct Descendants<'a> {
 }
 
 impl<'a> Iterator for Descendants<'a> {
-    type Item = &'a RbxTreeInstance;
+    type Item = &'a RootedRbxInstance;
 
     fn next(&mut self) -> Option<Self::Item> {
         loop {
