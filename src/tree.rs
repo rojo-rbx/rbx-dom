@@ -5,58 +5,8 @@ use serde_derive::{Serialize, Deserialize};
 use crate::{
     id::RbxId,
     instance::RbxInstance,
+    rooted_instance::RootedRbxInstance,
 };
-
-/// Represents an instance that is rooted in a tree.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "PascalCase")]
-pub struct RootedRbxInstance {
-    #[serde(flatten)]
-    instance: RbxInstance,
-
-    /// The unique ID of the instance
-    id: RbxId,
-
-    /// All of the children of this instance. Order is relevant to preserve!
-    children: Vec<RbxId>,
-
-    /// The parent of the instance, if there is one.
-    parent: Option<RbxId>,
-}
-
-impl RootedRbxInstance {
-    fn new(instance: RbxInstance, parent: Option<RbxId>) -> RootedRbxInstance {
-        RootedRbxInstance {
-            instance,
-            id: RbxId::new(),
-            parent,
-            children: Vec::new(),
-        }
-    }
-
-    /// Returns the unique ID associated with the rooted instance.
-    pub fn get_id(&self) -> RbxId {
-        self.id
-    }
-
-    /// Returns the ID of the parent of this instance, if it has a parent.
-    pub fn get_parent_id(&self) -> Option<RbxId> {
-        self.parent
-    }
-
-    /// Returns a list of the IDs of the children of this instance.
-    pub fn get_children_ids(&self) -> &[RbxId] {
-        &self.children
-    }
-}
-
-impl std::ops::Deref for RootedRbxInstance {
-    type Target = RbxInstance;
-
-    fn deref(&self) -> &Self::Target {
-        &self.instance
-    }
-}
 
 /// Represents a tree containing rooted instances.
 ///
@@ -126,7 +76,9 @@ impl RbxTree {
     }
 
     pub fn insert_instance(&mut self, instance: RbxInstance, parent_id: Option<RbxId>) -> RbxId {
-        let tree_instance = RootedRbxInstance::new(instance, parent_id);
+        let mut tree_instance = RootedRbxInstance::new(instance);
+        tree_instance.parent = parent_id;
+
         let id = tree_instance.get_id();
 
         self.insert_instance_internal(tree_instance);

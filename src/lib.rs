@@ -9,8 +9,12 @@ mod id;
 mod instance;
 mod tree;
 mod value;
+mod rooted_instance;
 
-pub use crate::id::*;
-pub use crate::instance::*;
-pub use crate::tree::*;
-pub use crate::value::*;
+pub use crate::{
+    id::*,
+    instance::*,
+    tree::*,
+    value::*,
+    rooted_instance::*,
+};
