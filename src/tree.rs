@@ -169,12 +169,10 @@ impl Clone for RbxTree {
                 .map(|id| get_id(&mut id_map, *id))
                 .collect();
 
-            let new_instance = RootedRbxInstance {
-                instance: instance.instance.clone(),
-                id: new_id,
-                parent,
-                children,
-            };
+            let mut new_instance = instance.clone_without_relations(new_id);
+            new_instance.parent = parent;
+            new_instance.children = children;
+
             instances.insert(new_id, new_instance);
         }
 

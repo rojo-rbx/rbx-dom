@@ -10,10 +10,10 @@ use crate::{
 #[serde(rename_all = "PascalCase")]
 pub struct RootedRbxInstance {
     #[serde(flatten)]
-    pub(crate) instance: RbxInstance,
+    instance: RbxInstance,
 
     /// The unique ID of the instance
-    pub(crate) id: RbxId,
+    id: RbxId,
 
     /// All of the children of this instance. Order is relevant to preserve!
     pub(crate) children: Vec<RbxId>,
@@ -27,6 +27,15 @@ impl RootedRbxInstance {
         RootedRbxInstance {
             instance,
             id: RbxId::new(),
+            parent: None,
+            children: Vec::new(),
+        }
+    }
+
+    pub(crate) fn clone_without_relations(&self, new_id: RbxId) -> RootedRbxInstance {
+        RootedRbxInstance {
+            instance: self.instance.clone(),
+            id: new_id,
             parent: None,
             children: Vec::new(),
         }
