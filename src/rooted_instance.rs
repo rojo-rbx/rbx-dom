@@ -10,10 +10,10 @@ use crate::{
 #[serde(rename_all = "PascalCase")]
 pub struct RootedRbxInstance {
     #[serde(flatten)]
-    instance: RbxInstance,
+    pub(crate) instance: RbxInstance,
 
     /// The unique ID of the instance
-    id: RbxId,
+    pub(crate) id: RbxId,
 
     /// All of the children of this instance. Order is relevant to preserve!
     pub(crate) children: Vec<RbxId>,

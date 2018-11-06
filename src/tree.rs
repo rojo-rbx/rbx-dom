@@ -143,9 +143,50 @@ impl RbxTree {
     }
 }
 
+// Manually implement Clone to prevent accidental instance ID reuse.
 impl Clone for RbxTree {
     fn clone(&self) -> RbxTree {
-        unimplemented!()
+        #[inline]
+        fn get_id(id_map: &mut HashMap<RbxId, RbxId>, source_id: RbxId) -> RbxId {
+            if let Some(&new_id) = id_map.get(&source_id) {
+                return new_id;
+            }
+
+            let new_id = RbxId::new();
+            id_map.insert(source_id, new_id);
+
+            new_id
+        }
+
+        let mut id_map = HashMap::new();
+        let mut instances = HashMap::new();
+
+        for (&id, instance) in &self.instances {
+            let new_id = get_id(&mut id_map, id);
+            let parent = instance.parent.map(|id| get_id(&mut id_map, id));
+            let children = instance.children
+                .iter()
+                .map(|id| get_id(&mut id_map, *id))
+                .collect();
+
+            let new_instance = RootedRbxInstance {
+                instance: instance.instance.clone(),
+                id: new_id,
+                parent,
+                children,
+            };
+            instances.insert(new_id, new_instance);
+        }
+
+        let root_ids: HashSet<RbxId> = self.root_ids
+            .iter()
+            .map(|id| *id_map.get(id).unwrap())
+            .collect();
+
+        RbxTree {
+            instances,
+            root_ids,
+        }
     }
 }
 
