@@ -16,7 +16,7 @@ use crate::{
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RbxTree {
     instances: HashMap<RbxId, RootedRbxInstance>,
-    root_id: RbxId,
+    root_id: Option<RbxId>,
 }
 
 impl RbxTree {
@@ -29,11 +29,18 @@ impl RbxTree {
 
         RbxTree {
             instances,
-            root_id,
+            root_id: Some(root_id),
         }
     }
 
-    pub fn get_root_id(&self) -> RbxId {
+    pub fn new_empty() -> RbxTree {
+        RbxTree {
+            instances: HashMap::new(),
+            root_id: None,
+        }
+    }
+
+    pub fn get_root_id(&self) -> Option<RbxId> {
         self.root_id
     }
 
@@ -97,16 +104,19 @@ impl RbxTree {
         let mut new_tree_instances = HashMap::new();
 
         let parent_id = match self.instances.get(&root_id) {
-            Some(instance) => instance.parent
-                .expect("Cannot remove the root instance of a tree"),
+            Some(instance) => instance.parent,
             None => return None,
         };
 
-        {
+        if let Some(parent_id) = parent_id {
             let parent = self.get_instance_mut(parent_id).unwrap();
             let index = parent.children.iter().position(|&id| id == root_id).unwrap();
 
             parent.children.remove(index);
+        }
+
+        if self.root_id == Some(root_id) {
+            self.root_id = None;
         }
 
         loop {
@@ -126,7 +136,7 @@ impl RbxTree {
 
         Some(RbxTree {
             instances: new_tree_instances,
-            root_id,
+            root_id: Some(root_id),
         })
     }
 
@@ -173,7 +183,10 @@ impl Clone for RbxTree {
             instances.insert(new_id, new_instance);
         }
 
-        let root_id = *id_map.get(&self.root_id).unwrap();
+        let root_id = match self.root_id {
+            Some(root_id) => Some(*id_map.get(&root_id).unwrap()),
+            None => None,
+        };
 
         RbxTree {
             instances,
