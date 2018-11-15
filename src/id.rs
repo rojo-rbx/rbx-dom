@@ -8,4 +8,8 @@ impl RbxId {
     pub fn new() -> RbxId {
         RbxId(Uuid::new_v4())
     }
+
+    pub fn parse_str(input: &str) -> Option<RbxId> {
+        Uuid::parse_str(input).map(RbxId).ok()
+    }
 }

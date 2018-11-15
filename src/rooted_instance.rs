@@ -57,6 +57,12 @@ impl RootedRbxInstance {
     }
 }
 
+impl Clone for RootedRbxInstance {
+    fn clone(&self) -> Self {
+        unimplemented!()
+    }
+}
+
 impl std::ops::Deref for RootedRbxInstance {
     type Target = RbxInstance;
 

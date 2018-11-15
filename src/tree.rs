@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 use serde_derive::{Serialize, Deserialize};
 
@@ -16,19 +16,25 @@ use crate::{
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RbxTree {
     instances: HashMap<RbxId, RootedRbxInstance>,
-    root_ids: HashSet<RbxId>,
+    root_id: RbxId,
 }
 
 impl RbxTree {
-    pub fn new() -> RbxTree {
+    pub fn new(root: RbxInstance) -> RbxTree {
+        let rooted_root = RootedRbxInstance::new(root);
+        let root_id = rooted_root.get_id();
+
+        let mut instances = HashMap::new();
+        instances.insert(root_id, rooted_root);
+
         RbxTree {
-            instances: HashMap::new(),
-            root_ids: HashSet::new(),
+            instances,
+            root_id,
         }
     }
 
-    pub fn get_root_ids(&self) -> &HashSet<RbxId> {
-        &self.root_ids
+    pub fn get_root_id(&self) -> RbxId {
+        self.root_id
     }
 
     pub fn get_instance(&self, id: RbxId) -> Option<&RootedRbxInstance> {
@@ -39,7 +45,7 @@ impl RbxTree {
         self.instances.get_mut(&id)
     }
 
-    pub fn transplant(&mut self, source_tree: &mut RbxTree, source_id: RbxId, new_parent_id: Option<RbxId>) {
+    pub fn transplant(&mut self, source_tree: &mut RbxTree, source_id: RbxId, new_parent_id: RbxId) {
         let mut to_visit = vec![(source_id, new_parent_id)];
 
         loop {
@@ -49,11 +55,11 @@ impl RbxTree {
             };
 
             let mut instance = source_tree.instances.remove(&id).unwrap();
-            instance.parent = parent_id;
+            instance.parent = Some(parent_id);
             instance.children.clear();
 
             for child in &instance.children {
-                to_visit.push((*child, Some(id)));
+                to_visit.push((*child, id));
             }
 
             self.insert_instance_internal(instance);
@@ -61,15 +67,13 @@ impl RbxTree {
     }
 
     fn insert_instance_internal(&mut self, instance: RootedRbxInstance) {
-        match instance.parent {
-            Some(parent_id) => {
-                let parent = self.instances.get_mut(&parent_id)
-                    .expect("Cannot insert_instance_internal into an instance not in this tree");
-                parent.children.push(instance.get_id());
-            },
-            None => {
-                self.root_ids.insert(instance.get_id());
-            },
+        let parent_id = instance.parent
+            .expect("Can not use insert_instance_internal on instances with no parent");
+
+        {
+            let parent = self.instances.get_mut(&parent_id)
+                .expect("Cannot insert_instance_internal into an instance not in this tree");
+            parent.children.push(instance.get_id());
         }
 
         self.instances.insert(instance.get_id(), instance);
@@ -93,20 +97,16 @@ impl RbxTree {
         let mut new_tree_instances = HashMap::new();
 
         let parent_id = match self.instances.get(&root_id) {
-            Some(instance) => instance.parent,
+            Some(instance) => instance.parent
+                .expect("Cannot remove the root instance of a tree"),
             None => return None,
         };
 
-        match parent_id {
-            Some(parent_id) => {
-                let mut parent = self.get_instance_mut(parent_id).unwrap();
-                let index = parent.children.iter().position(|&id| id == root_id).unwrap();
+        {
+            let parent = self.get_instance_mut(parent_id).unwrap();
+            let index = parent.children.iter().position(|&id| id == root_id).unwrap();
 
-                parent.children.remove(index);
-            },
-            None => {
-                self.root_ids.remove(&root_id);
-            },
+            parent.children.remove(index);
         }
 
         loop {
@@ -124,12 +124,9 @@ impl RbxTree {
             new_tree_instances.insert(id, instance);
         }
 
-        let mut root_ids = HashSet::new();
-        root_ids.insert(root_id);
-
         Some(RbxTree {
             instances: new_tree_instances,
-            root_ids,
+            root_id,
         })
     }
 
@@ -176,14 +173,11 @@ impl Clone for RbxTree {
             instances.insert(new_id, new_instance);
         }
 
-        let root_ids: HashSet<RbxId> = self.root_ids
-            .iter()
-            .map(|id| *id_map.get(id).unwrap())
-            .collect();
+        let root_id = *id_map.get(&self.root_id).unwrap();
 
         RbxTree {
             instances,
-            root_ids,
+            root_id,
         }
     }
 }
