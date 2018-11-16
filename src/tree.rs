@@ -79,9 +79,9 @@ impl RbxTree {
         self.instances.insert(instance.get_id(), instance);
     }
 
-    pub fn insert_instance(&mut self, instance: RbxInstance, parent_id: Option<RbxId>) -> RbxId {
+    pub fn insert_instance(&mut self, instance: RbxInstance, parent_id: RbxId) -> RbxId {
         let mut tree_instance = RootedRbxInstance::new(instance);
-        tree_instance.parent = parent_id;
+        tree_instance.parent = Some(parent_id);
 
         let id = tree_instance.get_id();
 
