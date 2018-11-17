@@ -37,6 +37,10 @@ impl RbxTree {
         self.root_id
     }
 
+    pub fn get_all_ids(&self) -> impl Iterator<Item=RbxId> + '_ {
+        self.instances.keys().cloned()
+    }
+
     pub fn get_instance(&self, id: RbxId) -> Option<&RootedRbxInstance> {
         self.instances.get(&id)
     }
