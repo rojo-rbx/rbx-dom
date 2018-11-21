@@ -13,7 +13,7 @@ use crate::{
 /// Rooted instances are described by
 /// [RootedRbxInstance](struct.RootedRbxInstance.html) and have an ID, children,
 /// and a parent.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct RbxTree {
     instances: HashMap<RbxId, RootedRbxInstance>,
     root_id: RbxId,

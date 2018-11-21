@@ -6,7 +6,7 @@ use crate::{
 };
 
 /// Represents an instance that is rooted in a tree.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
 pub struct RootedRbxInstance {
     #[serde(flatten)]
