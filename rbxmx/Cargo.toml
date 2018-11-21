@@ -1,0 +1,8 @@
+[package]
+name = "rbxmx"
+version = "0.1.0"
+authors = ["lgreathouse <me@lpghatguy.com>"]
+
+[dependencies]
+quick-xml = "0.13.1"
+rbx-tree = { path = "../rbx-tree" }
