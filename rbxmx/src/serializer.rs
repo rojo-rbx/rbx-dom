@@ -4,24 +4,19 @@ use xml::writer::{EventWriter, EmitterConfig, XmlEvent};
 
 use rbx_tree::{RbxTree, RbxValue, RbxId};
 
-pub fn encode(tree: &RbxTree, ids: &[RbxId]) -> Vec<u8> {
-    let mut output = Vec::new();
+/// Serialize the instances denoted by `ids` from `tree` to XML.
+pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) {
+    let mut writer = EmitterConfig::new()
+        .perform_indent(true)
+        .create_writer(output);
 
-    {
-        let mut writer = EmitterConfig::new()
-            .perform_indent(true)
-            .create_writer(&mut output);
+    writer.write(XmlEvent::start_element("roblox").attr("version", "4")).unwrap();
 
-        writer.write(XmlEvent::start_element("roblox").attr("version", "4")).unwrap();
-
-        for id in ids {
-            serialize_instance(&mut writer, tree, *id);
-        }
-
-        writer.write(XmlEvent::end_element()).unwrap();
+    for id in ids {
+        serialize_instance(&mut writer, tree, *id);
     }
 
-    output
+    writer.write(XmlEvent::end_element()).unwrap();
 }
 
 fn serialize_value<W: Write>(writer: &mut EventWriter<W>, name: &str, value: &RbxValue) {
@@ -105,8 +100,9 @@ mod test {
 
         let root = tree.get_instance(root_id).unwrap();
 
-        let encoded = encode(&tree, &root.get_children_ids());
-        let as_str = str::from_utf8(&encoded).unwrap();
+        let mut output = Vec::new();
+        encode(&tree, &root.get_children_ids(), &mut output);
+        let _as_str = str::from_utf8(&output).unwrap();
 
         // TODO: Serialize/deserialize and assert output?
     }
