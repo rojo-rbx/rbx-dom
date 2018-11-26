@@ -59,5 +59,7 @@ fn deserialize_root<R: Read>(tree: &mut RbxTree, parent_id: RbxId, reader: &mut 
         _ => return Err(RbxmxParseError::MalformedDocument),
     }
 
-    unimplemented!()
+    // TODO: A bunch of stuff
+
+    Ok(())
 }
