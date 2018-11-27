@@ -49,6 +49,11 @@ fn serialize_instance<W: Write>(writer: &mut EventWriter<W>, tree: &RbxTree, id:
         .attr("referent", &instance.get_id().to_string())).unwrap();
 
     writer.write(XmlEvent::start_element("Properties")).unwrap();
+
+    serialize_value(writer, "Name", &RbxValue::String {
+        value: instance.name.clone(),
+    });
+
     for (name, value) in &instance.properties {
         serialize_value(writer, name, value);
     }
