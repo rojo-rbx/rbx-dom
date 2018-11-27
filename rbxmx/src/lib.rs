@@ -8,5 +8,5 @@ mod deserializer;
 
 pub use crate::{
     serializer::encode,
-    deserializer::{decode, RbxmxParseError},
+    deserializer::{decode, decode_str, DecodeError},
 };
