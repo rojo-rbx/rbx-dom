@@ -1,7 +1,5 @@
-/// Super early XML format (rbxmx and rbxlx) serializer for rbx-tree.
-
-extern crate rbx_tree;
-extern crate xml;
+/// Super early binary format (rbxm and rbxl) serializer and deserializer for
+/// rbx-tree.
 
 mod serializer;
 mod deserializer;
