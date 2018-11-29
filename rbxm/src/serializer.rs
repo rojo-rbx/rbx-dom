@@ -14,9 +14,6 @@ use rbx_tree::{RbxTree, RootedRbxInstance, RbxId, RbxValue};
 
 static FILE_HEADER: &[u8] = b"<roblox!\x89\xff\x0d\x0a\x1a\x0a\x00\x00";
 static FILE_FOOTER: &[u8] = b"END\x00\x00\x00\x00\x00\x09\x00\x00\x00\x00\x00\x00\x00</roblox>";
-static TYPE_HEADER: &[u8] = b"INST";
-static PROP_HEADER: &[u8] = b"PROP";
-static PARENT_HEADER: &[u8] = b"PRNT";
 
 /// Serialize the instances denoted by `ids` from `tree` to XML.
 pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Result<()> {
@@ -34,75 +31,62 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
 
     // Type data
     for (type_name, type_info) in &type_infos {
-        output.write_all(TYPE_HEADER)?;
-        let mut encoder = encoder_builder.build(output)?;
+        encode_chunk(&mut output, b"INST", |mut encoder| {
+            encoder.write_u32::<LittleEndian>(type_info.id)?;
+            encode_string(&mut encoder, type_name)?;
 
-        encoder.write_u32::<LittleEndian>(type_info.id)?;
-        encode_string(&mut encoder, type_name)?;
+            encoder.write_u8(0)?; // Flag that no additional data is attached
 
-        encoder.write_u8(0)?; // Flag that no additional data is attached
+            encoder.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
 
-        encoder.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
+            let type_referents = type_info.object_ids
+                .iter()
+                .map(|id| *referents.get(id).unwrap());
+            encode_transformed_interleaved_u32_array(&mut encoder, type_referents)?;
 
-        let type_referents = type_info.object_ids
-            .iter()
-            .map(|id| *referents.get(id).unwrap());
-        encode_transformed_interleaved_u32_array(&mut encoder, type_referents)?;
-
-        output = {
-            let (output, result) = encoder.finish();
-            result?;
-            output
-        };
+            Ok(())
+        })?;
     }
 
     // Property data
     for (type_name, type_info) in &type_infos {
         for prop_info in &type_info.properties {
-            output.write_all(PROP_HEADER)?;
-            let mut encoder = encoder_builder.build(output)?;
+            encode_chunk(&mut output, b"PROP", |mut encoder| {
+                encoder.write_u32::<LittleEndian>(type_info.id)?;
+                encode_string(&mut encoder, &prop_info.name)?;
 
-            encoder.write_u32::<LittleEndian>(type_info.id)?;
-            encode_string(&mut encoder, &prop_info.name)?;
-
-            let data_type = match prop_info.kind {
-                PropKind::String => 0x1,
-            };
-
-            encoder.write_u8(data_type)?;
-
-            for id in &type_info.object_ids {
-                let instance = relevant_instances.get(id).unwrap();
-                let value = match prop_info.name.as_str() {
-                    "Name" => Cow::Owned(RbxValue::String {
-                        value: instance.name.clone()
-                    }),
-                    _ => {
-                        // TODO: String/type validation nonsense?
-                        Cow::Borrowed(instance.properties.get(&prop_info.name).unwrap())
-                    },
+                let data_type = match prop_info.kind {
+                    PropKind::String => 0x1,
                 };
 
-                assert_eq!(PropKind::from_value(&value), prop_info.kind);
+                encoder.write_u8(data_type)?;
 
-                match value.borrow() {
-                    RbxValue::String { value } => encode_string(&mut encoder, value)?,
-                    _ => unimplemented!(),
+                for id in &type_info.object_ids {
+                    let instance = relevant_instances.get(id).unwrap();
+                    let value = match prop_info.name.as_str() {
+                        "Name" => Cow::Owned(RbxValue::String {
+                            value: instance.name.clone()
+                        }),
+                        _ => {
+                            // TODO: String/type validation nonsense?
+                            Cow::Borrowed(instance.properties.get(&prop_info.name).unwrap())
+                        },
+                    };
+
+                    assert_eq!(PropKind::from_value(&value), prop_info.kind);
+
+                    match value.borrow() {
+                        RbxValue::String { value } => encode_string(&mut encoder, value)?,
+                        _ => unimplemented!(),
+                    }
                 }
-            }
 
-            output = {
-                let (output, result) = encoder.finish();
-                result?;
-                output
-            };
+                Ok(())
+            })?;
         }
     }
 
-    output.write_all(PARENT_HEADER)?;
-    {
-        let mut encoder = encoder_builder.build(output)?;
-
+    encode_chunk(&mut output, b"PRNT", |mut encoder| {
         encoder.write_u8(0)?; // Unknown byte
         encoder.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
 
@@ -120,15 +104,11 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
                 }
             });
 
-        encode_transformed_interleaved_u32_array(&mut encoder, ids);
-        encode_transformed_interleaved_u32_array(&mut encoder, parent_ids);
+        encode_transformed_interleaved_u32_array(&mut encoder, ids)?;
+        encode_transformed_interleaved_u32_array(&mut encoder, parent_ids)?;
 
-        output = {
-            let (output, result) = encoder.finish();
-            result?;
-            output
-        };
-    }
+        Ok(())
+    })?;
 
     output.write_all(FILE_FOOTER)?;
 
@@ -286,6 +266,6 @@ mod test {
         let tree = new_test_tree();
 
         let mut output = File::create("test-output.rbxm").unwrap();
-        encode(&tree, &[tree.get_root_id()], &mut output);
+        encode(&tree, &[tree.get_root_id()], &mut output).unwrap();
     }
 }
