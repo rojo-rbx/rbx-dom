@@ -6,3 +6,5 @@ edition = "2018"
 
 [dependencies]
 rbx-tree = { path = "../rbx-tree" }
+byteorder = "1.2.7"
+lz4 = "1.23.1"
