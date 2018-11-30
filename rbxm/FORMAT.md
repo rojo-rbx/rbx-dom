@@ -17,6 +17,9 @@ This document is based on:
 	- [`END` Chunk](#end-chunk)
 - [Data Types](#data-types)
 	- [String](#string)
+	- [Integer](#integer)
+	- [Interleaved Array](#interleaved-array)
+	- [Referent](#referent)
 
 ## File Structure
 1. File Header
@@ -122,7 +125,7 @@ The Metadata chunk (`META`) is a map of strings to strings. It represents metada
 | Type Name ([String](#string)) |
 | Additional data marker (`u8`) |
 | Number instances (`u32`) |
-| Array of referents |
+| Instance referents ([Interleaved Array](#interleaved-array) of [Referent](#referent)) |
 
 TODO: More detailed information
 
@@ -132,16 +135,16 @@ TODO: More detailed information
 | Type ID (`u32`) |
 | Property name ([String](#string)) |
 | Data type (`u8`) |
-| Interleaved data array |
+| Values (interleaved array of data) |
 
 TODO: More detailed information
 
 ### `PRNT` Chunk
 | `PRNT` Chunk Data |
 | ----------------- |
-| Number objects (u32) |
-| Array of referents |
-| Array of referent parents |
+| Number objects (`u32`) |
+| Objects ([Interleaved Array](#interleaved-array) of [Referent](#referent)) |
+| Parents ([Interleaved Array](#interleaved-array) of [Referent](#referent)) |
 
 TODO: More detailed information
 
@@ -161,3 +164,84 @@ The `END` chunk should not be compressed.
 | Data |
 
 String data is UTF-8 encoded.
+
+### Integer
+**Untransformed integers**, generally in header data, are little-endian and two's complement. Integers are untransformed unless denoted otherwise.
+
+**Transformed integers**, normally used in property data, are big-endian and are transformed and untransformed via:
+
+```rust
+fn transform_i32(value: i32) -> i32 {
+	if value >= 0 {
+		value * 2
+	} else {
+		2 * -value - 1
+	}
+}
+
+fn untransform_i32(value: i32) -> i32 {
+	if value % 2 == 0 {
+		value / 2
+	} else {
+		-(value +1 1) / 2
+	}
+}
+```
+
+Integers can also be transformed via bitwise ops to avoid branches:
+
+```rust
+fn transform_i32(value: i32) -> i32 {
+	(value << 1) ^ (value >> 31)
+}
+
+fn untransform_i32(value: i32) -> i32 {
+	((value as u32) >> 1) as i32 ^ -(value & 1)
+}
+```
+
+### Interleaved Array
+Arrays of many types in property data have their bytes interleaved.
+
+For example, an array of 4 bit integers normally represented as:
+
+<table>
+	<tr>
+		<td><b>A0</b></td>
+		<td><b>A1</b></td>
+		<td><b>A2</b></td>
+		<td><b>A3</b></td>
+		<td>B0</td>
+		<td>B1</td>
+		<td>B2</td>
+		<td>B3</td>
+		<td>C0</td>
+		<td>C1</td>
+		<td>C2</td>
+		<td>C3</td>
+	</tr>
+</table>
+
+Would become, after interleaving:
+
+<table>
+	<tr>
+		<td><b>A0</b></td>
+		<td>B0</td>
+		<td>C0</td>
+		<td><b>A1</b></td>
+		<td>B1</td>
+		<td>C1</td>
+		<td><b>A2</b></td>
+		<td>B2</td>
+		<td>C2</td>
+		<td><b>A3</b></td>
+		<td>B3</td>
+		<td>C3</td>
+	</tr>
+</table>
+
+Note that arrays of integers are generally subject to both interleaving and integer transformation.
+
+### Referent
+Referents are stored as transformed 32-bit signed integers. A value of `-1` (untransformed) indicates a null referent.

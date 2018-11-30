@@ -3,6 +3,7 @@ use std::{
     collections::HashMap,
     marker::PhantomData,
     borrow::Cow,
+    mem,
     fmt,
     str,
 };
@@ -42,9 +43,15 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
             b"META" => {
                 decode_metadata_chunk(&chunk_buffer, &mut metadata)?;
             },
-            b"INST" => { /* TODO */ },
-            b"PROP" => { /* TODO */ },
-            b"PRNT" => { /* TODO */ },
+            b"INST" => {
+                decode_inst_chunk(&chunk_buffer)?;
+            },
+            b"PROP" => {
+                decode_prop_chunk(&chunk_buffer)?;
+            },
+            b"PRNT" => {
+                decode_prnt_chunk(&chunk_buffer)?;
+            },
             b"END\0" => break,
             _ => {
                 // Unknown chunk
@@ -162,35 +169,78 @@ fn decode_inst_chunk(buffer: &[u8]) -> io::Result<()> {
     let number_instances = source.read_u32::<LittleEndian>()?;
 
     let mut referents = vec![0; number_instances as usize];
-    decode_i32_array(&buffer[source.position() as usize..], &mut referents);
+    decode_id_array(&mut source, &mut referents)?;
 
-    // TODO: Save/return referents and other data
+    println!("{} instances of type ID {} ({})", number_instances, type_id, type_name);
+    println!("Referents found: {:?}", referents);
 
     Ok(())
 }
 
-fn decode_prop_chunk<R: Read>(mut source: R) -> io::Result<()> {
-    unimplemented!()
+fn decode_prop_chunk(buffer: &[u8]) -> io::Result<()> {
+    let mut source = Cursor::new(buffer);
+    let type_id = source.read_u32::<LittleEndian>()?;
+    let prop_name = decode_string(&mut source)?;
+    let data_type = source.read_u8()?;
+
+    // TODO: Read data
+
+    println!("Set prop {}.{}", type_id, prop_name);
+
+    Ok(())
 }
 
-fn decode_prnt_chunk<R: Read>(mut source: R) -> io::Result<()> {
-    unimplemented!()
+fn decode_prnt_chunk(buffer: &[u8]) -> io::Result<()> {
+    let mut source = Cursor::new(buffer);
+    source.read_u8()?; // Reserved
+    let number_objects = source.read_u32::<LittleEndian>()?;
+
+    println!("There are {} objects with parents.", number_objects);
+
+    let mut instance_ids = vec![0; number_objects as usize];
+    let mut parent_ids = vec![0; number_objects as usize];
+
+    decode_id_array(&mut source, &mut instance_ids)?;
+    decode_id_array(&mut source, &mut parent_ids)?;
+
+    for (id, parent_id) in instance_ids.iter().zip(&parent_ids) {
+        println!("Parent of {} is {}", id, parent_id);
+    }
+
+    Ok(())
 }
 
 fn decode_i32(value: i32) -> i32 {
-    if value >= 0 {
-        2 * value
-    } else {
-        2 * value.abs() - 1
-    }
+    ((value as u32) >> 1) as i32 ^ -(value & 1)
 }
 
-fn decode_i32_array(source: &[u8], output: &mut [i32]) {
+fn decode_id_array<R: Read>(mut source: R, output: &mut [i32]) -> io::Result<()> {
+    decode_i32_array(source, output)?;
+    let mut last = 0;
+
     for i in 0..output.len() {
-        let v0 = source[i] as i32;
-        let v1 = source[i + output.len()] as i32;
-        let v2 = source[i + output.len() * 2] as i32;
-        let v3 = source[i + output.len() * 3] as i32;
+        output[i] += last;
+        last = output[i];
+    }
+
+    Ok(())
+}
+
+fn decode_i32_array<R: Read>(mut source: R, output: &mut [i32]) -> io::Result<()> {
+    let mut buffer = vec![0; output.len() * mem::size_of::<i32>()];
+    source.read_exact(&mut buffer)?;
+
+    decode_i32_array_from_buffer(&buffer, output);
+
+    Ok(())
+}
+
+fn decode_i32_array_from_buffer(buffer: &[u8], output: &mut [i32]) {
+    for i in 0..output.len() {
+        let v0 = buffer[i] as i32;
+        let v1 = buffer[i + output.len()] as i32;
+        let v2 = buffer[i + output.len() * 2] as i32;
+        let v3 = buffer[i + output.len() * 3] as i32;
 
         output[i] = decode_i32((v0 << 24) | (v1 << 16) | (v2 << 8) | v3);
     }
@@ -213,6 +263,9 @@ mod test {
 
     use rbx_tree::RbxInstance;
 
+    static MODEL_A: &[u8] = include_bytes!("../test-files/model-a.rbxm");
+    static MODEL_B: &[u8] = include_bytes!("../test-files/model-b.rbxm");
+
     fn new_test_tree() -> RbxTree {
         let root = RbxInstance {
             name: "Folder".to_string(),
@@ -224,12 +277,14 @@ mod test {
     }
 
     #[test]
-    fn decode_a() {
-        static CONTENTS: &[u8] = include_bytes!("../test-files/model-a.rbxm");
+    fn test_decode() {
+        for model_source in &[MODEL_A, MODEL_B] {
+            let mut tree = new_test_tree();
+            let root_id = tree.get_root_id();
 
-        let mut tree = new_test_tree();
-        let root_id = tree.get_root_id();
-
-        decode(&mut tree, root_id, CONTENTS).unwrap();
+            print!("\n");
+            println!("Model:");
+            decode(&mut tree, root_id, *model_source).unwrap();
+        }
     }
 }
