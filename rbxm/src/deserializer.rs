@@ -99,7 +99,8 @@ impl fmt::Display for ChunkHeader {
             Cow::Owned(format!("{:?}", self.name))
         };
 
-        write!(output, "Chunk \"{}\" (compressed: {}, len: {}, reserved: {})", name, self.compressed_len, self.len, self.reserved)
+        write!(output, "Chunk \"{}\" (compressed: {}, len: {}, reserved: {})",
+            name, self.compressed_len, self.len, self.reserved)
     }
 }
 
@@ -153,7 +154,15 @@ fn decode_metadata_chunk<R: Read>(mut source: R, output: &mut HashMap<String, St
 }
 
 fn decode_inst_chunk<R: Read>(mut source: R) -> io::Result<()> {
-    unimplemented!()
+    let type_id = source.read_u32::<LittleEndian>()?;
+    let type_name = decode_string(&mut source)?;
+    let additional_data = source.read_u8()?;
+    let number_instances = source.read_u32::<LittleEndian>()?;
+
+    let mut referents = vec![0; number_instances as usize];
+    // decode_i32_array(&mut source, &mut referents)?;
+
+    Ok(())
 }
 
 fn decode_prop_chunk<R: Read>(mut source: R) -> io::Result<()> {
@@ -162,6 +171,25 @@ fn decode_prop_chunk<R: Read>(mut source: R) -> io::Result<()> {
 
 fn decode_prnt_chunk<R: Read>(mut source: R) -> io::Result<()> {
     unimplemented!()
+}
+
+fn decode_i32(value: i32) -> i32 {
+    if value >= 0 {
+        2 * value
+    } else {
+        2 * value.abs() - 1
+    }
+}
+
+fn decode_i32_array(source: &[u8], output: &mut [i32]) {
+    for i in 0..output.len() {
+        let v0 = source[i] as i32;
+        let v1 = source[i + output.len()] as i32;
+        let v2 = source[i + output.len() * 2] as i32;
+        let v3 = source[i + output.len() * 3] as i32;
+
+        output[i] = (v0 << 24) | (v1 << 16) | (v2 << 8) | v3;
+    }
 }
 
 fn decode_string<R: Read>(mut source: R) -> io::Result<String> {
