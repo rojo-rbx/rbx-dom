@@ -3,6 +3,7 @@ This document is based on:
 - [*ROBLOX File Format* by Gregory Comer](http://www.classy-studios.com/Downloads/RobloxFileSpec.pdf)
 - [LibRbxl by Gregory Comer](https://github.com/GregoryComer/LibRbxl)
 - [rbxfile by Anaminus](https://github.com/RobloxAPI/rbxfile)
+- [Rbx2Source BinaryFormat by CloneTrooper1019](https://github.com/CloneTrooper1019/Rbx2Source/blob/bcc20595cacaa9fdb8bf993bd954abb8c9d0af34/src/Reflection/BinaryFormat/)
 - Observing `rbxm` and `rblx` output from Roblox Studio
 
 ## Contents
