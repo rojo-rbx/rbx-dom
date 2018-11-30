@@ -1,5 +1,5 @@
 use std::{
-    io::{self, Read},
+    io::{self, Cursor, Read},
     collections::HashMap,
     marker::PhantomData,
     borrow::Cow,
@@ -40,7 +40,7 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
 
         match &header.name {
             b"META" => {
-                decode_metadata_chunk(chunk_buffer.as_slice(), &mut metadata)?;
+                decode_metadata_chunk(&chunk_buffer, &mut metadata)?;
             },
             b"INST" => { /* TODO */ },
             b"PROP" => { /* TODO */ },
@@ -140,7 +140,8 @@ fn decode_chunk<R: Read>(mut source: R, output: &mut Vec<u8>) -> io::Result<Chun
     Ok(header)
 }
 
-fn decode_metadata_chunk<R: Read>(mut source: R, output: &mut HashMap<String, String>) -> io::Result<()> {
+fn decode_metadata_chunk(buffer: &[u8], output: &mut HashMap<String, String>) -> io::Result<()> {
+    let mut source = Cursor::new(buffer);
     let len = source.read_u32::<LittleEndian>()?;
 
     for _ in 0..len {
@@ -153,14 +154,17 @@ fn decode_metadata_chunk<R: Read>(mut source: R, output: &mut HashMap<String, St
     Ok(())
 }
 
-fn decode_inst_chunk<R: Read>(mut source: R) -> io::Result<()> {
+fn decode_inst_chunk(buffer: &[u8]) -> io::Result<()> {
+    let mut source = Cursor::new(buffer);
     let type_id = source.read_u32::<LittleEndian>()?;
     let type_name = decode_string(&mut source)?;
     let additional_data = source.read_u8()?;
     let number_instances = source.read_u32::<LittleEndian>()?;
 
     let mut referents = vec![0; number_instances as usize];
-    // decode_i32_array(&mut source, &mut referents)?;
+    decode_i32_array(&buffer[source.position() as usize..], &mut referents);
+
+    // TODO: Save/return referents and other data
 
     Ok(())
 }
