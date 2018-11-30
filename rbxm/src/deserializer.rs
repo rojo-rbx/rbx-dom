@@ -31,26 +31,35 @@ impl From<io::Error> for DecodeError {
 /// objects when saving a model file.
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> Result<(), DecodeError> {
     let header = decode_file_header(&mut source)?;
-    let mut buffer = Vec::new();
+    let mut chunk_buffer = Vec::new();
+
+    let mut metadata = HashMap::new();
 
     loop {
-        let header = decode_chunk(&mut source, &mut buffer)?;
+        let header = decode_chunk(&mut source, &mut chunk_buffer)?;
 
-        // TODO: decode specific chunk
-
-        buffer.clear();
-
-        if &header.name == b"END\0" {
-            break;
+        match &header.name {
+            b"META" => {
+                decode_metadata_chunk(chunk_buffer.as_slice(), &mut metadata)?;
+            },
+            b"INST" => { /* TODO */ },
+            b"PROP" => { /* TODO */ },
+            b"PRNT" => { /* TODO */ },
+            b"END\0" => break,
+            _ => {
+                // Unknown chunk
+            },
         }
+
+        chunk_buffer.clear();
     }
 
     Ok(())
 }
 
 struct FileHeader {
-    num_instance_types: u32,
-    num_instances: u32,
+    pub num_instance_types: u32,
+    pub num_instances: u32,
 }
 
 fn decode_file_header<R: Read>(mut source: R) -> Result<FileHeader, DecodeError> {
@@ -130,8 +139,7 @@ fn decode_chunk<R: Read>(mut source: R, output: &mut Vec<u8>) -> io::Result<Chun
     Ok(header)
 }
 
-fn decode_metadata_chunk<R: Read>(mut source: R) -> io::Result<HashMap<String, String>> {
-    let mut output = HashMap::new();
+fn decode_metadata_chunk<R: Read>(mut source: R, output: &mut HashMap<String, String>) -> io::Result<()> {
     let len = source.read_u32::<LittleEndian>()?;
 
     for _ in 0..len {
@@ -141,7 +149,19 @@ fn decode_metadata_chunk<R: Read>(mut source: R) -> io::Result<HashMap<String, S
         output.insert(key, value);
     }
 
-    Ok(output)
+    Ok(())
+}
+
+fn decode_inst_chunk<R: Read>(mut source: R) -> io::Result<()> {
+    unimplemented!()
+}
+
+fn decode_prop_chunk<R: Read>(mut source: R) -> io::Result<()> {
+    unimplemented!()
+}
+
+fn decode_prnt_chunk<R: Read>(mut source: R) -> io::Result<()> {
+    unimplemented!()
 }
 
 fn decode_string<R: Read>(mut source: R) -> io::Result<String> {

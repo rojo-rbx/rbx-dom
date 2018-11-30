@@ -22,10 +22,10 @@ This document is based on:
 1. File Header
 2. Chunks
 	1. Zero or one `META` chunks
-	2. `INST` chunk
+	2. Zero or more `INST` chunk
 	3. Zero or more `PROP` chunks
-	4. `PRNT` chunk
-	5. `END` chunk
+	4. One `PRNT` chunk
+	5. One `END` chunk
 
 ## File Header
 Every file starts with:
@@ -116,13 +116,34 @@ When documentation for individual chunks uses the term "chunk data", it refers t
 The Metadata chunk (`META`) is a map of strings to strings. It represents metadata about the model, such as whether it was authored with `ExplicitAutoJoints` enabled.
 
 ### `INST` Chunk
-TODO
+| `INST` Chunk Data |
+| ----------------- |
+| Type ID (`u32`) |
+| Type Name ([String](#string)) |
+| Additional data marker (`u8`) |
+| Number instances (`u32`) |
+| Array of referents |
+
+TODO: More detailed information
 
 ### `PROP` Chunk
-TODO
+| `PROP` Chunk Data |
+| ----------------- |
+| Type ID (`u32`) |
+| Property name ([String](#string)) |
+| Data type (`u8`) |
+| Interleaved data array |
+
+TODO: More detailed information
 
 ### `PRNT` Chunk
-TODO
+| `PRNT` Chunk Data |
+| ----------------- |
+| Number objects (u32) |
+| Array of referents |
+| Array of referent parents |
+
+TODO: More detailed information
 
 ### `END` Chunk
 | `END` Chunk Data |
