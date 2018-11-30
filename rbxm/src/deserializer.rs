@@ -188,7 +188,7 @@ fn decode_i32_array(source: &[u8], output: &mut [i32]) {
         let v2 = source[i + output.len() * 2] as i32;
         let v3 = source[i + output.len() * 3] as i32;
 
-        output[i] = (v0 << 24) | (v1 << 16) | (v2 << 8) | v3;
+        output[i] = decode_i32((v0 << 24) | (v1 << 16) | (v2 << 8) | v3);
     }
 }
 
