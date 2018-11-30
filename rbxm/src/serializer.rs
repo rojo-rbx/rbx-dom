@@ -9,9 +9,6 @@ use byteorder::{WriteBytesExt, LittleEndian, BigEndian};
 use lz4::{Encoder, EncoderBuilder};
 use rbx_tree::{RbxTree, RootedRbxInstance, RbxId, RbxValue};
 
-// Format information taken from:
-// http://www.classy-studios.com/Downloads/RobloxFileSpec.pdf
-
 static FILE_HEADER: &[u8] = b"<roblox!\x89\xff\x0d\x0a\x1a\x0a\x00\x00";
 static FILE_FOOTER: &[u8] = b"END\x00\x00\x00\x00\x00\x09\x00\x00\x00\x00\x00\x00\x00</roblox>";
 
