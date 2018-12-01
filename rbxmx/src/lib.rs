@@ -1,4 +1,4 @@
-/// Super early binary format (rbxm and rbxl) serializer and deserializer for
+/// Super early XML format (rbxmx and rbxlx) serializer and deserializer for
 /// rbx-tree.
 
 mod serializer;

@@ -11,8 +11,10 @@ use std::{
 use byteorder::{ReadBytesExt, LittleEndian};
 use rbx_tree::{RbxTree, RbxId};
 
-static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
-static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
+use crate::core::{
+    FILE_MAGIC_HEADER,
+    FILE_SIGNATURE,
+};
 
 #[derive(Debug)]
 pub enum DecodeError {
