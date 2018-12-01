@@ -11,11 +11,13 @@ use std::{
 use byteorder::{ReadBytesExt, LittleEndian};
 use rbx_tree::{RbxTree, RbxId};
 
-static FILE_MAGIC_HEADER: &[u8] = b"<roblox!\x89\xff\x0d\x0a\x1a\x0a\x00\x00";
+static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
+static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
 
 #[derive(Debug)]
 pub enum DecodeError {
     MissingMagicFileHeader,
+    UnknownVersion,
     IoError(io::Error),
 }
 
@@ -70,12 +72,24 @@ struct FileHeader {
 }
 
 fn decode_file_header<R: Read>(mut source: R) -> Result<FileHeader, DecodeError> {
-    let mut magic_header = [0; 16];
+    let mut magic_header = [0; 8];
     source.read_exact(&mut magic_header)?;
 
     if &magic_header != FILE_MAGIC_HEADER {
-        assert_eq!(&magic_header, FILE_MAGIC_HEADER);
         return Err(DecodeError::MissingMagicFileHeader);
+    }
+
+    let mut signature = [0; 6];
+    source.read_exact(&mut signature)?;
+
+    if &signature != FILE_SIGNATURE {
+        return Err(DecodeError::MissingMagicFileHeader);
+    }
+
+    let version = source.read_u16::<LittleEndian>()?;
+
+    if version != 0 {
+        return Err(DecodeError::UnknownVersion);
     }
 
     let num_instance_types = source.read_u32::<LittleEndian>()?;
