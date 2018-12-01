@@ -1,7 +1,6 @@
 use std::{
     io::{self, Cursor, Read},
     collections::HashMap,
-    marker::PhantomData,
     borrow::Cow,
     mem,
     fmt,
@@ -14,6 +13,7 @@ use rbx_tree::{RbxTree, RbxId};
 use crate::core::{
     FILE_MAGIC_HEADER,
     FILE_SIGNATURE,
+    FILE_VERSION,
 };
 
 #[derive(Debug)]
@@ -36,8 +36,10 @@ impl From<io::Error> for DecodeError {
 /// objects when saving a model file.
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> Result<(), DecodeError> {
     let header = decode_file_header(&mut source)?;
-    let mut chunk_buffer = Vec::new();
+    println!("Number of types: {}", header.num_instance_types);
+    println!("Number of instances: {}", header.num_instances);
 
+    let mut chunk_buffer = Vec::new();
     let mut metadata = HashMap::new();
 
     loop {
@@ -90,7 +92,7 @@ fn decode_file_header<R: Read>(mut source: R) -> Result<FileHeader, DecodeError>
 
     let version = source.read_u16::<LittleEndian>()?;
 
-    if version != 0 {
+    if version != FILE_VERSION {
         return Err(DecodeError::UnknownVersion);
     }
 
@@ -230,7 +232,7 @@ fn decode_i32(value: i32) -> i32 {
     ((value as u32) >> 1) as i32 ^ -(value & 1)
 }
 
-fn decode_id_array<R: Read>(mut source: R, output: &mut [i32]) -> io::Result<()> {
+fn decode_id_array<R: Read>(source: R, output: &mut [i32]) -> io::Result<()> {
     decode_i32_array(source, output)?;
     let mut last = 0;
 

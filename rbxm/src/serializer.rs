@@ -1,16 +1,20 @@
 use std::{
-    io::{self, Write},
+    io::{self, Cursor, Write},
     collections::HashMap,
     borrow::{Borrow, Cow},
     u32,
 };
 
-use byteorder::{WriteBytesExt, LittleEndian, BigEndian};
-use lz4::{Encoder, EncoderBuilder};
+use byteorder::{WriteBytesExt, LittleEndian};
 use rbx_tree::{RbxTree, RootedRbxInstance, RbxId, RbxValue};
 
-static FILE_HEADER: &[u8] = b"<roblox!\x89\xff\x0d\x0a\x1a\x0a\x00\x00";
-static FILE_FOOTER: &[u8] = b"END\x00\x00\x00\x00\x00\x09\x00\x00\x00\x00\x00\x00\x00</roblox>";
+use crate::core::{
+    FILE_MAGIC_HEADER,
+    FILE_SIGNATURE,
+    FILE_VERSION,
+};
+
+static FILE_FOOTER: &[u8] = b"</roblox>";
 
 /// Serialize the instances denoted by `ids` from `tree` to XML.
 pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Result<()> {
@@ -18,28 +22,28 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
     let type_infos = generate_type_infos(&relevant_instances);
     let referents = generate_referents(&relevant_instances);
 
-    output.write_all(FILE_HEADER)?;
+    output.write_all(FILE_MAGIC_HEADER)?;
+    output.write_all(FILE_SIGNATURE)?;
+    output.write_u16::<LittleEndian>(FILE_VERSION)?;
 
     output.write_u32::<LittleEndian>(type_infos.len() as u32)?;
     output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
     output.write_u64::<LittleEndian>(0)?;
 
-    let encoder_builder = EncoderBuilder::new();
-
     // Type data
     for (type_name, type_info) in &type_infos {
-        encode_chunk(&mut output, b"INST", |mut encoder| {
-            encoder.write_u32::<LittleEndian>(type_info.id)?;
-            encode_string(&mut encoder, type_name)?;
+        encode_chunk(&mut output, b"INST", Compression::Compressed, |mut output| {
+            output.write_u32::<LittleEndian>(type_info.id)?;
+            encode_string(&mut output, type_name)?;
 
-            encoder.write_u8(0)?; // Flag that no additional data is attached
+            output.write_u8(0)?; // Flag that no additional data is attached
 
-            encoder.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
+            output.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
 
             let type_referents = type_info.object_ids
                 .iter()
                 .map(|id| *referents.get(id).unwrap());
-            encode_transformed_interleaved_u32_array(&mut encoder, type_referents)?;
+            encode_id_array(&mut output, type_referents)?;
 
             Ok(())
         })?;
@@ -48,15 +52,15 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
     // Property data
     for (type_name, type_info) in &type_infos {
         for prop_info in &type_info.properties {
-            encode_chunk(&mut output, b"PROP", |mut encoder| {
-                encoder.write_u32::<LittleEndian>(type_info.id)?;
-                encode_string(&mut encoder, &prop_info.name)?;
+            encode_chunk(&mut output, b"PROP", Compression::Compressed, |mut output| {
+                output.write_u32::<LittleEndian>(type_info.id)?;
+                encode_string(&mut output, &prop_info.name)?;
 
                 let data_type = match prop_info.kind {
                     PropKind::String => 0x1,
                 };
 
-                encoder.write_u8(data_type)?;
+                output.write_u8(data_type)?;
 
                 for id in &type_info.object_ids {
                     let instance = relevant_instances.get(id).unwrap();
@@ -73,7 +77,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
                     assert_eq!(PropKind::from_value(&value), prop_info.kind);
 
                     match value.borrow() {
-                        RbxValue::String { value } => encode_string(&mut encoder, value)?,
+                        RbxValue::String { value } => encode_string(&mut output, value)?,
                         _ => unimplemented!(),
                     }
                 }
@@ -83,9 +87,9 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
         }
     }
 
-    encode_chunk(&mut output, b"PRNT", |mut encoder| {
-        encoder.write_u8(0)?; // Unknown byte
-        encoder.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
+    encode_chunk(&mut output, b"PRNT", Compression::Compressed, |mut output| {
+        output.write_u8(0)?; // Unknown byte
+        output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
 
         let ids = relevant_instances
             .keys()
@@ -97,19 +101,19 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
                 let instance = relevant_instances.get(id).unwrap();
                 match instance.get_parent_id() {
                     Some(parent_id) => *referents.get(&parent_id).unwrap(),
-                    None => u32::MAX,
+                    None => -1,
                 }
             });
 
-        encode_transformed_interleaved_u32_array(&mut encoder, ids)?;
-        encode_transformed_interleaved_u32_array(&mut encoder, parent_ids)?;
+        encode_id_array(&mut output, ids)?;
+        encode_id_array(&mut output, parent_ids)?;
 
         Ok(())
     })?;
 
-    output.write_all(FILE_FOOTER)?;
-
-    Ok(())
+    encode_chunk(&mut output, b"END\0", Compression::Uncompressed, |mut output| {
+        output.write_all(FILE_FOOTER)
+    })
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -183,7 +187,7 @@ fn generate_type_infos<'a>(instances: &HashMap<RbxId, &'a RootedRbxInstance>) ->
     type_infos
 }
 
-fn generate_referents(instances: &HashMap<RbxId, &RootedRbxInstance>) -> HashMap<RbxId, u32> {
+fn generate_referents(instances: &HashMap<RbxId, &RootedRbxInstance>) -> HashMap<RbxId, i32> {
     let mut referents = HashMap::new();
     let mut next_referent = 0;
 
@@ -207,37 +211,74 @@ fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a 
     output
 }
 
-fn encode_string<W: Write>(mut output: W, value: &str) -> io::Result<()> {
-    output.write_u32::<LittleEndian>(value.len() as u32)?;
-    write!(output, "{}", value)?;
-    Ok(())
+enum Compression {
+    Compressed,
+    Uncompressed,
 }
 
-fn transform_u32(value: u32) -> u32 {
-    (value << 1) ^ (value >> 31)
-}
-
-fn encode_chunk<W: Write, F>(mut output: W, chunk_name: &[u8], body: F) -> io::Result<()>
-    where F: Fn(Encoder<W>) -> io::Result<()>
+fn encode_chunk<W: Write, F>(mut output: W, chunk_name: &[u8], compression: Compression, body: F) -> io::Result<()>
+    where F: Fn(Cursor<&mut Vec<u8>>) -> io::Result<()>
 {
     output.write_all(chunk_name)?;
 
-    let encoder = EncoderBuilder::new()
-        .build(output)?;
+    let mut buffer = Vec::new();
+    body(Cursor::new(&mut buffer))?;
 
-    body(encoder)
+    match compression {
+        Compression::Compressed => {
+            let compressed = lz4::block::compress(&buffer, None, false)?;
+
+            output.write_u32::<LittleEndian>(compressed.len() as u32)?;
+            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
+            output.write_u32::<LittleEndian>(0)?;
+
+            output.write_all(&compressed)?;
+        },
+        Compression::Uncompressed => {
+            output.write_u32::<LittleEndian>(0)?;
+            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
+            output.write_u32::<LittleEndian>(0)?;
+
+            output.write_all(&buffer)?;
+        },
+    }
+
+    Ok(())
 }
 
-fn encode_transformed_interleaved_u32_array<W: Write, I>(mut output: W, values: I) -> io::Result<()>
-    where I: Iterator<Item = u32> + Clone
+fn encode_string<W: Write>(mut output: W, value: &str) -> io::Result<()> {
+    output.write_u32::<LittleEndian>(value.len() as u32)?;
+    write!(output, "{}", value)
+}
+
+fn encode_i32(value: i32) -> i32 {
+    (value << 1) ^ (value >> 31)
+}
+
+fn encode_i32_array<W: Write, I>(mut output: W, values: I) -> io::Result<()>
+    where I: Iterator<Item = i32> + Clone
 {
     for shift in &[24, 16, 8, 0] {
         for value in values.clone() {
-            let encoded = transform_u32(value) >> shift;
+            let encoded = encode_i32(value) >> shift;
             output.write_u8(encoded as u8)?;
         }
     }
     Ok(())
+}
+
+fn encode_id_array<W: Write, I>(output: W, values: I) -> io::Result<()>
+    where I: Iterator<Item = i32> + Clone
+{
+    let mut delta_encoded = Vec::new();
+    let mut last_value = 0;
+
+    for value in values {
+        delta_encoded.push(value - last_value);
+        last_value = value;
+    }
+
+    encode_i32_array(output, delta_encoded.iter().cloned())
 }
 
 #[cfg(test)]
@@ -245,7 +286,6 @@ mod test {
     use super::*;
 
     use std::collections::HashMap;
-    use std::fs::File;
     use rbx_tree::RbxInstance;
 
     fn new_test_tree() -> RbxTree {
@@ -262,7 +302,7 @@ mod test {
     fn test_encode() {
         let tree = new_test_tree();
 
-        let mut output = File::create("test-output.rbxm").unwrap();
-        encode(&tree, &[tree.get_root_id()], &mut output).unwrap();
+        let output = Vec::new();
+        encode(&tree, &[tree.get_root_id()], Cursor::new(output)).unwrap();
     }
 }

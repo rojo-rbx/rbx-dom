@@ -142,6 +142,7 @@ TODO: More detailed information
 ### `PRNT` Chunk
 | `PRNT` Chunk Data |
 | ----------------- |
+| Version (`u8`, zero) |
 | Number objects (`u32`) |
 | Objects ([Interleaved Array](#interleaved-array) of [Referent](#referent)) |
 | Parents ([Interleaved Array](#interleaved-array) of [Referent](#referent)) |
