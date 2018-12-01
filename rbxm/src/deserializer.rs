@@ -2,7 +2,6 @@ use std::{
     io::{self, Cursor, Read},
     collections::HashMap,
     borrow::Cow,
-    mem,
     fmt,
     str,
 };
@@ -10,10 +9,16 @@ use std::{
 use byteorder::{ReadBytesExt, LittleEndian};
 use rbx_tree::{RbxTree, RbxId};
 
-use crate::core::{
-    FILE_MAGIC_HEADER,
-    FILE_SIGNATURE,
-    FILE_VERSION,
+use crate::{
+    core::{
+        FILE_MAGIC_HEADER,
+        FILE_SIGNATURE,
+        FILE_VERSION,
+    },
+    types::{
+        decode_string,
+        decode_id_array,
+    },
 };
 
 #[derive(Debug)]
@@ -229,51 +234,6 @@ fn decode_prnt_chunk<R: Read>(mut source: R) -> io::Result<()> {
     }
 
     Ok(())
-}
-
-fn decode_i32(value: i32) -> i32 {
-    ((value as u32) >> 1) as i32 ^ -(value & 1)
-}
-
-fn decode_id_array<R: Read>(source: R, output: &mut [i32]) -> io::Result<()> {
-    decode_i32_array(source, output)?;
-    let mut last = 0;
-
-    for i in 0..output.len() {
-        output[i] += last;
-        last = output[i];
-    }
-
-    Ok(())
-}
-
-fn decode_i32_array<R: Read>(mut source: R, output: &mut [i32]) -> io::Result<()> {
-    let mut buffer = vec![0; output.len() * mem::size_of::<i32>()];
-    source.read_exact(&mut buffer)?;
-
-    decode_i32_array_from_buffer(&buffer, output);
-
-    Ok(())
-}
-
-fn decode_i32_array_from_buffer(buffer: &[u8], output: &mut [i32]) {
-    for i in 0..output.len() {
-        let v0 = buffer[i] as i32;
-        let v1 = buffer[i + output.len()] as i32;
-        let v2 = buffer[i + output.len() * 2] as i32;
-        let v3 = buffer[i + output.len() * 3] as i32;
-
-        output[i] = decode_i32((v0 << 24) | (v1 << 16) | (v2 << 8) | v3);
-    }
-}
-
-fn decode_string<R: Read>(mut source: R) -> io::Result<String> {
-    let length = source.read_u32::<LittleEndian>()?;
-
-    let mut value = String::new();
-    (&mut source).take(length as u64).read_to_string(&mut value)?;
-
-    Ok(value)
 }
 
 #[cfg(test)]

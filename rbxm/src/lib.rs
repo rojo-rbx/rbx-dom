@@ -2,6 +2,7 @@
 /// rbx-tree.
 
 mod core;
+mod types;
 mod serializer;
 mod deserializer;
 

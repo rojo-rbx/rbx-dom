@@ -8,10 +8,16 @@ use std::{
 use byteorder::{WriteBytesExt, LittleEndian};
 use rbx_tree::{RbxTree, RootedRbxInstance, RbxId, RbxValue};
 
-use crate::core::{
-    FILE_MAGIC_HEADER,
-    FILE_SIGNATURE,
-    FILE_VERSION,
+use crate::{
+    core::{
+        FILE_MAGIC_HEADER,
+        FILE_SIGNATURE,
+        FILE_VERSION,
+    },
+    types::{
+        encode_id_array,
+        encode_string,
+    },
 };
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
@@ -244,41 +250,6 @@ fn encode_chunk<W: Write, F>(mut output: W, chunk_name: &[u8], compression: Comp
     }
 
     Ok(())
-}
-
-fn encode_string<W: Write>(mut output: W, value: &str) -> io::Result<()> {
-    output.write_u32::<LittleEndian>(value.len() as u32)?;
-    write!(output, "{}", value)
-}
-
-fn encode_i32(value: i32) -> i32 {
-    (value << 1) ^ (value >> 31)
-}
-
-fn encode_i32_array<W: Write, I>(mut output: W, values: I) -> io::Result<()>
-    where I: Iterator<Item = i32> + Clone
-{
-    for shift in &[24, 16, 8, 0] {
-        for value in values.clone() {
-            let encoded = encode_i32(value) >> shift;
-            output.write_u8(encoded as u8)?;
-        }
-    }
-    Ok(())
-}
-
-fn encode_id_array<W: Write, I>(output: W, values: I) -> io::Result<()>
-    where I: Iterator<Item = i32> + Clone
-{
-    let mut delta_encoded = Vec::new();
-    let mut last_value = 0;
-
-    for value in values {
-        delta_encoded.push(value - last_value);
-        last_value = value;
-    }
-
-    encode_i32_array(output, delta_encoded.iter().cloned())
 }
 
 #[cfg(test)]
