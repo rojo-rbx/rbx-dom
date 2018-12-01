@@ -44,19 +44,20 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
 
     loop {
         let header = decode_chunk(&mut source, &mut chunk_buffer)?;
+        let cursor = Cursor::new(&chunk_buffer);
 
         match &header.name {
             b"META" => {
-                decode_metadata_chunk(&chunk_buffer, &mut metadata)?;
+                decode_metadata_chunk(cursor, &mut metadata)?;
             },
             b"INST" => {
-                decode_inst_chunk(&chunk_buffer)?;
+                decode_inst_chunk(cursor)?;
             },
             b"PROP" => {
-                decode_prop_chunk(&chunk_buffer)?;
+                decode_prop_chunk(cursor)?;
             },
             b"PRNT" => {
-                decode_prnt_chunk(&chunk_buffer)?;
+                decode_prnt_chunk(cursor)?;
             },
             b"END\0" => break,
             _ => {
@@ -165,8 +166,7 @@ fn decode_chunk<R: Read>(mut source: R, output: &mut Vec<u8>) -> io::Result<Chun
     Ok(header)
 }
 
-fn decode_metadata_chunk(buffer: &[u8], output: &mut HashMap<String, String>) -> io::Result<()> {
-    let mut source = Cursor::new(buffer);
+fn decode_metadata_chunk<R: Read>(mut source: R, output: &mut HashMap<String, String>) -> io::Result<()> {
     let len = source.read_u32::<LittleEndian>()?;
 
     for _ in 0..len {
@@ -179,8 +179,7 @@ fn decode_metadata_chunk(buffer: &[u8], output: &mut HashMap<String, String>) ->
     Ok(())
 }
 
-fn decode_inst_chunk(buffer: &[u8]) -> io::Result<()> {
-    let mut source = Cursor::new(buffer);
+fn decode_inst_chunk<R: Read>(mut source: R) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
     let type_name = decode_string(&mut source)?;
     let additional_data = source.read_u8()?;
@@ -195,8 +194,7 @@ fn decode_inst_chunk(buffer: &[u8]) -> io::Result<()> {
     Ok(())
 }
 
-fn decode_prop_chunk(buffer: &[u8]) -> io::Result<()> {
-    let mut source = Cursor::new(buffer);
+fn decode_prop_chunk<R: Read>(mut source: R) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
     let prop_name = decode_string(&mut source)?;
     let data_type = source.read_u8()?;
@@ -208,9 +206,14 @@ fn decode_prop_chunk(buffer: &[u8]) -> io::Result<()> {
     Ok(())
 }
 
-fn decode_prnt_chunk(buffer: &[u8]) -> io::Result<()> {
-    let mut source = Cursor::new(buffer);
-    source.read_u8()?; // Reserved
+fn decode_prnt_chunk<R: Read>(mut source: R) -> io::Result<()> {
+    let version = source.read_u8()?;
+
+    if version != 0 {
+        // TODO: Warn for version mismatch?
+        return Ok(());
+    }
+
     let number_objects = source.read_u32::<LittleEndian>()?;
 
     println!("There are {} objects with parents.", number_objects);
