@@ -1,10 +1,10 @@
 [package]
-name = "rbx-binary"
+name = "rbx_binary"
 version = "0.1.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
-rbx-tree = { path = "../rbx-tree" }
+rbx_tree = { path = "../rbx_tree" }
 byteorder = "1.2.7"
 lz4 = "1.23.1"

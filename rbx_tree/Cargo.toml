@@ -1,5 +1,5 @@
 [package]
-name = "rbx-tree"
+name = "rbx_tree"
 version = "0.1.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
 

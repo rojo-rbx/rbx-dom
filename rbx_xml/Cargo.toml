@@ -1,9 +1,9 @@
 [package]
-name = "rbx-xml"
+name = "rbx_xml"
 version = "0.1.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
 xml-rs = "0.8"
-rbx-tree = { path = "../rbx-tree" }
+rbx_tree = { path = "../rbx_tree" }
