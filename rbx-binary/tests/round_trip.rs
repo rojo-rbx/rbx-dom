@@ -25,13 +25,13 @@ fn round_trip() {
         let root_id = tree.get_root_id();
 
         println!("Decode:");
-        rbxm::decode(&mut tree, root_id, *model_source).unwrap();
+        rbx_binary::decode(&mut tree, root_id, *model_source).unwrap();
 
         println!("Encode:");
         let mut buffer = Vec::new();
-        rbxm::encode(&tree, &[root_id], Cursor::new(&mut buffer)).unwrap();
+        rbx_binary::encode(&tree, &[root_id], Cursor::new(&mut buffer)).unwrap();
 
         println!("Decode:");
-        rbxm::decode(&mut tree, root_id, Cursor::new(&buffer)).unwrap();
+        rbx_binary::decode(&mut tree, root_id, Cursor::new(&buffer)).unwrap();
     }
 }

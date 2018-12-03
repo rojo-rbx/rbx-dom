@@ -1,6 +1,6 @@
 [workspace]
 members = [
 	"rbx-tree",
-	"rbxm",
-	"rbxmx",
+	"rbx-binary",
+	"rbx-xml",
 ]

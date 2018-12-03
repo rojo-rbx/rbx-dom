@@ -1,5 +1,5 @@
 [package]
-name = "rbxmx"
+name = "rbx-xml"
 version = "0.1.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"
