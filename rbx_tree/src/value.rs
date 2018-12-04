@@ -10,10 +10,6 @@ pub enum RbxValue {
         value: String,
     },
     #[serde(rename_all = "PascalCase")]
-    Number {
-        value: f64,
-    },
-    #[serde(rename_all = "PascalCase")]
     Bool {
         value: bool,
     },
