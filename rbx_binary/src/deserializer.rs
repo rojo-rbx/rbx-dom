@@ -7,7 +7,7 @@ use std::{
 };
 
 use byteorder::{ReadBytesExt, LittleEndian};
-use rbx_tree::{RbxTree, RbxId};
+use rbx_tree::{RbxTree, RbxId, RbxValue};
 
 use crate::{
     core::{
@@ -17,7 +17,8 @@ use crate::{
     },
     types::{
         decode_string,
-        decode_id_array,
+        decode_string_array,
+        decode_referent_array,
     },
 };
 
@@ -45,7 +46,10 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
     println!("Number of instances: {}", header.num_instances);
 
     let mut chunk_buffer = Vec::new();
-    let mut metadata = HashMap::new();
+    let mut metadata: HashMap<String, String> = HashMap::new();
+    let mut instance_types: HashMap<u32, InstanceType> = HashMap::new();
+    let mut instance_props: HashMap<i32, InstanceProps> = HashMap::new();
+    let mut instance_parents: HashMap<i32, i32> = HashMap::new();
 
     loop {
         let header = decode_chunk(&mut source, &mut chunk_buffer)?;
@@ -56,13 +60,13 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
                 decode_metadata_chunk(cursor, &mut metadata)?;
             },
             b"INST" => {
-                decode_inst_chunk(cursor)?;
+                decode_inst_chunk(cursor, &mut instance_types)?;
             },
             b"PROP" => {
-                decode_prop_chunk(cursor)?;
+                decode_prop_chunk(cursor, &instance_types, &mut instance_props)?;
             },
             b"PRNT" => {
-                decode_prnt_chunk(cursor)?;
+                decode_prnt_chunk(cursor, &mut instance_parents)?;
             },
             b"END\0" => break,
             _ => {
@@ -72,6 +76,10 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
 
         chunk_buffer.clear();
     }
+
+    println!("Instance types: {:#?}", instance_types);
+    println!("Instance props: {:#?}", instance_props);
+    println!("Instance parents: {:#?}", instance_parents);
 
     Ok(())
 }
@@ -184,34 +192,98 @@ fn decode_metadata_chunk<R: Read>(mut source: R, output: &mut HashMap<String, St
     Ok(())
 }
 
-fn decode_inst_chunk<R: Read>(mut source: R) -> io::Result<()> {
+#[derive(Debug)]
+struct InstanceType {
+    type_id: u32,
+    type_name: String,
+    referents: Vec<i32>,
+}
+
+fn decode_inst_chunk<R: Read>(mut source: R, instance_types: &mut HashMap<u32, InstanceType>) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
     let type_name = decode_string(&mut source)?;
     let additional_data = source.read_u8()?;
     let number_instances = source.read_u32::<LittleEndian>()?;
 
     let mut referents = vec![0; number_instances as usize];
-    decode_id_array(&mut source, &mut referents)?;
+    decode_referent_array(&mut source, &mut referents)?;
 
     println!("{} instances of type ID {} ({})", number_instances, type_id, type_name);
     println!("Referents found: {:?}", referents);
 
+    instance_types.insert(type_id, InstanceType {
+        type_id,
+        type_name,
+        referents,
+    });
+
     Ok(())
 }
 
-fn decode_prop_chunk<R: Read>(mut source: R) -> io::Result<()> {
+#[derive(Debug)]
+struct InstanceProps {
+    type_id: u32,
+    referent: i32,
+    properties: HashMap<String, RbxValue>,
+}
+
+fn decode_prop_chunk<R: Read>(
+    mut source: R,
+    instance_types: &HashMap<u32, InstanceType>,
+    instance_props: &mut HashMap<i32, InstanceProps>,
+) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
     let prop_name = decode_string(&mut source)?;
     let data_type = source.read_u8()?;
 
-    // TODO: Read data
-
     println!("Set prop {}.{}", type_id, prop_name);
+
+    // TODO: Convert to new error type instead of panic
+    let instance_type = instance_types.get(&type_id)
+        .expect("Could not find instance type!");
+
+    match data_type {
+        0x01 => {
+            let values = decode_string_array(&mut source, instance_type.referents.len())?;
+
+            for (index, value) in values.iter().enumerate() {
+                let referent = instance_type.referents[index];
+                let prop_data = instance_props
+                    .entry(referent)
+                    .or_insert(InstanceProps {
+                        type_id,
+                        referent,
+                        properties: HashMap::new(),
+                    });
+
+                prop_data.properties.insert(prop_name.clone(), RbxValue::String { value: value.clone() });
+            }
+        },
+        0x02 => { /* bool array */ },
+        0x03 => { /* i32 array */ },
+        0x04 => { /* f32 array */ },
+        0x05 => { /* f64 array */ },
+        0x06 => { /* UDim array? */ },
+        0x07 => { /* UDim2 array */ },
+        0x08 => { /* Ray array */ },
+        0x09 => { /* Faces array */ },
+        0x0A => { /* Axis array */ },
+        0x0B => { /* BrickColor array */ },
+        0x0C => { /* Color3 array */ },
+        0x0D => { /* Vector2 array */ },
+        0x0E => { /* Vector3 array */ },
+        0x10 => { /* CFrame array */ },
+        0x12 => { /* Enum array */ },
+        0x13 => { /* Referent array */ },
+        _ => {
+            println!("Unknown prop type {} named {}", data_type, prop_name);
+        },
+    }
 
     Ok(())
 }
 
-fn decode_prnt_chunk<R: Read>(mut source: R) -> io::Result<()> {
+fn decode_prnt_chunk<R: Read>(mut source: R, instance_parents: &mut HashMap<i32, i32>) -> io::Result<()> {
     let version = source.read_u8()?;
 
     if version != 0 {
@@ -221,16 +293,16 @@ fn decode_prnt_chunk<R: Read>(mut source: R) -> io::Result<()> {
 
     let number_objects = source.read_u32::<LittleEndian>()?;
 
-    println!("There are {} objects with parents.", number_objects);
+    println!("{} objects with parents", number_objects);
 
     let mut instance_ids = vec![0; number_objects as usize];
     let mut parent_ids = vec![0; number_objects as usize];
 
-    decode_id_array(&mut source, &mut instance_ids)?;
-    decode_id_array(&mut source, &mut parent_ids)?;
+    decode_referent_array(&mut source, &mut instance_ids)?;
+    decode_referent_array(&mut source, &mut parent_ids)?;
 
     for (id, parent_id) in instance_ids.iter().zip(&parent_ids) {
-        println!("Parent of {} is {}", id, parent_id);
+        instance_parents.insert(*id, *parent_id);
     }
 
     Ok(())

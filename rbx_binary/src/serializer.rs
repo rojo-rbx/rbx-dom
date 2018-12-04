@@ -15,7 +15,7 @@ use crate::{
         FILE_VERSION,
     },
     types::{
-        encode_id_array,
+        encode_referent_array,
         encode_string,
     },
 };
@@ -49,7 +49,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
             let type_referents = type_info.object_ids
                 .iter()
                 .map(|id| *referents.get(id).unwrap());
-            encode_id_array(&mut output, type_referents)?;
+            encode_referent_array(&mut output, type_referents)?;
 
             Ok(())
         })?;
@@ -111,8 +111,8 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
                 }
             });
 
-        encode_id_array(&mut output, ids)?;
-        encode_id_array(&mut output, parent_ids)?;
+        encode_referent_array(&mut output, ids)?;
+        encode_referent_array(&mut output, parent_ids)?;
 
         Ok(())
     })?;

@@ -27,7 +27,25 @@ pub fn decode_string<R: Read>(mut source: R) -> io::Result<String> {
     Ok(value)
 }
 
-pub fn encode_i32_array<W: Write, I>(mut output: W, values: I) -> io::Result<()>
+pub fn encode_string_array<W: Write>(mut output: W, values: &[&str]) -> io::Result<()> {
+    for value in values {
+        encode_string(&mut output, value)?;
+    }
+
+    Ok(())
+}
+
+pub fn decode_string_array<R: Read>(mut source: R, count: usize) -> io::Result<Vec<String>> {
+    let mut result = Vec::new();
+
+    for _ in 0..count {
+        result.push(decode_string(&mut source)?);
+    }
+
+    Ok(result)
+}
+
+pub fn encode_interleaved_transformed_i32_array<W: Write, I>(mut output: W, values: I) -> io::Result<()>
     where I: Iterator<Item = i32> + Clone
 {
     for shift in &[24, 16, 8, 0] {
@@ -39,7 +57,7 @@ pub fn encode_i32_array<W: Write, I>(mut output: W, values: I) -> io::Result<()>
     Ok(())
 }
 
-pub fn decode_i32_array<R: Read>(mut source: R, output: &mut [i32]) -> io::Result<()> {
+pub fn decode_interleaved_transformed_i32_array<R: Read>(mut source: R, output: &mut [i32]) -> io::Result<()> {
     let mut buffer = vec![0; output.len() * mem::size_of::<i32>()];
     source.read_exact(&mut buffer)?;
 
@@ -55,7 +73,7 @@ pub fn decode_i32_array<R: Read>(mut source: R, output: &mut [i32]) -> io::Resul
     Ok(())
 }
 
-pub fn encode_id_array<W: Write, I>(output: W, values: I) -> io::Result<()>
+pub fn encode_referent_array<W: Write, I>(output: W, values: I) -> io::Result<()>
     where I: Iterator<Item = i32> + Clone
 {
     let mut delta_encoded = Vec::new();
@@ -66,11 +84,11 @@ pub fn encode_id_array<W: Write, I>(output: W, values: I) -> io::Result<()>
         last_value = value;
     }
 
-    encode_i32_array(output, delta_encoded.iter().cloned())
+    encode_interleaved_transformed_i32_array(output, delta_encoded.iter().cloned())
 }
 
-pub fn decode_id_array<R: Read>(source: R, output: &mut [i32]) -> io::Result<()> {
-    decode_i32_array(source, output)?;
+pub fn decode_referent_array<R: Read>(source: R, output: &mut [i32]) -> io::Result<()> {
+    decode_interleaved_transformed_i32_array(source, output)?;
     let mut last = 0;
 
     for i in 0..output.len() {
