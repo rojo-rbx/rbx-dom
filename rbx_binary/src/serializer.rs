@@ -94,7 +94,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
     }
 
     encode_chunk(&mut output, b"PRNT", Compression::Compressed, |mut output| {
-        output.write_u8(0)?; // Unknown byte
+        output.write_u8(0)?; // Parent chunk data, version 0
         output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
 
         let ids = relevant_instances
