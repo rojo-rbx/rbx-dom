@@ -236,7 +236,7 @@ fn decode_prop_chunk<R: Read>(
     let prop_name = decode_string(&mut source)?;
     let data_type = source.read_u8()?;
 
-    println!("Set prop {}.{}", type_id, prop_name);
+    println!("Set prop (type {}) {}.{}", data_type, type_id, prop_name);
 
     // TODO: Convert to new error type instead of panic
     let instance_type = instance_types.get(&type_id)
@@ -318,6 +318,7 @@ mod test {
 
     static MODEL_A: &[u8] = include_bytes!("../test-files/model-a.rbxm");
     static MODEL_B: &[u8] = include_bytes!("../test-files/model-b.rbxm");
+    static MODEL_C: &[u8] = include_bytes!("../test-files/model-c.rbxm");
 
     fn new_test_tree() -> RbxTree {
         let root = RbxInstance {
@@ -331,7 +332,7 @@ mod test {
 
     #[test]
     fn test_decode() {
-        for model_source in &[MODEL_A, MODEL_B] {
+        for model_source in &[MODEL_A, MODEL_B, MODEL_C] {
             let mut tree = new_test_tree();
             let root_id = tree.get_root_id();
 
