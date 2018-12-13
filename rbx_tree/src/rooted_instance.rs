@@ -70,3 +70,9 @@ impl std::ops::Deref for RootedRbxInstance {
         &self.instance
     }
 }
+
+impl std::ops::DerefMut for RootedRbxInstance {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.instance
+    }
+}
