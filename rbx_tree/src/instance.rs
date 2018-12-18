@@ -16,6 +16,5 @@ pub struct RbxInstance {
     pub class_name: String,
 
     /// Contains all other properties of an Instance.
-    #[serde(flatten)]
     pub properties: HashMap<String, RbxValue>,
 }
