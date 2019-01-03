@@ -106,7 +106,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
             .map(|id| {
                 let instance = relevant_instances.get(id).unwrap();
                 match instance.get_parent_id() {
-                    Some(parent_id) => *referents.get(&parent_id).unwrap(),
+                    Some(parent_id) => *referents.get(&parent_id).unwrap_or(&-1),
                     None => -1,
                 }
             });
