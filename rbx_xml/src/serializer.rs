@@ -8,6 +8,7 @@ use rbx_tree::{RbxTree, RbxValue, RbxId};
 pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) {
     let mut writer = EmitterConfig::new()
         .perform_indent(true)
+        .write_document_declaration(false)
         .create_writer(output);
 
     writer.write(XmlEvent::start_element("roblox").attr("version", "4")).unwrap();
