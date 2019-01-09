@@ -5,6 +5,24 @@ use std::{
 
 use byteorder::{ReadBytesExt, WriteBytesExt, LittleEndian};
 
+pub fn encode_bool<W: Write>(mut output: W, value: bool) -> io::Result<()> {
+    if value {
+        output.write_u8(1)
+    } else {
+        output.write_u8(0)
+    }
+}
+
+pub fn decode_bool<R: Read>(mut source: R) -> io::Result<bool> {
+    let input = source.read_u8()?;
+
+    if input == 0 {
+        Ok(false)
+    } else {
+        Ok(true)
+    }
+}
+
 pub fn encode_i32(value: i32) -> i32 {
     (value << 1) ^ (value >> 31)
 }

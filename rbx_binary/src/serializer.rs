@@ -17,6 +17,7 @@ use crate::{
     types::{
         encode_referent_array,
         encode_string,
+        encode_bool,
     },
 };
 
@@ -56,7 +57,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
     }
 
     // Property data
-    for (type_name, type_info) in &type_infos {
+    for (_type_name, type_info) in &type_infos {
         for prop_info in &type_info.properties {
             encode_chunk(&mut output, b"PROP", Compression::Compressed, |mut output| {
                 output.write_u32::<LittleEndian>(type_info.id)?;
@@ -84,6 +85,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
 
                     match value.borrow() {
                         RbxValue::String { value } => encode_string(&mut output, value)?,
+                        RbxValue::Bool { value } => encode_bool(&mut output, *value)?,
                         _ => unimplemented!(),
                     }
                 }
