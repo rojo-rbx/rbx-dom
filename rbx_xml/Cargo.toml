@@ -5,5 +5,9 @@ authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
-xml-rs = "0.8"
+log = "0.4.6"
 rbx_tree = { path = "../rbx_tree" }
+xml-rs = "0.8"
+
+[dev-dependencies]
+env_logger = "0.6.0"

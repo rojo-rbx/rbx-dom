@@ -3,6 +3,8 @@ use std::{
     collections::HashMap,
 };
 
+use log::trace;
+
 use rbx_tree::{RbxInstance, RbxTree};
 
 static MODEL_A: &[u8] = include_bytes!("../test-files/model-a.rbxm");
@@ -21,18 +23,20 @@ fn new_test_tree() -> RbxTree {
 
 #[test]
 fn round_trip() {
+    let _ = env_logger::try_init();
+
     for model_source in &[MODEL_A, MODEL_B, MODEL_C] {
         let mut tree = new_test_tree();
         let root_id = tree.get_root_id();
 
-        println!("Decode:");
+        trace!("Decode:");
         rbx_binary::decode(&mut tree, root_id, *model_source).unwrap();
 
-        println!("Encode:");
+        trace!("Encode:");
         let mut buffer = Vec::new();
         rbx_binary::encode(&tree, &[root_id], Cursor::new(&mut buffer)).unwrap();
 
-        println!("Decode:");
+        trace!("Decode:");
         rbx_binary::decode(&mut tree, root_id, Cursor::new(&buffer)).unwrap();
     }
 }

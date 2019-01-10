@@ -276,6 +276,7 @@ mod test {
 
     #[test]
     fn test_encode() {
+        let _ = env_logger::try_init();
         let tree = new_test_tree();
 
         let output = Vec::new();

@@ -78,6 +78,8 @@ mod test {
 
     #[test]
     fn serialize() {
+        let _ = env_logger::try_init();
+
         let mut properties = HashMap::new();
         properties.insert("SomethingEnabled".to_string(), RbxValue::String {
             value: "Yes Please".to_string(),

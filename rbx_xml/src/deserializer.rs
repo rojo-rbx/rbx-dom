@@ -3,6 +3,7 @@ use std::{
     iter::Peekable,
 };
 
+use log::trace;
 use rbx_tree::{RbxTree, RbxId};
 
 use xml::{
@@ -193,7 +194,7 @@ fn deserialize_instance<R: Read>(tree: &mut RbxTree, parent_id: RbxId, reader: &
         }
     }
 
-    println!("Class {} with referent {:?}", class, referent);
+    trace!("Class {} with referent {:?}", class, referent);
 
     Ok(())
 }
@@ -217,6 +218,7 @@ mod test {
 
     #[test]
     fn empty_document() {
+        let _ = env_logger::try_init();
         let document = r#"<roblox version="4"></roblox>"#;
         let mut tree = new_data_model();
         let root_id = tree.get_root_id();
@@ -226,6 +228,7 @@ mod test {
 
     #[test]
     fn just_garbage() {
+        let _ = env_logger::try_init();
         let document = r#"
             <roblox version="4">
                 <!-- hello there! -->
@@ -242,6 +245,7 @@ mod test {
 
     #[test]
     fn empty_instance() {
+        let _ = env_logger::try_init();
         let document = r#"
             <roblox version="4">
                 <Item class="Folder" referent="hello">

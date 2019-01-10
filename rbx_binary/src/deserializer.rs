@@ -6,6 +6,7 @@ use std::{
     str,
 };
 
+use log::trace;
 use byteorder::{ReadBytesExt, LittleEndian};
 use rbx_tree::{RbxTree, RbxId, RbxValue};
 
@@ -43,8 +44,8 @@ impl From<io::Error> for DecodeError {
 /// objects when saving a model file.
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> Result<(), DecodeError> {
     let header = decode_file_header(&mut source)?;
-    println!("Number of types: {}", header.num_instance_types);
-    println!("Number of instances: {}", header.num_instances);
+    trace!("Number of types: {}", header.num_instance_types);
+    trace!("Number of instances: {}", header.num_instances);
 
     let mut chunk_buffer = Vec::new();
     let mut metadata: HashMap<String, String> = HashMap::new();
@@ -78,9 +79,9 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
         chunk_buffer.clear();
     }
 
-    println!("Instance types: {:#?}", instance_types);
-    println!("Instance props: {:#?}", instance_props);
-    println!("Instance parents: {:#?}", instance_parents);
+    trace!("Instance types: {:#?}", instance_types);
+    trace!("Instance props: {:#?}", instance_props);
+    trace!("Instance parents: {:#?}", instance_parents);
 
     Ok(())
 }
@@ -163,7 +164,7 @@ fn decode_chunk_header<R: Read>(mut source: R) -> io::Result<ChunkHeader> {
 fn decode_chunk<R: Read>(mut source: R, output: &mut Vec<u8>) -> io::Result<ChunkHeader> {
     let header = decode_chunk_header(&mut source)?;
 
-    println!("{}", header);
+    trace!("{}", header);
 
     if header.compressed_len == 0 {
         (&mut source).take(header.len as u64).read_to_end(output)?;
@@ -209,8 +210,8 @@ fn decode_inst_chunk<R: Read>(mut source: R, instance_types: &mut HashMap<u32, I
     let mut referents = vec![0; number_instances as usize];
     decode_referent_array(&mut source, &mut referents)?;
 
-    println!("{} instances of type ID {} ({})", number_instances, type_id, type_name);
-    println!("Referents found: {:?}", referents);
+    trace!("{} instances of type ID {} ({})", number_instances, type_id, type_name);
+    trace!("Referents found: {:?}", referents);
 
     instance_types.insert(type_id, InstanceType {
         type_id,
@@ -237,7 +238,7 @@ fn decode_prop_chunk<R: Read>(
     let prop_name = decode_string(&mut source)?;
     let data_type = source.read_u8()?;
 
-    println!("Set prop (type {}) {}.{}", data_type, type_id, prop_name);
+    trace!("Set prop (type {}) {}.{}", data_type, type_id, prop_name);
 
     // TODO: Convert to new error type instead of panic
     let instance_type = instance_types.get(&type_id)
@@ -292,7 +293,7 @@ fn decode_prop_chunk<R: Read>(
         0x12 => { /* Enum array */ },
         0x13 => { /* Referent array */ },
         _ => {
-            println!("Unknown prop type {} named {}", data_type, prop_name);
+            trace!("Unknown prop type {} named {}", data_type, prop_name);
         },
     }
 
@@ -309,7 +310,7 @@ fn decode_prnt_chunk<R: Read>(mut source: R, instance_parents: &mut HashMap<i32,
 
     let number_objects = source.read_u32::<LittleEndian>()?;
 
-    println!("{} objects with parents", number_objects);
+    trace!("{} objects with parents", number_objects);
 
     let mut instance_ids = vec![0; number_objects as usize];
     let mut parent_ids = vec![0; number_objects as usize];
@@ -348,12 +349,14 @@ mod test {
 
     #[test]
     fn test_decode() {
+        let _ = env_logger::try_init();
+
         for model_source in &[MODEL_A, MODEL_B, MODEL_C] {
             let mut tree = new_test_tree();
             let root_id = tree.get_root_id();
 
             print!("\n");
-            println!("Model:");
+            trace!("Model:");
             decode(&mut tree, root_id, *model_source).unwrap();
         }
     }
