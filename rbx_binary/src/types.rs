@@ -23,6 +23,24 @@ pub fn decode_bool<R: Read>(mut source: R) -> io::Result<bool> {
     }
 }
 
+pub fn encode_bool_array<W: Write>(mut output: W, values: &[bool]) -> io::Result<()> {
+    for &value in values {
+        encode_bool(&mut output, value)?;
+    }
+
+    Ok(())
+}
+
+pub fn decode_bool_array<R: Read>(mut source: R, count: usize) -> io::Result<Vec<bool>> {
+    let mut result = Vec::new();
+
+    for _ in 0..count {
+        result.push(decode_bool(&mut source)?);
+    }
+
+    Ok(result)
+}
+
 pub fn encode_i32(value: i32) -> i32 {
     (value << 1) ^ (value >> 31)
 }

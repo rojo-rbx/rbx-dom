@@ -65,6 +65,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
 
                 let data_type = match prop_info.kind {
                     PropKind::String => 0x1,
+                    PropKind::Bool => 0x2,
                 };
 
                 output.write_u8(data_type)?;
@@ -127,12 +128,14 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum PropKind {
     String,
+    Bool,
 }
 
 impl PropKind {
     fn from_value(value: &RbxValue) -> PropKind {
         match value {
             RbxValue::String { .. } => PropKind::String,
+            RbxValue::Bool { .. } => PropKind::Bool,
             _ => unimplemented!(),
         }
     }

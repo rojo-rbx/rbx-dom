@@ -19,6 +19,7 @@ use crate::{
         decode_string,
         decode_string_array,
         decode_referent_array,
+        decode_bool_array,
     },
 };
 
@@ -259,7 +260,22 @@ fn decode_prop_chunk<R: Read>(
                 prop_data.properties.insert(prop_name.clone(), RbxValue::String { value: value.clone() });
             }
         },
-        0x02 => { /* bool array */ },
+        0x02 => {
+            let values = decode_bool_array(&mut source, instance_type.referents.len())?;
+
+            for (index, &value) in values.iter().enumerate() {
+                let referent = instance_type.referents[index];
+                let prop_data = instance_props
+                    .entry(referent)
+                    .or_insert(InstanceProps {
+                        type_id,
+                        referent,
+                        properties: HashMap::new(),
+                    });
+
+                prop_data.properties.insert(prop_name.clone(), RbxValue::Bool { value });
+            }
+        },
         0x03 => { /* i32 array */ },
         0x04 => { /* f32 array */ },
         0x05 => { /* f64 array */ },
