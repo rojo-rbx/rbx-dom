@@ -72,7 +72,10 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
             },
             b"END\0" => break,
             _ => {
-                // Unknown chunk
+                match str::from_utf8(&header.name) {
+                    Ok(name) => trace!("Unknown chunk name {}", name),
+                    Err(_) => trace!("Unknown chunk name {:?}", header.name),
+                }
             },
         }
 
@@ -204,7 +207,7 @@ struct InstanceType {
 fn decode_inst_chunk<R: Read>(mut source: R, instance_types: &mut HashMap<u32, InstanceType>) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
     let type_name = decode_string(&mut source)?;
-    let additional_data = source.read_u8()?;
+    let _additional_data = source.read_u8()?;
     let number_instances = source.read_u32::<LittleEndian>()?;
 
     let mut referents = vec![0; number_instances as usize];
