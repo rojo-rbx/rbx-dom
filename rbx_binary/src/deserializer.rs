@@ -8,7 +8,7 @@ use std::{
 
 use log::trace;
 use byteorder::{ReadBytesExt, LittleEndian};
-use rbx_tree::{RbxTree, RbxId, RbxValue};
+use rbx_tree::{RbxTree, RbxInstance, RbxId, RbxValue};
 
 use crate::{
     core::{
@@ -86,7 +86,64 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
     trace!("Instance props: {:#?}", instance_props);
     trace!("Instance parents: {:#?}", instance_parents);
 
+    let mut parents_to_children: HashMap<i32, Vec<i32>> = HashMap::new();
+    for (referent, parent_referent) in &instance_parents {
+        parents_to_children
+            .entry(*parent_referent)
+            .or_default()
+            .push(*referent);
+    }
+
+    if let Some(root_referents) = parents_to_children.get(&-1) {
+        for referent in root_referents {
+            construct_and_parent(tree, parent_id, *referent, &parents_to_children, &instance_types, &instance_props);
+        }
+    }
+
     Ok(())
+}
+
+fn construct_and_parent(
+    tree: &mut RbxTree,
+    parent_id: RbxId,
+    referent: i32,
+    parents_to_children: &HashMap<i32, Vec<i32>>,
+    instance_types: &HashMap<u32, InstanceType>,
+    instance_props: &HashMap<i32, InstanceProps>,
+) {
+    let props = instance_props.get(&referent)
+        .expect("Could not find props for referent listed in PRNT chunk");
+
+    let type_info = instance_types.get(&props.type_id)
+        .expect("Could not find type information for referent");
+
+    let mut properties = HashMap::new();
+    for (key, value) in &props.properties {
+        if key != "Name" {
+            properties.insert(key.clone(), value.clone());
+        }
+    }
+
+    let name = props.properties.get("Name")
+        .map(|name| match name {
+            RbxValue::String { value } => value.clone(),
+            _ => panic!("Invalid non-string type used for 'Name' property"),
+        })
+        .unwrap_or_else(|| type_info.type_name.clone());
+
+    let instance = RbxInstance {
+        name,
+        class_name: type_info.type_name.clone(),
+        properties,
+    };
+
+    let id = tree.insert_instance(instance, parent_id);
+
+    if let Some(child_referents) = parents_to_children.get(&referent) {
+        for child_referent in child_referents {
+            construct_and_parent(tree, id, *child_referent, parents_to_children, instance_types, instance_props);
+        }
+    }
 }
 
 struct FileHeader {
