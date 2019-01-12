@@ -5,6 +5,6 @@ mod serializer;
 mod deserializer;
 
 pub use crate::{
-    serializer::encode,
+    serializer::{encode, EncodeError},
     deserializer::{decode, decode_str, DecodeError},
 };
