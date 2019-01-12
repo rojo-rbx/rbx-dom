@@ -23,8 +23,20 @@ use crate::{
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
-/// Serialize the instances denoted by `ids` from `tree` to XML.
-pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Result<()> {
+#[derive(Debug)]
+pub enum EncodeError {
+    IoError(io::Error),
+}
+
+impl From<io::Error> for EncodeError {
+    fn from(error: io::Error) -> EncodeError {
+        EncodeError::IoError(error)
+    }
+}
+
+/// Serialize the instances denoted by `ids` from `tree` to Roblox's binary
+/// format.
+pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<(), EncodeError> {
     let relevant_instances = gather_instances(tree, ids);
     let type_infos = generate_type_infos(&relevant_instances);
     let referents = generate_referents(&relevant_instances);
@@ -122,7 +134,9 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> io::Res
 
     encode_chunk(&mut output, b"END\0", Compression::Uncompressed, |mut output| {
         output.write_all(FILE_FOOTER)
-    })
+    })?;
+
+    Ok(())
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
