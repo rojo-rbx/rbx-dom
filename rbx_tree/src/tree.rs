@@ -12,13 +12,15 @@ use crate::{
 /// Rooted instances are described by
 /// [RbxInstance](struct.RbxInstance.html) and have an ID, children,
 /// and a parent.
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct RbxTree {
     instances: HashMap<RbxId, RbxInstance>,
     root_id: RbxId,
 }
 
 impl RbxTree {
+    /// Construct a new `RbxTree` with its root instance constructed using the
+    /// given properties.
     pub fn new(root_properties: RbxInstanceProperties) -> RbxTree {
         let rooted_root = RbxInstance::new(root_properties);
         let root_id = rooted_root.get_id();
@@ -32,23 +34,31 @@ impl RbxTree {
         }
     }
 
+    /// Returns the ID of the root instance in the tree, which can be used
+    /// alongside `get_instance` and friends.
     pub fn get_root_id(&self) -> RbxId {
         self.root_id
     }
 
+    /// Returns an iterator over all IDs in the tree.
     pub fn iter_all_ids(&self) -> impl Iterator<Item=RbxId> + '_ {
         self.instances.keys().cloned()
     }
 
+    /// Returns the instance with the given ID if it's contained in this tree.
     pub fn get_instance(&self, id: RbxId) -> Option<&RbxInstance> {
         self.instances.get(&id)
     }
 
+    /// Returns mutable access to the instance with the given ID if it's
+    /// contained in this tree.
     pub fn get_instance_mut(&mut self, id: RbxId) -> Option<&mut RbxInstance> {
         self.instances.get_mut(&id)
     }
 
-    pub fn transplant(&mut self, source_tree: &mut RbxTree, source_id: RbxId, new_parent_id: RbxId) {
+    // TODO: Make this method pub again after working on the API a little bit.
+    #[allow(unused)]
+    fn transplant(&mut self, source_tree: &mut RbxTree, source_id: RbxId, new_parent_id: RbxId) {
         let mut to_visit = vec![(source_id, new_parent_id)];
 
         loop {
@@ -82,6 +92,11 @@ impl RbxTree {
         self.instances.insert(instance.get_id(), instance);
     }
 
+    /// Inserts a new instance with the given properties into the tree, putting it
+    /// under the instance with the given ID.
+    ///
+    /// ## Panics
+    /// Panics if the given ID does not refer to an instance in this tree.
     pub fn insert_instance(&mut self, properties: RbxInstanceProperties, parent_id: RbxId) -> RbxId {
         let mut tree_instance = RbxInstance::new(properties);
         tree_instance.parent = Some(parent_id);
@@ -146,48 +161,11 @@ impl RbxTree {
     }
 }
 
-// Manually implement Clone to prevent accidental instance ID reuse.
-impl Clone for RbxTree {
-    fn clone(&self) -> RbxTree {
-        #[inline]
-        fn get_id(id_map: &mut HashMap<RbxId, RbxId>, source_id: RbxId) -> RbxId {
-            if let Some(&new_id) = id_map.get(&source_id) {
-                return new_id;
-            }
-
-            let new_id = RbxId::new();
-            id_map.insert(source_id, new_id);
-
-            new_id
-        }
-
-        let mut id_map = HashMap::new();
-        let mut instances = HashMap::new();
-
-        for (&id, instance) in &self.instances {
-            let new_id = get_id(&mut id_map, id);
-            let parent = instance.parent.map(|id| get_id(&mut id_map, id));
-            let children = instance.children
-                .iter()
-                .map(|id| get_id(&mut id_map, *id))
-                .collect();
-
-            let mut new_instance = instance.clone_without_relations(new_id);
-            new_instance.parent = parent;
-            new_instance.children = children;
-
-            instances.insert(new_id, new_instance);
-        }
-
-        let root_id = *id_map.get(&self.root_id).unwrap();
-
-        RbxTree {
-            instances,
-            root_id,
-        }
-    }
-}
-
+/// An iterator over all descendants of an instance in an [`RbxTree`]. Returned
+/// by [`RbxTree::descendants`].
+///
+/// [`RbxTree`]: struct.RbxTree.html
+/// [`RbxTree::descendants`]: struct.RbxTree.html#method.descendants
 pub struct Descendants<'a> {
     tree: &'a RbxTree,
     ids_to_visit: Vec<RbxId>,

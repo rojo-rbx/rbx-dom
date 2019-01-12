@@ -7,6 +7,16 @@ use crate::{
     value::RbxValue,
 };
 
+/// The properties associated with a Roblox Instance that might not exist yet.
+///
+/// To construct a real instance with an ID and children, insert an
+/// `RbxInstanceProperties` object into an existing [`RbxTree`] with
+/// [`RbxTree::insert_instance`] or by creating a new tree with it as the root
+/// using [`RbxTree::new`].
+///
+/// [`RbxTree`]: struct.RbxTree.html
+/// [`RbxTree::insert_instance`]: struct.RbxTree.html#method.insert_instance
+/// [`RbxTree::new`]: struct.RbxTree.html#method.new
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RbxInstanceProperties {
@@ -16,11 +26,19 @@ pub struct RbxInstanceProperties {
     /// Maps to the `ClassName` property on Instance.
     pub class_name: String,
 
-    /// Contains all other properties of an Instance.
+    /// Contains all other properties of the Instance.
     pub properties: HashMap<String, RbxValue>,
 }
 
-/// Represents an instance that is rooted in a tree.
+/// Represents an instance that is rooted in an [`RbxTree`]. These are always
+/// returned from an existing [`RbxTree`] with a method like
+/// [`RbxTree::get_instance`].
+///
+/// `RbxInstance` derefs to `RbxInstanceProperties` to make accessing properties
+/// easier.
+///
+/// [`RbxTree`]: struct.RbxTree.html
+/// [`RbxTree::get_instance`]: struct.RbxTree.html#method.get_instance
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
 pub struct RbxInstance {
@@ -47,16 +65,7 @@ impl RbxInstance {
         }
     }
 
-    pub(crate) fn clone_without_relations(&self, new_id: RbxId) -> RbxInstance {
-        RbxInstance {
-            properties: self.properties.clone(),
-            id: new_id,
-            parent: None,
-            children: Vec::new(),
-        }
-    }
-
-    /// Returns the unique ID associated with the rooted instance.
+    /// Returns the unique ID associated with this instance.
     pub fn get_id(&self) -> RbxId {
         self.id
     }

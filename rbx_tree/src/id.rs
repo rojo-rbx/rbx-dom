@@ -3,14 +3,21 @@ use std::fmt;
 use serde_derive::{Serialize, Deserialize};
 use uuid::Uuid;
 
+/// A unique ID that represents an instance within an [`RbxTree`].
+///
+/// rbx_tree uses UUIDv4 values for instance IDs and serializes equivalently.
+///
+/// [`RbxTree`]: struct.RbxTree.html
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct RbxId(Uuid);
 
 impl RbxId {
+    /// Generates a new, random `RbxId`.
     pub fn new() -> RbxId {
         RbxId(Uuid::new_v4())
     }
 
+    /// Parses an `RbxId` from a string containing a UUID.
     pub fn parse_str(input: &str) -> Option<RbxId> {
         Uuid::parse_str(input).map(RbxId).ok()
     }

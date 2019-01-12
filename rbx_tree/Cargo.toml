@@ -2,6 +2,7 @@
 name = "rbx_tree"
 version = "0.1.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
+edition = "2018"
 
 [dependencies]
 serde = "1.0"
@@ -10,3 +11,4 @@ uuid = { version = "0.7", features = ["v4", "serde"] }
 
 [dev-dependencies]
 serde_json = "1.0"
+maplit = "1.0"
