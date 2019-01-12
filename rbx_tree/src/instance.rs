@@ -23,7 +23,7 @@ pub struct RbxInstanceProperties {
 /// Represents an instance that is rooted in a tree.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
-pub struct RootedRbxInstance {
+pub struct RbxInstance {
     #[serde(flatten)]
     properties: RbxInstanceProperties,
 
@@ -37,9 +37,9 @@ pub struct RootedRbxInstance {
     pub(crate) parent: Option<RbxId>,
 }
 
-impl RootedRbxInstance {
-    pub(crate) fn new(properties: RbxInstanceProperties) -> RootedRbxInstance {
-        RootedRbxInstance {
+impl RbxInstance {
+    pub(crate) fn new(properties: RbxInstanceProperties) -> RbxInstance {
+        RbxInstance {
             properties,
             id: RbxId::new(),
             parent: None,
@@ -47,8 +47,8 @@ impl RootedRbxInstance {
         }
     }
 
-    pub(crate) fn clone_without_relations(&self, new_id: RbxId) -> RootedRbxInstance {
-        RootedRbxInstance {
+    pub(crate) fn clone_without_relations(&self, new_id: RbxId) -> RbxInstance {
+        RbxInstance {
             properties: self.properties.clone(),
             id: new_id,
             parent: None,
@@ -72,13 +72,13 @@ impl RootedRbxInstance {
     }
 }
 
-impl Clone for RootedRbxInstance {
+impl Clone for RbxInstance {
     fn clone(&self) -> Self {
         unimplemented!()
     }
 }
 
-impl std::ops::Deref for RootedRbxInstance {
+impl std::ops::Deref for RbxInstance {
     type Target = RbxInstanceProperties;
 
     fn deref(&self) -> &Self::Target {
@@ -86,7 +86,7 @@ impl std::ops::Deref for RootedRbxInstance {
     }
 }
 
-impl std::ops::DerefMut for RootedRbxInstance {
+impl std::ops::DerefMut for RbxInstance {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.properties
     }

@@ -4,23 +4,23 @@ use serde_derive::{Serialize, Deserialize};
 
 use crate::{
     id::RbxId,
-    instance::{RootedRbxInstance, RbxInstanceProperties},
+    instance::{RbxInstance, RbxInstanceProperties},
 };
 
 /// Represents a tree containing rooted instances.
 ///
 /// Rooted instances are described by
-/// [RootedRbxInstance](struct.RootedRbxInstance.html) and have an ID, children,
+/// [RbxInstance](struct.RbxInstance.html) and have an ID, children,
 /// and a parent.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct RbxTree {
-    instances: HashMap<RbxId, RootedRbxInstance>,
+    instances: HashMap<RbxId, RbxInstance>,
     root_id: RbxId,
 }
 
 impl RbxTree {
     pub fn new(root_properties: RbxInstanceProperties) -> RbxTree {
-        let rooted_root = RootedRbxInstance::new(root_properties);
+        let rooted_root = RbxInstance::new(root_properties);
         let root_id = rooted_root.get_id();
 
         let mut instances = HashMap::new();
@@ -40,11 +40,11 @@ impl RbxTree {
         self.instances.keys().cloned()
     }
 
-    pub fn get_instance(&self, id: RbxId) -> Option<&RootedRbxInstance> {
+    pub fn get_instance(&self, id: RbxId) -> Option<&RbxInstance> {
         self.instances.get(&id)
     }
 
-    pub fn get_instance_mut(&mut self, id: RbxId) -> Option<&mut RootedRbxInstance> {
+    pub fn get_instance_mut(&mut self, id: RbxId) -> Option<&mut RbxInstance> {
         self.instances.get_mut(&id)
     }
 
@@ -69,7 +69,7 @@ impl RbxTree {
         }
     }
 
-    fn insert_instance_internal(&mut self, instance: RootedRbxInstance) {
+    fn insert_instance_internal(&mut self, instance: RbxInstance) {
         let parent_id = instance.parent
             .expect("Can not use insert_instance_internal on instances with no parent");
 
@@ -83,7 +83,7 @@ impl RbxTree {
     }
 
     pub fn insert_instance(&mut self, properties: RbxInstanceProperties, parent_id: RbxId) -> RbxId {
-        let mut tree_instance = RootedRbxInstance::new(properties);
+        let mut tree_instance = RbxInstance::new(properties);
         tree_instance.parent = Some(parent_id);
 
         let id = tree_instance.get_id();
@@ -194,7 +194,7 @@ pub struct Descendants<'a> {
 }
 
 impl<'a> Iterator for Descendants<'a> {
-    type Item = &'a RootedRbxInstance;
+    type Item = &'a RbxInstance;
 
     fn next(&mut self) -> Option<Self::Item> {
         loop {

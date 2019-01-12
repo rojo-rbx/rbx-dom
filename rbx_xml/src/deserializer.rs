@@ -202,12 +202,12 @@ fn deserialize_instance<R: Read>(tree: &mut RbxTree, parent_id: RbxId, reader: &
 #[cfg(test)]
 mod test {
     use std::collections::HashMap;
-    use rbx_tree::RbxInstance;
+    use rbx_tree::RbxInstanceProperties;
 
     use super::*;
 
     fn new_data_model() -> RbxTree {
-        let root = RbxInstance {
+        let root = RbxInstanceProperties {
             name: "DataModel".to_string(),
             class_name: "DataModel".to_string(),
             properties: HashMap::new(),

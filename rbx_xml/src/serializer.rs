@@ -95,7 +95,7 @@ mod test {
     use std::collections::HashMap;
     use std::str;
 
-    use rbx_tree::{RbxTree, RbxInstance, RbxValue};
+    use rbx_tree::{RbxTree, RbxInstanceProperties, RbxValue};
 
     #[test]
     fn serialize() {
@@ -106,7 +106,7 @@ mod test {
             value: "Yes Please".to_string(),
         });
 
-        let root_instance = RbxInstance {
+        let root_instance = RbxInstanceProperties {
             name: "DataModel".to_string(),
             class_name: "DataModel".to_string(),
             properties,
@@ -117,7 +117,7 @@ mod test {
             value: true,
         });
 
-        let child = RbxInstance {
+        let child = RbxInstanceProperties {
             name: "Workspace".to_string(),
             class_name: "Workspace".to_string(),
             properties: child_properties,

@@ -5,14 +5,14 @@ use std::{
 
 use log::trace;
 
-use rbx_tree::{RbxInstance, RbxTree};
+use rbx_tree::{RbxInstanceProperties, RbxTree};
 
 static MODEL_A: &[u8] = include_bytes!("../test-files/model-a.rbxm");
 static MODEL_B: &[u8] = include_bytes!("../test-files/model-b.rbxm");
 static MODEL_C: &[u8] = include_bytes!("../test-files/model-c.rbxm");
 
 fn new_test_tree() -> RbxTree {
-    let root = RbxInstance {
+    let root = RbxInstanceProperties {
         name: "Folder".to_string(),
         class_name: "Folder".to_string(),
         properties: HashMap::new(),

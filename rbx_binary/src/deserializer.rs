@@ -396,7 +396,7 @@ mod test {
     static MODEL_C: &[u8] = include_bytes!("../test-files/model-c.rbxm");
 
     fn new_test_tree() -> RbxTree {
-        let root = RbxInstance {
+        let root = RbxInstanceProperties {
             name: "Folder".to_string(),
             class_name: "Folder".to_string(),
             properties: HashMap::new(),

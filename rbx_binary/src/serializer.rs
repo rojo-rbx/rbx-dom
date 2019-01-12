@@ -6,7 +6,7 @@ use std::{
 };
 
 use byteorder::{WriteBytesExt, LittleEndian};
-use rbx_tree::{RbxTree, RootedRbxInstance, RbxId, RbxValue};
+use rbx_tree::{RbxTree, RbxInstance, RbxId, RbxValue};
 
 use crate::{
     core::{
@@ -154,7 +154,7 @@ struct TypeInfo {
     properties: Vec<PropInfo>,
 }
 
-fn generate_type_infos<'a>(instances: &HashMap<RbxId, &'a RootedRbxInstance>) -> HashMap<&'a str, TypeInfo> {
+fn generate_type_infos<'a>(instances: &HashMap<RbxId, &'a RbxInstance>) -> HashMap<&'a str, TypeInfo> {
     let mut type_infos = HashMap::new();
     let mut next_type_id = 0;
 
@@ -198,7 +198,7 @@ fn generate_type_infos<'a>(instances: &HashMap<RbxId, &'a RootedRbxInstance>) ->
     type_infos
 }
 
-fn generate_referents(instances: &HashMap<RbxId, &RootedRbxInstance>) -> HashMap<RbxId, i32> {
+fn generate_referents(instances: &HashMap<RbxId, &RbxInstance>) -> HashMap<RbxId, i32> {
     let mut referents = HashMap::new();
     let mut next_referent = 0;
 
@@ -210,7 +210,7 @@ fn generate_referents(instances: &HashMap<RbxId, &RootedRbxInstance>) -> HashMap
     referents
 }
 
-fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a RootedRbxInstance> {
+fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a RbxInstance> {
     let mut output = HashMap::new();
 
     for id in ids {
@@ -262,10 +262,10 @@ mod test {
     use super::*;
 
     use std::collections::HashMap;
-    use rbx_tree::RbxInstance;
+    use rbx_tree::RbxInstanceProperties;
 
     fn new_test_tree() -> RbxTree {
-        let instance = RbxInstance {
+        let instance = RbxInstanceProperties {
             name: "Folder".to_string(),
             class_name: "Folder".to_string(),
             properties: HashMap::new(),
