@@ -4,8 +4,7 @@ use serde_derive::{Serialize, Deserialize};
 
 use crate::{
     id::RbxId,
-    instance::RbxInstance,
-    rooted_instance::RootedRbxInstance,
+    instance::{RootedRbxInstance, RbxInstanceProperties},
 };
 
 /// Represents a tree containing rooted instances.
@@ -20,8 +19,8 @@ pub struct RbxTree {
 }
 
 impl RbxTree {
-    pub fn new(root: RbxInstance) -> RbxTree {
-        let rooted_root = RootedRbxInstance::new(root);
+    pub fn new(root_properties: RbxInstanceProperties) -> RbxTree {
+        let rooted_root = RootedRbxInstance::new(root_properties);
         let root_id = rooted_root.get_id();
 
         let mut instances = HashMap::new();
@@ -83,8 +82,8 @@ impl RbxTree {
         self.instances.insert(instance.get_id(), instance);
     }
 
-    pub fn insert_instance(&mut self, instance: RbxInstance, parent_id: RbxId) -> RbxId {
-        let mut tree_instance = RootedRbxInstance::new(instance);
+    pub fn insert_instance(&mut self, properties: RbxInstanceProperties, parent_id: RbxId) -> RbxId {
+        let mut tree_instance = RootedRbxInstance::new(properties);
         tree_instance.parent = Some(parent_id);
 
         let id = tree_instance.get_id();

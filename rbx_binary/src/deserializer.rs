@@ -8,7 +8,7 @@ use std::{
 
 use log::trace;
 use byteorder::{ReadBytesExt, LittleEndian};
-use rbx_tree::{RbxTree, RbxInstance, RbxId, RbxValue};
+use rbx_tree::{RbxTree, RbxInstanceProperties, RbxId, RbxValue};
 
 use crate::{
     core::{
@@ -131,7 +131,7 @@ fn construct_and_parent(
         })
         .unwrap_or_else(|| type_info.type_name.clone());
 
-    let instance = RbxInstance {
+    let instance = RbxInstanceProperties {
         name,
         class_name: type_info.type_name.clone(),
         properties,
@@ -390,8 +390,6 @@ mod test {
     use super::*;
 
     use std::collections::HashMap;
-
-    use rbx_tree::RbxInstance;
 
     static MODEL_A: &[u8] = include_bytes!("../test-files/model-a.rbxm");
     static MODEL_B: &[u8] = include_bytes!("../test-files/model-b.rbxm");

@@ -9,12 +9,10 @@ mod id;
 mod instance;
 mod tree;
 mod value;
-mod rooted_instance;
 
 pub use crate::{
     id::*,
     instance::*,
     tree::*,
     value::*,
-    rooted_instance::*,
 };
