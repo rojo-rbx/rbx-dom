@@ -55,6 +55,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
             output.write_u32::<LittleEndian>(type_info.id)?;
             encode_string(&mut output, type_name)?;
 
+            // TODO: Set this flag for services?
             output.write_u8(0)?; // Flag that no additional data is attached
 
             output.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
@@ -69,28 +70,34 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
     }
 
     // Property data
+    // TODO: This should become an iterator using encode_*_array instead of
+    // individual encode methods to properly support interleaved data.
     for (_type_name, type_info) in &type_infos {
         for prop_info in &type_info.properties {
             encode_chunk(&mut output, b"PROP", Compression::Compressed, |mut output| {
                 output.write_u32::<LittleEndian>(type_info.id)?;
                 encode_string(&mut output, &prop_info.name)?;
+                output.write_u8(prop_info.kind.id())?;
 
-                let data_type = match prop_info.kind {
-                    PropKind::String => 0x1,
-                    PropKind::Bool => 0x2,
-                };
-
-                output.write_u8(data_type)?;
-
-                for id in &type_info.object_ids {
-                    let instance = relevant_instances.get(id).unwrap();
+                for instance_id in &type_info.object_ids {
+                    let instance = relevant_instances.get(instance_id).unwrap();
                     let value = match prop_info.name.as_str() {
                         "Name" => Cow::Owned(RbxValue::String {
                             value: instance.name.clone()
                         }),
                         _ => {
-                            // TODO: String/type validation nonsense?
-                            Cow::Borrowed(instance.properties.get(&prop_info.name).unwrap())
+                            // TODO: This is way wrong; we need type information
+                            // to fall back to the correct default value.
+                            let value = instance.properties.get(&prop_info.name)
+                                .map(Cow::Borrowed)
+                                .unwrap_or_else(|| Cow::Owned(prop_info.kind.default_value()));
+
+                            // For now, we ensure that every instance of a given
+                            // type pinky-promises to have the correct type.
+                            // TODO: Turn this into a real error
+                            assert_eq!(PropKind::from_value(&value), prop_info.kind);
+
+                            value
                         },
                     };
 
@@ -151,6 +158,25 @@ impl PropKind {
             RbxValue::String { .. } => PropKind::String,
             RbxValue::Bool { .. } => PropKind::Bool,
             _ => unimplemented!(),
+        }
+    }
+
+    // This function requires type information to implement correctly!
+    fn default_value(&self) -> RbxValue {
+        match self {
+            PropKind::String => RbxValue::String {
+                value: String::new(),
+            },
+            PropKind::Bool => RbxValue::Bool {
+                value: false,
+            },
+        }
+    }
+
+    fn id(&self) -> u8 {
+        match self {
+            PropKind::String => 0x1,
+            PropKind::Bool => 0x2,
         }
     }
 }
