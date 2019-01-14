@@ -1,5 +1,10 @@
-/// Super early binary format (rbxm and rbxl) serializer and deserializer for
-/// rbx-tree.
+//! Super early, unstable binary format (rbxm and rbxl) serializer and
+//! deserializer for rbx-tree.
+//!
+//! Both the serializer and deserializer are functioning for limited property
+//! types. `String` and `Bool` (from the `rbx_tree` crate) are the only
+//! supported values. Unrecognized values will be ignored when deserializing,
+//! and cause a panic when serializing.
 
 mod core;
 mod types;

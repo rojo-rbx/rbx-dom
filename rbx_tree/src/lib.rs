@@ -2,6 +2,9 @@
 //! designed to play nicely with the borrow checker and allows accessing
 //! instances by ID in constant time.
 //!
+//! rbx_tree's APIs are not completely stable, but most of the design is locked
+//! in. It is definitely a 0.x.y quality library.
+//!
 //! Constructing a new tree of instances is accomplished by first creating an
 //! [`RbxInstanceProperties`] object that describes the root instance of the
 //! tree, and then wrapping it with an [`RbxTree`]:
