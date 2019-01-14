@@ -19,7 +19,8 @@ impl From<xml::writer::Error> for EncodeError {
     }
 }
 
-/// Serialize the instances denoted by `ids` from `tree` to XML.
+/// Serialize the instances denoted by `ids` from `tree` as an XML-format model,
+/// writing to `output`.
 pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), EncodeError> {
     let mut writer = EmitterConfig::new()
         .perform_indent(true)

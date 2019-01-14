@@ -50,10 +50,15 @@ impl<R: Read> Iterator for EventIterator<R> {
     }
 }
 
+/// INCOMPLETE: This function does not finish constructing instances.
+///
+/// A utility method to decode an XML-format model from a string.
 pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), DecodeError> {
     decode(tree, parent_id, source.as_bytes())
 }
 
+/// INCOMPLETE: This function does not finish constructing instances.
+///
 /// Decodes source from the given buffer into the instance in the given tree.
 ///
 /// Roblox model files can contain multiple instances at the top level. This
@@ -175,6 +180,10 @@ fn deserialize_instance<R: Read>(tree: &mut RbxTree, parent_id: RbxId, reader: &
         },
         _ => unreachable!(),
     };
+
+    // TODO: Collect properties
+    // TODO: Construct instance and insert it into the tree
+    // TODO: Collect children
 
     let mut depth = 1;
 
