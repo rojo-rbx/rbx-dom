@@ -17,6 +17,7 @@ use xml::{
 #[derive(Debug, Clone, PartialEq)]
 pub enum DecodeError {
     XmlError(reader::Error),
+    FloatParseError(std::num::ParseFloatError),
     Message(&'static str),
     MalformedDocument,
 }
@@ -27,8 +28,23 @@ impl From<reader::Error> for DecodeError {
     }
 }
 
+impl From<std::num::ParseFloatError> for DecodeError {
+    fn from(error: std::num::ParseFloatError) -> DecodeError {
+        DecodeError::FloatParseError(error)
+    }
+}
+
 struct EventIterator<R: Read> {
     inner: Peekable<reader::Events<R>>,
+}
+
+macro_rules! read_event {
+    {$reader:expr, $xmlevent:pat => $body:expr} => {
+        match $reader.next().ok_or(DecodeError::MalformedDocument)?? {
+            $xmlevent => $body,
+            _ => return Err(DecodeError::MalformedDocument),
+        }
+    };
 }
 
 impl<R: Read> EventIterator<R> {
@@ -41,6 +57,28 @@ impl<R: Read> EventIterator<R> {
             inner: reader.into_iter().peekable(),
         }
     }
+
+    /// Reads a tag completely and returns its text content.
+    /// This is intended for parsing simple tags where we don't care about the
+    /// attributes or children, only the text value, for Vector3s and such, which
+    /// are encoded like:
+    /// <Vector3>
+    ///   <X>0</X>
+    ///   <Y>0</Y>
+    ///   <Z>0</Z>
+    /// </Vector3>
+    fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
+        read_event!(self, XmlEvent::StartElement { name, .. } => {
+            if name.local_name != expected_name {
+                return Err(DecodeError::Message("got wrong tag name"));
+            }
+        });
+
+        let contents = read_event!(self, XmlEvent::Characters(content) => content);
+        read_event!(self, XmlEvent::EndElement { name, .. } => {});
+
+        Ok(contents)
+    }
 }
 
 impl<R: Read> Iterator for EventIterator<R> {
@@ -52,28 +90,18 @@ impl<R: Read> Iterator for EventIterator<R> {
 }
 
 struct ParseState<'a> {
-    environment: ParseEnvironment<'a>,
+    environment: ParseEnvironment,
     referents: HashMap<String, RbxId>,
     tree: &'a mut RbxTree,
 }
 
-enum ParseEnvironment<'a> {
+enum ParseEnvironment {
     Root {
         root_parent: RbxId,
     },
     Instance {
         parent: RbxId,
     },
-    Properties {
-        props: &'a mut HashMap<String, RbxValue>,
-    },
-    // Individual property tags
-    UDim2,
-    Rect2D,
-    Rect2DMin,
-    Rect2DMax,
-    Vector2,
-    Vector3,
 }
 
 /// INCOMPLETE: This function does not finish constructing instances.
@@ -93,6 +121,7 @@ pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
     let reader = ParserConfig::new()
         .trim_whitespace(true)
+        .coalesce_characters(true)
         .create_reader(source);
 
     let mut iterator = EventIterator::from_reader(reader);
@@ -115,7 +144,6 @@ fn deserialize_next<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
         ParseEnvironment::Instance { parent, .. } => {
             deserialize_instance(reader, state, *parent)
         },
-        _ => unimplemented!(),
     }
 }
 
@@ -125,29 +153,26 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
         _ => return Err(DecodeError::MalformedDocument),
     }
 
-    match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-        XmlEvent::StartElement { name, attributes, .. } => {
-            if name.local_name != "roblox" {
-                return Err(DecodeError::Message("Missing <roblox>"));
-            }
+    read_event!(reader, XmlEvent::StartElement { name, attributes, .. } => {
+        if name.local_name != "roblox" {
+            return Err(DecodeError::Message("Missing <roblox>"));
+        }
 
-            let mut found_version = false;
-            for attribute in &attributes {
-                if attribute.name.local_name == "version" {
-                    found_version = true;
+        let mut found_version = false;
+        for attribute in &attributes {
+            if attribute.name.local_name == "version" {
+                found_version = true;
 
-                    if attribute.value != "4" {
-                        return Err(DecodeError::Message("Not version 4"));
-                    }
+                if attribute.value != "4" {
+                    return Err(DecodeError::Message("Not version 4"));
                 }
             }
+        }
 
-            if !found_version {
-                return Err(DecodeError::Message("No version field"));
-            }
-        },
-        _ => return Err(DecodeError::Message("Unexpected stuff before <roblox>")),
-    }
+        if !found_version {
+            return Err(DecodeError::Message("No version field"));
+        }
+    });
 
     loop {
         match reader.peek().ok_or(DecodeError::MalformedDocument)? {
@@ -209,27 +234,24 @@ fn eat_unknown_tag<R: Read>(reader: &mut EventIterator<R>) -> Result<(), DecodeE
 }
 
 fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState, parent_id: RbxId) -> Result<(), DecodeError> {
-    let (class, referent) = match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-        XmlEvent::StartElement { name, mut attributes, .. } => {
-            assert_eq!(name.local_name, "Item");
+    let (class, referent) = read_event!(reader, XmlEvent::StartElement { name, mut attributes, .. } => {
+        assert_eq!(name.local_name, "Item");
 
-            let mut class = None;
-            let mut referent = None;
+        let mut class = None;
+        let mut referent = None;
 
-            for attribute in attributes.drain(..) {
-                match attribute.name.local_name.as_str() {
-                    "class" => class = Some(attribute.value),
-                    "referent" => referent = Some(attribute.value),
-                    _ => {},
-                }
+        for attribute in attributes.drain(..) {
+            match attribute.name.local_name.as_str() {
+                "class" => class = Some(attribute.value),
+                "referent" => referent = Some(attribute.value),
+                _ => {},
             }
+        }
 
-            let class = class.ok_or(DecodeError::Message("Missing 'class'"))?;
+        let class = class.ok_or(DecodeError::Message("Missing 'class'"))?;
 
-            (class, referent)
-        },
-        _ => unreachable!(),
-    };
+        (class, referent)
+    });
 
     // TODO: Collect children
 
@@ -313,19 +335,13 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
                 }
             },
             XmlEvent::Characters(chars) => panic!("Characters {:?}", chars),
-            XmlEvent::CData(data) => panic!("cdata {:?}", data),
-            XmlEvent::Whitespace(_) => panic!("Whitespace"),
-            XmlEvent::Comment(comment) => panic!("Comment {:?}", comment),
             _ => unreachable!(),
         };
 
         let value = match property_type.as_str() {
-            "bool" => RbxValue::Bool {
-                value: deserialize_bool(reader)?,
-            },
-            "string" => RbxValue::String {
-                value:deserialize_string(reader)?,
-            },
+            "bool" => deserialize_bool(reader)?,
+            "string" => deserialize_string(reader)?,
+            "Vector3" => deserialize_vector3(reader)?,
             _ => return Err(DecodeError::Message("don't know how to decode this prop type")),
         };
 
@@ -345,24 +361,32 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
     }
 }
 
-fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<bool, DecodeError> {
-    match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-        XmlEvent::Characters(content) => {
-            match content.as_str() {
-                "true" => Ok(true),
-                "false" => Ok(false),
-                _ => Err(DecodeError::Message("invalid boolean value, expected true or false")),
-            }
-        },
-        _ => Err(DecodeError::MalformedDocument),
-    }
+fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    let value = read_event!(reader, XmlEvent::Characters(content) => {
+        match content.as_str() {
+            "true" => true,
+            "false" => false,
+            _ => return Err(DecodeError::Message("invalid boolean value, expected true or false")),
+        }
+    });
+
+    Ok(RbxValue::Bool {
+        value
+    })
 }
 
-fn deserialize_string<R: Read>(reader: &mut EventIterator<R>) -> Result<String, DecodeError> {
-    match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-        XmlEvent::Characters(content) => Ok(content),
-        _ => Err(DecodeError::MalformedDocument),
-    }
+fn deserialize_string<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    read_event!(reader, XmlEvent::Characters(content) => Ok(RbxValue::String { value: content }))
+}
+
+fn deserialize_vector3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    let x: f64 = reader.read_tag_contents("X")?.parse()?;
+    let y: f64 = reader.read_tag_contents("Y")?.parse()?;
+    let z: f64 = reader.read_tag_contents("Z")?.parse()?;
+
+    Ok(RbxValue::Vector3 {
+        value: [x, y, z],
+    })
 }
 
 #[cfg(test)]
@@ -450,7 +474,34 @@ mod test {
         assert_eq!(descendant.name, "Test");
         assert_eq!(descendant.class_name, "BoolValue");
         assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Bool { value: true }));
+    }
 
-        // TODO: Check that an instance got made
+    #[test]
+    fn with_v3() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Vector3Value" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <Vector3 name="Value">
+                            <X>0</X>
+                            <Y>0.25</Y>
+                            <Z>-123.23</Z>
+                        </Vector3>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "Vector3Value");
+        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector3 { value: [ 0.0, 0.25, -123.23 ] }));
     }
 }
