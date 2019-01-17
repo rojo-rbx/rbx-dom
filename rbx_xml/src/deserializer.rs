@@ -115,7 +115,7 @@ fn deserialize_next<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
         ParseEnvironment::Instance { parent, .. } => {
             deserialize_instance(reader, state, *parent)
         },
-        _ => panic!("nyi"),
+        _ => unimplemented!(),
     }
 }
 
@@ -231,8 +231,6 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
         _ => unreachable!(),
     };
 
-    // TODO: Collect properties
-    // TODO: Construct instance and insert it into the tree
     // TODO: Collect children
 
     // we have to collect properties in order to create the instance
@@ -251,7 +249,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
                         println!("start prop parsing for inst class {}, referent {:?}", class, referent);
                         deserialize_properties(reader, &mut property_map)?;
                     },
-                    _ => panic!("nyi"),
+                    _ => unimplemented!(),
                 }
             },
             XmlEvent::EndElement { name, .. } => {
@@ -271,6 +269,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
             RbxValue::String { value } => value,
             _ => return Err(DecodeError::Message("Name must be a string")),
         },
+        // TODO: is this actually an invariant of the XML format?
         _ => return Err(DecodeError::Message("All instances must be named")),
     };
 
