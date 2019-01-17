@@ -447,6 +447,11 @@ mod test {
 
         decode_str(&mut tree, root_id, document).expect("should work D:");
 
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "BoolValue");
+        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Bool { value: true }));
+
         // TODO: Check that an instance got made
     }
 }
