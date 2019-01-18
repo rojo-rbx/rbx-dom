@@ -470,6 +470,10 @@ mod test {
         RbxTree::new(root)
     }
 
+    fn floats_approx_equal(left: f32, right: f32, epsilon: f32) -> bool {
+        (left - right).abs() <= epsilon
+    }
+
     #[test]
     fn empty_document() {
         let _ = env_logger::try_init();
@@ -632,7 +636,14 @@ mod test {
                 assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3 { value: [ 0.0, 0.25, 0.75 ] }));
             }
             else if descendant.name == "Test2" {
-                assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3 { value: [ 1.0, 0.5019607843137255, 0.25098039215686274 ] }));
+                if let Some(&RbxValue::Color3 { value }) = descendant.properties.get("Value") {
+                    assert!(floats_approx_equal(value[0], 1.0, 0.001));
+                    assert!(floats_approx_equal(value[1], 0.501961, 0.001));
+                    assert!(floats_approx_equal(value[2], 0.250980, 0.001));
+                }
+                else {
+                    panic!("value was not a Color3 or did not deserialize properly");
+                }
             }
         }
     }
