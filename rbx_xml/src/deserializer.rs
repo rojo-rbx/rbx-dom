@@ -265,20 +265,20 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
     trace!("Class {} with referent {:?}", class_name, referent);
 
     let instance_props = RbxInstanceProperties {
-        class_name,
+        class_name: String::new(),
         name: String::new(),
         properties: HashMap::new(),
     };
 
     let instance_id = state.tree.insert_instance(instance_props, parent_id);
 
-    if referent.is_some() {
-        state.referents.insert(referent.unwrap(), instance_id);
+    if let Some(referent) = referent {
+        state.referents.insert(referent, instance_id);
     }
 
     // we have to collect properties in order to create the instance
     // name will be captured in this map and extracted later; XML doesn't store it separately
-    let mut property_map: HashMap<String, RbxValue> = HashMap::new();
+    let mut properties: HashMap<String, RbxValue> = HashMap::new();
 
     let mut depth = 1;
 
@@ -289,25 +289,19 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 
                 match name.local_name.as_str() {
                     "Properties" => {
-                        // we need to advance here; deserialize_properties
-                        // expects that the <Properties> tag has been eaten
-                        reader.next();
-                        deserialize_properties(reader, &mut property_map)?;
+                        deserialize_properties(reader, &mut properties)?;
                     },
                     "Item" => {
-                        // we do not need to advance here; deserialize_instance
-                        // needs to read the initial <Item> tag
                         deserialize_instance(reader, state, instance_id)?;
                     }
                     _ => unimplemented!(),
                 }
             },
             Ok(XmlEvent::EndElement { .. }) => {
-                // advance here as well
                 reader.next();
                 depth -= 1;
 
-                if depth == 1 {
+                if depth <= 1 {
                     break;
                 }
             },
@@ -315,18 +309,18 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
         }
     }
 
-    let instance_name = match property_map.remove("Name") {
+    let instance_name = match properties.remove("Name") {
         Some(value) => match value {
             RbxValue::String { value } => value,
             _ => return Err(DecodeError::Message("Name must be a string")),
         },
-        // TODO: is this actually an invariant of the XML format?
-        _ => return Err(DecodeError::Message("All instances must be named")),
+        None => class_name.clone(),
     };
 
     let instance = state.tree.get_instance_mut(instance_id).unwrap();
+    instance.class_name = class_name;
     instance.name = instance_name;
-    instance.properties = property_map;
+    instance.properties = properties;
 
     Ok(())
 }
