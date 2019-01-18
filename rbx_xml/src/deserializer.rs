@@ -345,9 +345,8 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
                     let mut property_name = None;
 
                     for attribute in attributes.drain(..) {
-                        match attribute.name.local_name.as_str() {
-                            "name" => property_name = Some(attribute.value),
-                            _ => {},
+                        if attribute.name.local_name.as_str() == "name" {
+                            property_name = Some(attribute.value);
                         }
                     }
 
@@ -430,7 +429,7 @@ fn decode_packed_color3(source: &str) -> Result<[u8; 3], DecodeError> {
     let r = (packed_color >> 16) & 0xFF;
     let g = (packed_color >> 8) & 0xFF;
     let b = packed_color & 0xFF;
-    return Ok([ r as u8, g as u8, b as u8 ]);
+    Ok([ r as u8, g as u8, b as u8 ])
 }
 
 fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
@@ -444,7 +443,7 @@ fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue
         reader.next();
         Ok(RbxValue::Color3 {
             // floating-point Color3s go from 0 to 1 instead of 0 to 255
-            value: [ (r as f32) / 255.0, (g as f32) / 255.0, (b as f32) / 255.0 ],
+            value: [ f32::from(r) / 255.0, f32::from(g) / 255.0, f32::from(b) / 255.0 ],
         })
     }
     else {
