@@ -262,6 +262,20 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 
     // TODO: Collect children
 
+    trace!("Class {} with referent {:?}", class, referent);
+
+    let instance_props = RbxInstanceProperties {
+        class_name: class,
+        name: "".to_owned(),
+        properties: HashMap::new(),
+    };
+
+    let instance_id = state.tree.insert_instance(instance_props, parent_id);
+
+    if referent.is_some() {
+        state.referents.insert(referent.unwrap(), instance_id);
+    }
+
     // we have to collect properties in order to create the instance
     // name will be captured in this map and extracted later; XML doesn't store it separately
     let mut property_map: HashMap<String, RbxValue> = HashMap::new();
@@ -269,19 +283,23 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
     let mut depth = 1;
 
     loop {
-        match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-            XmlEvent::StartElement { name, .. } => {
+        match reader.peek().ok_or(DecodeError::MalformedDocument)? {
+            Ok(XmlEvent::StartElement { name, .. }) => {
                 depth += 1;
 
                 match name.local_name.as_str() {
                     "Properties" => {
-                        println!("start prop parsing for inst class {}, referent {:?}", class, referent);
+                        reader.next();
                         deserialize_properties(reader, &mut property_map)?;
                     },
+                    "Item" => {
+                        deserialize_instance(reader, state, instance_id)?;
+                    }
                     _ => unimplemented!(),
                 }
             },
-            XmlEvent::EndElement { name, .. } => {
+            Ok(XmlEvent::EndElement { name, .. }) => {
+                reader.next();
                 depth -= 1;
 
                 if depth == 1 {
@@ -292,7 +310,6 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
         }
     }
 
-    trace!("Class {} with referent {:?}", class, referent);
     let instance_name = match property_map.remove("Name") {
         Some(value) => match value {
             RbxValue::String { value } => value,
@@ -302,17 +319,9 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
         _ => return Err(DecodeError::Message("All instances must be named")),
     };
 
-    let instance_props = RbxInstanceProperties {
-        class_name: class,
-        name: instance_name,
-        properties: property_map,
-    };
-
-    let instance_id = state.tree.insert_instance(instance_props, parent_id);
-
-    if referent.is_some() {
-        state.referents.insert(referent.unwrap(), instance_id);
-    }
+    let instance = state.tree.get_instance_mut(instance_id).unwrap();
+    instance.name = instance_name;
+    instance.properties = property_map;
 
     Ok(())
 }
@@ -499,6 +508,35 @@ mod test {
         decode_str(&mut tree, root_id, document).unwrap();
 
         // TODO: Check that an instance got made
+    }
+
+    #[test]
+    fn children() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Folder" referent="hello">
+                    <Properties>
+                        <string name="Name">Outer</string>
+                    </Properties>
+                    <Item class="Folder" referent="child">
+                        <Properties>
+                            <string name="Name">Inner</string>
+                        </Properties>
+                    </Item>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).unwrap();
+        let root = tree.get_instance(root_id).unwrap();
+        let first_folder = tree.get_instance(root.get_children_ids()[0]).expect("expected a child");
+        let inner_folder = tree.get_instance(first_folder.get_children_ids()[0]).expect("expected a subchild");
+        assert_eq!(first_folder.name, "Outer");
+        assert_eq!(inner_folder.name, "Inner");
     }
 
     #[test]
