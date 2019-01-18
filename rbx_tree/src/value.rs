@@ -18,4 +18,12 @@ pub enum RbxValue {
     Vector3 {
         value: [f64; 3],
     },
+    #[serde(rename_all = "PascalCase")]
+    Color3 {
+        value: [f64; 3],
+    },
+    #[serde(rename_all = "PascalCase")]
+    Color3uint8 {
+        value: [u8; 3],
+    },
 }

@@ -18,6 +18,7 @@ use xml::{
 pub enum DecodeError {
     XmlError(reader::Error),
     FloatParseError(std::num::ParseFloatError),
+    IntParseError(std::num::ParseIntError),
     Message(&'static str),
     MalformedDocument,
 }
@@ -31,6 +32,12 @@ impl From<reader::Error> for DecodeError {
 impl From<std::num::ParseFloatError> for DecodeError {
     fn from(error: std::num::ParseFloatError) -> DecodeError {
         DecodeError::FloatParseError(error)
+    }
+}
+
+impl From<std::num::ParseIntError> for DecodeError {
+    fn from(error: std::num::ParseIntError) -> DecodeError {
+        DecodeError::IntParseError(error)
     }
 }
 
@@ -277,7 +284,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
             XmlEvent::EndElement { name, .. } => {
                 depth -= 1;
 
-                if depth == 0 {
+                if depth == 1 {
                     break;
                 }
             },
@@ -342,6 +349,8 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
             "bool" => deserialize_bool(reader)?,
             "string" => deserialize_string(reader)?,
             "Vector3" => deserialize_vector3(reader)?,
+            "Color3" => deserialize_color3(reader)?,
+            "Color3uint8" => deserialize_color3uint8(reader)?,
             _ => return Err(DecodeError::Message("don't know how to decode this prop type")),
         };
 
@@ -386,6 +395,47 @@ fn deserialize_vector3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValu
 
     Ok(RbxValue::Vector3 {
         value: [x, y, z],
+    })
+}
+
+fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    // Color3s have two possibilities:
+    // They are either a packed int (like Color3uint8) or they are a triple of
+    // <R>, <G>, and <B> tags with floating-point values inside them.
+    // First we have to find out if we have a packed int in.
+    if let Ok(XmlEvent::Characters(content)) = reader.peek().ok_or(DecodeError::MalformedDocument)? {
+        let packed_color: u32 = content.parse()?;
+        let r = (packed_color >> 16) & 0xFF;
+        let g = (packed_color >> 8) & 0xFF;
+        let b = packed_color & 0xFF;
+        // advance the reader; we peeked in the if statement!
+        reader.next();
+        Ok(RbxValue::Color3 {
+            // floating-point Color3s go from 0 to 1 instead of 0 to 255
+            value: [ (r as f64) / 255.0, (g as f64) / 255.0, (b as f64) / 255.0 ],
+        })
+    }
+    else {
+        let r: f64 = reader.read_tag_contents("R")?.parse()?;
+        let g: f64 = reader.read_tag_contents("G")?.parse()?;
+        let b: f64 = reader.read_tag_contents("B")?.parse()?;
+        Ok(RbxValue::Color3 {
+            value: [ r, g, b ],
+        })
+    }
+}
+
+fn deserialize_color3uint8<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    // Color3uint8s are stored as packed u32s.
+    read_event!(reader, XmlEvent::Characters(content) => {
+        let packed_color: u32 = content.parse()?;
+        let r = ((packed_color >> 16) & 0xFF) as u8;
+        let g = ((packed_color >> 8) & 0xFF) as u8;
+        let b = (packed_color & 0xFF) as u8;
+        Ok(RbxValue::Color3uint8 {
+            // floating-point Color3s go from 0 to 1 instead of 0 to 255
+            value: [ r, g, b ],
+        })
     })
 }
 
@@ -503,5 +553,69 @@ mod test {
         assert_eq!(descendant.name, "Test");
         assert_eq!(descendant.class_name, "Vector3Value");
         assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector3 { value: [ 0.0, 0.25, -123.23 ] }));
+    }
+
+    #[test]
+    fn with_color3() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Color3Value" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <Color3 name="Value">
+                            <R>0</R>
+                            <G>0.25</G>
+                            <B>0.75</B>
+                        </Color3>
+                    </Properties>
+                </Item>
+                <Item class="Color3Value" referent="hello">
+                    <Properties>
+                        <string name="Name">Test2</string>
+                        <Color3 name="Value">4294934592</Color3>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        for descendant in tree.descendants(root_id) {
+            if descendant.name == "Test" {
+                assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3 { value: [ 0.0, 0.25, 0.75 ] }));
+            }
+            else if descendant.name == "Test2" {
+                assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3 { value: [ 1.0, 0.5019607843137255, 0.25098039215686274 ] }));
+            }
+        }
+    }
+
+    #[test]
+    fn with_color3uint8() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Color3Value" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <Color3uint8 name="Value">4294934592</Color3uint8>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "Color3Value");
+        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3uint8 { value: [ 255, 128, 64 ] }));
     }
 }
