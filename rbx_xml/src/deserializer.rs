@@ -131,6 +131,7 @@ pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
     let reader = ParserConfig::new()
         .coalesce_characters(true)
+        .cdata_to_characters(true)
         .create_reader(source);
 
     let mut iterator = EventIterator::from_reader(reader);
