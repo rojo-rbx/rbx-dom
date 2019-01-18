@@ -389,6 +389,7 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
                         break
                     }
                 },
+                XmlEvent::EndDocument { .. } => return Err(DecodeError::MalformedDocument),
                 _ => {},
             }
         }
