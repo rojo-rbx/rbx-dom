@@ -20,7 +20,7 @@ pub enum RbxValue {
     },
     #[serde(rename_all = "PascalCase")]
     Color3 {
-        value: [f64; 3],
+        value: [f32; 3],
     },
     #[serde(rename_all = "PascalCase")]
     Color3uint8 {

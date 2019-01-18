@@ -426,13 +426,13 @@ fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue
         reader.next();
         Ok(RbxValue::Color3 {
             // floating-point Color3s go from 0 to 1 instead of 0 to 255
-            value: [ (r as f64) / 255.0, (g as f64) / 255.0, (b as f64) / 255.0 ],
+            value: [ (r as f32) / 255.0, (g as f32) / 255.0, (b as f32) / 255.0 ],
         })
     }
     else {
-        let r: f64 = reader.read_tag_contents("R")?.parse()?;
-        let g: f64 = reader.read_tag_contents("G")?.parse()?;
-        let b: f64 = reader.read_tag_contents("B")?.parse()?;
+        let r: f32 = reader.read_tag_contents("R")?.parse()?;
+        let g: f32 = reader.read_tag_contents("G")?.parse()?;
+        let b: f32 = reader.read_tag_contents("B")?.parse()?;
         Ok(RbxValue::Color3 {
             value: [ r, g, b ],
         })
