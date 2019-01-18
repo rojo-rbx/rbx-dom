@@ -374,6 +374,7 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
             "bool" => deserialize_bool(reader)?,
             "string" => deserialize_string(reader)?,
             "Vector3" => deserialize_vector3(reader)?,
+            "Vector2" => deserialize_vector2(reader)?,
             "Color3" => deserialize_color3(reader)?,
             "Color3uint8" => deserialize_color3uint8(reader)?,
             _ => return Err(DecodeError::Message("don't know how to decode this prop type")),
@@ -421,6 +422,15 @@ fn deserialize_vector3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValu
 
     Ok(RbxValue::Vector3 {
         value: [x, y, z],
+    })
+}
+
+fn deserialize_vector2<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    let x: f64 = reader.read_tag_contents("X")?.parse()?;
+    let y: f64 = reader.read_tag_contents("Y")?.parse()?;
+
+    Ok(RbxValue::Vector2 {
+        value: [x, y],
     })
 }
 
@@ -683,5 +693,33 @@ mod test {
         assert_eq!(descendant.name, "Test");
         assert_eq!(descendant.class_name, "Color3Value");
         assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3uint8 { value: [ 255, 128, 64 ] }));
+    }
+
+    #[test]
+    fn with_vector2() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Vector2Value" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <Vector2 name="Value">
+                            <X>0</X>
+                            <Y>0.5</Y>
+                        </Vector2>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "Vector2Value");
+        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector2 { value: [ 0.0, 0.5 ] }));
     }
 }
