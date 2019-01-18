@@ -412,16 +412,21 @@ fn deserialize_vector3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValu
     })
 }
 
+fn decode_packed_color3(source: &str) -> Result<[u8; 3], DecodeError> {
+    let packed_color: u32 = source.parse()?;
+    let r = (packed_color >> 16) & 0xFF;
+    let g = (packed_color >> 8) & 0xFF;
+    let b = packed_color & 0xFF;
+    return Ok([ r as u8, g as u8, b as u8 ]);
+}
+
 fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     // Color3s have two possibilities:
     // They are either a packed int (like Color3uint8) or they are a triple of
     // <R>, <G>, and <B> tags with floating-point values inside them.
     // First we have to find out if we have a packed int in.
     if let Ok(XmlEvent::Characters(content)) = reader.peek().ok_or(DecodeError::MalformedDocument)? {
-        let packed_color: u32 = content.parse()?;
-        let r = (packed_color >> 16) & 0xFF;
-        let g = (packed_color >> 8) & 0xFF;
-        let b = packed_color & 0xFF;
+        let [r, g, b] = decode_packed_color3(content)?;
         // advance the reader; we peeked in the if statement!
         reader.next();
         Ok(RbxValue::Color3 {
@@ -442,13 +447,8 @@ fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue
 fn deserialize_color3uint8<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     // Color3uint8s are stored as packed u32s.
     read_event!(reader, XmlEvent::Characters(content) => {
-        let packed_color: u32 = content.parse()?;
-        let r = ((packed_color >> 16) & 0xFF) as u8;
-        let g = ((packed_color >> 8) & 0xFF) as u8;
-        let b = (packed_color & 0xFF) as u8;
         Ok(RbxValue::Color3uint8 {
-            // floating-point Color3s go from 0 to 1 instead of 0 to 255
-            value: [ r, g, b ],
+            value: decode_packed_color3(&content)?,
         })
     })
 }
