@@ -17,8 +17,8 @@ use xml::{
 #[derive(Debug, Clone, PartialEq)]
 pub enum DecodeError {
     XmlError(reader::Error),
-    FloatParseError(std::num::ParseFloatError),
-    IntParseError(std::num::ParseIntError),
+    ParseFloatError(std::num::ParseFloatError),
+    ParseIntError(std::num::ParseIntError),
     Message(&'static str),
     MalformedDocument,
 }
@@ -31,13 +31,13 @@ impl From<reader::Error> for DecodeError {
 
 impl From<std::num::ParseFloatError> for DecodeError {
     fn from(error: std::num::ParseFloatError) -> DecodeError {
-        DecodeError::FloatParseError(error)
+        DecodeError::ParseFloatError(error)
     }
 }
 
 impl From<std::num::ParseIntError> for DecodeError {
     fn from(error: std::num::ParseIntError) -> DecodeError {
-        DecodeError::IntParseError(error)
+        DecodeError::ParseIntError(error)
     }
 }
 
