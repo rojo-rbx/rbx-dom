@@ -82,7 +82,7 @@ impl<R: Read> EventIterator<R> {
         });
 
         let contents = read_event!(self, XmlEvent::Characters(content) => content);
-        read_event!(self, XmlEvent::EndElement { name, .. } => {});
+        read_event!(self, XmlEvent::EndElement { .. } => {});
 
         Ok(contents)
     }
