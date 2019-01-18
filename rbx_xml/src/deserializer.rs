@@ -47,9 +47,12 @@ struct EventIterator<R: Read> {
 
 macro_rules! read_event {
     {$reader:expr, $xmlevent:pat => $body:expr} => {
-        match $reader.next().ok_or(DecodeError::MalformedDocument)?? {
-            $xmlevent => $body,
-            _ => return Err(DecodeError::MalformedDocument),
+        loop {
+            match $reader.next().ok_or(DecodeError::MalformedDocument)?? {
+                $xmlevent => break $body,
+                XmlEvent::Whitespace(_) => {},
+                _ => return Err(DecodeError::MalformedDocument),
+            }
         }
     };
 }
@@ -127,7 +130,6 @@ pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<
 /// objects when saving a model file.
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
     let reader = ParserConfig::new()
-        .trim_whitespace(true)
         .coalesce_characters(true)
         .create_reader(source);
 
@@ -305,6 +307,9 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
                     break;
                 }
             },
+            Ok(XmlEvent::Whitespace(_)) => {
+                reader.next();
+            },
             _ => {},
         }
     }
@@ -326,31 +331,43 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 }
 
 fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut HashMap<String, RbxValue>) -> Result<(), DecodeError> {
+    read_event!(reader, XmlEvent::StartElement { name, .. } => {
+        if name.local_name != "Properties" {
+            return Err(DecodeError::MalformedDocument)
+        }
+    });
+
     loop {
-        let (property_type, property_name) = match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-            XmlEvent::StartElement { name, mut attributes, .. } => {
-                let mut property_name = None;
+        let (property_type, property_name) = loop {
+            match reader.next().ok_or(DecodeError::MalformedDocument)?? {
+                XmlEvent::StartElement { name, mut attributes, .. } => {
+                    let mut property_name = None;
 
-                for attribute in attributes.drain(..) {
-                    match attribute.name.local_name.as_str() {
-                        "name" => property_name = Some(attribute.value),
-                        _ => {},
+                    for attribute in attributes.drain(..) {
+                        match attribute.name.local_name.as_str() {
+                            "name" => property_name = Some(attribute.value),
+                            _ => {},
+                        }
                     }
-                }
 
-                let property_name = property_name.ok_or(DecodeError::Message("Missing 'name' for property tag"))?;
-                (name.local_name, property_name)
-            },
-            XmlEvent::EndElement { name } => {
-                if name.local_name == "Properties" {
-                    return Ok(())
-                }
-                else {
-                    unreachable!()
-                }
-            },
-            XmlEvent::Characters(chars) => panic!("Characters {:?}", chars),
-            _ => unreachable!(),
+                    let property_name = property_name.ok_or(DecodeError::Message("Missing 'name' for property tag"))?;
+                    break (name.local_name, property_name)
+                },
+                XmlEvent::EndElement { name } => {
+                    if name.local_name == "Properties" {
+                        return Ok(())
+                    }
+                    else {
+                        return Err(DecodeError::MalformedDocument)
+                    }
+                },
+                XmlEvent::Whitespace(_) => {
+                },
+                XmlEvent::Characters(chars) => panic!("Characters {:?}", chars),
+                _ => {
+                    return Err(DecodeError::MalformedDocument)
+                },
+            };
         };
 
         let value = match property_type.as_str() {
