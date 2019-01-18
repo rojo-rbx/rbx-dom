@@ -241,7 +241,7 @@ fn eat_unknown_tag<R: Read>(reader: &mut EventIterator<R>) -> Result<(), DecodeE
 }
 
 fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState, parent_id: RbxId) -> Result<(), DecodeError> {
-    let (class, referent) = read_event!(reader, XmlEvent::StartElement { name, mut attributes, .. } => {
+    let (class_name, referent) = read_event!(reader, XmlEvent::StartElement { name, mut attributes, .. } => {
         assert_eq!(name.local_name, "Item");
 
         let mut class = None;
@@ -262,11 +262,11 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 
     // TODO: Collect children
 
-    trace!("Class {} with referent {:?}", class, referent);
+    trace!("Class {} with referent {:?}", class_name, referent);
 
     let instance_props = RbxInstanceProperties {
-        class_name: class,
-        name: "".to_owned(),
+        class_name,
+        name: String::new(),
         properties: HashMap::new(),
     };
 
@@ -289,16 +289,21 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 
                 match name.local_name.as_str() {
                     "Properties" => {
+                        // we need to advance here; deserialize_properties
+                        // expects that the <Properties> tag has been eaten
                         reader.next();
                         deserialize_properties(reader, &mut property_map)?;
                     },
                     "Item" => {
+                        // we do not need to advance here; deserialize_instance
+                        // needs to read the initial <Item> tag
                         deserialize_instance(reader, state, instance_id)?;
                     }
                     _ => unimplemented!(),
                 }
             },
-            Ok(XmlEvent::EndElement { name, .. }) => {
+            Ok(XmlEvent::EndElement { .. }) => {
+                // advance here as well
                 reader.next();
                 depth -= 1;
 
