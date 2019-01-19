@@ -38,4 +38,8 @@ pub enum RbxValue {
     Vector2int16 {
         value: [i16; 2],
     },
+    #[serde(rename_all = "PascalCase")]
+    CoordinateFrame {
+        value: [f32; 12],
+    }
 }

@@ -379,6 +379,7 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
             "Vector2int16" => deserialize_vector2int16(reader)?,
             "Color3" => deserialize_color3(reader)?,
             "Color3uint8" => deserialize_color3uint8(reader)?,
+            "CoordinateFrame" => deserialize_cframe(reader)?,
             _ => return Err(DecodeError::Message("don't know how to decode this prop type")),
         };
 
@@ -493,6 +494,20 @@ fn deserialize_vector2int16<R: Read>(reader: &mut EventIterator<R>) -> Result<Rb
 
     Ok(RbxValue::Vector2int16 {
         value: [x, y],
+    })
+}
+
+fn deserialize_cframe<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    const TAG_NAMES: [&str; 12] = [ "X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22" ];
+
+    let mut components: [f32; 12] = [ 0.0; 12 ];
+    for index in 0..=11 {
+        let tag_name = TAG_NAMES[index];
+        components[index] = reader.read_tag_contents(tag_name)?.parse()?;
+    }
+
+    Ok(RbxValue::CoordinateFrame {
+        value: components,
     })
 }
 
@@ -742,5 +757,43 @@ mod test {
         assert_eq!(descendant.name, "Test");
         assert_eq!(descendant.class_name, "Vector2Value");
         assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector2 { value: [ 0.0, 0.5 ] }));
+    }
+
+    #[test]
+    fn with_cframe() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="CFrameValue" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <CoordinateFrame name="Value">
+                            <X>0</X>
+                            <Y>0.5</Y>
+                            <Z>0</Z>
+                            <R00>1</R00>
+                            <R01>0</R01>
+                            <R02>0</R02>
+                            <R10>0</R10>
+                            <R11>1</R11>
+                            <R12>0</R12>
+                            <R20>0</R20>
+                            <R21>0</R21>
+                            <R22>1</R22>
+                        </CoordinateFrame>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "CFrameValue");
+        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::CoordinateFrame { value: [ 0.0, 0.5, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ] }));
     }
 }
