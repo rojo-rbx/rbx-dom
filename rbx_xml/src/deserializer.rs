@@ -374,7 +374,9 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
             "bool" => deserialize_bool(reader)?,
             "string" => deserialize_string(reader)?,
             "Vector3" => deserialize_vector3(reader)?,
+            "Vector3int16" => deserialize_vector3int16(reader)?,
             "Vector2" => deserialize_vector2(reader)?,
+            "Vector2int16" => deserialize_vector2int16(reader)?,
             "Color3" => deserialize_color3(reader)?,
             "Color3uint8" => deserialize_color3uint8(reader)?,
             _ => return Err(DecodeError::Message("don't know how to decode this prop type")),
@@ -472,6 +474,25 @@ fn deserialize_color3uint8<R: Read>(reader: &mut EventIterator<R>) -> Result<Rbx
         Ok(RbxValue::Color3uint8 {
             value: decode_packed_color3(&content)?,
         })
+    })
+}
+
+fn deserialize_vector3int16<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    let x: i16 = reader.read_tag_contents("X")?.parse()?;
+    let y: i16 = reader.read_tag_contents("Y")?.parse()?;
+    let z: i16 = reader.read_tag_contents("Z")?.parse()?;
+
+    Ok(RbxValue::Vector3int16 {
+        value: [x, y, z],
+    })
+}
+
+fn deserialize_vector2int16<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    let x: i16 = reader.read_tag_contents("X")?.parse()?;
+    let y: i16 = reader.read_tag_contents("Y")?.parse()?;
+
+    Ok(RbxValue::Vector2int16 {
+        value: [x, y],
     })
 }
 

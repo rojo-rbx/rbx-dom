@@ -30,4 +30,12 @@ pub enum RbxValue {
     Color3uint8 {
         value: [u8; 3],
     },
+    #[serde(rename_all = "PascalCase")]
+    Vector3int16 {
+        value: [i16; 3],
+    },
+    #[serde(rename_all = "PascalCase")]
+    Vector2int16 {
+        value: [i16; 2],
+    },
 }
