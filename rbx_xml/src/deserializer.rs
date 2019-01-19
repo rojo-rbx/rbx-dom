@@ -361,12 +361,9 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
                         return Err(DecodeError::MalformedDocument)
                     }
                 },
-                XmlEvent::Whitespace(_) => {
-                },
+                XmlEvent::Whitespace(_) => {},
                 XmlEvent::Characters(chars) => panic!("Characters {:?}", chars),
-                _ => {
-                    return Err(DecodeError::MalformedDocument)
-                },
+                _ => return Err(DecodeError::MalformedDocument),
             };
         };
 
