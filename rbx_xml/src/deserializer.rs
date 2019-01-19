@@ -495,7 +495,7 @@ fn deserialize_vector2int16<R: Read>(reader: &mut EventIterator<R>) -> Result<Rb
 }
 
 fn deserialize_cframe<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    const TAG_NAMES: [&str; 12] = [ "X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22" ];
+    static TAG_NAMES: [&str; 12] = [ "X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22" ];
 
     let mut components: [f32; 12] = [ 0.0; 12 ];
     for index in 0..=11 {
