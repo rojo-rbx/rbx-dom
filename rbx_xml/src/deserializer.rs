@@ -356,8 +356,7 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
                 XmlEvent::EndElement { name } => {
                     if name.local_name == "Properties" {
                         return Ok(())
-                    }
-                    else {
+                    } else {
                         return Err(DecodeError::MalformedDocument)
                     }
                 },
@@ -454,8 +453,7 @@ fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue
             // floating-point Color3s go from 0 to 1 instead of 0 to 255
             value: [ f32::from(r) / 255.0, f32::from(g) / 255.0, f32::from(b) / 255.0 ],
         })
-    }
-    else {
+    } else {
         let r: f32 = reader.read_tag_contents("R")?.parse()?;
         let g: f32 = reader.read_tag_contents("G")?.parse()?;
         let b: f32 = reader.read_tag_contents("B")?.parse()?;
@@ -688,14 +686,12 @@ mod test {
         for descendant in tree.descendants(root_id) {
             if descendant.name == "Test" {
                 assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3 { value: [ 0.0, 0.25, 0.75 ] }));
-            }
-            else if descendant.name == "Test2" {
+            } else if descendant.name == "Test2" {
                 if let Some(&RbxValue::Color3 { value }) = descendant.properties.get("Value") {
                     assert!(floats_approx_equal(value[0], 1.0, 0.001));
                     assert!(floats_approx_equal(value[1], 0.501961, 0.001));
                     assert!(floats_approx_equal(value[2], 0.250980, 0.001));
-                }
-                else {
+                } else {
                     panic!("value was not a Color3 or did not deserialize properly");
                 }
             }
