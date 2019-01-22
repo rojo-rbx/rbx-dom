@@ -5,8 +5,12 @@
 //! values, but the deserializer currently does not finish constructing
 //! instances.
 
-mod serializer;
+#[macro_use]
+mod macros;
+
 mod deserializer;
+mod serializer;
+mod types;
 
 pub use crate::{
     serializer::{encode, EncodeError},

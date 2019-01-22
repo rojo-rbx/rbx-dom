@@ -4,6 +4,13 @@ use xml::writer::{EventWriter, EmitterConfig, XmlEvent};
 
 use rbx_tree::{RbxTree, RbxValue, RbxId};
 
+use crate::{
+    types::{
+        serialize_bool,
+        serialize_string,
+    },
+};
+
 #[derive(Debug)]
 pub enum EncodeError {
     IoError(io::Error),
@@ -38,32 +45,15 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), 
     Ok(())
 }
 
-fn serialize_value<W: Write>(writer: &mut EventWriter<W>, name: &str, value: &RbxValue) -> xml::writer::Result<()> {
+fn serialize_value<W: Write>(writer: &mut EventWriter<W>, name: &str, value: &RbxValue) -> Result<(), EncodeError> {
     match value {
-        RbxValue::String { value } => {
-            writer.write(XmlEvent::start_element("string").attr("name", name))?;
-            writer.write(XmlEvent::characters(&value))?;
-            writer.write(XmlEvent::end_element())?;
-        },
-        RbxValue::Bool { value } => {
-            writer.write(XmlEvent::start_element("bool").attr("name", name))?;
-
-            let value_as_str = if *value {
-                "true"
-            } else {
-                "false"
-            };
-
-            writer.write(XmlEvent::characters(value_as_str))?;
-            writer.write(XmlEvent::end_element())?;
-        },
+        RbxValue::String { value } => serialize_string(writer, name, value),
+        RbxValue::Bool { value } => serialize_bool(writer, name, *value),
         _ => unimplemented!(),
     }
-
-    Ok(())
 }
 
-fn serialize_instance<W: Write>(writer: &mut EventWriter<W>, tree: &RbxTree, id: RbxId) -> xml::writer::Result<()> {
+fn serialize_instance<W: Write>(writer: &mut EventWriter<W>, tree: &RbxTree, id: RbxId) -> Result<(), EncodeError> {
     let instance = tree.get_instance(id).unwrap();
     writer.write(XmlEvent::start_element("Item")
         .attr("class", &instance.class_name)

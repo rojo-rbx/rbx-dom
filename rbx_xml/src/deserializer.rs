@@ -13,6 +13,13 @@ use xml::{
     reader::{self, XmlEvent},
 };
 
+use crate::{
+    types::{
+        deserialize_bool,
+        deserialize_string,
+    },
+};
+
 /// Indicates an error trying to parse an rbxmx or rbxlx document
 #[derive(Debug, Clone, PartialEq)]
 pub enum DecodeError {
@@ -41,24 +48,12 @@ impl From<std::num::ParseIntError> for DecodeError {
     }
 }
 
-struct EventIterator<R: Read> {
+pub struct EventIterator<R: Read> {
     inner: Peekable<reader::Events<R>>,
 }
 
-macro_rules! read_event {
-    {$reader:expr, $xmlevent:pat => $body:expr} => {
-        loop {
-            match $reader.next().ok_or(DecodeError::MalformedDocument)?? {
-                $xmlevent => break $body,
-                XmlEvent::Whitespace(_) => {},
-                _ => return Err(DecodeError::MalformedDocument),
-            }
-        }
-    };
-}
-
 impl<R: Read> EventIterator<R> {
-    fn peek(&mut self) -> Option<&<Self as Iterator>::Item> {
+    pub fn peek(&mut self) -> Option<&<Self as Iterator>::Item> {
         self.inner.peek()
     }
 
@@ -77,7 +72,7 @@ impl<R: Read> EventIterator<R> {
     ///   <Y>0</Y>
     ///   <Z>0</Z>
     /// </Vector3>
-    fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
+    pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
         read_event!(self, XmlEvent::StartElement { name, .. } => {
             if name.local_name != expected_name {
                 return Err(DecodeError::Message("got wrong tag name"));
@@ -114,15 +109,11 @@ enum ParseEnvironment {
     },
 }
 
-/// INCOMPLETE: This function does not finish constructing instances.
-///
 /// A utility method to decode an XML-format model from a string.
 pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), DecodeError> {
     decode(tree, parent_id, source.as_bytes())
 }
 
-/// INCOMPLETE: This function does not finish constructing instances.
-///
 /// Decodes source from the given buffer into the instance in the given tree.
 ///
 /// Roblox model files can contain multiple instances at the top level. This
@@ -263,8 +254,6 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
         (class, referent)
     });
 
-    // TODO: Collect children
-
     trace!("Class {} with referent {:?}", class_name, referent);
 
     let instance_props = RbxInstanceProperties {
@@ -393,24 +382,6 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
             }
         }
     }
-}
-
-fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    let value = read_event!(reader, XmlEvent::Characters(content) => {
-        match content.as_str() {
-            "true" => true,
-            "false" => false,
-            _ => return Err(DecodeError::Message("invalid boolean value, expected true or false")),
-        }
-    });
-
-    Ok(RbxValue::Bool {
-        value
-    })
-}
-
-fn deserialize_string<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    read_event!(reader, XmlEvent::Characters(content) => Ok(RbxValue::String { value: content }))
 }
 
 fn deserialize_vector3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
@@ -568,7 +539,8 @@ mod test {
 
         decode_str(&mut tree, root_id, document).unwrap();
 
-        // TODO: Check that an instance got made
+        let root = tree.get_instance(root_id).unwrap();
+        assert_eq!(root.get_children_ids().len(), 1);
     }
 
     #[test]
@@ -626,7 +598,7 @@ mod test {
     }
 
     #[test]
-    fn with_v3() {
+    fn with_vector3() {
         let _ = env_logger::try_init();
         let document = r#"
             <roblox version="4">
