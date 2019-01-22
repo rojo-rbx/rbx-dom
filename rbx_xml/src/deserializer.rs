@@ -55,6 +55,29 @@ impl From<std::num::ParseIntError> for DecodeError {
     }
 }
 
+/// A utility method to decode an XML-format model from a string.
+pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), DecodeError> {
+    decode(tree, parent_id, source.as_bytes())
+}
+
+/// Decodes source from the given buffer into the instance in the given tree.
+///
+/// Roblox model files can contain multiple instances at the top level. This
+/// happens in the case of places as well as Studio users choosing multiple
+/// objects when saving a model file.
+pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
+    let reader = ParserConfig::new()
+        .coalesce_characters(true)
+        .cdata_to_characters(true)
+        .ignore_comments(true)
+        .create_reader(source);
+
+    let mut iterator = EventIterator::from_reader(reader);
+    let mut state = ParseState::new(tree);
+
+    deserialize_root(&mut iterator, &mut state, parent_id)
+}
+
 pub struct EventIterator<R: Read> {
     inner: Peekable<reader::Events<R>>,
 }
@@ -103,56 +126,16 @@ impl<R: Read> Iterator for EventIterator<R> {
 }
 
 struct ParseState<'a> {
-    environment: ParseEnvironment,
     referents: HashMap<String, RbxId>,
     tree: &'a mut RbxTree,
 }
 
-enum ParseEnvironment {
-    Root {
-        root_parent: RbxId,
-    },
-    Instance {
-        parent: RbxId,
-    },
-}
-
-/// A utility method to decode an XML-format model from a string.
-pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), DecodeError> {
-    decode(tree, parent_id, source.as_bytes())
-}
-
-/// Decodes source from the given buffer into the instance in the given tree.
-///
-/// Roblox model files can contain multiple instances at the top level. This
-/// happens in the case of places as well as Studio users choosing multiple
-/// objects when saving a model file.
-pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
-    let reader = ParserConfig::new()
-        .coalesce_characters(true)
-        .cdata_to_characters(true)
-        .create_reader(source);
-
-    let mut iterator = EventIterator::from_reader(reader);
-    let mut parse_state = ParseState {
-        environment: ParseEnvironment::Root {
-            root_parent: parent_id,
-        },
-        referents: HashMap::new(),
-        tree,
-    };
-
-    deserialize_next(&mut iterator, &mut parse_state)
-}
-
-fn deserialize_next<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState) -> Result<(), DecodeError> {
-    match &state.environment {
-        ParseEnvironment::Root { root_parent, .. } => {
-            deserialize_root(reader, state, *root_parent)
-        },
-        ParseEnvironment::Instance { parent, .. } => {
-            deserialize_instance(reader, state, *parent)
-        },
+impl<'a> ParseState<'a> {
+    fn new(tree: &mut RbxTree) -> ParseState {
+        ParseState {
+            referents: HashMap::new(),
+            tree,
+        }
     }
 }
 
@@ -187,11 +170,7 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
         match reader.peek().ok_or(DecodeError::MalformedDocument)? {
             Ok(XmlEvent::StartElement { name, .. }) => {
                 if name.local_name == "Item" {
-                    state.environment = ParseEnvironment::Instance {
-                        parent: parent_id,
-                    };
-
-                    deserialize_next(reader, state)?;
+                    deserialize_instance(reader, state, parent_id)?;
                 } else {
                     eat_unknown_tag(reader)?;
                 }
@@ -213,29 +192,6 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
                     Ok(_) => unreachable!(),
                 }
             },
-        }
-    }
-
-    Ok(())
-}
-
-/// Consume events from the iterator until we reach the end of the next tag.
-fn eat_unknown_tag<R: Read>(reader: &mut EventIterator<R>) -> Result<(), DecodeError> {
-    let mut depth = 0;
-
-    loop {
-        match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-            XmlEvent::StartElement { .. } => {
-                depth += 1;
-            },
-            XmlEvent::EndElement { .. } => {
-                depth -= 1;
-
-                if depth == 0 {
-                    break;
-                }
-            },
-            _ => {},
         }
     }
 
@@ -385,6 +341,29 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
             }
         });
     }
+}
+
+/// Consume events from the iterator until we reach the end of the next tag.
+fn eat_unknown_tag<R: Read>(reader: &mut EventIterator<R>) -> Result<(), DecodeError> {
+    let mut depth = 0;
+
+    loop {
+        match reader.next().ok_or(DecodeError::MalformedDocument)?? {
+            XmlEvent::StartElement { .. } => {
+                depth += 1;
+            },
+            XmlEvent::EndElement { .. } => {
+                depth -= 1;
+
+                if depth == 0 {
+                    break;
+                }
+            },
+            _ => {},
+        }
+    }
+
+    Ok(())
 }
 
 #[cfg(test)]
