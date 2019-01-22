@@ -260,7 +260,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
                     "Item" => {
                         deserialize_instance(reader, state, instance_id)?;
                     }
-                    _ => unimplemented!(),
+                    _ => return Err(DecodeError::MalformedDocument),
                 }
             },
             Ok(XmlEvent::EndElement { .. }) => {
