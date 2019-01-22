@@ -169,10 +169,20 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
     loop {
         match reader.peek().ok_or(DecodeError::MalformedDocument)? {
             Ok(XmlEvent::StartElement { name, .. }) => {
-                if name.local_name == "Item" {
-                    deserialize_instance(reader, state, parent_id)?;
-                } else {
-                    eat_unknown_tag(reader)?;
+                match name.local_name.as_str() {
+                    "Item" => {
+                        deserialize_instance(reader, state, parent_id)?;
+                    },
+                    "External" => {
+                        // This tag is always meaningless, there's nothing to do
+                        // here except skip it.
+                        eat_unknown_tag(reader)?;
+                    },
+                    "Meta" => {
+                        // TODO: Actually parse metadata
+                        eat_unknown_tag(reader)?;
+                    },
+                    _ => return Err(DecodeError::MalformedDocument),
                 }
             },
             Ok(XmlEvent::EndElement { name, .. }) => {
@@ -398,13 +408,12 @@ mod test {
     }
 
     #[test]
-    fn just_garbage() {
+    fn mostly_empty() {
         let _ = env_logger::try_init();
         let document = r#"
             <roblox version="4">
                 <!-- hello there! -->
-                <meta name="trash" />
-                <foo></foo>
+                <Meta name="trash" />
             </roblox>
         "#;
 
@@ -412,6 +421,21 @@ mod test {
         let root_id = tree.get_root_id();
 
         decode_str(&mut tree, root_id, document).unwrap();
+    }
+
+    #[test]
+    fn top_level_garbage() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <ack />
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        assert!(decode_str(&mut tree, root_id, document).is_err());
     }
 
     #[test]
