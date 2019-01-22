@@ -377,18 +377,13 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
 
         props.insert(property_name, value);
 
-        // continue until we find the matching close tag (after deserialization)
-        loop {
-            match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-                XmlEvent::EndElement { name } => {
-                    if name.local_name == property_type {
-                        break
-                    }
-                },
-                XmlEvent::EndDocument { .. } => return Err(DecodeError::MalformedDocument),
-                _ => {},
+        // If there's anything left after the type deserializer kernel, then
+        // stuff is broken.
+        read_event!(reader, XmlEvent::EndElement { name } => {
+            if name.local_name != property_type {
+                return Err(DecodeError::MalformedDocument);
             }
-        }
+        });
     }
 }
 
