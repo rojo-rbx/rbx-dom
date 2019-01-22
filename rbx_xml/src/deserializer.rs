@@ -127,6 +127,7 @@ impl<R: Read> Iterator for EventIterator<R> {
 
 struct ParseState<'a> {
     referents: HashMap<String, RbxId>,
+    metadata: HashMap<String, String>,
     tree: &'a mut RbxTree,
 }
 
@@ -134,6 +135,7 @@ impl<'a> ParseState<'a> {
     fn new(tree: &mut RbxTree) -> ParseState {
         ParseState {
             referents: HashMap::new(),
+            metadata: HashMap::new(),
             tree,
         }
     }
@@ -180,7 +182,7 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
                     },
                     "Meta" => {
                         // TODO: Actually parse metadata
-                        eat_unknown_tag(reader)?;
+                        deserialize_metadata(reader, state)?;
                     },
                     _ => return Err(DecodeError::MalformedDocument),
                 }
@@ -205,6 +207,38 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
         }
     }
 
+    Ok(())
+}
+
+fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState) -> Result<(), DecodeError> {
+    // TODO: Strongly type metadata instead?
+
+    let name = read_event!(reader, XmlEvent::StartElement { name, mut attributes, .. } => {
+        assert_eq!(name.local_name, "Meta");
+
+        let mut name = None;
+
+        for attribute in attributes.drain(..) {
+            match attribute.name.local_name.as_str() {
+                "name" => name = Some(attribute.value),
+                _ => {},
+            }
+        }
+
+        name.ok_or(DecodeError::MalformedDocument)?
+    });
+
+    let value = read_event!(reader, XmlEvent::Characters(value) => value);
+
+    read_event!(reader, XmlEvent::EndElement { name, .. } => {
+        if name.local_name != "Meta" {
+            return Err(DecodeError::MalformedDocument);
+        }
+    });
+
+    trace!("Metadata: {} = {}", name, value);
+
+    state.metadata.insert(name, value);
     Ok(())
 }
 
@@ -413,7 +447,7 @@ mod test {
         let document = r#"
             <roblox version="4">
                 <!-- hello there! -->
-                <Meta name="trash" />
+                <Meta name="Trash">true</Meta>
             </roblox>
         "#;
 
