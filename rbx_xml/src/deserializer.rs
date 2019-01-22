@@ -63,14 +63,15 @@ impl<R: Read> EventIterator<R> {
         }
     }
 
-    /// Reads a tag completely and returns its text content.
-    /// This is intended for parsing simple tags where we don't care about the
-    /// attributes or children, only the text value, for Vector3s and such, which
-    /// are encoded like:
+    /// Reads a tag completely and returns its text content. This is intended
+    /// for parsing simple tags where we don't care about the attributes or
+    /// children, only the text value, for Vector3s and such, which are encoded
+    /// like:
+    ///
     /// <Vector3>
-    ///   <X>0</X>
-    ///   <Y>0</Y>
-    ///   <Z>0</Z>
+    ///     <X>0</X>
+    ///     <Y>0</Y>
+    ///     <Z>0</Z>
     /// </Vector3>
     pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
         read_event!(self, XmlEvent::StartElement { name, .. } => {
