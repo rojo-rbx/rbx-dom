@@ -1,6 +1,4 @@
-use std::{
-    io::{Read, Write},
-};
+use std::io::{Read, Write};
 
 use xml::{
     writer::{XmlEvent as XmlWriteEvent, EventWriter},
