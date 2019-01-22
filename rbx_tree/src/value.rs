@@ -1,6 +1,6 @@
 use serde_derive::{Serialize, Deserialize};
 
-// TODO: Custom serialize/deserialize to encode literals
+// TODO: Custom serialize/deserialize to encode literals more compactly in JSON.
 
 /// Represents a value that can be assigned to the properties of an instance.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
