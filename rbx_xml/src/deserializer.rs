@@ -195,14 +195,12 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
                 }
             },
             Ok(XmlEvent::EndDocument) => break,
-            Ok(_) => {
+            Ok(XmlEvent::Whitespace(_)) => {
                 let _ = reader.next();
             },
+            Ok(_) => return Err(DecodeError::MalformedDocument),
             Err(_) => {
-                match reader.next().unwrap() {
-                    Err(e) => return Err(e.into()),
-                    Ok(_) => unreachable!(),
-                }
+                reader.next().unwrap()?;
             },
         }
     }
