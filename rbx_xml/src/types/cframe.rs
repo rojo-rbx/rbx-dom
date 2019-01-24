@@ -20,7 +20,7 @@ pub fn deserialize_cframe<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxV
 
     reader.expect_end_with_name("CoordinateFrame")?;
 
-    Ok(RbxValue::CoordinateFrame {
+    Ok(RbxValue::CFrame {
         value: components,
     })
 }

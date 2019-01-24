@@ -724,6 +724,13 @@ mod test {
         let descendant = tree.descendants(root_id).nth(1).unwrap();
         assert_eq!(descendant.name, "Test");
         assert_eq!(descendant.class_name, "CFrameValue");
-        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::CoordinateFrame { value: [ 0.0, 0.5, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ] }));
+        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::CFrame {
+            value: [
+                0.0, 0.5, 0.0,
+                1.0, 0.0, 0.0,
+                0.0, 1.0, 0.0,
+                0.0, 0.0, 1.0,
+            ],
+        }));
     }
 }

@@ -39,7 +39,7 @@ pub enum RbxValue {
         value: [i16; 2],
     },
     #[serde(rename_all = "PascalCase")]
-    CoordinateFrame {
+    CFrame {
         value: [f32; 12],
     }
 }
