@@ -169,7 +169,11 @@ impl<'a> ParseState<'a> {
     }
 }
 
-fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState, parent_id: RbxId) -> Result<(), DecodeError> {
+fn deserialize_root<R: Read>(
+    reader: &mut EventIterator<R>,
+    state: &mut ParseState,
+    parent_id: RbxId
+) -> Result<(), DecodeError> {
     match reader.next().ok_or(DecodeError::MalformedDocument)?? {
         XmlReadEvent::StartDocument { .. } => {},
         _ => return Err(DecodeError::MalformedDocument),
@@ -268,7 +272,11 @@ fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
     Ok(())
 }
 
-fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState, parent_id: RbxId) -> Result<(), DecodeError> {
+fn deserialize_instance<R: Read>(
+    reader: &mut EventIterator<R>,
+    state: &mut ParseState,
+    parent_id: RbxId,
+) -> Result<(), DecodeError> {
     let (class_name, referent) = read_event!(reader, XmlReadEvent::StartElement { name, mut attributes, .. } => {
         assert_eq!(name.local_name, "Item");
 
@@ -354,7 +362,10 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
     Ok(())
 }
 
-fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut HashMap<String, RbxValue>) -> Result<(), DecodeError> {
+fn deserialize_properties<R: Read>(
+    reader: &mut EventIterator<R>,
+    props: &mut HashMap<String, RbxValue>,
+) -> Result<(), DecodeError> {
     read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
         assert_eq!(name.local_name, "Properties");
     });
