@@ -10,6 +10,7 @@ authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
+failure = "0.1.5"
 log = "0.4.6"
 rbx_tree = { version = "0.1.0", path = "../rbx_tree" }
 xml-rs = "0.8"

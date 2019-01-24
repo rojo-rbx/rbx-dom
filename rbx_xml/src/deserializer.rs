@@ -4,14 +4,10 @@ use std::{
     collections::HashMap,
 };
 
+use failure::Fail;
 use log::trace;
 use rbx_tree::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
-
-use xml::{
-    ParserConfig,
-    EventReader,
-    reader::{self, XmlEvent},
-};
+use xml::reader::{self, ParserConfig, XmlEvent};
 
 use crate::{
     types::{
@@ -28,12 +24,22 @@ use crate::{
 };
 
 /// Indicates an error trying to parse an rbxmx or rbxlx document
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Fail, Clone, PartialEq)]
 pub enum DecodeError {
-    XmlError(reader::Error),
-    ParseFloatError(std::num::ParseFloatError),
-    ParseIntError(std::num::ParseIntError),
+    #[fail(display = "XML read error: {}", _0)]
+    XmlError(#[fail(cause)] reader::Error),
+
+    #[fail(display = "Float parse error: {}", _0)]
+    ParseFloatError(#[fail(cause)] std::num::ParseFloatError),
+
+    #[fail(display = "Int parse error: {}", _0)]
+    ParseIntError(#[fail(cause)] std::num::ParseIntError),
+
+    // TODO: Switch to Cow<'static, str>?
+    #[fail(display = "{}", _0)]
     Message(&'static str),
+
+    #[fail(display = "Malformed document")]
     MalformedDocument,
 }
 
@@ -66,13 +72,7 @@ pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<
 /// happens in the case of places as well as Studio users choosing multiple
 /// objects when saving a model file.
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
-    let reader = ParserConfig::new()
-        .coalesce_characters(true)
-        .cdata_to_characters(true)
-        .ignore_comments(true)
-        .create_reader(source);
-
-    let mut iterator = EventIterator::from_reader(reader);
+    let mut iterator = EventIterator::from_source(source);
     let mut state = ParseState::new(tree);
 
     deserialize_root(&mut iterator, &mut state, parent_id)
@@ -87,10 +87,36 @@ impl<R: Read> EventIterator<R> {
         self.inner.peek()
     }
 
-    fn from_reader(reader: EventReader<R>) -> EventIterator<R> {
+    pub fn from_source(source: R) -> EventIterator<R> {
+        let reader = ParserConfig::new()
+            .coalesce_characters(true)
+            .cdata_to_characters(true)
+            .ignore_comments(true)
+            .create_reader(source);
+
         EventIterator {
             inner: reader.into_iter().peekable(),
         }
+    }
+
+    pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
+        read_event!(self, XmlEvent::StartElement { name, .. } => {
+            if name.local_name != expected_name {
+                return Err(DecodeError::Message("Wrong opening tag"));
+            }
+        });
+
+        Ok(())
+    }
+
+    pub fn expect_end_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
+        read_event!(self, XmlEvent::EndElement { name } => {
+            if name.local_name != expected_name {
+                return Err(DecodeError::Message("Wrong closing tag"));
+            }
+        });
+
+        Ok(())
     }
 
     /// Reads a tag completely and returns its text content. This is intended

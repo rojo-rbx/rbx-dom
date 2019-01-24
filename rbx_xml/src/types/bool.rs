@@ -28,9 +28,7 @@ pub fn serialize_bool<W: Write>(writer: &mut EventWriter<W>, name: &str, value: 
 }
 
 pub fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
-        assert_eq!(name.local_name, "bool");
-    });
+    reader.expect_start_with_name("bool")?;
 
     let value = read_event!(reader, XmlReadEvent::Characters(content) => {
         match content.as_str() {
@@ -40,13 +38,36 @@ pub fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxVal
         }
     });
 
-    read_event!(reader, XmlReadEvent::EndElement { name } => {
-        if name.local_name != "bool" {
-            return Err(DecodeError::Message("Wrong closing tag, expected 'bool'"));
-        }
-    });
+    reader.expect_end_with_name("bool")?;
 
     Ok(RbxValue::Bool {
         value
     })
+}
+
+#[cfg(test)]
+mod test {
+    use crate::serializer::create_writer;
+
+    use super::*;
+
+    #[test]
+    fn round_trip() {
+        let _ = env_logger::try_init();
+
+        let mut buffer = Vec::new();
+
+        let mut writer = create_writer(&mut buffer);
+        serialize_bool(&mut writer, "foo", true).unwrap();
+
+        println!("{}", std::str::from_utf8(&buffer).unwrap());
+
+        let mut reader = EventIterator::from_source(buffer.as_slice());
+        reader.next().unwrap().unwrap(); // Eat StartDocument event
+        let value = deserialize_bool(&mut reader).unwrap();
+
+        assert_eq!(value, RbxValue::Bool {
+            value: true,
+        });
+    }
 }

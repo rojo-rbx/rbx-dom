@@ -5,7 +5,10 @@ macro_rules! read_event {
             match $reader.next().ok_or(crate::deserializer::DecodeError::Message("Unexpected EOF"))?? {
                 $xmlevent => break $body,
                 ::xml::reader::XmlEvent::Whitespace(_) => {},
-                _ => return Err(crate::deserializer::DecodeError::MalformedDocument),
+                invalid => {
+                    ::log::trace!("Expected event {}, got event {:?}", stringify!($xmlevent), invalid);
+                    return Err(crate::deserializer::DecodeError::MalformedDocument);
+                },
             }
         }
     };
