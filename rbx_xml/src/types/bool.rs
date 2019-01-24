@@ -28,11 +28,21 @@ pub fn serialize_bool<W: Write>(writer: &mut EventWriter<W>, name: &str, value: 
 }
 
 pub fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
+        assert_eq!(name.local_name, "bool");
+    });
+
     let value = read_event!(reader, XmlReadEvent::Characters(content) => {
         match content.as_str() {
             "true" => true,
             "false" => false,
             _ => return Err(DecodeError::Message("invalid boolean value, expected true or false")),
+        }
+    });
+
+    read_event!(reader, XmlReadEvent::EndElement { name } => {
+        if name.local_name != "bool" {
+            return Err(DecodeError::Message("Wrong closing tag, expected 'bool'"));
         }
     });
 

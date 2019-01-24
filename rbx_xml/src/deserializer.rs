@@ -184,7 +184,7 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
                         // TODO: Actually parse metadata
                         deserialize_metadata(reader, state)?;
                     },
-                    _ => return Err(DecodeError::MalformedDocument),
+                    _ => return Err(DecodeError::Message("Unexpected top-level start tag")),
                 }
             },
             Ok(XmlEvent::EndElement { name, .. }) => {
@@ -198,7 +198,7 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
             Ok(XmlEvent::Whitespace(_)) => {
                 let _ = reader.next();
             },
-            Ok(_) => return Err(DecodeError::MalformedDocument),
+            Ok(_) => return Err(DecodeError::Message("Unexpected top-level stuff")),
             Err(_) => {
                 reader.next().unwrap()?;
             },
@@ -223,14 +223,14 @@ fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
             }
         }
 
-        name.ok_or(DecodeError::MalformedDocument)?
+        name.ok_or(DecodeError::Message("Meta missing 'name' field"))?
     });
 
     let value = read_event!(reader, XmlEvent::Characters(value) => value);
 
     read_event!(reader, XmlEvent::EndElement { name, .. } => {
         if name.local_name != "Meta" {
-            return Err(DecodeError::MalformedDocument);
+            return Err(DecodeError::Message("Incorrect closing tag, expected 'Meta'"));
         }
     });
 
@@ -281,7 +281,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
     let mut depth = 1;
 
     loop {
-        match reader.peek().ok_or(DecodeError::MalformedDocument)? {
+        match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
             Ok(XmlEvent::StartElement { name, .. }) => {
                 depth += 1;
 
@@ -292,7 +292,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
                     "Item" => {
                         deserialize_instance(reader, state, instance_id)?;
                     }
-                    _ => return Err(DecodeError::MalformedDocument),
+                    _ => return Err(DecodeError::Message("Unexpected tag inside instance")),
                 }
             },
             Ok(XmlEvent::EndElement { .. }) => {
@@ -328,35 +328,36 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 
 fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut HashMap<String, RbxValue>) -> Result<(), DecodeError> {
     read_event!(reader, XmlEvent::StartElement { name, .. } => {
-        if name.local_name != "Properties" {
-            return Err(DecodeError::MalformedDocument)
-        }
+        assert_eq!(name.local_name, "Properties");
     });
 
     loop {
         let (property_type, property_name) = loop {
-            match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-                XmlEvent::StartElement { name, mut attributes, .. } => {
+            match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
+                Ok(XmlEvent::StartElement { name, attributes, .. }) => {
                     let mut property_name = None;
 
-                    for attribute in attributes.drain(..) {
+                    for attribute in attributes {
                         if attribute.name.local_name.as_str() == "name" {
-                            property_name = Some(attribute.value);
+                            property_name = Some(attribute.value.to_owned());
                         }
                     }
 
                     let property_name = property_name.ok_or(DecodeError::Message("Missing 'name' for property tag"))?;
-                    break (name.local_name, property_name)
+                    break (name.local_name.to_owned(), property_name)
                 },
-                XmlEvent::EndElement { name } => {
+                Ok(XmlEvent::EndElement { name }) => {
                     if name.local_name == "Properties" {
+                        reader.next().unwrap()?;
                         return Ok(())
                     } else {
-                        return Err(DecodeError::MalformedDocument)
+                        return Err(DecodeError::Message("Unexpected end element"))
                     }
                 },
-                XmlEvent::Whitespace(_) => {},
-                _ => return Err(DecodeError::MalformedDocument),
+                Ok(XmlEvent::Whitespace(_)) => {
+                    reader.next().unwrap()?;
+                },
+                Ok(_) | Err(_) => return Err(DecodeError::Message("Unexpected thing in Properties section")),
             };
         };
 
@@ -374,14 +375,6 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
         };
 
         props.insert(property_name, value);
-
-        // If there's anything left after the type deserializer kernel, then
-        // stuff is broken.
-        read_event!(reader, XmlEvent::EndElement { name } => {
-            if name.local_name != property_type {
-                return Err(DecodeError::MalformedDocument);
-            }
-        });
     }
 }
 
@@ -390,7 +383,7 @@ fn eat_unknown_tag<R: Read>(reader: &mut EventIterator<R>) -> Result<(), DecodeE
     let mut depth = 0;
 
     loop {
-        match reader.next().ok_or(DecodeError::MalformedDocument)?? {
+        match reader.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
             XmlEvent::StartElement { .. } => {
                 depth += 1;
             },
@@ -525,7 +518,6 @@ mod test {
             <roblox version="4">
                 <Item class="BoolValue" referent="hello">
                     <Properties>
-                        <string name="Name">Test</string>
                         <bool name="Value">true</bool>
                     </Properties>
                 </Item>
@@ -538,7 +530,7 @@ mod test {
         decode_str(&mut tree, root_id, document).expect("should work D:");
 
         let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.name, "BoolValue");
         assert_eq!(descendant.class_name, "BoolValue");
         assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Bool { value: true }));
     }
