@@ -7,7 +7,7 @@ use std::{
 use failure::Fail;
 use log::trace;
 use rbx_tree::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
-use xml::reader::{self, ParserConfig, XmlEvent};
+use xml::reader::{self, ParserConfig};
 
 use crate::{
     types::{
@@ -22,6 +22,8 @@ use crate::{
         deserialize_vector3int16,
     },
 };
+
+pub use xml::reader::XmlEvent as XmlReadEvent;
 
 /// Indicates an error trying to parse an rbxmx or rbxlx document
 #[derive(Debug, Fail, Clone, PartialEq)]
@@ -100,7 +102,7 @@ impl<R: Read> EventIterator<R> {
     }
 
     pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
-        read_event!(self, XmlEvent::StartElement { name, .. } => {
+        read_event!(self, XmlReadEvent::StartElement { name, .. } => {
             if name.local_name != expected_name {
                 return Err(DecodeError::Message("Wrong opening tag"));
             }
@@ -110,7 +112,7 @@ impl<R: Read> EventIterator<R> {
     }
 
     pub fn expect_end_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
-        read_event!(self, XmlEvent::EndElement { name } => {
+        read_event!(self, XmlReadEvent::EndElement { name } => {
             if name.local_name != expected_name {
                 return Err(DecodeError::Message("Wrong closing tag"));
             }
@@ -130,21 +132,21 @@ impl<R: Read> EventIterator<R> {
     ///     <Z>0</Z>
     /// </Vector3>
     pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
-        read_event!(self, XmlEvent::StartElement { name, .. } => {
+        read_event!(self, XmlReadEvent::StartElement { name, .. } => {
             if name.local_name != expected_name {
                 return Err(DecodeError::Message("got wrong tag name"));
             }
         });
 
-        let contents = read_event!(self, XmlEvent::Characters(content) => content);
-        read_event!(self, XmlEvent::EndElement { .. } => {});
+        let contents = read_event!(self, XmlReadEvent::Characters(content) => content);
+        read_event!(self, XmlReadEvent::EndElement { .. } => {});
 
         Ok(contents)
     }
 }
 
 impl<R: Read> Iterator for EventIterator<R> {
-    type Item = reader::Result<XmlEvent>;
+    type Item = reader::Result<XmlReadEvent>;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.inner.next()
@@ -169,11 +171,11 @@ impl<'a> ParseState<'a> {
 
 fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState, parent_id: RbxId) -> Result<(), DecodeError> {
     match reader.next().ok_or(DecodeError::MalformedDocument)?? {
-        XmlEvent::StartDocument { .. } => {},
+        XmlReadEvent::StartDocument { .. } => {},
         _ => return Err(DecodeError::MalformedDocument),
     }
 
-    read_event!(reader, XmlEvent::StartElement { name, attributes, .. } => {
+    read_event!(reader, XmlReadEvent::StartElement { name, attributes, .. } => {
         if name.local_name != "roblox" {
             return Err(DecodeError::Message("Missing <roblox>"));
         }
@@ -196,7 +198,7 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
 
     loop {
         match reader.peek().ok_or(DecodeError::MalformedDocument)? {
-            Ok(XmlEvent::StartElement { name, .. }) => {
+            Ok(XmlReadEvent::StartElement { name, .. }) => {
                 match name.local_name.as_str() {
                     "Item" => {
                         deserialize_instance(reader, state, parent_id)?;
@@ -213,15 +215,15 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
                     _ => return Err(DecodeError::Message("Unexpected top-level start tag")),
                 }
             },
-            Ok(XmlEvent::EndElement { name, .. }) => {
+            Ok(XmlReadEvent::EndElement { name, .. }) => {
                 if name.local_name == "roblox" {
                     break;
                 } else {
                     return Err(DecodeError::Message("Unexpected closing tag"));
                 }
             },
-            Ok(XmlEvent::EndDocument) => break,
-            Ok(XmlEvent::Whitespace(_)) => {
+            Ok(XmlReadEvent::EndDocument) => break,
+            Ok(XmlReadEvent::Whitespace(_)) => {
                 let _ = reader.next();
             },
             Ok(_) => return Err(DecodeError::Message("Unexpected top-level stuff")),
@@ -237,7 +239,7 @@ fn deserialize_root<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseSta
 fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState) -> Result<(), DecodeError> {
     // TODO: Strongly type metadata instead?
 
-    let name = read_event!(reader, XmlEvent::StartElement { name, mut attributes, .. } => {
+    let name = read_event!(reader, XmlReadEvent::StartElement { name, mut attributes, .. } => {
         assert_eq!(name.local_name, "Meta");
 
         let mut name = None;
@@ -252,9 +254,9 @@ fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
         name.ok_or(DecodeError::Message("Meta missing 'name' field"))?
     });
 
-    let value = read_event!(reader, XmlEvent::Characters(value) => value);
+    let value = read_event!(reader, XmlReadEvent::Characters(value) => value);
 
-    read_event!(reader, XmlEvent::EndElement { name, .. } => {
+    read_event!(reader, XmlReadEvent::EndElement { name, .. } => {
         if name.local_name != "Meta" {
             return Err(DecodeError::Message("Incorrect closing tag, expected 'Meta'"));
         }
@@ -267,7 +269,7 @@ fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 }
 
 fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState, parent_id: RbxId) -> Result<(), DecodeError> {
-    let (class_name, referent) = read_event!(reader, XmlEvent::StartElement { name, mut attributes, .. } => {
+    let (class_name, referent) = read_event!(reader, XmlReadEvent::StartElement { name, mut attributes, .. } => {
         assert_eq!(name.local_name, "Item");
 
         let mut class = None;
@@ -308,7 +310,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 
     loop {
         match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
-            Ok(XmlEvent::StartElement { name, .. }) => {
+            Ok(XmlReadEvent::StartElement { name, .. }) => {
                 depth += 1;
 
                 match name.local_name.as_str() {
@@ -321,7 +323,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
                     _ => return Err(DecodeError::Message("Unexpected tag inside instance")),
                 }
             },
-            Ok(XmlEvent::EndElement { .. }) => {
+            Ok(XmlReadEvent::EndElement { .. }) => {
                 reader.next();
                 depth -= 1;
 
@@ -329,7 +331,7 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
                     break;
                 }
             },
-            Ok(XmlEvent::Whitespace(_)) => {
+            Ok(XmlReadEvent::Whitespace(_)) => {
                 reader.next();
             },
             _ => {},
@@ -353,14 +355,14 @@ fn deserialize_instance<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 }
 
 fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut HashMap<String, RbxValue>) -> Result<(), DecodeError> {
-    read_event!(reader, XmlEvent::StartElement { name, .. } => {
+    read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
         assert_eq!(name.local_name, "Properties");
     });
 
     loop {
         let (property_type, property_name) = loop {
             match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
-                Ok(XmlEvent::StartElement { name, attributes, .. }) => {
+                Ok(XmlReadEvent::StartElement { name, attributes, .. }) => {
                     let mut property_name = None;
 
                     for attribute in attributes {
@@ -372,7 +374,7 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
                     let property_name = property_name.ok_or(DecodeError::Message("Missing 'name' for property tag"))?;
                     break (name.local_name.to_owned(), property_name)
                 },
-                Ok(XmlEvent::EndElement { name }) => {
+                Ok(XmlReadEvent::EndElement { name }) => {
                     if name.local_name == "Properties" {
                         reader.next().unwrap()?;
                         return Ok(())
@@ -380,7 +382,7 @@ fn deserialize_properties<R: Read>(reader: &mut EventIterator<R>, props: &mut Ha
                         return Err(DecodeError::Message("Unexpected end element"))
                     }
                 },
-                Ok(XmlEvent::Whitespace(_)) => {
+                Ok(XmlReadEvent::Whitespace(_)) => {
                     reader.next().unwrap()?;
                 },
                 Ok(_) | Err(_) => return Err(DecodeError::Message("Unexpected thing in Properties section")),
@@ -410,10 +412,10 @@ fn eat_unknown_tag<R: Read>(reader: &mut EventIterator<R>) -> Result<(), DecodeE
 
     loop {
         match reader.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
-            XmlEvent::StartElement { .. } => {
+            XmlReadEvent::StartElement { .. } => {
                 depth += 1;
             },
-            XmlEvent::EndElement { .. } => {
+            XmlReadEvent::EndElement { .. } => {
                 depth -= 1;
 
                 if depth == 0 {

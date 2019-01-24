@@ -1,13 +1,9 @@
 use std::io::Read;
 
-use xml::{
-    reader::{XmlEvent as XmlReadEvent},
-};
-
 use rbx_tree::RbxValue;
 
 use crate::{
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlReadEvent, EventIterator},
 };
 
 pub fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {

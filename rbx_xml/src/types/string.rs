@@ -1,18 +1,13 @@
 use std::io::{Read, Write};
 
-use xml::{
-    writer::{XmlEvent as XmlWriteEvent, EventWriter},
-    reader::{XmlEvent as XmlReadEvent},
-};
-
 use rbx_tree::RbxValue;
 
 use crate::{
-    deserializer::{DecodeError, EventIterator},
-    serializer::EncodeError,
+    deserializer::{DecodeError, XmlReadEvent, EventIterator},
+    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_string<W: Write>(writer: &mut EventWriter<W>, name: &str, value: &str) -> Result<(), EncodeError> {
+pub fn serialize_string<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: &str) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element("string").attr("name", name))?;
     writer.write(XmlWriteEvent::characters(&value))?;
     writer.write(XmlWriteEvent::end_element())?;
@@ -32,8 +27,6 @@ pub fn deserialize_string<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxV
 
 #[cfg(test)]
 mod test {
-    use crate::serializer::create_writer;
-
     use super::*;
 
     #[test]
@@ -44,7 +37,7 @@ mod test {
 
         let mut buffer = Vec::new();
 
-        let mut writer = create_writer(&mut buffer);
+        let mut writer = XmlEventWriter::from_output(&mut buffer);
         serialize_string(&mut writer, "foo", test_value).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());

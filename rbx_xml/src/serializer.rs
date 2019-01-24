@@ -1,15 +1,18 @@
 use std::io::{self, Write};
 
 use failure::Fail;
-use xml::writer::{self, EventWriter, EmitterConfig, XmlEvent};
+use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_tree::{RbxTree, RbxValue, RbxId};
 
 use crate::{
     types::{
         serialize_bool,
         serialize_string,
+        serialize_vector2,
     },
 };
+
+pub use xml::writer::XmlEvent as XmlWriteEvent;
 
 #[derive(Debug, Fail)]
 pub enum EncodeError {
@@ -32,41 +35,58 @@ impl From<xml::writer::Error> for EncodeError {
 /// Serialize the instances denoted by `ids` from `tree` as an XML-format model,
 /// writing to `output`.
 pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), EncodeError> {
-    let mut writer = create_writer(output);
+    let mut writer = XmlEventWriter::from_output(output);
 
-    writer.write(XmlEvent::start_element("roblox").attr("version", "4"))?;
+    writer.write(XmlWriteEvent::start_element("roblox").attr("version", "4"))?;
 
     for id in ids {
         serialize_instance(&mut writer, tree, *id)?;
     }
 
-    writer.write(XmlEvent::end_element())?;
+    writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
 }
 
-pub fn create_writer<W: Write>(output: W) -> EventWriter<W> {
-    EmitterConfig::new()
-        .perform_indent(true)
-        .write_document_declaration(false)
-        .create_writer(output)
+pub struct XmlEventWriter<W> {
+    inner: EventWriter<W>,
 }
 
-fn serialize_value<W: Write>(writer: &mut EventWriter<W>, name: &str, value: &RbxValue) -> Result<(), EncodeError> {
+impl<W: Write> XmlEventWriter<W> {
+    pub fn from_output(output: W) -> XmlEventWriter<W> {
+        let inner = EmitterConfig::new()
+            .perform_indent(true)
+            .write_document_declaration(false)
+            .create_writer(output);
+
+        XmlEventWriter {
+            inner,
+        }
+    }
+
+    pub fn write<'a, E>(&mut self, event: E) -> Result<(), writer::Error>
+        where E: Into<XmlWriteEvent<'a>>
+    {
+        self.inner.write(event)
+    }
+}
+
+fn serialize_value<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: &RbxValue) -> Result<(), EncodeError> {
     match value {
         RbxValue::String { value } => serialize_string(writer, name, value),
         RbxValue::Bool { value } => serialize_bool(writer, name, *value),
+        RbxValue::Vector2 { value } => serialize_vector2(writer, name, *value),
         _ => unimplemented!(),
     }
 }
 
-fn serialize_instance<W: Write>(writer: &mut EventWriter<W>, tree: &RbxTree, id: RbxId) -> Result<(), EncodeError> {
+fn serialize_instance<W: Write>(writer: &mut XmlEventWriter<W>, tree: &RbxTree, id: RbxId) -> Result<(), EncodeError> {
     let instance = tree.get_instance(id).unwrap();
-    writer.write(XmlEvent::start_element("Item")
+    writer.write(XmlWriteEvent::start_element("Item")
         .attr("class", &instance.class_name)
         .attr("referent", &instance.get_id().to_string()))?;
 
-    writer.write(XmlEvent::start_element("Properties"))?;
+    writer.write(XmlWriteEvent::start_element("Properties"))?;
 
     serialize_value(writer, "Name", &RbxValue::String {
         value: instance.name.clone(),
@@ -75,13 +95,13 @@ fn serialize_instance<W: Write>(writer: &mut EventWriter<W>, tree: &RbxTree, id:
     for (name, value) in &instance.properties {
         serialize_value(writer, name, value)?;
     }
-    writer.write(XmlEvent::end_element())?;
+    writer.write(XmlWriteEvent::end_element())?;
 
     for child_id in instance.get_children_ids() {
         serialize_instance(writer, tree, *child_id)?;
     }
 
-    writer.write(XmlEvent::end_element())?;
+    writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
 }

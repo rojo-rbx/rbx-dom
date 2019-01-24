@@ -1,18 +1,13 @@
 use std::io::{Read, Write};
 
-use xml::{
-    writer::{XmlEvent as XmlWriteEvent, EventWriter},
-    reader::{XmlEvent as XmlReadEvent},
-};
-
 use rbx_tree::RbxValue;
 
 use crate::{
-    deserializer::{DecodeError, EventIterator},
-    serializer::EncodeError,
+    deserializer::{DecodeError, XmlReadEvent, EventIterator},
+    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_bool<W: Write>(writer: &mut EventWriter<W>, name: &str, value: bool) -> Result<(), EncodeError> {
+pub fn serialize_bool<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: bool) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element("bool").attr("name", name))?;
 
     let value_as_str = if value {
@@ -47,8 +42,6 @@ pub fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxVal
 
 #[cfg(test)]
 mod test {
-    use crate::serializer::create_writer;
-
     use super::*;
 
     #[test]
@@ -57,7 +50,7 @@ mod test {
 
         let mut buffer = Vec::new();
 
-        let mut writer = create_writer(&mut buffer);
+        let mut writer = XmlEventWriter::from_output(&mut buffer);
         serialize_bool(&mut writer, "foo", true).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
