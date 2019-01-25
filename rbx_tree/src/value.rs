@@ -16,11 +16,11 @@ pub enum RbxValue {
     },
     #[serde(rename_all = "PascalCase")]
     Vector3 {
-        value: [f64; 3],
+        value: [f32; 3],
     },
     #[serde(rename_all = "PascalCase")]
     Vector2 {
-        value: [f64; 2],
+        value: [f32; 2],
     },
     #[serde(rename_all = "PascalCase")]
     Color3 {

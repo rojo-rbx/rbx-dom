@@ -10,8 +10,8 @@ use crate::{
 pub fn deserialize_vector2<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("Vector2")?;
 
-    let x: f64 = reader.read_tag_contents("X")?.parse()?;
-    let y: f64 = reader.read_tag_contents("Y")?.parse()?;
+    let x: f32 = reader.read_tag_contents("X")?.parse()?;
+    let y: f32 = reader.read_tag_contents("Y")?.parse()?;
 
     reader.expect_end_with_name("Vector2")?;
 
@@ -23,7 +23,7 @@ pub fn deserialize_vector2<R: Read>(reader: &mut EventIterator<R>) -> Result<Rbx
 pub fn serialize_vector2<W: Write>(
     writer: &mut XmlEventWriter<W>,
     name: &str,
-    value: [f64; 2],
+    value: [f32; 2],
 ) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element("Vector2").attr("name", name))?;
 
@@ -56,9 +56,9 @@ pub fn deserialize_vector2int16<R: Read>(reader: &mut EventIterator<R>) -> Resul
 pub fn deserialize_vector3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("Vector3")?;
 
-    let x: f64 = reader.read_tag_contents("X")?.parse()?;
-    let y: f64 = reader.read_tag_contents("Y")?.parse()?;
-    let z: f64 = reader.read_tag_contents("Z")?.parse()?;
+    let x: f32 = reader.read_tag_contents("X")?.parse()?;
+    let y: f32 = reader.read_tag_contents("Y")?.parse()?;
+    let z: f32 = reader.read_tag_contents("Z")?.parse()?;
 
     reader.expect_end_with_name("Vector3")?;
 
@@ -89,7 +89,7 @@ mod test {
     fn round_trip_vector2() {
         let _ = env_logger::try_init();
 
-        let test_input: [f64; 2] = [123.0, 456.0];
+        let test_input: [f32; 2] = [123.0, 456.0];
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
