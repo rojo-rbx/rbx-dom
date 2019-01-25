@@ -20,6 +20,7 @@ use crate::{
         deserialize_enum,
         deserialize_float32,
         deserialize_int32,
+        deserialize_physical_properties,
         deserialize_string,
         deserialize_vector2,
         deserialize_vector2int16,
@@ -157,6 +158,29 @@ impl<R: Read> EventIterator<R> {
 
         Ok(contents)
     }
+
+    /// Consume events from the iterator until we reach the end of the next tag.
+    pub fn eat_unknown_tag(&mut self) -> Result<(), DecodeError> {
+        let mut depth = 0;
+
+        loop {
+            match self.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
+                XmlReadEvent::StartElement { .. } => {
+                    depth += 1;
+                },
+                XmlReadEvent::EndElement { .. } => {
+                    depth -= 1;
+
+                    if depth == 0 {
+                        break;
+                    }
+                },
+                _ => {},
+            }
+        }
+
+        Ok(())
+    }
 }
 
 impl<R: Read> Iterator for EventIterator<R> {
@@ -224,10 +248,9 @@ fn deserialize_root<R: Read>(
                     "External" => {
                         // This tag is always meaningless, there's nothing to do
                         // here except skip it.
-                        eat_unknown_tag(reader)?;
+                        reader.eat_unknown_tag()?;
                     },
                     "Meta" => {
-                        // TODO: Actually parse metadata
                         deserialize_metadata(reader, state)?;
                     },
                     _ => return Err(DecodeError::Message("Unexpected top-level start tag")),
@@ -436,34 +459,12 @@ fn deserialize_properties<R: Read>(
             "Color3" => deserialize_color3(reader)?,
             "Color3uint8" => deserialize_color3uint8(reader)?,
             "CoordinateFrame" => deserialize_cframe(reader)?,
+            "PhysicalProperties" => deserialize_physical_properties(reader)?,
             _ => return Err(DecodeError::Message("don't know how to decode this prop type")),
         };
 
         props.insert(canonical_name, value);
     }
-}
-
-/// Consume events from the iterator until we reach the end of the next tag.
-fn eat_unknown_tag<R: Read>(reader: &mut EventIterator<R>) -> Result<(), DecodeError> {
-    let mut depth = 0;
-
-    loop {
-        match reader.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
-            XmlReadEvent::StartElement { .. } => {
-                depth += 1;
-            },
-            XmlReadEvent::EndElement { .. } => {
-                depth -= 1;
-
-                if depth == 0 {
-                    break;
-                }
-            },
-            _ => {},
-        }
-    }
-
-    Ok(())
 }
 
 #[cfg(test)]

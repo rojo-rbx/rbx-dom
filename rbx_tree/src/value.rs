@@ -70,4 +70,15 @@ pub enum RbxValue {
     CFrame {
         value: [f32; 12],
     },
+
+    #[serde(rename_all = "PascalCase")]
+    PhysicalProperties {
+        value: Option<PhysicalProperties>,
+    }
 }
+
+/// Represents possible custom physical properties on a `BasePart`.
+///
+/// Currently a stub.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+pub struct PhysicalProperties;
