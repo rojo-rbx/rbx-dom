@@ -8,8 +8,6 @@ use crate::{
 };
 
 pub fn deserialize_physical_properties<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    reader.expect_start_with_name("PhysicalProperties")?;
-
     // TODO: Actually read properties
 
     reader.eat_unknown_tag()?;

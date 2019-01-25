@@ -1,5 +1,6 @@
 use std::io::{self, Write};
 
+use log::warn;
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_tree::{RbxTree, RbxValue, RbxId};
@@ -95,7 +96,10 @@ fn serialize_value<W: Write>(
         RbxValue::Int32 { value } => serialize_int32(writer, xml_name, *value),
         RbxValue::Enum { value } => serialize_enum(writer, xml_name, *value),
         RbxValue::PhysicalProperties { value } => serialize_physical_properties(writer, xml_name, *value),
-        _ => unimplemented!(),
+        unknown => {
+            warn!("Property value {:?} cannot be serialized yet", unknown);
+            unimplemented!();
+        },
     }
 }
 

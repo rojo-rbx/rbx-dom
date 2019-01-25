@@ -163,19 +163,26 @@ impl<R: Read> EventIterator<R> {
     pub fn eat_unknown_tag(&mut self) -> Result<(), DecodeError> {
         let mut depth = 0;
 
+        trace!("Starting unknown block");
+
         loop {
             match self.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
-                XmlReadEvent::StartElement { .. } => {
+                XmlReadEvent::StartElement { name, .. } => {
+                    trace!("Eat unknown start: {:?}", name);
                     depth += 1;
                 },
-                XmlReadEvent::EndElement { .. } => {
+                XmlReadEvent::EndElement { name } => {
+                    trace!("Eat unknown end: {:?}", name);
                     depth -= 1;
 
                     if depth == 0 {
+                        trace!("Reached end of unknown block");
                         break;
                     }
                 },
-                _ => {},
+                other => {
+                    trace!("Eat unknown: {:?}", other);
+                },
             }
         }
 
@@ -430,7 +437,8 @@ fn deserialize_properties<R: Read>(
                         reader.next().unwrap()?;
                         return Ok(())
                     } else {
-                        return Err(DecodeError::Message("Unexpected end element"))
+                        trace!("Unexpected end element {:?}, expected Properties", name);
+                        return Err(DecodeError::Message("Unexpected end element, expected Properties"))
                     }
                 },
                 Ok(XmlReadEvent::Whitespace(_)) => {
