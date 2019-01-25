@@ -27,6 +27,11 @@ pub enum RbxValue {
     },
 
     #[serde(rename_all = "PascalCase")]
+    Enum {
+        value: u32,
+    },
+
+    #[serde(rename_all = "PascalCase")]
     Vector3 {
         value: [f32; 3],
     },
