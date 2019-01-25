@@ -1,4 +1,5 @@
 use std::io::{self, Write};
+use std::fmt::Write as FmtWrite;
 
 use log::warn;
 use failure::Fail;
@@ -10,6 +11,9 @@ use crate::{
     types::{
         serialize_binary_string,
         serialize_bool,
+        serialize_cframe,
+        serialize_color3,
+        serialize_color3uint8,
         serialize_enum,
         serialize_float32,
         serialize_int32,
@@ -76,6 +80,24 @@ impl<W: Write> XmlEventWriter<W> {
     {
         self.inner.write(event)
     }
+
+    pub fn write_tag_array<T: std::fmt::Display>(&mut self, values: &[T], tags: &[&str]) -> Result<(), writer::Error> {
+        assert_eq!(values.len(), tags.len());
+
+        let mut buffer = String::new();
+
+        for (index, component) in values.iter().enumerate() {
+            self.write(XmlWriteEvent::start_element(tags[index]))?;
+
+            write!(buffer, "{}", component).unwrap();
+            self.write(XmlWriteEvent::characters(&buffer))?;
+            buffer.clear();
+
+            self.write(XmlWriteEvent::end_element())?;
+        }
+
+        Ok(())
+    }
 }
 
 fn serialize_value<W: Write>(
@@ -96,6 +118,9 @@ fn serialize_value<W: Write>(
         RbxValue::Int32 { value } => serialize_int32(writer, xml_name, *value),
         RbxValue::Enum { value } => serialize_enum(writer, xml_name, *value),
         RbxValue::PhysicalProperties { value } => serialize_physical_properties(writer, xml_name, *value),
+        RbxValue::CFrame { value } => serialize_cframe(writer, xml_name, *value),
+        RbxValue::Color3 { value } => serialize_color3(writer, xml_name, *value),
+        RbxValue::Color3uint8 { value } => serialize_color3uint8(writer, xml_name, *value),
         unknown => {
             warn!("Property value {:?} cannot be serialized yet", unknown);
             unimplemented!();

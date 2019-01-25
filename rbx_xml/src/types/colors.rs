@@ -1,10 +1,25 @@
-use std::io::Read;
+use std::io::{Read, Write};
 
 use rbx_tree::RbxValue;
 
 use crate::{
     deserializer::{DecodeError, XmlReadEvent, EventIterator},
+    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
+
+static TAG_NAMES: [&str; 3] = ["R", "G", "B"];
+
+pub fn serialize_color3<W: Write>(
+    writer: &mut XmlEventWriter<W>,
+    name: &str,
+    value: [f32; 3],
+) -> Result<(), EncodeError> {
+    writer.write(XmlWriteEvent::start_element("Color3").attr("name", name))?;
+    writer.write_tag_array(&value, &TAG_NAMES)?;
+    writer.write(XmlWriteEvent::end_element())?;
+
+    Ok(())
+}
 
 pub fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("Color3")?;
@@ -38,6 +53,21 @@ pub fn deserialize_color3<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxV
     Ok(value)
 }
 
+pub fn serialize_color3uint8<W: Write>(
+    writer: &mut XmlEventWriter<W>,
+    name: &str,
+    value: [u8; 3],
+) -> Result<(), EncodeError> {
+    writer.write(XmlWriteEvent::start_element("Color3uint8").attr("name", name))?;
+
+    let encoded = encode_packed_color3(value);
+    writer.write(XmlWriteEvent::characters(&encoded.to_string()))?;
+
+    writer.write(XmlWriteEvent::end_element())?;
+
+    Ok(())
+}
+
 pub fn deserialize_color3uint8<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("Color3uint8")?;
 
@@ -53,6 +83,12 @@ pub fn deserialize_color3uint8<R: Read>(reader: &mut EventIterator<R>) -> Result
     Ok(value)
 }
 
+fn encode_packed_color3(source: [u8; 3]) -> u32 {
+    let [r, g, b] = source;
+
+    (b as u32) + ((g as u32) << 8) + ((r as u32) << 16)
+}
+
 fn decode_packed_color3(source: &str) -> Result<[u8; 3], DecodeError> {
     let packed_color: u32 = source.parse()?;
 
@@ -60,5 +96,5 @@ fn decode_packed_color3(source: &str) -> Result<[u8; 3], DecodeError> {
     let g = (packed_color >> 8) & 0xFF;
     let b = packed_color & 0xFF;
 
-    Ok([ r as u8, g as u8, b as u8 ])
+    Ok([r as u8, g as u8, b as u8])
 }
