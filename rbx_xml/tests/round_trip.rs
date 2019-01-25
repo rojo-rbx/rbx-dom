@@ -3,7 +3,7 @@ use std::{
     collections::HashMap,
 };
 
-use log::trace;
+use log::info;
 
 use rbx_tree::{RbxInstanceProperties, RbxTree};
 
@@ -25,18 +25,18 @@ fn new_test_tree() -> RbxTree {
 fn round_trip() {
     let _ = env_logger::try_init();
 
-    for model_source in &[MODEL_TERRAIN] {
+    for (index, model_source) in [MODEL_TERRAIN, MODEL_GUI, MODEL_PARTS].iter().enumerate() {
         let mut tree = new_test_tree();
         let root_id = tree.get_root_id();
 
-        trace!("Decode:");
+        info!("Decode #{}:", index);
         rbx_xml::decode_str(&mut tree, root_id, *model_source).unwrap();
 
-        trace!("Encode:");
+        info!("Encode #{}:", index);
         let mut buffer = Vec::new();
         rbx_xml::encode(&tree, &[root_id], Cursor::new(&mut buffer)).unwrap();
 
-        trace!("Decode:");
+        info!("Re-Decode #{}:", index);
         rbx_xml::decode(&mut tree, root_id, buffer.as_slice()).unwrap();
     }
 }

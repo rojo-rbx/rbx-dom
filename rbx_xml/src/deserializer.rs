@@ -5,7 +5,7 @@ use std::{
 };
 
 use failure::Fail;
-use log::trace;
+use log::{trace, warn};
 use rbx_tree::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
 use xml::reader::{self, ParserConfig};
 
@@ -468,7 +468,10 @@ fn deserialize_properties<R: Read>(
             "Color3uint8" => deserialize_color3uint8(reader)?,
             "CoordinateFrame" => deserialize_cframe(reader)?,
             "PhysicalProperties" => deserialize_physical_properties(reader)?,
-            _ => return Err(DecodeError::Message("don't know how to decode this prop type")),
+            unknown => {
+                warn!("rbx_xml can't decode properties of type {}", unknown);
+                return Err(DecodeError::Message("don't know how to decode this prop type"));
+            },
         };
 
         props.insert(canonical_name, value);

@@ -20,6 +20,9 @@ use crate::{
         serialize_physical_properties,
         serialize_string,
         serialize_vector2,
+        serialize_vector2int16,
+        serialize_vector3,
+        serialize_vector3int16,
     },
 };
 
@@ -61,6 +64,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), 
 
 pub struct XmlEventWriter<W> {
     inner: EventWriter<W>,
+    character_buffer: String,
 }
 
 impl<W: Write> XmlEventWriter<W> {
@@ -72,6 +76,7 @@ impl<W: Write> XmlEventWriter<W> {
 
         XmlEventWriter {
             inner,
+            character_buffer: String::new(),
         }
     }
 
@@ -81,18 +86,22 @@ impl<W: Write> XmlEventWriter<W> {
         self.inner.write(event)
     }
 
+    /// A more efficient implementation to write characters to the XML output
+    /// stream that reuses a buffer for each string.
+    pub fn write_characters<T: std::fmt::Display>(&mut self, value: T) -> Result<(), writer::Error> {
+        write!(self.character_buffer, "{}", value).unwrap();
+        self.inner.write(XmlWriteEvent::characters(&self.character_buffer))?;
+        self.character_buffer.clear();
+
+        Ok(())
+    }
+
     pub fn write_tag_array<T: std::fmt::Display>(&mut self, values: &[T], tags: &[&str]) -> Result<(), writer::Error> {
         assert_eq!(values.len(), tags.len());
 
-        let mut buffer = String::new();
-
         for (index, component) in values.iter().enumerate() {
             self.write(XmlWriteEvent::start_element(tags[index]))?;
-
-            write!(buffer, "{}", component).unwrap();
-            self.write(XmlWriteEvent::characters(&buffer))?;
-            buffer.clear();
-
+            self.write_characters(component)?;
             self.write(XmlWriteEvent::end_element())?;
         }
 
@@ -114,6 +123,9 @@ fn serialize_value<W: Write>(
         RbxValue::String { value } => serialize_string(writer, xml_name, value),
         RbxValue::BinaryString { value } => serialize_binary_string(writer, xml_name, value),
         RbxValue::Vector2 { value } => serialize_vector2(writer, xml_name, *value),
+        RbxValue::Vector3 { value } => serialize_vector3(writer, xml_name, *value),
+        RbxValue::Vector2int16 { value } => serialize_vector2int16(writer, xml_name, *value),
+        RbxValue::Vector3int16 { value } => serialize_vector3int16(writer, xml_name, *value),
         RbxValue::Float32 { value } => serialize_float32(writer, xml_name, *value),
         RbxValue::Int32 { value } => serialize_int32(writer, xml_name, *value),
         RbxValue::Enum { value } => serialize_enum(writer, xml_name, *value),
