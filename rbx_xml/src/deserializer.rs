@@ -13,10 +13,12 @@ use crate::{
     reflection::XML_TO_CANONICAL_NAME,
     types::{
         deserialize_bool,
-        deserialize_string,
         deserialize_cframe,
         deserialize_color3,
         deserialize_color3uint8,
+        deserialize_float32,
+        deserialize_int32,
+        deserialize_string,
         deserialize_vector2,
         deserialize_vector2int16,
         deserialize_vector3,
@@ -412,6 +414,8 @@ fn deserialize_properties<R: Read>(
         let value = match property_type.as_str() {
             "bool" => deserialize_bool(reader)?,
             "string" => deserialize_string(reader)?,
+            "int" => deserialize_int32(reader)?,
+            "float" => deserialize_float32(reader)?,
             "Vector3" => deserialize_vector3(reader)?,
             "Vector3int16" => deserialize_vector3int16(reader)?,
             "Vector2" => deserialize_vector2(reader)?,

@@ -8,6 +8,8 @@ use crate::{
     reflection::CANONICAL_TO_XML_NAME,
     types::{
         serialize_bool,
+        serialize_float32,
+        serialize_int32,
         serialize_string,
         serialize_vector2,
     },
@@ -85,6 +87,8 @@ fn serialize_value<W: Write>(
         RbxValue::String { value } => serialize_string(writer, xml_name, value),
         RbxValue::Bool { value } => serialize_bool(writer, xml_name, *value),
         RbxValue::Vector2 { value } => serialize_vector2(writer, xml_name, *value),
+        RbxValue::Float32 { value } => serialize_float32(writer, xml_name, *value),
+        RbxValue::Int32 { value } => serialize_int32(writer, xml_name, *value),
         _ => unimplemented!(),
     }
 }
