@@ -10,6 +10,7 @@ use rbx_tree::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
+    reflection::XML_TO_CANONICAL_NAME,
     types::{
         deserialize_bool,
         deserialize_string,
@@ -371,19 +372,22 @@ fn deserialize_properties<R: Read>(
     });
 
     loop {
-        let (property_type, property_name) = loop {
+        let (property_type, xml_property_name) = loop {
             match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
                 Ok(XmlReadEvent::StartElement { name, attributes, .. }) => {
-                    let mut property_name = None;
+                    let mut xml_property_name = None;
 
                     for attribute in attributes {
                         if attribute.name.local_name.as_str() == "name" {
-                            property_name = Some(attribute.value.to_owned());
+                            xml_property_name = Some(attribute.value.to_owned());
+                            break;
                         }
                     }
 
-                    let property_name = property_name.ok_or(DecodeError::Message("Missing 'name' for property tag"))?;
-                    break (name.local_name.to_owned(), property_name)
+                    let xml_property_name = xml_property_name
+                        .ok_or(DecodeError::Message("Missing 'name' for property tag"))?;
+
+                    break (name.local_name.to_owned(), xml_property_name)
                 },
                 Ok(XmlReadEvent::EndElement { name }) => {
                     if name.local_name == "Properties" {
@@ -400,6 +404,11 @@ fn deserialize_properties<R: Read>(
             };
         };
 
+        let canonical_name = XML_TO_CANONICAL_NAME
+            .get(xml_property_name.as_str())
+            .map(|value| value.to_string())
+            .unwrap_or(xml_property_name);
+
         let value = match property_type.as_str() {
             "bool" => deserialize_bool(reader)?,
             "string" => deserialize_string(reader)?,
@@ -413,7 +422,7 @@ fn deserialize_properties<R: Read>(
             _ => return Err(DecodeError::Message("don't know how to decode this prop type")),
         };
 
-        props.insert(property_name, value);
+        props.insert(canonical_name, value);
     }
 }
 
@@ -548,6 +557,34 @@ mod test {
         let inner_folder = tree.get_instance(first_folder.get_children_ids()[0]).expect("expected a subchild");
         assert_eq!(first_folder.name, "Outer");
         assert_eq!(inner_folder.name, "Inner");
+    }
+
+    #[test]
+    fn canonicalized_names() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Part" referent="hello">
+                    <Properties>
+                        <Vector3 name="size">
+                            <X>123.0</X>
+                            <Y>456.0</Y>
+                            <Z>789.0</Z>
+                        </Vector3>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Part");
+        assert_eq!(descendant.class_name, "Part");
+        assert_eq!(descendant.properties.get("Size"), Some(&RbxValue::Vector3 { value: [123.0, 456.0, 789.0] }));
     }
 
     #[test]

@@ -5,6 +5,7 @@ use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_tree::{RbxTree, RbxValue, RbxId};
 
 use crate::{
+    reflection::CANONICAL_TO_XML_NAME,
     types::{
         serialize_bool,
         serialize_string,
@@ -71,11 +72,19 @@ impl<W: Write> XmlEventWriter<W> {
     }
 }
 
-fn serialize_value<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: &RbxValue) -> Result<(), EncodeError> {
+fn serialize_value<W: Write>(
+    writer: &mut XmlEventWriter<W>,
+    canonical_name: &str,
+    value: &RbxValue,
+) -> Result<(), EncodeError> {
+    let xml_name = CANONICAL_TO_XML_NAME
+        .get(canonical_name)
+        .unwrap_or(&canonical_name);
+
     match value {
-        RbxValue::String { value } => serialize_string(writer, name, value),
-        RbxValue::Bool { value } => serialize_bool(writer, name, *value),
-        RbxValue::Vector2 { value } => serialize_vector2(writer, name, *value),
+        RbxValue::String { value } => serialize_string(writer, xml_name, value),
+        RbxValue::Bool { value } => serialize_bool(writer, xml_name, *value),
+        RbxValue::Vector2 { value } => serialize_vector2(writer, xml_name, *value),
         _ => unimplemented!(),
     }
 }
