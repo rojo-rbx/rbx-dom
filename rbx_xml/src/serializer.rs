@@ -7,6 +7,7 @@ use rbx_tree::{RbxTree, RbxValue, RbxId};
 use crate::{
     reflection::CANONICAL_TO_XML_NAME,
     types::{
+        serialize_binary_string,
         serialize_bool,
         serialize_enum,
         serialize_float32,
@@ -85,8 +86,9 @@ fn serialize_value<W: Write>(
         .unwrap_or(&canonical_name);
 
     match value {
-        RbxValue::String { value } => serialize_string(writer, xml_name, value),
         RbxValue::Bool { value } => serialize_bool(writer, xml_name, *value),
+        RbxValue::String { value } => serialize_string(writer, xml_name, value),
+        RbxValue::BinaryString { value } => serialize_binary_string(writer, xml_name, value),
         RbxValue::Vector2 { value } => serialize_vector2(writer, xml_name, *value),
         RbxValue::Float32 { value } => serialize_float32(writer, xml_name, *value),
         RbxValue::Int32 { value } => serialize_int32(writer, xml_name, *value),

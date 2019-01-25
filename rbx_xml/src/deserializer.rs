@@ -12,6 +12,7 @@ use xml::reader::{self, ParserConfig};
 use crate::{
     reflection::XML_TO_CANONICAL_NAME,
     types::{
+        deserialize_binary_string,
         deserialize_bool,
         deserialize_cframe,
         deserialize_color3,
@@ -41,6 +42,9 @@ pub enum DecodeError {
     #[fail(display = "Int parse error: {}", _0)]
     ParseIntError(#[fail(cause)] std::num::ParseIntError),
 
+    #[fail(display = "Base64 decode error: {}", _0)]
+    DecodeBase64Error(#[fail(cause)] base64::DecodeError),
+
     // TODO: Switch to Cow<'static, str>?
     #[fail(display = "{}", _0)]
     Message(&'static str),
@@ -64,6 +68,12 @@ impl From<std::num::ParseFloatError> for DecodeError {
 impl From<std::num::ParseIntError> for DecodeError {
     fn from(error: std::num::ParseIntError) -> DecodeError {
         DecodeError::ParseIntError(error)
+    }
+}
+
+impl From<base64::DecodeError> for DecodeError {
+    fn from(error: base64::DecodeError) -> DecodeError {
+        DecodeError::DecodeBase64Error(error)
     }
 }
 
@@ -415,6 +425,7 @@ fn deserialize_properties<R: Read>(
         let value = match property_type.as_str() {
             "bool" => deserialize_bool(reader)?,
             "string" => deserialize_string(reader)?,
+            "BinaryString" => deserialize_binary_string(reader)?,
             "int" => deserialize_int32(reader)?,
             "float" => deserialize_float32(reader)?,
             "token" => deserialize_enum(reader)?,

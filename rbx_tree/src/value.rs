@@ -12,6 +12,11 @@ pub enum RbxValue {
     },
 
     #[serde(rename_all = "PascalCase")]
+    BinaryString {
+        value: Vec<u8>,
+    },
+
+    #[serde(rename_all = "PascalCase")]
     Bool {
         value: bool,
     },
