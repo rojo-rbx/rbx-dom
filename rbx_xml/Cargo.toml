@@ -5,7 +5,7 @@ license = "MIT"
 documentation = "https://docs.rs/rbx_tree"
 homepage = "https://github.com/LPGhatguy/rbx-tree"
 repository = "https://github.com/LPGhatguy/rbx-tree.git"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"
 
@@ -14,7 +14,7 @@ failure = "0.1.5"
 lazy_static = "1.2.0"
 log = "0.4.6"
 maplit = "1.0.1"
-rbx_tree = { version = "0.1.0", path = "../rbx_tree" }
+rbx_tree = { version = "0.2.0", path = "../rbx_tree" }
 xml-rs = "0.8"
 base64 = "0.10.0"
 

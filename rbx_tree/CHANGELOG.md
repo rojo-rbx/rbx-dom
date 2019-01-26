@@ -1,6 +1,8 @@
 # rbx_tree Changelog
 
 ## Unreleased
+
+## 0.2.0 (2019-01-25)
 * Added new variants for `RbxValue`:
 	* Int32
 	* Float32

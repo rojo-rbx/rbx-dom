@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.2.0 (2019-01-25)
 * Serialization and deserialization functions are now fully functional
 * Added support for new property types:
 	* CFrame

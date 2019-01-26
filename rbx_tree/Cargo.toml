@@ -5,7 +5,7 @@ license = "MIT"
 documentation = "https://docs.rs/rbx_tree"
 homepage = "https://github.com/LPGhatguy/rbx-tree"
 repository = "https://github.com/LPGhatguy/rbx-tree.git"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"
 
