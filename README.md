@@ -46,8 +46,11 @@ Roblox reflection information for working with Instances in external tooling.
 | Vector2int16       | ✔ | ✔ | ❌ |
 | Vector3            | ✔ | ✔ | ❌ |
 | Vector3int16       | ✔ | ✔ | ❌ |
+| ProtectedString    | ✔¹ | ✔¹ | ❌ |
 
 ✔ Implemented | ❌ Unimplemented | ➖ Ignored
+
+1. ProtectedString is deserialized as String, which is technically lossy but does not change semantics in practice
 
 ## License
 rbx-tree is available under the MIT license. See [LICENSE.txt](LICENSE.txt) for details.

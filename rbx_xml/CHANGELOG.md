@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Added support for ProtectedString, deserializing as String
 
 ## 0.2.0 (2019-01-25)
 * Serialization and deserialization functions are now fully functional

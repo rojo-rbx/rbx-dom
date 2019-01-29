@@ -19,10 +19,18 @@ pub fn serialize_string<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, va
 
 pub fn deserialize_string<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("string")?;
-
     let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-
     reader.expect_end_with_name("string")?;
+
+    Ok(value)
+}
+
+// Protected strings are asymmetrical -- they deserialize to regular string
+// values, since their existence is a historical artifact.
+pub fn deserialize_protected_string<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    reader.expect_start_with_name("ProtectedString")?;
+    let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
+    reader.expect_end_with_name("ProtectedString")?;
 
     Ok(value)
 }
@@ -75,7 +83,7 @@ mod test {
     fn round_trip_string() {
         let _ = env_logger::try_init();
 
-        let test_value = "Hello,\nworld!\n";
+        let test_value = "Hello,\n\tworld!\n";
 
         let mut buffer = Vec::new();
 
@@ -87,6 +95,22 @@ mod test {
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
         let value = deserialize_string(&mut reader).unwrap();
+
+        assert_eq!(value, RbxValue::String {
+            value: test_value.to_owned(),
+        });
+    }
+
+    #[test]
+    fn de_protected_string() {
+        let _ = env_logger::try_init();
+
+        let test_value = "Hello,\n\tworld!\n";
+        let source = format!("<ProtectedString name=\"foo\">{}</ProtectedString>", test_value);
+
+        let mut reader = EventIterator::from_source(source.as_bytes());
+        reader.next().unwrap().unwrap(); // Eat StartDocument event
+        let value = deserialize_protected_string(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::String {
             value: test_value.to_owned(),
