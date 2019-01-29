@@ -1,7 +1,5 @@
 # rbx-tree
-rbx-tree is a weakly-typed implemenation of the Roblox DOM. The goal is to have a common format that projects like Rojo can use for handling Instances efficiently.
-
-rbx-tree and its related crates are what powers [Rojo](https://github.com/LPGhatguy/rojo)!
+rbx-tree is a weakly-typed implemenation of the Roblox DOM. The goal is to have a common format that projects like [Rojo](https://github.com/LPGhatguy/rojo) can use for handling Instances efficiently.
 
 ## [rbx_tree](rbx_tree)
 [![rbx_tree on crates.io](https://img.shields.io/crates/v/rbx_tree.svg)](https://crates.io/crates/rbx_tree)
