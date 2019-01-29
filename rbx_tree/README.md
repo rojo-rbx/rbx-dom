@@ -6,22 +6,3 @@ Weakly-typed implementation of Roblox's DOM, used for representing instances in 
 
 ## Coverage
 Because rbx_tree is weakly-typed, it doesn't need to be updated when new instances are added to Roblox. It does, however, have to be updated when new datatypes like `Vector3int16` are added.
-
-Data type coverage:
-
-* [x] BinaryString
-* [x] Bool
-* [x] CFrame
-* [x] Color3
-* [x] Color3uint8
-* [x] Enum
-* [x] Float32
-* [x] Int32
-* [x] String
-* [x] Vector2
-* [x] Vector2int16
-* [x] Vector3
-* [x] Vector3int16
-* [ ] Content
-* [ ] PhysicalProperties (currently stubbed)
-* [ ] Ref

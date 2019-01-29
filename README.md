@@ -24,5 +24,30 @@ Serializer and deserializer for for Roblox's binary model and place formats, `rb
 
 Roblox reflection information for working with Instances in external tooling.
 
+## Property Type Coverage
+
+| Property Type      | rbx\_tree | rbx\_xml | rbx\_binary |
+| ------------------ |:---------:|:--------:|:-----------:|
+| BinaryString       | ✔ | ✔ | ❌ |
+| Bool               | ✔ | ✔ | ✔ |
+| CFrame             | ✔ | ✔ | ❌ |
+| Color3             | ✔ | ✔ | ❌ |
+| Color3uint8        | ✔ | ✔ | ❌ |
+| Content            | ❌ | ❌ | ❌ |
+| Enum               | ✔ | ✔ | ❌ |
+| Float32            | ✔ | ✔ | ❌ |
+| Int32              | ✔ | ✔ | ❌ |
+| PhysicalProperties | ➖ | ➖ | ❌ |
+| Rect2D             | ❌ | ❌ | ❌ |
+| Ref                | ❌ | ❌ | ❌ |
+| String             | ✔ | ✔ | ✔ |
+| UDim2              | ❌ | ❌ | ❌ |
+| Vector2            | ✔ | ✔ | ❌ |
+| Vector2int16       | ✔ | ✔ | ❌ |
+| Vector3            | ✔ | ✔ | ❌ |
+| Vector3int16       | ✔ | ✔ | ❌ |
+
+✔ Implemented | ❌ Unimplemented | ➖ Ignored
+
 ## License
 rbx-tree is available under the MIT license. See [LICENSE.txt](LICENSE.txt) for details.
