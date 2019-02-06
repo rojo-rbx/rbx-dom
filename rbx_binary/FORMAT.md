@@ -3,8 +3,8 @@ This document is based on:
 - [*ROBLOX File Format* by Gregory Comer](http://www.classy-studios.com/Downloads/RobloxFileSpec.pdf)
 - [LibRbxl by Gregory Comer](https://github.com/GregoryComer/LibRbxl)
 - [rbxfile by Anaminus](https://github.com/RobloxAPI/rbxfile)
-- [Rbx2Source BinaryFormat by CloneTrooper1019](https://github.com/CloneTrooper1019/Rbx2Source/blob/bcc20595cacaa9fdb8bf993bd954abb8c9d0af34/src/Reflection/BinaryFormat/)
-- Observing `rbxm` and `rblx` output from Roblox Studio
+- [Roblox-File-Format by CloneTrooper1019](https://github.com/CloneTrooper1019/Roblox-File-Format)
+- Observing `rbxm` and `rbxl` output from Roblox Studio
 
 ## Contents
 - [File Structure](#file-structure)
@@ -60,7 +60,7 @@ Every file starts with:
 	<tr>
 		<td colspan="4">Number of classes (<code>u32</code>)</td>
 		<td colspan="4">Number of instances (<code>u32</code>)</td>
-		<td colspan="8">Always zero</td>
+		<td colspan="8">Reserved bytes (always 0)</td>
 	</tr>
 </table>
 
@@ -90,7 +90,7 @@ Every chunk starts with:
 		<td colspan="4">Chunk name</td>
 		<td colspan="4">Compressed length (<code>u32</code>)</td>
 		<td colspan="4">Uncompressed length (<code>u32</code>)</td>
-		<td colspan="4">Always zero</td>
+		<td colspan="4">Reserved bytes (always 0)</td>
 	</tr>
 	<tr>
 		<td colspan="16">Chunk data</td>
@@ -102,6 +102,8 @@ If **chunk name** is less than four bytes, the remainder is filled with zeros.
 If **compressed length** is zero, **chunk data** contains **uncompressed length** bytes of data for the chunk.
 
 If **compressed length** is nonzero, **chunk data** contains an LZ4 compressed block. It is **compressed length** bytes long and will expand to **uncompressed length** bytes when decompressed.
+
+When the **chunk data** is compressed, it is done so using the [LZ4](https://github.com/lz4/lz4) compression algorithm.
 
 When documentation for individual chunks uses the term "chunk data", it refers to **chunk data** after it has been decompressed, if necessary.
 
@@ -125,7 +127,7 @@ The Metadata chunk (`META`) is a map of strings to strings. It represents metada
 | Type Name ([String](#string)) |
 | Additional data marker (`u8`) |
 | Number instances (`u32`) |
-| Instance referents ([Interleaved Array](#interleaved-array) of [Referent](#referent)) |
+| Instance referents ([Referent Array](#referent-array) |
 
 TODO: More detailed information
 
@@ -144,8 +146,8 @@ TODO: More detailed information
 | ----------------- |
 | Version (`u8`, zero) |
 | Number objects (`u32`) |
-| Objects ([Interleaved Array](#interleaved-array) of [Referent](#referent)) |
-| Parents ([Interleaved Array](#interleaved-array) of [Referent](#referent)) |
+| Objects ([Referent Array](#referent-array)) |
+| Parents ([Referent Array](#referent-array)) |
 
 TODO: More detailed information
 
@@ -246,3 +248,38 @@ Note that arrays of integers are generally subject to both interleaving and inte
 
 ### Referent
 Referents are stored as transformed 32-bit signed integers. A value of `-1` (untransformed) indicates a null referent.
+
+### Referent Array
+When reading an [Interleaved Array](#interleaved-array) of referents, they should be read accumulatively. In other words, the value of each referent id should be itself, plus its previous value.
+
+❌ **Without Accumulation**
+
+<table>
+	<tr>
+		<th colspan="6">Referents</th>
+	</tr>
+	<tr>
+		<th width="40">1619</th>
+		<th width="40">1</th>
+		<th width="40">4</th>
+		<th width="40">2</th>
+		<th width="40">3</th>
+		<th width="40">5</th>
+	</tr>
+</table>
+
+✔ **With Accumulation**
+
+<table>
+	<tr>
+		<th colspan="6">Referents</th>
+	</tr>
+	<tr>
+		<th width="40">1619</th>
+		<th width="40">1620</th>
+		<th width="40">1624</th>
+		<th width="40">1626</th>
+		<th width="40">1629</th>
+		<th width="40">1634</th>
+	</tr>
+</table>
