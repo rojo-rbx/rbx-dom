@@ -26,29 +26,29 @@ Roblox reflection information for working with Instances in external tooling.
 
 ## Property Type Coverage
 
-| Property Type      | rbx\_tree | rbx\_xml | rbx\_binary |
-| ------------------ |:---------:|:--------:|:-----------:|
-| BinaryString       | ✔ | ✔ | ❌ |
-| Bool               | ✔ | ✔ | ✔ |
-| CFrame             | ✔ | ✔ | ❌ |
-| Color3             | ✔ | ✔ | ❌ |
-| Color3uint8        | ✔ | ✔ | ❌ |
-| Content            | ❌ | ❌ | ❌ |
-| Enum               | ✔ | ✔ | ❌ |
-| Float32            | ✔ | ✔ | ❌ |
-| Int32              | ✔ | ✔ | ❌ |
-| PhysicalProperties | ➖ | ➖ | ❌ |
-| Rect2D             | ❌ | ❌ | ❌ |
-| Ref                | ❌ | ❌ | ❌ |
-| String             | ✔ | ✔ | ✔ |
-| UDim2              | ❌ | ❌ | ❌ |
-| Vector2            | ✔ | ✔ | ❌ |
-| Vector2int16       | ✔ | ✔ | ❌ |
-| Vector3            | ✔ | ✔ | ❌ |
-| Vector3int16       | ✔ | ✔ | ❌ |
-| ProtectedString    | ✔¹ | ✔¹ | ❌ |
+| Property Type      | Example Property                | rbx\_tree | rbx\_xml | rbx\_binary |
+| ------------------ | ------------------------------- |:---------:|:--------:|:-----------:|
+| BinaryString       | `Terrain.MaterialColors`        | ✔ | ✔ | ❌ |
+| Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ |
+| CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ❌ |
+| Color3             | `Lighting.Ambient`              | ✔ | ✔ | ❌ |
+| Color3uint8        | `N/A`                           | ✔ | ✔ | ❌ |
+| Content            | `Decal.Texture`                 | ❌ | ❌ | ❌ |
+| Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
+| Float32            | `Players.RespawnTime`           | ✔ | ✔ | ❌ |
+| Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
+| PhysicalProperties | `Part.CustomPhysicalProperties` | ➖ | ➖ | ❌ |
+| Rect2D             | `ImageButton.SliceCenter`       | ❌ | ❌ | ❌ |
+| Ref                | `Model.PrimaryPart`             | ❌ | ❌ | ❌ |
+| String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
+| UDim2              | `Frame.Size`                    | ❌ | ❌ | ❌ |
+| Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ❌ |
+| Vector2int16       | `N/A`                           | ✔ | ✔ | ❌ |
+| Vector3            | `Part.Size`                     | ✔ | ✔ | ❌ |
+| Vector3int16       | `N/A`                           | ✔ | ✔ | ❌ |
+| ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |
 
-✔ Implemented | ❌ Unimplemented | ➖ Ignored
+✔ Implemented | ❌ Unimplemented | ➖ Partially Implemented
 
 1. ProtectedString is deserialized as String, which is technically lossy but does not change semantics in practice
 
