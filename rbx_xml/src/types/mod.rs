@@ -1,3 +1,4 @@
+mod binary_string;
 mod bool;
 mod cframe;
 mod colors;
@@ -7,6 +8,7 @@ mod physical_properties;
 mod string;
 mod vectors;
 
+pub use self::binary_string::*;
 pub use self::bool::*;
 pub use self::cframe::*;
 pub use self::colors::*;
