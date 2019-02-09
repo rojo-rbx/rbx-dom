@@ -7,15 +7,13 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-const BASE64_CONFIG: base64::Config = base64::STANDARD_NO_PAD;
-
 pub fn serialize_binary_string<W: Write>(
     writer: &mut XmlEventWriter<W>,
     name: &str,
     value: &[u8]
 ) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element("BinaryString").attr("name", name))?;
-    writer.write(XmlWriteEvent::cdata(&base64::encode_config(value, BASE64_CONFIG)))?;
+    writer.write(XmlWriteEvent::cdata(&base64::encode(value)))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
@@ -40,9 +38,11 @@ pub fn deserialize_binary_string<R: Read>(reader: &mut EventIterator<R>) -> Resu
 
     reader.expect_end_with_name("BinaryString")?;
 
+    // Roblox wraps base64 BinaryString data at the 72 byte mark. The base64
+    // crate doesn't like that very much.
     let contents = contents.replace("\n", "");
 
-    let value = base64::decode_config(&contents, BASE64_CONFIG)?;
+    let value = base64::decode(&contents)?;
 
     Ok(RbxValue::BinaryString {
         value,
@@ -57,7 +57,7 @@ mod test {
     fn round_trip_binary_string() {
         let _ = env_logger::try_init();
 
-        static TEST_VALUE: &[u8] = b"\x00\x01hello,\n\x7Fworld";
+        static TEST_VALUE: &[u8] = b"\x00\x01hello,\n\x7Fworld, from a fairly sizable binary string literal.\n";
 
         let mut buffer = Vec::new();
 
