@@ -358,35 +358,29 @@ fn deserialize_instance<R: Read>(
     // name will be captured in this map and extracted later; XML doesn't store it separately
     let mut properties: HashMap<String, RbxValue> = HashMap::new();
 
-    let mut depth = 1;
-
     loop {
         match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
-            Ok(XmlReadEvent::StartElement { name, .. }) => {
-                depth += 1;
-
-                match name.local_name.as_str() {
-                    "Properties" => {
-                        deserialize_properties(reader, &mut properties)?;
-                    },
-                    "Item" => {
-                        deserialize_instance(reader, state, instance_id)?;
-                    }
-                    _ => return Err(DecodeError::Message("Unexpected tag inside instance")),
+            Ok(XmlReadEvent::StartElement { name, .. }) => match name.local_name.as_str() {
+                "Properties" => {
+                    deserialize_properties(reader, &mut properties)?;
+                },
+                "Item" => {
+                    deserialize_instance(reader, state, instance_id)?;
                 }
+                _ => return Err(DecodeError::Message("Unexpected tag inside instance")),
             },
-            Ok(XmlReadEvent::EndElement { .. }) => {
-                reader.next();
-                depth -= 1;
-
-                if depth <= 1 {
-                    break;
+            Ok(XmlReadEvent::EndElement { name }) => {
+                if name.local_name != "Item" {
+                    return Err(DecodeError::Message("Unexpected closing tag, expected Item"));
                 }
+
+                reader.next();
+                break;
             },
             Ok(XmlReadEvent::Whitespace(_)) => {
                 reader.next();
             },
-            _ => {},
+            unexpected => panic!("Unexpected XmlReadEvent {:?}", unexpected),
         }
     }
 
