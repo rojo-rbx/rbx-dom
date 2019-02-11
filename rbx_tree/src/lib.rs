@@ -75,10 +75,12 @@ mod id;
 mod instance;
 mod tree;
 mod value;
+mod untagged_value;
 
 pub use crate::{
     id::RbxId,
     instance::{RbxInstanceProperties, RbxInstance},
     tree::{RbxTree, Descendants},
     value::{RbxValue, PhysicalProperties},
+    untagged_value::{UntaggedRbxValue, InferableRbxValue},
 };
