@@ -23,6 +23,9 @@ pub enum UntaggedRbxValue {
 /// exact type of this value.
 #[derive(Debug, PartialEq)]
 pub enum InferableRbxValue {
+    /// One of String or Enum
+    String(String),
+
     /// One of Float32, Int32, or Enum
     Float1(f64),
 
@@ -51,9 +54,7 @@ impl<'de> Deserialize<'de> for UntaggedRbxValue {
             where
                 E: de::Error,
             {
-                Ok(UntaggedRbxValue::Concrete(RbxValue::String {
-                    value: value.to_owned(),
-                }))
+                Ok(UntaggedRbxValue::Inferable(InferableRbxValue::String(value.to_owned())))
             }
 
             fn visit_f64<E>(self, value: f64) -> Result<Self::Value, E>
@@ -169,9 +170,7 @@ mod tests {
 
         let value: UntaggedRbxValue = serde_json::from_str(input).unwrap();
 
-        assert_eq!(value, UntaggedRbxValue::Concrete(RbxValue::String {
-            value: String::from("Hello"),
-        }));
+        assert_eq!(value, UntaggedRbxValue::Inferable(InferableRbxValue::String(String::from("Hello"))));
     }
 
     #[test]
