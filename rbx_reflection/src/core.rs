@@ -12,10 +12,14 @@ lazy_static! {
     static ref ENUMS: HashMap<&'static str, RbxEnum> = generate_enums();
 }
 
+/// Retrieves reflection information for all known classes indexed by name.
+#[inline]
 pub fn get_classes() -> &'static HashMap<&'static str, RbxInstanceClass> {
     &CLASSES
 }
 
+/// Retrieves reflection information for all known enum values indexed by name.
+#[inline]
 pub fn get_enums() -> &'static HashMap<&'static str, RbxEnum> {
     &ENUMS
 }
