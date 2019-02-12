@@ -76,15 +76,15 @@ pub fn try_resolve_value(
                                 _ => Err(ValueResolveError::IncorrectInferableProperty),
                             }
                         }
-                        InferableRbxValue::Float1(float_value) => {
+                        InferableRbxValue::Float1(x) => {
                             // Float32, Float64, Int32, Int64, or Enum
                             unimplemented!();
                         }
-                        InferableRbxValue::Float2(float_values) => {
+                        InferableRbxValue::Float2(x, y) => {
                             // Vector2 or Vector2int16
                             unimplemented!();
                         }
-                        InferableRbxValue::Float3(float_values) => {
+                        InferableRbxValue::Float3(x, y, z) => {
                             // Vector3, Vector3int16, Color3, or Color3uint8
                             unimplemented!();
                         }
