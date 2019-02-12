@@ -1,6 +1,4 @@
 mod dump;
 mod types;
 
-fn main() {
-    println!("Hello, world!");
-}
+pub use dump::get_instances;

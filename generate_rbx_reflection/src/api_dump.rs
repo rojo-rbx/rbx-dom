@@ -50,6 +50,15 @@ pub enum DumpClassMember {
 #[serde(rename_all = "PascalCase")]
 pub struct ValueType {
     pub name: String,
+    pub category: ValueCategory,
+}
+
+#[derive(Debug, Deserialize)]
+pub enum ValueCategory {
+    Primitive,
+
+    #[serde(other)]
+    Unknown,
 }
 
 impl Dump {
