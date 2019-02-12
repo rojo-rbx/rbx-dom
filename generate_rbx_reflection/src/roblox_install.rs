@@ -13,7 +13,7 @@ pub fn locate_folder() -> Option<PathBuf> {
     Some(local_app_data.join("Roblox"))
 }
 
-pub fn locate_studio_exe() -> io::Result<PathBuf> {
+fn locate_studio_folder() -> io::Result<PathBuf> {
     let mut versions_folder = locate_folder().ok_or_else(||
         io::Error::new(io::ErrorKind::NotFound, "Roblox install not found")
     )?;
@@ -28,10 +28,16 @@ pub fn locate_studio_exe() -> io::Result<PathBuf> {
             let maybe_exe_path = path.join("RobloxStudioBeta.exe");
 
             if maybe_exe_path.is_file() {
-                return Ok(maybe_exe_path)
+                return Ok(path)
             }
         }
     }
 
     Err(io::Error::new(io::ErrorKind::NotFound, "Roblox Studio install not found"))
+}
+
+pub fn locate_studio_exe() -> io::Result<PathBuf> {
+    let mut studio_folder = locate_studio_folder()?;
+    studio_folder.push("RobloxStudioBeta.exe");
+    Ok(studio_folder)
 }
