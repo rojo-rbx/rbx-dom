@@ -92,7 +92,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         use std::collections::HashMap;
         use crate::types::*;
 
-        pub fn get_classes() -> HashMap<&'static str, RbxInstanceClass> {
+        pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             let mut output = HashMap::new();
 
             #(#classes)*
@@ -100,7 +100,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             output
         }
 
-        pub fn get_enums() -> HashMap<&'static str, RbxEnum> {
+        pub fn generate_enums() -> HashMap<&'static str, RbxEnum> {
             let mut output = HashMap::new();
 
             #(#enums)*

@@ -1,6 +1,6 @@
 # ! [ allow ( unused_mut ) ]use crate::types::*;
 use std::collections::HashMap;
-pub fn get_classes() -> HashMap<&'static str, RbxInstanceClass> {
+pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
     let mut output = HashMap::new();
     output.insert(
         "Instance",
@@ -14353,7 +14353,7 @@ pub fn get_classes() -> HashMap<&'static str, RbxInstanceClass> {
     );
     output
 }
-pub fn get_enums() -> HashMap<&'static str, RbxEnum> {
+pub fn generate_enums() -> HashMap<&'static str, RbxEnum> {
     let mut output = HashMap::new();
     output.insert(
         "ActionType",
