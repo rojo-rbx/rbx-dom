@@ -3,8 +3,8 @@ use std::collections::HashMap;
 use lazy_static::lazy_static;
 
 use crate::{
-    types::{RbxInstanceClass, RbxEnum},
     dump::{generate_classes, generate_enums},
+    types::{RbxEnum, RbxInstanceClass},
 };
 
 lazy_static! {

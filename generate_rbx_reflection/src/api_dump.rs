@@ -54,12 +54,19 @@ pub struct ValueType {
     pub category: ValueCategory,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Copy, Deserialize)]
 pub enum ValueCategory {
+    /// Lua primitives like float or string
     Primitive,
 
-    #[serde(other)]
-    Unknown,
+    /// Roblox data types like Vector3 or CFrame
+    DataType,
+
+    /// Roblox enum like FormFactor or Genre
+    Enum,
+
+    /// An instance reference
+    Class,
 }
 
 #[derive(Debug, Deserialize)]

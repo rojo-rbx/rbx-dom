@@ -1,4 +1,5 @@
 # ! [ allow ( unused_mut ) ]use crate::types::*;
+use rbx_tree::RbxValueType;
 use std::collections::HashMap;
 pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
     let mut output = HashMap::new();
@@ -13,56 +14,56 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Archivable",
                     RbxInstanceProperty {
                         name: "Archivable",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ClassName",
                     RbxInstanceProperty {
                         name: "ClassName",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "DataCost",
                     RbxInstanceProperty {
                         name: "DataCost",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Name",
                     RbxInstanceProperty {
                         name: "Name",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Parent",
                     RbxInstanceProperty {
                         name: "Parent",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "RobloxLocked",
                     RbxInstanceProperty {
                         name: "RobloxLocked",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "archivable",
                     RbxInstanceProperty {
                         name: "archivable",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "className",
                     RbxInstanceProperty {
                         name: "className",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -91,35 +92,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AttachmentForward",
                     RbxInstanceProperty {
                         name: "AttachmentForward",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "AttachmentPoint",
                     RbxInstanceProperty {
                         name: "AttachmentPoint",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "AttachmentPos",
                     RbxInstanceProperty {
                         name: "AttachmentPos",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "AttachmentRight",
                     RbxInstanceProperty {
                         name: "AttachmentRight",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "AttachmentUp",
                     RbxInstanceProperty {
                         name: "AttachmentUp",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -192,7 +193,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AnimationId",
                     RbxInstanceProperty {
                         name: "AnimationId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -221,63 +222,63 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Animation",
                     RbxInstanceProperty {
                         name: "Animation",
-                        value_type: "Animation",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "IsPlaying",
                     RbxInstanceProperty {
                         name: "IsPlaying",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Length",
                     RbxInstanceProperty {
                         name: "Length",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Looped",
                     RbxInstanceProperty {
                         name: "Looped",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Priority",
                     RbxInstanceProperty {
                         name: "Priority",
-                        value_type: "AnimationPriority",
+                        value_type: RbxPropertyType::Enum("AnimationPriority"),
                     },
                 );
                 properties.insert(
                     "Speed",
                     RbxInstanceProperty {
                         name: "Speed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TimePosition",
                     RbxInstanceProperty {
                         name: "TimePosition",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WeightCurrent",
                     RbxInstanceProperty {
                         name: "WeightCurrent",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WeightTarget",
                     RbxInstanceProperty {
                         name: "WeightTarget",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -317,91 +318,91 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Axis",
                     RbxInstanceProperty {
                         name: "Axis",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "CFrame",
                     RbxInstanceProperty {
                         name: "CFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "Orientation",
                     RbxInstanceProperty {
                         name: "Orientation",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Position",
                     RbxInstanceProperty {
                         name: "Position",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Rotation",
                     RbxInstanceProperty {
                         name: "Rotation",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "SecondaryAxis",
                     RbxInstanceProperty {
                         name: "SecondaryAxis",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Visible",
                     RbxInstanceProperty {
                         name: "Visible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "WorldAxis",
                     RbxInstanceProperty {
                         name: "WorldAxis",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "WorldCFrame",
                     RbxInstanceProperty {
                         name: "WorldCFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "WorldOrientation",
                     RbxInstanceProperty {
                         name: "WorldOrientation",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "WorldPosition",
                     RbxInstanceProperty {
                         name: "WorldPosition",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "WorldRotation",
                     RbxInstanceProperty {
                         name: "WorldRotation",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "WorldSecondaryAxis",
                     RbxInstanceProperty {
                         name: "WorldSecondaryAxis",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -441,14 +442,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "SelectionImageObject",
                     RbxInstanceProperty {
                         name: "SelectionImageObject",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Version",
                     RbxInstanceProperty {
                         name: "Version",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -466,21 +467,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CurrentScreenOrientation",
                     RbxInstanceProperty {
                         name: "CurrentScreenOrientation",
-                        value_type: "ScreenOrientation",
+                        value_type: RbxPropertyType::Enum("ScreenOrientation"),
                     },
                 );
                 properties.insert(
                     "ScreenOrientation",
                     RbxInstanceProperty {
                         name: "ScreenOrientation",
-                        value_type: "ScreenOrientation",
+                        value_type: RbxPropertyType::Enum("ScreenOrientation"),
                     },
                 );
                 properties.insert(
                     "SelectionImageObject",
                     RbxInstanceProperty {
                         name: "SelectionImageObject",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -498,28 +499,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ProcessUserInput",
                     RbxInstanceProperty {
                         name: "ProcessUserInput",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ResetPlayerGuiOnSpawn",
                     RbxInstanceProperty {
                         name: "ResetPlayerGuiOnSpawn",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ScreenOrientation",
                     RbxInstanceProperty {
                         name: "ScreenOrientation",
-                        value_type: "ScreenOrientation",
+                        value_type: RbxPropertyType::Enum("ScreenOrientation"),
                     },
                 );
                 properties.insert(
                     "ShowDevelopmentGui",
                     RbxInstanceProperty {
                         name: "ShowDevelopmentGui",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -537,126 +538,126 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Attachment0",
                     RbxInstanceProperty {
                         name: "Attachment0",
-                        value_type: "Attachment",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Attachment1",
                     RbxInstanceProperty {
                         name: "Attachment1",
-                        value_type: "Attachment",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "ColorSequence",
+                        value_type: RbxPropertyType::UnimplementedType("ColorSequence"),
                     },
                 );
                 properties.insert(
                     "CurveSize0",
                     RbxInstanceProperty {
                         name: "CurveSize0",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "CurveSize1",
                     RbxInstanceProperty {
                         name: "CurveSize1",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "FaceCamera",
                     RbxInstanceProperty {
                         name: "FaceCamera",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LightEmission",
                     RbxInstanceProperty {
                         name: "LightEmission",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LightInfluence",
                     RbxInstanceProperty {
                         name: "LightInfluence",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Segments",
                     RbxInstanceProperty {
                         name: "Segments",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Texture",
                     RbxInstanceProperty {
                         name: "Texture",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "TextureLength",
                     RbxInstanceProperty {
                         name: "TextureLength",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextureMode",
                     RbxInstanceProperty {
                         name: "TextureMode",
-                        value_type: "TextureMode",
+                        value_type: RbxPropertyType::Enum("TextureMode"),
                     },
                 );
                 properties.insert(
                     "TextureSpeed",
                     RbxInstanceProperty {
                         name: "TextureSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Transparency",
                     RbxInstanceProperty {
                         name: "Transparency",
-                        value_type: "NumberSequence",
+                        value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
                     },
                 );
                 properties.insert(
                     "Width0",
                     RbxInstanceProperty {
                         name: "Width0",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Width1",
                     RbxInstanceProperty {
                         name: "Width1",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ZOffset",
                     RbxInstanceProperty {
                         name: "ZOffset",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -707,35 +708,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AngularVelocity",
                     RbxInstanceProperty {
                         name: "AngularVelocity",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "MaxTorque",
                     RbxInstanceProperty {
                         name: "MaxTorque",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "P",
                     RbxInstanceProperty {
                         name: "P",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "angularvelocity",
                     RbxInstanceProperty {
                         name: "angularvelocity",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "maxTorque",
                     RbxInstanceProperty {
                         name: "maxTorque",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -753,14 +754,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Force",
                     RbxInstanceProperty {
                         name: "Force",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "force",
                     RbxInstanceProperty {
                         name: "force",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -778,42 +779,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CFrame",
                     RbxInstanceProperty {
                         name: "CFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "D",
                     RbxInstanceProperty {
                         name: "D",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxTorque",
                     RbxInstanceProperty {
                         name: "MaxTorque",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "P",
                     RbxInstanceProperty {
                         name: "P",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "cframe",
                     RbxInstanceProperty {
                         name: "cframe",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "maxTorque",
                     RbxInstanceProperty {
                         name: "maxTorque",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -831,42 +832,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "D",
                     RbxInstanceProperty {
                         name: "D",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxForce",
                     RbxInstanceProperty {
                         name: "MaxForce",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "P",
                     RbxInstanceProperty {
                         name: "P",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Position",
                     RbxInstanceProperty {
                         name: "Position",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "maxForce",
                     RbxInstanceProperty {
                         name: "maxForce",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "position",
                     RbxInstanceProperty {
                         name: "position",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -884,28 +885,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Force",
                     RbxInstanceProperty {
                         name: "Force",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Location",
                     RbxInstanceProperty {
                         name: "Location",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "force",
                     RbxInstanceProperty {
                         name: "force",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "location",
                     RbxInstanceProperty {
                         name: "location",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -923,35 +924,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "MaxForce",
                     RbxInstanceProperty {
                         name: "MaxForce",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "P",
                     RbxInstanceProperty {
                         name: "P",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Velocity",
                     RbxInstanceProperty {
                         name: "Velocity",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "maxForce",
                     RbxInstanceProperty {
                         name: "maxForce",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "velocity",
                     RbxInstanceProperty {
                         name: "velocity",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -969,77 +970,77 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CartoonFactor",
                     RbxInstanceProperty {
                         name: "CartoonFactor",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxSpeed",
                     RbxInstanceProperty {
                         name: "MaxSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxThrust",
                     RbxInstanceProperty {
                         name: "MaxThrust",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxTorque",
                     RbxInstanceProperty {
                         name: "MaxTorque",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Target",
                     RbxInstanceProperty {
                         name: "Target",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "TargetOffset",
                     RbxInstanceProperty {
                         name: "TargetOffset",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "TargetRadius",
                     RbxInstanceProperty {
                         name: "TargetRadius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ThrustD",
                     RbxInstanceProperty {
                         name: "ThrustD",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ThrustP",
                     RbxInstanceProperty {
                         name: "ThrustP",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TurnD",
                     RbxInstanceProperty {
                         name: "TurnD",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TurnP",
                     RbxInstanceProperty {
                         name: "TurnP",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -1101,77 +1102,77 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CFrame",
                     RbxInstanceProperty {
                         name: "CFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "CameraSubject",
                     RbxInstanceProperty {
                         name: "CameraSubject",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "CameraType",
                     RbxInstanceProperty {
                         name: "CameraType",
-                        value_type: "CameraType",
+                        value_type: RbxPropertyType::Enum("CameraType"),
                     },
                 );
                 properties.insert(
                     "CoordinateFrame",
                     RbxInstanceProperty {
                         name: "CoordinateFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "FieldOfView",
                     RbxInstanceProperty {
                         name: "FieldOfView",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Focus",
                     RbxInstanceProperty {
                         name: "Focus",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "HeadLocked",
                     RbxInstanceProperty {
                         name: "HeadLocked",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "HeadScale",
                     RbxInstanceProperty {
                         name: "HeadScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "NearPlaneZ",
                     RbxInstanceProperty {
                         name: "NearPlaneZ",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ViewportSize",
                     RbxInstanceProperty {
                         name: "ViewportSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "focus",
                     RbxInstanceProperty {
                         name: "focus",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties
@@ -1211,84 +1212,84 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "HeadColor",
                     RbxInstanceProperty {
                         name: "HeadColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "HeadColor3",
                     RbxInstanceProperty {
                         name: "HeadColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "LeftArmColor",
                     RbxInstanceProperty {
                         name: "LeftArmColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "LeftArmColor3",
                     RbxInstanceProperty {
                         name: "LeftArmColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "LeftLegColor",
                     RbxInstanceProperty {
                         name: "LeftLegColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "LeftLegColor3",
                     RbxInstanceProperty {
                         name: "LeftLegColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "RightArmColor",
                     RbxInstanceProperty {
                         name: "RightArmColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "RightArmColor3",
                     RbxInstanceProperty {
                         name: "RightArmColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "RightLegColor",
                     RbxInstanceProperty {
                         name: "RightLegColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "RightLegColor3",
                     RbxInstanceProperty {
                         name: "RightLegColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "TorsoColor",
                     RbxInstanceProperty {
                         name: "TorsoColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "TorsoColor3",
                     RbxInstanceProperty {
                         name: "TorsoColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties
@@ -1306,28 +1307,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "BaseTextureId",
                     RbxInstanceProperty {
                         name: "BaseTextureId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "BodyPart",
                     RbxInstanceProperty {
                         name: "BodyPart",
-                        value_type: "BodyPart",
+                        value_type: RbxPropertyType::Enum("BodyPart"),
                     },
                 );
                 properties.insert(
                     "MeshId",
                     RbxInstanceProperty {
                         name: "MeshId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "OverlayTextureId",
                     RbxInstanceProperty {
                         name: "OverlayTextureId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -1345,7 +1346,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Color3",
                     RbxInstanceProperty {
                         name: "Color3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties
@@ -1363,7 +1364,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "PantsTemplate",
                     RbxInstanceProperty {
                         name: "PantsTemplate",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -1381,7 +1382,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ShirtTemplate",
                     RbxInstanceProperty {
                         name: "ShirtTemplate",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -1399,14 +1400,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Color3",
                     RbxInstanceProperty {
                         name: "Color3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Graphic",
                     RbxInstanceProperty {
                         name: "Graphic",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -1424,7 +1425,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "SkinColor",
                     RbxInstanceProperty {
                         name: "SkinColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties
@@ -1442,14 +1443,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "BubbleChatEnabled",
                     RbxInstanceProperty {
                         name: "BubbleChatEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LoadDefaultChat",
                     RbxInstanceProperty {
                         name: "LoadDefaultChat",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -1467,14 +1468,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CursorIcon",
                     RbxInstanceProperty {
                         name: "CursorIcon",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "MaxActivationDistance",
                     RbxInstanceProperty {
                         name: "MaxActivationDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -1525,42 +1526,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Active",
                     RbxInstanceProperty {
                         name: "Active",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Attachment0",
                     RbxInstanceProperty {
                         name: "Attachment0",
-                        value_type: "Attachment",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Attachment1",
                     RbxInstanceProperty {
                         name: "Attachment1",
-                        value_type: "Attachment",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Visible",
                     RbxInstanceProperty {
                         name: "Visible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -1578,49 +1579,49 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AlignType",
                     RbxInstanceProperty {
                         name: "AlignType",
-                        value_type: "AlignType",
+                        value_type: RbxPropertyType::Enum("AlignType"),
                     },
                 );
                 properties.insert(
                     "MaxAngularVelocity",
                     RbxInstanceProperty {
                         name: "MaxAngularVelocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxTorque",
                     RbxInstanceProperty {
                         name: "MaxTorque",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PrimaryAxisOnly",
                     RbxInstanceProperty {
                         name: "PrimaryAxisOnly",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ReactionTorqueEnabled",
                     RbxInstanceProperty {
                         name: "ReactionTorqueEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Responsiveness",
                     RbxInstanceProperty {
                         name: "Responsiveness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RigidityEnabled",
                     RbxInstanceProperty {
                         name: "RigidityEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -1638,42 +1639,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ApplyAtCenterOfMass",
                     RbxInstanceProperty {
                         name: "ApplyAtCenterOfMass",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MaxForce",
                     RbxInstanceProperty {
                         name: "MaxForce",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxVelocity",
                     RbxInstanceProperty {
                         name: "MaxVelocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ReactionForceEnabled",
                     RbxInstanceProperty {
                         name: "ReactionForceEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Responsiveness",
                     RbxInstanceProperty {
                         name: "Responsiveness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RigidityEnabled",
                     RbxInstanceProperty {
                         name: "RigidityEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -1691,49 +1692,49 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "LimitsEnabled",
                     RbxInstanceProperty {
                         name: "LimitsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Radius",
                     RbxInstanceProperty {
                         name: "Radius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Restitution",
                     RbxInstanceProperty {
                         name: "Restitution",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TwistLimitsEnabled",
                     RbxInstanceProperty {
                         name: "TwistLimitsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TwistLowerAngle",
                     RbxInstanceProperty {
                         name: "TwistLowerAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TwistUpperAngle",
                     RbxInstanceProperty {
                         name: "TwistUpperAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "UpperAngle",
                     RbxInstanceProperty {
                         name: "UpperAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -1751,91 +1752,91 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ActuatorType",
                     RbxInstanceProperty {
                         name: "ActuatorType",
-                        value_type: "ActuatorType",
+                        value_type: RbxPropertyType::Enum("ActuatorType"),
                     },
                 );
                 properties.insert(
                     "AngularSpeed",
                     RbxInstanceProperty {
                         name: "AngularSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "AngularVelocity",
                     RbxInstanceProperty {
                         name: "AngularVelocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "CurrentAngle",
                     RbxInstanceProperty {
                         name: "CurrentAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LimitsEnabled",
                     RbxInstanceProperty {
                         name: "LimitsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LowerAngle",
                     RbxInstanceProperty {
                         name: "LowerAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MotorMaxAcceleration",
                     RbxInstanceProperty {
                         name: "MotorMaxAcceleration",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MotorMaxTorque",
                     RbxInstanceProperty {
                         name: "MotorMaxTorque",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Radius",
                     RbxInstanceProperty {
                         name: "Radius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Restitution",
                     RbxInstanceProperty {
                         name: "Restitution",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ServoMaxTorque",
                     RbxInstanceProperty {
                         name: "ServoMaxTorque",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TargetAngle",
                     RbxInstanceProperty {
                         name: "TargetAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "UpperAngle",
                     RbxInstanceProperty {
                         name: "UpperAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -1853,35 +1854,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ApplyAtCenterOfMass",
                     RbxInstanceProperty {
                         name: "ApplyAtCenterOfMass",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "InverseSquareLaw",
                     RbxInstanceProperty {
                         name: "InverseSquareLaw",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Magnitude",
                     RbxInstanceProperty {
                         name: "Magnitude",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxForce",
                     RbxInstanceProperty {
                         name: "MaxForce",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ReactionForceEnabled",
                     RbxInstanceProperty {
                         name: "ReactionForceEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -1899,21 +1900,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CurrentDistance",
                     RbxInstanceProperty {
                         name: "CurrentDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Length",
                     RbxInstanceProperty {
                         name: "Length",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Thickness",
                     RbxInstanceProperty {
                         name: "Thickness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -1931,28 +1932,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CurrentDistance",
                     RbxInstanceProperty {
                         name: "CurrentDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Length",
                     RbxInstanceProperty {
                         name: "Length",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Restitution",
                     RbxInstanceProperty {
                         name: "Restitution",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Thickness",
                     RbxInstanceProperty {
                         name: "Thickness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -1970,91 +1971,91 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ActuatorType",
                     RbxInstanceProperty {
                         name: "ActuatorType",
-                        value_type: "ActuatorType",
+                        value_type: RbxPropertyType::Enum("ActuatorType"),
                     },
                 );
                 properties.insert(
                     "CurrentPosition",
                     RbxInstanceProperty {
                         name: "CurrentPosition",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LimitsEnabled",
                     RbxInstanceProperty {
                         name: "LimitsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LowerLimit",
                     RbxInstanceProperty {
                         name: "LowerLimit",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MotorMaxAcceleration",
                     RbxInstanceProperty {
                         name: "MotorMaxAcceleration",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MotorMaxForce",
                     RbxInstanceProperty {
                         name: "MotorMaxForce",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Restitution",
                     RbxInstanceProperty {
                         name: "Restitution",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ServoMaxForce",
                     RbxInstanceProperty {
                         name: "ServoMaxForce",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Speed",
                     RbxInstanceProperty {
                         name: "Speed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TargetPosition",
                     RbxInstanceProperty {
                         name: "TargetPosition",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "UpperLimit",
                     RbxInstanceProperty {
                         name: "UpperLimit",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Velocity",
                     RbxInstanceProperty {
                         name: "Velocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -2072,105 +2073,105 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AngularActuatorType",
                     RbxInstanceProperty {
                         name: "AngularActuatorType",
-                        value_type: "ActuatorType",
+                        value_type: RbxPropertyType::Enum("ActuatorType"),
                     },
                 );
                 properties.insert(
                     "AngularLimitsEnabled",
                     RbxInstanceProperty {
                         name: "AngularLimitsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AngularRestitution",
                     RbxInstanceProperty {
                         name: "AngularRestitution",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "AngularSpeed",
                     RbxInstanceProperty {
                         name: "AngularSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "AngularVelocity",
                     RbxInstanceProperty {
                         name: "AngularVelocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "CurrentAngle",
                     RbxInstanceProperty {
                         name: "CurrentAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "InclinationAngle",
                     RbxInstanceProperty {
                         name: "InclinationAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LowerAngle",
                     RbxInstanceProperty {
                         name: "LowerAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MotorMaxAngularAcceleration",
                     RbxInstanceProperty {
                         name: "MotorMaxAngularAcceleration",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MotorMaxTorque",
                     RbxInstanceProperty {
                         name: "MotorMaxTorque",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RotationAxisVisible",
                     RbxInstanceProperty {
                         name: "RotationAxisVisible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ServoMaxTorque",
                     RbxInstanceProperty {
                         name: "ServoMaxTorque",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TargetAngle",
                     RbxInstanceProperty {
                         name: "TargetAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "UpperAngle",
                     RbxInstanceProperty {
                         name: "UpperAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WorldRotationAxis",
                     RbxInstanceProperty {
                         name: "WorldRotationAxis",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -2199,77 +2200,77 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Coils",
                     RbxInstanceProperty {
                         name: "Coils",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "CurrentLength",
                     RbxInstanceProperty {
                         name: "CurrentLength",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Damping",
                     RbxInstanceProperty {
                         name: "Damping",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "FreeLength",
                     RbxInstanceProperty {
                         name: "FreeLength",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LimitsEnabled",
                     RbxInstanceProperty {
                         name: "LimitsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MaxForce",
                     RbxInstanceProperty {
                         name: "MaxForce",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxLength",
                     RbxInstanceProperty {
                         name: "MaxLength",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MinLength",
                     RbxInstanceProperty {
                         name: "MinLength",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Radius",
                     RbxInstanceProperty {
                         name: "Radius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Stiffness",
                     RbxInstanceProperty {
                         name: "Stiffness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Thickness",
                     RbxInstanceProperty {
                         name: "Thickness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -2287,14 +2288,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "RelativeTo",
                     RbxInstanceProperty {
                         name: "RelativeTo",
-                        value_type: "ActuatorRelativeTo",
+                        value_type: RbxPropertyType::Enum("ActuatorRelativeTo"),
                     },
                 );
                 properties.insert(
                     "Torque",
                     RbxInstanceProperty {
                         name: "Torque",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -2312,21 +2313,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ApplyAtCenterOfMass",
                     RbxInstanceProperty {
                         name: "ApplyAtCenterOfMass",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Force",
                     RbxInstanceProperty {
                         name: "Force",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "RelativeTo",
                     RbxInstanceProperty {
                         name: "RelativeTo",
-                        value_type: "ActuatorRelativeTo",
+                        value_type: RbxPropertyType::Enum("ActuatorRelativeTo"),
                     },
                 );
                 properties
@@ -2344,14 +2345,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "BaseUrl",
                     RbxInstanceProperty {
                         name: "BaseUrl",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "RequestQueueSize",
                     RbxInstanceProperty {
                         name: "RequestQueueSize",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -2402,14 +2403,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Steer",
                     RbxInstanceProperty {
                         name: "Steer",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Throttle",
                     RbxInstanceProperty {
                         name: "Throttle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -2493,7 +2494,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Source",
                     RbxInstanceProperty {
                         name: "Source",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -2511,21 +2512,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Offset",
                     RbxInstanceProperty {
                         name: "Offset",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Scale",
                     RbxInstanceProperty {
                         name: "Scale",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "VertexColor",
                     RbxInstanceProperty {
                         name: "VertexColor",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -2576,14 +2577,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "MeshId",
                     RbxInstanceProperty {
                         name: "MeshId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "TextureId",
                     RbxInstanceProperty {
                         name: "TextureId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -2601,7 +2602,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "MeshType",
                     RbxInstanceProperty {
                         name: "MeshType",
-                        value_type: "MeshType",
+                        value_type: RbxPropertyType::Enum("MeshType"),
                     },
                 );
                 properties
@@ -2619,14 +2620,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AutomaticRetry",
                     RbxInstanceProperty {
                         name: "AutomaticRetry",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LegacyNamingScheme",
                     RbxInstanceProperty {
                         name: "LegacyNamingScheme",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -2644,7 +2645,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "MaxItems",
                     RbxInstanceProperty {
                         name: "MaxItems",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -2662,140 +2663,140 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "DataModel",
                     RbxInstanceProperty {
                         name: "DataModel",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ErrorReporting",
                     RbxInstanceProperty {
                         name: "ErrorReporting",
-                        value_type: "ErrorReporting",
+                        value_type: RbxPropertyType::Enum("ErrorReporting"),
                     },
                 );
                 properties.insert(
                     "GfxCard",
                     RbxInstanceProperty {
                         name: "GfxCard",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "InstanceCount",
                     RbxInstanceProperty {
                         name: "InstanceCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "IsFmodProfilingEnabled",
                     RbxInstanceProperty {
                         name: "IsFmodProfilingEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsScriptStackTracingEnabled",
                     RbxInstanceProperty {
                         name: "IsScriptStackTracingEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "JobCount",
                     RbxInstanceProperty {
                         name: "JobCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "LuaRamLimit",
                     RbxInstanceProperty {
                         name: "LuaRamLimit",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "OsIs64Bit",
                     RbxInstanceProperty {
                         name: "OsIs64Bit",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "OsPlatform",
                     RbxInstanceProperty {
                         name: "OsPlatform",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "OsPlatformId",
                     RbxInstanceProperty {
                         name: "OsPlatformId",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "OsVer",
                     RbxInstanceProperty {
                         name: "OsVer",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "PlayerCount",
                     RbxInstanceProperty {
                         name: "PlayerCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ReportSoundWarnings",
                     RbxInstanceProperty {
                         name: "ReportSoundWarnings",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RobloxProductName",
                     RbxInstanceProperty {
                         name: "RobloxProductName",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "RobloxVersion",
                     RbxInstanceProperty {
                         name: "RobloxVersion",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "SIMD",
                     RbxInstanceProperty {
                         name: "SIMD",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "SystemProductName",
                     RbxInstanceProperty {
                         name: "SystemProductName",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "TickCountPreciseOverride",
                     RbxInstanceProperty {
                         name: "TickCountPreciseOverride",
-                        value_type: "TickCountSampleMethod",
+                        value_type: RbxPropertyType::Enum("TickCountSampleMethod"),
                     },
                 );
                 properties.insert(
                     "VideoMemory",
                     RbxInstanceProperty {
                         name: "VideoMemory",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -2813,21 +2814,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Condition",
                     RbxInstanceProperty {
                         name: "Condition",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "IsEnabled",
                     RbxInstanceProperty {
                         name: "IsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Line",
                     RbxInstanceProperty {
                         name: "Line",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -2845,7 +2846,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "DebuggingEnabled",
                     RbxInstanceProperty {
                         name: "DebuggingEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -2863,7 +2864,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Expression",
                     RbxInstanceProperty {
                         name: "Expression",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -2881,70 +2882,70 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "BehaviorType",
                     RbxInstanceProperty {
                         name: "BehaviorType",
-                        value_type: "DialogBehaviorType",
+                        value_type: RbxPropertyType::Enum("DialogBehaviorType"),
                     },
                 );
                 properties.insert(
                     "ConversationDistance",
                     RbxInstanceProperty {
                         name: "ConversationDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "GoodbyeChoiceActive",
                     RbxInstanceProperty {
                         name: "GoodbyeChoiceActive",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "GoodbyeDialog",
                     RbxInstanceProperty {
                         name: "GoodbyeDialog",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "InUse",
                     RbxInstanceProperty {
                         name: "InUse",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "InitialPrompt",
                     RbxInstanceProperty {
                         name: "InitialPrompt",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Purpose",
                     RbxInstanceProperty {
                         name: "Purpose",
-                        value_type: "DialogPurpose",
+                        value_type: RbxPropertyType::Enum("DialogPurpose"),
                     },
                 );
                 properties.insert(
                     "Tone",
                     RbxInstanceProperty {
                         name: "Tone",
-                        value_type: "DialogTone",
+                        value_type: RbxPropertyType::Enum("DialogTone"),
                     },
                 );
                 properties.insert(
                     "TriggerDistance",
                     RbxInstanceProperty {
                         name: "TriggerDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TriggerOffset",
                     RbxInstanceProperty {
                         name: "TriggerOffset",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -2962,28 +2963,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "GoodbyeChoiceActive",
                     RbxInstanceProperty {
                         name: "GoodbyeChoiceActive",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "GoodbyeDialog",
                     RbxInstanceProperty {
                         name: "GoodbyeDialog",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ResponseDialog",
                     RbxInstanceProperty {
                         name: "ResponseDialog",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "UserDialog",
                     RbxInstanceProperty {
                         name: "UserDialog",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -3012,42 +3013,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "BlastPressure",
                     RbxInstanceProperty {
                         name: "BlastPressure",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "BlastRadius",
                     RbxInstanceProperty {
                         name: "BlastRadius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DestroyJointRadiusPercent",
                     RbxInstanceProperty {
                         name: "DestroyJointRadiusPercent",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ExplosionType",
                     RbxInstanceProperty {
                         name: "ExplosionType",
-                        value_type: "ExplosionType",
+                        value_type: RbxPropertyType::Enum("ExplosionType"),
                     },
                 );
                 properties.insert(
                     "Position",
                     RbxInstanceProperty {
                         name: "Position",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Visible",
                     RbxInstanceProperty {
                         name: "Visible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -3065,7 +3066,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Face",
                     RbxInstanceProperty {
                         name: "Face",
-                        value_type: "NormalId",
+                        value_type: RbxPropertyType::Enum("NormalId"),
                     },
                 );
                 properties
@@ -3083,42 +3084,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Color3",
                     RbxInstanceProperty {
                         name: "Color3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "LocalTransparencyModifier",
                     RbxInstanceProperty {
                         name: "LocalTransparencyModifier",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Shiny",
                     RbxInstanceProperty {
                         name: "Shiny",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Specular",
                     RbxInstanceProperty {
                         name: "Specular",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Texture",
                     RbxInstanceProperty {
                         name: "Texture",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "Transparency",
                     RbxInstanceProperty {
                         name: "Transparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -3136,14 +3137,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "StudsPerTileU",
                     RbxInstanceProperty {
                         name: "StudsPerTileU",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "StudsPerTileV",
                     RbxInstanceProperty {
                         name: "StudsPerTileV",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -3161,28 +3162,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "FaceId",
                     RbxInstanceProperty {
                         name: "FaceId",
-                        value_type: "NormalId",
+                        value_type: RbxPropertyType::Enum("NormalId"),
                     },
                 );
                 properties.insert(
                     "InOut",
                     RbxInstanceProperty {
                         name: "InOut",
-                        value_type: "InOut",
+                        value_type: RbxPropertyType::Enum("InOut"),
                     },
                 );
                 properties.insert(
                     "LeftRight",
                     RbxInstanceProperty {
                         name: "LeftRight",
-                        value_type: "LeftRight",
+                        value_type: RbxPropertyType::Enum("LeftRight"),
                     },
                 );
                 properties.insert(
                     "TopBottom",
                     RbxInstanceProperty {
                         name: "TopBottom",
-                        value_type: "TopBottom",
+                        value_type: RbxPropertyType::Enum("TopBottom"),
                     },
                 );
                 properties
@@ -3222,42 +3223,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Heat",
                     RbxInstanceProperty {
                         name: "Heat",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "SecondaryColor",
                     RbxInstanceProperty {
                         name: "SecondaryColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "size",
                     RbxInstanceProperty {
                         name: "size",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -3330,7 +3331,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Visible",
                     RbxInstanceProperty {
                         name: "Visible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -3359,7 +3360,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Description",
                     RbxInstanceProperty {
                         name: "Description",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -3388,98 +3389,98 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AdditionalCoreIncludeDirs",
                     RbxInstanceProperty {
                         name: "AdditionalCoreIncludeDirs",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "BubbleChatLifetime",
                     RbxInstanceProperty {
                         name: "BubbleChatLifetime",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "BubbleChatMaxBubbles",
                     RbxInstanceProperty {
                         name: "BubbleChatMaxBubbles",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ChatHistory",
                     RbxInstanceProperty {
                         name: "ChatHistory",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ChatScrollLength",
                     RbxInstanceProperty {
                         name: "ChatScrollLength",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "CollisionSoundEnabled",
                     RbxInstanceProperty {
                         name: "CollisionSoundEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CollisionSoundVolume",
                     RbxInstanceProperty {
                         name: "CollisionSoundVolume",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "HardwareMouse",
                     RbxInstanceProperty {
                         name: "HardwareMouse",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MaxCollisionSounds",
                     RbxInstanceProperty {
                         name: "MaxCollisionSounds",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "OverrideStarterScript",
                     RbxInstanceProperty {
                         name: "OverrideStarterScript",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ReportAbuseChatHistory",
                     RbxInstanceProperty {
                         name: "ReportAbuseChatHistory",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "SoftwareSound",
                     RbxInstanceProperty {
                         name: "SoftwareSound",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "VideoCaptureEnabled",
                     RbxInstanceProperty {
                         name: "VideoCaptureEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "VideoQuality",
                     RbxInstanceProperty {
                         name: "VideoQuality",
-                        value_type: "VideoQualitySettings",
+                        value_type: RbxPropertyType::Enum("VideoQualitySettings"),
                     },
                 );
                 properties
@@ -3574,42 +3575,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AbsolutePosition",
                     RbxInstanceProperty {
                         name: "AbsolutePosition",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "AbsoluteRotation",
                     RbxInstanceProperty {
                         name: "AbsoluteRotation",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "AbsoluteSize",
                     RbxInstanceProperty {
                         name: "AbsoluteSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "AutoLocalize",
                     RbxInstanceProperty {
                         name: "AutoLocalize",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Localize",
                     RbxInstanceProperty {
                         name: "Localize",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RootLocalizationTable",
                     RbxInstanceProperty {
                         name: "RootLocalizationTable",
-                        value_type: "LocalizationTable",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -3627,168 +3628,168 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Active",
                     RbxInstanceProperty {
                         name: "Active",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AnchorPoint",
                     RbxInstanceProperty {
                         name: "AnchorPoint",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "BackgroundColor",
                     RbxInstanceProperty {
                         name: "BackgroundColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "BackgroundColor3",
                     RbxInstanceProperty {
                         name: "BackgroundColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "BackgroundTransparency",
                     RbxInstanceProperty {
                         name: "BackgroundTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "BorderColor",
                     RbxInstanceProperty {
                         name: "BorderColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "BorderColor3",
                     RbxInstanceProperty {
                         name: "BorderColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "BorderSizePixel",
                     RbxInstanceProperty {
                         name: "BorderSizePixel",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ClipsDescendants",
                     RbxInstanceProperty {
                         name: "ClipsDescendants",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Draggable",
                     RbxInstanceProperty {
                         name: "Draggable",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LayoutOrder",
                     RbxInstanceProperty {
                         name: "LayoutOrder",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "NextSelectionDown",
                     RbxInstanceProperty {
                         name: "NextSelectionDown",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "NextSelectionLeft",
                     RbxInstanceProperty {
                         name: "NextSelectionLeft",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "NextSelectionRight",
                     RbxInstanceProperty {
                         name: "NextSelectionRight",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "NextSelectionUp",
                     RbxInstanceProperty {
                         name: "NextSelectionUp",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Position",
                     RbxInstanceProperty {
                         name: "Position",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties.insert(
                     "Rotation",
                     RbxInstanceProperty {
                         name: "Rotation",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Selectable",
                     RbxInstanceProperty {
                         name: "Selectable",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "SelectionImageObject",
                     RbxInstanceProperty {
                         name: "SelectionImageObject",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties.insert(
                     "SizeConstraint",
                     RbxInstanceProperty {
                         name: "SizeConstraint",
-                        value_type: "SizeConstraint",
+                        value_type: RbxPropertyType::Enum("SizeConstraint"),
                     },
                 );
                 properties.insert(
                     "Transparency",
                     RbxInstanceProperty {
                         name: "Transparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Visible",
                     RbxInstanceProperty {
                         name: "Visible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ZIndex",
                     RbxInstanceProperty {
                         name: "ZIndex",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -3806,7 +3807,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Style",
                     RbxInstanceProperty {
                         name: "Style",
-                        value_type: "FrameStyle",
+                        value_type: RbxPropertyType::Enum("FrameStyle"),
                     },
                 );
                 properties
@@ -3824,28 +3825,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AutoButtonColor",
                     RbxInstanceProperty {
                         name: "AutoButtonColor",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Modal",
                     RbxInstanceProperty {
                         name: "Modal",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Selected",
                     RbxInstanceProperty {
                         name: "Selected",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Style",
                     RbxInstanceProperty {
                         name: "Style",
-                        value_type: "ButtonStyle",
+                        value_type: RbxPropertyType::Enum("ButtonStyle"),
                     },
                 );
                 properties
@@ -3863,84 +3864,84 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "HoverImage",
                     RbxInstanceProperty {
                         name: "HoverImage",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "Image",
                     RbxInstanceProperty {
                         name: "Image",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "ImageColor3",
                     RbxInstanceProperty {
                         name: "ImageColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "ImageRectOffset",
                     RbxInstanceProperty {
                         name: "ImageRectOffset",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "ImageRectSize",
                     RbxInstanceProperty {
                         name: "ImageRectSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "ImageTransparency",
                     RbxInstanceProperty {
                         name: "ImageTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "IsLoaded",
                     RbxInstanceProperty {
                         name: "IsLoaded",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PressedImage",
                     RbxInstanceProperty {
                         name: "PressedImage",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "ScaleType",
                     RbxInstanceProperty {
                         name: "ScaleType",
-                        value_type: "ScaleType",
+                        value_type: RbxPropertyType::Enum("ScaleType"),
                     },
                 );
                 properties.insert(
                     "SliceCenter",
                     RbxInstanceProperty {
                         name: "SliceCenter",
-                        value_type: "Rect",
+                        value_type: RbxPropertyType::UnimplementedType("Rect"),
                     },
                 );
                 properties.insert(
                     "SliceScale",
                     RbxInstanceProperty {
                         name: "SliceScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TileSize",
                     RbxInstanceProperty {
                         name: "TileSize",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties
@@ -3958,133 +3959,133 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Font",
                     RbxInstanceProperty {
                         name: "Font",
-                        value_type: "Font",
+                        value_type: RbxPropertyType::Enum("Font"),
                     },
                 );
                 properties.insert(
                     "FontSize",
                     RbxInstanceProperty {
                         name: "FontSize",
-                        value_type: "FontSize",
+                        value_type: RbxPropertyType::Enum("FontSize"),
                     },
                 );
                 properties.insert(
                     "LineHeight",
                     RbxInstanceProperty {
                         name: "LineHeight",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LocalizedText",
                     RbxInstanceProperty {
                         name: "LocalizedText",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Text",
                     RbxInstanceProperty {
                         name: "Text",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "TextBounds",
                     RbxInstanceProperty {
                         name: "TextBounds",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "TextColor",
                     RbxInstanceProperty {
                         name: "TextColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "TextColor3",
                     RbxInstanceProperty {
                         name: "TextColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "TextFits",
                     RbxInstanceProperty {
                         name: "TextFits",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextScaled",
                     RbxInstanceProperty {
                         name: "TextScaled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextSize",
                     RbxInstanceProperty {
                         name: "TextSize",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextStrokeColor3",
                     RbxInstanceProperty {
                         name: "TextStrokeColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "TextStrokeTransparency",
                     RbxInstanceProperty {
                         name: "TextStrokeTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextTransparency",
                     RbxInstanceProperty {
                         name: "TextTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextTruncate",
                     RbxInstanceProperty {
                         name: "TextTruncate",
-                        value_type: "TextTruncate",
+                        value_type: RbxPropertyType::Enum("TextTruncate"),
                     },
                 );
                 properties.insert(
                     "TextWrap",
                     RbxInstanceProperty {
                         name: "TextWrap",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextWrapped",
                     RbxInstanceProperty {
                         name: "TextWrapped",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextXAlignment",
                     RbxInstanceProperty {
                         name: "TextXAlignment",
-                        value_type: "TextXAlignment",
+                        value_type: RbxPropertyType::Enum("TextXAlignment"),
                     },
                 );
                 properties.insert(
                     "TextYAlignment",
                     RbxInstanceProperty {
                         name: "TextYAlignment",
-                        value_type: "TextYAlignment",
+                        value_type: RbxPropertyType::Enum("TextYAlignment"),
                     },
                 );
                 properties
@@ -4113,70 +4114,70 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Image",
                     RbxInstanceProperty {
                         name: "Image",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "ImageColor3",
                     RbxInstanceProperty {
                         name: "ImageColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "ImageRectOffset",
                     RbxInstanceProperty {
                         name: "ImageRectOffset",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "ImageRectSize",
                     RbxInstanceProperty {
                         name: "ImageRectSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "ImageTransparency",
                     RbxInstanceProperty {
                         name: "ImageTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "IsLoaded",
                     RbxInstanceProperty {
                         name: "IsLoaded",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ScaleType",
                     RbxInstanceProperty {
                         name: "ScaleType",
-                        value_type: "ScaleType",
+                        value_type: RbxPropertyType::Enum("ScaleType"),
                     },
                 );
                 properties.insert(
                     "SliceCenter",
                     RbxInstanceProperty {
                         name: "SliceCenter",
-                        value_type: "Rect",
+                        value_type: RbxPropertyType::UnimplementedType("Rect"),
                     },
                 );
                 properties.insert(
                     "SliceScale",
                     RbxInstanceProperty {
                         name: "SliceScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TileSize",
                     RbxInstanceProperty {
                         name: "TileSize",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties
@@ -4194,133 +4195,133 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Font",
                     RbxInstanceProperty {
                         name: "Font",
-                        value_type: "Font",
+                        value_type: RbxPropertyType::Enum("Font"),
                     },
                 );
                 properties.insert(
                     "FontSize",
                     RbxInstanceProperty {
                         name: "FontSize",
-                        value_type: "FontSize",
+                        value_type: RbxPropertyType::Enum("FontSize"),
                     },
                 );
                 properties.insert(
                     "LineHeight",
                     RbxInstanceProperty {
                         name: "LineHeight",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LocalizedText",
                     RbxInstanceProperty {
                         name: "LocalizedText",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Text",
                     RbxInstanceProperty {
                         name: "Text",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "TextBounds",
                     RbxInstanceProperty {
                         name: "TextBounds",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "TextColor",
                     RbxInstanceProperty {
                         name: "TextColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "TextColor3",
                     RbxInstanceProperty {
                         name: "TextColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "TextFits",
                     RbxInstanceProperty {
                         name: "TextFits",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextScaled",
                     RbxInstanceProperty {
                         name: "TextScaled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextSize",
                     RbxInstanceProperty {
                         name: "TextSize",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextStrokeColor3",
                     RbxInstanceProperty {
                         name: "TextStrokeColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "TextStrokeTransparency",
                     RbxInstanceProperty {
                         name: "TextStrokeTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextTransparency",
                     RbxInstanceProperty {
                         name: "TextTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextTruncate",
                     RbxInstanceProperty {
                         name: "TextTruncate",
-                        value_type: "TextTruncate",
+                        value_type: RbxPropertyType::Enum("TextTruncate"),
                     },
                 );
                 properties.insert(
                     "TextWrap",
                     RbxInstanceProperty {
                         name: "TextWrap",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextWrapped",
                     RbxInstanceProperty {
                         name: "TextWrapped",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextXAlignment",
                     RbxInstanceProperty {
                         name: "TextXAlignment",
-                        value_type: "TextXAlignment",
+                        value_type: RbxPropertyType::Enum("TextXAlignment"),
                     },
                 );
                 properties.insert(
                     "TextYAlignment",
                     RbxInstanceProperty {
                         name: "TextYAlignment",
-                        value_type: "TextYAlignment",
+                        value_type: RbxPropertyType::Enum("TextYAlignment"),
                     },
                 );
                 properties
@@ -4338,105 +4339,105 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AbsoluteWindowSize",
                     RbxInstanceProperty {
                         name: "AbsoluteWindowSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "BottomImage",
                     RbxInstanceProperty {
                         name: "BottomImage",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "CanvasPosition",
                     RbxInstanceProperty {
                         name: "CanvasPosition",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "CanvasSize",
                     RbxInstanceProperty {
                         name: "CanvasSize",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties.insert(
                     "ElasticBehavior",
                     RbxInstanceProperty {
                         name: "ElasticBehavior",
-                        value_type: "ElasticBehavior",
+                        value_type: RbxPropertyType::Enum("ElasticBehavior"),
                     },
                 );
                 properties.insert(
                     "HorizontalScrollBarInset",
                     RbxInstanceProperty {
                         name: "HorizontalScrollBarInset",
-                        value_type: "ScrollBarInset",
+                        value_type: RbxPropertyType::Enum("ScrollBarInset"),
                     },
                 );
                 properties.insert(
                     "MidImage",
                     RbxInstanceProperty {
                         name: "MidImage",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "ScrollBarImageColor3",
                     RbxInstanceProperty {
                         name: "ScrollBarImageColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "ScrollBarImageTransparency",
                     RbxInstanceProperty {
                         name: "ScrollBarImageTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ScrollBarThickness",
                     RbxInstanceProperty {
                         name: "ScrollBarThickness",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ScrollingDirection",
                     RbxInstanceProperty {
                         name: "ScrollingDirection",
-                        value_type: "ScrollingDirection",
+                        value_type: RbxPropertyType::Enum("ScrollingDirection"),
                     },
                 );
                 properties.insert(
                     "ScrollingEnabled",
                     RbxInstanceProperty {
                         name: "ScrollingEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TopImage",
                     RbxInstanceProperty {
                         name: "TopImage",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "VerticalScrollBarInset",
                     RbxInstanceProperty {
                         name: "VerticalScrollBarInset",
-                        value_type: "ScrollBarInset",
+                        value_type: RbxPropertyType::Enum("ScrollBarInset"),
                     },
                 );
                 properties.insert(
                     "VerticalScrollBarPosition",
                     RbxInstanceProperty {
                         name: "VerticalScrollBarPosition",
-                        value_type: "VerticalScrollBarPosition",
+                        value_type: RbxPropertyType::Enum("VerticalScrollBarPosition"),
                     },
                 );
                 properties
@@ -4454,182 +4455,182 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ClearTextOnFocus",
                     RbxInstanceProperty {
                         name: "ClearTextOnFocus",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CursorPosition",
                     RbxInstanceProperty {
                         name: "CursorPosition",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Font",
                     RbxInstanceProperty {
                         name: "Font",
-                        value_type: "Font",
+                        value_type: RbxPropertyType::Enum("Font"),
                     },
                 );
                 properties.insert(
                     "FontSize",
                     RbxInstanceProperty {
                         name: "FontSize",
-                        value_type: "FontSize",
+                        value_type: RbxPropertyType::Enum("FontSize"),
                     },
                 );
                 properties.insert(
                     "LineHeight",
                     RbxInstanceProperty {
                         name: "LineHeight",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ManualFocusRelease",
                     RbxInstanceProperty {
                         name: "ManualFocusRelease",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MultiLine",
                     RbxInstanceProperty {
                         name: "MultiLine",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "OverlayNativeInput",
                     RbxInstanceProperty {
                         name: "OverlayNativeInput",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PlaceholderColor3",
                     RbxInstanceProperty {
                         name: "PlaceholderColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "PlaceholderText",
                     RbxInstanceProperty {
                         name: "PlaceholderText",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ShowNativeInput",
                     RbxInstanceProperty {
                         name: "ShowNativeInput",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Text",
                     RbxInstanceProperty {
                         name: "Text",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "TextBounds",
                     RbxInstanceProperty {
                         name: "TextBounds",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "TextColor",
                     RbxInstanceProperty {
                         name: "TextColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "TextColor3",
                     RbxInstanceProperty {
                         name: "TextColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "TextFits",
                     RbxInstanceProperty {
                         name: "TextFits",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextScaled",
                     RbxInstanceProperty {
                         name: "TextScaled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextSize",
                     RbxInstanceProperty {
                         name: "TextSize",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextStrokeColor3",
                     RbxInstanceProperty {
                         name: "TextStrokeColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "TextStrokeTransparency",
                     RbxInstanceProperty {
                         name: "TextStrokeTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextTransparency",
                     RbxInstanceProperty {
                         name: "TextTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextTruncate",
                     RbxInstanceProperty {
                         name: "TextTruncate",
-                        value_type: "TextTruncate",
+                        value_type: RbxPropertyType::Enum("TextTruncate"),
                     },
                 );
                 properties.insert(
                     "TextWrap",
                     RbxInstanceProperty {
                         name: "TextWrap",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextWrapped",
                     RbxInstanceProperty {
                         name: "TextWrapped",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TextXAlignment",
                     RbxInstanceProperty {
                         name: "TextXAlignment",
-                        value_type: "TextXAlignment",
+                        value_type: RbxPropertyType::Enum("TextXAlignment"),
                     },
                 );
                 properties.insert(
                     "TextYAlignment",
                     RbxInstanceProperty {
                         name: "TextYAlignment",
-                        value_type: "TextYAlignment",
+                        value_type: RbxPropertyType::Enum("TextYAlignment"),
                     },
                 );
                 properties
@@ -4647,21 +4648,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CurrentCamera",
                     RbxInstanceProperty {
                         name: "CurrentCamera",
-                        value_type: "Camera",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "ImageColor3",
                     RbxInstanceProperty {
                         name: "ImageColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "ImageTransparency",
                     RbxInstanceProperty {
                         name: "ImageTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -4679,21 +4680,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ResetOnSpawn",
                     RbxInstanceProperty {
                         name: "ResetOnSpawn",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ZIndexBehavior",
                     RbxInstanceProperty {
                         name: "ZIndexBehavior",
-                        value_type: "ZIndexBehavior",
+                        value_type: RbxPropertyType::Enum("ZIndexBehavior"),
                     },
                 );
                 properties
@@ -4711,91 +4712,91 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Active",
                     RbxInstanceProperty {
                         name: "Active",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Adornee",
                     RbxInstanceProperty {
                         name: "Adornee",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "AlwaysOnTop",
                     RbxInstanceProperty {
                         name: "AlwaysOnTop",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ClipsDescendants",
                     RbxInstanceProperty {
                         name: "ClipsDescendants",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ExtentsOffset",
                     RbxInstanceProperty {
                         name: "ExtentsOffset",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "ExtentsOffsetWorldSpace",
                     RbxInstanceProperty {
                         name: "ExtentsOffsetWorldSpace",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "LightInfluence",
                     RbxInstanceProperty {
                         name: "LightInfluence",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxDistance",
                     RbxInstanceProperty {
                         name: "MaxDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PlayerToHideFrom",
                     RbxInstanceProperty {
                         name: "PlayerToHideFrom",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties.insert(
                     "SizeOffset",
                     RbxInstanceProperty {
                         name: "SizeOffset",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "StudsOffset",
                     RbxInstanceProperty {
                         name: "StudsOffset",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "StudsOffsetWorldSpace",
                     RbxInstanceProperty {
                         name: "StudsOffsetWorldSpace",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -4813,7 +4814,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Title",
                     RbxInstanceProperty {
                         name: "Title",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -4831,7 +4832,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "HostWidgetWasRestored",
                     RbxInstanceProperty {
                         name: "HostWidgetWasRestored",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -4860,21 +4861,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "DisplayOrder",
                     RbxInstanceProperty {
                         name: "DisplayOrder",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "IgnoreGuiInset",
                     RbxInstanceProperty {
                         name: "IgnoreGuiInset",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "OnTopOfCoreBlur",
                     RbxInstanceProperty {
                         name: "OnTopOfCoreBlur",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -4903,63 +4904,63 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Active",
                     RbxInstanceProperty {
                         name: "Active",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Adornee",
                     RbxInstanceProperty {
                         name: "Adornee",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "AlwaysOnTop",
                     RbxInstanceProperty {
                         name: "AlwaysOnTop",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CanvasSize",
                     RbxInstanceProperty {
                         name: "CanvasSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "ClipsDescendants",
                     RbxInstanceProperty {
                         name: "ClipsDescendants",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Face",
                     RbxInstanceProperty {
                         name: "Face",
-                        value_type: "NormalId",
+                        value_type: RbxPropertyType::Enum("NormalId"),
                     },
                 );
                 properties.insert(
                     "LightInfluence",
                     RbxInstanceProperty {
                         name: "LightInfluence",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ToolPunchThroughDistance",
                     RbxInstanceProperty {
                         name: "ToolPunchThroughDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ZOffset",
                     RbxInstanceProperty {
                         name: "ZOffset",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -4977,28 +4978,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "Color3",
                     RbxInstanceProperty {
                         name: "Color3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Transparency",
                     RbxInstanceProperty {
                         name: "Transparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Visible",
                     RbxInstanceProperty {
                         name: "Visible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -5016,56 +5017,56 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CycleOffset",
                     RbxInstanceProperty {
                         name: "CycleOffset",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "From",
                     RbxInstanceProperty {
                         name: "From",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "StudsBetweenTextures",
                     RbxInstanceProperty {
                         name: "StudsBetweenTextures",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Texture",
                     RbxInstanceProperty {
                         name: "Texture",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "TextureSize",
                     RbxInstanceProperty {
                         name: "TextureSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "To",
                     RbxInstanceProperty {
                         name: "To",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Velocity",
                     RbxInstanceProperty {
                         name: "Velocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WireRadius",
                     RbxInstanceProperty {
                         name: "WireRadius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -5083,7 +5084,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Adornee",
                     RbxInstanceProperty {
                         name: "Adornee",
-                        value_type: "PVInstance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -5101,28 +5102,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AlwaysOnTop",
                     RbxInstanceProperty {
                         name: "AlwaysOnTop",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CFrame",
                     RbxInstanceProperty {
                         name: "CFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "SizeRelativeOffset",
                     RbxInstanceProperty {
                         name: "SizeRelativeOffset",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "ZIndex",
                     RbxInstanceProperty {
                         name: "ZIndex",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -5140,7 +5141,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -5158,14 +5159,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Height",
                     RbxInstanceProperty {
                         name: "Height",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Radius",
                     RbxInstanceProperty {
                         name: "Radius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -5183,14 +5184,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Height",
                     RbxInstanceProperty {
                         name: "Height",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Radius",
                     RbxInstanceProperty {
                         name: "Radius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -5208,14 +5209,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Image",
                     RbxInstanceProperty {
                         name: "Image",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties
@@ -5233,14 +5234,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Length",
                     RbxInstanceProperty {
                         name: "Length",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Thickness",
                     RbxInstanceProperty {
                         name: "Thickness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -5258,7 +5259,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Radius",
                     RbxInstanceProperty {
                         name: "Radius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -5276,35 +5277,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "A",
                     RbxInstanceProperty {
                         name: "A",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "B",
                     RbxInstanceProperty {
                         name: "B",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "C",
                     RbxInstanceProperty {
                         name: "C",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Range",
                     RbxInstanceProperty {
                         name: "Range",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Thickness",
                     RbxInstanceProperty {
                         name: "Thickness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -5322,28 +5323,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "LineThickness",
                     RbxInstanceProperty {
                         name: "LineThickness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "SurfaceColor",
                     RbxInstanceProperty {
                         name: "SurfaceColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "SurfaceColor3",
                     RbxInstanceProperty {
                         name: "SurfaceColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "SurfaceTransparency",
                     RbxInstanceProperty {
                         name: "SurfaceTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -5361,21 +5362,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "SurfaceColor",
                     RbxInstanceProperty {
                         name: "SurfaceColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "SurfaceColor3",
                     RbxInstanceProperty {
                         name: "SurfaceColor3",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "SurfaceTransparency",
                     RbxInstanceProperty {
                         name: "SurfaceTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -5393,7 +5394,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Adornee",
                     RbxInstanceProperty {
                         name: "Adornee",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -5422,7 +5423,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Axes",
                     RbxInstanceProperty {
                         name: "Axes",
-                        value_type: "Axes",
+                        value_type: RbxPropertyType::UnimplementedType("Axes"),
                     },
                 );
                 properties
@@ -5440,14 +5441,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Faces",
                     RbxInstanceProperty {
                         name: "Faces",
-                        value_type: "Faces",
+                        value_type: RbxPropertyType::UnimplementedType("Faces"),
                     },
                 );
                 properties.insert(
                     "Style",
                     RbxInstanceProperty {
                         name: "Style",
-                        value_type: "HandlesStyle",
+                        value_type: RbxPropertyType::Enum("HandlesStyle"),
                     },
                 );
                 properties
@@ -5465,7 +5466,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "TargetSurface",
                     RbxInstanceProperty {
                         name: "TargetSurface",
-                        value_type: "NormalId",
+                        value_type: RbxPropertyType::Enum("NormalId"),
                     },
                 );
                 properties
@@ -5483,7 +5484,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Humanoid",
                     RbxInstanceProperty {
                         name: "Humanoid",
-                        value_type: "Humanoid",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -5501,7 +5502,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Part",
                     RbxInstanceProperty {
                         name: "Part",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -5519,7 +5520,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Point",
                     RbxInstanceProperty {
                         name: "Point",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -5559,7 +5560,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "TextureId",
                     RbxInstanceProperty {
                         name: "TextureId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -5577,14 +5578,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Active",
                     RbxInstanceProperty {
                         name: "Active",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "BinType",
                     RbxInstanceProperty {
                         name: "BinType",
-                        value_type: "BinType",
+                        value_type: RbxPropertyType::Enum("BinType"),
                     },
                 );
                 properties
@@ -5602,70 +5603,70 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CanBeDropped",
                     RbxInstanceProperty {
                         name: "CanBeDropped",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Grip",
                     RbxInstanceProperty {
                         name: "Grip",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "GripForward",
                     RbxInstanceProperty {
                         name: "GripForward",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "GripPos",
                     RbxInstanceProperty {
                         name: "GripPos",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "GripRight",
                     RbxInstanceProperty {
                         name: "GripRight",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "GripUp",
                     RbxInstanceProperty {
                         name: "GripUp",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "ManualActivationOnly",
                     RbxInstanceProperty {
                         name: "ManualActivationOnly",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RequiresHandle",
                     RbxInstanceProperty {
                         name: "RequiresHandle",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ToolTip",
                     RbxInstanceProperty {
                         name: "ToolTip",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -5683,7 +5684,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "TeamColor",
                     RbxInstanceProperty {
                         name: "TeamColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties
@@ -5745,70 +5746,70 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AutoSelectGuiEnabled",
                     RbxInstanceProperty {
                         name: "AutoSelectGuiEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CoreEffectFolder",
                     RbxInstanceProperty {
                         name: "CoreEffectFolder",
-                        value_type: "Folder",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "CoreGuiFolder",
                     RbxInstanceProperty {
                         name: "CoreGuiFolder",
-                        value_type: "Folder",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "CoreGuiNavigationEnabled",
                     RbxInstanceProperty {
                         name: "CoreGuiNavigationEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "GuiNavigationEnabled",
                     RbxInstanceProperty {
                         name: "GuiNavigationEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsModalDialog",
                     RbxInstanceProperty {
                         name: "IsModalDialog",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsWindows",
                     RbxInstanceProperty {
                         name: "IsWindows",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MenuIsOpen",
                     RbxInstanceProperty {
                         name: "MenuIsOpen",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "SelectedCoreObject",
                     RbxInstanceProperty {
                         name: "SelectedCoreObject",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "SelectedObject",
                     RbxInstanceProperty {
                         name: "SelectedObject",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -5870,7 +5871,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "HttpEnabled",
                     RbxInstanceProperty {
                         name: "HttpEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -5888,217 +5889,217 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AutoJumpEnabled",
                     RbxInstanceProperty {
                         name: "AutoJumpEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AutoRotate",
                     RbxInstanceProperty {
                         name: "AutoRotate",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AutomaticScalingEnabled",
                     RbxInstanceProperty {
                         name: "AutomaticScalingEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "BreakJointsOnDeath",
                     RbxInstanceProperty {
                         name: "BreakJointsOnDeath",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CameraOffset",
                     RbxInstanceProperty {
                         name: "CameraOffset",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "DisplayDistanceType",
                     RbxInstanceProperty {
                         name: "DisplayDistanceType",
-                        value_type: "HumanoidDisplayDistanceType",
+                        value_type: RbxPropertyType::Enum("HumanoidDisplayDistanceType"),
                     },
                 );
                 properties.insert(
                     "FloorMaterial",
                     RbxInstanceProperty {
                         name: "FloorMaterial",
-                        value_type: "Material",
+                        value_type: RbxPropertyType::Enum("Material"),
                     },
                 );
                 properties.insert(
                     "Health",
                     RbxInstanceProperty {
                         name: "Health",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "HealthDisplayDistance",
                     RbxInstanceProperty {
                         name: "HealthDisplayDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "HealthDisplayType",
                     RbxInstanceProperty {
                         name: "HealthDisplayType",
-                        value_type: "HumanoidHealthDisplayType",
+                        value_type: RbxPropertyType::Enum("HumanoidHealthDisplayType"),
                     },
                 );
                 properties.insert(
                     "HipHeight",
                     RbxInstanceProperty {
                         name: "HipHeight",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Jump",
                     RbxInstanceProperty {
                         name: "Jump",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "JumpPower",
                     RbxInstanceProperty {
                         name: "JumpPower",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LeftLeg",
                     RbxInstanceProperty {
                         name: "LeftLeg",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "MaxHealth",
                     RbxInstanceProperty {
                         name: "MaxHealth",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxSlopeAngle",
                     RbxInstanceProperty {
                         name: "MaxSlopeAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MoveDirection",
                     RbxInstanceProperty {
                         name: "MoveDirection",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "NameDisplayDistance",
                     RbxInstanceProperty {
                         name: "NameDisplayDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "NameOcclusion",
                     RbxInstanceProperty {
                         name: "NameOcclusion",
-                        value_type: "NameOcclusion",
+                        value_type: RbxPropertyType::Enum("NameOcclusion"),
                     },
                 );
                 properties.insert(
                     "PlatformStand",
                     RbxInstanceProperty {
                         name: "PlatformStand",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RigType",
                     RbxInstanceProperty {
                         name: "RigType",
-                        value_type: "HumanoidRigType",
+                        value_type: RbxPropertyType::Enum("HumanoidRigType"),
                     },
                 );
                 properties.insert(
                     "RightLeg",
                     RbxInstanceProperty {
                         name: "RightLeg",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "RootPart",
                     RbxInstanceProperty {
                         name: "RootPart",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "SeatPart",
                     RbxInstanceProperty {
                         name: "SeatPart",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Sit",
                     RbxInstanceProperty {
                         name: "Sit",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TargetPoint",
                     RbxInstanceProperty {
                         name: "TargetPoint",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Torso",
                     RbxInstanceProperty {
                         name: "Torso",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "WalkSpeed",
                     RbxInstanceProperty {
                         name: "WalkSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WalkToPart",
                     RbxInstanceProperty {
                         name: "WalkToPart",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "WalkToPoint",
                     RbxInstanceProperty {
                         name: "WalkToPoint",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "maxHealth",
                     RbxInstanceProperty {
                         name: "maxHealth",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6116,259 +6117,259 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "BackAccessory",
                     RbxInstanceProperty {
                         name: "BackAccessory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "BodyTypeScale",
                     RbxInstanceProperty {
                         name: "BodyTypeScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ClimbAnimation",
                     RbxInstanceProperty {
                         name: "ClimbAnimation",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "DepthScale",
                     RbxInstanceProperty {
                         name: "DepthScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Face",
                     RbxInstanceProperty {
                         name: "Face",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "FaceAccessory",
                     RbxInstanceProperty {
                         name: "FaceAccessory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "FallAnimation",
                     RbxInstanceProperty {
                         name: "FallAnimation",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "FrontAccessory",
                     RbxInstanceProperty {
                         name: "FrontAccessory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "GraphicTShirt",
                     RbxInstanceProperty {
                         name: "GraphicTShirt",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "HairAccessory",
                     RbxInstanceProperty {
                         name: "HairAccessory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "HatAccessory",
                     RbxInstanceProperty {
                         name: "HatAccessory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Head",
                     RbxInstanceProperty {
                         name: "Head",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "HeadColor",
                     RbxInstanceProperty {
                         name: "HeadColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "HeadScale",
                     RbxInstanceProperty {
                         name: "HeadScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "HeightScale",
                     RbxInstanceProperty {
                         name: "HeightScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "IdleAnimation",
                     RbxInstanceProperty {
                         name: "IdleAnimation",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "JumpAnimation",
                     RbxInstanceProperty {
                         name: "JumpAnimation",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "LeftArm",
                     RbxInstanceProperty {
                         name: "LeftArm",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "LeftArmColor",
                     RbxInstanceProperty {
                         name: "LeftArmColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "LeftLeg",
                     RbxInstanceProperty {
                         name: "LeftLeg",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "LeftLegColor",
                     RbxInstanceProperty {
                         name: "LeftLegColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "NeckAccessory",
                     RbxInstanceProperty {
                         name: "NeckAccessory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Pants",
                     RbxInstanceProperty {
                         name: "Pants",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ProportionScale",
                     RbxInstanceProperty {
                         name: "ProportionScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RightArm",
                     RbxInstanceProperty {
                         name: "RightArm",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "RightArmColor",
                     RbxInstanceProperty {
                         name: "RightArmColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "RightLeg",
                     RbxInstanceProperty {
                         name: "RightLeg",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "RightLegColor",
                     RbxInstanceProperty {
                         name: "RightLegColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "RunAnimation",
                     RbxInstanceProperty {
                         name: "RunAnimation",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Shirt",
                     RbxInstanceProperty {
                         name: "Shirt",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ShouldersAccessory",
                     RbxInstanceProperty {
                         name: "ShouldersAccessory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "SwimAnimation",
                     RbxInstanceProperty {
                         name: "SwimAnimation",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Torso",
                     RbxInstanceProperty {
                         name: "Torso",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "TorsoColor",
                     RbxInstanceProperty {
                         name: "TorsoColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "WaistAccessory",
                     RbxInstanceProperty {
                         name: "WaistAccessory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "WalkAnimation",
                     RbxInstanceProperty {
                         name: "WalkAnimation",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "WidthScale",
                     RbxInstanceProperty {
                         name: "WidthScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6386,35 +6387,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Delta",
                     RbxInstanceProperty {
                         name: "Delta",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "KeyCode",
                     RbxInstanceProperty {
                         name: "KeyCode",
-                        value_type: "KeyCode",
+                        value_type: RbxPropertyType::Enum("KeyCode"),
                     },
                 );
                 properties.insert(
                     "Position",
                     RbxInstanceProperty {
                         name: "Position",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "UserInputState",
                     RbxInstanceProperty {
                         name: "UserInputState",
-                        value_type: "UserInputState",
+                        value_type: RbxPropertyType::Enum("UserInputState"),
                     },
                 );
                 properties.insert(
                     "UserInputType",
                     RbxInstanceProperty {
                         name: "UserInputType",
-                        value_type: "UserInputType",
+                        value_type: RbxPropertyType::Enum("UserInputType"),
                     },
                 );
                 properties
@@ -6432,14 +6433,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AllowClientInsertModels",
                     RbxInstanceProperty {
                         name: "AllowClientInsertModels",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AllowInsertFreeModels",
                     RbxInstanceProperty {
                         name: "AllowInsertFreeModels",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -6457,42 +6458,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Active",
                     RbxInstanceProperty {
                         name: "Active",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "C0",
                     RbxInstanceProperty {
                         name: "C0",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "C1",
                     RbxInstanceProperty {
                         name: "C1",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "Part0",
                     RbxInstanceProperty {
                         name: "Part0",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Part1",
                     RbxInstanceProperty {
                         name: "Part1",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "part1",
                     RbxInstanceProperty {
                         name: "part1",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -6510,7 +6511,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "BaseAngle",
                     RbxInstanceProperty {
                         name: "BaseAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6550,28 +6551,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "F0",
                     RbxInstanceProperty {
                         name: "F0",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "F1",
                     RbxInstanceProperty {
                         name: "F1",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "F2",
                     RbxInstanceProperty {
                         name: "F2",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "F3",
                     RbxInstanceProperty {
                         name: "F3",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -6622,21 +6623,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CurrentAngle",
                     RbxInstanceProperty {
                         name: "CurrentAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DesiredAngle",
                     RbxInstanceProperty {
                         name: "DesiredAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxVelocity",
                     RbxInstanceProperty {
                         name: "MaxVelocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6654,7 +6655,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Transform",
                     RbxInstanceProperty {
                         name: "Transform",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties
@@ -6694,28 +6695,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CurrentAngle",
                     RbxInstanceProperty {
                         name: "CurrentAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DesiredAngle",
                     RbxInstanceProperty {
                         name: "DesiredAngle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Hole",
                     RbxInstanceProperty {
                         name: "Hole",
-                        value_type: "Hole",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "MaxVelocity",
                     RbxInstanceProperty {
                         name: "MaxVelocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6766,7 +6767,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Time",
                     RbxInstanceProperty {
                         name: "Time",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6784,7 +6785,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -6802,21 +6803,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AuthoredHipHeight",
                     RbxInstanceProperty {
                         name: "AuthoredHipHeight",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Loop",
                     RbxInstanceProperty {
                         name: "Loop",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Priority",
                     RbxInstanceProperty {
                         name: "Priority",
-                        value_type: "AnimationPriority",
+                        value_type: RbxPropertyType::Enum("AnimationPriority"),
                     },
                 );
                 properties
@@ -6845,28 +6846,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Brightness",
                     RbxInstanceProperty {
                         name: "Brightness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Shadows",
                     RbxInstanceProperty {
                         name: "Shadows",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -6884,7 +6885,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Range",
                     RbxInstanceProperty {
                         name: "Range",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6902,21 +6903,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Angle",
                     RbxInstanceProperty {
                         name: "Angle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Face",
                     RbxInstanceProperty {
                         name: "Face",
-                        value_type: "NormalId",
+                        value_type: RbxPropertyType::Enum("NormalId"),
                     },
                 );
                 properties.insert(
                     "Range",
                     RbxInstanceProperty {
                         name: "Range",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6934,21 +6935,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Angle",
                     RbxInstanceProperty {
                         name: "Angle",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Face",
                     RbxInstanceProperty {
                         name: "Face",
-                        value_type: "NormalId",
+                        value_type: RbxPropertyType::Enum("NormalId"),
                     },
                 );
                 properties.insert(
                     "Range",
                     RbxInstanceProperty {
                         name: "Range",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -6966,112 +6967,112 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Ambient",
                     RbxInstanceProperty {
                         name: "Ambient",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Brightness",
                     RbxInstanceProperty {
                         name: "Brightness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ClockTime",
                     RbxInstanceProperty {
                         name: "ClockTime",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ColorShift_Bottom",
                     RbxInstanceProperty {
                         name: "ColorShift_Bottom",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "ColorShift_Top",
                     RbxInstanceProperty {
                         name: "ColorShift_Top",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "ExposureCompensation",
                     RbxInstanceProperty {
                         name: "ExposureCompensation",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "FogColor",
                     RbxInstanceProperty {
                         name: "FogColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "FogEnd",
                     RbxInstanceProperty {
                         name: "FogEnd",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "FogStart",
                     RbxInstanceProperty {
                         name: "FogStart",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "GeographicLatitude",
                     RbxInstanceProperty {
                         name: "GeographicLatitude",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "GlobalShadows",
                     RbxInstanceProperty {
                         name: "GlobalShadows",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "OutdoorAmbient",
                     RbxInstanceProperty {
                         name: "OutdoorAmbient",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Outlines",
                     RbxInstanceProperty {
                         name: "Outlines",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ShadowColor",
                     RbxInstanceProperty {
                         name: "ShadowColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Technology",
                     RbxInstanceProperty {
                         name: "Technology",
-                        value_type: "Technology",
+                        value_type: RbxPropertyType::Enum("Technology"),
                     },
                 );
                 properties.insert(
                     "TimeOfDay",
                     RbxInstanceProperty {
                         name: "TimeOfDay",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -7089,14 +7090,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "FileName",
                     RbxInstanceProperty {
                         name: "FileName",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "FileSize",
                     RbxInstanceProperty {
                         name: "FileSize",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -7147,49 +7148,49 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ForcePlayModeGameLocaleId",
                     RbxInstanceProperty {
                         name: "ForcePlayModeGameLocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ForcePlayModeRobloxLocaleId",
                     RbxInstanceProperty {
                         name: "ForcePlayModeRobloxLocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "IsTextScraperRunning",
                     RbxInstanceProperty {
                         name: "IsTextScraperRunning",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RobloxForcePlayModeGameLocaleId",
                     RbxInstanceProperty {
                         name: "RobloxForcePlayModeGameLocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "RobloxForcePlayModeRobloxLocaleId",
                     RbxInstanceProperty {
                         name: "RobloxForcePlayModeRobloxLocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "RobloxLocaleId",
                     RbxInstanceProperty {
                         name: "RobloxLocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "SystemLocaleId",
                     RbxInstanceProperty {
                         name: "SystemLocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -7207,21 +7208,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "DevelopmentLanguage",
                     RbxInstanceProperty {
                         name: "DevelopmentLanguage",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Root",
                     RbxInstanceProperty {
                         name: "Root",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "SourceLocaleId",
                     RbxInstanceProperty {
                         name: "SourceLocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -7261,49 +7262,49 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AreScriptStartsReported",
                     RbxInstanceProperty {
                         name: "AreScriptStartsReported",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "DefaultWaitTime",
                     RbxInstanceProperty {
                         name: "DefaultWaitTime",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "GcFrequency",
                     RbxInstanceProperty {
                         name: "GcFrequency",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "GcLimit",
                     RbxInstanceProperty {
                         name: "GcLimit",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "GcPause",
                     RbxInstanceProperty {
                         name: "GcPause",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "GcStepMul",
                     RbxInstanceProperty {
                         name: "GcStepMul",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "WaitingThreadsBudget",
                     RbxInstanceProperty {
                         name: "WaitingThreadsBudget",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -7321,7 +7322,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CurrentEditor",
                     RbxInstanceProperty {
                         name: "CurrentEditor",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -7339,14 +7340,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Disabled",
                     RbxInstanceProperty {
                         name: "Disabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LinkedSource",
                     RbxInstanceProperty {
                         name: "LinkedSource",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -7375,7 +7376,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Source",
                     RbxInstanceProperty {
                         name: "Source",
-                        value_type: "ProtectedString",
+                        value_type: RbxPropertyType::UnimplementedType("ProtectedString"),
                     },
                 );
                 properties
@@ -7404,14 +7405,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "LinkedSource",
                     RbxInstanceProperty {
                         name: "LinkedSource",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "Source",
                     RbxInstanceProperty {
                         name: "Source",
-                        value_type: "ProtectedString",
+                        value_type: RbxPropertyType::UnimplementedType("ProtectedString"),
                     },
                 );
                 properties
@@ -7451,7 +7452,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Text",
                     RbxInstanceProperty {
                         name: "Text",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -7491,91 +7492,91 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Hit",
                     RbxInstanceProperty {
                         name: "Hit",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "Icon",
                     RbxInstanceProperty {
                         name: "Icon",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "Origin",
                     RbxInstanceProperty {
                         name: "Origin",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "Target",
                     RbxInstanceProperty {
                         name: "Target",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "TargetFilter",
                     RbxInstanceProperty {
                         name: "TargetFilter",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "TargetSurface",
                     RbxInstanceProperty {
                         name: "TargetSurface",
-                        value_type: "NormalId",
+                        value_type: RbxPropertyType::Enum("NormalId"),
                     },
                 );
                 properties.insert(
                     "UnitRay",
                     RbxInstanceProperty {
                         name: "UnitRay",
-                        value_type: "Ray",
+                        value_type: RbxPropertyType::UnimplementedType("Ray"),
                     },
                 );
                 properties.insert(
                     "ViewSizeX",
                     RbxInstanceProperty {
                         name: "ViewSizeX",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ViewSizeY",
                     RbxInstanceProperty {
                         name: "ViewSizeY",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "X",
                     RbxInstanceProperty {
                         name: "X",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Y",
                     RbxInstanceProperty {
                         name: "Y",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "hit",
                     RbxInstanceProperty {
                         name: "hit",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "target",
                     RbxInstanceProperty {
                         name: "target",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -7648,7 +7649,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Ticket",
                     RbxInstanceProperty {
                         name: "Ticket",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -7666,7 +7667,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Port",
                     RbxInstanceProperty {
                         name: "Port",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -7717,231 +7718,231 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ArePhysicsRejectionsReported",
                     RbxInstanceProperty {
                         name: "ArePhysicsRejectionsReported",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ClientPhysicsSendRate",
                     RbxInstanceProperty {
                         name: "ClientPhysicsSendRate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DataGCRate",
                     RbxInstanceProperty {
                         name: "DataGCRate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DataMtuAdjust",
                     RbxInstanceProperty {
                         name: "DataMtuAdjust",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "DataSendPriority",
                     RbxInstanceProperty {
                         name: "DataSendPriority",
-                        value_type: "PacketPriority",
+                        value_type: RbxPropertyType::Enum("PacketPriority"),
                     },
                 );
                 properties.insert(
                     "DataSendRate",
                     RbxInstanceProperty {
                         name: "DataSendRate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ExtraMemoryUsed",
                     RbxInstanceProperty {
                         name: "ExtraMemoryUsed",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "FreeMemoryMBytes",
                     RbxInstanceProperty {
                         name: "FreeMemoryMBytes",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "IncommingReplicationLag",
                     RbxInstanceProperty {
                         name: "IncommingReplicationLag",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "IsQueueErrorComputed",
                     RbxInstanceProperty {
                         name: "IsQueueErrorComputed",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "NetworkOwnerRate",
                     RbxInstanceProperty {
                         name: "NetworkOwnerRate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PhysicsMtuAdjust",
                     RbxInstanceProperty {
                         name: "PhysicsMtuAdjust",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "PhysicsSendPriority",
                     RbxInstanceProperty {
                         name: "PhysicsSendPriority",
-                        value_type: "PacketPriority",
+                        value_type: RbxPropertyType::Enum("PacketPriority"),
                     },
                 );
                 properties.insert(
                     "PhysicsSendRate",
                     RbxInstanceProperty {
                         name: "PhysicsSendRate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PreferredClientPort",
                     RbxInstanceProperty {
                         name: "PreferredClientPort",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "PrintBits",
                     RbxInstanceProperty {
                         name: "PrintBits",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PrintEvents",
                     RbxInstanceProperty {
                         name: "PrintEvents",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PrintFilters",
                     RbxInstanceProperty {
                         name: "PrintFilters",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PrintInstances",
                     RbxInstanceProperty {
                         name: "PrintInstances",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PrintPhysicsErrors",
                     RbxInstanceProperty {
                         name: "PrintPhysicsErrors",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PrintProperties",
                     RbxInstanceProperty {
                         name: "PrintProperties",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PrintSplitMessage",
                     RbxInstanceProperty {
                         name: "PrintSplitMessage",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PrintStreamInstanceQuota",
                     RbxInstanceProperty {
                         name: "PrintStreamInstanceQuota",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PrintTouches",
                     RbxInstanceProperty {
                         name: "PrintTouches",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ProxyEnabled",
                     RbxInstanceProperty {
                         name: "ProxyEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ProxyURL",
                     RbxInstanceProperty {
                         name: "ProxyURL",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ReceiveRate",
                     RbxInstanceProperty {
                         name: "ReceiveRate",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RenderStreamedRegions",
                     RbxInstanceProperty {
                         name: "RenderStreamedRegions",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ShowActiveAnimationAsset",
                     RbxInstanceProperty {
                         name: "ShowActiveAnimationAsset",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TouchSendRate",
                     RbxInstanceProperty {
                         name: "TouchSendRate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TrackDataTypes",
                     RbxInstanceProperty {
                         name: "TrackDataTypes",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TrackPhysicsDetails",
                     RbxInstanceProperty {
                         name: "TrackPhysicsDetails",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "UsePhysicsPacketCache",
                     RbxInstanceProperty {
                         name: "UsePhysicsPacketCache",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -7959,42 +7960,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "IsLuaBottomBarEnabled",
                     RbxInstanceProperty {
                         name: "IsLuaBottomBarEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsLuaChatEnabled",
                     RbxInstanceProperty {
                         name: "IsLuaChatEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsLuaGameDetailsEnabled",
                     RbxInstanceProperty {
                         name: "IsLuaGameDetailsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsLuaGamesPageEnabled",
                     RbxInstanceProperty {
                         name: "IsLuaGamesPageEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsLuaHomePageEnabled",
                     RbxInstanceProperty {
                         name: "IsLuaHomePageEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "SelectedTheme",
                     RbxInstanceProperty {
                         name: "SelectedTheme",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -8023,364 +8024,364 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Anchored",
                     RbxInstanceProperty {
                         name: "Anchored",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "BackParamA",
                     RbxInstanceProperty {
                         name: "BackParamA",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "BackParamB",
                     RbxInstanceProperty {
                         name: "BackParamB",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "BackSurface",
                     RbxInstanceProperty {
                         name: "BackSurface",
-                        value_type: "SurfaceType",
+                        value_type: RbxPropertyType::Enum("SurfaceType"),
                     },
                 );
                 properties.insert(
                     "BackSurfaceInput",
                     RbxInstanceProperty {
                         name: "BackSurfaceInput",
-                        value_type: "InputType",
+                        value_type: RbxPropertyType::Enum("InputType"),
                     },
                 );
                 properties.insert(
                     "BottomParamA",
                     RbxInstanceProperty {
                         name: "BottomParamA",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "BottomParamB",
                     RbxInstanceProperty {
                         name: "BottomParamB",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "BottomSurface",
                     RbxInstanceProperty {
                         name: "BottomSurface",
-                        value_type: "SurfaceType",
+                        value_type: RbxPropertyType::Enum("SurfaceType"),
                     },
                 );
                 properties.insert(
                     "BottomSurfaceInput",
                     RbxInstanceProperty {
                         name: "BottomSurfaceInput",
-                        value_type: "InputType",
+                        value_type: RbxPropertyType::Enum("InputType"),
                     },
                 );
                 properties.insert(
                     "BrickColor",
                     RbxInstanceProperty {
                         name: "BrickColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "CFrame",
                     RbxInstanceProperty {
                         name: "CFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "CanCollide",
                     RbxInstanceProperty {
                         name: "CanCollide",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CenterOfMass",
                     RbxInstanceProperty {
                         name: "CenterOfMass",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "CollisionGroupId",
                     RbxInstanceProperty {
                         name: "CollisionGroupId",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "CustomPhysicalProperties",
                     RbxInstanceProperty {
                         name: "CustomPhysicalProperties",
-                        value_type: "PhysicalProperties",
+                        value_type: RbxPropertyType::Data(RbxValueType::PhysicalProperties),
                     },
                 );
                 properties.insert(
                     "Elasticity",
                     RbxInstanceProperty {
                         name: "Elasticity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Friction",
                     RbxInstanceProperty {
                         name: "Friction",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "FrontParamA",
                     RbxInstanceProperty {
                         name: "FrontParamA",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "FrontParamB",
                     RbxInstanceProperty {
                         name: "FrontParamB",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "FrontSurface",
                     RbxInstanceProperty {
                         name: "FrontSurface",
-                        value_type: "SurfaceType",
+                        value_type: RbxPropertyType::Enum("SurfaceType"),
                     },
                 );
                 properties.insert(
                     "FrontSurfaceInput",
                     RbxInstanceProperty {
                         name: "FrontSurfaceInput",
-                        value_type: "InputType",
+                        value_type: RbxPropertyType::Enum("InputType"),
                     },
                 );
                 properties.insert(
                     "LeftParamA",
                     RbxInstanceProperty {
                         name: "LeftParamA",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LeftParamB",
                     RbxInstanceProperty {
                         name: "LeftParamB",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LeftSurface",
                     RbxInstanceProperty {
                         name: "LeftSurface",
-                        value_type: "SurfaceType",
+                        value_type: RbxPropertyType::Enum("SurfaceType"),
                     },
                 );
                 properties.insert(
                     "LeftSurfaceInput",
                     RbxInstanceProperty {
                         name: "LeftSurfaceInput",
-                        value_type: "InputType",
+                        value_type: RbxPropertyType::Enum("InputType"),
                     },
                 );
                 properties.insert(
                     "LocalTransparencyModifier",
                     RbxInstanceProperty {
                         name: "LocalTransparencyModifier",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Locked",
                     RbxInstanceProperty {
                         name: "Locked",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Massless",
                     RbxInstanceProperty {
                         name: "Massless",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Material",
                     RbxInstanceProperty {
                         name: "Material",
-                        value_type: "Material",
+                        value_type: RbxPropertyType::Enum("Material"),
                     },
                 );
                 properties.insert(
                     "Orientation",
                     RbxInstanceProperty {
                         name: "Orientation",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Position",
                     RbxInstanceProperty {
                         name: "Position",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "ReceiveAge",
                     RbxInstanceProperty {
                         name: "ReceiveAge",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Reflectance",
                     RbxInstanceProperty {
                         name: "Reflectance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ResizeIncrement",
                     RbxInstanceProperty {
                         name: "ResizeIncrement",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ResizeableFaces",
                     RbxInstanceProperty {
                         name: "ResizeableFaces",
-                        value_type: "Faces",
+                        value_type: RbxPropertyType::UnimplementedType("Faces"),
                     },
                 );
                 properties.insert(
                     "RightParamA",
                     RbxInstanceProperty {
                         name: "RightParamA",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RightParamB",
                     RbxInstanceProperty {
                         name: "RightParamB",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RightSurface",
                     RbxInstanceProperty {
                         name: "RightSurface",
-                        value_type: "SurfaceType",
+                        value_type: RbxPropertyType::Enum("SurfaceType"),
                     },
                 );
                 properties.insert(
                     "RightSurfaceInput",
                     RbxInstanceProperty {
                         name: "RightSurfaceInput",
-                        value_type: "InputType",
+                        value_type: RbxPropertyType::Enum("InputType"),
                     },
                 );
                 properties.insert(
                     "RootPriority",
                     RbxInstanceProperty {
                         name: "RootPriority",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "RotVelocity",
                     RbxInstanceProperty {
                         name: "RotVelocity",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Rotation",
                     RbxInstanceProperty {
                         name: "Rotation",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "SpecificGravity",
                     RbxInstanceProperty {
                         name: "SpecificGravity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TopParamA",
                     RbxInstanceProperty {
                         name: "TopParamA",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TopParamB",
                     RbxInstanceProperty {
                         name: "TopParamB",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TopSurface",
                     RbxInstanceProperty {
                         name: "TopSurface",
-                        value_type: "SurfaceType",
+                        value_type: RbxPropertyType::Enum("SurfaceType"),
                     },
                 );
                 properties.insert(
                     "TopSurfaceInput",
                     RbxInstanceProperty {
                         name: "TopSurfaceInput",
-                        value_type: "InputType",
+                        value_type: RbxPropertyType::Enum("InputType"),
                     },
                 );
                 properties.insert(
                     "Transparency",
                     RbxInstanceProperty {
                         name: "Transparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Velocity",
                     RbxInstanceProperty {
                         name: "Velocity",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "brickColor",
                     RbxInstanceProperty {
                         name: "brickColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties
@@ -8409,14 +8410,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "FormFactor",
                     RbxInstanceProperty {
                         name: "FormFactor",
-                        value_type: "FormFactor",
+                        value_type: RbxPropertyType::Enum("FormFactor"),
                     },
                 );
                 properties.insert(
                     "formFactor",
                     RbxInstanceProperty {
                         name: "formFactor",
-                        value_type: "FormFactor",
+                        value_type: RbxPropertyType::Enum("FormFactor"),
                     },
                 );
                 properties
@@ -8434,7 +8435,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Shape",
                     RbxInstanceProperty {
                         name: "Shape",
-                        value_type: "PartType",
+                        value_type: RbxPropertyType::Enum("PartType"),
                     },
                 );
                 properties
@@ -8452,7 +8453,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "TeamColor",
                     RbxInstanceProperty {
                         name: "TeamColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties
@@ -8481,14 +8482,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Disabled",
                     RbxInstanceProperty {
                         name: "Disabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Occupant",
                     RbxInstanceProperty {
                         name: "Occupant",
-                        value_type: "Humanoid",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -8506,35 +8507,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Controller",
                     RbxInstanceProperty {
                         name: "Controller",
-                        value_type: "SkateboardController",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "ControllingHumanoid",
                     RbxInstanceProperty {
                         name: "ControllingHumanoid",
-                        value_type: "Humanoid",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Steer",
                     RbxInstanceProperty {
                         name: "Steer",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "StickyWheels",
                     RbxInstanceProperty {
                         name: "StickyWheels",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Throttle",
                     RbxInstanceProperty {
                         name: "Throttle",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -8552,35 +8553,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AllowTeamChangeOnTouch",
                     RbxInstanceProperty {
                         name: "AllowTeamChangeOnTouch",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Duration",
                     RbxInstanceProperty {
                         name: "Duration",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Neutral",
                     RbxInstanceProperty {
                         name: "Neutral",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TeamColor",
                     RbxInstanceProperty {
                         name: "TeamColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties
@@ -8609,28 +8610,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CollisionFidelity",
                     RbxInstanceProperty {
                         name: "CollisionFidelity",
-                        value_type: "CollisionFidelity",
+                        value_type: RbxPropertyType::Enum("CollisionFidelity"),
                     },
                 );
                 properties.insert(
                     "MeshID",
                     RbxInstanceProperty {
                         name: "MeshID",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "MeshId",
                     RbxInstanceProperty {
                         name: "MeshId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "TextureID",
                     RbxInstanceProperty {
                         name: "TextureID",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -8648,28 +8649,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CollisionFidelity",
                     RbxInstanceProperty {
                         name: "CollisionFidelity",
-                        value_type: "CollisionFidelity",
+                        value_type: RbxPropertyType::Enum("CollisionFidelity"),
                     },
                 );
                 properties.insert(
                     "RenderFidelity",
                     RbxInstanceProperty {
                         name: "RenderFidelity",
-                        value_type: "RenderFidelity",
+                        value_type: RbxPropertyType::Enum("RenderFidelity"),
                     },
                 );
                 properties.insert(
                     "TriangleCount",
                     RbxInstanceProperty {
                         name: "TriangleCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "UsePartColor",
                     RbxInstanceProperty {
                         name: "UsePartColor",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -8709,56 +8710,56 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "IsSmooth",
                     RbxInstanceProperty {
                         name: "IsSmooth",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MaterialColors",
                     RbxInstanceProperty {
                         name: "MaterialColors",
-                        value_type: "BinaryString",
+                        value_type: RbxPropertyType::Data(RbxValueType::BinaryString),
                     },
                 );
                 properties.insert(
                     "MaxExtents",
                     RbxInstanceProperty {
                         name: "MaxExtents",
-                        value_type: "Region3int16",
+                        value_type: RbxPropertyType::UnimplementedType("Region3int16"),
                     },
                 );
                 properties.insert(
                     "WaterColor",
                     RbxInstanceProperty {
                         name: "WaterColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "WaterReflectance",
                     RbxInstanceProperty {
                         name: "WaterReflectance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WaterTransparency",
                     RbxInstanceProperty {
                         name: "WaterTransparency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WaterWaveSize",
                     RbxInstanceProperty {
                         name: "WaterWaveSize",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WaterWaveSpeed",
                     RbxInstanceProperty {
                         name: "WaterWaveSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -8776,7 +8777,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Style",
                     RbxInstanceProperty {
                         name: "Style",
-                        value_type: "Style",
+                        value_type: RbxPropertyType::Enum("Style"),
                     },
                 );
                 properties
@@ -8794,77 +8795,77 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AreHingesDetected",
                     RbxInstanceProperty {
                         name: "AreHingesDetected",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Disabled",
                     RbxInstanceProperty {
                         name: "Disabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "HeadsUpDisplay",
                     RbxInstanceProperty {
                         name: "HeadsUpDisplay",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MaxSpeed",
                     RbxInstanceProperty {
                         name: "MaxSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Occupant",
                     RbxInstanceProperty {
                         name: "Occupant",
-                        value_type: "Humanoid",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Steer",
                     RbxInstanceProperty {
                         name: "Steer",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "SteerFloat",
                     RbxInstanceProperty {
                         name: "SteerFloat",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Throttle",
                     RbxInstanceProperty {
                         name: "Throttle",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ThrottleFloat",
                     RbxInstanceProperty {
                         name: "ThrottleFloat",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Torque",
                     RbxInstanceProperty {
                         name: "Torque",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TurnSpeed",
                     RbxInstanceProperty {
                         name: "TurnSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -8882,7 +8883,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "PrimaryPart",
                     RbxInstanceProperty {
                         name: "PrimaryPart",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -8911,91 +8912,91 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AllowThirdPartySales",
                     RbxInstanceProperty {
                         name: "AllowThirdPartySales",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AutoJointsMode",
                     RbxInstanceProperty {
                         name: "AutoJointsMode",
-                        value_type: "AutoJointsMode",
+                        value_type: RbxPropertyType::Enum("AutoJointsMode"),
                     },
                 );
                 properties.insert(
                     "CurrentCamera",
                     RbxInstanceProperty {
                         name: "CurrentCamera",
-                        value_type: "Camera",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "DistributedGameTime",
                     RbxInstanceProperty {
                         name: "DistributedGameTime",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "FallenPartsDestroyHeight",
                     RbxInstanceProperty {
                         name: "FallenPartsDestroyHeight",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "FilteringEnabled",
                     RbxInstanceProperty {
                         name: "FilteringEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Gravity",
                     RbxInstanceProperty {
                         name: "Gravity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PGSPhysicsSolverEnabled",
                     RbxInstanceProperty {
                         name: "PGSPhysicsSolverEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "StreamingEnabled",
                     RbxInstanceProperty {
                         name: "StreamingEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "StreamingMinRadius",
                     RbxInstanceProperty {
                         name: "StreamingMinRadius",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "StreamingTargetRadius",
                     RbxInstanceProperty {
                         name: "StreamingTargetRadius",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "TemporaryLegacyPhysicsSolverOverride",
                     RbxInstanceProperty {
                         name: "TemporaryLegacyPhysicsSolverOverride",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Terrain",
                     RbxInstanceProperty {
                         name: "Terrain",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -9013,21 +9014,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "PackageId",
                     RbxInstanceProperty {
                         name: "PackageId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "Status",
                     RbxInstanceProperty {
                         name: "Status",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "VersionNumber",
                     RbxInstanceProperty {
                         name: "VersionNumber",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -9045,7 +9046,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "IsFinished",
                     RbxInstanceProperty {
                         name: "IsFinished",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -9118,140 +9119,140 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Acceleration",
                     RbxInstanceProperty {
                         name: "Acceleration",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "ColorSequence",
+                        value_type: RbxPropertyType::UnimplementedType("ColorSequence"),
                     },
                 );
                 properties.insert(
                     "Drag",
                     RbxInstanceProperty {
                         name: "Drag",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "EmissionDirection",
                     RbxInstanceProperty {
                         name: "EmissionDirection",
-                        value_type: "NormalId",
+                        value_type: RbxPropertyType::Enum("NormalId"),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Lifetime",
                     RbxInstanceProperty {
                         name: "Lifetime",
-                        value_type: "NumberRange",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
                     },
                 );
                 properties.insert(
                     "LightEmission",
                     RbxInstanceProperty {
                         name: "LightEmission",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LightInfluence",
                     RbxInstanceProperty {
                         name: "LightInfluence",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LockedToPart",
                     RbxInstanceProperty {
                         name: "LockedToPart",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Rate",
                     RbxInstanceProperty {
                         name: "Rate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RotSpeed",
                     RbxInstanceProperty {
                         name: "RotSpeed",
-                        value_type: "NumberRange",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
                     },
                 );
                 properties.insert(
                     "Rotation",
                     RbxInstanceProperty {
                         name: "Rotation",
-                        value_type: "NumberRange",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "NumberSequence",
+                        value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
                     },
                 );
                 properties.insert(
                     "Speed",
                     RbxInstanceProperty {
                         name: "Speed",
-                        value_type: "NumberRange",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
                     },
                 );
                 properties.insert(
                     "SpreadAngle",
                     RbxInstanceProperty {
                         name: "SpreadAngle",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "Texture",
                     RbxInstanceProperty {
                         name: "Texture",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "Transparency",
                     RbxInstanceProperty {
                         name: "Transparency",
-                        value_type: "NumberSequence",
+                        value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
                     },
                 );
                 properties.insert(
                     "VelocityInheritance",
                     RbxInstanceProperty {
                         name: "VelocityInheritance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "VelocitySpread",
                     RbxInstanceProperty {
                         name: "VelocitySpread",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ZOffset",
                     RbxInstanceProperty {
                         name: "ZOffset",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -9269,7 +9270,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Status",
                     RbxInstanceProperty {
                         name: "Status",
-                        value_type: "PathStatus",
+                        value_type: RbxPropertyType::Enum("PathStatus"),
                     },
                 );
                 properties
@@ -9287,7 +9288,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "EmptyCutoff",
                     RbxInstanceProperty {
                         name: "EmptyCutoff",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -9327,154 +9328,154 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AllowSleep",
                     RbxInstanceProperty {
                         name: "AllowSleep",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreAnchorsShown",
                     RbxInstanceProperty {
                         name: "AreAnchorsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreAssembliesShown",
                     RbxInstanceProperty {
                         name: "AreAssembliesShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreAwakePartsHighlighted",
                     RbxInstanceProperty {
                         name: "AreAwakePartsHighlighted",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreBodyTypesShown",
                     RbxInstanceProperty {
                         name: "AreBodyTypesShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreContactIslandsShown",
                     RbxInstanceProperty {
                         name: "AreContactIslandsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreContactPointsShown",
                     RbxInstanceProperty {
                         name: "AreContactPointsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreJointCoordinatesShown",
                     RbxInstanceProperty {
                         name: "AreJointCoordinatesShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreMechanismsShown",
                     RbxInstanceProperty {
                         name: "AreMechanismsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreModelCoordsShown",
                     RbxInstanceProperty {
                         name: "AreModelCoordsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreOwnersShown",
                     RbxInstanceProperty {
                         name: "AreOwnersShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ArePartCoordsShown",
                     RbxInstanceProperty {
                         name: "ArePartCoordsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreRegionsShown",
                     RbxInstanceProperty {
                         name: "AreRegionsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreUnalignedPartsShown",
                     RbxInstanceProperty {
                         name: "AreUnalignedPartsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AreWorldCoordsShown",
                     RbxInstanceProperty {
                         name: "AreWorldCoordsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "DisableCSGv2",
                     RbxInstanceProperty {
                         name: "DisableCSGv2",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsReceiveAgeShown",
                     RbxInstanceProperty {
                         name: "IsReceiveAgeShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsTreeShown",
                     RbxInstanceProperty {
                         name: "IsTreeShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PhysicsEnvironmentalThrottle",
                     RbxInstanceProperty {
                         name: "PhysicsEnvironmentalThrottle",
-                        value_type: "EnviromentalPhysicsThrottle",
+                        value_type: RbxPropertyType::Enum("EnviromentalPhysicsThrottle"),
                     },
                 );
                 properties.insert(
                     "ShowDecompositionGeometry",
                     RbxInstanceProperty {
                         name: "ShowDecompositionGeometry",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ThrottleAdjustTime",
                     RbxInstanceProperty {
                         name: "ThrottleAdjustTime",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "UseCSGv2",
                     RbxInstanceProperty {
                         name: "UseCSGv2",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -9492,280 +9493,280 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AccountAge",
                     RbxInstanceProperty {
                         name: "AccountAge",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "AppearanceDidLoad",
                     RbxInstanceProperty {
                         name: "AppearanceDidLoad",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AutoJumpEnabled",
                     RbxInstanceProperty {
                         name: "AutoJumpEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CameraMaxZoomDistance",
                     RbxInstanceProperty {
                         name: "CameraMaxZoomDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "CameraMinZoomDistance",
                     RbxInstanceProperty {
                         name: "CameraMinZoomDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "CameraMode",
                     RbxInstanceProperty {
                         name: "CameraMode",
-                        value_type: "CameraMode",
+                        value_type: RbxPropertyType::Enum("CameraMode"),
                     },
                 );
                 properties.insert(
                     "CanLoadCharacterAppearance",
                     RbxInstanceProperty {
                         name: "CanLoadCharacterAppearance",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Character",
                     RbxInstanceProperty {
                         name: "Character",
-                        value_type: "Model",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "CharacterAppearance",
                     RbxInstanceProperty {
                         name: "CharacterAppearance",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "CharacterAppearanceId",
                     RbxInstanceProperty {
                         name: "CharacterAppearanceId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ChatMode",
                     RbxInstanceProperty {
                         name: "ChatMode",
-                        value_type: "ChatMode",
+                        value_type: RbxPropertyType::Enum("ChatMode"),
                     },
                 );
                 properties.insert(
                     "DataComplexity",
                     RbxInstanceProperty {
                         name: "DataComplexity",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "DataComplexityLimit",
                     RbxInstanceProperty {
                         name: "DataComplexityLimit",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "DataReady",
                     RbxInstanceProperty {
                         name: "DataReady",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "DevCameraOcclusionMode",
                     RbxInstanceProperty {
                         name: "DevCameraOcclusionMode",
-                        value_type: "DevCameraOcclusionMode",
+                        value_type: RbxPropertyType::Enum("DevCameraOcclusionMode"),
                     },
                 );
                 properties.insert(
                     "DevComputerCameraMode",
                     RbxInstanceProperty {
                         name: "DevComputerCameraMode",
-                        value_type: "DevComputerCameraMovementMode",
+                        value_type: RbxPropertyType::Enum("DevComputerCameraMovementMode"),
                     },
                 );
                 properties.insert(
                     "DevComputerMovementMode",
                     RbxInstanceProperty {
                         name: "DevComputerMovementMode",
-                        value_type: "DevComputerMovementMode",
+                        value_type: RbxPropertyType::Enum("DevComputerMovementMode"),
                     },
                 );
                 properties.insert(
                     "DevEnableMouseLock",
                     RbxInstanceProperty {
                         name: "DevEnableMouseLock",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "DevTouchCameraMode",
                     RbxInstanceProperty {
                         name: "DevTouchCameraMode",
-                        value_type: "DevTouchCameraMovementMode",
+                        value_type: RbxPropertyType::Enum("DevTouchCameraMovementMode"),
                     },
                 );
                 properties.insert(
                     "DevTouchMovementMode",
                     RbxInstanceProperty {
                         name: "DevTouchMovementMode",
-                        value_type: "DevTouchMovementMode",
+                        value_type: RbxPropertyType::Enum("DevTouchMovementMode"),
                     },
                 );
                 properties.insert(
                     "DisplayName",
                     RbxInstanceProperty {
                         name: "DisplayName",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "FollowUserId",
                     RbxInstanceProperty {
                         name: "FollowUserId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Guest",
                     RbxInstanceProperty {
                         name: "Guest",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "HealthDisplayDistance",
                     RbxInstanceProperty {
                         name: "HealthDisplayDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LocaleId",
                     RbxInstanceProperty {
                         name: "LocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "MaximumSimulationRadius",
                     RbxInstanceProperty {
                         name: "MaximumSimulationRadius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MembershipType",
                     RbxInstanceProperty {
                         name: "MembershipType",
-                        value_type: "MembershipType",
+                        value_type: RbxPropertyType::Enum("MembershipType"),
                     },
                 );
                 properties.insert(
                     "NameDisplayDistance",
                     RbxInstanceProperty {
                         name: "NameDisplayDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Neutral",
                     RbxInstanceProperty {
                         name: "Neutral",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "OsPlatform",
                     RbxInstanceProperty {
                         name: "OsPlatform",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ReplicationFocus",
                     RbxInstanceProperty {
                         name: "ReplicationFocus",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "RespawnLocation",
                     RbxInstanceProperty {
                         name: "RespawnLocation",
-                        value_type: "SpawnLocation",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "SimulationRadius",
                     RbxInstanceProperty {
                         name: "SimulationRadius",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Team",
                     RbxInstanceProperty {
                         name: "Team",
-                        value_type: "Team",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "TeamColor",
                     RbxInstanceProperty {
                         name: "TeamColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties.insert(
                     "Teleported",
                     RbxInstanceProperty {
                         name: "Teleported",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TeleportedIn",
                     RbxInstanceProperty {
                         name: "TeleportedIn",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "UserId",
                     RbxInstanceProperty {
                         name: "UserId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "VRDevice",
                     RbxInstanceProperty {
                         name: "VRDevice",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "userId",
                     RbxInstanceProperty {
                         name: "userId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -9794,84 +9795,84 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "BubbleChat",
                     RbxInstanceProperty {
                         name: "BubbleChat",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CharacterAutoLoads",
                     RbxInstanceProperty {
                         name: "CharacterAutoLoads",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ClassicChat",
                     RbxInstanceProperty {
                         name: "ClassicChat",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LocalPlayer",
                     RbxInstanceProperty {
                         name: "LocalPlayer",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "MaxPlayers",
                     RbxInstanceProperty {
                         name: "MaxPlayers",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "MaxPlayersInternal",
                     RbxInstanceProperty {
                         name: "MaxPlayersInternal",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "NumPlayers",
                     RbxInstanceProperty {
                         name: "NumPlayers",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "PreferredPlayers",
                     RbxInstanceProperty {
                         name: "PreferredPlayers",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "PreferredPlayersInternal",
                     RbxInstanceProperty {
                         name: "PreferredPlayersInternal",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "RespawnTime",
                     RbxInstanceProperty {
                         name: "RespawnTime",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "localPlayer",
                     RbxInstanceProperty {
                         name: "localPlayer",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "numPlayers",
                     RbxInstanceProperty {
                         name: "numPlayers",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -9889,21 +9890,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CollisionEnabled",
                     RbxInstanceProperty {
                         name: "CollisionEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "GridSize",
                     RbxInstanceProperty {
                         name: "GridSize",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "UsesAssetInsertionDrag",
                     RbxInstanceProperty {
                         name: "UsesAssetInsertionDrag",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -9921,28 +9922,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ActionId",
                     RbxInstanceProperty {
                         name: "ActionId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "AllowBinding",
                     RbxInstanceProperty {
                         name: "AllowBinding",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "StatusTip",
                     RbxInstanceProperty {
                         name: "StatusTip",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Text",
                     RbxInstanceProperty {
                         name: "Text",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -9960,28 +9961,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Data",
                     RbxInstanceProperty {
                         name: "Data",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "MimeType",
                     RbxInstanceProperty {
                         name: "MimeType",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Position",
                     RbxInstanceProperty {
                         name: "Position",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "Sender",
                     RbxInstanceProperty {
                         name: "Sender",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -10021,14 +10022,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Icon",
                     RbxInstanceProperty {
                         name: "Icon",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Title",
                     RbxInstanceProperty {
                         name: "Title",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -10057,21 +10058,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ClickableWhenViewportHidden",
                     RbxInstanceProperty {
                         name: "ClickableWhenViewportHidden",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Icon",
                     RbxInstanceProperty {
                         name: "Icon",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -10100,35 +10101,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CFrame",
                     RbxInstanceProperty {
                         name: "CFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "EasingDirection",
                     RbxInstanceProperty {
                         name: "EasingDirection",
-                        value_type: "PoseEasingDirection",
+                        value_type: RbxPropertyType::Enum("PoseEasingDirection"),
                     },
                 );
                 properties.insert(
                     "EasingStyle",
                     RbxInstanceProperty {
                         name: "EasingStyle",
-                        value_type: "PoseEasingStyle",
+                        value_type: RbxPropertyType::Enum("PoseEasingStyle"),
                     },
                 );
                 properties.insert(
                     "MaskWeight",
                     RbxInstanceProperty {
                         name: "MaskWeight",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Weight",
                     RbxInstanceProperty {
                         name: "Weight",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -10146,7 +10147,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -10164,21 +10165,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Intensity",
                     RbxInstanceProperty {
                         name: "Intensity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Threshold",
                     RbxInstanceProperty {
                         name: "Threshold",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -10196,7 +10197,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -10214,28 +10215,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Brightness",
                     RbxInstanceProperty {
                         name: "Brightness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Contrast",
                     RbxInstanceProperty {
                         name: "Contrast",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Saturation",
                     RbxInstanceProperty {
                         name: "Saturation",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TintColor",
                     RbxInstanceProperty {
                         name: "TintColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties
@@ -10253,14 +10254,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Intensity",
                     RbxInstanceProperty {
                         name: "Intensity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Spread",
                     RbxInstanceProperty {
                         name: "Spread",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -10344,91 +10345,91 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Browsable",
                     RbxInstanceProperty {
                         name: "Browsable",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ClassCategory",
                     RbxInstanceProperty {
                         name: "ClassCategory",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ClientOnly",
                     RbxInstanceProperty {
                         name: "ClientOnly",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Constraint",
                     RbxInstanceProperty {
                         name: "Constraint",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "Deprecated",
                     RbxInstanceProperty {
                         name: "Deprecated",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "EditingDisabled",
                     RbxInstanceProperty {
                         name: "EditingDisabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsBackend",
                     RbxInstanceProperty {
                         name: "IsBackend",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ScriptContext",
                     RbxInstanceProperty {
                         name: "ScriptContext",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ServerOnly",
                     RbxInstanceProperty {
                         name: "ServerOnly",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "UIMaximum",
                     RbxInstanceProperty {
                         name: "UIMaximum",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "UIMinimum",
                     RbxInstanceProperty {
                         name: "UIMinimum",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "UINumTicks",
                     RbxInstanceProperty {
                         name: "UINumTicks",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "summary",
                     RbxInstanceProperty {
                         name: "summary",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -10446,35 +10447,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ExplorerImageIndex",
                     RbxInstanceProperty {
                         name: "ExplorerImageIndex",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ExplorerOrder",
                     RbxInstanceProperty {
                         name: "ExplorerOrder",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Insertable",
                     RbxInstanceProperty {
                         name: "Insertable",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PreferredParent",
                     RbxInstanceProperty {
                         name: "PreferredParent",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "PreferredParents",
                     RbxInstanceProperty {
                         name: "PreferredParents",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -10569,84 +10570,84 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AutoFRMLevel",
                     RbxInstanceProperty {
                         name: "AutoFRMLevel",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "EagerBulkExecution",
                     RbxInstanceProperty {
                         name: "EagerBulkExecution",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "EditQualityLevel",
                     RbxInstanceProperty {
                         name: "EditQualityLevel",
-                        value_type: "QualityLevel",
+                        value_type: RbxPropertyType::Enum("QualityLevel"),
                     },
                 );
                 properties.insert(
                     "EnableFRM",
                     RbxInstanceProperty {
                         name: "EnableFRM",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ExportMergeByMaterial",
                     RbxInstanceProperty {
                         name: "ExportMergeByMaterial",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "FrameRateManager",
                     RbxInstanceProperty {
                         name: "FrameRateManager",
-                        value_type: "FramerateManagerMode",
+                        value_type: RbxPropertyType::Enum("FramerateManagerMode"),
                     },
                 );
                 properties.insert(
                     "GraphicsMode",
                     RbxInstanceProperty {
                         name: "GraphicsMode",
-                        value_type: "GraphicsMode",
+                        value_type: RbxPropertyType::Enum("GraphicsMode"),
                     },
                 );
                 properties.insert(
                     "MeshCacheSize",
                     RbxInstanceProperty {
                         name: "MeshCacheSize",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "QualityLevel",
                     RbxInstanceProperty {
                         name: "QualityLevel",
-                        value_type: "QualityLevel",
+                        value_type: RbxPropertyType::Enum("QualityLevel"),
                     },
                 );
                 properties.insert(
                     "ReloadAssets",
                     RbxInstanceProperty {
                         name: "ReloadAssets",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RenderCSGTrianglesDebug",
                     RbxInstanceProperty {
                         name: "RenderCSGTrianglesDebug",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ShowBoundingBoxes",
                     RbxInstanceProperty {
                         name: "ShowBoundingBoxes",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -10664,77 +10665,77 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CFrame",
                     RbxInstanceProperty {
                         name: "CFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "ComparisonDiffThreshold",
                     RbxInstanceProperty {
                         name: "ComparisonDiffThreshold",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ComparisonMethod",
                     RbxInstanceProperty {
                         name: "ComparisonMethod",
-                        value_type: "RenderingTestComparisonMethod",
+                        value_type: RbxPropertyType::Enum("RenderingTestComparisonMethod"),
                     },
                 );
                 properties.insert(
                     "ComparisonPsnrThreshold",
                     RbxInstanceProperty {
                         name: "ComparisonPsnrThreshold",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Description",
                     RbxInstanceProperty {
                         name: "Description",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "FieldOfView",
                     RbxInstanceProperty {
                         name: "FieldOfView",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Orientation",
                     RbxInstanceProperty {
                         name: "Orientation",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "Position",
                     RbxInstanceProperty {
                         name: "Position",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties.insert(
                     "QualityLevel",
                     RbxInstanceProperty {
                         name: "QualityLevel",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ShouldSkip",
                     RbxInstanceProperty {
                         name: "ShouldSkip",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Ticket",
                     RbxInstanceProperty {
                         name: "Ticket",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -10807,7 +10808,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ScriptsDisabled",
                     RbxInstanceProperty {
                         name: "ScriptsDisabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -10825,28 +10826,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CurrentLine",
                     RbxInstanceProperty {
                         name: "CurrentLine",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "IsDebugging",
                     RbxInstanceProperty {
                         name: "IsDebugging",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsPaused",
                     RbxInstanceProperty {
                         name: "IsPaused",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Script",
                     RbxInstanceProperty {
                         name: "Script",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -10886,7 +10887,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "LoadStringEnabled",
                     RbxInstanceProperty {
                         name: "LoadStringEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -10926,112 +10927,112 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CreatorId",
                     RbxInstanceProperty {
                         name: "CreatorId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "CreatorType",
                     RbxInstanceProperty {
                         name: "CreatorType",
-                        value_type: "CreatorType",
+                        value_type: RbxPropertyType::Enum("CreatorType"),
                     },
                 );
                 properties.insert(
                     "GameId",
                     RbxInstanceProperty {
                         name: "GameId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "GearGenreSetting",
                     RbxInstanceProperty {
                         name: "GearGenreSetting",
-                        value_type: "GearGenreSetting",
+                        value_type: RbxPropertyType::Enum("GearGenreSetting"),
                     },
                 );
                 properties.insert(
                     "Genre",
                     RbxInstanceProperty {
                         name: "Genre",
-                        value_type: "Genre",
+                        value_type: RbxPropertyType::Enum("Genre"),
                     },
                 );
                 properties.insert(
                     "IsSFFlagsLoaded",
                     RbxInstanceProperty {
                         name: "IsSFFlagsLoaded",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "JobId",
                     RbxInstanceProperty {
                         name: "JobId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "PlaceId",
                     RbxInstanceProperty {
                         name: "PlaceId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "PlaceVersion",
                     RbxInstanceProperty {
                         name: "PlaceVersion",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "PrivateServerId",
                     RbxInstanceProperty {
                         name: "PrivateServerId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "PrivateServerOwnerId",
                     RbxInstanceProperty {
                         name: "PrivateServerOwnerId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "VIPServerId",
                     RbxInstanceProperty {
                         name: "VIPServerId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "VIPServerOwnerId",
                     RbxInstanceProperty {
                         name: "VIPServerOwnerId",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Workspace",
                     RbxInstanceProperty {
                         name: "Workspace",
-                        value_type: "Workspace",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "lighting",
                     RbxInstanceProperty {
                         name: "lighting",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "workspace",
                     RbxInstanceProperty {
                         name: "workspace",
-                        value_type: "Workspace",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -11093,84 +11094,84 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CelestialBodiesShown",
                     RbxInstanceProperty {
                         name: "CelestialBodiesShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MoonAngularSize",
                     RbxInstanceProperty {
                         name: "MoonAngularSize",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MoonTextureId",
                     RbxInstanceProperty {
                         name: "MoonTextureId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "SkyboxBk",
                     RbxInstanceProperty {
                         name: "SkyboxBk",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "SkyboxDn",
                     RbxInstanceProperty {
                         name: "SkyboxDn",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "SkyboxFt",
                     RbxInstanceProperty {
                         name: "SkyboxFt",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "SkyboxLf",
                     RbxInstanceProperty {
                         name: "SkyboxLf",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "SkyboxRt",
                     RbxInstanceProperty {
                         name: "SkyboxRt",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "SkyboxUp",
                     RbxInstanceProperty {
                         name: "SkyboxUp",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "StarCount",
                     RbxInstanceProperty {
                         name: "StarCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "SunAngularSize",
                     RbxInstanceProperty {
                         name: "SunAngularSize",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "SunTextureId",
                     RbxInstanceProperty {
                         name: "SunTextureId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties
@@ -11188,35 +11189,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Opacity",
                     RbxInstanceProperty {
                         name: "Opacity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RiseVelocity",
                     RbxInstanceProperty {
                         name: "RiseVelocity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Size",
                     RbxInstanceProperty {
                         name: "Size",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11245,133 +11246,133 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "EmitterSize",
                     RbxInstanceProperty {
                         name: "EmitterSize",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "IsLoaded",
                     RbxInstanceProperty {
                         name: "IsLoaded",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsPaused",
                     RbxInstanceProperty {
                         name: "IsPaused",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsPlaying",
                     RbxInstanceProperty {
                         name: "IsPlaying",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Looped",
                     RbxInstanceProperty {
                         name: "Looped",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MaxDistance",
                     RbxInstanceProperty {
                         name: "MaxDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MinDistance",
                     RbxInstanceProperty {
                         name: "MinDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Pitch",
                     RbxInstanceProperty {
                         name: "Pitch",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PlayOnRemove",
                     RbxInstanceProperty {
                         name: "PlayOnRemove",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "PlaybackLoudness",
                     RbxInstanceProperty {
                         name: "PlaybackLoudness",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PlaybackSpeed",
                     RbxInstanceProperty {
                         name: "PlaybackSpeed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Playing",
                     RbxInstanceProperty {
                         name: "Playing",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RollOffMode",
                     RbxInstanceProperty {
                         name: "RollOffMode",
-                        value_type: "RollOffMode",
+                        value_type: RbxPropertyType::Enum("RollOffMode"),
                     },
                 );
                 properties.insert(
                     "SoundGroup",
                     RbxInstanceProperty {
                         name: "SoundGroup",
-                        value_type: "SoundGroup",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "SoundId",
                     RbxInstanceProperty {
                         name: "SoundId",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "TimeLength",
                     RbxInstanceProperty {
                         name: "TimeLength",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TimePosition",
                     RbxInstanceProperty {
                         name: "TimePosition",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Volume",
                     RbxInstanceProperty {
                         name: "Volume",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "isPlaying",
                     RbxInstanceProperty {
                         name: "isPlaying",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -11389,14 +11390,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Priority",
                     RbxInstanceProperty {
                         name: "Priority",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -11414,21 +11415,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Depth",
                     RbxInstanceProperty {
                         name: "Depth",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Mix",
                     RbxInstanceProperty {
                         name: "Mix",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Rate",
                     RbxInstanceProperty {
                         name: "Rate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11446,42 +11447,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Attack",
                     RbxInstanceProperty {
                         name: "Attack",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "GainMakeup",
                     RbxInstanceProperty {
                         name: "GainMakeup",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Ratio",
                     RbxInstanceProperty {
                         name: "Ratio",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Release",
                     RbxInstanceProperty {
                         name: "Release",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "SideChain",
                     RbxInstanceProperty {
                         name: "SideChain",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Threshold",
                     RbxInstanceProperty {
                         name: "Threshold",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11499,7 +11500,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Level",
                     RbxInstanceProperty {
                         name: "Level",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11517,28 +11518,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Delay",
                     RbxInstanceProperty {
                         name: "Delay",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DryLevel",
                     RbxInstanceProperty {
                         name: "DryLevel",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Feedback",
                     RbxInstanceProperty {
                         name: "Feedback",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WetLevel",
                     RbxInstanceProperty {
                         name: "WetLevel",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11556,21 +11557,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "HighGain",
                     RbxInstanceProperty {
                         name: "HighGain",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LowGain",
                     RbxInstanceProperty {
                         name: "LowGain",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MidGain",
                     RbxInstanceProperty {
                         name: "MidGain",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11588,21 +11589,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Depth",
                     RbxInstanceProperty {
                         name: "Depth",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Mix",
                     RbxInstanceProperty {
                         name: "Mix",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Rate",
                     RbxInstanceProperty {
                         name: "Rate",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11620,7 +11621,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Octave",
                     RbxInstanceProperty {
                         name: "Octave",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11638,35 +11639,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "DecayTime",
                     RbxInstanceProperty {
                         name: "DecayTime",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Density",
                     RbxInstanceProperty {
                         name: "Density",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Diffusion",
                     RbxInstanceProperty {
                         name: "Diffusion",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DryLevel",
                     RbxInstanceProperty {
                         name: "DryLevel",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WetLevel",
                     RbxInstanceProperty {
                         name: "WetLevel",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11684,21 +11685,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Depth",
                     RbxInstanceProperty {
                         name: "Depth",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Duty",
                     RbxInstanceProperty {
                         name: "Duty",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Frequency",
                     RbxInstanceProperty {
                         name: "Frequency",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11716,7 +11717,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Volume",
                     RbxInstanceProperty {
                         name: "Volume",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11734,35 +11735,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AmbientReverb",
                     RbxInstanceProperty {
                         name: "AmbientReverb",
-                        value_type: "ReverbType",
+                        value_type: RbxPropertyType::Enum("ReverbType"),
                     },
                 );
                 properties.insert(
                     "DistanceFactor",
                     RbxInstanceProperty {
                         name: "DistanceFactor",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DopplerScale",
                     RbxInstanceProperty {
                         name: "DopplerScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "RespectFilteringEnabled",
                     RbxInstanceProperty {
                         name: "RespectFilteringEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RolloffScale",
                     RbxInstanceProperty {
                         name: "RolloffScale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11780,21 +11781,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "SparkleColor",
                     RbxInstanceProperty {
                         name: "SparkleColor",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties
@@ -11834,98 +11835,98 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AllowCustomAnimations",
                     RbxInstanceProperty {
                         name: "AllowCustomAnimations",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AutoJumpEnabled",
                     RbxInstanceProperty {
                         name: "AutoJumpEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CameraMaxZoomDistance",
                     RbxInstanceProperty {
                         name: "CameraMaxZoomDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "CameraMinZoomDistance",
                     RbxInstanceProperty {
                         name: "CameraMinZoomDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "CameraMode",
                     RbxInstanceProperty {
                         name: "CameraMode",
-                        value_type: "CameraMode",
+                        value_type: RbxPropertyType::Enum("CameraMode"),
                     },
                 );
                 properties.insert(
                     "DevCameraOcclusionMode",
                     RbxInstanceProperty {
                         name: "DevCameraOcclusionMode",
-                        value_type: "DevCameraOcclusionMode",
+                        value_type: RbxPropertyType::Enum("DevCameraOcclusionMode"),
                     },
                 );
                 properties.insert(
                     "DevComputerCameraMovementMode",
                     RbxInstanceProperty {
                         name: "DevComputerCameraMovementMode",
-                        value_type: "DevComputerCameraMovementMode",
+                        value_type: RbxPropertyType::Enum("DevComputerCameraMovementMode"),
                     },
                 );
                 properties.insert(
                     "DevComputerMovementMode",
                     RbxInstanceProperty {
                         name: "DevComputerMovementMode",
-                        value_type: "DevComputerMovementMode",
+                        value_type: RbxPropertyType::Enum("DevComputerMovementMode"),
                     },
                 );
                 properties.insert(
                     "DevTouchCameraMovementMode",
                     RbxInstanceProperty {
                         name: "DevTouchCameraMovementMode",
-                        value_type: "DevTouchCameraMovementMode",
+                        value_type: RbxPropertyType::Enum("DevTouchCameraMovementMode"),
                     },
                 );
                 properties.insert(
                     "DevTouchMovementMode",
                     RbxInstanceProperty {
                         name: "DevTouchMovementMode",
-                        value_type: "DevTouchMovementMode",
+                        value_type: RbxPropertyType::Enum("DevTouchMovementMode"),
                     },
                 );
                 properties.insert(
                     "EnableMouseLockOption",
                     RbxInstanceProperty {
                         name: "EnableMouseLockOption",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "HealthDisplayDistance",
                     RbxInstanceProperty {
                         name: "HealthDisplayDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LoadCharacterAppearance",
                     RbxInstanceProperty {
                         name: "LoadCharacterAppearance",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "NameDisplayDistance",
                     RbxInstanceProperty {
                         name: "NameDisplayDistance",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -11965,70 +11966,70 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ContactsCount",
                     RbxInstanceProperty {
                         name: "ContactsCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "DataReceiveKbps",
                     RbxInstanceProperty {
                         name: "DataReceiveKbps",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "DataSendKbps",
                     RbxInstanceProperty {
                         name: "DataSendKbps",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "HeartbeatTimeMs",
                     RbxInstanceProperty {
                         name: "HeartbeatTimeMs",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "InstanceCount",
                     RbxInstanceProperty {
                         name: "InstanceCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "MovingPrimitivesCount",
                     RbxInstanceProperty {
                         name: "MovingPrimitivesCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "PhysicsReceiveKbps",
                     RbxInstanceProperty {
                         name: "PhysicsReceiveKbps",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PhysicsSendKbps",
                     RbxInstanceProperty {
                         name: "PhysicsSendKbps",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PhysicsStepTimeMs",
                     RbxInstanceProperty {
                         name: "PhysicsStepTimeMs",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "PrimitivesCount",
                     RbxInstanceProperty {
                         name: "PrimitivesCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -12112,497 +12113,497 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Always Save Script Changes",
                     RbxInstanceProperty {
                         name: "Always Save Script Changes",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Animate Hover Over",
                     RbxInstanceProperty {
                         name: "Animate Hover Over",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Attach Debugger To",
                     RbxInstanceProperty {
                         name: "Attach Debugger To",
-                        value_type: "DEPRECATED_DebuggerDataModelPreference",
+                        value_type: RbxPropertyType::Enum("DEPRECATED_DebuggerDataModelPreference"),
                     },
                 );
                 properties.insert(
                     "Auto Indent",
                     RbxInstanceProperty {
                         name: "Auto Indent",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Auto-Save Enabled",
                     RbxInstanceProperty {
                         name: "Auto-Save Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Auto-Save Interval (Minutes)",
                     RbxInstanceProperty {
                         name: "Auto-Save Interval (Minutes)",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Auto-Save Path",
                     RbxInstanceProperty {
                         name: "Auto-Save Path",
-                        value_type: "QDir",
+                        value_type: RbxPropertyType::UnimplementedType("QDir"),
                     },
                 );
                 properties.insert(
                     "Background Color",
                     RbxInstanceProperty {
                         name: "Background Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Basic Objects Display Mode",
                     RbxInstanceProperty {
                         name: "Basic Objects Display Mode",
-                        value_type: "ListDisplayMode",
+                        value_type: RbxPropertyType::Enum("ListDisplayMode"),
                     },
                 );
                 properties.insert(
                     "Built-in Function Color",
                     RbxInstanceProperty {
                         name: "Built-in Function Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Camera Mouse Wheel Speed",
                     RbxInstanceProperty {
                         name: "Camera Mouse Wheel Speed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Camera Shift Speed",
                     RbxInstanceProperty {
                         name: "Camera Shift Speed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Camera Speed",
                     RbxInstanceProperty {
                         name: "Camera Speed",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Camera Zoom to Mouse Position",
                     RbxInstanceProperty {
                         name: "Camera Zoom to Mouse Position",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Clear Output On Start",
                     RbxInstanceProperty {
                         name: "Clear Output On Start",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Comment Color",
                     RbxInstanceProperty {
                         name: "Comment Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "DefaultScriptFileDir",
                     RbxInstanceProperty {
                         name: "DefaultScriptFileDir",
-                        value_type: "QDir",
+                        value_type: RbxPropertyType::UnimplementedType("QDir"),
                     },
                 );
                 properties.insert(
                     "DeprecatedObjectsShown",
                     RbxInstanceProperty {
                         name: "DeprecatedObjectsShown",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Device Pairing Code",
                     RbxInstanceProperty {
                         name: "Device Pairing Code",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Disable Accurate Play Solo",
                     RbxInstanceProperty {
                         name: "Disable Accurate Play Solo",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Drag Multiple Parts As Single Part",
                     RbxInstanceProperty {
                         name: "Drag Multiple Parts As Single Part",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Enable Autocomplete",
                     RbxInstanceProperty {
                         name: "Enable Autocomplete",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Enable CoreScript Debugger",
                     RbxInstanceProperty {
                         name: "Enable CoreScript Debugger",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Enable Intellisense",
                     RbxInstanceProperty {
                         name: "Enable Intellisense",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Error Color",
                     RbxInstanceProperty {
                         name: "Error Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Find Selection Background Color",
                     RbxInstanceProperty {
                         name: "Find Selection Background Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Font",
                     RbxInstanceProperty {
                         name: "Font",
-                        value_type: "QFont",
+                        value_type: RbxPropertyType::UnimplementedType("QFont"),
                     },
                 );
                 properties.insert(
                     "Hover Animate Speed",
                     RbxInstanceProperty {
                         name: "Hover Animate Speed",
-                        value_type: "HoverAnimateSpeed",
+                        value_type: RbxPropertyType::Enum("HoverAnimateSpeed"),
                     },
                 );
                 properties.insert(
                     "Hover Over Color",
                     RbxInstanceProperty {
                         name: "Hover Over Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Import mesh files as single mesh",
                     RbxInstanceProperty {
                         name: "Import mesh files as single mesh",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Keyword Color",
                     RbxInstanceProperty {
                         name: "Keyword Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Line Thickness",
                     RbxInstanceProperty {
                         name: "Line Thickness",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LuaDebuggerEnabled",
                     RbxInstanceProperty {
                         name: "LuaDebuggerEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LuaDebuggerEnabledAtStartup",
                     RbxInstanceProperty {
                         name: "LuaDebuggerEnabledAtStartup",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Matching Word Background Color",
                     RbxInstanceProperty {
                         name: "Matching Word Background Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Maximum Output Lines",
                     RbxInstanceProperty {
                         name: "Maximum Output Lines",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Number Color",
                     RbxInstanceProperty {
                         name: "Number Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Only Play Audio from Window in Focus",
                     RbxInstanceProperty {
                         name: "Only Play Audio from Window in Focus",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Operator Color",
                     RbxInstanceProperty {
                         name: "Operator Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Output Font",
                     RbxInstanceProperty {
                         name: "Output Font",
-                        value_type: "QFont",
+                        value_type: RbxPropertyType::UnimplementedType("QFont"),
                     },
                 );
                 properties.insert(
                     "Output Layout Mode",
                     RbxInstanceProperty {
                         name: "Output Layout Mode",
-                        value_type: "OutputLayoutMode",
+                        value_type: RbxPropertyType::Enum("OutputLayoutMode"),
                     },
                 );
                 properties.insert(
                     "OverrideCoreScripts",
                     RbxInstanceProperty {
                         name: "OverrideCoreScripts",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "OverrideCoreScriptsDir",
                     RbxInstanceProperty {
                         name: "OverrideCoreScriptsDir",
-                        value_type: "QDir",
+                        value_type: RbxPropertyType::UnimplementedType("QDir"),
                     },
                 );
                 properties.insert(
                     "PermissionLevelShown",
                     RbxInstanceProperty {
                         name: "PermissionLevelShown",
-                        value_type: "PermissionLevelShown",
+                        value_type: RbxPropertyType::Enum("PermissionLevelShown"),
                     },
                 );
                 properties.insert(
                     "PluginsDir",
                     RbxInstanceProperty {
                         name: "PluginsDir",
-                        value_type: "QDir",
+                        value_type: RbxPropertyType::UnimplementedType("QDir"),
                     },
                 );
                 properties.insert(
                     "Preprocessor Color",
                     RbxInstanceProperty {
                         name: "Preprocessor Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "RecentSavesDir",
                     RbxInstanceProperty {
                         name: "RecentSavesDir",
-                        value_type: "QDir",
+                        value_type: RbxPropertyType::UnimplementedType("QDir"),
                     },
                 );
                 properties.insert(
                     "Render Throttle Percentage",
                     RbxInstanceProperty {
                         name: "Render Throttle Percentage",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Respect Studio shortcuts when game has focus",
                     RbxInstanceProperty {
                         name: "Respect Studio shortcuts when game has focus",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RuntimeUndoBehavior",
                     RbxInstanceProperty {
                         name: "RuntimeUndoBehavior",
-                        value_type: "RuntimeUndoBehavior",
+                        value_type: RbxPropertyType::Enum("RuntimeUndoBehavior"),
                     },
                 );
                 properties.insert(
                     "ScriptTimeoutLength",
                     RbxInstanceProperty {
                         name: "ScriptTimeoutLength",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Select Color",
                     RbxInstanceProperty {
                         name: "Select Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Select/Hover Color",
                     RbxInstanceProperty {
                         name: "Select/Hover Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Selection Background Color",
                     RbxInstanceProperty {
                         name: "Selection Background Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Selection Color",
                     RbxInstanceProperty {
                         name: "Selection Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Server Audio Behavior",
                     RbxInstanceProperty {
                         name: "Server Audio Behavior",
-                        value_type: "ServerAudioBehavior",
+                        value_type: RbxPropertyType::Enum("ServerAudioBehavior"),
                     },
                 );
                 properties.insert(
                     "Show Core GUI in Explorer while Playing",
                     RbxInstanceProperty {
                         name: "Show Core GUI in Explorer while Playing",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Show Diagnostics Bar",
                     RbxInstanceProperty {
                         name: "Show Diagnostics Bar",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Show Hidden Objects in Explorer",
                     RbxInstanceProperty {
                         name: "Show Hidden Objects in Explorer",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Show Hover Over",
                     RbxInstanceProperty {
                         name: "Show Hover Over",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Show Navigation Mesh",
                     RbxInstanceProperty {
                         name: "Show Navigation Mesh",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Show Plugin GUI Service in Explorer",
                     RbxInstanceProperty {
                         name: "Show Plugin GUI Service in Explorer",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Show QT warnings in output",
                     RbxInstanceProperty {
                         name: "Show QT warnings in output",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Show plus button on hover in Explorer",
                     RbxInstanceProperty {
                         name: "Show plus button on hover in Explorer",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "String Color",
                     RbxInstanceProperty {
                         name: "String Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Tab Width",
                     RbxInstanceProperty {
                         name: "Tab Width",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Text Color",
                     RbxInstanceProperty {
                         name: "Text Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties.insert(
                     "Text Wrapping",
                     RbxInstanceProperty {
                         name: "Text Wrapping",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Theme",
                     RbxInstanceProperty {
                         name: "Theme",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "UI Theme",
                     RbxInstanceProperty {
                         name: "UI Theme",
-                        value_type: "UITheme",
+                        value_type: RbxPropertyType::Enum("UITheme"),
                     },
                 );
                 properties.insert(
                     "Warning Color",
                     RbxInstanceProperty {
                         name: "Warning Color",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties
@@ -12620,7 +12621,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ActiveScript",
                     RbxInstanceProperty {
                         name: "ActiveScript",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -12649,28 +12650,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "SchedulerDutyCycle",
                     RbxInstanceProperty {
                         name: "SchedulerDutyCycle",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "SchedulerRate",
                     RbxInstanceProperty {
                         name: "SchedulerRate",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "ThreadPoolConfig",
                     RbxInstanceProperty {
                         name: "ThreadPoolConfig",
-                        value_type: "ThreadPoolConfig",
+                        value_type: RbxPropertyType::Enum("ThreadPoolConfig"),
                     },
                 );
                 properties.insert(
                     "ThreadPoolSize",
                     RbxInstanceProperty {
                         name: "ThreadPoolSize",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -12688,28 +12689,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AutoAssignable",
                     RbxInstanceProperty {
                         name: "AutoAssignable",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "AutoColorCharacters",
                     RbxInstanceProperty {
                         name: "AutoColorCharacters",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Score",
                     RbxInstanceProperty {
                         name: "Score",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "TeamColor",
                     RbxInstanceProperty {
                         name: "TeamColor",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties
@@ -12738,7 +12739,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CustomizedTeleportUI",
                     RbxInstanceProperty {
                         name: "CustomizedTeleportUI",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -12756,14 +12757,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "IsSmooth",
                     RbxInstanceProperty {
                         name: "IsSmooth",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "SizeInCells",
                     RbxInstanceProperty {
                         name: "SizeInCells",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -12781,84 +12782,84 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AutoRuns",
                     RbxInstanceProperty {
                         name: "AutoRuns",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Description",
                     RbxInstanceProperty {
                         name: "Description",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "ErrorCount",
                     RbxInstanceProperty {
                         name: "ErrorCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "ExecuteWithStudioRun",
                     RbxInstanceProperty {
                         name: "ExecuteWithStudioRun",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Is30FpsThrottleEnabled",
                     RbxInstanceProperty {
                         name: "Is30FpsThrottleEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsPhysicsEnvironmentalThrottled",
                     RbxInstanceProperty {
                         name: "IsPhysicsEnvironmentalThrottled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsSleepAllowed",
                     RbxInstanceProperty {
                         name: "IsSleepAllowed",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "NumberOfPlayers",
                     RbxInstanceProperty {
                         name: "NumberOfPlayers",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "SimulateSecondsLag",
                     RbxInstanceProperty {
                         name: "SimulateSecondsLag",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TestCount",
                     RbxInstanceProperty {
                         name: "TestCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Timeout",
                     RbxInstanceProperty {
                         name: "Timeout",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "WarnCount",
                     RbxInstanceProperty {
                         name: "WarnCount",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -12942,105 +12943,105 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Attachment0",
                     RbxInstanceProperty {
                         name: "Attachment0",
-                        value_type: "Attachment",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Attachment1",
                     RbxInstanceProperty {
                         name: "Attachment1",
-                        value_type: "Attachment",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Color",
                     RbxInstanceProperty {
                         name: "Color",
-                        value_type: "ColorSequence",
+                        value_type: RbxPropertyType::UnimplementedType("ColorSequence"),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "FaceCamera",
                     RbxInstanceProperty {
                         name: "FaceCamera",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Lifetime",
                     RbxInstanceProperty {
                         name: "Lifetime",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LightEmission",
                     RbxInstanceProperty {
                         name: "LightEmission",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "LightInfluence",
                     RbxInstanceProperty {
                         name: "LightInfluence",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxLength",
                     RbxInstanceProperty {
                         name: "MaxLength",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MinLength",
                     RbxInstanceProperty {
                         name: "MinLength",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Texture",
                     RbxInstanceProperty {
                         name: "Texture",
-                        value_type: "Content",
+                        value_type: RbxPropertyType::UnimplementedType("Content"),
                     },
                 );
                 properties.insert(
                     "TextureLength",
                     RbxInstanceProperty {
                         name: "TextureLength",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "TextureMode",
                     RbxInstanceProperty {
                         name: "TextureMode",
-                        value_type: "TextureMode",
+                        value_type: RbxPropertyType::Enum("TextureMode"),
                     },
                 );
                 properties.insert(
                     "Transparency",
                     RbxInstanceProperty {
                         name: "Transparency",
-                        value_type: "NumberSequence",
+                        value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
                     },
                 );
                 properties.insert(
                     "WidthScale",
                     RbxInstanceProperty {
                         name: "WidthScale",
-                        value_type: "NumberSequence",
+                        value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
                     },
                 );
                 properties
@@ -13058,7 +13059,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "LocaleId",
                     RbxInstanceProperty {
                         name: "LocaleId",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -13076,7 +13077,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "PlaybackState",
                     RbxInstanceProperty {
                         name: "PlaybackState",
-                        value_type: "PlaybackState",
+                        value_type: RbxPropertyType::Enum("PlaybackState"),
                     },
                 );
                 properties
@@ -13094,14 +13095,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Instance",
                     RbxInstanceProperty {
                         name: "Instance",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "TweenInfo",
                     RbxInstanceProperty {
                         name: "TweenInfo",
-                        value_type: "TweenInfo",
+                        value_type: RbxPropertyType::UnimplementedType("TweenInfo"),
                     },
                 );
                 properties
@@ -13163,21 +13164,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AspectRatio",
                     RbxInstanceProperty {
                         name: "AspectRatio",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "AspectType",
                     RbxInstanceProperty {
                         name: "AspectType",
-                        value_type: "AspectType",
+                        value_type: RbxPropertyType::Enum("AspectType"),
                     },
                 );
                 properties.insert(
                     "DominantAxis",
                     RbxInstanceProperty {
                         name: "DominantAxis",
-                        value_type: "DominantAxis",
+                        value_type: RbxPropertyType::Enum("DominantAxis"),
                     },
                 );
                 properties
@@ -13195,14 +13196,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "MaxSize",
                     RbxInstanceProperty {
                         name: "MaxSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "MinSize",
                     RbxInstanceProperty {
                         name: "MinSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties
@@ -13220,14 +13221,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "MaxTextSize",
                     RbxInstanceProperty {
                         name: "MaxTextSize",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "MinTextSize",
                     RbxInstanceProperty {
                         name: "MinTextSize",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -13256,35 +13257,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AbsoluteContentSize",
                     RbxInstanceProperty {
                         name: "AbsoluteContentSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "FillDirection",
                     RbxInstanceProperty {
                         name: "FillDirection",
-                        value_type: "FillDirection",
+                        value_type: RbxPropertyType::Enum("FillDirection"),
                     },
                 );
                 properties.insert(
                     "HorizontalAlignment",
                     RbxInstanceProperty {
                         name: "HorizontalAlignment",
-                        value_type: "HorizontalAlignment",
+                        value_type: RbxPropertyType::Enum("HorizontalAlignment"),
                     },
                 );
                 properties.insert(
                     "SortOrder",
                     RbxInstanceProperty {
                         name: "SortOrder",
-                        value_type: "SortOrder",
+                        value_type: RbxPropertyType::Enum("SortOrder"),
                     },
                 );
                 properties.insert(
                     "VerticalAlignment",
                     RbxInstanceProperty {
                         name: "VerticalAlignment",
-                        value_type: "VerticalAlignment",
+                        value_type: RbxPropertyType::Enum("VerticalAlignment"),
                     },
                 );
                 properties
@@ -13302,28 +13303,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CellPadding",
                     RbxInstanceProperty {
                         name: "CellPadding",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties.insert(
                     "CellSize",
                     RbxInstanceProperty {
                         name: "CellSize",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties.insert(
                     "FillDirectionMaxCells",
                     RbxInstanceProperty {
                         name: "FillDirectionMaxCells",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "StartCorner",
                     RbxInstanceProperty {
                         name: "StartCorner",
-                        value_type: "StartCorner",
+                        value_type: RbxPropertyType::Enum("StartCorner"),
                     },
                 );
                 properties
@@ -13341,7 +13342,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Padding",
                     RbxInstanceProperty {
                         name: "Padding",
-                        value_type: "UDim",
+                        value_type: RbxPropertyType::UnimplementedType("UDim"),
                     },
                 );
                 properties
@@ -13359,70 +13360,70 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Animated",
                     RbxInstanceProperty {
                         name: "Animated",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Circular",
                     RbxInstanceProperty {
                         name: "Circular",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CurrentPage",
                     RbxInstanceProperty {
                         name: "CurrentPage",
-                        value_type: "GuiObject",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "EasingDirection",
                     RbxInstanceProperty {
                         name: "EasingDirection",
-                        value_type: "EasingDirection",
+                        value_type: RbxPropertyType::Enum("EasingDirection"),
                     },
                 );
                 properties.insert(
                     "EasingStyle",
                     RbxInstanceProperty {
                         name: "EasingStyle",
-                        value_type: "EasingStyle",
+                        value_type: RbxPropertyType::Enum("EasingStyle"),
                     },
                 );
                 properties.insert(
                     "GamepadInputEnabled",
                     RbxInstanceProperty {
                         name: "GamepadInputEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Padding",
                     RbxInstanceProperty {
                         name: "Padding",
-                        value_type: "UDim",
+                        value_type: RbxPropertyType::UnimplementedType("UDim"),
                     },
                 );
                 properties.insert(
                     "ScrollWheelInputEnabled",
                     RbxInstanceProperty {
                         name: "ScrollWheelInputEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TouchInputEnabled",
                     RbxInstanceProperty {
                         name: "TouchInputEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "TweenTime",
                     RbxInstanceProperty {
                         name: "TweenTime",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -13440,28 +13441,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "FillEmptySpaceColumns",
                     RbxInstanceProperty {
                         name: "FillEmptySpaceColumns",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "FillEmptySpaceRows",
                     RbxInstanceProperty {
                         name: "FillEmptySpaceRows",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MajorAxis",
                     RbxInstanceProperty {
                         name: "MajorAxis",
-                        value_type: "TableMajorAxis",
+                        value_type: RbxPropertyType::Enum("TableMajorAxis"),
                     },
                 );
                 properties.insert(
                     "Padding",
                     RbxInstanceProperty {
                         name: "Padding",
-                        value_type: "UDim2",
+                        value_type: RbxPropertyType::UnimplementedType("UDim2"),
                     },
                 );
                 properties
@@ -13479,28 +13480,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "PaddingBottom",
                     RbxInstanceProperty {
                         name: "PaddingBottom",
-                        value_type: "UDim",
+                        value_type: RbxPropertyType::UnimplementedType("UDim"),
                     },
                 );
                 properties.insert(
                     "PaddingLeft",
                     RbxInstanceProperty {
                         name: "PaddingLeft",
-                        value_type: "UDim",
+                        value_type: RbxPropertyType::UnimplementedType("UDim"),
                     },
                 );
                 properties.insert(
                     "PaddingRight",
                     RbxInstanceProperty {
                         name: "PaddingRight",
-                        value_type: "UDim",
+                        value_type: RbxPropertyType::UnimplementedType("UDim"),
                     },
                 );
                 properties.insert(
                     "PaddingTop",
                     RbxInstanceProperty {
                         name: "PaddingTop",
-                        value_type: "UDim",
+                        value_type: RbxPropertyType::UnimplementedType("UDim"),
                     },
                 );
                 properties
@@ -13518,7 +13519,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Scale",
                     RbxInstanceProperty {
                         name: "Scale",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -13536,252 +13537,252 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AllTutorialsDisabled",
                     RbxInstanceProperty {
                         name: "AllTutorialsDisabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "CameraMode",
                     RbxInstanceProperty {
                         name: "CameraMode",
-                        value_type: "CustomCameraMode",
+                        value_type: RbxPropertyType::Enum("CustomCameraMode"),
                     },
                 );
                 properties.insert(
                     "CameraYInverted",
                     RbxInstanceProperty {
                         name: "CameraYInverted",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ChatVisible",
                     RbxInstanceProperty {
                         name: "ChatVisible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ComputerCameraMovementMode",
                     RbxInstanceProperty {
                         name: "ComputerCameraMovementMode",
-                        value_type: "ComputerCameraMovementMode",
+                        value_type: RbxPropertyType::Enum("ComputerCameraMovementMode"),
                     },
                 );
                 properties.insert(
                     "ComputerMovementMode",
                     RbxInstanceProperty {
                         name: "ComputerMovementMode",
-                        value_type: "ComputerMovementMode",
+                        value_type: RbxPropertyType::Enum("ComputerMovementMode"),
                     },
                 );
                 properties.insert(
                     "ControlMode",
                     RbxInstanceProperty {
                         name: "ControlMode",
-                        value_type: "ControlMode",
+                        value_type: RbxPropertyType::Enum("ControlMode"),
                     },
                 );
                 properties.insert(
                     "Fullscreen",
                     RbxInstanceProperty {
                         name: "Fullscreen",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "GamepadCameraSensitivity",
                     RbxInstanceProperty {
                         name: "GamepadCameraSensitivity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "HasEverUsedVR",
                     RbxInstanceProperty {
                         name: "HasEverUsedVR",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsUsingCameraYInverted",
                     RbxInstanceProperty {
                         name: "IsUsingCameraYInverted",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "IsUsingGamepadCameraSensitivity",
                     RbxInstanceProperty {
                         name: "IsUsingGamepadCameraSensitivity",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MasterVolume",
                     RbxInstanceProperty {
                         name: "MasterVolume",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MicroProfilerWebServerEnabled",
                     RbxInstanceProperty {
                         name: "MicroProfilerWebServerEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MicroProfilerWebServerIP",
                     RbxInstanceProperty {
                         name: "MicroProfilerWebServerIP",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "MicroProfilerWebServerPort",
                     RbxInstanceProperty {
                         name: "MicroProfilerWebServerPort",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "MouseSensitivity",
                     RbxInstanceProperty {
                         name: "MouseSensitivity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MouseSensitivityFirstPerson",
                     RbxInstanceProperty {
                         name: "MouseSensitivityFirstPerson",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "MouseSensitivityThirdPerson",
                     RbxInstanceProperty {
                         name: "MouseSensitivityThirdPerson",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "OnScreenProfilerEnabled",
                     RbxInstanceProperty {
                         name: "OnScreenProfilerEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "OnboardingsCompleted",
                     RbxInstanceProperty {
                         name: "OnboardingsCompleted",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "PerformanceStatsVisible",
                     RbxInstanceProperty {
                         name: "PerformanceStatsVisible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "RCCProfilerRecordFrameRate",
                     RbxInstanceProperty {
                         name: "RCCProfilerRecordFrameRate",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "RCCProfilerRecordTimeFrame",
                     RbxInstanceProperty {
                         name: "RCCProfilerRecordTimeFrame",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "RotationType",
                     RbxInstanceProperty {
                         name: "RotationType",
-                        value_type: "RotationType",
+                        value_type: RbxPropertyType::Enum("RotationType"),
                     },
                 );
                 properties.insert(
                     "SavedQualityLevel",
                     RbxInstanceProperty {
                         name: "SavedQualityLevel",
-                        value_type: "SavedQualitySetting",
+                        value_type: RbxPropertyType::Enum("SavedQualitySetting"),
                     },
                 );
                 properties.insert(
                     "StartMaximized",
                     RbxInstanceProperty {
                         name: "StartMaximized",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "StartScreenPosition",
                     RbxInstanceProperty {
                         name: "StartScreenPosition",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "StartScreenSize",
                     RbxInstanceProperty {
                         name: "StartScreenSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "TouchCameraMovementMode",
                     RbxInstanceProperty {
                         name: "TouchCameraMovementMode",
-                        value_type: "TouchCameraMovementMode",
+                        value_type: RbxPropertyType::Enum("TouchCameraMovementMode"),
                     },
                 );
                 properties.insert(
                     "TouchMovementMode",
                     RbxInstanceProperty {
                         name: "TouchMovementMode",
-                        value_type: "TouchMovementMode",
+                        value_type: RbxPropertyType::Enum("TouchMovementMode"),
                     },
                 );
                 properties.insert(
                     "UsedCoreGuiIsVisibleToggle",
                     RbxInstanceProperty {
                         name: "UsedCoreGuiIsVisibleToggle",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "UsedCustomGuiIsVisibleToggle",
                     RbxInstanceProperty {
                         name: "UsedCustomGuiIsVisibleToggle",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "UsedHideHudShortcut",
                     RbxInstanceProperty {
                         name: "UsedHideHudShortcut",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "VREnabled",
                     RbxInstanceProperty {
                         name: "VREnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "VRRotationIntensity",
                     RbxInstanceProperty {
                         name: "VRRotationIntensity",
-                        value_type: "int",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -13799,161 +13800,161 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AccelerometerEnabled",
                     RbxInstanceProperty {
                         name: "AccelerometerEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "BottomBarSize",
                     RbxInstanceProperty {
                         name: "BottomBarSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "GamepadEnabled",
                     RbxInstanceProperty {
                         name: "GamepadEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "GazeSelectionEnabled",
                     RbxInstanceProperty {
                         name: "GazeSelectionEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "GyroscopeEnabled",
                     RbxInstanceProperty {
                         name: "GyroscopeEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "KeyboardEnabled",
                     RbxInstanceProperty {
                         name: "KeyboardEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "LegacyInputEventsEnabled",
                     RbxInstanceProperty {
                         name: "LegacyInputEventsEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "ModalEnabled",
                     RbxInstanceProperty {
                         name: "ModalEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MouseBehavior",
                     RbxInstanceProperty {
                         name: "MouseBehavior",
-                        value_type: "MouseBehavior",
+                        value_type: RbxPropertyType::Enum("MouseBehavior"),
                     },
                 );
                 properties.insert(
                     "MouseDeltaSensitivity",
                     RbxInstanceProperty {
                         name: "MouseDeltaSensitivity",
-                        value_type: "float",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MouseEnabled",
                     RbxInstanceProperty {
                         name: "MouseEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "MouseIconEnabled",
                     RbxInstanceProperty {
                         name: "MouseIconEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "NavBarSize",
                     RbxInstanceProperty {
                         name: "NavBarSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "OnScreenKeyboardAnimationDuration",
                     RbxInstanceProperty {
                         name: "OnScreenKeyboardAnimationDuration",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "OnScreenKeyboardPosition",
                     RbxInstanceProperty {
                         name: "OnScreenKeyboardPosition",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "OnScreenKeyboardSize",
                     RbxInstanceProperty {
                         name: "OnScreenKeyboardSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "OnScreenKeyboardVisible",
                     RbxInstanceProperty {
                         name: "OnScreenKeyboardVisible",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "OverrideMouseIconBehavior",
                     RbxInstanceProperty {
                         name: "OverrideMouseIconBehavior",
-                        value_type: "OverrideMouseIconBehavior",
+                        value_type: RbxPropertyType::Enum("OverrideMouseIconBehavior"),
                     },
                 );
                 properties.insert(
                     "RightBarSize",
                     RbxInstanceProperty {
                         name: "RightBarSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "StatusBarSize",
                     RbxInstanceProperty {
                         name: "StatusBarSize",
-                        value_type: "Vector2",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                     },
                 );
                 properties.insert(
                     "TouchEnabled",
                     RbxInstanceProperty {
                         name: "TouchEnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "UserHeadCFrame",
                     RbxInstanceProperty {
                         name: "UserHeadCFrame",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties.insert(
                     "VREnabled",
                     RbxInstanceProperty {
                         name: "VREnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -13971,21 +13972,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "GuiInputUserCFrame",
                     RbxInstanceProperty {
                         name: "GuiInputUserCFrame",
-                        value_type: "UserCFrame",
+                        value_type: RbxPropertyType::Enum("UserCFrame"),
                     },
                 );
                 properties.insert(
                     "VRDeviceName",
                     RbxInstanceProperty {
                         name: "VRDeviceName",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties.insert(
                     "VREnabled",
                     RbxInstanceProperty {
                         name: "VREnabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -14025,7 +14026,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties
@@ -14043,7 +14044,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "BrickColor",
+                        value_type: RbxPropertyType::UnimplementedType("BrickColor"),
                     },
                 );
                 properties
@@ -14061,7 +14062,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "CFrame",
+                        value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                     },
                 );
                 properties
@@ -14079,7 +14080,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "Color3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Color3),
                     },
                 );
                 properties
@@ -14097,28 +14098,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ConstrainedValue",
                     RbxInstanceProperty {
                         name: "ConstrainedValue",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MaxValue",
                     RbxInstanceProperty {
                         name: "MaxValue",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "MinValue",
                     RbxInstanceProperty {
                         name: "MinValue",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties.insert(
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -14136,28 +14137,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ConstrainedValue",
                     RbxInstanceProperty {
                         name: "ConstrainedValue",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "MaxValue",
                     RbxInstanceProperty {
                         name: "MaxValue",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "MinValue",
                     RbxInstanceProperty {
                         name: "MinValue",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties.insert(
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -14175,7 +14176,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "int64",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -14193,7 +14194,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "double",
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
                     },
                 );
                 properties
@@ -14211,7 +14212,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "Instance",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties
@@ -14229,7 +14230,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "Ray",
+                        value_type: RbxPropertyType::UnimplementedType("Ray"),
                     },
                 );
                 properties
@@ -14247,7 +14248,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -14265,7 +14266,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Value",
                     RbxInstanceProperty {
                         name: "Value",
-                        value_type: "Vector3",
+                        value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                     },
                 );
                 properties
@@ -14283,7 +14284,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AdditionalLuaState",
                     RbxInstanceProperty {
                         name: "AdditionalLuaState",
-                        value_type: "string",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                     },
                 );
                 properties
@@ -14323,28 +14324,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Active",
                     RbxInstanceProperty {
                         name: "Active",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Enabled",
                     RbxInstanceProperty {
                         name: "Enabled",
-                        value_type: "bool",
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
                     },
                 );
                 properties.insert(
                     "Part0",
                     RbxInstanceProperty {
                         name: "Part0",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties.insert(
                     "Part1",
                     RbxInstanceProperty {
                         name: "Part1",
-                        value_type: "BasePart",
+                        value_type: RbxPropertyType::UnimplementedType("Ref"),
                     },
                 );
                 properties

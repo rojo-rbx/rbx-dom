@@ -1,10 +1,10 @@
-mod dump;
-mod types;
 mod core;
+mod dump;
 mod resolution;
+mod types;
 
 pub use crate::{
-    types::{RbxInstanceClass, RbxInstanceProperty, RbxEnum},
     core::{get_classes, get_enums},
     resolution::try_resolve_value,
+    types::{RbxEnum, RbxInstanceClass, RbxInstanceProperty},
 };

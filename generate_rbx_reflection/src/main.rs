@@ -1,3 +1,5 @@
+#![recursion_limit="128"]
+
 mod roblox_install;
 mod api_dump;
 
@@ -9,10 +11,10 @@ use std::{
 };
 
 use quote::quote;
-use proc_macro2::Literal;
+use proc_macro2::{TokenStream, Literal};
 use lazy_static::lazy_static;
 
-use crate::api_dump::{Dump, DumpClassMember};
+use crate::api_dump::{Dump, DumpClassMember, ValueType, ValueCategory};
 
 lazy_static! {
     static ref OUTPUT_DIR: PathBuf = {
@@ -22,6 +24,58 @@ lazy_static! {
         output.push("src");
         output
     };
+}
+
+fn resolve_value_type(value_type: &ValueType) -> TokenStream {
+    let name = Literal::string(&value_type.name);
+
+    match value_type.category {
+        ValueCategory::Primitive => {
+            let data_kind = match value_type.name.as_str() {
+                "bool" => quote!(RbxValueType::Bool),
+                "string" => quote!(RbxValueType::String),
+                "int" => quote!(RbxValueType::Int32),
+                "float" => quote!(RbxValueType::Float32),
+
+                // These aren't quite right:
+                "double" => quote!(RbxValueType::Float32),
+                "int64" => quote!(RbxValueType::Int32),
+
+                unknown => {
+                    println!("Can't emit primitives of type {}", unknown);
+
+                    let unknown_name = Literal::string(unknown);
+                    return quote!(RbxPropertyType::UnimplementedType(#unknown_name));
+                },
+            };
+
+            quote!(RbxPropertyType::Data(#data_kind))
+        },
+        ValueCategory::DataType => {
+            let data_kind = match value_type.name.as_str() {
+                "Vector3" => quote!(RbxValueType::Vector3),
+                "Vector2" => quote!(RbxValueType::Vector2),
+                "Color3" => quote!(RbxValueType::Color3),
+                "CFrame" => quote!(RbxValueType::CFrame),
+                "PhysicalProperties" => quote!(RbxValueType::PhysicalProperties),
+                "BinaryString" => quote!(RbxValueType::BinaryString),
+
+                unknown => {
+                    println!("Can't emit data of type {}", unknown);
+
+                    let unknown_name = Literal::string(unknown);
+                    return quote!(RbxPropertyType::UnimplementedType(#unknown_name));
+                },
+            };
+
+            quote!(RbxPropertyType::Data(#data_kind))
+        },
+        ValueCategory::Enum => quote!(RbxPropertyType::Enum(#name)),
+        ValueCategory::Class => {
+            println!("Can't emit class references yet!");
+            quote!(RbxPropertyType::UnimplementedType("Ref"))
+        },
+    }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -36,12 +90,12 @@ fn main() -> Result<(), Box<dyn Error>> {
             match member {
                 DumpClassMember::Property { name, value_type } => {
                     let member_name = Literal::string(&name);
-                    let value_type_name = Literal::string(&value_type.name);
+                    let resolved_type = resolve_value_type(value_type);
 
                     Some(quote! {
                         properties.insert(#member_name, RbxInstanceProperty {
                             name: #member_name,
-                            value_type: #value_type_name,
+                            value_type: #resolved_type,
                         });
                     })
                 },
@@ -90,6 +144,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let output = quote! {
         #![allow(unused_mut)]
         use std::collections::HashMap;
+        use rbx_tree::RbxValueType;
         use crate::types::*;
 
         pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
