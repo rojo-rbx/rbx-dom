@@ -5,6 +5,7 @@ use rbx_tree::RbxValueType;
 #[derive(Debug)]
 pub struct RbxInstanceClass {
     pub name: &'static str,
+    pub superclass: Option<&'static str>,
     pub properties: HashMap<&'static str, RbxInstanceProperty>,
 }
 
