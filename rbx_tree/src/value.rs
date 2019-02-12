@@ -1,5 +1,26 @@
 use serde_derive::{Serialize, Deserialize};
 
+/// An enum that can hold any of the types that [`RbxValue`] can.
+///
+/// [`RbxValue`]: enum.RbxValue.html
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum RbxValueType {
+    BinaryString,
+    Bool,
+    CFrame,
+    Color3,
+    Color3uint8,
+    Enum,
+    Float32,
+    Int32,
+    PhysicalProperties,
+    String,
+    Vector2,
+    Vector2int16,
+    Vector3,
+    Vector3int16,
+}
+
 /// Represents a value that can be assigned to the properties of an instance.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "Type")]
@@ -72,6 +93,30 @@ pub enum RbxValue {
     #[serde(rename_all = "PascalCase")]
     PhysicalProperties {
         value: Option<PhysicalProperties>,
+    }
+}
+
+impl RbxValue {
+    /// Returns the type of this value as a [`RbxValueType`].
+    ///
+    /// [`RbxValueType`]: enum.RbxValueType.html
+    pub fn get_type(&self) -> RbxValueType {
+        match self {
+            RbxValue::BinaryString { .. } => RbxValueType::BinaryString,
+            RbxValue::Bool { .. } => RbxValueType::Bool,
+            RbxValue::CFrame { .. } => RbxValueType::CFrame,
+            RbxValue::Color3 { .. } => RbxValueType::Color3,
+            RbxValue::Color3uint8 { .. } => RbxValueType::Color3uint8,
+            RbxValue::Enum { .. } => RbxValueType::Enum,
+            RbxValue::Float32 { .. } => RbxValueType::Float32,
+            RbxValue::Int32 { .. } => RbxValueType::Int32,
+            RbxValue::PhysicalProperties { .. } => RbxValueType::PhysicalProperties,
+            RbxValue::String { .. } => RbxValueType::String,
+            RbxValue::Vector2 { .. } => RbxValueType::Vector2,
+            RbxValue::Vector2int16 { .. } => RbxValueType::Vector2int16,
+            RbxValue::Vector3 { .. } => RbxValueType::Vector3,
+            RbxValue::Vector3int16 { .. } => RbxValueType::Vector3int16,
+        }
     }
 }
 

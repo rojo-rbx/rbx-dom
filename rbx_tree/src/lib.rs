@@ -81,6 +81,6 @@ pub use crate::{
     id::RbxId,
     instance::{RbxInstanceProperties, RbxInstance},
     tree::{RbxTree, Descendants},
-    value::{RbxValue, PhysicalProperties},
+    value::{RbxValue, RbxValueType, PhysicalProperties},
     untagged_value::{UntaggedRbxValue, InferableRbxValue},
 };
