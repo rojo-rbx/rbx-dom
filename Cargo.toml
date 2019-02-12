@@ -1,5 +1,6 @@
 [workspace]
 members = [
+	"generate_rbx_reflection",
 	"rbx_binary",
 	"rbx_reflection",
 	"rbx_tree",
