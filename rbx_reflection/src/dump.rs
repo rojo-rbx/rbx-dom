@@ -1,6 +1,6 @@
 # ! [ allow ( unused_mut ) ]use crate::types::*;
 use std::collections::HashMap;
-pub fn get_instances() -> HashMap<&'static str, RbxInstanceClass> {
+pub fn get_classes() -> HashMap<&'static str, RbxInstanceClass> {
     let mut output = HashMap::new();
     output.insert(
         "Instance",
@@ -14348,6 +14348,3444 @@ pub fn get_instances() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 properties
+            },
+        },
+    );
+    output
+}
+pub fn get_enums() -> HashMap<&'static str, RbxEnum> {
+    let mut output = HashMap::new();
+    output.insert(
+        "ActionType",
+        RbxEnum {
+            name: "ActionType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Nothing", 0);
+                items.insert("Pause", 1);
+                items.insert("Lose", 2);
+                items.insert("Draw", 3);
+                items.insert("Win", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ActuatorRelativeTo",
+        RbxEnum {
+            name: "ActuatorRelativeTo",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Attachment0", 0);
+                items.insert("Attachment1", 1);
+                items.insert("World", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ActuatorType",
+        RbxEnum {
+            name: "ActuatorType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("Motor", 1);
+                items.insert("Servo", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "AlignType",
+        RbxEnum {
+            name: "AlignType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Parallel", 0);
+                items.insert("Perpendicular", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "AnimationPriority",
+        RbxEnum {
+            name: "AnimationPriority",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Idle", 0);
+                items.insert("Movement", 1);
+                items.insert("Action", 2);
+                items.insert("Core", 1000);
+                items
+            },
+        },
+    );
+    output.insert(
+        "AppShellActionType",
+        RbxEnum {
+            name: "AppShellActionType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("OpenApp", 1);
+                items.insert("TapChatTab", 2);
+                items.insert("TapConversationEntry", 3);
+                items.insert("TapAvatarTab", 4);
+                items.insert("ReadConversation", 5);
+                items.insert("TapGamePageTab", 6);
+                items.insert("TapHomePageTab", 7);
+                items.insert("GamePageLoaded", 8);
+                items.insert("HomePageLoaded", 9);
+                items.insert("AvatarEditorPageLoaded", 10);
+                items
+            },
+        },
+    );
+    output.insert(
+        "AspectType",
+        RbxEnum {
+            name: "AspectType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("FitWithinMaxSize", 0);
+                items.insert("ScaleWithParentSize", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "AssetType",
+        RbxEnum {
+            name: "AssetType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Image", 1);
+                items.insert("TeeShirt", 2);
+                items.insert("Audio", 3);
+                items.insert("Mesh", 4);
+                items.insert("Lua", 5);
+                items.insert("Hat", 8);
+                items.insert("Place", 9);
+                items.insert("Model", 10);
+                items.insert("Shirt", 11);
+                items.insert("Pants", 12);
+                items.insert("Decal", 13);
+                items.insert("Head", 17);
+                items.insert("Face", 18);
+                items.insert("Gear", 19);
+                items.insert("Badge", 21);
+                items.insert("Animation", 24);
+                items.insert("Torso", 27);
+                items.insert("RightArm", 28);
+                items.insert("LeftArm", 29);
+                items.insert("LeftLeg", 30);
+                items.insert("RightLeg", 31);
+                items.insert("Package", 32);
+                items.insert("GamePass", 34);
+                items.insert("Plugin", 38);
+                items.insert("MeshPart", 40);
+                items.insert("HairAccessory", 41);
+                items.insert("FaceAccessory", 42);
+                items.insert("NeckAccessory", 43);
+                items.insert("ShoulderAccessory", 44);
+                items.insert("FrontAccessory", 45);
+                items.insert("BackAccessory", 46);
+                items.insert("WaistAccessory", 47);
+                items.insert("ClimbAnimation", 48);
+                items.insert("DeathAnimation", 49);
+                items.insert("FallAnimation", 50);
+                items.insert("IdleAnimation", 51);
+                items.insert("JumpAnimation", 52);
+                items.insert("RunAnimation", 53);
+                items.insert("SwimAnimation", 54);
+                items.insert("WalkAnimation", 55);
+                items.insert("PoseAnimation", 56);
+                items.insert("EarAccessory", 57);
+                items.insert("EyeAccessory", 58);
+                items
+            },
+        },
+    );
+    output.insert(
+        "AutoJointsMode",
+        RbxEnum {
+            name: "AutoJointsMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("Explicit", 1);
+                items.insert("LegacyImplicit", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "AvatarContextMenuOption",
+        RbxEnum {
+            name: "AvatarContextMenuOption",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Friend", 0);
+                items.insert("Chat", 1);
+                items.insert("Emote", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "AvatarJointPositionType",
+        RbxEnum {
+            name: "AvatarJointPositionType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Fixed", 0);
+                items.insert("ArtistIntent", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Axis",
+        RbxEnum {
+            name: "Axis",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("X", 0);
+                items.insert("Y", 1);
+                items.insert("Z", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "BinType",
+        RbxEnum {
+            name: "BinType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Script", 0);
+                items.insert("GameTool", 1);
+                items.insert("Grab", 2);
+                items.insert("Clone", 3);
+                items.insert("Hammer", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "BodyPart",
+        RbxEnum {
+            name: "BodyPart",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Head", 0);
+                items.insert("Torso", 1);
+                items.insert("LeftArm", 2);
+                items.insert("RightArm", 3);
+                items.insert("LeftLeg", 4);
+                items.insert("RightLeg", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "BodyPartR15",
+        RbxEnum {
+            name: "BodyPartR15",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Head", 0);
+                items.insert("UpperTorso", 1);
+                items.insert("LowerTorso", 2);
+                items.insert("LeftFoot", 3);
+                items.insert("LeftLowerLeg", 4);
+                items.insert("LeftUpperLeg", 5);
+                items.insert("RightFoot", 6);
+                items.insert("RightLowerLeg", 7);
+                items.insert("RightUpperLeg", 8);
+                items.insert("LeftHand", 9);
+                items.insert("LeftLowerArm", 10);
+                items.insert("LeftUpperArm", 11);
+                items.insert("RightHand", 12);
+                items.insert("RightLowerArm", 13);
+                items.insert("RightUpperArm", 14);
+                items.insert("RootPart", 15);
+                items.insert("Unknown", 17);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Button",
+        RbxEnum {
+            name: "Button",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Jump", 32);
+                items.insert("Dismount", 8);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ButtonStyle",
+        RbxEnum {
+            name: "ButtonStyle",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Custom", 0);
+                items.insert("RobloxButtonDefault", 1);
+                items.insert("RobloxButton", 2);
+                items.insert("RobloxRoundButton", 3);
+                items.insert("RobloxRoundDefaultButton", 4);
+                items.insert("RobloxRoundDropdownButton", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CameraMode",
+        RbxEnum {
+            name: "CameraMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Classic", 0);
+                items.insert("LockFirstPerson", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CameraPanMode",
+        RbxEnum {
+            name: "CameraPanMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Classic", 0);
+                items.insert("EdgeBump", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CameraType",
+        RbxEnum {
+            name: "CameraType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Fixed", 0);
+                items.insert("Watch", 2);
+                items.insert("Attach", 1);
+                items.insert("Track", 3);
+                items.insert("Follow", 4);
+                items.insert("Custom", 5);
+                items.insert("Scriptable", 6);
+                items.insert("Orbital", 7);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CellBlock",
+        RbxEnum {
+            name: "CellBlock",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Solid", 0);
+                items.insert("VerticalWedge", 1);
+                items.insert("CornerWedge", 2);
+                items.insert("InverseCornerWedge", 3);
+                items.insert("HorizontalWedge", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CellMaterial",
+        RbxEnum {
+            name: "CellMaterial",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Empty", 0);
+                items.insert("Grass", 1);
+                items.insert("Sand", 2);
+                items.insert("Brick", 3);
+                items.insert("Granite", 4);
+                items.insert("Asphalt", 5);
+                items.insert("Iron", 6);
+                items.insert("Aluminum", 7);
+                items.insert("Gold", 8);
+                items.insert("WoodPlank", 9);
+                items.insert("WoodLog", 10);
+                items.insert("Gravel", 11);
+                items.insert("CinderBlock", 12);
+                items.insert("MossyStone", 13);
+                items.insert("Cement", 14);
+                items.insert("RedPlastic", 15);
+                items.insert("BluePlastic", 16);
+                items.insert("Water", 17);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CellOrientation",
+        RbxEnum {
+            name: "CellOrientation",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("NegZ", 0);
+                items.insert("X", 1);
+                items.insert("Z", 2);
+                items.insert("NegX", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CenterDialogType",
+        RbxEnum {
+            name: "CenterDialogType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("UnsolicitedDialog", 1);
+                items.insert("PlayerInitiatedDialog", 2);
+                items.insert("ModalDialog", 3);
+                items.insert("QuitDialog", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ChatCallbackType",
+        RbxEnum {
+            name: "ChatCallbackType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("OnCreatingChatWindow", 1);
+                items.insert("OnClientSendingMessage", 2);
+                items.insert("OnClientFormattingMessage", 3);
+                items.insert("OnServerReceivingMessage", 17);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ChatColor",
+        RbxEnum {
+            name: "ChatColor",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Blue", 0);
+                items.insert("Green", 1);
+                items.insert("Red", 2);
+                items.insert("White", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ChatMode",
+        RbxEnum {
+            name: "ChatMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Menu", 0);
+                items.insert("TextAndMenu", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ChatPrivacyMode",
+        RbxEnum {
+            name: "ChatPrivacyMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("AllUsers", 0);
+                items.insert("NoOne", 1);
+                items.insert("Friends", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ChatStyle",
+        RbxEnum {
+            name: "ChatStyle",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Classic", 0);
+                items.insert("Bubble", 1);
+                items.insert("ClassicAndBubble", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CollisionFidelity",
+        RbxEnum {
+            name: "CollisionFidelity",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("Hull", 1);
+                items.insert("Box", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ComputerCameraMovementMode",
+        RbxEnum {
+            name: "ComputerCameraMovementMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("Follow", 2);
+                items.insert("Classic", 1);
+                items.insert("Orbital", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ComputerMovementMode",
+        RbxEnum {
+            name: "ComputerMovementMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("KeyboardMouse", 1);
+                items.insert("ClickToMove", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ConnectionError",
+        RbxEnum {
+            name: "ConnectionError",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("OK", 0);
+                items.insert("DisconnectErrors", 256);
+                items.insert("DisconnectBadhash", 257);
+                items.insert("DisconnectSecurityKeyMismatch", 258);
+                items.insert("DisconnectNewSecurityKeyMismatch", 272);
+                items.insert("DisconnectProtocolMismatch", 259);
+                items.insert("DisconnectReceivePacketError", 260);
+                items.insert("DisconnectReceivePacketStreamError", 261);
+                items.insert("DisconnectSendPacketError", 262);
+                items.insert("DisconnectIllegalTeleport", 263);
+                items.insert("DisconnectDuplicatePlayer", 264);
+                items.insert("DisconnectDuplicateTicket", 265);
+                items.insert("DisconnectTimeout", 266);
+                items.insert("DisconnectLuaKick", 267);
+                items.insert("DisconnectOnRemoteSysStats", 268);
+                items.insert("DisconnectHashTimeout", 269);
+                items.insert("DisconnectCloudEditKick", 270);
+                items.insert("DisconnectPlayerless", 271);
+                items.insert("DisconnectEvicted", 273);
+                items.insert("DisconnectDevMaintenance", 274);
+                items.insert("DisconnectRobloxMaintenance", 275);
+                items.insert("DisconnectRejoin", 276);
+                items.insert("DisconnectConnectionLost", 277);
+                items.insert("DisconnectIdle", 278);
+                items.insert("DisconnectRaknetErrors", 279);
+                items.insert("DisconnectWrongVersion", 280);
+                items.insert("PlacelaunchErrors", 512);
+                items.insert("PlacelaunchDisabled", 515);
+                items.insert("PlacelaunchError", 516);
+                items.insert("PlacelaunchGameEnded", 517);
+                items.insert("PlacelaunchGameFull", 518);
+                items.insert("PlacelaunchUserLeft", 522);
+                items.insert("PlacelaunchRestricted", 523);
+                items.insert("PlacelaunchUnauthorized", 524);
+                items.insert("PlacelaunchFlooded", 525);
+                items.insert("PlacelaunchHashExpired", 526);
+                items.insert("PlacelaunchHashException", 527);
+                items.insert("PlacelaunchPartyCannotFit", 528);
+                items.insert("PlacelaunchHttpError", 529);
+                items.insert("PlacelaunchCustomMessage", 610);
+                items.insert("PlacelaunchOtherError", 611);
+                items.insert("TeleportErrors", 768);
+                items.insert("TeleportFailure", 769);
+                items.insert("TeleportGameNotFound", 770);
+                items.insert("TeleportGameEnded", 771);
+                items.insert("TeleportGameFull", 772);
+                items.insert("TeleportUnauthorized", 773);
+                items.insert("TeleportFlooded", 774);
+                items.insert("TeleportIsTeleporting", 775);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ConnectionState",
+        RbxEnum {
+            name: "ConnectionState",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Connected", 0);
+                items.insert("Disconnected", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ContextActionPriority",
+        RbxEnum {
+            name: "ContextActionPriority",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Low", 1000);
+                items.insert("Medium", 2000);
+                items.insert("Default", 2000);
+                items.insert("High", 3000);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ContextActionResult",
+        RbxEnum {
+            name: "ContextActionResult",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Pass", 1);
+                items.insert("Sink", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ControlMode",
+        RbxEnum {
+            name: "ControlMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("MouseLockSwitch", 1);
+                items.insert("Classic", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CoreGuiType",
+        RbxEnum {
+            name: "CoreGuiType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("PlayerList", 0);
+                items.insert("Health", 1);
+                items.insert("Backpack", 2);
+                items.insert("Chat", 3);
+                items.insert("All", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CreatorType",
+        RbxEnum {
+            name: "CreatorType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("User", 0);
+                items.insert("Group", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CurrencyType",
+        RbxEnum {
+            name: "CurrencyType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("Robux", 1);
+                items.insert("Tix", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "CustomCameraMode",
+        RbxEnum {
+            name: "CustomCameraMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("Follow", 2);
+                items.insert("Classic", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DEPRECATED_DebuggerDataModelPreference",
+        RbxEnum {
+            name: "DEPRECATED_DebuggerDataModelPreference",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Server", 0);
+                items.insert("Client", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DataStoreRequestType",
+        RbxEnum {
+            name: "DataStoreRequestType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("GetAsync", 0);
+                items.insert("SetIncrementAsync", 1);
+                items.insert("UpdateAsync", 2);
+                items.insert("GetSortedAsync", 3);
+                items.insert("SetIncrementSortedAsync", 4);
+                items.insert("OnUpdate", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DevCameraOcclusionMode",
+        RbxEnum {
+            name: "DevCameraOcclusionMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Zoom", 0);
+                items.insert("Invisicam", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DevComputerCameraMovementMode",
+        RbxEnum {
+            name: "DevComputerCameraMovementMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("UserChoice", 0);
+                items.insert("Classic", 1);
+                items.insert("Follow", 2);
+                items.insert("Orbital", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DevComputerMovementMode",
+        RbxEnum {
+            name: "DevComputerMovementMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("UserChoice", 0);
+                items.insert("KeyboardMouse", 1);
+                items.insert("ClickToMove", 2);
+                items.insert("Scriptable", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DevTouchCameraMovementMode",
+        RbxEnum {
+            name: "DevTouchCameraMovementMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("UserChoice", 0);
+                items.insert("Classic", 1);
+                items.insert("Follow", 2);
+                items.insert("Orbital", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DevTouchMovementMode",
+        RbxEnum {
+            name: "DevTouchMovementMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("UserChoice", 0);
+                items.insert("Thumbstick", 1);
+                items.insert("DPad", 2);
+                items.insert("Thumbpad", 3);
+                items.insert("ClickToMove", 4);
+                items.insert("Scriptable", 5);
+                items.insert("DynamicThumbstick", 6);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DeveloperMemoryTag",
+        RbxEnum {
+            name: "DeveloperMemoryTag",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Internal", 0);
+                items.insert("HttpCache", 1);
+                items.insert("Instances", 2);
+                items.insert("Signals", 3);
+                items.insert("LuaHeap", 4);
+                items.insert("Script", 5);
+                items.insert("PhysicsCollision", 6);
+                items.insert("PhysicsParts", 7);
+                items.insert("GraphicsSolidModels", 8);
+                items.insert("GraphicsMeshParts", 9);
+                items.insert("GraphicsParticles", 10);
+                items.insert("GraphicsParts", 11);
+                items.insert("GraphicsSpatialHash", 12);
+                items.insert("GraphicsTerrain", 13);
+                items.insert("GraphicsTexture", 14);
+                items.insert("GraphicsTextureCharacter", 15);
+                items.insert("Sounds", 16);
+                items.insert("StreamingSounds", 17);
+                items.insert("TerrainVoxels", 18);
+                items.insert("Gui", 20);
+                items.insert("Animation", 21);
+                items.insert("Navigation", 22);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DialogBehaviorType",
+        RbxEnum {
+            name: "DialogBehaviorType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("SinglePlayer", 0);
+                items.insert("MultiplePlayers", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DialogPurpose",
+        RbxEnum {
+            name: "DialogPurpose",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Quest", 0);
+                items.insert("Help", 1);
+                items.insert("Shop", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DialogTone",
+        RbxEnum {
+            name: "DialogTone",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Neutral", 0);
+                items.insert("Friendly", 1);
+                items.insert("Enemy", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "DominantAxis",
+        RbxEnum {
+            name: "DominantAxis",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Width", 0);
+                items.insert("Height", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "EasingDirection",
+        RbxEnum {
+            name: "EasingDirection",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("In", 0);
+                items.insert("Out", 1);
+                items.insert("InOut", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "EasingStyle",
+        RbxEnum {
+            name: "EasingStyle",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Linear", 0);
+                items.insert("Sine", 1);
+                items.insert("Back", 2);
+                items.insert("Quad", 3);
+                items.insert("Quart", 4);
+                items.insert("Quint", 5);
+                items.insert("Bounce", 6);
+                items.insert("Elastic", 7);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ElasticBehavior",
+        RbxEnum {
+            name: "ElasticBehavior",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("WhenScrollable", 0);
+                items.insert("Always", 1);
+                items.insert("Never", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "EnviromentalPhysicsThrottle",
+        RbxEnum {
+            name: "EnviromentalPhysicsThrottle",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("DefaultAuto", 0);
+                items.insert("Disabled", 1);
+                items.insert("Always", 2);
+                items.insert("Skip2", 3);
+                items.insert("Skip4", 4);
+                items.insert("Skip8", 5);
+                items.insert("Skip16", 6);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ErrorReporting",
+        RbxEnum {
+            name: "ErrorReporting",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("DontReport", 0);
+                items.insert("Prompt", 1);
+                items.insert("Report", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ExplosionType",
+        RbxEnum {
+            name: "ExplosionType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("NoCraters", 0);
+                items.insert("Craters", 1);
+                items.insert("CratersAndDebris", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FillDirection",
+        RbxEnum {
+            name: "FillDirection",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Horizontal", 0);
+                items.insert("Vertical", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FilterResult",
+        RbxEnum {
+            name: "FilterResult",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Rejected", 1);
+                items.insert("Accepted", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Font",
+        RbxEnum {
+            name: "Font",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Legacy", 0);
+                items.insert("Arial", 1);
+                items.insert("ArialBold", 2);
+                items.insert("SourceSans", 3);
+                items.insert("SourceSansBold", 4);
+                items.insert("SourceSansSemibold", 16);
+                items.insert("SourceSansLight", 5);
+                items.insert("SourceSansItalic", 6);
+                items.insert("Bodoni", 7);
+                items.insert("Garamond", 8);
+                items.insert("Cartoon", 9);
+                items.insert("Code", 10);
+                items.insert("Highway", 11);
+                items.insert("SciFi", 12);
+                items.insert("Arcade", 13);
+                items.insert("Fantasy", 14);
+                items.insert("Antique", 15);
+                items.insert("Gotham", 17);
+                items.insert("GothamSemibold", 18);
+                items.insert("GothamBold", 19);
+                items.insert("GothamBlack", 20);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FontSize",
+        RbxEnum {
+            name: "FontSize",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Size8", 0);
+                items.insert("Size9", 1);
+                items.insert("Size10", 2);
+                items.insert("Size11", 3);
+                items.insert("Size12", 4);
+                items.insert("Size14", 5);
+                items.insert("Size18", 6);
+                items.insert("Size24", 7);
+                items.insert("Size36", 8);
+                items.insert("Size48", 9);
+                items.insert("Size28", 10);
+                items.insert("Size32", 11);
+                items.insert("Size42", 12);
+                items.insert("Size60", 13);
+                items.insert("Size96", 14);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FormFactor",
+        RbxEnum {
+            name: "FormFactor",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Symmetric", 0);
+                items.insert("Brick", 1);
+                items.insert("Plate", 2);
+                items.insert("Custom", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FrameStyle",
+        RbxEnum {
+            name: "FrameStyle",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Custom", 0);
+                items.insert("ChatBlue", 1);
+                items.insert("RobloxSquare", 2);
+                items.insert("RobloxRound", 3);
+                items.insert("ChatGreen", 4);
+                items.insert("ChatRed", 5);
+                items.insert("DropShadow", 6);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FramerateManagerMode",
+        RbxEnum {
+            name: "FramerateManagerMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Automatic", 0);
+                items.insert("On", 1);
+                items.insert("Off", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FriendRequestEvent",
+        RbxEnum {
+            name: "FriendRequestEvent",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Issue", 0);
+                items.insert("Revoke", 1);
+                items.insert("Accept", 2);
+                items.insert("Deny", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FriendStatus",
+        RbxEnum {
+            name: "FriendStatus",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Unknown", 0);
+                items.insert("NotFriend", 1);
+                items.insert("Friend", 2);
+                items.insert("FriendRequestSent", 3);
+                items.insert("FriendRequestReceived", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "FunctionalTestResult",
+        RbxEnum {
+            name: "FunctionalTestResult",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Passed", 0);
+                items.insert("Warning", 1);
+                items.insert("Error", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "GameAvatarType",
+        RbxEnum {
+            name: "GameAvatarType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("R6", 0);
+                items.insert("R15", 1);
+                items.insert("PlayerChoice", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "GearGenreSetting",
+        RbxEnum {
+            name: "GearGenreSetting",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("AllGenres", 0);
+                items.insert("MatchingGenreOnly", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "GearType",
+        RbxEnum {
+            name: "GearType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("MeleeWeapons", 0);
+                items.insert("RangedWeapons", 1);
+                items.insert("Explosives", 2);
+                items.insert("PowerUps", 3);
+                items.insert("NavigationEnhancers", 4);
+                items.insert("MusicalInstruments", 5);
+                items.insert("SocialItems", 6);
+                items.insert("BuildingTools", 7);
+                items.insert("Transport", 8);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Genre",
+        RbxEnum {
+            name: "Genre",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("All", 0);
+                items.insert("TownAndCity", 1);
+                items.insert("Fantasy", 2);
+                items.insert("SciFi", 3);
+                items.insert("Ninja", 4);
+                items.insert("Scary", 5);
+                items.insert("Pirate", 6);
+                items.insert("Adventure", 7);
+                items.insert("Sports", 8);
+                items.insert("Funny", 9);
+                items.insert("WildWest", 10);
+                items.insert("War", 11);
+                items.insert("SkatePark", 12);
+                items.insert("Tutorial", 13);
+                items
+            },
+        },
+    );
+    output.insert(
+        "GraphicsMode",
+        RbxEnum {
+            name: "GraphicsMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Automatic", 1);
+                items.insert("Direct3D9", 3);
+                items.insert("Direct3D11", 2);
+                items.insert("OpenGL", 4);
+                items.insert("Metal", 5);
+                items.insert("Vulkan", 6);
+                items.insert("NoGraphics", 7);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HandlesStyle",
+        RbxEnum {
+            name: "HandlesStyle",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Resize", 0);
+                items.insert("Movement", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HorizontalAlignment",
+        RbxEnum {
+            name: "HorizontalAlignment",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Center", 0);
+                items.insert("Left", 1);
+                items.insert("Right", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HoverAnimateSpeed",
+        RbxEnum {
+            name: "HoverAnimateSpeed",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("VerySlow", 0);
+                items.insert("Slow", 1);
+                items.insert("Medium", 2);
+                items.insert("Fast", 3);
+                items.insert("VeryFast", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HttpCachePolicy",
+        RbxEnum {
+            name: "HttpCachePolicy",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("Full", 1);
+                items.insert("DataOnly", 2);
+                items.insert("Default", 3);
+                items.insert("InternalRedirectRefresh", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HttpContentType",
+        RbxEnum {
+            name: "HttpContentType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("ApplicationJson", 0);
+                items.insert("ApplicationXml", 1);
+                items.insert("ApplicationUrlEncoded", 2);
+                items.insert("TextPlain", 3);
+                items.insert("TextXml", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HttpError",
+        RbxEnum {
+            name: "HttpError",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("OK", 0);
+                items.insert("InvalidUrl", 1);
+                items.insert("DnsResolve", 2);
+                items.insert("ConnectFail", 3);
+                items.insert("OutOfMemory", 4);
+                items.insert("TimedOut", 5);
+                items.insert("TooManyRedirects", 6);
+                items.insert("InvalidRedirect", 7);
+                items.insert("NetFail", 8);
+                items.insert("Aborted", 9);
+                items.insert("SslConnectFail", 10);
+                items.insert("Unknown", 11);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HttpRequestType",
+        RbxEnum {
+            name: "HttpRequestType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("MarketplaceService", 2);
+                items.insert("Players", 7);
+                items.insert("Chat", 15);
+                items.insert("Avatar", 16);
+                items.insert("Analytics", 22);
+                items.insert("Localization", 24);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HumanoidDisplayDistanceType",
+        RbxEnum {
+            name: "HumanoidDisplayDistanceType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Viewer", 0);
+                items.insert("Subject", 1);
+                items.insert("None", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HumanoidHealthDisplayType",
+        RbxEnum {
+            name: "HumanoidHealthDisplayType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("DisplayWhenDamaged", 0);
+                items.insert("AlwaysOn", 1);
+                items.insert("AlwaysOff", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HumanoidRigType",
+        RbxEnum {
+            name: "HumanoidRigType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("R6", 0);
+                items.insert("R15", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "HumanoidStateType",
+        RbxEnum {
+            name: "HumanoidStateType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("FallingDown", 0);
+                items.insert("Running", 8);
+                items.insert("RunningNoPhysics", 10);
+                items.insert("Climbing", 12);
+                items.insert("StrafingNoPhysics", 11);
+                items.insert("Ragdoll", 1);
+                items.insert("GettingUp", 2);
+                items.insert("Jumping", 3);
+                items.insert("Landed", 7);
+                items.insert("Flying", 6);
+                items.insert("Freefall", 5);
+                items.insert("Seated", 13);
+                items.insert("PlatformStanding", 14);
+                items.insert("Dead", 15);
+                items.insert("Swimming", 4);
+                items.insert("Physics", 16);
+                items.insert("None", 18);
+                items
+            },
+        },
+    );
+    output.insert(
+        "InOut",
+        RbxEnum {
+            name: "InOut",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Edge", 0);
+                items.insert("Inset", 1);
+                items.insert("Center", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "InfoType",
+        RbxEnum {
+            name: "InfoType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Asset", 0);
+                items.insert("Product", 1);
+                items.insert("GamePass", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "InitialDockState",
+        RbxEnum {
+            name: "InitialDockState",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Top", 0);
+                items.insert("Bottom", 1);
+                items.insert("Left", 2);
+                items.insert("Right", 3);
+                items.insert("Float", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "InputType",
+        RbxEnum {
+            name: "InputType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("NoInput", 0);
+                items.insert("Constant", 12);
+                items.insert("Sin", 13);
+                items
+            },
+        },
+    );
+    output.insert(
+        "JointCreationMode",
+        RbxEnum {
+            name: "JointCreationMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("All", 0);
+                items.insert("Surface", 1);
+                items.insert("None", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "JointType",
+        RbxEnum {
+            name: "JointType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 28);
+                items.insert("Rotate", 7);
+                items.insert("RotateP", 8);
+                items.insert("RotateV", 9);
+                items.insert("Glue", 10);
+                items.insert("Weld", 1);
+                items.insert("Snap", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "KeyCode",
+        RbxEnum {
+            name: "KeyCode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Unknown", 0);
+                items.insert("Backspace", 8);
+                items.insert("Tab", 9);
+                items.insert("Clear", 12);
+                items.insert("Return", 13);
+                items.insert("Pause", 19);
+                items.insert("Escape", 27);
+                items.insert("Space", 32);
+                items.insert("QuotedDouble", 34);
+                items.insert("Hash", 35);
+                items.insert("Dollar", 36);
+                items.insert("Percent", 37);
+                items.insert("Ampersand", 38);
+                items.insert("Quote", 39);
+                items.insert("LeftParenthesis", 40);
+                items.insert("RightParenthesis", 41);
+                items.insert("Asterisk", 42);
+                items.insert("Plus", 43);
+                items.insert("Comma", 44);
+                items.insert("Minus", 45);
+                items.insert("Period", 46);
+                items.insert("Slash", 47);
+                items.insert("Zero", 48);
+                items.insert("One", 49);
+                items.insert("Two", 50);
+                items.insert("Three", 51);
+                items.insert("Four", 52);
+                items.insert("Five", 53);
+                items.insert("Six", 54);
+                items.insert("Seven", 55);
+                items.insert("Eight", 56);
+                items.insert("Nine", 57);
+                items.insert("Colon", 58);
+                items.insert("Semicolon", 59);
+                items.insert("LessThan", 60);
+                items.insert("Equals", 61);
+                items.insert("GreaterThan", 62);
+                items.insert("Question", 63);
+                items.insert("At", 64);
+                items.insert("LeftBracket", 91);
+                items.insert("BackSlash", 92);
+                items.insert("RightBracket", 93);
+                items.insert("Caret", 94);
+                items.insert("Underscore", 95);
+                items.insert("Backquote", 96);
+                items.insert("A", 97);
+                items.insert("B", 98);
+                items.insert("C", 99);
+                items.insert("D", 100);
+                items.insert("E", 101);
+                items.insert("F", 102);
+                items.insert("G", 103);
+                items.insert("H", 104);
+                items.insert("I", 105);
+                items.insert("J", 106);
+                items.insert("K", 107);
+                items.insert("L", 108);
+                items.insert("M", 109);
+                items.insert("N", 110);
+                items.insert("O", 111);
+                items.insert("P", 112);
+                items.insert("Q", 113);
+                items.insert("R", 114);
+                items.insert("S", 115);
+                items.insert("T", 116);
+                items.insert("U", 117);
+                items.insert("V", 118);
+                items.insert("W", 119);
+                items.insert("X", 120);
+                items.insert("Y", 121);
+                items.insert("Z", 122);
+                items.insert("LeftCurly", 123);
+                items.insert("Pipe", 124);
+                items.insert("RightCurly", 125);
+                items.insert("Tilde", 126);
+                items.insert("Delete", 127);
+                items.insert("KeypadZero", 256);
+                items.insert("KeypadOne", 257);
+                items.insert("KeypadTwo", 258);
+                items.insert("KeypadThree", 259);
+                items.insert("KeypadFour", 260);
+                items.insert("KeypadFive", 261);
+                items.insert("KeypadSix", 262);
+                items.insert("KeypadSeven", 263);
+                items.insert("KeypadEight", 264);
+                items.insert("KeypadNine", 265);
+                items.insert("KeypadPeriod", 266);
+                items.insert("KeypadDivide", 267);
+                items.insert("KeypadMultiply", 268);
+                items.insert("KeypadMinus", 269);
+                items.insert("KeypadPlus", 270);
+                items.insert("KeypadEnter", 271);
+                items.insert("KeypadEquals", 272);
+                items.insert("Up", 273);
+                items.insert("Down", 274);
+                items.insert("Right", 275);
+                items.insert("Left", 276);
+                items.insert("Insert", 277);
+                items.insert("Home", 278);
+                items.insert("End", 279);
+                items.insert("PageUp", 280);
+                items.insert("PageDown", 281);
+                items.insert("LeftShift", 304);
+                items.insert("RightShift", 303);
+                items.insert("LeftMeta", 310);
+                items.insert("RightMeta", 309);
+                items.insert("LeftAlt", 308);
+                items.insert("RightAlt", 307);
+                items.insert("LeftControl", 306);
+                items.insert("RightControl", 305);
+                items.insert("CapsLock", 301);
+                items.insert("NumLock", 300);
+                items.insert("ScrollLock", 302);
+                items.insert("LeftSuper", 311);
+                items.insert("RightSuper", 312);
+                items.insert("Mode", 313);
+                items.insert("Compose", 314);
+                items.insert("Help", 315);
+                items.insert("Print", 316);
+                items.insert("SysReq", 317);
+                items.insert("Break", 318);
+                items.insert("Menu", 319);
+                items.insert("Power", 320);
+                items.insert("Euro", 321);
+                items.insert("Undo", 322);
+                items.insert("F1", 282);
+                items.insert("F2", 283);
+                items.insert("F3", 284);
+                items.insert("F4", 285);
+                items.insert("F5", 286);
+                items.insert("F6", 287);
+                items.insert("F7", 288);
+                items.insert("F8", 289);
+                items.insert("F9", 290);
+                items.insert("F10", 291);
+                items.insert("F11", 292);
+                items.insert("F12", 293);
+                items.insert("F13", 294);
+                items.insert("F14", 295);
+                items.insert("F15", 296);
+                items.insert("World0", 160);
+                items.insert("World1", 161);
+                items.insert("World2", 162);
+                items.insert("World3", 163);
+                items.insert("World4", 164);
+                items.insert("World5", 165);
+                items.insert("World6", 166);
+                items.insert("World7", 167);
+                items.insert("World8", 168);
+                items.insert("World9", 169);
+                items.insert("World10", 170);
+                items.insert("World11", 171);
+                items.insert("World12", 172);
+                items.insert("World13", 173);
+                items.insert("World14", 174);
+                items.insert("World15", 175);
+                items.insert("World16", 176);
+                items.insert("World17", 177);
+                items.insert("World18", 178);
+                items.insert("World19", 179);
+                items.insert("World20", 180);
+                items.insert("World21", 181);
+                items.insert("World22", 182);
+                items.insert("World23", 183);
+                items.insert("World24", 184);
+                items.insert("World25", 185);
+                items.insert("World26", 186);
+                items.insert("World27", 187);
+                items.insert("World28", 188);
+                items.insert("World29", 189);
+                items.insert("World30", 190);
+                items.insert("World31", 191);
+                items.insert("World32", 192);
+                items.insert("World33", 193);
+                items.insert("World34", 194);
+                items.insert("World35", 195);
+                items.insert("World36", 196);
+                items.insert("World37", 197);
+                items.insert("World38", 198);
+                items.insert("World39", 199);
+                items.insert("World40", 200);
+                items.insert("World41", 201);
+                items.insert("World42", 202);
+                items.insert("World43", 203);
+                items.insert("World44", 204);
+                items.insert("World45", 205);
+                items.insert("World46", 206);
+                items.insert("World47", 207);
+                items.insert("World48", 208);
+                items.insert("World49", 209);
+                items.insert("World50", 210);
+                items.insert("World51", 211);
+                items.insert("World52", 212);
+                items.insert("World53", 213);
+                items.insert("World54", 214);
+                items.insert("World55", 215);
+                items.insert("World56", 216);
+                items.insert("World57", 217);
+                items.insert("World58", 218);
+                items.insert("World59", 219);
+                items.insert("World60", 220);
+                items.insert("World61", 221);
+                items.insert("World62", 222);
+                items.insert("World63", 223);
+                items.insert("World64", 224);
+                items.insert("World65", 225);
+                items.insert("World66", 226);
+                items.insert("World67", 227);
+                items.insert("World68", 228);
+                items.insert("World69", 229);
+                items.insert("World70", 230);
+                items.insert("World71", 231);
+                items.insert("World72", 232);
+                items.insert("World73", 233);
+                items.insert("World74", 234);
+                items.insert("World75", 235);
+                items.insert("World76", 236);
+                items.insert("World77", 237);
+                items.insert("World78", 238);
+                items.insert("World79", 239);
+                items.insert("World80", 240);
+                items.insert("World81", 241);
+                items.insert("World82", 242);
+                items.insert("World83", 243);
+                items.insert("World84", 244);
+                items.insert("World85", 245);
+                items.insert("World86", 246);
+                items.insert("World87", 247);
+                items.insert("World88", 248);
+                items.insert("World89", 249);
+                items.insert("World90", 250);
+                items.insert("World91", 251);
+                items.insert("World92", 252);
+                items.insert("World93", 253);
+                items.insert("World94", 254);
+                items.insert("World95", 255);
+                items.insert("ButtonX", 1000);
+                items.insert("ButtonY", 1001);
+                items.insert("ButtonA", 1002);
+                items.insert("ButtonB", 1003);
+                items.insert("ButtonR1", 1004);
+                items.insert("ButtonL1", 1005);
+                items.insert("ButtonR2", 1006);
+                items.insert("ButtonL2", 1007);
+                items.insert("ButtonR3", 1008);
+                items.insert("ButtonL3", 1009);
+                items.insert("ButtonStart", 1010);
+                items.insert("ButtonSelect", 1011);
+                items.insert("DPadLeft", 1012);
+                items.insert("DPadRight", 1013);
+                items.insert("DPadUp", 1014);
+                items.insert("DPadDown", 1015);
+                items.insert("Thumbstick1", 1016);
+                items.insert("Thumbstick2", 1017);
+                items
+            },
+        },
+    );
+    output.insert(
+        "KeywordFilterType",
+        RbxEnum {
+            name: "KeywordFilterType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Include", 0);
+                items.insert("Exclude", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Language",
+        RbxEnum {
+            name: "Language",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "LeftRight",
+        RbxEnum {
+            name: "LeftRight",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Left", 0);
+                items.insert("Center", 1);
+                items.insert("Right", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "LevelOfDetailSetting",
+        RbxEnum {
+            name: "LevelOfDetailSetting",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("High", 2);
+                items.insert("Medium", 1);
+                items.insert("Low", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Limb",
+        RbxEnum {
+            name: "Limb",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Head", 0);
+                items.insert("Torso", 1);
+                items.insert("LeftArm", 2);
+                items.insert("RightArm", 3);
+                items.insert("LeftLeg", 4);
+                items.insert("RightLeg", 5);
+                items.insert("Unknown", 6);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ListDisplayMode",
+        RbxEnum {
+            name: "ListDisplayMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Horizontal", 0);
+                items.insert("Vertical", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ListenerType",
+        RbxEnum {
+            name: "ListenerType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Camera", 0);
+                items.insert("CFrame", 1);
+                items.insert("ObjectPosition", 2);
+                items.insert("ObjectCFrame", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Material",
+        RbxEnum {
+            name: "Material",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Plastic", 256);
+                items.insert("Wood", 512);
+                items.insert("Slate", 800);
+                items.insert("Concrete", 816);
+                items.insert("CorrodedMetal", 1040);
+                items.insert("DiamondPlate", 1056);
+                items.insert("Foil", 1072);
+                items.insert("Grass", 1280);
+                items.insert("Ice", 1536);
+                items.insert("Marble", 784);
+                items.insert("Granite", 832);
+                items.insert("Brick", 848);
+                items.insert("Pebble", 864);
+                items.insert("Sand", 1296);
+                items.insert("Fabric", 1312);
+                items.insert("SmoothPlastic", 272);
+                items.insert("Metal", 1088);
+                items.insert("WoodPlanks", 528);
+                items.insert("Cobblestone", 880);
+                items.insert("Air", 1792);
+                items.insert("Water", 2048);
+                items.insert("Rock", 896);
+                items.insert("Glacier", 1552);
+                items.insert("Snow", 1328);
+                items.insert("Sandstone", 912);
+                items.insert("Mud", 1344);
+                items.insert("Basalt", 788);
+                items.insert("Ground", 1360);
+                items.insert("CrackedLava", 804);
+                items.insert("Neon", 288);
+                items.insert("Glass", 1568);
+                items.insert("Asphalt", 1376);
+                items.insert("LeafyGrass", 1284);
+                items.insert("Salt", 1392);
+                items.insert("Limestone", 820);
+                items.insert("Pavement", 836);
+                items
+            },
+        },
+    );
+    output.insert(
+        "MembershipType",
+        RbxEnum {
+            name: "MembershipType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("BuildersClub", 1);
+                items.insert("TurboBuildersClub", 2);
+                items.insert("OutrageousBuildersClub", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "MeshType",
+        RbxEnum {
+            name: "MeshType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Head", 0);
+                items.insert("Torso", 1);
+                items.insert("Wedge", 2);
+                items.insert("Prism", 7);
+                items.insert("Pyramid", 8);
+                items.insert("ParallelRamp", 9);
+                items.insert("RightAngleRamp", 10);
+                items.insert("CornerWedge", 11);
+                items.insert("Brick", 6);
+                items.insert("Sphere", 3);
+                items.insert("Cylinder", 4);
+                items.insert("FileMesh", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "MessageType",
+        RbxEnum {
+            name: "MessageType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("MessageOutput", 0);
+                items.insert("MessageInfo", 1);
+                items.insert("MessageWarning", 2);
+                items.insert("MessageError", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "MouseBehavior",
+        RbxEnum {
+            name: "MouseBehavior",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("LockCenter", 1);
+                items.insert("LockCurrentPosition", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "MoveState",
+        RbxEnum {
+            name: "MoveState",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Stopped", 0);
+                items.insert("Coasting", 1);
+                items.insert("Pushing", 2);
+                items.insert("Stopping", 3);
+                items.insert("AirFree", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "NameOcclusion",
+        RbxEnum {
+            name: "NameOcclusion",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("OccludeAll", 2);
+                items.insert("EnemyOcclusion", 1);
+                items.insert("NoOcclusion", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "NetworkOwnership",
+        RbxEnum {
+            name: "NetworkOwnership",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Automatic", 0);
+                items.insert("Manual", 1);
+                items.insert("OnContact", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "NormalId",
+        RbxEnum {
+            name: "NormalId",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Top", 1);
+                items.insert("Bottom", 4);
+                items.insert("Back", 2);
+                items.insert("Front", 5);
+                items.insert("Right", 0);
+                items.insert("Left", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "OutputLayoutMode",
+        RbxEnum {
+            name: "OutputLayoutMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Horizontal", 0);
+                items.insert("Vertical", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "OverrideMouseIconBehavior",
+        RbxEnum {
+            name: "OverrideMouseIconBehavior",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("ForceShow", 1);
+                items.insert("ForceHide", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PacketPriority",
+        RbxEnum {
+            name: "PacketPriority",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("IMMEDIATE_PRIORITY", 0);
+                items.insert("HIGH_PRIORITY", 1);
+                items.insert("MEDIUM_PRIORITY", 2);
+                items.insert("LOW_PRIORITY", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PartType",
+        RbxEnum {
+            name: "PartType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Ball", 0);
+                items.insert("Block", 1);
+                items.insert("Cylinder", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PathStatus",
+        RbxEnum {
+            name: "PathStatus",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Success", 0);
+                items.insert("ClosestNoPath", 1);
+                items.insert("ClosestOutOfRange", 2);
+                items.insert("FailStartNotEmpty", 3);
+                items.insert("FailFinishNotEmpty", 4);
+                items.insert("NoPath", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PathWaypointAction",
+        RbxEnum {
+            name: "PathWaypointAction",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Walk", 0);
+                items.insert("Jump", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PermissionLevelShown",
+        RbxEnum {
+            name: "PermissionLevelShown",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Game", 0);
+                items.insert("RobloxGame", 1);
+                items.insert("RobloxScript", 2);
+                items.insert("Studio", 3);
+                items.insert("Roblox", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Platform",
+        RbxEnum {
+            name: "Platform",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Windows", 0);
+                items.insert("OSX", 1);
+                items.insert("IOS", 2);
+                items.insert("Android", 3);
+                items.insert("XBoxOne", 4);
+                items.insert("PS4", 5);
+                items.insert("PS3", 6);
+                items.insert("XBox360", 7);
+                items.insert("WiiU", 8);
+                items.insert("NX", 9);
+                items.insert("Ouya", 10);
+                items.insert("AndroidTV", 11);
+                items.insert("Chromecast", 12);
+                items.insert("Linux", 13);
+                items.insert("SteamOS", 14);
+                items.insert("WebOS", 15);
+                items.insert("DOS", 16);
+                items.insert("BeOS", 17);
+                items.insert("UWP", 18);
+                items.insert("None", 19);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PlaybackState",
+        RbxEnum {
+            name: "PlaybackState",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Begin", 0);
+                items.insert("Delayed", 1);
+                items.insert("Playing", 2);
+                items.insert("Paused", 3);
+                items.insert("Completed", 4);
+                items.insert("Cancelled", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PlayerActions",
+        RbxEnum {
+            name: "PlayerActions",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("CharacterForward", 0);
+                items.insert("CharacterBackward", 1);
+                items.insert("CharacterLeft", 2);
+                items.insert("CharacterRight", 3);
+                items.insert("CharacterJump", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PlayerChatType",
+        RbxEnum {
+            name: "PlayerChatType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("All", 0);
+                items.insert("Team", 1);
+                items.insert("Whisper", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PoseEasingDirection",
+        RbxEnum {
+            name: "PoseEasingDirection",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Out", 1);
+                items.insert("InOut", 2);
+                items.insert("In", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PoseEasingStyle",
+        RbxEnum {
+            name: "PoseEasingStyle",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Linear", 0);
+                items.insert("Constant", 1);
+                items.insert("Elastic", 2);
+                items.insert("Cubic", 3);
+                items.insert("Bounce", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "PrivilegeType",
+        RbxEnum {
+            name: "PrivilegeType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Owner", 255);
+                items.insert("Admin", 240);
+                items.insert("Member", 128);
+                items.insert("Visitor", 10);
+                items.insert("Banned", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ProductPurchaseDecision",
+        RbxEnum {
+            name: "ProductPurchaseDecision",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("NotProcessedYet", 0);
+                items.insert("PurchaseGranted", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "QualityLevel",
+        RbxEnum {
+            name: "QualityLevel",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Automatic", 0);
+                items.insert("Level01", 1);
+                items.insert("Level02", 2);
+                items.insert("Level03", 3);
+                items.insert("Level04", 4);
+                items.insert("Level05", 5);
+                items.insert("Level06", 6);
+                items.insert("Level07", 7);
+                items.insert("Level08", 8);
+                items.insert("Level09", 9);
+                items.insert("Level10", 10);
+                items.insert("Level11", 11);
+                items.insert("Level12", 12);
+                items.insert("Level13", 13);
+                items.insert("Level14", 14);
+                items.insert("Level15", 15);
+                items.insert("Level16", 16);
+                items.insert("Level17", 17);
+                items.insert("Level18", 18);
+                items.insert("Level19", 19);
+                items.insert("Level20", 20);
+                items.insert("Level21", 21);
+                items
+            },
+        },
+    );
+    output.insert(
+        "R15CollisionType",
+        RbxEnum {
+            name: "R15CollisionType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("OuterBox", 0);
+                items.insert("InnerBox", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "RenderFidelity",
+        RbxEnum {
+            name: "RenderFidelity",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Automatic", 0);
+                items.insert("Precise", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "RenderPriority",
+        RbxEnum {
+            name: "RenderPriority",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("First", 0);
+                items.insert("Input", 100);
+                items.insert("Camera", 200);
+                items.insert("Character", 300);
+                items.insert("Last", 2000);
+                items
+            },
+        },
+    );
+    output.insert(
+        "RenderingTestComparisonMethod",
+        RbxEnum {
+            name: "RenderingTestComparisonMethod",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("psnr", 0);
+                items.insert("diff", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ReverbType",
+        RbxEnum {
+            name: "ReverbType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("NoReverb", 0);
+                items.insert("GenericReverb", 1);
+                items.insert("PaddedCell", 2);
+                items.insert("Room", 3);
+                items.insert("Bathroom", 4);
+                items.insert("LivingRoom", 5);
+                items.insert("StoneRoom", 6);
+                items.insert("Auditorium", 7);
+                items.insert("ConcertHall", 8);
+                items.insert("Cave", 9);
+                items.insert("Arena", 10);
+                items.insert("Hangar", 11);
+                items.insert("CarpettedHallway", 12);
+                items.insert("Hallway", 13);
+                items.insert("StoneCorridor", 14);
+                items.insert("Alley", 15);
+                items.insert("Forest", 16);
+                items.insert("City", 17);
+                items.insert("Mountains", 18);
+                items.insert("Quarry", 19);
+                items.insert("Plain", 20);
+                items.insert("ParkingLot", 21);
+                items.insert("SewerPipe", 22);
+                items.insert("UnderWater", 23);
+                items
+            },
+        },
+    );
+    output.insert(
+        "RibbonTool",
+        RbxEnum {
+            name: "RibbonTool",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Select", 0);
+                items.insert("Scale", 1);
+                items.insert("Rotate", 2);
+                items.insert("Move", 3);
+                items.insert("Transform", 4);
+                items.insert("ColorPicker", 5);
+                items.insert("MaterialPicker", 6);
+                items.insert("Group", 7);
+                items.insert("Ungroup", 8);
+                items.insert("None", 9);
+                items
+            },
+        },
+    );
+    output.insert(
+        "RollOffMode",
+        RbxEnum {
+            name: "RollOffMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Inverse", 0);
+                items.insert("Linear", 1);
+                items.insert("InverseTapered", 3);
+                items.insert("LinearSquare", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "RotationType",
+        RbxEnum {
+            name: "RotationType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("MovementRelative", 0);
+                items.insert("CameraRelative", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "RuntimeUndoBehavior",
+        RbxEnum {
+            name: "RuntimeUndoBehavior",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Aggregate", 0);
+                items.insert("Snapshot", 1);
+                items.insert("Hybrid", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SaveFilter",
+        RbxEnum {
+            name: "SaveFilter",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("SaveAll", 2);
+                items.insert("SaveWorld", 0);
+                items.insert("SaveGame", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SavedQualitySetting",
+        RbxEnum {
+            name: "SavedQualitySetting",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Automatic", 0);
+                items.insert("QualityLevel1", 1);
+                items.insert("QualityLevel2", 2);
+                items.insert("QualityLevel3", 3);
+                items.insert("QualityLevel4", 4);
+                items.insert("QualityLevel5", 5);
+                items.insert("QualityLevel6", 6);
+                items.insert("QualityLevel7", 7);
+                items.insert("QualityLevel8", 8);
+                items.insert("QualityLevel9", 9);
+                items.insert("QualityLevel10", 10);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ScaleType",
+        RbxEnum {
+            name: "ScaleType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Stretch", 0);
+                items.insert("Slice", 1);
+                items.insert("Tile", 2);
+                items.insert("Fit", 3);
+                items.insert("Crop", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ScreenOrientation",
+        RbxEnum {
+            name: "ScreenOrientation",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("LandscapeLeft", 0);
+                items.insert("LandscapeRight", 1);
+                items.insert("LandscapeSensor", 2);
+                items.insert("Portrait", 3);
+                items.insert("Sensor", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ScrollBarInset",
+        RbxEnum {
+            name: "ScrollBarInset",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("ScrollBar", 1);
+                items.insert("Always", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ScrollingDirection",
+        RbxEnum {
+            name: "ScrollingDirection",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("X", 1);
+                items.insert("Y", 2);
+                items.insert("XY", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ServerAudioBehavior",
+        RbxEnum {
+            name: "ServerAudioBehavior",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Enabled", 0);
+                items.insert("Muted", 1);
+                items.insert("OnlineGame", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SizeConstraint",
+        RbxEnum {
+            name: "SizeConstraint",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("RelativeXY", 0);
+                items.insert("RelativeXX", 1);
+                items.insert("RelativeYY", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SortOrder",
+        RbxEnum {
+            name: "SortOrder",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("LayoutOrder", 2);
+                items.insert("Name", 0);
+                items.insert("Custom", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SoundType",
+        RbxEnum {
+            name: "SoundType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("NoSound", 0);
+                items.insert("Boing", 1);
+                items.insert("Bomb", 2);
+                items.insert("Break", 3);
+                items.insert("Click", 4);
+                items.insert("Clock", 5);
+                items.insert("Slingshot", 6);
+                items.insert("Page", 7);
+                items.insert("Ping", 8);
+                items.insert("Snap", 9);
+                items.insert("Splat", 10);
+                items.insert("Step", 11);
+                items.insert("StepOn", 12);
+                items.insert("Swoosh", 13);
+                items.insert("Victory", 14);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SpecialKey",
+        RbxEnum {
+            name: "SpecialKey",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Insert", 0);
+                items.insert("Home", 1);
+                items.insert("End", 2);
+                items.insert("PageUp", 3);
+                items.insert("PageDown", 4);
+                items.insert("ChatHotkey", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "StartCorner",
+        RbxEnum {
+            name: "StartCorner",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("TopLeft", 0);
+                items.insert("TopRight", 1);
+                items.insert("BottomLeft", 2);
+                items.insert("BottomRight", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Status",
+        RbxEnum {
+            name: "Status",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Poison", 0);
+                items.insert("Confusion", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "StudioStyleGuideColor",
+        RbxEnum {
+            name: "StudioStyleGuideColor",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("MainBackground", 0);
+                items.insert("Titlebar", 1);
+                items.insert("Dropdown", 2);
+                items.insert("Tooltip", 3);
+                items.insert("Notification", 4);
+                items.insert("ScrollBar", 5);
+                items.insert("ScrollBarBackground", 6);
+                items.insert("TabBar", 7);
+                items.insert("Tab", 8);
+                items.insert("RibbonTab", 9);
+                items.insert("RibbonTabTopBar", 10);
+                items.insert("Button", 11);
+                items.insert("MainButton", 12);
+                items.insert("RibbonButton", 13);
+                items.insert("ViewPortBackground", 14);
+                items.insert("InputFieldBackground", 15);
+                items.insert("Item", 16);
+                items.insert("TableItem", 17);
+                items.insert("CategoryItem", 18);
+                items.insert("GameSettingsTableItem", 19);
+                items.insert("GameSettingsTooltip", 20);
+                items.insert("EmulatorBar", 21);
+                items.insert("EmulatorDropDown", 22);
+                items.insert("ColorPickerFrame", 23);
+                items.insert("CurrentMarker", 24);
+                items.insert("Border", 25);
+                items.insert("Shadow", 26);
+                items.insert("Light", 27);
+                items.insert("Dark", 28);
+                items.insert("Mid", 29);
+                items.insert("MainText", 30);
+                items.insert("SubText", 31);
+                items.insert("TitlebarText", 32);
+                items.insert("BrightText", 33);
+                items.insert("DimmedText", 34);
+                items.insert("LinkText", 35);
+                items.insert("WarningText", 36);
+                items.insert("ErrorText", 37);
+                items.insert("InfoText", 38);
+                items.insert("SensitiveText", 39);
+                items.insert("ScriptSideWidget", 40);
+                items.insert("ScriptBackground", 41);
+                items.insert("ScriptText", 42);
+                items.insert("ScriptSelectionText", 43);
+                items.insert("ScriptSelectionBackground", 44);
+                items.insert("ScriptFindSelectionBackground", 45);
+                items.insert("ScriptMatchingWordSelectionBackground", 46);
+                items.insert("ScriptOperator", 47);
+                items.insert("ScriptNumber", 48);
+                items.insert("ScriptString", 49);
+                items.insert("ScriptComment", 50);
+                items.insert("ScriptPreprocessor", 51);
+                items.insert("ScriptKeyword", 52);
+                items.insert("ScriptBuiltInFunction", 53);
+                items.insert("ScriptWarning", 54);
+                items.insert("ScriptError", 55);
+                items.insert("DebuggerCurrentLine", 56);
+                items.insert("DebuggerErrorLine", 57);
+                items.insert("DiffFilePathText", 58);
+                items.insert("DiffTextHunkInfo", 59);
+                items.insert("DiffTextNoChange", 60);
+                items.insert("DiffTextAddition", 61);
+                items.insert("DiffTextDeletion", 62);
+                items.insert("DiffTextSeparatorBackground", 63);
+                items.insert("DiffTextNoChangeBackground", 64);
+                items.insert("DiffTextAdditionBackground", 65);
+                items.insert("DiffTextDeletionBackground", 66);
+                items.insert("DiffLineNum", 67);
+                items.insert("DiffLineNumSeparatorBackground", 68);
+                items.insert("DiffLineNumNoChangeBackground", 69);
+                items.insert("DiffLineNumAdditionBackground", 70);
+                items.insert("DiffLineNumDeletionBackground", 71);
+                items.insert("DiffFilePathBackground", 72);
+                items.insert("DiffFilePathBorder", 73);
+                items.insert("Separator", 74);
+                items.insert("ButtonBorder", 75);
+                items.insert("ButtonText", 76);
+                items.insert("InputFieldBorder", 77);
+                items.insert("CheckedFieldBackground", 78);
+                items.insert("CheckedFieldBorder", 79);
+                items.insert("CheckedFieldIndicator", 80);
+                items.insert("HeaderSection", 81);
+                items.insert("Midlight", 82);
+                items.insert("StatusBar", 83);
+                items
+            },
+        },
+    );
+    output.insert(
+        "StudioStyleGuideModifier",
+        RbxEnum {
+            name: "StudioStyleGuideModifier",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("Selected", 1);
+                items.insert("Pressed", 2);
+                items.insert("Disabled", 3);
+                items.insert("Hover", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Style",
+        RbxEnum {
+            name: "Style",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("AlternatingSupports", 0);
+                items.insert("BridgeStyleSupports", 1);
+                items.insert("NoSupports", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SurfaceConstraint",
+        RbxEnum {
+            name: "SurfaceConstraint",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("Hinge", 1);
+                items.insert("SteppingMotor", 2);
+                items.insert("Motor", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SurfaceType",
+        RbxEnum {
+            name: "SurfaceType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Smooth", 0);
+                items.insert("Glue", 1);
+                items.insert("Weld", 2);
+                items.insert("Studs", 3);
+                items.insert("Inlet", 4);
+                items.insert("Universal", 5);
+                items.insert("Hinge", 6);
+                items.insert("Motor", 7);
+                items.insert("SteppingMotor", 8);
+                items.insert("SmoothNoOutlines", 10);
+                items
+            },
+        },
+    );
+    output.insert(
+        "SwipeDirection",
+        RbxEnum {
+            name: "SwipeDirection",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Right", 0);
+                items.insert("Left", 1);
+                items.insert("Up", 2);
+                items.insert("Down", 3);
+                items.insert("None", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TableMajorAxis",
+        RbxEnum {
+            name: "TableMajorAxis",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("RowMajor", 0);
+                items.insert("ColumnMajor", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "Technology",
+        RbxEnum {
+            name: "Technology",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Legacy", 0);
+                items.insert("Voxel", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TeleportResult",
+        RbxEnum {
+            name: "TeleportResult",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Success", 0);
+                items.insert("Failure", 1);
+                items.insert("GameNotFound", 2);
+                items.insert("GameEnded", 3);
+                items.insert("GameFull", 4);
+                items.insert("Unauthorized", 5);
+                items.insert("Flooded", 6);
+                items.insert("IsTeleporting", 7);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TeleportState",
+        RbxEnum {
+            name: "TeleportState",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("RequestedFromServer", 0);
+                items.insert("Started", 1);
+                items.insert("WaitingForServer", 2);
+                items.insert("Failed", 3);
+                items.insert("InProgress", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TeleportType",
+        RbxEnum {
+            name: "TeleportType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("ToPlace", 0);
+                items.insert("ToInstance", 1);
+                items.insert("ToReservedServer", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TextFilterContext",
+        RbxEnum {
+            name: "TextFilterContext",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("PublicChat", 1);
+                items.insert("PrivateChat", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TextTruncate",
+        RbxEnum {
+            name: "TextTruncate",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("AtEnd", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TextXAlignment",
+        RbxEnum {
+            name: "TextXAlignment",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Left", 0);
+                items.insert("Center", 2);
+                items.insert("Right", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TextYAlignment",
+        RbxEnum {
+            name: "TextYAlignment",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Top", 0);
+                items.insert("Center", 1);
+                items.insert("Bottom", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TextureMode",
+        RbxEnum {
+            name: "TextureMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Stretch", 0);
+                items.insert("Wrap", 1);
+                items.insert("Static", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TextureQueryType",
+        RbxEnum {
+            name: "TextureQueryType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("NonHumanoid", 0);
+                items.insert("NonHumanoidOrphaned", 1);
+                items.insert("Humanoid", 2);
+                items.insert("HumanoidOrphaned", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ThreadPoolConfig",
+        RbxEnum {
+            name: "ThreadPoolConfig",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Auto", 0);
+                items.insert("PerCore1", 101);
+                items.insert("PerCore2", 102);
+                items.insert("PerCore3", 103);
+                items.insert("PerCore4", 104);
+                items.insert("Threads1", 1);
+                items.insert("Threads2", 2);
+                items.insert("Threads3", 3);
+                items.insert("Threads4", 4);
+                items.insert("Threads8", 8);
+                items.insert("Threads16", 16);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ThrottlingPriority",
+        RbxEnum {
+            name: "ThrottlingPriority",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Extreme", 2);
+                items.insert("ElevatedOnServer", 1);
+                items.insert("Default", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ThumbnailSize",
+        RbxEnum {
+            name: "ThumbnailSize",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Size48x48", 0);
+                items.insert("Size180x180", 1);
+                items.insert("Size420x420", 2);
+                items.insert("Size60x60", 3);
+                items.insert("Size100x100", 4);
+                items.insert("Size150x150", 5);
+                items.insert("Size352x352", 6);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ThumbnailType",
+        RbxEnum {
+            name: "ThumbnailType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("HeadShot", 0);
+                items.insert("AvatarBust", 1);
+                items.insert("AvatarThumbnail", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TickCountSampleMethod",
+        RbxEnum {
+            name: "TickCountSampleMethod",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Fast", 0);
+                items.insert("Benchmark", 1);
+                items.insert("Precise", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TopBottom",
+        RbxEnum {
+            name: "TopBottom",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Top", 0);
+                items.insert("Center", 1);
+                items.insert("Bottom", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TouchCameraMovementMode",
+        RbxEnum {
+            name: "TouchCameraMovementMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("Follow", 2);
+                items.insert("Classic", 1);
+                items.insert("Orbital", 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TouchMovementMode",
+        RbxEnum {
+            name: "TouchMovementMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Default", 0);
+                items.insert("Thumbstick", 1);
+                items.insert("DPad", 2);
+                items.insert("Thumbpad", 3);
+                items.insert("ClickToMove", 4);
+                items.insert("DynamicThumbstick", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "TweenStatus",
+        RbxEnum {
+            name: "TweenStatus",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Canceled", 0);
+                items.insert("Completed", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "UITheme",
+        RbxEnum {
+            name: "UITheme",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Light", 0);
+                items.insert("Dark", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "UiMessageType",
+        RbxEnum {
+            name: "UiMessageType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("UiMessageError", 0);
+                items.insert("UiMessageInfo", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "UploadSetting",
+        RbxEnum {
+            name: "UploadSetting",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Never", 0);
+                items.insert("Ask", 1);
+                items.insert("Always", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "UserCFrame",
+        RbxEnum {
+            name: "UserCFrame",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Head", 0);
+                items.insert("LeftHand", 1);
+                items.insert("RightHand", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "UserInputState",
+        RbxEnum {
+            name: "UserInputState",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Begin", 0);
+                items.insert("Change", 1);
+                items.insert("End", 2);
+                items.insert("Cancel", 3);
+                items.insert("None", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "UserInputType",
+        RbxEnum {
+            name: "UserInputType",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("MouseButton1", 0);
+                items.insert("MouseButton2", 1);
+                items.insert("MouseButton3", 2);
+                items.insert("MouseWheel", 3);
+                items.insert("MouseMovement", 4);
+                items.insert("Touch", 7);
+                items.insert("Keyboard", 8);
+                items.insert("Focus", 9);
+                items.insert("Accelerometer", 10);
+                items.insert("Gyro", 11);
+                items.insert("Gamepad1", 12);
+                items.insert("Gamepad2", 13);
+                items.insert("Gamepad3", 14);
+                items.insert("Gamepad4", 15);
+                items.insert("Gamepad5", 16);
+                items.insert("Gamepad6", 17);
+                items.insert("Gamepad7", 18);
+                items.insert("Gamepad8", 19);
+                items.insert("TextInput", 20);
+                items.insert("None", 21);
+                items
+            },
+        },
+    );
+    output.insert(
+        "VRTouchpad",
+        RbxEnum {
+            name: "VRTouchpad",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Left", 0);
+                items.insert("Right", 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        "VRTouchpadMode",
+        RbxEnum {
+            name: "VRTouchpadMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Touch", 0);
+                items.insert("VirtualThumbstick", 1);
+                items.insert("ABXY", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "VerticalAlignment",
+        RbxEnum {
+            name: "VerticalAlignment",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Center", 0);
+                items.insert("Top", 1);
+                items.insert("Bottom", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "VerticalScrollBarPosition",
+        RbxEnum {
+            name: "VerticalScrollBarPosition",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Left", 1);
+                items.insert("Right", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "VibrationMotor",
+        RbxEnum {
+            name: "VibrationMotor",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Large", 0);
+                items.insert("Small", 1);
+                items.insert("LeftTrigger", 2);
+                items.insert("RightTrigger", 3);
+                items.insert("LeftHand", 4);
+                items.insert("RightHand", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "VideoQualitySettings",
+        RbxEnum {
+            name: "VideoQualitySettings",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("LowResolution", 0);
+                items.insert("MediumResolution", 1);
+                items.insert("HighResolution", 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        "VirtualInputMode",
+        RbxEnum {
+            name: "VirtualInputMode",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Recording", 1);
+                items.insert("Playing", 2);
+                items.insert("None", 0);
+                items
+            },
+        },
+    );
+    output.insert(
+        "WaterDirection",
+        RbxEnum {
+            name: "WaterDirection",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("NegX", 0);
+                items.insert("X", 1);
+                items.insert("NegY", 2);
+                items.insert("Y", 3);
+                items.insert("NegZ", 4);
+                items.insert("Z", 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        "WaterForce",
+        RbxEnum {
+            name: "WaterForce",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("None", 0);
+                items.insert("Small", 1);
+                items.insert("Medium", 2);
+                items.insert("Strong", 3);
+                items.insert("Max", 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        "ZIndexBehavior",
+        RbxEnum {
+            name: "ZIndexBehavior",
+            items: {
+                #[allow(unused_mut)]
+                let mut items = HashMap::new();
+                items.insert("Global", 0);
+                items.insert("Sibling", 1);
+                items
             },
         },
     );

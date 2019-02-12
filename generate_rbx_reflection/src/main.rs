@@ -62,15 +62,48 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     });
 
+    let enums = dump.enums.iter().map(|rbx_enum| {
+        let enum_name = Literal::string(&rbx_enum.name);
+
+        let items = rbx_enum.items.iter().map(|item| {
+            let item_name = Literal::string(&item.name);
+            let item_value = Literal::u32_unsuffixed(item.value);
+
+            quote! {
+                items.insert(#item_name, #item_value);
+            }
+        });
+
+        quote! {
+            output.insert(#enum_name, RbxEnum {
+                name: #enum_name,
+                items: {
+                    #[allow(unused_mut)]
+                    let mut items = HashMap::new();
+                    #(#items)*
+                    items
+                },
+            });
+        }
+    });
+
     let output = quote! {
         #![allow(unused_mut)]
         use std::collections::HashMap;
         use crate::types::*;
 
-        pub fn get_instances() -> HashMap<&'static str, RbxInstanceClass> {
+        pub fn get_classes() -> HashMap<&'static str, RbxInstanceClass> {
             let mut output = HashMap::new();
 
             #(#classes)*
+
+            output
+        }
+
+        pub fn get_enums() -> HashMap<&'static str, RbxEnum> {
+            let mut output = HashMap::new();
+
+            #(#enums)*
 
             output
         }

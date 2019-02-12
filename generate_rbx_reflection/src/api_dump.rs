@@ -13,6 +13,7 @@ use crate::roblox_install::locate_studio_exe;
 #[serde(rename_all = "PascalCase")]
 pub struct Dump {
     pub classes: Vec<DumpClass>,
+    pub enums: Vec<DumpEnum>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -59,6 +60,20 @@ pub enum ValueCategory {
 
     #[serde(other)]
     Unknown,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct DumpEnum {
+    pub name: String,
+    pub items: Vec<DumpEnumItem>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct DumpEnumItem {
+    pub name: String,
+    pub value: u32,
 }
 
 impl Dump {
