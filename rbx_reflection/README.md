@@ -12,7 +12,10 @@ Much of this data will need to be automatically generated to make this project f
 ## Getting default values
 The approach that `rbx_reflection` will use to get default values is:
 
-* Generate a place file with Rojo that consumes the API dump and measures default properties
+* Generate a built-in plugin that measures default values and sends them over HTTP
+* Generate an empty place with HTTP enabled and a marker value in the DataModel
+	* The built-in plugin should only activate when this marker is present
 * Start up an HTTP server to receive output
-* Launch Roblox Studio opening the place file, prompting the user to press f5
-* Dump data via HTTP back to the server, output onto the filesystem
+* Launch Roblox Studio opening the place file
+* Wait for a 'finished' message via HTTP and kill the Roblox Studio process
+* Continue with newfound data
