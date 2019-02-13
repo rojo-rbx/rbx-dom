@@ -1,3 +1,4 @@
+use crate::id::RbxId;
 use serde_derive::{Serialize, Deserialize};
 
 /// An enum that can hold any of the types that [`RbxValue`] can.
@@ -14,6 +15,7 @@ pub enum RbxValueType {
     Float32,
     Int32,
     PhysicalProperties,
+    Ref,
     String,
     Vector2,
     Vector2int16,
@@ -93,7 +95,12 @@ pub enum RbxValue {
     #[serde(rename_all = "PascalCase")]
     PhysicalProperties {
         value: Option<PhysicalProperties>,
-    }
+    },
+
+    #[serde(rename_all = "PascalCase")]
+    Ref {
+        value: Option<RbxId>,
+    },
 }
 
 impl RbxValue {
@@ -111,6 +118,7 @@ impl RbxValue {
             RbxValue::Float32 { .. } => RbxValueType::Float32,
             RbxValue::Int32 { .. } => RbxValueType::Int32,
             RbxValue::PhysicalProperties { .. } => RbxValueType::PhysicalProperties,
+            RbxValue::Ref { .. } => RbxValueType::Ref,
             RbxValue::String { .. } => RbxValueType::String,
             RbxValue::Vector2 { .. } => RbxValueType::Vector2,
             RbxValue::Vector2int16 { .. } => RbxValueType::Vector2int16,

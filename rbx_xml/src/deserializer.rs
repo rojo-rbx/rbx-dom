@@ -21,6 +21,7 @@ use crate::{
         deserialize_float32,
         deserialize_int32,
         deserialize_physical_properties,
+        deserialize_ref,
         deserialize_string,
         deserialize_vector2,
         deserialize_vector2int16,
@@ -462,6 +463,7 @@ fn deserialize_properties<R: Read>(
             "Color3uint8" => deserialize_color3uint8(reader)?,
             "CoordinateFrame" => deserialize_cframe(reader)?,
             "PhysicalProperties" => deserialize_physical_properties(reader)?,
+            "Ref" => deserialize_ref(reader)?,
             unknown => {
                 warn!("rbx_xml can't decode properties of type {}", unknown);
                 return Err(DecodeError::Message("don't know how to decode this prop type"));
@@ -803,5 +805,68 @@ mod test {
                 0.0, 0.0, 1.0,
             ],
         }));
+    }
+
+    #[test]
+    fn with_ref_some() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Folder" referent="RBX1B9CDD1FD0884F76BFE6091C1731E1FB">
+                </Item>
+
+                <Item class="ObjectValue" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <Ref name="Value">RBX1B9CDD1FD0884F76BFE6091C1731E1FB</Ref>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "ObjectValue");
+
+        let value = descendant.properties.get("Value").expect("no value property");
+        if let RbxValue::Ref { value } = value {
+            let value = value.expect("ref was None");
+            assert_eq!(value.to_string(), "1b9cdd1f-d088-4f76-bfe6-091c1731e1fb");
+        } else {
+            panic!("rbxvalue was not ref, but instead {:?}", value.get_type())
+        }
+    }
+
+    #[test]
+    #[test]
+    fn with_ref_none() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="ObjectValue" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <Ref name="Value">null</Ref>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "ObjectValue");
+
+        let value = descendant.properties.get("Value").expect("no value property");
+        assert_eq!(value, &RbxValue::Ref { value: None });
     }
 }
