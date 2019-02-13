@@ -36,7 +36,6 @@ Roblox reflection information for working with Instances in external tooling.
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ❌ |
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ❌ |
 | ColorSequence      | `Beam.Color`                    | ❌ | ❌ | ❌ |
-| Content            | `Animation.AnimationId`         | ❌ | ❌ | ❌ |
 | Content            | `Decal.Texture`                 | ❌ | ❌ | ❌ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
 | Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
@@ -50,7 +49,6 @@ Roblox reflection information for working with Instances in external tooling.
 | QFont              | `Studio.Font`                   | ❌ | ❌ | ❌ |
 | Ray                | `RayValue.Value`                | ❌ | ❌ | ❌ |
 | Rect2D             | `ImageButton.SliceCenter`       | ❌ | ❌ | ❌ |
-| Ref                | `BillboardGui.Adornee`          | ❌ | ❌ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ❌ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
