@@ -40,7 +40,9 @@ Roblox reflection information for working with Instances in external tooling.
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
 | Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ❌ |
+| Float64            | `PlaybackLoudness`              | ❌ | ❌ | ❌ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
+| Int64              | `Player.UserId`                 | ❌ | ❌ | ❌ |
 | NumberRange        | `ParticleEmitter.Lifetime`      | ❌ | ❌ | ❌ |
 | NumberSequence     | `Beam.Transparency`             | ❌ | ❌ | ❌ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ➖ | ➖ | ❌ |
