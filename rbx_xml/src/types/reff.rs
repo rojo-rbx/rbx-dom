@@ -10,39 +10,39 @@ use crate::{
 const REF_HEADER: &str = "RBX";
 
 pub fn serialize_ref<W: Write>(
-	writer: &mut XmlEventWriter<W>,
+    writer: &mut XmlEventWriter<W>,
     name: &str,
     value: Option<RbxId>,
 ) -> Result<(), EncodeError> {
-	writer.write(XmlWriteEvent::start_element("Ref").attr("name", name))?;
-	writer.write(XmlWriteEvent::characters(&if let Some(id) = value {
-		format!(
-			"{}{}",
-			REF_HEADER,
-			id.to_string()
-				.chars()
-				.filter(|x| *x != '-')
-				.map(|c| c.to_ascii_uppercase())
-				.collect::<String>()
-		)
-	} else {
-		"null".to_string()
-	}))?;
-	writer.write(XmlWriteEvent::end_element())?;
+    writer.write(XmlWriteEvent::start_element("Ref").attr("name", name))?;
+    writer.write(XmlWriteEvent::characters(&if let Some(id) = value {
+        format!(
+            "{}{}",
+            REF_HEADER,
+            id.to_string()
+                .chars()
+                .filter(|x| *x != '-')
+                .map(|c| c.to_ascii_uppercase())
+                .collect::<String>()
+        )
+    } else {
+        "null".to_string()
+    }))?;
+    writer.write(XmlWriteEvent::end_element())?;
 
-	Ok(())
+    Ok(())
 }
 
 pub fn deserialize_ref<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-	let ref_contents = reader.read_tag_contents("Ref")?;
+    let ref_contents = reader.read_tag_contents("Ref")?;
 
-	Ok(RbxValue::Ref {
-		value: if ref_contents.starts_with(REF_HEADER) {
-			RbxId::parse_str(&ref_contents[REF_HEADER.len()..])
-		} else {
-			None
-		},
-	})
+    Ok(RbxValue::Ref {
+        value: if ref_contents.starts_with(REF_HEADER) {
+            RbxId::parse_str(&ref_contents[REF_HEADER.len()..])
+        } else {
+            None
+        },
+    })
 }
 
 #[cfg(test)]
@@ -69,7 +69,7 @@ mod test {
         });
     }
 
-	#[test]
+    #[test]
     fn round_trip_ref_none() {
         let _ = env_logger::try_init();
 
