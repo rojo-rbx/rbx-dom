@@ -51,7 +51,7 @@ Roblox reflection information for working with Instances in external tooling.
 | QFont              | `Studio.Font`                   | ❌ | ❌ | ❌ |
 | Ray                | `RayValue.Value`                | ❌ | ❌ | ❌ |
 | Rect2D             | `ImageButton.SliceCenter`       | ❌ | ❌ | ❌ |
-| Ref                | `Model.PrimaryPart`             | ❌ | ❌ | ❌ |
+| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
 | UDim               | `UIListLayout.Padding`          | ❌ | ❌ | ❌ |
