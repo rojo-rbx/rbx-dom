@@ -843,7 +843,6 @@ mod test {
     }
 
     #[test]
-    #[test]
     fn with_ref_none() {
         let _ = env_logger::try_init();
         let document = r#"
