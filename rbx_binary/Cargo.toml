@@ -13,7 +13,7 @@ edition = "2018"
 byteorder = "1.2.7"
 log = "0.4.6"
 lz4 = "1.23.1"
-rbx_dom_weak = { version = "0.2.0", path = "../rbx_dom_weak" }
+rbx_dom_weak = { version = "0.3.0", path = "../rbx_dom_weak" }
 
 [dev-dependencies]
 env_logger = "0.6.0"
