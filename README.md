@@ -2,10 +2,10 @@
 rbx-dom is a collection of crates to help represent, serialize, and deserialize Roblox DOMs. The goal is to have a common format that projects like [Rojo](https://github.com/LPGhatguy/rojo) can use for handling Instances efficiently.
 
 ## [rbx_dom_weak](rbx_dom_weak)
-[![rbx_tree on crates.io](https://img.shields.io/crates/v/rbx_tree.svg)](https://crates.io/crates/rbx_tree)
-[![rbx_tree docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_tree)
+[![rbx_dom_weak on crates.io](https://img.shields.io/crates/v/rbx_dom_weak.svg)](https://crates.io/crates/rbx_dom_weak)
+[![rbx_dom_weak docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_dom_weak)
 
-**This crate is in the process of being renamed from `rbx_tree` to `rbx_dom_weak`.**
+**This crate was recently renamed from `rbx_tree` to `rbx_dom_weak`.**
 
 Weakly-typed Roblox DOM implementation. Defines types for representing instances and properties on them.
 

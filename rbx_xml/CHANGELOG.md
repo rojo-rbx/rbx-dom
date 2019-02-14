@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.3.0 (2019-02-14)
 * Updated `rbx_tree` dependency to `rbx_dom_weak` 0.3.0
 * Added support for ProtectedString, deserializing as String
 * Added support for `Ref` values ([#8](https://github.com/LPGhatguy/rbx-dom/pull/8))
