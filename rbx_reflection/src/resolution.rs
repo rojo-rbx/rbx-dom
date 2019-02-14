@@ -24,7 +24,7 @@ fn find_property_type(class_name: &str, property_name: &str) -> Option<RbxProper
     }
 }
 
-#[derive(Debug, Fail)]
+#[derive(Debug, PartialEq, Fail)]
 pub enum ValueResolveError {
     #[fail(
         display = "The property {} is unknown and cannot have its type inferred",
@@ -204,6 +204,92 @@ mod tests {
         assert_eq!(
             find_property_type("Part", "Position"),
             Some(RbxPropertyType::Data(RbxValueType::Vector3))
+        );
+    }
+
+    #[test]
+    fn resolve_concrete_known_property() {
+        let concrete_value = RbxValue::String {
+            value: String::from("Hey! Listen!"),
+        };
+
+        let untagged_value = UntaggedRbxValue::Concrete(concrete_value.clone());
+
+        assert_eq!(
+            try_resolve_value("Instance", "Name", &untagged_value),
+            Ok(concrete_value)
+        );
+    }
+
+    #[test]
+    fn resolve_concrete_unknown_class() {
+        // Makes sure that a concretely-specified value works even if the class
+        // name is unknown.
+
+        let concrete_value = RbxValue::String {
+            value: String::from("Hey! Listen!"),
+        };
+
+        let untagged_value = UntaggedRbxValue::Concrete(concrete_value.clone());
+
+        assert_eq!(
+            try_resolve_value("Bogus Instance Name", "Blah", &untagged_value),
+            Ok(concrete_value)
+        );
+    }
+
+    #[test]
+    fn resolve_concrete_unknown_property() {
+        // Ensures that concretely-specified values resolve correctly even if
+        // the property name is unknown.
+
+        let concrete_value = RbxValue::String {
+            value: String::from("Hey! Listen!"),
+        };
+
+        let untagged_value = UntaggedRbxValue::Concrete(concrete_value.clone());
+
+        assert_eq!(
+            try_resolve_value("Instance", "Bogus Property Name", &untagged_value),
+            Ok(concrete_value)
+        );
+    }
+
+    #[test]
+    fn resolve_inferred_unknown_property() {
+        let untagged_value =
+            UntaggedRbxValue::Inferable(InferableRbxValue::String(String::from("HEY!")));
+
+        assert!(try_resolve_value("Nonsense Class", "Value", &untagged_value).is_err());
+    }
+
+    #[test]
+    fn resolve_inferred_color3() {
+        let concrete_value = RbxValue::Color3 {
+            // Hopefully these values will behave mercifully as floats.
+            value: [1.0, 0.5, 0.0],
+        };
+
+        let untagged_value = UntaggedRbxValue::Inferable(InferableRbxValue::Float3(1.0, 0.5, 0.0));
+
+        assert_eq!(
+            try_resolve_value("Color3Value", "Value", &untagged_value),
+            Ok(concrete_value)
+        );
+    }
+
+    #[test]
+    fn resolve_inferred_enum() {
+        let concrete_value = RbxValue::Enum {
+            value: 2, // Enum.SortOrder.LayoutOrder
+        };
+
+        let untagged_value =
+            UntaggedRbxValue::Inferable(InferableRbxValue::String(String::from("LayoutOrder")));
+
+        assert_eq!(
+            try_resolve_value("UIListLayout", "SortOrder", &untagged_value),
+            Ok(concrete_value)
         );
     }
 }
