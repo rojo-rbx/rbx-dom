@@ -30,7 +30,7 @@ pub enum ValueResolveError {
         display = "The property {} is unknown and cannot have its type inferred",
         _0
     )]
-    UnknownPropertyNotInferable(String),
+    UnknownProperty(String),
 
     #[fail(
         display = "The enum {} does not have a member named {}",
@@ -44,6 +44,104 @@ pub enum ValueResolveError {
     // FIXME: Need a more useful error message here.
     #[fail(display = "Property tried to be inferred but the input was wrong")]
     IncorrectInferableProperty,
+}
+
+/// A string value can represent either a string or an enum item name.
+fn try_resolve_string(
+    class_name: &str,
+    property_name: &str,
+    property_type: RbxPropertyType,
+    value: &str,
+) -> Result<RbxValue, ValueResolveError> {
+    match property_type {
+        RbxPropertyType::Data(RbxValueType::String) => Ok(RbxValue::String {
+            value: value.to_owned(),
+        }),
+        RbxPropertyType::Enum(enum_name) => {
+            let enums = get_enums();
+            let roblox_enum = match enums.get(enum_name) {
+                Some(roblox_enum) => roblox_enum,
+                None => {
+                    panic!(
+                        "The property {}.{} referred to an enum that does not exist: {}",
+                        class_name, property_name, enum_name,
+                    );
+                }
+            };
+
+            let enum_value =
+                roblox_enum
+                    .items
+                    .get(value)
+                    .ok_or_else(|| ValueResolveError::InvalidEnumItem {
+                        enum_name: enum_name.to_owned(),
+                        item_name: value.to_owned(),
+                    })?;
+
+            Ok(RbxValue::Enum { value: *enum_value })
+        }
+        _ => Err(ValueResolveError::IncorrectInferableProperty),
+    }
+}
+
+/// A single float can be a Float32, Float64, Int32, or Int64.
+///
+/// Note that because every number is held as a Float64, we might run into
+/// precision issues for values outside a 64-bit float's integer precision.
+fn try_resolve_one_float(
+    class_name: &str,
+    property_name: &str,
+    property_type: RbxPropertyType,
+    x: f64,
+) -> Result<RbxValue, ValueResolveError> {
+    match property_type {
+        RbxPropertyType::Data(RbxValueType::Float32) => Ok(RbxValue::Float32 { value: x as f32 }),
+        RbxPropertyType::Data(RbxValueType::Int32) => Ok(RbxValue::Int32 { value: x as i32 }),
+        // TODO: Float64, Int64 when they're added
+        _ => Err(ValueResolveError::IncorrectInferableProperty),
+    }
+}
+
+/// Two floats can result in a Vector2 or Vector2int16.
+fn try_resolve_two_floats(
+    class_name: &str,
+    property_name: &str,
+    property_type: RbxPropertyType,
+    (x, y): (f64, f64),
+) -> Result<RbxValue, ValueResolveError> {
+    match property_type {
+        RbxPropertyType::Data(RbxValueType::Vector2) => Ok(RbxValue::Vector2 {
+            value: [x as f32, y as f32],
+        }),
+        RbxPropertyType::Data(RbxValueType::Vector2int16) => Ok(RbxValue::Vector2int16 {
+            value: [x as i16, y as i16],
+        }),
+        _ => Err(ValueResolveError::IncorrectInferableProperty),
+    }
+}
+
+/// Three floats can turn into a Vector3, a Vector3int16, or a Color3.
+///
+/// Color3uint8 is another value to handle here, but shouldn't come up in the
+/// resolution case since no user-reflected values have that has a type.
+fn try_resolve_three_floats(
+    class_name: &str,
+    property_name: &str,
+    property_type: RbxPropertyType,
+    (x, y, z): (f64, f64, f64),
+) -> Result<RbxValue, ValueResolveError> {
+    match property_type {
+        RbxPropertyType::Data(RbxValueType::Vector3) => Ok(RbxValue::Vector3 {
+            value: [x as f32, y as f32, z as f32],
+        }),
+        RbxPropertyType::Data(RbxValueType::Vector3int16) => Ok(RbxValue::Vector3int16 {
+            value: [x as i16, y as i16, z as i16],
+        }),
+        RbxPropertyType::Data(RbxValueType::Color3) => Ok(RbxValue::Color3 {
+            value: [x as f32, y as f32, z as f32],
+        }),
+        _ => Err(ValueResolveError::IncorrectInferableProperty),
+    }
 }
 
 /// Attempts to transform an `UntaggedRbxValue` property on the given class into
@@ -68,90 +166,21 @@ pub fn try_resolve_value(
             let property_type = find_property_type(class_name, property_name).ok_or_else(|| {
                 let fully_qualified_name = format!("{}.{}", class_name, property_name);
 
-                ValueResolveError::UnknownPropertyNotInferable(fully_qualified_name)
+                ValueResolveError::UnknownProperty(fully_qualified_name)
             })?;
 
             match inferable_value {
                 InferableRbxValue::String(string_value) => {
-                    // String or Enum
-
-                    match property_type {
-                        RbxPropertyType::Data(RbxValueType::String) => Ok(RbxValue::String {
-                            value: string_value.clone(),
-                        }),
-                        RbxPropertyType::Enum(enum_name) => {
-                            let enums = get_enums();
-                            let roblox_enum = match enums.get(enum_name) {
-                                Some(roblox_enum) => roblox_enum,
-                                None => {
-                                    panic!(
-                                        "The property {}.{} referred to an enum that does not exist: {}",
-                                        class_name,
-                                        property_name,
-                                        enum_name,
-                                    );
-                                }
-                            };
-
-                            let enum_value = roblox_enum
-                                .items
-                                .get(string_value.as_str())
-                                .ok_or_else(|| ValueResolveError::InvalidEnumItem {
-                                    enum_name: enum_name.to_owned(),
-                                    item_name: string_value.to_owned(),
-                                })?;
-
-                            Ok(RbxValue::Enum { value: *enum_value })
-                        }
-                        _ => Err(ValueResolveError::IncorrectInferableProperty),
-                    }
+                    try_resolve_string(class_name, property_name, property_type, string_value)
                 }
                 InferableRbxValue::Float1(x) => {
-                    // Float32, Float64, Int32, or Int64
-
-                    match property_type {
-                        RbxPropertyType::Data(RbxValueType::Float32) => {
-                            Ok(RbxValue::Float32 { value: *x as f32 })
-                        }
-                        RbxPropertyType::Data(RbxValueType::Int32) => {
-                            Ok(RbxValue::Int32 { value: *x as i32 })
-                        }
-                        // TODO: Float64, Int64 when they're added
-                        _ => Err(ValueResolveError::IncorrectInferableProperty),
-                    }
+                    try_resolve_one_float(class_name, property_name, property_type, *x)
                 }
                 InferableRbxValue::Float2(x, y) => {
-                    // Vector2 or Vector2int16
-
-                    match property_type {
-                        RbxPropertyType::Data(RbxValueType::Vector2) => Ok(RbxValue::Vector2 {
-                            value: [*x as f32, *y as f32],
-                        }),
-                        RbxPropertyType::Data(RbxValueType::Vector2int16) => {
-                            Ok(RbxValue::Vector2int16 {
-                                value: [*x as i16, *y as i16],
-                            })
-                        }
-                        _ => Err(ValueResolveError::IncorrectInferableProperty),
-                    }
+                    try_resolve_two_floats(class_name, property_name, property_type, (*x, *y))
                 }
                 InferableRbxValue::Float3(x, y, z) => {
-                    // Vector3, Vector3int16, Color3
-
-                    match property_type {
-                        RbxPropertyType::Data(RbxValueType::Vector3) => Ok(RbxValue::Vector3 {
-                            value: [*x as f32, *y as f32, *z as f32],
-                        }),
-                        RbxPropertyType::Data(RbxValueType::Vector3int16) => {
-                            Ok(RbxValue::Vector3int16 {
-                                value: [*x as i16, *y as i16, *z as i16],
-                            })
-                        }
-                        RbxPropertyType::Data(RbxValueType::Color3) => Ok(RbxValue::Color3 {
-                            value: [*x as f32, *y as f32, *z as f32],
-                        }),
-                        _ => Err(ValueResolveError::IncorrectInferableProperty),
-                    }
+                    try_resolve_three_floats(class_name, property_name, property_type, (*x, *y, *z))
                 }
             }
         }
