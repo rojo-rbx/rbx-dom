@@ -18,7 +18,6 @@ pub enum UnresolvedRbxValue {
     Ambiguous(AmbiguousRbxValue),
 }
 
-// Dubious? Untagged? Ambiguous?
 /// Represents a value that doesn't have explicit type information attached to
 /// it. Given more reflection information, it should be possible to recover the
 /// exact type of this value.
