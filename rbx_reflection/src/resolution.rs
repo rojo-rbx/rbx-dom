@@ -32,6 +32,15 @@ pub enum ValueResolveError {
     )]
     UnknownPropertyNotInferable(String),
 
+    #[fail(
+        display = "The enum {} does not have a member named {}",
+        enum_name, item_name
+    )]
+    InvalidEnumItem {
+        enum_name: String,
+        item_name: String,
+    },
+
     // FIXME: Need a more useful error message here.
     #[fail(display = "Property tried to be inferred but the input was wrong")]
     IncorrectInferableProperty,
@@ -57,6 +66,12 @@ pub fn try_resolve_value(
             // only accept a fully-qualified property.
 
             match find_property_type(class_name, property_name) {
+                None => {
+                    let fully_qualified_name = format!("{}.{}", class_name, property_name);
+                    Err(ValueResolveError::UnknownPropertyNotInferable(
+                        fully_qualified_name,
+                    ))
+                }
                 Some(property_type) => {
                     match inferable_value {
                         InferableRbxValue::String(string_value) => {
@@ -69,32 +84,89 @@ pub fn try_resolve_value(
                                     })
                                 }
                                 RbxPropertyType::Enum(enum_name) => {
-                                    // TODO: Look up this enum to pull the u32
-                                    // representation from this name.
-                                    unimplemented!();
+                                    let enums = get_enums();
+                                    let roblox_enum = match enums.get(enum_name) {
+                                        Some(roblox_enum) => roblox_enum,
+                                        None => {
+                                            panic!(
+                                                "The property {}.{} referred to an enum that does not exist: {}",
+                                                class_name,
+                                                property_name,
+                                                enum_name,
+                                            );
+                                        }
+                                    };
+
+                                    let enum_value =
+                                        match roblox_enum.items.get(string_value.as_str()) {
+                                            Some(value) => *value,
+                                            None => {
+                                                return Err(ValueResolveError::InvalidEnumItem {
+                                                    enum_name: enum_name.to_owned(),
+                                                    item_name: string_value.to_owned(),
+                                                });
+                                            }
+                                        };
+
+                                    Ok(RbxValue::Enum { value: enum_value })
                                 }
                                 _ => Err(ValueResolveError::IncorrectInferableProperty),
                             }
                         }
                         InferableRbxValue::Float1(x) => {
-                            // Float32, Float64, Int32, Int64, or Enum
-                            unimplemented!();
+                            // Float32, Float64, Int32, or Int64
+
+                            match property_type {
+                                RbxPropertyType::Data(RbxValueType::Float32) => {
+                                    Ok(RbxValue::Float32 { value: *x as f32 })
+                                }
+                                RbxPropertyType::Data(RbxValueType::Int32) => {
+                                    Ok(RbxValue::Int32 { value: *x as i32 })
+                                }
+                                // TODO: Float64, Int64 when they're added
+                                _ => Err(ValueResolveError::IncorrectInferableProperty),
+                            }
                         }
                         InferableRbxValue::Float2(x, y) => {
                             // Vector2 or Vector2int16
-                            unimplemented!();
+
+                            match property_type {
+                                RbxPropertyType::Data(RbxValueType::Vector2) => {
+                                    Ok(RbxValue::Vector2 {
+                                        value: [*x as f32, *y as f32],
+                                    })
+                                }
+                                RbxPropertyType::Data(RbxValueType::Vector2int16) => {
+                                    Ok(RbxValue::Vector2int16 {
+                                        value: [*x as i16, *y as i16],
+                                    })
+                                }
+                                _ => Err(ValueResolveError::IncorrectInferableProperty),
+                            }
                         }
                         InferableRbxValue::Float3(x, y, z) => {
-                            // Vector3, Vector3int16, Color3, or Color3uint8
-                            unimplemented!();
+                            // Vector3, Vector3int16, Color3
+
+                            match property_type {
+                                RbxPropertyType::Data(RbxValueType::Vector3) => {
+                                    Ok(RbxValue::Vector3 {
+                                        value: [*x as f32, *y as f32, *z as f32],
+                                    })
+                                }
+                                RbxPropertyType::Data(RbxValueType::Vector3int16) => {
+                                    Ok(RbxValue::Vector3int16 {
+                                        value: [*x as i16, *y as i16, *z as i16],
+                                    })
+                                }
+                                RbxPropertyType::Data(RbxValueType::Color3) => {
+                                    Ok(RbxValue::Color3 {
+                                        value: [*x as f32, *y as f32, *z as f32],
+                                    })
+                                }
+                                _ => Err(ValueResolveError::IncorrectInferableProperty),
+                            }
                         }
                     }
-                }
-                None => {
-                    let fully_qualified_name = format!("{}.{}", class_name, property_name);
-                    Err(ValueResolveError::UnknownPropertyNotInferable(
-                        fully_qualified_name,
-                    ))
                 }
             }
         }
