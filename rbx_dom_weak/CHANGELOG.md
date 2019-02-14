@@ -3,6 +3,7 @@
 ## Unreleased
 * Renamed crate from `rbx_tree` to `rbx_dom_weak`
 * Added support for `Ref` values ([#8](https://github.com/LPGhatguy/rbx-dom/pull/8))
+* Added `UnresolvedRbxValue` and `AmbiguousRbxValue`, intended to be used alongside `rbx_reflection` to make specifying values less verbose.
 
 ## 0.2.0 (2019-01-25)
 * Added new variants for `RbxValue`:
