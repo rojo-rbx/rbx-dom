@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_tree::{PhysicalProperties, RbxValue};
+use rbx_dom_weak::{PhysicalProperties, RbxValue};
 
 use crate::{
     serializer::{EncodeError, XmlEventWriter},

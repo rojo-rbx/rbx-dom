@@ -8,7 +8,7 @@ use std::{
 
 use log::trace;
 use byteorder::{ReadBytesExt, LittleEndian};
-use rbx_tree::{RbxTree, RbxInstanceProperties, RbxId, RbxValue};
+use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxId, RbxValue};
 
 use crate::{
     core::{

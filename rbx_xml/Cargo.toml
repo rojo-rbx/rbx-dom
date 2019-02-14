@@ -2,9 +2,9 @@
 name = "rbx_xml"
 description = "Weakly-typed Roblox DOM implementation for Rust"
 license = "MIT"
-documentation = "https://docs.rs/rbx_tree"
-homepage = "https://github.com/LPGhatguy/rbx-tree"
-repository = "https://github.com/LPGhatguy/rbx-tree.git"
+documentation = "https://docs.rs/rbx_xml"
+homepage = "https://github.com/LPGhatguy/rbx-dom"
+repository = "https://github.com/LPGhatguy/rbx-dom.git"
 version = "0.2.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"
@@ -14,7 +14,7 @@ failure = "0.1.5"
 lazy_static = "1.2.0"
 log = "0.4.6"
 maplit = "1.0.1"
-rbx_tree = { version = "0.2.0", path = "../rbx_tree" }
+rbx_dom_weak = { version = "0.2.0", path = "../rbx_dom_weak" }
 xml-rs = "0.8"
 base64 = "0.10.0"
 

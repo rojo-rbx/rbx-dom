@@ -1,8 +1,8 @@
-//! rbx_tree is a common representation of the Roblox DOM for Rust. It's
+//! rbx_dom_weak is a common representation of the Roblox DOM for Rust. It's
 //! designed to play nicely with the borrow checker and allows accessing
 //! instances by ID in constant time.
 //!
-//! rbx_tree's APIs are not completely stable, but most of the design is locked
+//! rbx_dom_weak's APIs are not completely stable, but most of the design is locked
 //! in. It is definitely a 0.x.y quality library.
 //!
 //! Constructing a new tree of instances is accomplished by first creating an
@@ -11,7 +11,7 @@
 //!
 //! ```
 //! use std::collections::HashMap;
-//! use rbx_tree::{RbxInstanceProperties, RbxTree};
+//! use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
 //!
 //! let props = RbxInstanceProperties {
 //!     name: "My Cool Game".to_owned(),
@@ -31,8 +31,8 @@
 //!
 //! ```
 //! # use std::collections::HashMap;
-//! # use rbx_tree::{RbxInstanceProperties, RbxTree};
-//! use rbx_tree::RbxValue;
+//! # use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
+//! use rbx_dom_weak::RbxValue;
 //! use maplit::hashmap;
 //! #
 //! # let props = RbxInstanceProperties {

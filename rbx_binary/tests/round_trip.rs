@@ -5,7 +5,7 @@ use std::{
 
 use log::trace;
 
-use rbx_tree::{RbxInstanceProperties, RbxTree};
+use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
 
 static MODEL_A: &[u8] = include_bytes!("../test-files/model-a.rbxm");
 static MODEL_B: &[u8] = include_bytes!("../test-files/model-b.rbxm");

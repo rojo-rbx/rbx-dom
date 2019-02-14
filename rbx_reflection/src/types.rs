@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use rbx_tree::RbxValueType;
+use rbx_dom_weak::RbxValueType;
 
 #[derive(Debug, PartialEq)]
 pub struct RbxInstanceClass {

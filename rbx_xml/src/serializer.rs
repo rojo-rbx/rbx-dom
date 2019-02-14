@@ -4,7 +4,7 @@ use std::fmt::Write as FmtWrite;
 use log::warn;
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
-use rbx_tree::{RbxTree, RbxValue, RbxId};
+use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
     reflection::CANONICAL_TO_XML_NAME,
@@ -175,7 +175,7 @@ mod test {
     use std::collections::HashMap;
     use std::str;
 
-    use rbx_tree::{RbxTree, RbxInstanceProperties, RbxValue};
+    use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxValue};
 
     #[test]
     fn serialize() {

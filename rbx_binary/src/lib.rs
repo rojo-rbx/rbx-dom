@@ -1,8 +1,8 @@
 //! Super early, unstable binary format (rbxm and rbxl) serializer and
-//! deserializer for rbx-tree.
+//! deserializer for rbx-dom.
 //!
 //! Both the serializer and deserializer are functioning for limited property
-//! types. `String` and `Bool` (from the `rbx_tree` crate) are the only
+//! types. `String` and `Bool` (from the `rbx_dom_weak` crate) are the only
 //! supported values. Unrecognized values will be ignored when deserializing,
 //! and cause a panic when serializing.
 

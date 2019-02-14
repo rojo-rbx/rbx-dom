@@ -1,10 +1,10 @@
 [package]
-name = "rbx_tree"
+name = "rbx_dom_weak"
 description = "Weakly-typed Roblox DOM implementation for Rust"
 license = "MIT"
-documentation = "https://docs.rs/rbx_tree"
-homepage = "https://github.com/LPGhatguy/rbx-tree"
-repository = "https://github.com/LPGhatguy/rbx-tree.git"
+documentation = "https://docs.rs/rbx_dom_weak"
+homepage = "https://github.com/LPGhatguy/rbx-dom"
+repository = "https://github.com/LPGhatguy/rbx-dom.git"
 version = "0.2.0"
 authors = ["lgreathouse <me@lpghatguy.com>"]
 edition = "2018"

@@ -6,7 +6,7 @@ use std::{
 
 use failure::Fail;
 use log::{trace, warn};
-use rbx_tree::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
+use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
@@ -477,7 +477,7 @@ fn deserialize_properties<R: Read>(
 #[cfg(test)]
 mod test {
     use std::collections::HashMap;
-    use rbx_tree::RbxInstanceProperties;
+    use rbx_dom_weak::RbxInstanceProperties;
 
     use super::*;
 

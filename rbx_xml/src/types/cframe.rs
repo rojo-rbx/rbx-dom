@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_tree::RbxValue;
+use rbx_dom_weak::RbxValue;
 
 use crate::{
     deserializer::{DecodeError, EventIterator},

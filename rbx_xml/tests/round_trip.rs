@@ -4,7 +4,7 @@ use std::{
 };
 
 use log::info;
-use rbx_tree::{RbxInstanceProperties, RbxTree};
+use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
 
 static TEST_MODELS: &[&str] = &[
     include_str!("../test-files/parts.rbxmx"),

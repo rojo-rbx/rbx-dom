@@ -6,7 +6,7 @@ use std::{
 };
 
 use byteorder::{WriteBytesExt, LittleEndian};
-use rbx_tree::{RbxTree, RbxInstance, RbxId, RbxValue};
+use rbx_dom_weak::{RbxTree, RbxInstance, RbxId, RbxValue};
 
 use crate::{
     core::{
@@ -302,7 +302,7 @@ mod test {
     use super::*;
 
     use std::collections::HashMap;
-    use rbx_tree::RbxInstanceProperties;
+    use rbx_dom_weak::RbxInstanceProperties;
 
     fn new_test_tree() -> RbxTree {
         let instance = RbxInstanceProperties {

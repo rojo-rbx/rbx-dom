@@ -152,7 +152,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let output = quote! {
         #![allow(unused_mut)]
         use std::collections::HashMap;
-        use rbx_tree::RbxValueType;
+        use rbx_dom_weak::RbxValueType;
         use crate::types::*;
 
         pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {

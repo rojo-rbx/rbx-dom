@@ -5,7 +5,7 @@ use uuid::Uuid;
 
 /// A unique ID that represents an instance within an [`RbxTree`].
 ///
-/// rbx_tree uses UUIDv4 values for instance IDs and serializes equivalently.
+/// rbx_dom_weak uses UUIDv4 values for instance IDs and serializes equivalently.
 ///
 /// [`RbxTree`]: struct.RbxTree.html
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]

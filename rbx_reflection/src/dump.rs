@@ -2,7 +2,7 @@
 //! To update it, make sure you have Roblox Studio installed and run
 //! `gen-reflection` in the root.
 # ! [ allow ( unused_mut ) ]use crate::types::*;
-use rbx_tree::RbxValueType;
+use rbx_dom_weak::RbxValueType;
 use std::collections::HashMap;
 pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
     let mut output = HashMap::new();

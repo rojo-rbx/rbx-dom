@@ -1,5 +1,5 @@
 use failure::Fail;
-use rbx_tree::{InferableRbxValue, RbxValue, RbxValueType, UntaggedRbxValue};
+use rbx_dom_weak::{InferableRbxValue, RbxValue, RbxValueType, UntaggedRbxValue};
 
 use crate::{
     core::{get_classes, get_enums},
