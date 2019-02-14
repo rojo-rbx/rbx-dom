@@ -28,7 +28,7 @@ Roblox reflection information for working with Instances in external tooling.
 
 ## Property Type Coverage
 
-| Property Type      | Example Property                | rbx\_tree | rbx\_xml | rbx\_binary |
+| Property Type      | Example Property                | rbx\_dom\_weak | rbx\_xml | rbx\_binary |
 | ------------------ | ------------------------------- |:---------:|:--------:|:-----------:|
 | Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ |
 | BinaryString       | `Terrain.MaterialColors`        | ✔ | ✔ | ❌ |
