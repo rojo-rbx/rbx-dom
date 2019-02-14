@@ -1,5 +1,5 @@
 use failure::Fail;
-use rbx_dom_weak::{InferableRbxValue, RbxValue, RbxValueType, UntaggedRbxValue};
+use rbx_dom_weak::{AmbiguousRbxValue, RbxValue, RbxValueType, UnresolvedRbxValue};
 
 use crate::{
     core::{get_classes, get_enums},
@@ -43,7 +43,7 @@ pub enum ValueResolveError {
 
     // FIXME: Need a more useful error message here.
     #[fail(display = "Property tried to be inferred but the input was wrong")]
-    IncorrectInferableProperty,
+    IncorrectAmbiguousProperty,
 }
 
 /// A string value can represent either a string or an enum item name.
@@ -80,7 +80,7 @@ fn try_resolve_string(
 
             Ok(RbxValue::Enum { value: *enum_value })
         }
-        _ => Err(ValueResolveError::IncorrectInferableProperty),
+        _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
     }
 }
 
@@ -98,7 +98,7 @@ fn try_resolve_one_float(
         RbxPropertyType::Data(RbxValueType::Float32) => Ok(RbxValue::Float32 { value: x as f32 }),
         RbxPropertyType::Data(RbxValueType::Int32) => Ok(RbxValue::Int32 { value: x as i32 }),
         // TODO: Float64, Int64 when they're added
-        _ => Err(ValueResolveError::IncorrectInferableProperty),
+        _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
     }
 }
 
@@ -116,7 +116,7 @@ fn try_resolve_two_floats(
         RbxPropertyType::Data(RbxValueType::Vector2int16) => Ok(RbxValue::Vector2int16 {
             value: [x as i16, y as i16],
         }),
-        _ => Err(ValueResolveError::IncorrectInferableProperty),
+        _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
     }
 }
 
@@ -140,26 +140,26 @@ fn try_resolve_three_floats(
         RbxPropertyType::Data(RbxValueType::Color3) => Ok(RbxValue::Color3 {
             value: [x as f32, y as f32, z as f32],
         }),
-        _ => Err(ValueResolveError::IncorrectInferableProperty),
+        _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
     }
 }
 
-/// Attempts to transform an `UntaggedRbxValue` property on the given class into
+/// Attempts to transform an `UnresolvedRbxValue` property on the given class into
 /// a concrete value using reflection information.
 pub fn try_resolve_value(
     class_name: &str,
     property_name: &str,
-    value: &UntaggedRbxValue,
+    value: &UnresolvedRbxValue,
 ) -> Result<RbxValue, ValueResolveError> {
     match value {
-        UntaggedRbxValue::Concrete(concrete_value) => {
+        UnresolvedRbxValue::Concrete(concrete_value) => {
             // For now, we assume that concretely-specified values are of the
             // right type. Extra validation might be more appropriate for
             // another pass.
 
             Ok(concrete_value.clone())
         }
-        UntaggedRbxValue::Inferable(inferable_value) => {
+        UnresolvedRbxValue::Ambiguous(inferable_value) => {
             // If we don't have reflection information for this value, we'll
             // only accept a fully-qualified property.
 
@@ -170,16 +170,16 @@ pub fn try_resolve_value(
             })?;
 
             match inferable_value {
-                InferableRbxValue::String(string_value) => {
+                AmbiguousRbxValue::String(string_value) => {
                     try_resolve_string(class_name, property_name, property_type, string_value)
                 }
-                InferableRbxValue::Float1(x) => {
+                AmbiguousRbxValue::Float1(x) => {
                     try_resolve_one_float(class_name, property_name, property_type, *x)
                 }
-                InferableRbxValue::Float2(x, y) => {
+                AmbiguousRbxValue::Float2(x, y) => {
                     try_resolve_two_floats(class_name, property_name, property_type, (*x, *y))
                 }
-                InferableRbxValue::Float3(x, y, z) => {
+                AmbiguousRbxValue::Float3(x, y, z) => {
                     try_resolve_three_floats(class_name, property_name, property_type, (*x, *y, *z))
                 }
             }
@@ -213,7 +213,7 @@ mod tests {
             value: String::from("Hey! Listen!"),
         };
 
-        let untagged_value = UntaggedRbxValue::Concrete(concrete_value.clone());
+        let untagged_value = UnresolvedRbxValue::Concrete(concrete_value.clone());
 
         assert_eq!(
             try_resolve_value("Instance", "Name", &untagged_value),
@@ -230,7 +230,7 @@ mod tests {
             value: String::from("Hey! Listen!"),
         };
 
-        let untagged_value = UntaggedRbxValue::Concrete(concrete_value.clone());
+        let untagged_value = UnresolvedRbxValue::Concrete(concrete_value.clone());
 
         assert_eq!(
             try_resolve_value("Bogus Instance Name", "Blah", &untagged_value),
@@ -247,7 +247,7 @@ mod tests {
             value: String::from("Hey! Listen!"),
         };
 
-        let untagged_value = UntaggedRbxValue::Concrete(concrete_value.clone());
+        let untagged_value = UnresolvedRbxValue::Concrete(concrete_value.clone());
 
         assert_eq!(
             try_resolve_value("Instance", "Bogus Property Name", &untagged_value),
@@ -258,7 +258,7 @@ mod tests {
     #[test]
     fn resolve_inferred_unknown_property() {
         let untagged_value =
-            UntaggedRbxValue::Inferable(InferableRbxValue::String(String::from("HEY!")));
+            UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::String(String::from("HEY!")));
 
         assert!(try_resolve_value("Nonsense Class", "Value", &untagged_value).is_err());
     }
@@ -270,7 +270,7 @@ mod tests {
             value: [1.0, 0.5, 0.0],
         };
 
-        let untagged_value = UntaggedRbxValue::Inferable(InferableRbxValue::Float3(1.0, 0.5, 0.0));
+        let untagged_value = UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float3(1.0, 0.5, 0.0));
 
         assert_eq!(
             try_resolve_value("Color3Value", "Value", &untagged_value),
@@ -285,7 +285,7 @@ mod tests {
         };
 
         let untagged_value =
-            UntaggedRbxValue::Inferable(InferableRbxValue::String(String::from("LayoutOrder")));
+            UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::String(String::from("LayoutOrder")));
 
         assert_eq!(
             try_resolve_value("UIListLayout", "SortOrder", &untagged_value),

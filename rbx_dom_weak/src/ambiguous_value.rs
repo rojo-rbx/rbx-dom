@@ -8,21 +8,22 @@ use crate::value::RbxValue;
 /// Represents a value that was deserialized that might not have full type
 /// information attached.
 #[derive(Debug, PartialEq)]
-pub enum UntaggedRbxValue {
+pub enum UnresolvedRbxValue {
     /// The type has full type information that was either declared explicitly
     /// or was inferred and unambiguous.
     Concrete(RbxValue),
 
     /// The type did not have type information, but the concrete type may be
     /// inferable given more type information.
-    Inferable(InferableRbxValue),
+    Ambiguous(AmbiguousRbxValue),
 }
 
+// Dubious? Untagged? Ambiguous?
 /// Represents a value that doesn't have explicit type information attached to
 /// it. Given more reflection information, it should be possible to recover the
 /// exact type of this value.
 #[derive(Debug, PartialEq)]
-pub enum InferableRbxValue {
+pub enum AmbiguousRbxValue {
     /// One of String or Enum
     String(String),
 
@@ -36,7 +37,7 @@ pub enum InferableRbxValue {
     Float3(f64, f64, f64),
 }
 
-impl<'de> Deserialize<'de> for UntaggedRbxValue {
+impl<'de> Deserialize<'de> for UnresolvedRbxValue {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
@@ -44,7 +45,7 @@ impl<'de> Deserialize<'de> for UntaggedRbxValue {
         struct ValueVisitor;
 
         impl<'de> Visitor<'de> for ValueVisitor {
-            type Value = UntaggedRbxValue;
+            type Value = UnresolvedRbxValue;
 
             fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
                 formatter.write_str("Roblox value")
@@ -54,28 +55,28 @@ impl<'de> Deserialize<'de> for UntaggedRbxValue {
             where
                 E: de::Error,
             {
-                Ok(UntaggedRbxValue::Inferable(InferableRbxValue::String(value.to_owned())))
+                Ok(UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::String(value.to_owned())))
             }
 
             fn visit_f64<E>(self, value: f64) -> Result<Self::Value, E>
             where
                 E: de::Error,
             {
-                Ok(UntaggedRbxValue::Inferable(InferableRbxValue::Float1(value)))
+                Ok(UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float1(value)))
             }
 
             fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
             where
                 E: de::Error,
             {
-                Ok(UntaggedRbxValue::Inferable(InferableRbxValue::Float1(value as f64)))
+                Ok(UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float1(value as f64)))
             }
 
             fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
             where
                 E: de::Error,
             {
-                Ok(UntaggedRbxValue::Inferable(InferableRbxValue::Float1(value as f64)))
+                Ok(UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float1(value as f64)))
             }
 
             fn visit_seq<S>(self, mut visitor: S) -> Result<Self::Value, S::Error>
@@ -96,7 +97,7 @@ impl<'de> Deserialize<'de> for UntaggedRbxValue {
                 let third = match third {
                     Some(value) => value,
                     None => {
-                        return Ok(UntaggedRbxValue::Inferable(InferableRbxValue::Float2(first, second)));
+                        return Ok(UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float2(first, second)));
                     },
                 };
 
@@ -106,7 +107,7 @@ impl<'de> Deserialize<'de> for UntaggedRbxValue {
                 let fourth = match fourth {
                     Some(value) => value,
                     None => {
-                        return Ok(UntaggedRbxValue::Inferable(InferableRbxValue::Float3(first, second, third)));
+                        return Ok(UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float3(first, second, third)));
                     },
                 };
 
@@ -123,7 +124,7 @@ impl<'de> Deserialize<'de> for UntaggedRbxValue {
                     )?;
                 }
 
-                Ok(UntaggedRbxValue::Concrete(RbxValue::CFrame {
+                Ok(UnresolvedRbxValue::Concrete(RbxValue::CFrame {
                     value,
                 }))
             }
@@ -134,7 +135,7 @@ impl<'de> Deserialize<'de> for UntaggedRbxValue {
             {
                 let inner = Deserialize::deserialize(de::value::MapAccessDeserializer::new(visitor))?;
 
-                Ok(UntaggedRbxValue::Concrete(inner))
+                Ok(UnresolvedRbxValue::Concrete(inner))
             }
         }
 
@@ -155,9 +156,9 @@ mod tests {
             }
         "#;
 
-        let value: UntaggedRbxValue = serde_json::from_str(input).unwrap();
+        let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
 
-        assert_eq!(value, UntaggedRbxValue::Concrete(RbxValue::String {
+        assert_eq!(value, UnresolvedRbxValue::Concrete(RbxValue::String {
             value: String::from("Hello"),
         }));
     }
@@ -168,9 +169,9 @@ mod tests {
             "Hello"
         "#;
 
-        let value: UntaggedRbxValue = serde_json::from_str(input).unwrap();
+        let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
 
-        assert_eq!(value, UntaggedRbxValue::Inferable(InferableRbxValue::String(String::from("Hello"))));
+        assert_eq!(value, UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::String(String::from("Hello"))));
     }
 
     #[test]
@@ -179,9 +180,9 @@ mod tests {
             5.0
         "#;
 
-        let value: UntaggedRbxValue = serde_json::from_str(input).unwrap();
+        let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
 
-        assert_eq!(value, UntaggedRbxValue::Inferable(InferableRbxValue::Float1(5.0)));
+        assert_eq!(value, UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float1(5.0)));
     }
 
     #[test]
@@ -190,9 +191,9 @@ mod tests {
             5
         "#;
 
-        let value: UntaggedRbxValue = serde_json::from_str(input).unwrap();
+        let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
 
-        assert_eq!(value, UntaggedRbxValue::Inferable(InferableRbxValue::Float1(5.0)));
+        assert_eq!(value, UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float1(5.0)));
     }
 
     #[test]
@@ -201,9 +202,9 @@ mod tests {
             [1, 2]
         "#;
 
-        let value: UntaggedRbxValue = serde_json::from_str(input).unwrap();
+        let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
 
-        assert_eq!(value, UntaggedRbxValue::Inferable(InferableRbxValue::Float2(1.0, 2.0)));
+        assert_eq!(value, UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float2(1.0, 2.0)));
     }
 
     #[test]
@@ -212,9 +213,9 @@ mod tests {
             [1, 2, 5]
         "#;
 
-        let value: UntaggedRbxValue = serde_json::from_str(input).unwrap();
+        let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
 
-        assert_eq!(value, UntaggedRbxValue::Inferable(InferableRbxValue::Float3(1.0, 2.0, 5.0)));
+        assert_eq!(value, UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float3(1.0, 2.0, 5.0)));
     }
 
     #[test]
@@ -228,9 +229,9 @@ mod tests {
             ]
         "#;
 
-        let value: UntaggedRbxValue = serde_json::from_str(input).unwrap();
+        let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
 
-        assert_eq!(value, UntaggedRbxValue::Concrete(RbxValue::CFrame {
+        assert_eq!(value, UnresolvedRbxValue::Concrete(RbxValue::CFrame {
             value: [
                 1.0, 2.0, 3.0,
                 4.0, 5.0, 6.0,
