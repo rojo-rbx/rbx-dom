@@ -6,7 +6,7 @@ documentation = "https://docs.rs/rbx_xml"
 homepage = "https://github.com/LPGhatguy/rbx-dom"
 repository = "https://github.com/LPGhatguy/rbx-dom.git"
 version = "0.2.0"
-authors = ["lgreathouse <me@lpghatguy.com>"]
+authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
