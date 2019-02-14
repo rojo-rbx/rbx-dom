@@ -1,6 +1,8 @@
-# rbx_tree Changelog
+# rbx\_dom\_weak Changelog
 
 ## Unreleased
+* Renamed crate from `rbx_tree` to `rbx_dom_weak`
+* Added support for `Ref` values ([#8](https://github.com/LPGhatguy/rbx-dom/pull/8))
 
 ## 0.2.0 (2019-01-25)
 * Added new variants for `RbxValue`:

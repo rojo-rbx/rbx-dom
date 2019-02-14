@@ -2,6 +2,7 @@
 
 ## Unreleased
 * Added support for ProtectedString, deserializing as String
+* Added support for `Ref` values ([#8](https://github.com/LPGhatguy/rbx-dom/pull/8))
 
 ## 0.2.0 (2019-01-25)
 * Serialization and deserialization functions are now fully functional
