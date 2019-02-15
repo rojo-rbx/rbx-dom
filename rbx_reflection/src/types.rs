@@ -1,12 +1,13 @@
 use std::collections::HashMap;
 
-use rbx_dom_weak::RbxValueType;
+use rbx_dom_weak::{RbxValue, RbxValueType};
 
 #[derive(Debug, PartialEq)]
 pub struct RbxInstanceClass {
     pub name: &'static str,
     pub superclass: Option<&'static str>,
     pub properties: HashMap<&'static str, RbxInstanceProperty>,
+    pub default_properties: HashMap<&'static str, RbxValue>,
 }
 
 #[derive(Debug, PartialEq)]
