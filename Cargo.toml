@@ -5,4 +5,5 @@ members = [
 	"rbx_dom_weak",
 	"rbx_reflection",
 	"rbx_xml",
+	"run_in_roblox",
 ]

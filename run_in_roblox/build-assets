@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rojo build plugin -o assets/plugin.rbxmx
+rojo build place -o assets/place.rbxlx
