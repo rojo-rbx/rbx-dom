@@ -22,7 +22,8 @@ Serializer and deserializer for for Roblox's XML model and place formats, `rbxmx
 Serializer and deserializer for for Roblox's binary model and place formats, `rbxm` and `rbxl`.
 
 ## [rbx_reflection](rbx_reflection)
-*Not published on crates.io yet*
+[![rbx_reflection on crates.io](https://img.shields.io/crates/v/rbx_reflection.svg)](https://crates.io/crates/rbx_reflection)
+[![rbx_reflection docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_reflection)
 
 Roblox reflection information for working with Instances in external tooling.
 
