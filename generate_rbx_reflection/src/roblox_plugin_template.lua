@@ -13,8 +13,6 @@ end
 
 HttpService:PostAsync(SERVER_URL .. "/start", "hi")
 
-do
-	{{BODY}}
-end
+require(script.Parent.Main)(POST_MESSAGE)
 
 HttpService:PostAsync(SERVER_URL .. "/finish", "hi")

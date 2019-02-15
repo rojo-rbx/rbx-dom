@@ -1,5 +1,3 @@
-mod roblox_install;
-
 use std::{
     collections::HashMap,
     fs::{self, File},
@@ -19,7 +17,7 @@ use crate::roblox_install::RobloxStudio;
 
 const PORT: u16 = 54023;
 
-static PLUGIN_SOURCE: &'static str = include_str!("plugin.lua");
+static PLUGIN_TEMPLATE: &'static str = include_str!("roblox_plugin_template.lua");
 
 #[derive(Debug, Clone)]
 enum Message {
@@ -33,7 +31,7 @@ struct ChildMurderer(process::Child);
 
 impl Drop for ChildMurderer {
     fn drop(&mut self) {
-        let _ = self.0.kill();
+        let _dont_care = self.0.kill();
     }
 }
 
@@ -72,13 +70,12 @@ fn create_place() -> RbxTree {
     tree
 }
 
-fn create_plugin(port: u16, injected_source: &str) -> RbxTree {
-    let complete_source = PLUGIN_SOURCE
-        .replace("{{PORT}}", &port.to_string())
-        .replace("{{BODY}}", injected_source);
+fn inject_plugin_main(tree: &mut RbxTree) {
+    let complete_source = PLUGIN_TEMPLATE
+        .replace("{{PORT}}", &PORT.to_string());
 
-    RbxTree::new(RbxInstanceProperties {
-        name: String::from("run_in_roblox Plugin"),
+    let entry_point = RbxInstanceProperties {
+        name: String::from("generate_rbx_reflection main"),
         class_name: String::from("Script"),
         properties: {
             let mut properties = HashMap::new();
@@ -90,20 +87,18 @@ fn create_plugin(port: u16, injected_source: &str) -> RbxTree {
 
             properties
         },
-    })
+    };
+
+    let root_id = tree.get_root_id();
+    tree.insert_instance(entry_point, root_id);
 }
 
-fn main() {
+pub fn run_in_roblox(mut plugin: RbxTree) -> Vec<Vec<u8>> {
     let studio_install = RobloxStudio::locate()
         .expect("Could not find Roblox Studio installation");
 
     let work_dir = tempdir()
         .expect("Could not create temporary directory");
-
-    let injected_source = r#"
-        POST_MESSAGE("HEY")
-        POST_MESSAGE("ARE YOU LISTENING?")
-    "#;
 
     let place_file_path = work_dir.path().join("place.rbxlx");
     let plugin_file_path = studio_install.built_in_plugins_path().join("run_in_roblox.rbxmx");
@@ -121,7 +116,7 @@ fn main() {
     }
 
     {
-        let plugin = create_plugin(PORT, injected_source);
+        inject_plugin_main(&mut plugin);
         let mut plugin_file = File::create(&plugin_file_path)
             .expect("Could not create temporary plugin file");
 
@@ -184,15 +179,11 @@ fn main() {
         match message {
             Message::Start => {},
             Message::Finish => break,
-            Message::Message(message) => {
-                if let Ok(message_str) = str::from_utf8(&message) {
-                    println!("{}", message_str);
-                }
-
-                messages.push(message);
-            },
+            Message::Message(message) => messages.push(message),
         }
     }
 
     let _dont_care = fs::remove_file(&plugin_file_path);
+
+    messages
 }

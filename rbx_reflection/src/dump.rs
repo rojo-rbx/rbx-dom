@@ -312,6 +312,18 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         },
     );
     output.insert(
+        "AntiAddictionService",
+        RbxInstanceClass {
+            name: "AntiAddictionService",
+            superclass: Some("Instance"),
+            properties: {
+                #[allow(unused_mut)]
+                let mut properties = HashMap::new();
+                properties
+            },
+        },
+    );
+    output.insert(
         "AssetService",
         RbxInstanceClass {
             name: "AssetService",
@@ -3308,6 +3320,39 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             properties: {
                 #[allow(unused_mut)]
                 let mut properties = HashMap::new();
+                properties
+            },
+        },
+    );
+    output.insert(
+        "File",
+        RbxInstanceClass {
+            name: "File",
+            superclass: Some("Instance"),
+            properties: {
+                #[allow(unused_mut)]
+                let mut properties = HashMap::new();
+                properties.insert(
+                    "FileName",
+                    RbxInstanceProperty {
+                        name: "FileName",
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
+                    },
+                );
+                properties.insert(
+                    "FileSize",
+                    RbxInstanceProperty {
+                        name: "FileSize",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "Size",
+                    RbxInstanceProperty {
+                        name: "Size",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
                 properties
             },
         },
@@ -7277,32 +7322,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TimeOfDay",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                    },
-                );
-                properties
-            },
-        },
-    );
-    output.insert(
-        "LocalAsset",
-        RbxInstanceClass {
-            name: "LocalAsset",
-            superclass: Some("Instance"),
-            properties: {
-                #[allow(unused_mut)]
-                let mut properties = HashMap::new();
-                properties.insert(
-                    "FileName",
-                    RbxInstanceProperty {
-                        name: "FileName",
-                        value_type: RbxPropertyType::Data(RbxValueType::String),
-                    },
-                );
-                properties.insert(
-                    "FileSize",
-                    RbxInstanceProperty {
-                        name: "FileSize",
-                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
                     },
                 );
                 properties
@@ -18047,7 +18066,8 @@ pub fn generate_enums() -> HashMap<&'static str, RbxEnum> {
                 items.insert("Gamepad7", 18);
                 items.insert("Gamepad8", 19);
                 items.insert("TextInput", 20);
-                items.insert("None", 21);
+                items.insert("InputMethod", 21);
+                items.insert("None", 22);
                 items
             },
         },

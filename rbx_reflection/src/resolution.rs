@@ -270,7 +270,8 @@ mod tests {
             value: [1.0, 0.5, 0.0],
         };
 
-        let untagged_value = UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float3(1.0, 0.5, 0.0));
+        let untagged_value =
+            UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float3(1.0, 0.5, 0.0));
 
         assert_eq!(
             try_resolve_value("Color3Value", "Value", &untagged_value),
