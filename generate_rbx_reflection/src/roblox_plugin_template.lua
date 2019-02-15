@@ -7,12 +7,12 @@ local HttpService = game:GetService("HttpService")
 local PORT = {{PORT}}
 local SERVER_URL = ("http://localhost:%d"):format(PORT)
 
-local function POST_MESSAGE(text)
+local function postMessage(text)
 	HttpService:PostAsync(SERVER_URL .. "/message", text)
 end
 
 HttpService:PostAsync(SERVER_URL .. "/start", "hi")
 
-require(script.Parent.Main)(POST_MESSAGE)
+require(script.Parent.Main)(postMessage)
 
 HttpService:PostAsync(SERVER_URL .. "/finish", "hi")
