@@ -126,8 +126,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 
-    println!("Studio version: {:?}", studio_version);
-
     let classes = dump.classes.iter().map(|class| {
         let class_name = Literal::string(&class.name);
 
