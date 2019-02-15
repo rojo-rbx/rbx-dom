@@ -1,5 +1,10 @@
 [package]
 name = "rbx_reflection"
+description = "Roblox reflection database and ambiguous type resolution"
+license = "MIT"
+documentation = "https://docs.rs/rbx_reflection"
+homepage = "https://github.com/LPGhatguy/rbx-dom"
+repository = "https://github.com/LPGhatguy/rbx-dom.git"
 version = "0.1.0"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
