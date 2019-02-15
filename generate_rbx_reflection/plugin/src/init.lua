@@ -11,4 +11,7 @@ return function(POST_MESSAGE)
 		type = "Version",
 		version = {major, minor, patch, build},
 	}))
+
+	local dump = HttpService:JSONDecode(script.Parent.ApiDump.Value)
+	print("got dump: ", dump)
 end

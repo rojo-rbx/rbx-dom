@@ -70,7 +70,7 @@ fn create_place() -> RbxTree {
     tree
 }
 
-fn inject_plugin_main(tree: &mut RbxTree) {
+pub fn inject_plugin_main(tree: &mut RbxTree) {
     let complete_source = PLUGIN_TEMPLATE
         .replace("{{PORT}}", &PORT.to_string());
 
@@ -93,7 +93,7 @@ fn inject_plugin_main(tree: &mut RbxTree) {
     tree.insert_instance(entry_point, root_id);
 }
 
-pub fn run_in_roblox(mut plugin: RbxTree) -> Vec<Vec<u8>> {
+pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
     let studio_install = RobloxStudio::locate()
         .expect("Could not find Roblox Studio installation");
 
@@ -116,7 +116,6 @@ pub fn run_in_roblox(mut plugin: RbxTree) -> Vec<Vec<u8>> {
     }
 
     {
-        inject_plugin_main(&mut plugin);
         let mut plugin_file = File::create(&plugin_file_path)
             .expect("Could not create temporary plugin file");
 

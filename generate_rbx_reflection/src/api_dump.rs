@@ -84,7 +84,7 @@ pub struct DumpEnumItem {
 }
 
 impl Dump {
-    pub fn read() -> io::Result<Dump> {
+    pub fn read_with_source() -> io::Result<(String, Dump)> {
         let studio_install = RobloxStudio::locate()?;
 
         let dir = tempdir()?;
@@ -99,6 +99,6 @@ impl Dump {
         let dump: Dump = serde_json::from_str(&contents)
             .expect("Roblox Studio produced an invalid dump");
 
-        Ok(dump)
+        Ok((contents, dump))
     }
 }
