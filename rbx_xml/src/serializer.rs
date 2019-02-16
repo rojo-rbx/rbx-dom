@@ -24,6 +24,8 @@ use crate::{
         serialize_vector2int16,
         serialize_vector3,
         serialize_vector3int16,
+        serialize_udim,
+        serialize_udim2,
     },
 };
 
@@ -135,6 +137,8 @@ fn serialize_value<W: Write>(
         RbxValue::CFrame { value } => serialize_cframe(writer, xml_name, *value),
         RbxValue::Color3 { value } => serialize_color3(writer, xml_name, *value),
         RbxValue::Color3uint8 { value } => serialize_color3uint8(writer, xml_name, *value),
+        RbxValue::UDim { value } => serialize_udim(writer, xml_name, *value),
+        RbxValue::UDim2 { value } => serialize_udim2(writer, xml_name, *value),
         unknown => {
             warn!("Property value {:?} cannot be serialized yet", unknown);
             unimplemented!();

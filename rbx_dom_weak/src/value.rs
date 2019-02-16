@@ -21,6 +21,8 @@ pub enum RbxValueType {
     Vector2int16,
     Vector3,
     Vector3int16,
+    UDim,
+    UDim2,
 }
 
 /// Represents a value that can be assigned to the properties of an instance.
@@ -101,6 +103,16 @@ pub enum RbxValue {
     Ref {
         value: Option<RbxId>,
     },
+
+    #[serde(rename_all = "PascalCase")]
+    UDim {
+        value: [f32; 2],
+    },
+
+    #[serde(rename_all = "PascalCase")]
+    UDim2 {
+        value: [f32; 4],
+    }
 }
 
 impl RbxValue {
@@ -124,6 +136,8 @@ impl RbxValue {
             RbxValue::Vector2int16 { .. } => RbxValueType::Vector2int16,
             RbxValue::Vector3 { .. } => RbxValueType::Vector3,
             RbxValue::Vector3int16 { .. } => RbxValueType::Vector3int16,
+            RbxValue::UDim { .. } => RbxValueType::UDim,
+            RbxValue::UDim2 { .. } => RbxValueType::UDim2,
         }
     }
 }

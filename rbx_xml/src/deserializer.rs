@@ -27,6 +27,8 @@ use crate::{
         deserialize_vector2int16,
         deserialize_vector3,
         deserialize_vector3int16,
+        deserialize_udim,
+        deserialize_udim2,
     },
 };
 
@@ -464,6 +466,8 @@ fn deserialize_properties<R: Read>(
             "CoordinateFrame" => deserialize_cframe(reader)?,
             "PhysicalProperties" => deserialize_physical_properties(reader)?,
             "Ref" => deserialize_ref(reader)?,
+            "UDim" => deserialize_udim(reader)?,
+            "UDim2" => deserialize_udim2(reader)?,
             unknown => {
                 warn!("rbx_xml can't decode properties of type {}", unknown);
                 return Err(DecodeError::Message("don't know how to decode this prop type"));
@@ -867,5 +871,67 @@ mod test {
 
         let value = descendant.properties.get("Value").expect("no value property");
         assert_eq!(value, &RbxValue::Ref { value: None });
+    }
+
+    #[test]
+    fn with_udim() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="UIListLayout" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <UDim name="Padding">
+                            <S>0.5</S>
+                            <O>0</O>
+                        </UDim>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "UIListLayout");
+
+        let value = descendant.properties.get("Padding").expect("no padding property");
+        assert_eq!(value, &RbxValue::UDim { value: [0.5, 0.0] });
+    }
+
+    #[test]
+    fn with_udim2() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Frame" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <UDim2 name="Size">
+                            <XS>0.5</XS>
+                            <XO>10</XO>
+                            <YS>0.25</YS>
+                            <YO>20</YO>
+                        </UDim2>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
+
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
+
+        decode_str(&mut tree, root_id, document).expect("should work D:");
+
+        let descendant = tree.descendants(root_id).nth(1).unwrap();
+        assert_eq!(descendant.name, "Test");
+        assert_eq!(descendant.class_name, "Frame");
+
+        let value = descendant.properties.get("Size").expect("no size property");
+        assert_eq!(value, &RbxValue::UDim2 { value: [0.5, 10.0, 0.25, 20.0] });
     }
 }
