@@ -27,9 +27,9 @@ enum Message {
 }
 
 /// A wrapper for process::Child that force-kills the process on drop.
-struct ChildMurderer(process::Child);
+struct KillOnDrop(process::Child);
 
-impl Drop for ChildMurderer {
+impl Drop for KillOnDrop {
     fn drop(&mut self) {
         let _dont_care = self.0.kill();
     }
@@ -160,7 +160,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         });
     });
 
-    let _studio_process = ChildMurderer(Command::new(studio_install.exe_path())
+    let _studio_process = KillOnDrop(Command::new(studio_install.exe_path())
         .arg(format!("{}", place_file_path.display()))
         .spawn()
         .expect("Couldn't start Roblox Studio"));
