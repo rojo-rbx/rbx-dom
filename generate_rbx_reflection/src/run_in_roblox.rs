@@ -1,7 +1,6 @@
 use std::{
     collections::HashMap,
     fs::{self, File},
-    io::Read,
     process::{self, Command},
     str,
     sync::{mpsc, Arc, Mutex},
@@ -9,9 +8,15 @@ use std::{
     time::Duration,
 };
 
+use hyper::{
+    rt::Future,
+    service::service_fn_ok,
+    Method,
+    Body,
+    Server,
+};
 use rbx_dom_weak::{RbxValue, RbxTree, RbxInstanceProperties};
 use tempfile::tempdir;
-use rouille::{router, Response};
 
 use crate::roblox_install::RobloxStudio;
 
@@ -126,38 +131,59 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
     }
 
     let (sender, receiver) = mpsc::channel();
+    let (shutdown_tx, shutdown_rx) = futures::sync::oneshot::channel::<()>();
+
+    let sender = Arc::new(Mutex::new(sender));
 
     thread::spawn(move || {
-        let sender = Arc::new(Mutex::new(sender));
+        let service = move || {
+            let sender = Arc::clone(&sender);
 
-        rouille::start_server(format!("localhost:{}", PORT), move |request| {
-            router!(request,
-                (POST) (/start) => {
-                    let sender = sender.lock().unwrap();
-                    sender.send(Message::Start).unwrap();
-                    Response::text("Started")
-                },
+            service_fn_ok(move |request: hyper::Request<Body>| {
+                let mut response = hyper::Response::new(Body::empty());
 
-                (POST) (/finish) => {
-                    let sender = sender.lock().unwrap();
-                    sender.send(Message::Finish).unwrap();
-                    Response::text("Finished")
-                },
+                match (request.method(), request.uri().path()) {
+                    (&Method::GET, "/") => {
+                        *response.body_mut() = Body::from("Hey there!");
+                    },
+                    (&Method::POST, "/start") => {
+                        let sender = sender.lock().unwrap();
+                        sender.send(Message::Start).unwrap();
+                        *response.body_mut() = Body::from("Started");
+                    },
+                    (&Method::POST, "/finish") => {
+                        let sender = sender.lock().unwrap();
+                        sender.send(Message::Finish).unwrap();
+                        *response.body_mut() = Body::from("Finished");
+                    },
+                    (&Method::POST, "/message") => {
+                        panic!("Not implemented");
 
-                (POST) (/message) => {
-                    let mut message = Vec::new();
-                    let mut body = request.data().unwrap();
-                    body.read_to_end(&mut message).unwrap();
+                        // let mut message = Vec::new();
+                        // let mut body = request.data().unwrap();
+                        // body.read_to_end(&mut message).unwrap();
 
-                    let sender = sender.lock().unwrap();
-                    sender.send(Message::Message(message)).unwrap();
+                        // let sender = sender.lock().unwrap();
+                        // sender.send(Message::Message(message)).unwrap();
 
-                    Response::text("Logged")
-                },
+                        // Response::text("Logged")
+                    },
+                    _ => {
+                        *response.status_mut() = hyper::StatusCode::NOT_FOUND;
+                    },
+                }
 
-                _ => Response::empty_404()
-            )
-        });
+                response
+            })
+        };
+
+        let addr = ([127, 0, 0, 1], PORT).into();
+        let server = Server::bind(&addr)
+            .serve(service)
+            .with_graceful_shutdown(shutdown_rx)
+            .map_err(|e| eprintln!("server error: {}", e));
+
+        hyper::rt::run(server);
     });
 
     let _studio_process = KillOnDrop(Command::new(studio_install.exe_path())
