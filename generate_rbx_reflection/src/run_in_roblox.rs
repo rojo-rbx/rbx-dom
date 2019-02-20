@@ -8,9 +8,13 @@ use std::{
     time::Duration,
 };
 
+use futures::{
+    future,
+    stream::Stream,
+    Future,
+};
 use hyper::{
-    rt::Future,
-    service::service_fn_ok,
+    service::service_fn,
     Method,
     Body,
     Server,
@@ -139,7 +143,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         let service = move || {
             let sender = Arc::clone(&sender);
 
-            service_fn_ok(move |request: hyper::Request<Body>| {
+            service_fn(move |request: hyper::Request<Body>| -> Box<Future<Item = hyper::Response<Body>, Error = hyper::Error> + Send> {
                 let mut response = hyper::Response::new(Body::empty());
 
                 match (request.method(), request.uri().path()) {
@@ -157,23 +161,27 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
                         *response.body_mut() = Body::from("Finished");
                     },
                     (&Method::POST, "/message") => {
-                        panic!("Not implemented");
+                        let sender = Arc::clone(&sender);
 
-                        // let mut message = Vec::new();
-                        // let mut body = request.data().unwrap();
-                        // body.read_to_end(&mut message).unwrap();
+                        let future = request
+                            .into_body()
+                            .concat2()
+                            .map(move |chunk| {
+                                let sender = sender.lock().unwrap();
+                                sender.send(Message::Message(chunk.to_vec())).unwrap();
 
-                        // let sender = sender.lock().unwrap();
-                        // sender.send(Message::Message(message)).unwrap();
+                                *response.body_mut() = Body::from("Got it!");
+                                response
+                            });
 
-                        // Response::text("Logged")
+                        return Box::new(future);
                     },
                     _ => {
                         *response.status_mut() = hyper::StatusCode::NOT_FOUND;
                     },
                 }
 
-                response
+                Box::new(future::ok(response))
             })
         };
 
@@ -208,6 +216,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         }
     }
 
+    let _dont_care = shutdown_tx.send(());
     let _dont_care = fs::remove_file(&plugin_file_path);
 
     messages
