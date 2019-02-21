@@ -3,7 +3,7 @@ use std::{
     fs::{self, File},
     process::{self, Command},
     str,
-    sync::{mpsc, Arc, Mutex},
+    sync::mpsc,
     thread,
     time::Duration,
 };
@@ -138,16 +138,15 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
             .expect("Could not serialize plugin file to disk");
     }
 
-    let (sender, receiver) = mpsc::channel();
+    let (message_tx, message_rx) = mpsc::channel();
     let (shutdown_tx, shutdown_rx) = futures::sync::oneshot::channel::<()>();
-
-    let sender = Arc::new(Mutex::new(sender));
 
     thread::spawn(move || {
         let service = move || {
-            let sender = Arc::clone(&sender);
+            let message_tx = message_tx.clone();
 
             service_fn(move |request: hyper::Request<Body>| -> HyperResponse {
+                let message_tx = message_tx.clone();
                 let mut response = hyper::Response::new(Body::empty());
 
                 match (request.method(), request.uri().path()) {
@@ -155,24 +154,21 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
                         *response.body_mut() = Body::from("Hey there!");
                     },
                     (&Method::POST, "/start") => {
-                        let sender = sender.lock().unwrap();
-                        sender.send(Message::Start).unwrap();
+                        message_tx.send(Message::Start).unwrap();
                         *response.body_mut() = Body::from("Started");
                     },
                     (&Method::POST, "/finish") => {
-                        let sender = sender.lock().unwrap();
-                        sender.send(Message::Finish).unwrap();
+                        message_tx.send(Message::Finish).unwrap();
                         *response.body_mut() = Body::from("Finished");
                     },
                     (&Method::POST, "/message") => {
-                        let sender = Arc::clone(&sender);
+                        let message_tx = message_tx.clone();
 
                         let future = request
                             .into_body()
                             .concat2()
                             .map(move |chunk| {
-                                let sender = sender.lock().unwrap();
-                                sender.send(Message::Message(chunk.to_vec())).unwrap();
+                                message_tx.send(Message::Message(chunk.to_vec())).unwrap();
 
                                 *response.body_mut() = Body::from("Got it!");
                                 response
@@ -203,7 +199,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         .spawn()
         .expect("Couldn't start Roblox Studio"));
 
-    match receiver.recv_timeout(Duration::from_secs(10)).unwrap() {
+    match message_rx.recv_timeout(Duration::from_secs(10)).unwrap() {
         Message::Start => {},
         _ => panic!("Invalid first message received"),
     }
@@ -211,7 +207,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
     let mut messages = Vec::new();
 
     loop {
-        let message = receiver.recv().unwrap();
+        let message = message_rx.recv().unwrap();
 
         match message {
             Message::Start => {},
