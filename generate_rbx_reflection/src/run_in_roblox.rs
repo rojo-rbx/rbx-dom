@@ -15,14 +15,18 @@ use futures::{
 };
 use hyper::{
     service::service_fn,
-    Method,
     Body,
+    Method,
+    Response,
     Server,
 };
 use rbx_dom_weak::{RbxValue, RbxTree, RbxInstanceProperties};
 use tempfile::tempdir;
 
 use crate::roblox_install::RobloxStudio;
+
+// Aren't futures great?
+type HyperResponse = Box<Future<Item = Response<Body>, Error = hyper::Error> + Send>;
 
 const PORT: u16 = 54023;
 
@@ -143,7 +147,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         let service = move || {
             let sender = Arc::clone(&sender);
 
-            service_fn(move |request: hyper::Request<Body>| -> Box<Future<Item = hyper::Response<Body>, Error = hyper::Error> + Send> {
+            service_fn(move |request: hyper::Request<Body>| -> HyperResponse {
                 let mut response = hyper::Response::new(Body::empty());
 
                 match (request.method(), request.uri().path()) {
