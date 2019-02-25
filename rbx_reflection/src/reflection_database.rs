@@ -82,14 +82,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ABTestService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -146,8 +139,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "AttachmentForward",
                     RbxValue::Vector3 {
@@ -176,12 +168,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AttachmentUp",
                     RbxValue::Vector3 {
                         value: [0.0, 1.0, 0.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Accoutrement"),
                     },
                 );
                 defaults.insert(
@@ -202,8 +188,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Accoutrement"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "AttachmentForward",
                     RbxValue::Vector3 {
@@ -232,12 +217,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "AttachmentUp",
                     RbxValue::Vector3 {
                         value: [0.0, 1.0, 0.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Accessory"),
                     },
                 );
                 defaults.insert(
@@ -258,8 +237,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Accoutrement"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "AttachmentForward",
                     RbxValue::Vector3 {
@@ -291,12 +269,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Hat"),
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Hat"),
@@ -314,14 +286,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AdService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -340,14 +305,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AdvancedDragger"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -366,14 +324,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AnalyticsService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -402,18 +353,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "AnimationId",
                     RbxValue::String {
                         value: String::from(""),
-                    },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Animation"),
                     },
                 );
                 defaults.insert(
@@ -434,14 +378,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AnimationController"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -535,14 +472,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Animator"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -561,14 +491,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AntiAddictionService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -587,14 +510,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AssetService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -707,8 +623,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(17);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(13);
                 defaults.insert(
                     "Axis",
                     RbxValue::Vector3 {
@@ -719,12 +634,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Attachment"),
                     },
                 );
                 defaults.insert(
@@ -742,12 +651,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert(
                     "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                defaults.insert(
-                    "Rotation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
@@ -784,12 +687,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "WorldRotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                defaults.insert(
                     "WorldSecondaryAxis",
                     RbxValue::Vector3 {
                         value: [0.0, 1.0, 0.0],
@@ -806,14 +703,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BadgeService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -858,14 +748,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CoreGui"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -950,14 +833,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StarterGui"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -965,7 +841,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("ProcessUserInput", RbxValue::Bool { value: true });
                 defaults.insert("ResetPlayerGuiOnSpawn", RbxValue::Bool { value: true });
                 defaults.insert("ScreenOrientation", RbxValue::Enum { value: 2 });
                 defaults.insert("ShowDevelopmentGui", RbxValue::Bool { value: true });
@@ -1109,16 +984,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(20);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(18);
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Beam"),
-                    },
-                );
                 defaults.insert("CurveSize0", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("CurveSize1", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
@@ -1156,14 +1024,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BindableEvent"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -1182,14 +1043,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BindableFunction"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -1255,18 +1109,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "AngularVelocity",
                     RbxValue::Vector3 {
                         value: [0.0, 2.0, 0.0],
-                    },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyAngularVelocity"),
                     },
                 );
                 defaults.insert(
@@ -1323,14 +1170,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyForce"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "Force",
                     RbxValue::Vector3 {
@@ -1406,18 +1246,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyGyro"),
                     },
                 );
                 defaults.insert("D", RbxValue::Float32 { value: 500.0 });
@@ -1497,14 +1330,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyPosition"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert("D", RbxValue::Float32 { value: 1250.0 });
                 defaults.insert(
                     "MaxForce",
@@ -1580,14 +1406,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyThrust"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert(
                     "Force",
                     RbxValue::Vector3 {
@@ -1668,14 +1487,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyVelocity"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "MaxForce",
                     RbxValue::Vector3 {
@@ -1799,15 +1611,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(15);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(13);
                 defaults.insert("CartoonFactor", RbxValue::Float32 { value: 0.7 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RocketPropulsion"),
-                    },
-                );
                 defaults.insert("MaxSpeed", RbxValue::Float32 { value: 30.0 });
                 defaults.insert("MaxThrust", RbxValue::Float32 { value: 4000.0 });
                 defaults.insert(
@@ -1864,14 +1669,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("CacheableContentProvider"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MeshContentProvider"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -1890,14 +1688,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("CacheableContentProvider"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SolidModelContentProvider"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -1996,8 +1787,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(13);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
@@ -2009,12 +1799,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 );
                 defaults.insert("CameraSubject", RbxValue::Ref { value: None });
                 defaults.insert("CameraType", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Camera"),
-                    },
-                );
                 defaults.insert("FieldOfView", RbxValue::Float32 { value: 70.0 });
                 defaults.insert(
                     "Focus",
@@ -2044,14 +1828,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ChangeHistoryService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -2166,14 +1943,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyColors"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert(
                     "HeadColor3",
                     RbxValue::Color3 {
@@ -2259,16 +2029,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("BaseTextureId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("BodyPart", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CharacterMesh"),
-                    },
-                );
                 defaults.insert("MeshId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Name",
@@ -2318,14 +2081,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Pants"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -2366,14 +2122,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Shirt"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -2421,14 +2170,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ShirtGraphic"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -2469,14 +2211,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Skin"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -2512,15 +2247,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert("BubbleChatEnabled", RbxValue::Bool { value: false });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Chat"),
-                    },
-                );
                 defaults.insert("LoadDefaultChat", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Name",
@@ -2557,14 +2285,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ClickDetector"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "CursorIcon",
                     RbxValue::String {
@@ -2599,14 +2320,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CollectionService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -2625,14 +2339,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Configuration"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -2757,18 +2464,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(16);
+                let mut defaults = HashMap::with_capacity(14);
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("AlignType", RbxValue::Enum { value: 0 });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AlignOrientation"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
                     "MaxAngularVelocity",
@@ -2845,18 +2545,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(15);
+                let mut defaults = HashMap::with_capacity(13);
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AlignPosition"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("MaxForce", RbxValue::Float32 { value: 10000.0 });
                 defaults.insert(
@@ -2939,17 +2632,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(16);
+                let mut defaults = HashMap::with_capacity(14);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BallSocketConstraint"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("LimitsEnabled", RbxValue::Bool { value: false });
                 defaults.insert(
@@ -3071,20 +2757,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(22);
+                let mut defaults = HashMap::with_capacity(20);
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("ActuatorType", RbxValue::Enum { value: 0 });
                 defaults.insert("AngularSpeed", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("AngularVelocity", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HingeConstraint"),
-                    },
-                );
                 defaults.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("LimitsEnabled", RbxValue::Bool { value: false });
@@ -3158,18 +2837,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
+                let mut defaults = HashMap::with_capacity(12);
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LineForce"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("InverseSquareLaw", RbxValue::Bool { value: false });
                 defaults.insert("Magnitude", RbxValue::Float32 { value: 1000.0 });
@@ -3223,17 +2895,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(12);
+                let mut defaults = HashMap::with_capacity(10);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RodConstraint"),
-                    },
-                );
                 defaults.insert("CurrentDistance", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("Length", RbxValue::Float32 { value: 5.0 });
@@ -3288,17 +2953,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(13);
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RopeConstraint"),
-                    },
-                );
                 defaults.insert("CurrentDistance", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("Length", RbxValue::Float32 { value: 5.0 });
@@ -3534,7 +3192,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(37);
+                let mut defaults = HashMap::with_capacity(35);
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("ActuatorType", RbxValue::Enum { value: 0 });
                 defaults.insert("AngularActuatorType", RbxValue::Enum { value: 0 });
@@ -3542,15 +3200,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("AngularRestitution", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("AngularSpeed", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("AngularVelocity", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CylindricalConstraint"),
-                    },
-                );
                 defaults.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("CurrentPosition", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
@@ -3608,18 +3259,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("SlidingBallConstraint"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(22);
+                let mut defaults = HashMap::with_capacity(20);
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("ActuatorType", RbxValue::Enum { value: 0 });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PrismaticConstraint"),
-                    },
-                );
                 defaults.insert("CurrentPosition", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("LimitsEnabled", RbxValue::Bool { value: false });
@@ -3737,17 +3381,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(20);
+                let mut defaults = HashMap::with_capacity(18);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SpringConstraint"),
-                    },
-                );
                 defaults.insert("Coils", RbxValue::Float32 { value: 3.0 });
                 defaults.insert("CurrentLength", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Damping", RbxValue::Float32 { value: 0.0 });
@@ -3801,17 +3438,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
+                let mut defaults = HashMap::with_capacity(9);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Torque"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Name",
@@ -3863,18 +3493,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(12);
+                let mut defaults = HashMap::with_capacity(10);
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VectorForce"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Force",
@@ -3919,18 +3542,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "BaseUrl",
                     RbxValue::String {
                         value: String::from("https://www.roblox.com/"),
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ContentProvider"),
                     },
                 );
                 defaults.insert(
@@ -3940,7 +3556,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("RequestQueueSize", RbxValue::Float32 { value: 0.0 });
+                defaults.insert("RequestQueueSize", RbxValue::Float32 { value: 20.0 });
                 defaults
             },
         },
@@ -3952,14 +3568,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ContextActionService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -3987,14 +3596,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Controller"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HumanoidController"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4030,14 +3632,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SkateboardController"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4045,8 +3640,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("Steer", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("Throttle", RbxValue::Float32 { value: 0.0 });
                 defaults
             },
         },
@@ -4058,14 +3651,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Controller"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VehicleController"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4084,14 +3670,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ControllerService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4110,14 +3689,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CookiesService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4136,14 +3708,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CorePackages"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4171,14 +3736,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CustomEvent"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4207,14 +3765,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CustomEventReceiver"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4276,14 +3827,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("BevelMesh"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BlockMesh"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4320,14 +3864,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("BevelMesh"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CylinderMesh"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4381,14 +3918,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FileMesh"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "MeshId",
                     RbxValue::String {
@@ -4447,14 +3977,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SpecialMesh"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert(
                     "MeshId",
                     RbxValue::String {
@@ -4521,14 +4044,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("DataStoreService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -4557,14 +4073,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Debris"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert("MaxItems", RbxValue::Float32 { value: 1000.0 });
                 defaults.insert(
                     "Name",
@@ -4880,15 +4389,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert("BehaviorType", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Dialog"),
-                    },
-                );
                 defaults.insert("ConversationDistance", RbxValue::Float32 { value: 25.0 });
                 defaults.insert("GoodbyeChoiceActive", RbxValue::Bool { value: true });
                 defaults.insert(
@@ -4897,7 +4399,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                defaults.insert("InUse", RbxValue::Bool { value: false });
                 defaults.insert(
                     "InitialPrompt",
                     RbxValue::String {
@@ -4962,14 +4463,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("DialogChoice"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("GoodbyeChoiceActive", RbxValue::Bool { value: true });
                 defaults.insert(
                     "GoodbyeDialog",
@@ -5007,14 +4501,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Dragger"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5078,16 +4565,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert("BlastPressure", RbxValue::Float32 { value: 500000.0 });
                 defaults.insert("BlastRadius", RbxValue::Float32 { value: 4.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Explosion"),
-                    },
-                );
                 defaults.insert(
                     "DestroyJointRadiusPercent",
                     RbxValue::Float32 { value: 1.0 },
@@ -5182,14 +4662,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Decal"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -5197,10 +4670,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Face", RbxValue::Enum { value: 5 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5245,14 +4714,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(13);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Texture"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(10);
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -5260,10 +4722,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Face", RbxValue::Enum { value: 5 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5333,14 +4791,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Feature"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Hole"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("FaceId", RbxValue::Enum { value: 0 });
                 defaults.insert("InOut", RbxValue::Enum { value: 2 });
                 defaults.insert("LeftRight", RbxValue::Enum { value: 1 });
@@ -5363,14 +4814,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Feature"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MotorFeature"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("FaceId", RbxValue::Enum { value: 0 });
                 defaults.insert("InOut", RbxValue::Enum { value: 2 });
                 defaults.insert("LeftRight", RbxValue::Enum { value: 1 });
@@ -5471,14 +4915,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Fire"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert(
                     "Color",
                     RbxValue::Color3 {
@@ -5549,14 +4986,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Folder"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5585,14 +5015,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ForceField"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5612,14 +5035,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FriendService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5648,14 +5064,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FunctionalTest"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Description",
                     RbxValue::String {
@@ -5680,14 +5089,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("GamePassService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5816,14 +5218,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("GamepadService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5842,14 +5237,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Geometry"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -5895,14 +5283,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("GroupService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -6174,13 +5555,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(31);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(27);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
                     "BackgroundColor3",
@@ -6196,12 +5574,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Frame"),
-                    },
-                );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 defaults.insert("Draggable", RbxValue::Bool { value: false });
                 defaults.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
@@ -6364,13 +5736,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(44);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(39);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("Active", RbxValue::Bool { value: true });
                 defaults.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoButtonColor", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
@@ -6387,12 +5756,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ImageButton"),
-                    },
-                );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 defaults.insert("Draggable", RbxValue::Bool { value: false });
                 defaults.insert(
@@ -6416,7 +5779,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("ImageRectOffset", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("ImageRectSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("ImageTransparency", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("IsLoaded", RbxValue::Bool { value: false });
                 defaults.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Localize", RbxValue::Bool { value: true });
                 defaults.insert("Modal", RbxValue::Bool { value: false });
@@ -6596,13 +5958,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(52);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(46);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("Active", RbxValue::Bool { value: true });
                 defaults.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoButtonColor", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
@@ -6619,12 +5978,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TextButton"),
-                    },
-                );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 defaults.insert("Draggable", RbxValue::Bool { value: false });
                 defaults.insert("Font", RbxValue::Enum { value: 0 });
@@ -6663,14 +6016,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Button"),
                     },
                 );
-                defaults.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert(
                     "TextColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
-                defaults.insert("TextFits", RbxValue::Bool { value: false });
                 defaults.insert("TextScaled", RbxValue::Bool { value: false });
                 defaults.insert("TextSize", RbxValue::Float32 { value: 8.0 });
                 defaults.insert(
@@ -6782,13 +6133,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(38);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(33);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
                     "BackgroundColor3",
@@ -6804,12 +6152,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ImageLabel"),
-                    },
-                );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 defaults.insert("Draggable", RbxValue::Bool { value: false });
                 defaults.insert(
@@ -6827,7 +6169,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("ImageRectOffset", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("ImageRectSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("ImageTransparency", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("IsLoaded", RbxValue::Bool { value: false });
                 defaults.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Localize", RbxValue::Bool { value: true });
                 defaults.insert(
@@ -6998,13 +6339,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(48);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(42);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
                     "BackgroundColor3",
@@ -7020,12 +6358,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TextLabel"),
-                    },
-                );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 defaults.insert("Draggable", RbxValue::Bool { value: false });
                 defaults.insert("Font", RbxValue::Enum { value: 0 });
@@ -7061,14 +6393,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Label"),
                     },
                 );
-                defaults.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert(
                     "TextColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
-                defaults.insert("TextFits", RbxValue::Bool { value: false });
                 defaults.insert("TextScaled", RbxValue::Bool { value: false });
                 defaults.insert("TextSize", RbxValue::Float32 { value: 8.0 });
                 defaults.insert(
@@ -7206,17 +6536,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(44);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(40);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert(
                     "AbsoluteWindowSize",
                     RbxValue::Vector2 { value: [0.0, 0.0] },
                 );
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
                     "BackgroundColor3",
@@ -7239,12 +6566,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanvasPosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ScrollingFrame"),
-                    },
-                );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: true });
                 defaults.insert("Draggable", RbxValue::Bool { value: false });
                 defaults.insert("ElasticBehavior", RbxValue::Enum { value: 0 });
@@ -7493,13 +6814,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(55);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(48);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("Active", RbxValue::Bool { value: true });
                 defaults.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
                     "BackgroundColor3",
@@ -7515,15 +6833,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TextBox"),
-                    },
-                );
                 defaults.insert("ClearTextOnFocus", RbxValue::Bool { value: true });
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
-                defaults.insert("CursorPosition", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("Draggable", RbxValue::Bool { value: false });
                 defaults.insert("Font", RbxValue::Enum { value: 0 });
                 defaults.insert("FontSize", RbxValue::Enum { value: 0 });
@@ -7568,14 +6879,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("TextBox"),
                     },
                 );
-                defaults.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert(
                     "TextColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
-                defaults.insert("TextFits", RbxValue::Bool { value: false });
                 defaults.insert("TextScaled", RbxValue::Bool { value: false });
                 defaults.insert("TextSize", RbxValue::Float32 { value: 8.0 });
                 defaults.insert(
@@ -7629,13 +6938,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(33);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(29);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
                     "BackgroundColor3",
@@ -7651,12 +6957,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ViewportFrame"),
-                    },
-                );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 defaults.insert("CurrentCamera", RbxValue::Ref { value: None });
                 defaults.insert("Draggable", RbxValue::Bool { value: false });
@@ -7826,21 +7126,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(25);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(21);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("Active", RbxValue::Bool { value: false });
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
                 defaults.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BillboardGui"),
-                    },
-                );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
@@ -7969,23 +7260,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(16);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert(
-                    "AbsoluteSize",
-                    RbxValue::Vector2 {
-                        value: [800.0, 600.0],
-                    },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ScreenGui"),
-                    },
-                );
                 defaults.insert("DisplayOrder", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("IgnoreGuiInset", RbxValue::Bool { value: false });
@@ -7996,7 +7273,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ScreenGui"),
                     },
                 );
-                defaults.insert("OnTopOfCoreBlur", RbxValue::Bool { value: false });
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("ResetOnSpawn", RbxValue::Bool { value: true });
                 defaults.insert("RootLocalizationTable", RbxValue::Ref { value: None });
@@ -8012,23 +7288,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("ScreenGui"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(16);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert(
-                    "AbsoluteSize",
-                    RbxValue::Vector2 {
-                        value: [800.0, 600.0],
-                    },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("GuiMain"),
-                    },
-                );
                 defaults.insert("DisplayOrder", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("IgnoreGuiInset", RbxValue::Bool { value: false });
@@ -8039,7 +7301,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("GuiMain"),
                     },
                 );
-                defaults.insert("OnTopOfCoreBlur", RbxValue::Bool { value: true });
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("ResetOnSpawn", RbxValue::Bool { value: true });
                 defaults.insert("RootLocalizationTable", RbxValue::Ref { value: None });
@@ -8121,30 +7382,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(22);
-                defaults.insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                let mut defaults = HashMap::with_capacity(18);
                 defaults.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                defaults.insert(
-                    "AbsoluteSize",
-                    RbxValue::Vector2 {
-                        value: [800.0, 600.0],
-                    },
-                );
                 defaults.insert("Active", RbxValue::Bool { value: true });
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
                 defaults.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoLocalize", RbxValue::Bool { value: true });
                 defaults.insert(
                     "CanvasSize",
                     RbxValue::Vector2 {
                         value: [800.0, 600.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SurfaceGui"),
                     },
                 );
                 defaults.insert("ClipsDescendants", RbxValue::Bool { value: false });
@@ -8274,14 +7521,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(15);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FloorWire"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(13);
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -8390,20 +7630,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(13);
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
                 defaults.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BoxHandleAdornment"),
                     },
                 );
                 defaults.insert(
@@ -8462,20 +7695,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
+                let mut defaults = HashMap::with_capacity(12);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
                 defaults.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ConeHandleAdornment"),
                     },
                 );
                 defaults.insert(
@@ -8530,20 +7756,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
+                let mut defaults = HashMap::with_capacity(12);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
                 defaults.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CylinderHandleAdornment"),
                     },
                 );
                 defaults.insert(
@@ -8598,20 +7817,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
+                let mut defaults = HashMap::with_capacity(12);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
                 defaults.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ImageHandleAdornment"),
                     },
                 );
                 defaults.insert(
@@ -8671,20 +7883,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
+                let mut defaults = HashMap::with_capacity(12);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
                 defaults.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LineHandleAdornment"),
                     },
                 );
                 defaults.insert(
@@ -8732,20 +7937,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(13);
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
                 defaults.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SphereHandleAdornment"),
                     },
                 );
                 defaults.insert(
@@ -8820,18 +8018,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(13);
-                defaults.insert("A", RbxValue::Float32 { value: 1.0 });
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert("B", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("C", RbxValue::Float32 { value: 0.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ParabolaAdornment"),
-                    },
-                );
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -8845,8 +8033,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("Range", RbxValue::Float32 { value: 1.0 });
-                defaults.insert("Thickness", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Visible", RbxValue::Bool { value: true });
                 defaults
@@ -8891,15 +8077,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
+                let mut defaults = HashMap::with_capacity(9);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SelectionBox"),
-                    },
-                );
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -8958,15 +8137,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SelectionSphere"),
-                    },
-                );
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9038,15 +8210,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ArcHandles"),
-                    },
-                );
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9090,15 +8255,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Handles"),
-                    },
-                );
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9136,15 +8294,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Adornee", RbxValue::Ref { value: None });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SurfaceSelection"),
-                    },
-                );
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9201,14 +8352,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SelectionPartLasso"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9247,14 +8391,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SelectionPointLasso"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9297,14 +8434,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("GuiItem"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Backpack"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -9359,16 +8489,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BinType", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HopperBin"),
-                    },
-                );
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -9466,15 +8589,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(15);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(13);
                 defaults.insert("CanBeDropped", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Tool"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Grip",
@@ -9548,15 +8664,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(15);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(13);
                 defaults.insert("CanBeDropped", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Flag"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Grip",
@@ -9647,14 +8756,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("GuiItem"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StarterPack"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -9746,21 +8848,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert("AutoSelectGuiEnabled", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("GuiService"),
-                    },
-                );
-                defaults.insert("CoreEffectFolder", RbxValue::Ref { value: None });
-                defaults.insert("CoreGuiFolder", RbxValue::Ref { value: None });
                 defaults.insert("CoreGuiNavigationEnabled", RbxValue::Bool { value: true });
                 defaults.insert("GuiNavigationEnabled", RbxValue::Bool { value: true });
-                defaults.insert("IsModalDialog", RbxValue::Bool { value: false });
-                defaults.insert("IsWindows", RbxValue::Bool { value: true });
                 defaults.insert("MenuIsOpen", RbxValue::Bool { value: false });
                 defaults.insert(
                     "Name",
@@ -9791,14 +8882,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HapticService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -9817,14 +8901,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HttpRbxApiService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -9862,14 +8939,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HttpService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -10108,26 +9178,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(35);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(24);
                 defaults.insert("AutoJumpEnabled", RbxValue::Bool { value: true });
                 defaults.insert("AutoRotate", RbxValue::Bool { value: true });
                 defaults.insert("AutomaticScalingEnabled", RbxValue::Bool { value: true });
                 defaults.insert("BreakJointsOnDeath", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "CameraOffset",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Humanoid"),
-                    },
-                );
                 defaults.insert("DisplayDistanceType", RbxValue::Enum { value: 0 });
-                defaults.insert("FloorMaterial", RbxValue::Enum { value: 1792 });
                 defaults.insert("Health", RbxValue::Float32 { value: 100.0 });
                 defaults.insert("HealthDisplayDistance", RbxValue::Float32 { value: 100.0 });
                 defaults.insert("HealthDisplayType", RbxValue::Enum { value: 0 });
@@ -10138,12 +9194,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("MaxHealth", RbxValue::Float32 { value: 100.0 });
                 defaults.insert("MaxSlopeAngle", RbxValue::Float32 { value: 89.0 });
                 defaults.insert(
-                    "MoveDirection",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Humanoid"),
@@ -10152,27 +9202,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("NameDisplayDistance", RbxValue::Float32 { value: 100.0 });
                 defaults.insert("NameOcclusion", RbxValue::Enum { value: 2 });
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("PlatformStand", RbxValue::Bool { value: false });
                 defaults.insert("RigType", RbxValue::Enum { value: 0 });
                 defaults.insert("RightLeg", RbxValue::Ref { value: None });
                 defaults.insert("RootPart", RbxValue::Ref { value: None });
-                defaults.insert("SeatPart", RbxValue::Ref { value: None });
-                defaults.insert("Sit", RbxValue::Bool { value: false });
-                defaults.insert(
-                    "TargetPoint",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
                 defaults.insert("Torso", RbxValue::Ref { value: None });
                 defaults.insert("WalkSpeed", RbxValue::Float32 { value: 16.0 });
-                defaults.insert("WalkToPart", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "WalkToPoint",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
                 defaults.insert("maxHealth", RbxValue::Float32 { value: 100.0 });
                 defaults
             },
@@ -10447,8 +9481,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(41);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(39);
                 defaults.insert(
                     "BackAccessory",
                     RbxValue::String {
@@ -10456,12 +9489,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("BodyTypeScale", RbxValue::Float32 { value: 0.3 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HumanoidDescription"),
-                    },
-                );
                 defaults.insert("ClimbAnimation", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("DepthScale", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("Face", RbxValue::Float32 { value: 0.0 });
@@ -10644,15 +9671,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert("AllowInsertFreeModels", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("InsertService"),
-                    },
-                );
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -10744,9 +9764,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("DynamicRotate"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BaseAngle", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "C0",
@@ -10761,12 +9780,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RotateP"),
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("RotateP"),
@@ -10775,7 +9788,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -10787,9 +9799,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("DynamicRotate"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BaseAngle", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "C0",
@@ -10804,12 +9815,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RotateV"),
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("RotateV"),
@@ -10818,7 +9823,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -10861,9 +9865,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -10874,12 +9877,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Glue"),
                     },
                 );
                 defaults.insert(
@@ -10915,7 +9912,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -10936,9 +9932,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("ManualSurfaceJointInstance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -10952,12 +9947,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ManualGlue"),
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("ManualGlue"),
@@ -10966,7 +9955,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -10978,9 +9966,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("ManualSurfaceJointInstance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -10994,12 +9981,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ManualWeld"),
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("ManualWeld"),
@@ -11008,7 +9989,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -11044,9 +10024,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(13);
+                let mut defaults = HashMap::with_capacity(10);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -11057,12 +10036,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Motor"),
                     },
                 );
                 defaults.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
@@ -11077,7 +10050,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -11099,9 +10071,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
+                let mut defaults = HashMap::with_capacity(10);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -11112,12 +10083,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Motor6D"),
                     },
                 );
                 defaults.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
@@ -11132,13 +10097,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "Transform",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -11150,9 +10108,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("JointInstance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -11166,12 +10123,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Rotate"),
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Rotate"),
@@ -11180,7 +10131,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -11192,9 +10142,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("JointInstance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -11208,12 +10157,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Snap"),
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Snap"),
@@ -11222,7 +10165,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -11265,9 +10207,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
+                let mut defaults = HashMap::with_capacity(11);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -11278,12 +10219,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VelocityMotor"),
                     },
                 );
                 defaults.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
@@ -11299,7 +10234,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -11311,9 +10245,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("JointInstance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -11327,12 +10260,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Weld"),
-                    },
-                );
-                defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Weld"),
@@ -11341,7 +10268,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Part0", RbxValue::Ref { value: None });
                 defaults.insert("Part1", RbxValue::Ref { value: None });
-                defaults.insert("part1", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -11353,14 +10279,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: false });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("JointsService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -11379,14 +10298,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("KeyboardService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -11415,14 +10327,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Keyframe"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -11452,14 +10357,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("KeyframeMarker"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -11508,15 +10406,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("AuthoredHipHeight", RbxValue::Float32 { value: 1.35 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("KeyframeSequence"),
-                    },
-                );
                 defaults.insert("Loop", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Name",
@@ -11537,14 +10428,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("KeyframeSequenceProvider"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -11613,15 +10497,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Brightness", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PointLight"),
-                    },
-                );
                 defaults.insert(
                     "Color",
                     RbxValue::Color3 {
@@ -11673,16 +10550,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
+                let mut defaults = HashMap::with_capacity(9);
                 defaults.insert("Angle", RbxValue::Float32 { value: 90.0 });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Brightness", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SpotLight"),
-                    },
-                );
                 defaults.insert(
                     "Color",
                     RbxValue::Color3 {
@@ -11735,16 +10605,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
+                let mut defaults = HashMap::with_capacity(9);
                 defaults.insert("Angle", RbxValue::Float32 { value: 90.0 });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Brightness", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SurfaceLight"),
-                    },
-                );
                 defaults.insert(
                     "Color",
                     RbxValue::Color3 {
@@ -11888,21 +10751,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(19);
+                let mut defaults = HashMap::with_capacity(17);
                 defaults.insert(
                     "Ambient",
                     RbxValue::Color3 {
                         value: [0.5, 0.5, 0.5],
                     },
                 );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Brightness", RbxValue::Float32 { value: 1.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Lighting"),
-                    },
-                );
                 defaults.insert("ClockTime", RbxValue::Float32 { value: 14.0 });
                 defaults.insert(
                     "ColorShift_Bottom",
@@ -12043,15 +10899,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LocalizationService"),
-                    },
-                );
-                defaults.insert("IsTextScraperRunning", RbxValue::Bool { value: false });
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -12067,18 +10915,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 );
                 defaults.insert(
                     "RobloxForcePlayModeRobloxLocaleId",
-                    RbxValue::String {
-                        value: String::from("en-us"),
-                    },
-                );
-                defaults.insert(
-                    "RobloxLocaleId",
-                    RbxValue::String {
-                        value: String::from("en-us"),
-                    },
-                );
-                defaults.insert(
-                    "SystemLocaleId",
                     RbxValue::String {
                         value: String::from("en-us"),
                     },
@@ -12118,14 +10954,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LocalizationTable"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "DevelopmentLanguage",
                     RbxValue::String {
@@ -12139,7 +10968,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("Root", RbxValue::Ref { value: None });
                 defaults.insert(
                     "SourceLocaleId",
                     RbxValue::String {
@@ -12157,14 +10985,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LogService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -12317,14 +11138,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Script"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("Disabled", RbxValue::Bool { value: false });
                 defaults.insert(
                     "LinkedSource",
@@ -12356,14 +11170,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Script"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LocalScript"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("Disabled", RbxValue::Bool { value: false });
                 defaults.insert(
                     "LinkedSource",
@@ -12412,14 +11219,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ModuleScript"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "LinkedSource",
                     RbxValue::String {
@@ -12450,14 +11250,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LuaWebService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -12476,14 +11269,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MarketplaceService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -12512,14 +11298,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Message"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -12544,14 +11323,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Message"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Hint"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -12576,14 +11348,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MessagingService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -12723,14 +11488,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MouseService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -13120,19 +11878,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("NotificationService"),
-                    },
-                );
-                defaults.insert("IsLuaBottomBarEnabled", RbxValue::Bool { value: true });
-                defaults.insert("IsLuaChatEnabled", RbxValue::Bool { value: true });
-                defaults.insert("IsLuaGameDetailsEnabled", RbxValue::Bool { value: true });
-                defaults.insert("IsLuaGamesPageEnabled", RbxValue::Bool { value: true });
-                defaults.insert("IsLuaHomePageEnabled", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -13542,9 +12288,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("BasePart"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(52);
+                let mut defaults = HashMap::with_capacity(46);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -13560,12 +12305,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CornerWedgePart"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -13584,10 +12323,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -13610,9 +12345,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -13636,7 +12369,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [2.0, 2.0, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 0 });
@@ -13695,9 +12427,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(54);
+                let mut defaults = HashMap::with_capacity(48);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -13713,12 +12444,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Part"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -13738,10 +12463,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -13764,9 +12485,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -13791,7 +12510,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 3 });
@@ -13824,9 +12542,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(54);
+                let mut defaults = HashMap::with_capacity(48);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -13842,12 +12559,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FlagStand"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -13867,10 +12578,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -13893,9 +12600,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -13920,7 +12625,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 3 });
@@ -13969,9 +12673,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(56);
+                let mut defaults = HashMap::with_capacity(49);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -13987,12 +12690,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Seat"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -14013,10 +12710,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -14026,7 +12719,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Seat"),
                     },
                 );
-                defaults.insert("Occupant", RbxValue::Ref { value: None });
                 defaults.insert(
                     "Orientation",
                     RbxValue::Vector3 {
@@ -14040,9 +12732,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -14067,7 +12757,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 3 });
@@ -14128,9 +12817,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(59);
+                let mut defaults = HashMap::with_capacity(51);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -14146,12 +12834,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SkateboardPlatform"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -14159,8 +12841,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.6392157, 0.63529414, 0.64705884],
                     },
                 );
-                defaults.insert("Controller", RbxValue::Ref { value: None });
-                defaults.insert("ControllingHumanoid", RbxValue::Ref { value: None });
                 defaults.insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
                 defaults.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("FormFactor", RbxValue::Enum { value: 1 });
@@ -14173,10 +12853,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -14199,9 +12875,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -14226,7 +12900,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("Steer", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("StickyWheels", RbxValue::Bool { value: true });
                 defaults.insert("Throttle", RbxValue::Float32 { value: 0.0 });
@@ -14290,10 +12963,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(58);
+                let mut defaults = HashMap::with_capacity(52);
                 defaults.insert("AllowTeamChangeOnTouch", RbxValue::Bool { value: false });
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -14309,12 +12981,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SpawnLocation"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -14336,10 +13002,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -14363,9 +13025,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -14390,7 +13050,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 3 });
@@ -14413,9 +13072,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("FormFactorPart"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(53);
+                let mut defaults = HashMap::with_capacity(47);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -14431,12 +13089,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("WedgePart"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -14456,10 +13108,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -14482,9 +13130,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -14508,7 +13154,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 0 });
@@ -14562,9 +13207,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(54);
+                let mut defaults = HashMap::with_capacity(48);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -14580,12 +13224,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MeshPart"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -14604,10 +13242,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -14636,9 +13270,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -14662,7 +13294,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert(
                     "TextureID",
                     RbxValue::String {
@@ -14722,9 +13353,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(55);
+                let mut defaults = HashMap::with_capacity(49);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -14740,12 +13370,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PartOperation"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -14764,10 +13388,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -14790,10 +13410,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("RenderFidelity", RbxValue::Enum { value: 1 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -14817,7 +13435,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 0 });
@@ -14842,9 +13459,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("PartOperation"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(55);
+                let mut defaults = HashMap::with_capacity(49);
                 defaults.insert("Anchored", RbxValue::Bool { value: true });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -14860,12 +13476,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: false });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("NegateOperation"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -14884,10 +13494,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -14910,10 +13516,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("RenderFidelity", RbxValue::Enum { value: 1 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -14937,7 +13541,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 0 });
@@ -14962,9 +13565,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("PartOperation"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(55);
+                let mut defaults = HashMap::with_capacity(49);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -14980,12 +13582,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UnionOperation"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -15004,10 +13600,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -15030,10 +13622,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("RenderFidelity", RbxValue::Enum { value: 1 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -15057,7 +13647,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("TopSurface", RbxValue::Enum { value: 0 });
@@ -15160,9 +13749,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(53);
+                let mut defaults = HashMap::with_capacity(47);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 5 });
@@ -15178,12 +13766,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TrussPart"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -15202,10 +13784,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 5 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -15228,9 +13806,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 2.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 5 });
@@ -15254,7 +13830,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [2.0, 2.0, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("Style", RbxValue::Enum { value: 0 });
                 defaults.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
@@ -15358,10 +13933,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(63);
+                let mut defaults = HashMap::with_capacity(55);
                 defaults.insert("Anchored", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert("AreHingesDetected", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("BackSurface", RbxValue::Enum { value: 0 });
@@ -15377,12 +13950,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("CanCollide", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VehicleSeat"),
-                    },
-                );
                 defaults.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Color",
@@ -15403,10 +13970,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 defaults.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 defaults.insert("Locked", RbxValue::Bool { value: false });
                 defaults.insert("Massless", RbxValue::Bool { value: false });
                 defaults.insert("Material", RbxValue::Enum { value: 256 });
@@ -15417,7 +13980,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("VehicleSeat"),
                     },
                 );
-                defaults.insert("Occupant", RbxValue::Ref { value: None });
                 defaults.insert(
                     "Orientation",
                     RbxValue::Vector3 {
@@ -15431,9 +13993,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                defaults.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 defaults.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("RightSurface", RbxValue::Enum { value: 0 });
@@ -15457,7 +14017,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                defaults.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 defaults.insert("Steer", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("SteerFloat", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Throttle", RbxValue::Float32 { value: 0.0 });
@@ -15496,14 +14055,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Model"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -15619,15 +14171,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(13);
+                let mut defaults = HashMap::with_capacity(10);
                 defaults.insert("AllowThirdPartySales", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Workspace"),
-                    },
-                );
                 defaults.insert("CurrentCamera", RbxValue::Ref { value: None });
                 defaults.insert("DistributedGameTime", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
@@ -15645,7 +14190,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("PrimaryPart", RbxValue::Ref { value: None });
                 defaults.insert("StreamingEnabled", RbxValue::Bool { value: false });
-                defaults.insert("Terrain", RbxValue::Ref { value: None });
                 defaults
             },
         },
@@ -15745,14 +14289,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PartOperationAsset"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -15914,18 +14451,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(17);
+                let mut defaults = HashMap::with_capacity(15);
                 defaults.insert(
                     "Acceleration",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
-                    },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ParticleEmitter"),
                     },
                 );
                 defaults.insert("Drag", RbxValue::Float32 { value: 0.0 });
@@ -15992,14 +14522,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PathfindingService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert("EmptyCutoff", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
                     "Name",
@@ -16028,14 +14551,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PhysicsService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -16608,31 +15124,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert("BubbleChat", RbxValue::Bool { value: false });
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert("CharacterAutoLoads", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Players"),
-                    },
-                );
-                defaults.insert("ClassicChat", RbxValue::Bool { value: true });
-                defaults.insert("LocalPlayer", RbxValue::Ref { value: None });
-                defaults.insert("MaxPlayers", RbxValue::Float32 { value: 12.0 });
                 defaults.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Players"),
                     },
                 );
-                defaults.insert("NumPlayers", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("PreferredPlayers", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("RespawnTime", RbxValue::Float32 { value: 5.0 });
-                defaults.insert("localPlayer", RbxValue::Ref { value: None });
-                defaults.insert("numPlayers", RbxValue::Float32 { value: 0.0 });
                 defaults
             },
         },
@@ -16708,21 +15209,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert(
-                    "ActionId",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                defaults.insert("AllowBinding", RbxValue::Bool { value: true });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PluginAction"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -16730,18 +15217,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "StatusTip",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                defaults.insert(
-                    "Text",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
                 defaults
             },
         },
@@ -16793,14 +15268,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PluginGuiService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -16896,14 +15364,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PointsService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -16960,18 +15421,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Pose"),
                     },
                 );
                 defaults.insert("EasingDirection", RbxValue::Enum { value: 0 });
@@ -17039,14 +15493,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BloomEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("Intensity", RbxValue::Float32 { value: 0.4 });
                 defaults.insert(
@@ -17079,14 +15526,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BlurEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Name",
@@ -17138,15 +15578,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Brightness", RbxValue::Float32 { value: 0.0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ColorCorrectionEffect"),
-                    },
-                );
                 defaults.insert("Contrast", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
@@ -17191,14 +15624,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SunRaysEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("Intensity", RbxValue::Float32 { value: 0.25 });
                 defaults.insert(
@@ -17220,14 +15646,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadata"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17246,14 +15665,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataCallbacks"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17272,14 +15684,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataClasses"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17298,14 +15703,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataEnums"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17324,14 +15722,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataEvents"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17350,14 +15741,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataFunctions"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17517,19 +15901,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(22);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(20);
                 defaults.insert("Browsable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "ClassCategory",
                     RbxValue::String {
                         value: String::from(""),
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataClass"),
                     },
                 );
                 defaults.insert("ClientOnly", RbxValue::Bool { value: false });
@@ -17591,19 +15968,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("ReflectionMetadataItem"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(17);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(15);
                 defaults.insert("Browsable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "ClassCategory",
                     RbxValue::String {
                         value: String::from(""),
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataEnum"),
                     },
                 );
                 defaults.insert("ClientOnly", RbxValue::Bool { value: false });
@@ -17650,19 +16020,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("ReflectionMetadataItem"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(17);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(15);
                 defaults.insert("Browsable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "ClassCategory",
                     RbxValue::String {
                         value: String::from(""),
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataEnumItem"),
                     },
                 );
                 defaults.insert("ClientOnly", RbxValue::Bool { value: false });
@@ -17709,19 +16072,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("ReflectionMetadataItem"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(17);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(15);
                 defaults.insert("Browsable", RbxValue::Bool { value: true });
                 defaults.insert(
                     "ClassCategory",
                     RbxValue::String {
                         value: String::from(""),
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataMember"),
                     },
                 );
                 defaults.insert("ClientOnly", RbxValue::Bool { value: false });
@@ -17768,14 +16124,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataProperties"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17794,14 +16143,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataYieldFunctions"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17820,14 +16162,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RemoteEvent"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -17846,14 +16181,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RemoteFunction"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18048,18 +16376,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(15);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(13);
                 defaults.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RenderingTest"),
                     },
                 );
                 defaults.insert("ComparisonDiffThreshold", RbxValue::Float32 { value: 10.0 });
@@ -18110,14 +16431,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReplicatedFirst"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18136,14 +16450,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReplicatedStorage"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18162,14 +16469,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RobloxReplicatedStorage"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18188,14 +16488,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RunService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18214,14 +16507,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RuntimeScriptService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18250,14 +16536,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ScriptContext"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18316,14 +16595,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ScriptService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18342,14 +16614,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Selection"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18378,14 +16643,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ServerScriptService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18404,14 +16662,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ServerStorage"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -18686,15 +16937,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(16);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(14);
                 defaults.insert("CelestialBodiesShown", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Sky"),
-                    },
-                );
                 defaults.insert("MoonAngularSize", RbxValue::Float32 { value: 11.0 });
                 defaults.insert(
                     "MoonTextureId",
@@ -18802,14 +17046,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Smoke"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "Color",
                     RbxValue::Color3 {
@@ -18838,14 +17075,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SocialService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -19000,20 +17230,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(23);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Sound"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(14);
                 defaults.insert("EmitterSize", RbxValue::Float32 { value: 10.0 });
-                defaults.insert("IsLoaded", RbxValue::Bool { value: false });
-                defaults.insert("IsPaused", RbxValue::Bool { value: true });
-                defaults.insert("IsPlaying", RbxValue::Bool { value: false });
                 defaults.insert("Looped", RbxValue::Bool { value: false });
-                defaults.insert("MaxDistance", RbxValue::Float32 { value: 10000.0 });
                 defaults.insert("MinDistance", RbxValue::Float32 { value: 10.0 });
                 defaults.insert(
                     "Name",
@@ -19024,7 +17243,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 defaults.insert("Parent", RbxValue::Ref { value: None });
                 defaults.insert("Pitch", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("PlayOnRemove", RbxValue::Bool { value: false });
-                defaults.insert("PlaybackLoudness", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("PlaybackSpeed", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("Playing", RbxValue::Bool { value: false });
                 defaults.insert("RollOffMode", RbxValue::Enum { value: 0 });
@@ -19035,10 +17253,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                defaults.insert("TimeLength", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("TimePosition", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Volume", RbxValue::Float32 { value: 0.5 });
-                defaults.insert("isPlaying", RbxValue::Bool { value: false });
                 defaults
             },
         },
@@ -19100,14 +17316,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ChorusSoundEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Depth", RbxValue::Float32 { value: 0.15 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("Mix", RbxValue::Float32 { value: 0.5 });
@@ -19176,15 +17385,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(12);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(10);
                 defaults.insert("Attack", RbxValue::Float32 { value: 0.1 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CompressorSoundEffect"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("GainMakeup", RbxValue::Float32 { value: 0.0 });
                 defaults.insert(
@@ -19220,14 +17422,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("DistortionSoundEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("Level", RbxValue::Float32 { value: 0.75 });
                 defaults.insert(
@@ -19280,14 +17475,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(10);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("EchoSoundEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(8);
                 defaults.insert("Delay", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("DryLevel", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
@@ -19336,14 +17524,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("EqualizerSoundEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("HighGain", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("LowGain", RbxValue::Float32 { value: -20.0 });
@@ -19391,14 +17572,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FlangeSoundEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Depth", RbxValue::Float32 { value: 0.45 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("Mix", RbxValue::Float32 { value: 0.85 });
@@ -19432,14 +17606,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("PitchShiftSoundEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Name",
@@ -19499,14 +17666,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReverbSoundEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(9);
                 defaults.insert("DecayTime", RbxValue::Float32 { value: 1.5 });
                 defaults.insert("Density", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("Diffusion", RbxValue::Float32 { value: 1.0 });
@@ -19556,14 +17716,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TremoloSoundEffect"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("Depth", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("Duty", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
@@ -19597,14 +17750,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SoundGroup"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -19662,15 +17808,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert("AmbientReverb", RbxValue::Enum { value: 0 });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SoundService"),
-                    },
-                );
                 defaults.insert("DistanceFactor", RbxValue::Float32 { value: 3.33 });
                 defaults.insert("DopplerScale", RbxValue::Float32 { value: 1.0 });
                 defaults.insert(
@@ -19717,14 +17856,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Sparkles"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert(
                     "Color",
                     RbxValue::Color3 {
@@ -19765,14 +17897,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StarterGear"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -20011,19 +18136,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(30);
+                let mut defaults = HashMap::with_capacity(28);
                 defaults.insert("AllowCustomAnimations", RbxValue::Bool { value: true });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("AutoJumpEnabled", RbxValue::Bool { value: true });
                 defaults.insert("CameraMaxZoomDistance", RbxValue::Float32 { value: 400.0 });
                 defaults.insert("CameraMinZoomDistance", RbxValue::Float32 { value: 0.5 });
                 defaults.insert("CameraMode", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StarterPlayer"),
-                    },
-                );
                 defaults.insert("DevCameraOcclusionMode", RbxValue::Enum { value: 0 });
                 defaults.insert("DevComputerCameraMovementMode", RbxValue::Enum { value: 0 });
                 defaults.insert("DevComputerMovementMode", RbxValue::Enum { value: 0 });
@@ -20078,14 +18196,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StarterPlayerScripts"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -20104,14 +18215,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("StarterPlayerScripts"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StarterCharacterScripts"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -20203,20 +18307,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(14);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Stats"),
-                    },
-                );
-                defaults.insert("ContactsCount", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("DataReceiveKbps", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("DataSendKbps", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("HeartbeatTimeMs", RbxValue::Float32 { value: 0.047713332 });
-                defaults.insert("InstanceCount", RbxValue::Float32 { value: 6690.0 });
-                defaults.insert("MovingPrimitivesCount", RbxValue::Float32 { value: 0.0 });
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -20224,15 +18315,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("PhysicsReceiveKbps", RbxValue::Float32 { value: 0.0 });
-                defaults.insert("PhysicsSendKbps", RbxValue::Float32 { value: 0.0 });
-                defaults.insert(
-                    "PhysicsStepTimeMs",
-                    RbxValue::Float32 {
-                        value: 0.00015967792,
-                    },
-                );
-                defaults.insert("PrimitivesCount", RbxValue::Float32 { value: 1.0 });
                 defaults
             },
         },
@@ -20817,15 +18899,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("ActiveScript", RbxValue::Ref { value: None });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StudioService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -20924,16 +18998,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("AutoAssignable", RbxValue::Bool { value: true });
                 defaults.insert("AutoColorCharacters", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Team"),
-                    },
-                );
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -20953,14 +19020,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Teams"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -20989,14 +19049,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TeleportService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert("CustomizedTeleportUI", RbxValue::Bool { value: false });
                 defaults.insert(
                     "Name",
@@ -21033,15 +19086,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TerrainRegion"),
-                    },
-                );
-                defaults.insert("IsSmooth", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -21049,12 +19094,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "SizeInCells",
-                    RbxValue::Vector3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
                 defaults
             },
         },
@@ -21153,15 +19192,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(16);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(14);
                 defaults.insert("AutoRuns", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TestService"),
-                    },
-                );
                 defaults.insert(
                     "Description",
                     RbxValue::String {
@@ -21208,14 +19240,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TextService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -21243,14 +19268,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TimerService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -21269,14 +19287,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TouchInputService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -21412,16 +19423,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(16);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(14);
                 defaults.insert("Attachment0", RbxValue::Ref { value: None });
                 defaults.insert("Attachment1", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Trail"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert("FaceCamera", RbxValue::Bool { value: false });
                 defaults.insert("Lifetime", RbxValue::Float32 { value: 2.0 });
@@ -21510,15 +19514,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Tween"),
-                    },
-                );
-                defaults.insert("Instance", RbxValue::Ref { value: None });
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -21538,14 +19534,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TweenService"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -21615,16 +19604,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
+                let mut defaults = HashMap::with_capacity(5);
                 defaults.insert("AspectRatio", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("AspectType", RbxValue::Enum { value: 0 });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UIAspectRatioConstraint"),
-                    },
-                );
                 defaults.insert("DominantAxis", RbxValue::Enum { value: 0 });
                 defaults.insert(
                     "Name",
@@ -21661,14 +19643,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UISizeConstraint"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert(
                     "MaxSize",
                     RbxValue::Vector2 {
@@ -21711,14 +19686,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(6);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UITextSizeConstraint"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(4);
                 defaults.insert("MaxTextSize", RbxValue::Float32 { value: 100.0 });
                 defaults.insert("MinTextSize", RbxValue::Float32 { value: 1.0 });
                 defaults.insert(
@@ -21826,17 +19794,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(11);
+                let mut defaults = HashMap::with_capacity(9);
                 defaults.insert(
                     "AbsoluteContentSize",
                     RbxValue::Vector2 { value: [0.0, 0.0] },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UIGridLayout"),
-                    },
                 );
                 defaults.insert("FillDirection", RbxValue::Enum { value: 0 });
                 defaults.insert("FillDirectionMaxCells", RbxValue::Float32 { value: 0.0 });
@@ -21872,17 +19833,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(9);
+                let mut defaults = HashMap::with_capacity(7);
                 defaults.insert(
                     "AbsoluteContentSize",
                     RbxValue::Vector2 { value: [0.0, 0.0] },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UIListLayout"),
-                    },
                 );
                 defaults.insert("FillDirection", RbxValue::Enum { value: 1 });
                 defaults.insert("HorizontalAlignment", RbxValue::Enum { value: 1 });
@@ -21979,20 +19933,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(18);
+                let mut defaults = HashMap::with_capacity(16);
                 defaults.insert(
                     "AbsoluteContentSize",
                     RbxValue::Vector2 { value: [0.0, 0.0] },
                 );
                 defaults.insert("Animated", RbxValue::Bool { value: true });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
                 defaults.insert("Circular", RbxValue::Bool { value: false });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UIPageLayout"),
-                    },
-                );
                 defaults.insert("CurrentPage", RbxValue::Ref { value: None });
                 defaults.insert("EasingDirection", RbxValue::Enum { value: 1 });
                 defaults.insert("EasingStyle", RbxValue::Enum { value: 2 });
@@ -22053,17 +20000,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(12);
+                let mut defaults = HashMap::with_capacity(10);
                 defaults.insert(
                     "AbsoluteContentSize",
                     RbxValue::Vector2 { value: [0.0, 0.0] },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UITableLayout"),
-                    },
                 );
                 defaults.insert("FillDirection", RbxValue::Enum { value: 1 });
                 defaults.insert("FillEmptySpaceColumns", RbxValue::Bool { value: false });
@@ -22121,14 +20061,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UIPadding"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -22157,14 +20090,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UIScale"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -22612,22 +20538,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(27);
+                let mut defaults = HashMap::with_capacity(13);
                 defaults.insert("AccelerometerEnabled", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert("BottomBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UserInputService"),
-                    },
-                );
                 defaults.insert("GamepadEnabled", RbxValue::Bool { value: false });
-                defaults.insert("GazeSelectionEnabled", RbxValue::Bool { value: true });
                 defaults.insert("GyroscopeEnabled", RbxValue::Bool { value: false });
                 defaults.insert("KeyboardEnabled", RbxValue::Bool { value: true });
                 defaults.insert("LegacyInputEventsEnabled", RbxValue::Bool { value: true });
-                defaults.insert("ModalEnabled", RbxValue::Bool { value: false });
                 defaults.insert("MouseBehavior", RbxValue::Enum { value: 0 });
                 defaults.insert("MouseDeltaSensitivity", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("MouseEnabled", RbxValue::Bool { value: true });
@@ -22638,31 +20554,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Instance"),
                     },
                 );
-                defaults.insert("NavBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert(
-                    "OnScreenKeyboardAnimationDuration",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                defaults.insert(
-                    "OnScreenKeyboardPosition",
-                    RbxValue::Vector2 { value: [0.0, 0.0] },
-                );
-                defaults.insert(
-                    "OnScreenKeyboardSize",
-                    RbxValue::Vector2 { value: [0.0, 0.0] },
-                );
-                defaults.insert("OnScreenKeyboardVisible", RbxValue::Bool { value: false });
-                defaults.insert("OverrideMouseIconBehavior", RbxValue::Enum { value: 0 });
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("RightBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                defaults.insert("StatusBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 defaults.insert("TouchEnabled", RbxValue::Bool { value: false });
-                defaults.insert(
-                    "UserHeadCFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
                 defaults.insert("VREnabled", RbxValue::Bool { value: false });
                 defaults
             },
@@ -22699,15 +20592,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(7);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VRService"),
-                    },
-                );
-                defaults.insert("GuiInputUserCFrame", RbxValue::Enum { value: 0 });
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -22715,12 +20600,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert(
-                    "VRDeviceName",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
                 defaults.insert("VREnabled", RbxValue::Bool { value: false });
                 defaults
             },
@@ -22742,14 +20621,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("ValueBase"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BinaryStringValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -22778,14 +20650,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BoolValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -22815,14 +20680,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BrickColorValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -22851,14 +20709,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CFrameValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -22893,14 +20744,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Color3Value"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -22956,14 +20800,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("DoubleConstrainedValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("ConstrainedValue", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("MaxValue", RbxValue::Float32 { value: 1.0 });
                 defaults.insert("MinValue", RbxValue::Float32 { value: 0.0 });
@@ -23017,14 +20854,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("IntConstrainedValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("ConstrainedValue", RbxValue::Float32 { value: 0.0 });
                 defaults.insert("MaxValue", RbxValue::Float32 { value: 10.0 });
                 defaults.insert("MinValue", RbxValue::Float32 { value: 0.0 });
@@ -23057,14 +20887,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("IntValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -23094,14 +20917,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("NumberValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -23131,14 +20947,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ObjectValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -23168,14 +20977,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RayValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -23204,14 +21006,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StringValue"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -23246,14 +21041,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Vector3Value"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -23288,18 +21076,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(5);
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "AdditionalLuaState",
                     RbxValue::String {
                         value: String::from(""),
-                    },
-                );
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VirtualInputManager"),
                     },
                 );
                 defaults.insert(
@@ -23320,14 +21101,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VirtualUser"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -23346,14 +21120,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             superclass: Some("Instance"),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Visit"),
-                    },
-                );
+                let mut defaults = HashMap::with_capacity(2);
                 defaults.insert(
                     "Name",
                     RbxValue::String {
@@ -23403,15 +21170,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(8);
+                let mut defaults = HashMap::with_capacity(6);
                 defaults.insert("Active", RbxValue::Bool { value: false });
-                defaults.insert("Archivable", RbxValue::Bool { value: true });
-                defaults.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("WeldConstraint"),
-                    },
-                );
                 defaults.insert("Enabled", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Name",

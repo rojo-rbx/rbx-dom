@@ -48,6 +48,7 @@ pub enum DumpClassMember {
 pub struct DumpClassProperty {
     pub name: String,
     pub value_type: ValueType,
+    pub serialization: Serialization,
 }
 
 #[derive(Debug, Deserialize)]
@@ -70,6 +71,13 @@ pub enum ValueCategory {
 
     /// An instance reference
     Class,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct Serialization {
+    can_save: bool,
+    can_load: bool,
 }
 
 #[derive(Debug, Deserialize)]

@@ -35,6 +35,22 @@ local classNameBlacklist = {
 	NetworkClient = true,
 }
 
+local function shouldMeasureProperty(member)
+	if member.MemberType ~= "Property" then
+		return false
+	end
+
+	if blacklistedProperties[member.Name] then
+		return false
+	end
+
+	if not member.Serialization.CanLoad and not member.Serialization.CanSave then
+		return false
+	end
+
+	return true
+end
+
 --[[
 	Grab a copy of an instance of the given type that should have reasonably
 	default properties.
@@ -172,21 +188,19 @@ return function(postMessage)
 
 			while currentClass ~= nil do
 				for _, member in ipairs(currentClass.Members) do
-					if member.MemberType == "Property" then
-						if not blacklistedProperties[member.Name] then
-							local ok, value = pcall(get, instance, member.Name)
+					if shouldMeasureProperty(member) then
+						local ok, value = pcall(get, instance, member.Name)
+
+						if ok then
+							local ok, rojoValue = robloxValueToRojoValue(value)
 
 							if ok then
-								local ok, rojoValue = robloxValueToRojoValue(value)
-
-								if ok then
-									defaultProperties[member.Name] = rojoValue
-								else
-									warn("Couldn't convert property", member.Name, "on class", class.Name, "to a Rojo value")
-								end
+								defaultProperties[member.Name] = rojoValue
 							else
-								warn("Couldn't read property", member.Name, "on class", class.Name)
+								warn("Couldn't convert property", member.Name, "on class", class.Name, "to a Rojo value")
 							end
+						else
+							warn("Couldn't read property", member.Name, "on class", class.Name)
 						end
 					end
 				end
