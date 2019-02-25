@@ -27,11 +27,7 @@ pub struct DumpClass {
 #[derive(Debug, Deserialize)]
 #[serde(tag = "MemberType")]
 pub enum DumpClassMember {
-    #[serde(rename_all = "PascalCase")]
-    Property {
-        name: String,
-        value_type: ValueType,
-    },
+    Property(DumpClassProperty),
 
     #[serde(rename_all = "PascalCase")]
     Function {
@@ -45,6 +41,13 @@ pub enum DumpClassMember {
 
     #[serde(other)]
     Unknown,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct DumpClassProperty {
+    pub name: String,
+    pub value_type: ValueType,
 }
 
 #[derive(Debug, Deserialize)]

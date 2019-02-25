@@ -5,95 +5,18 @@ use proc_macro2::{TokenStream, Literal, Ident, Span};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    api_dump::{Dump, DumpClassMember, ValueType, ValueCategory},
+    api_dump::{Dump, DumpClass, DumpEnum, DumpClassMember, ValueType, ValueCategory},
 };
 
 pub fn generate(
     dump: &Dump,
     default_properties: &HashMap<String, HashMap<String, RbxValue>>,
 ) -> TokenStream {
-    let classes = dump.classes.iter().map(|class| {
-        let class_name = Literal::string(&class.name);
+    let class_len_literal = Literal::usize_unsuffixed(dump.classes.len());
+    let enum_len_literal = Literal::usize_unsuffixed(dump.enums.len());
 
-        let superclass_value = if class.superclass == "<<<ROOT>>>" {
-            quote!(None)
-        } else {
-            let superclass_literal = Literal::string(&class.superclass);
-            quote!(Some(#superclass_literal))
-        };
-
-        let properties = class.members.iter().filter_map(|member|
-            match member {
-                DumpClassMember::Property { name, value_type } => {
-                    let member_name = Literal::string(&name);
-                    let resolved_type = resolve_value_type(value_type);
-
-                    Some(quote! {
-                        properties.insert(#member_name, RbxInstanceProperty {
-                            name: #member_name,
-                            value_type: #resolved_type,
-                        });
-                    })
-                },
-                _ => None,
-            }
-        );
-
-        let default_properties = default_properties.get(&class.name)
-            .map(|defaults| {
-                defaults.iter().map(|(key, value)| {
-                    let key_literal = Literal::string(&key);
-                    let value_literal = emit_value(value);
-
-                    quote!(default_properties.insert(#key_literal, #value_literal);)
-                }).collect()
-            })
-            .unwrap_or_else(|| quote!());
-
-        quote! {
-            output.insert(#class_name, RbxInstanceClass {
-                name: #class_name,
-                superclass: #superclass_value,
-                properties: {
-                    #[allow(unused_mut)]
-                    let mut properties = HashMap::new();
-                    #(#properties)*
-                    properties
-                },
-                default_properties: {
-                    #[allow(unused_mut)]
-                    let mut default_properties = HashMap::new();
-                    #default_properties
-                    default_properties
-                },
-            });
-        }
-    });
-
-    let enums = dump.enums.iter().map(|rbx_enum| {
-        let enum_name = Literal::string(&rbx_enum.name);
-
-        let items = rbx_enum.items.iter().map(|item| {
-            let item_name = Literal::string(&item.name);
-            let item_value = Literal::u32_unsuffixed(item.value);
-
-            quote! {
-                items.insert(#item_name, #item_value);
-            }
-        });
-
-        quote! {
-            output.insert(#enum_name, RbxEnum {
-                name: #enum_name,
-                items: {
-                    #[allow(unused_mut)]
-                    let mut items = HashMap::new();
-                    #(#items)*
-                    items
-                },
-            });
-        }
-    });
+    let classes = dump.classes.iter().map(|class| emit_class(class, default_properties));
+    let enums = dump.enums.iter().map(emit_enum);
 
     quote! {
         use std::collections::HashMap;
@@ -101,20 +24,143 @@ pub fn generate(
         use crate::types::*;
 
         pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
-            let mut output = HashMap::new();
-
+            let mut output = HashMap::with_capacity(#class_len_literal);
             #(#classes)*
-
             output
         }
 
         pub fn generate_enums() -> HashMap<&'static str, RbxEnum> {
-            let mut output = HashMap::new();
-
+            let mut output = HashMap::with_capacity(#enum_len_literal);
             #(#enums)*
-
             output
         }
+    }
+}
+
+fn emit_class(
+    class: &DumpClass,
+    default_properties: &HashMap<String, HashMap<String, RbxValue>>,
+) -> TokenStream {
+    let class_name_literal = Literal::string(&class.name);
+
+    let superclass_value = if class.superclass == "<<<ROOT>>>" {
+        quote!(None)
+    } else {
+        let superclass_literal = Literal::string(&class.superclass);
+        quote!(Some(#superclass_literal))
+    };
+
+    let defaults = emit_default_properties(&class.name, default_properties);
+    let properties = emit_properties(class);
+
+    quote! {
+        output.insert(#class_name_literal, RbxInstanceClass {
+            name: #class_name_literal,
+            superclass: #superclass_value,
+            properties: #properties,
+            default_properties: #defaults,
+        });
+    }
+}
+
+fn emit_properties(class: &DumpClass) -> TokenStream {
+    let properties: Vec<_> = class.members
+        .iter()
+        .filter_map(|member| match member {
+            DumpClassMember::Property(property) => Some(property),
+            _ => None,
+        })
+        .collect();
+
+    if properties.len() == 0 {
+        return quote!(HashMap::new());
+    }
+
+    let inserts = properties
+        .iter()
+        .map(|property| {
+            let member_name = Literal::string(&property.name);
+            let resolved_type = resolve_value_type(&property.value_type);
+
+            quote! {
+                properties.insert(#member_name, RbxInstanceProperty {
+                    name: #member_name,
+                    value_type: #resolved_type,
+                });
+            }
+        });
+
+    let len_literal = Literal::usize_unsuffixed(properties.len());
+
+    quote!({
+        let mut properties = HashMap::with_capacity(#len_literal);
+        #(#inserts)*
+        properties
+    })
+}
+
+fn emit_default_properties(
+    class_name: &str,
+    all_defaults: &HashMap<String, HashMap<String, RbxValue>>,
+) -> TokenStream {
+    let defaults = match all_defaults.get(class_name) {
+        Some(value) => value,
+        None => return quote!(HashMap::new()),
+    };
+
+    if defaults.len() == 0 {
+        return quote!(HashMap::new());
+    }
+
+    // Collect and sort keys to make output stable
+    let mut keys: Vec<_> = defaults
+        .keys()
+        .collect();
+
+    keys.sort();
+
+    let inserts = keys
+        .iter()
+        .map(|key| {
+            let value = defaults.get(key.as_str()).unwrap();
+
+            let key_literal = Literal::string(&key);
+            let value_literal = emit_value(value);
+
+            quote!(defaults.insert(#key_literal, #value_literal);)
+        });
+
+    let len_literal = Literal::usize_unsuffixed(defaults.len());
+
+    quote!({
+        let mut defaults = HashMap::with_capacity(#len_literal);
+        #(#inserts)*
+        defaults
+    })
+}
+
+fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
+    let name_literal = Literal::string(&rbx_enum.name);
+    let item_count_literal = Literal::usize_unsuffixed(rbx_enum.items.len());
+
+    let items = rbx_enum.items.iter().map(|item| {
+        let item_name = Literal::string(&item.name);
+        let item_value = Literal::u32_unsuffixed(item.value);
+
+        quote! {
+            items.insert(#item_name, #item_value);
+        }
+    });
+
+    quote! {
+        output.insert(#name_literal, RbxEnum {
+            name: #name_literal,
+            items: {
+                let mut items = HashMap::with_capacity(#item_count_literal);
+                #(#items)*
+                items
+            },
+        });
     }
 }
 
@@ -217,7 +263,7 @@ fn emit_value(value: &RbxValue) -> TokenStream {
         },
         RbxValue::PhysicalProperties { value } => {
             let value_literal = match value {
-                Some(set) => quote!(Some(PhysicalProperties)),
+                Some(_) => quote!(Some(PhysicalProperties)),
                 None => quote!(None),
             };
 
