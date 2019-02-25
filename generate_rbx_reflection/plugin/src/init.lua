@@ -25,6 +25,7 @@ local blacklistedProperties = {
 	focus = true, -- on Camera
 	CoordinateFrame = true, -- on Camera
 	formFactor = true, -- on FormFactorPart
+	RequestQueueSize = true, -- on ContentProvider, mistakenly marked serializable
 
 	DataCost = true,
 	RobloxLocked = true,

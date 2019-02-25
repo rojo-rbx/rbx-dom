@@ -3542,7 +3542,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(4);
+                let mut defaults = HashMap::with_capacity(3);
                 defaults.insert(
                     "BaseUrl",
                     RbxValue::String {
@@ -3556,7 +3556,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 defaults.insert("Parent", RbxValue::Ref { value: None });
-                defaults.insert("RequestQueueSize", RbxValue::Float32 { value: 20.0 });
                 defaults
             },
         },
