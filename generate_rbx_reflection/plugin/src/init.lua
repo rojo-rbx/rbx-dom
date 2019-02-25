@@ -75,10 +75,6 @@ local function getDefaultInstance(className)
 		return service
 	end
 
-	-- TODO: Try to crawl down the inheritance hierarchy?
-	-- This approach would work for things like BasePart.CFrame, but might have
-	-- false positives for values that are very generic, like Instance.Name.
-
 	return nil
 end
 
