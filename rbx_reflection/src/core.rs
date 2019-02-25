@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use lazy_static::lazy_static;
 
 use crate::{
-    dump::{generate_classes, generate_enums},
+    reflection_database::{generate_classes, generate_enums},
     types::{RbxEnum, RbxInstanceClass},
 };
 

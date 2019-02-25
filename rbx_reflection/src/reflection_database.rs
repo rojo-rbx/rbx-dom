@@ -93,20 +93,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ABTestService"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("ABTestService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -159,16 +159,33 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Accoutrement"),
+                    },
+                );
+                default_properties.insert(
+                    "AttachmentPoint",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert(
+                    "AttachmentForward",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, -1.0],
+                    },
+                );
                 default_properties.insert(
                     "AttachmentPos",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("Accoutrement"),
                     },
@@ -179,28 +196,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [1.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert(
-                    "AttachmentForward",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, -1.0],
-                    },
-                );
-                default_properties.insert(
-                    "AttachmentPoint",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "AttachmentUp",
                     RbxValue::Vector3 {
                         value: [0.0, 1.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Accoutrement"),
                     },
                 );
                 default_properties
@@ -221,9 +221,29 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
+                    "AttachmentPoint",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
                     "AttachmentUp",
                     RbxValue::Vector3 {
                         value: [0.0, 1.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "AttachmentRight",
+                    RbxValue::Vector3 {
+                        value: [1.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Accessory"),
                     },
                 );
                 default_properties.insert(
@@ -233,37 +253,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "AttachmentRight",
-                    RbxValue::Vector3 {
-                        value: [1.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "AttachmentPoint",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Accessory"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "AttachmentForward",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, -1.0],
                     },
                 );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Accessory"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -281,36 +281,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Hat"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "AttachmentRight",
-                    RbxValue::Vector3 {
-                        value: [1.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "AttachmentPos",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
                 default_properties.insert(
                     "AttachmentForward",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, -1.0],
-                    },
-                );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Hat"),
                     },
                 );
                 default_properties.insert(
@@ -320,9 +294,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Hat"),
+                    },
+                );
+                default_properties.insert(
                     "AttachmentPoint",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Hat"),
+                    },
+                );
+                default_properties.insert(
+                    "AttachmentRight",
+                    RbxValue::Vector3 {
+                        value: [1.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "AttachmentPos",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
                     },
                 );
                 default_properties
@@ -342,16 +342,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("AdService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("AdService"),
                     },
@@ -374,6 +374,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("AdvancedDragger"),
+                    },
+                );
+                default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("AdvancedDragger"),
@@ -381,12 +387,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AdvancedDragger"),
-                    },
-                );
                 default_properties
             },
         },
@@ -404,13 +404,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("AnalyticsService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
@@ -443,17 +443,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "AnimationId",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Animation"),
-                    },
-                );
-                default_properties.insert(
-                    "AnimationId",
-                    RbxValue::String {
-                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
@@ -479,20 +479,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("AnimationController"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("AnimationController"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -590,20 +590,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Animator"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Animator"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -775,22 +775,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "WorldOrientation",
+                    "Rotation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "WorldRotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Attachment"),
                     },
                 );
                 default_properties.insert(
@@ -799,16 +786,41 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "SecondaryAxis",
+                    "WorldSecondaryAxis",
                     RbxValue::Vector3 {
                         value: [0.0, 1.0, 0.0],
                     },
                 );
                 default_properties.insert(
-                    "WorldSecondaryAxis",
+                    "WorldRotation",
                     RbxValue::Vector3 {
-                        value: [0.0, 1.0, 0.0],
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Attachment"),
+                    },
+                );
+                default_properties.insert(
+                    "Axis",
+                    RbxValue::Vector3 {
+                        value: [1.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
                 default_properties.insert(
@@ -824,43 +836,31 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "WorldCFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert(
-                    "Rotation",
+                    "WorldOrientation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert(
+                    "SecondaryAxis",
+                    RbxValue::Vector3 {
+                        value: [0.0, 1.0, 0.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "WorldAxis",
                     RbxValue::Vector3 {
                         value: [1.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Axis",
-                    RbxValue::Vector3 {
-                        value: [1.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "CFrame",
+                    "WorldCFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -884,13 +884,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("BadgeService"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("BadgeService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
@@ -940,7 +940,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("CoreGui"),
+                    },
+                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Version", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
@@ -949,13 +954,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("CoreGui"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CoreGui"),
-                    },
-                );
                 default_properties
             },
         },
@@ -1039,24 +1039,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("ProcessUserInput", RbxValue::Bool { value: true });
+                default_properties.insert("ShowDevelopmentGui", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("ResetPlayerGuiOnSpawn", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("StarterGui"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("StarterGui"),
                     },
                 );
-                default_properties.insert("ResetPlayerGuiOnSpawn", RbxValue::Bool { value: true });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("ProcessUserInput", RbxValue::Bool { value: true });
                 default_properties.insert("ScreenOrientation", RbxValue::Enum { value: 2 });
-                default_properties.insert("ShowDevelopmentGui", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -1200,41 +1200,41 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("TextureSpeed", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Width1", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Segments", RbxValue::Float32 { value: 10.0 });
                 default_properties.insert("TextureLength", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("LightInfluence", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
                 default_properties.insert("ZOffset", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Beam"),
-                    },
-                );
-                default_properties.insert("FaceCamera", RbxValue::Bool { value: false });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Texture",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("TextureMode", RbxValue::Enum { value: 0 });
-                default_properties.insert("CurveSize1", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("LightEmission", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("CurveSize0", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Width0", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Segments", RbxValue::Float32 { value: 10.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Beam"),
                     },
                 );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Beam"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("TextureSpeed", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("CurveSize0", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("LightEmission", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Texture",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("LightInfluence", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("CurveSize1", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
+                default_properties.insert("FaceCamera", RbxValue::Bool { value: false });
+                default_properties.insert("TextureMode", RbxValue::Enum { value: 0 });
+                default_properties.insert("Width1", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Width0", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -1253,17 +1253,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
-                        value: String::from("Event"),
+                        value: String::from("BindableEvent"),
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
-                        value: String::from("BindableEvent"),
+                        value: String::from("Event"),
                     },
                 );
                 default_properties
@@ -1284,13 +1284,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("BindableFunction"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -1366,32 +1366,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "MaxTorque",
-                    RbxValue::Vector3 {
-                        value: [4000.0, 4000.0, 4000.0],
-                    },
-                );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyAngularVelocity"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "angularvelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 2.0, 0.0],
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "AngularVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 2.0, 0.0],
-                    },
-                );
                 default_properties.insert("P", RbxValue::Float32 { value: 1250.0 });
                 default_properties.insert(
                     "Name",
@@ -1400,9 +1374,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
+                    "AngularVelocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 2.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("BodyAngularVelocity"),
+                    },
+                );
+                default_properties.insert(
+                    "MaxTorque",
+                    RbxValue::Vector3 {
+                        value: [4000.0, 4000.0, 4000.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
                     "maxTorque",
                     RbxValue::Vector3 {
                         value: [4000.0, 4000.0, 4000.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "angularvelocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 2.0, 0.0],
                     },
                 );
                 default_properties
@@ -1436,6 +1436,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "force",
                     RbxValue::Vector3 {
@@ -1454,14 +1455,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 1.0, 0.0],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("BodyForce"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -1521,22 +1521,27 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("P", RbxValue::Float32 { value: 3000.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("BodyGyro"),
+                    },
+                );
                 default_properties.insert(
                     "MaxTorque",
                     RbxValue::Vector3 {
                         value: [400000.0, 0.0, 400000.0],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("BodyGyro"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("P", RbxValue::Float32 { value: 3000.0 });
-                default_properties.insert("D", RbxValue::Float32 { value: 500.0 });
                 default_properties.insert(
                     "CFrame",
                     RbxValue::CFrame {
@@ -1549,12 +1554,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [400000.0, 0.0, 400000.0],
                     },
                 );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("BodyGyro"),
-                    },
-                );
+                default_properties.insert("D", RbxValue::Float32 { value: 500.0 });
                 default_properties
             },
         },
@@ -1615,15 +1615,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 50.0, 0.0],
-                    },
-                );
-                default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("BodyPosition"),
+                    },
+                );
+                default_properties.insert(
+                    "position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 50.0, 0.0],
                     },
                 );
                 default_properties.insert(
@@ -1632,9 +1632,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [4000.0, 4000.0, 4000.0],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("P", RbxValue::Float32 { value: 10000.0 });
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 50.0, 0.0],
+                    },
+                );
+                default_properties.insert("D", RbxValue::Float32 { value: 1250.0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "maxForce",
                     RbxValue::Vector3 {
@@ -1645,13 +1652,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ClassName",
                     RbxValue::String {
                         value: String::from("BodyPosition"),
-                    },
-                );
-                default_properties.insert("D", RbxValue::Float32 { value: 1250.0 });
-                default_properties.insert(
-                    "position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 50.0, 0.0],
                     },
                 );
                 default_properties
@@ -1700,9 +1700,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Force",
-                    RbxValue::Vector3 {
-                        value: [0.0, 1.0, 0.0],
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("BodyThrust"),
                     },
                 );
                 default_properties.insert(
@@ -1712,29 +1712,29 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("BodyThrust"),
                     },
                 );
-                default_properties.insert(
-                    "force",
-                    RbxValue::Vector3 {
-                        value: [0.0, 1.0, 0.0],
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "location",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("BodyThrust"),
+                    "Force",
+                    RbxValue::Vector3 {
+                        value: [0.0, 1.0, 0.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "force",
+                    RbxValue::Vector3 {
+                        value: [0.0, 1.0, 0.0],
                     },
                 );
                 default_properties
@@ -1789,31 +1789,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyVelocity"),
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("BodyVelocity"),
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("P", RbxValue::Float32 { value: 1250.0 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "MaxForce",
-                    RbxValue::Vector3 {
-                        value: [4000.0, 4000.0, 4000.0],
-                    },
-                );
-                default_properties.insert(
-                    "velocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 2.0, 0.0],
-                    },
-                );
                 default_properties.insert(
                     "maxForce",
                     RbxValue::Vector3 {
@@ -1826,8 +1804,30 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 2.0, 0.0],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("P", RbxValue::Float32 { value: 1250.0 });
+                default_properties.insert(
+                    "velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 2.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "MaxForce",
+                    RbxValue::Vector3 {
+                        value: [4000.0, 4000.0, 4000.0],
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("BodyVelocity"),
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("BodyVelocity"),
+                    },
+                );
                 default_properties
             },
         },
@@ -1923,10 +1923,30 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("ThrustD", RbxValue::Float32 { value: 0.001 });
+                default_properties.insert("ThrustP", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("TargetRadius", RbxValue::Float32 { value: 4.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("RocketPropulsion"),
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("RocketPropulsion"),
+                    },
+                );
+                default_properties.insert("TurnP", RbxValue::Float32 { value: 3000.0 });
+                default_properties.insert("TurnD", RbxValue::Float32 { value: 500.0 });
+                default_properties.insert("Target", RbxValue::Ref { value: None });
+                default_properties.insert("MaxSpeed", RbxValue::Float32 { value: 30.0 });
+                default_properties.insert(
+                    "MaxTorque",
+                    RbxValue::Vector3 {
+                        value: [400000.0, 400000.0, 0.0],
                     },
                 );
                 default_properties.insert(
@@ -1935,28 +1955,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert(
-                    "MaxTorque",
-                    RbxValue::Vector3 {
-                        value: [400000.0, 400000.0, 0.0],
-                    },
-                );
-                default_properties.insert("ThrustP", RbxValue::Float32 { value: 5.0 });
-                default_properties.insert("TurnP", RbxValue::Float32 { value: 3000.0 });
-                default_properties.insert("ThrustD", RbxValue::Float32 { value: 0.001 });
-                default_properties.insert("Target", RbxValue::Ref { value: None });
                 default_properties.insert("CartoonFactor", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("MaxSpeed", RbxValue::Float32 { value: 30.0 });
-                default_properties.insert("TurnD", RbxValue::Float32 { value: 500.0 });
                 default_properties.insert("MaxThrust", RbxValue::Float32 { value: 4000.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("RocketPropulsion"),
-                    },
-                );
-                default_properties.insert("TargetRadius", RbxValue::Float32 { value: 4.0 });
                 default_properties
             },
         },
@@ -2008,12 +2008,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MeshContentProvider"),
-                    },
-                );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
@@ -2022,6 +2016,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("MeshContentProvider"),
+                    },
+                );
                 default_properties
             },
         },
@@ -2039,13 +2039,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SolidModelContentProvider"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -2149,26 +2149,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Focus",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, -5.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("HeadLocked", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Camera"),
-                    },
-                );
-                default_properties.insert("CameraType", RbxValue::Enum { value: 0 });
-                default_properties.insert("HeadScale", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("FieldOfView", RbxValue::Float32 { value: 70.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("NearPlaneZ", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("CameraSubject", RbxValue::Ref { value: None });
-                default_properties.insert("ViewportSize", RbxValue::Vector2 { value: [1.0, 1.0] });
-                default_properties.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [
@@ -2177,6 +2157,26 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         ],
                     },
                 );
+                default_properties.insert("FieldOfView", RbxValue::Float32 { value: 70.0 });
+                default_properties.insert(
+                    "Focus",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, -5.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("ViewportSize", RbxValue::Vector2 { value: [1.0, 1.0] });
+                default_properties.insert("CameraType", RbxValue::Enum { value: 0 });
+                default_properties.insert("CameraSubject", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Camera"),
+                    },
+                );
+                default_properties.insert("HeadLocked", RbxValue::Bool { value: true });
+                default_properties.insert("NearPlaneZ", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("HeadScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -2200,20 +2200,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ChangeHistoryService"),
-                    },
-                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("ChangeHistoryService"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ChangeHistoryService"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -2333,22 +2333,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "RightLegColor3",
-                    RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Body Colors"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BodyColors"),
-                    },
-                );
-                default_properties.insert(
-                    "LeftLegColor3",
+                    "LeftArmColor3",
                     RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
+                        value: [0.9921569, 0.9176471, 0.5529412],
                     },
                 );
                 default_properties.insert(
@@ -2358,18 +2353,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "LeftArmColor3",
+                    "LeftLegColor3",
                     RbxValue::Color3 {
-                        value: [0.9921569, 0.9176471, 0.5529412],
+                        value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Body Colors"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "HeadColor3",
                     RbxValue::Color3 {
@@ -2380,6 +2368,18 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "RightArmColor3",
                     RbxValue::Color3 {
                         value: [0.9921569, 0.9176471, 0.5529412],
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("BodyColors"),
+                    },
+                );
+                default_properties.insert(
+                    "RightLegColor3",
+                    RbxValue::Color3 {
+                        value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
                 default_properties
@@ -2427,24 +2427,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("OverlayTextureId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CharacterMesh"),
                     },
                 );
-                default_properties.insert("MeshId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BaseTextureId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("OverlayTextureId", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("CharacterMesh"),
                     },
                 );
-                default_properties.insert("BodyPart", RbxValue::Enum { value: 0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("BodyPart", RbxValue::Enum { value: 0 });
+                default_properties.insert("MeshId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BaseTextureId", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -2493,18 +2493,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Clothing"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "PantsTemplate",
+                    "ClassName",
                     RbxValue::String {
-                        value: String::from(""),
+                        value: String::from("Pants"),
                     },
                 );
                 default_properties.insert(
@@ -2513,10 +2506,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
-                        value: String::from("Pants"),
+                        value: String::from("Clothing"),
+                    },
+                );
+                default_properties.insert(
+                    "PantsTemplate",
+                    RbxValue::String {
+                        value: String::from(""),
                     },
                 );
                 default_properties
@@ -2607,25 +2607,25 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ShirtGraphic"),
+                    },
+                );
+                default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Graphic",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ShirtGraphic"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -2650,20 +2650,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Skin"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Skin"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -2695,22 +2695,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Chat"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("LoadDefaultChat", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Chat"),
                     },
                 );
-                default_properties.insert("BubbleChatEnabled", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Chat"),
+                    },
+                );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("LoadDefaultChat", RbxValue::Bool { value: true });
+                default_properties.insert("BubbleChatEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -2742,21 +2742,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ClickDetector"),
-                    },
-                );
-                default_properties.insert(
-                    "CursorIcon",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties
-                    .insert("MaxActivationDistance", RbxValue::Float32 { value: 32.0 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
@@ -2764,6 +2749,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ClickDetector"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "CursorIcon",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ClickDetector"),
+                    },
+                );
+                default_properties
+                    .insert("MaxActivationDistance", RbxValue::Float32 { value: 32.0 });
                 default_properties
             },
         },
@@ -2799,19 +2799,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("CollectionService"),
-                    },
-                );
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CollectionService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("CollectionService"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -2829,13 +2829,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Configuration"),
-                    },
-                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -2843,6 +2836,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Configuration"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -2968,37 +2968,37 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("MaxTorque", RbxValue::Float32 { value: 10000.0 });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("PrimaryAxisOnly", RbxValue::Bool { value: false });
-                default_properties.insert("Responsiveness", RbxValue::Float32 { value: 10.0 });
                 default_properties.insert("AlignType", RbxValue::Enum { value: 0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert("Visible", RbxValue::Bool { value: false });
-                default_properties.insert("RigidityEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Responsiveness", RbxValue::Float32 { value: 10.0 });
+                default_properties.insert("RigidityEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "MaxAngularVelocity",
                     RbxValue::Float32 {
                         value: 1000000000.0,
                     },
                 );
-                default_properties.insert("ReactionTorqueEnabled", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("AlignOrientation"),
-                    },
-                );
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("PrimaryAxisOnly", RbxValue::Bool { value: false });
+                default_properties.insert("MaxTorque", RbxValue::Float32 { value: 10000.0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("ReactionTorqueEnabled", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("AlignOrientation"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("AlignOrientation"),
+                    },
+                );
                 default_properties
             },
         },
@@ -3058,36 +3058,36 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("AlignPosition"),
-                    },
-                );
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
-                default_properties.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Responsiveness", RbxValue::Float32 { value: 10.0 });
+                default_properties.insert("RigidityEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("AlignPosition"),
                     },
                 );
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("ReactionForceEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("AlignPosition"),
+                    },
+                );
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("MaxForce", RbxValue::Float32 { value: 10000.0 });
+                default_properties.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("ReactionForceEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "MaxVelocity",
                     RbxValue::Float32 {
                         value: 1000000000.0,
                     },
                 );
-                default_properties.insert("RigidityEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Responsiveness", RbxValue::Float32 { value: 10.0 });
+                default_properties.insert("MaxForce", RbxValue::Float32 { value: 10000.0 });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -3154,32 +3154,32 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("TwistLowerAngle", RbxValue::Float32 { value: -45.0 });
-                default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("UpperAngle", RbxValue::Float32 { value: 45.0 });
-                default_properties.insert("TwistLimitsEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Radius", RbxValue::Float32 { value: 0.15 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("BallSocketConstraint"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Radius", RbxValue::Float32 { value: 0.15 });
                 default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("TwistUpperAngle", RbxValue::Float32 { value: 45.0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("TwistLowerAngle", RbxValue::Float32 { value: -45.0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Restitution", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("TwistUpperAngle", RbxValue::Float32 { value: 45.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("BallSocketConstraint"),
                     },
                 );
+                default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("TwistLimitsEnabled", RbxValue::Bool { value: false });
                 default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -3288,43 +3288,43 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("Restitution", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AngularVelocity", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ActuatorType", RbxValue::Enum { value: 0 });
+                default_properties.insert("Radius", RbxValue::Float32 { value: 0.15 });
                 default_properties.insert("AngularSpeed", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("HingeConstraint"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("MotorMaxTorque", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HingeConstraint"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
-                default_properties.insert("UpperAngle", RbxValue::Float32 { value: 45.0 });
-                default_properties.insert("LowerAngle", RbxValue::Float32 { value: -45.0 });
                 default_properties.insert("ServoMaxTorque", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("MotorMaxTorque", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
+                default_properties.insert("AngularVelocity", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TargetAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("UpperAngle", RbxValue::Float32 { value: 45.0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("LowerAngle", RbxValue::Float32 { value: -45.0 });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "MotorMaxAcceleration",
                     RbxValue::Float32 {
                         value: 1000000000.0,
                     },
                 );
-                default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Restitution", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("HingeConstraint"),
+                    },
+                );
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("TargetAngle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Radius", RbxValue::Float32 { value: 0.15 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("ActuatorType", RbxValue::Enum { value: 0 });
                 default_properties
             },
         },
@@ -3377,18 +3377,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("InverseSquareLaw", RbxValue::Bool { value: false });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Magnitude", RbxValue::Float32 { value: 1000.0 });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("LineForce"),
+                    "MaxForce",
+                    RbxValue::Float32 {
+                        value: 1000000000.0,
                     },
                 );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
-                default_properties.insert("Magnitude", RbxValue::Float32 { value: 1000.0 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert("ReactionForceEnabled", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ClassName",
@@ -3396,14 +3399,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("LineForce"),
                     },
                 );
-                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
-                default_properties.insert("InverseSquareLaw", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "MaxForce",
-                    RbxValue::Float32 {
-                        value: 1000000000.0,
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("LineForce"),
                     },
                 );
                 default_properties
@@ -3444,28 +3444,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("Thickness", RbxValue::Float32 { value: 0.1 });
                 default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("CurrentDistance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RodConstraint"),
-                    },
-                );
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Attachment1", RbxValue::Ref { value: None });
+                default_properties.insert("CurrentDistance", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("RodConstraint"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Length", RbxValue::Float32 { value: 5.0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("Thickness", RbxValue::Float32 { value: 0.1 });
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("RodConstraint"),
+                    },
+                );
                 default_properties
             },
         },
@@ -3511,29 +3511,29 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("RopeConstraint"),
                     },
                 );
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("CurrentDistance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Restitution", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
                 default_properties.insert("Visible", RbxValue::Bool { value: false });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("Thickness", RbxValue::Float32 { value: 0.1 });
-                default_properties.insert("Length", RbxValue::Float32 { value: 5.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("RopeConstraint"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Thickness", RbxValue::Float32 { value: 0.1 });
+                default_properties.insert("CurrentDistance", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Length", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Restitution", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -3764,51 +3764,61 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("RotationAxisVisible", RbxValue::Bool { value: false });
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("AngularLimitsEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Size", RbxValue::Float32 { value: 0.15 });
+                default_properties.insert("ActuatorType", RbxValue::Enum { value: 0 });
+                default_properties.insert("AngularRestitution", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("UpperLimit", RbxValue::Float32 { value: 5.0 });
                 default_properties.insert("TargetPosition", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "MotorMaxAcceleration",
-                    RbxValue::Float32 {
-                        value: 1000000000.0,
-                    },
-                );
-                default_properties.insert("LowerAngle", RbxValue::Float32 { value: -45.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "WorldRotationAxis",
-                    RbxValue::Vector3 {
-                        value: [1.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("CylindricalConstraint"),
-                    },
-                );
-                default_properties.insert("ServoMaxForce", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Restitution", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "MotorMaxAngularAcceleration",
                     RbxValue::Float32 {
                         value: 1000000000.0,
                     },
                 );
-                default_properties.insert("InclinationAngle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ServoMaxTorque", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ActuatorType", RbxValue::Enum { value: 0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Velocity", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AngularActuatorType", RbxValue::Enum { value: 0 });
-                default_properties.insert("AngularSpeed", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Speed", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
                 default_properties.insert("Attachment1", RbxValue::Ref { value: None });
+                default_properties.insert("MotorMaxForce", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("CurrentPosition", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
+                default_properties.insert("AngularLimitsEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("AngularActuatorType", RbxValue::Enum { value: 0 });
+                default_properties.insert("LowerAngle", RbxValue::Float32 { value: -45.0 });
+                default_properties.insert("MotorMaxTorque", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("TargetAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ServoMaxForce", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LowerLimit", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "MotorMaxAcceleration",
+                    RbxValue::Float32 {
+                        value: 1000000000.0,
+                    },
+                );
+                default_properties.insert("AngularSpeed", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ServoMaxTorque", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Speed", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Restitution", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "WorldRotationAxis",
+                    RbxValue::Vector3 {
+                        value: [1.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Velocity", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Size", RbxValue::Float32 { value: 0.15 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("CylindricalConstraint"),
+                    },
+                );
+                default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("RotationAxisVisible", RbxValue::Bool { value: false });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("UpperAngle", RbxValue::Float32 { value: 45.0 });
+                default_properties.insert("InclinationAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AngularVelocity", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
@@ -3816,16 +3826,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("CylindricalConstraint"),
                     },
                 );
-                default_properties.insert("CurrentPosition", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AngularRestitution", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("MotorMaxTorque", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("MotorMaxForce", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AngularVelocity", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("UpperAngle", RbxValue::Float32 { value: 45.0 });
-                default_properties.insert("TargetAngle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
-                default_properties.insert("LowerLimit", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -3844,13 +3844,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Size", RbxValue::Float32 { value: 0.15 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "MotorMaxAcceleration",
-                    RbxValue::Float32 {
-                        value: 1000000000.0,
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("LowerLimit", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("CurrentPosition", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("UpperLimit", RbxValue::Float32 { value: 5.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -3858,28 +3856,30 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Restitution", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "MotorMaxAcceleration",
+                    RbxValue::Float32 {
+                        value: 1000000000.0,
+                    },
+                );
+                default_properties.insert("Speed", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Attachment0", RbxValue::Ref { value: None });
+                default_properties.insert("ActuatorType", RbxValue::Enum { value: 0 });
+                default_properties.insert("ServoMaxForce", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TargetPosition", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("MotorMaxForce", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("PrismaticConstraint"),
                     },
                 );
-                default_properties.insert("ActuatorType", RbxValue::Enum { value: 0 });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("UpperLimit", RbxValue::Float32 { value: 5.0 });
-                default_properties.insert("CurrentPosition", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("TargetPosition", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ServoMaxForce", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("MotorMaxForce", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("LowerLimit", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Speed", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
                 default_properties.insert("Velocity", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -3974,41 +3974,41 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("MinLength", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Coils", RbxValue::Float32 { value: 3.0 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("MaxLength", RbxValue::Float32 { value: 5.0 });
                 default_properties.insert("LimitsEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("Radius", RbxValue::Float32 { value: 0.4 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("FreeLength", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SpringConstraint"),
                     },
                 );
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Coils", RbxValue::Float32 { value: 3.0 });
                 default_properties.insert(
                     "MaxForce",
                     RbxValue::Float32 {
                         value: 1000000000.0,
                     },
                 );
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
+                default_properties.insert("MinLength", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("SpringConstraint"),
                     },
                 );
-                default_properties.insert("CurrentLength", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
                 default_properties.insert("Stiffness", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("MaxLength", RbxValue::Float32 { value: 5.0 });
-                default_properties.insert("Damping", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
                 default_properties.insert("Thickness", RbxValue::Float32 { value: 0.1 });
-                default_properties.insert("FreeLength", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Damping", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("CurrentLength", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Radius", RbxValue::Float32 { value: 0.4 });
                 default_properties
             },
         },
@@ -4040,32 +4040,32 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Torque",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Torque"),
                     },
                 );
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("RelativeTo", RbxValue::Enum { value: 0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Torque"),
                     },
                 );
-                default_properties.insert("RelativeTo", RbxValue::Enum { value: 0 });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -4104,33 +4104,33 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("VectorForce"),
-                    },
-                );
-                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert("Visible", RbxValue::Bool { value: false });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Force",
                     RbxValue::Vector3 {
                         value: [1000.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("RelativeTo", RbxValue::Enum { value: 0 });
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("VectorForce"),
+                    },
+                );
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("VectorForce"),
                     },
                 );
+                default_properties.insert("RelativeTo", RbxValue::Enum { value: 0 });
+                default_properties.insert("ApplyAtCenterOfMass", RbxValue::Bool { value: false });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -4163,17 +4163,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("RequestQueueSize", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "BaseUrl",
                     RbxValue::String {
                         value: String::from("https://www.roblox.com/"),
-                    },
-                );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ContentProvider"),
                     },
                 );
                 default_properties.insert(
@@ -4182,7 +4176,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ContentProvider"),
                     },
                 );
-                default_properties.insert("RequestQueueSize", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ContentProvider"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -4200,6 +4200,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ContextActionService"),
+                    },
+                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
@@ -4208,12 +4214,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ContextActionService"),
-                    },
-                );
                 default_properties
             },
         },
@@ -4293,22 +4293,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Steer", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SkateboardController"),
-                    },
-                );
+                default_properties.insert("Throttle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Steer", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("SkateboardController"),
                     },
                 );
-                default_properties.insert("Throttle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("SkateboardController"),
+                    },
+                );
                 default_properties
             },
         },
@@ -4327,19 +4327,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("VehicleController"),
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
                 default_properties
             },
         },
@@ -4357,13 +4357,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ControllerService"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -4394,6 +4394,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("CookiesService"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -4401,7 +4402,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -4419,20 +4419,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("CorePackages"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CorePackages"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -4468,13 +4468,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CustomEvent"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -4511,15 +4511,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("CustomEventReceiver"),
                     },
                 );
-                default_properties.insert("Source", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CustomEventReceiver"),
                     },
                 );
+                default_properties.insert("Source", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -4592,7 +4592,26 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert(
+                    "Scale",
+                    RbxValue::Vector3 {
+                        value: [1.0, 1.0, 1.0],
+                    },
+                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("BlockMesh"),
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Mesh"),
+                    },
+                );
                 default_properties.insert(
                     "VertexColor",
                     RbxValue::Vector3 {
@@ -4603,25 +4622,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Offset",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Mesh"),
-                    },
-                );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BlockMesh"),
-                    },
-                );
-                default_properties.insert(
-                    "Scale",
-                    RbxValue::Vector3 {
-                        value: [1.0, 1.0, 1.0],
                     },
                 );
                 default_properties
@@ -4642,20 +4642,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Mesh"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("CylinderMesh"),
-                    },
-                );
-                default_properties.insert(
                     "Offset",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
@@ -4667,10 +4653,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Mesh"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "VertexColor",
                     RbxValue::Vector3 {
                         value: [1.0, 1.0, 1.0],
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("CylinderMesh"),
                     },
                 );
                 default_properties
@@ -4704,36 +4704,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FileMesh"),
-                    },
-                );
-                default_properties.insert(
-                    "TextureId",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert(
-                    "Offset",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
                 default_properties.insert(
                     "Scale",
                     RbxValue::Vector3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "MeshId",
                     RbxValue::String {
                         value: String::from(""),
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Mesh"),
                     },
                 );
                 default_properties.insert(
@@ -4742,10 +4728,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
+                    "TextureId",
                     RbxValue::String {
-                        value: String::from("Mesh"),
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Offset",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("FileMesh"),
                     },
                 );
                 default_properties
@@ -4772,24 +4772,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("SpecialMesh"),
+                    },
+                );
                 default_properties.insert(
                     "Offset",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("MeshType", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "MeshId",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert(
-                    "TextureId",
-                    RbxValue::String {
-                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
@@ -4799,15 +4792,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "VertexColor",
-                    RbxValue::Vector3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
-                default_properties.insert(
-                    "ClassName",
+                    "TextureId",
                     RbxValue::String {
-                        value: String::from("SpecialMesh"),
+                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
@@ -4816,7 +4803,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("MeshType", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "VertexColor",
+                    RbxValue::Vector3 {
+                        value: [1.0, 1.0, 1.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "MeshId",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
                 default_properties
             },
         },
@@ -4854,14 +4854,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("DataStoreService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("DataStoreService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -4887,6 +4887,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Debris"),
+                    },
+                );
+                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Debris"),
@@ -4895,12 +4901,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("MaxItems", RbxValue::Float32 { value: 1000.0 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Debris"),
-                    },
-                );
                 default_properties
             },
         },
@@ -5231,46 +5231,46 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "TriggerOffset",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
+                default_properties.insert("InUse", RbxValue::Bool { value: false });
                 default_properties.insert("Tone", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "InitialPrompt",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("BehaviorType", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "GoodbyeDialog",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
                 default_properties.insert("TriggerDistance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Purpose", RbxValue::Enum { value: 1 });
                 default_properties.insert("GoodbyeChoiceActive", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Dialog"),
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Dialog"),
                     },
                 );
-                default_properties.insert("InUse", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "GoodbyeDialog",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert(
+                    "InitialPrompt",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("Purpose", RbxValue::Enum { value: 1 });
+                default_properties.insert(
+                    "TriggerOffset",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
                 default_properties
                     .insert("ConversationDistance", RbxValue::Float32 { value: 25.0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Dialog"),
+                    },
+                );
                 default_properties
             },
         },
@@ -5316,16 +5316,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("GoodbyeChoiceActive", RbxValue::Bool { value: true });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
+                    "UserDialog",
                     RbxValue::String {
-                        value: String::from("DialogChoice"),
+                        value: String::from(""),
                     },
                 );
+                default_properties.insert("GoodbyeChoiceActive", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("DialogChoice"),
                     },
@@ -5336,15 +5337,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ResponseDialog",
+                    "ClassName",
                     RbxValue::String {
-                        value: String::from(""),
+                        value: String::from("DialogChoice"),
                     },
                 );
                 default_properties.insert(
-                    "UserDialog",
+                    "ResponseDialog",
                     RbxValue::String {
                         value: String::from(""),
                     },
@@ -5366,15 +5366,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("Dragger"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("Dragger"),
                     },
@@ -5439,16 +5439,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "DestroyJointRadiusPercent",
-                    RbxValue::Float32 { value: 1.0 },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("BlastRadius", RbxValue::Float32 { value: 4.0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Explosion"),
                     },
                 );
                 default_properties.insert(
@@ -5457,16 +5454,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Explosion"),
                     },
                 );
-                default_properties.insert("BlastRadius", RbxValue::Float32 { value: 4.0 });
+                default_properties.insert("ExplosionType", RbxValue::Enum { value: 1 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Explosion"),
-                    },
+                    "DestroyJointRadiusPercent",
+                    RbxValue::Float32 { value: 1.0 },
                 );
                 default_properties.insert("BlastPressure", RbxValue::Float32 { value: 500000.0 });
-                default_properties.insert("ExplosionType", RbxValue::Enum { value: 1 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
                 default_properties
             },
         },
@@ -5551,39 +5551,39 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Decal"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Decal"),
-                    },
-                );
-                default_properties.insert("Face", RbxValue::Enum { value: 5 });
-                default_properties.insert("Shiny", RbxValue::Float32 { value: 20.0 });
-                default_properties.insert("Specular", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
+                default_properties.insert("Specular", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Face", RbxValue::Enum { value: 5 });
                 default_properties.insert(
                     "Texture",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "LocalTransparencyModifier",
                     RbxValue::Float32 { value: 0.0 },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Decal"),
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Decal"),
+                    },
+                );
                 default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Shiny", RbxValue::Float32 { value: 20.0 });
                 default_properties
             },
         },
@@ -5615,42 +5615,42 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Specular", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Face", RbxValue::Enum { value: 5 });
-                default_properties.insert("StudsPerTileU", RbxValue::Float32 { value: 2.0 });
                 default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("StudsPerTileV", RbxValue::Float32 { value: 2.0 });
-                default_properties.insert("Specular", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Texture"),
-                    },
-                );
+                default_properties.insert("Face", RbxValue::Enum { value: 5 });
                 default_properties.insert(
                     "Texture",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("Shiny", RbxValue::Float32 { value: 20.0 });
+                default_properties.insert("StudsPerTileU", RbxValue::Float32 { value: 2.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Texture"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Shiny", RbxValue::Float32 { value: 20.0 });
+                default_properties.insert("StudsPerTileV", RbxValue::Float32 { value: 2.0 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Texture"),
+                    },
+                );
                 default_properties
             },
         },
@@ -5713,17 +5713,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("InOut", RbxValue::Enum { value: 2 });
-                default_properties.insert("FaceId", RbxValue::Enum { value: 0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Hole"),
-                    },
-                );
-                default_properties.insert("TopBottom", RbxValue::Enum { value: 1 });
-                default_properties.insert("LeftRight", RbxValue::Enum { value: 1 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -5731,6 +5720,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("InOut", RbxValue::Enum { value: 2 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Hole"),
+                    },
+                );
+                default_properties.insert("LeftRight", RbxValue::Enum { value: 1 });
+                default_properties.insert("TopBottom", RbxValue::Enum { value: 1 });
+                default_properties.insert("FaceId", RbxValue::Enum { value: 0 });
                 default_properties
             },
         },
@@ -5748,24 +5748,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MotorFeature"),
-                    },
-                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("LeftRight", RbxValue::Enum { value: 1 });
                 default_properties.insert("FaceId", RbxValue::Enum { value: 0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("InOut", RbxValue::Enum { value: 2 });
+                default_properties.insert("TopBottom", RbxValue::Enum { value: 1 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("MotorFeature"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("InOut", RbxValue::Enum { value: 2 });
-                default_properties.insert("TopBottom", RbxValue::Enum { value: 1 });
+                default_properties.insert("LeftRight", RbxValue::Enum { value: 1 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("MotorFeature"),
+                    },
+                );
                 default_properties
             },
         },
@@ -5863,15 +5863,27 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("size", RbxValue::Float32 { value: 5.0 });
-                default_properties.insert("Size", RbxValue::Float32 { value: 5.0 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Fire"),
+                    },
+                );
+                default_properties.insert("Heat", RbxValue::Float32 { value: 9.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "SecondaryColor",
                     RbxValue::Color3 {
                         value: [0.54509807, 0.3137255, 0.21568628],
                     },
                 );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Fire"),
+                    },
+                );
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Color",
@@ -5879,20 +5891,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.9254902, 0.54509807, 0.27450982],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Heat", RbxValue::Float32 { value: 9.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Fire"),
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Fire"),
-                    },
-                );
+                default_properties.insert("Size", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("size", RbxValue::Float32 { value: 5.0 });
                 default_properties
             },
         },
@@ -5978,16 +5978,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("Folder"),
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("Folder"),
                     },
@@ -6016,7 +6016,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ForceField"),
+                    },
+                );
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -6024,13 +6030,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ForceField"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -6048,6 +6048,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
@@ -6061,7 +6062,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("FriendService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -6088,24 +6088,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("FunctionalTest"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Description",
                     RbxValue::String {
                         value: String::from("?"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
                 default_properties
             },
         },
@@ -6123,6 +6123,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -6135,8 +6137,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("GamePassService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -6269,8 +6269,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -6300,16 +6300,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("Geometry"),
                     },
                 );
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("Geometry"),
                     },
@@ -6382,20 +6382,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("GroupService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("GroupService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -6681,27 +6681,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Draggable", RbxValue::Bool { value: false });
-                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "BackgroundColor3",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert("Style", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Frame"),
-                    },
-                );
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
-                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -6709,31 +6690,50 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("Selectable", RbxValue::Bool { value: false });
+                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 default_properties
                     .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "BorderColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
-                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
-                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Draggable", RbxValue::Bool { value: false });
+                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
+                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
+                default_properties.insert("Selectable", RbxValue::Bool { value: false });
+                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
                 default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "BackgroundColor3",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
+                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Style", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Frame"),
+                    },
+                );
+                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
                 default_properties
             },
         },
@@ -6880,93 +6880,93 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ImageTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Active", RbxValue::Bool { value: true });
-                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
+                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "PressedImage",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
+                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
+                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert(
                     "Image",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("IsLoaded", RbxValue::Bool { value: false });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Selected", RbxValue::Bool { value: false });
+                default_properties.insert("Style", RbxValue::Enum { value: 0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties
+                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "HoverImage",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert(
-                    "ImageColor3",
-                    RbxValue::Color3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
-                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
-                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("AutoButtonColor", RbxValue::Bool { value: true });
-                default_properties.insert("Draggable", RbxValue::Bool { value: false });
-                default_properties.insert("Style", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ImageButton"),
-                    },
-                );
-                default_properties.insert("SliceScale", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert("Modal", RbxValue::Bool { value: false });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
-                default_properties.insert("ScaleType", RbxValue::Enum { value: 0 });
-                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
+                default_properties.insert("Selectable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "PressedImage",
                     RbxValue::String {
-                        value: String::from("ImageButton"),
+                        value: String::from(""),
                     },
                 );
-                default_properties
-                    .insert("ImageRectOffset", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert("ImageRectSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "BorderColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
+                default_properties.insert("Active", RbxValue::Bool { value: true });
+                default_properties.insert("ImageTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AutoButtonColor", RbxValue::Bool { value: true });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ImageButton"),
+                    },
+                );
+                default_properties.insert("ScaleType", RbxValue::Enum { value: 0 });
+                default_properties
+                    .insert("ImageRectOffset", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
+                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
+                default_properties.insert("SliceScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
+                default_properties.insert("IsLoaded", RbxValue::Bool { value: false });
+                default_properties.insert("Draggable", RbxValue::Bool { value: false });
+                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert(
+                    "ImageColor3",
+                    RbxValue::Color3 {
+                        value: [1.0, 1.0, 1.0],
+                    },
+                );
+                default_properties.insert("Selected", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ImageButton"),
+                    },
+                );
+                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "BackgroundColor3",
                     RbxValue::Color3 {
                         value: [0.6392157, 0.63529414, 0.64705884],
                     },
                 );
-                default_properties.insert("Selectable", RbxValue::Bool { value: true });
+                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
+                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -7117,101 +7117,101 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("TextFits", RbxValue::Bool { value: false });
-                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
-                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties
+                    .insert("TextStrokeTransparency", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert(
                     "TextColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
-                default_properties.insert("TextTruncate", RbxValue::Enum { value: 0 });
-                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "BorderColor3",
-                    RbxValue::Color3 {
-                        value: [0.10588236, 0.16470589, 0.20784315],
-                    },
-                );
-                default_properties.insert("Modal", RbxValue::Bool { value: false });
-                default_properties.insert("TextSize", RbxValue::Float32 { value: 8.0 });
-                default_properties.insert("TextXAlignment", RbxValue::Enum { value: 2 });
-                default_properties.insert("TextScaled", RbxValue::Bool { value: false });
-                default_properties.insert("Draggable", RbxValue::Bool { value: false });
-                default_properties.insert("TextTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "TextStrokeColor3",
-                    RbxValue::Color3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TextYAlignment", RbxValue::Enum { value: 1 });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
-                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("LineHeight", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "LocalizedText",
-                    RbxValue::String {
-                        value: String::from("Button"),
-                    },
-                );
-                default_properties.insert("Style", RbxValue::Enum { value: 0 });
-                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert(
-                    "BackgroundColor3",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("AutoButtonColor", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Text",
-                    RbxValue::String {
-                        value: String::from("Button"),
-                    },
-                );
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties
-                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
-                default_properties.insert("TextWrap", RbxValue::Bool { value: false });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("TextStrokeTransparency", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("TextButton"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("TextYAlignment", RbxValue::Enum { value: 1 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("TextButton"),
                     },
                 );
-                default_properties.insert("Selected", RbxValue::Bool { value: false });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Modal", RbxValue::Bool { value: false });
+                default_properties.insert("TextXAlignment", RbxValue::Enum { value: 2 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "BackgroundColor3",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("TextTruncate", RbxValue::Enum { value: 0 });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
+                default_properties.insert("TextWrap", RbxValue::Bool { value: false });
+                default_properties.insert("TextTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Style", RbxValue::Enum { value: 0 });
                 default_properties.insert("Selectable", RbxValue::Bool { value: true });
-                default_properties.insert("Active", RbxValue::Bool { value: true });
-                default_properties.insert("FontSize", RbxValue::Enum { value: 0 });
+                default_properties.insert("TextScaled", RbxValue::Bool { value: false });
+                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
+                default_properties
+                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TextFits", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "TextStrokeColor3",
+                    RbxValue::Color3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "BorderColor3",
+                    RbxValue::Color3 {
+                        value: [0.10588236, 0.16470589, 0.20784315],
+                    },
+                );
+                default_properties.insert("Draggable", RbxValue::Bool { value: false });
                 default_properties.insert("TextWrapped", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "LocalizedText",
+                    RbxValue::String {
+                        value: String::from("Button"),
+                    },
+                );
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
+                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
+                default_properties.insert("Selected", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "Text",
+                    RbxValue::String {
+                        value: String::from("Button"),
+                    },
+                );
+                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
+                default_properties.insert("AutoButtonColor", RbxValue::Bool { value: true });
+                default_properties.insert("FontSize", RbxValue::Enum { value: 0 });
+                default_properties.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("TextButton"),
+                    },
+                );
+                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
+                default_properties
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("TextSize", RbxValue::Float32 { value: 8.0 });
+                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
                 default_properties.insert("Font", RbxValue::Enum { value: 0 });
+                default_properties.insert("Active", RbxValue::Bool { value: true });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
+                default_properties.insert("LineHeight", RbxValue::Float32 { value: 1.0 });
                 default_properties
             },
         },
@@ -7316,20 +7316,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ImageColor3",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("ImageRectSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties
+                    .insert("ImageRectOffset", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
+                default_properties.insert("IsLoaded", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "BackgroundColor3",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
+                    "Image",
+                    RbxValue::String {
+                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
@@ -7338,55 +7339,54 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ImageLabel"),
                     },
                 );
-                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
-                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
-                default_properties.insert("Selectable", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "Image",
-                    RbxValue::String {
-                        value: String::from(""),
+                    "BackgroundColor3",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ImageLabel"),
                     },
                 );
-                default_properties.insert("SliceScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
                 default_properties
-                    .insert("ImageRectOffset", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ScaleType", RbxValue::Enum { value: 0 });
-                default_properties.insert("ImageTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Draggable", RbxValue::Bool { value: false });
-                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
-                default_properties.insert("IsLoaded", RbxValue::Bool { value: false });
+                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ImageRectSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
+                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
+                default_properties.insert("SliceScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Selectable", RbxValue::Bool { value: false });
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
+                default_properties.insert("ImageTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "BorderColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties
-                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
-                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Draggable", RbxValue::Bool { value: false });
                 default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
+                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("ScaleType", RbxValue::Enum { value: 0 });
+                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
                 default_properties
             },
         },
@@ -7537,97 +7537,97 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Font", RbxValue::Enum { value: 0 });
+                default_properties.insert("TextWrapped", RbxValue::Bool { value: false });
+                default_properties.insert("TextScaled", RbxValue::Bool { value: false });
+                default_properties.insert("TextWrap", RbxValue::Bool { value: false });
+                default_properties.insert("TextYAlignment", RbxValue::Enum { value: 1 });
                 default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("TextLabel"),
-                    },
-                );
-                default_properties.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("TextFits", RbxValue::Bool { value: false });
+                default_properties.insert("FontSize", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "BackgroundColor3",
                     RbxValue::Color3 {
                         value: [0.6392157, 0.63529414, 0.64705884],
                     },
                 );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TextLabel"),
-                    },
-                );
-                default_properties.insert("TextXAlignment", RbxValue::Enum { value: 2 });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
-                default_properties.insert("Font", RbxValue::Enum { value: 0 });
-                default_properties.insert("TextFits", RbxValue::Bool { value: false });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("TextTruncate", RbxValue::Enum { value: 0 });
-                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
-                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
-                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("TextSize", RbxValue::Float32 { value: 8.0 });
-                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
-                default_properties.insert("Selectable", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "TextStrokeColor3",
-                    RbxValue::Color3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TextYAlignment", RbxValue::Enum { value: 1 });
-                default_properties.insert("Draggable", RbxValue::Bool { value: false });
-                default_properties.insert("TextWrap", RbxValue::Bool { value: false });
-                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
-                default_properties.insert("TextScaled", RbxValue::Bool { value: false });
-                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Text",
-                    RbxValue::String {
-                        value: String::from("Label"),
-                    },
-                );
-                default_properties.insert(
-                    "LocalizedText",
-                    RbxValue::String {
-                        value: String::from("Label"),
-                    },
-                );
-                default_properties.insert("TextWrapped", RbxValue::Bool { value: false });
-                default_properties
-                    .insert("TextStrokeTransparency", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
-                default_properties.insert("LineHeight", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("FontSize", RbxValue::Enum { value: 0 });
-                default_properties.insert("TextTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "BorderColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
+                default_properties.insert("TextTruncate", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "TextStrokeColor3",
+                    RbxValue::Color3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("TextLabel"),
+                    },
+                );
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("TextLabel"),
+                    },
+                );
+                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("TextTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LineHeight", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
+                default_properties.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Selectable", RbxValue::Bool { value: false });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Draggable", RbxValue::Bool { value: false });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties
                     .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Text",
+                    RbxValue::String {
+                        value: String::from("Label"),
+                    },
+                );
+                default_properties
+                    .insert("TextStrokeTransparency", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
+                default_properties.insert("TextSize", RbxValue::Float32 { value: 8.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties
+                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "LocalizedText",
+                    RbxValue::String {
+                        value: String::from("Label"),
+                    },
+                );
                 default_properties.insert(
                     "TextColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
+                default_properties.insert("TextXAlignment", RbxValue::Enum { value: 2 });
+                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -7750,99 +7750,99 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("HorizontalScrollBarInset", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "BorderColor3",
-                    RbxValue::Color3 {
-                        value: [0.10588236, 0.16470589, 0.20784315],
-                    },
-                );
-                default_properties.insert(
-                    "ScrollBarImageTransparency",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "AbsoluteWindowSize",
-                    RbxValue::Vector2 { value: [0.0, 0.0] },
-                );
-                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert(
-                    "MidImage",
-                    RbxValue::String {
-                        value: String::from("rbxasset://textures/ui/Scroll/scroll-middle.png"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
-                default_properties.insert("Selectable", RbxValue::Bool { value: true });
-                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "BackgroundColor3",
                     RbxValue::Color3 {
                         value: [0.6392157, 0.63529414, 0.64705884],
                     },
                 );
-                default_properties.insert("Draggable", RbxValue::Bool { value: false });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: true });
-                default_properties.insert("VerticalScrollBarInset", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ScrollingFrame"),
-                    },
-                );
-                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
-                default_properties.insert("ScrollBarThickness", RbxValue::Float32 { value: 12.0 });
-                default_properties.insert("ElasticBehavior", RbxValue::Enum { value: 0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("VerticalScrollBarPosition", RbxValue::Enum { value: 0 });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("ScrollingEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "ScrollBarImageColor3",
-                    RbxValue::Color3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
-                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
-                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
-                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Selectable", RbxValue::Bool { value: true });
                 default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "TopImage",
-                    RbxValue::String {
-                        value: String::from("rbxasset://textures/ui/Scroll/scroll-top.png"),
-                    },
-                );
-                default_properties
-                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ScrollingFrame"),
-                    },
-                );
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties
-                    .insert("CanvasPosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert("ScrollingDirection", RbxValue::Enum { value: 4 });
+                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
+                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "BottomImage",
                     RbxValue::String {
                         value: String::from("rbxasset://textures/ui/Scroll/scroll-bottom.png"),
                     },
                 );
+                default_properties
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ScrollBarImageTransparency",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ScrollingFrame"),
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ScrollingFrame"),
+                    },
+                );
+                default_properties.insert("ScrollingDirection", RbxValue::Enum { value: 4 });
+                default_properties.insert("ScrollBarThickness", RbxValue::Float32 { value: 12.0 });
+                default_properties.insert(
+                    "BorderColor3",
+                    RbxValue::Color3 {
+                        value: [0.10588236, 0.16470589, 0.20784315],
+                    },
+                );
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties
+                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
+                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties
+                    .insert("CanvasPosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("VerticalScrollBarInset", RbxValue::Enum { value: 0 });
+                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("VerticalScrollBarPosition", RbxValue::Enum { value: 0 });
+                default_properties.insert("Draggable", RbxValue::Bool { value: false });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
+                default_properties.insert("ElasticBehavior", RbxValue::Enum { value: 0 });
+                default_properties.insert("HorizontalScrollBarInset", RbxValue::Enum { value: 0 });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: true });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ScrollBarImageColor3",
+                    RbxValue::Color3 {
+                        value: [1.0, 1.0, 1.0],
+                    },
+                );
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "MidImage",
+                    RbxValue::String {
+                        value: String::from("rbxasset://textures/ui/Scroll/scroll-middle.png"),
+                    },
+                );
+                default_properties.insert(
+                    "TopImage",
+                    RbxValue::String {
+                        value: String::from("rbxasset://textures/ui/Scroll/scroll-top.png"),
+                    },
+                );
+                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert(
+                    "AbsoluteWindowSize",
+                    RbxValue::Vector2 { value: [0.0, 0.0] },
+                );
                 default_properties
             },
         },
@@ -8042,109 +8042,109 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Active", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "PlaceholderColor3",
-                    RbxValue::Color3 {
-                        value: [0.7, 0.7, 0.7],
-                    },
-                );
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Text",
-                    RbxValue::String {
-                        value: String::from("TextBox"),
-                    },
-                );
+                default_properties.insert("TextTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("TextFits", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "PlaceholderText",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("OverlayNativeInput", RbxValue::Bool { value: false });
-                default_properties.insert("TextScaled", RbxValue::Bool { value: false });
-                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "BackgroundColor3",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert("TextYAlignment", RbxValue::Enum { value: 1 });
-                default_properties.insert("TextSize", RbxValue::Float32 { value: 8.0 });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("TextXAlignment", RbxValue::Enum { value: 2 });
-                default_properties.insert(
-                    "BorderColor3",
-                    RbxValue::Color3 {
-                        value: [0.10588236, 0.16470589, 0.20784315],
-                    },
-                );
-                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Font", RbxValue::Enum { value: 0 });
-                default_properties.insert("Draggable", RbxValue::Bool { value: false });
-                default_properties.insert("Selectable", RbxValue::Bool { value: true });
-                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("TextStrokeTransparency", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("TextTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("TextWrap", RbxValue::Bool { value: false });
-                default_properties.insert("MultiLine", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "TextStrokeColor3",
-                    RbxValue::Color3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("FontSize", RbxValue::Enum { value: 0 });
-                default_properties
-                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
+                default_properties.insert("ManualFocusRelease", RbxValue::Bool { value: false });
+                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
+                default_properties.insert("TextTruncate", RbxValue::Enum { value: 0 });
+                default_properties.insert("TextWrapped", RbxValue::Bool { value: false });
                 default_properties.insert("CursorPosition", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
-                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "TextColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
-                default_properties.insert("ShowNativeInput", RbxValue::Bool { value: true });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
-                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
-                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("ClearTextOnFocus", RbxValue::Bool { value: true });
-                default_properties.insert("LineHeight", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("TextWrapped", RbxValue::Bool { value: false });
-                default_properties.insert("TextFits", RbxValue::Bool { value: false });
-                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
-                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
-                default_properties.insert("TextTruncate", RbxValue::Enum { value: 0 });
                 default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ManualFocusRelease", RbxValue::Bool { value: false });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
+                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("TextBox"),
                     },
                 );
+                default_properties.insert("TextWrap", RbxValue::Bool { value: false });
+                default_properties.insert("LineHeight", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Draggable", RbxValue::Bool { value: false });
                 default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                    .insert("TextStrokeTransparency", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
+                default_properties.insert("ShowNativeInput", RbxValue::Bool { value: true });
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("Active", RbxValue::Bool { value: true });
+                default_properties.insert("TextBounds", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("TextYAlignment", RbxValue::Enum { value: 1 });
+                default_properties.insert("ClearTextOnFocus", RbxValue::Bool { value: true });
+                default_properties.insert("OverlayNativeInput", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "TextStrokeColor3",
+                    RbxValue::Color3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties
+                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "BackgroundColor3",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("Selectable", RbxValue::Bool { value: true });
+                default_properties.insert("FontSize", RbxValue::Enum { value: 0 });
+                default_properties.insert("TextXAlignment", RbxValue::Enum { value: 2 });
+                default_properties.insert("TextScaled", RbxValue::Bool { value: false });
+                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert(
+                    "BorderColor3",
+                    RbxValue::Color3 {
+                        value: [0.10588236, 0.16470589, 0.20784315],
+                    },
+                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("TextBox"),
                     },
                 );
-                default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "PlaceholderColor3",
+                    RbxValue::Color3 {
+                        value: [0.7, 0.7, 0.7],
+                    },
+                );
+                default_properties.insert("TextSize", RbxValue::Float32 { value: 8.0 });
+                default_properties
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Font", RbxValue::Enum { value: 0 });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("MultiLine", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "Text",
+                    RbxValue::String {
+                        value: String::from("TextBox"),
+                    },
+                );
+                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -8183,66 +8183,66 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("CurrentCamera", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ViewportFrame"),
-                    },
-                );
                 default_properties
-                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
-                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "BackgroundColor3",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("CurrentCamera", RbxValue::Ref { value: None });
+                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ImageColor3",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
-                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ImageTransparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Draggable", RbxValue::Bool { value: false });
-                default_properties.insert("NextSelectionDown", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ViewportFrame"),
+                    },
+                );
                 default_properties.insert("Selectable", RbxValue::Bool { value: false });
+                default_properties
+                    .insert("BackgroundTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Draggable", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "BorderColor3",
                     RbxValue::Color3 {
                         value: [0.10588236, 0.16470589, 0.20784315],
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
-                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ViewportFrame"),
                     },
                 );
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
                 default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
-                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "BackgroundColor3",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
                 default_properties.insert("SizeConstraint", RbxValue::Enum { value: 0 });
+                default_properties.insert("Rotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ImageTransparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("NextSelectionLeft", RbxValue::Ref { value: None });
+                default_properties.insert("LayoutOrder", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("NextSelectionRight", RbxValue::Ref { value: None });
+                default_properties.insert("SelectionImageObject", RbxValue::Ref { value: None });
+                default_properties.insert("NextSelectionUp", RbxValue::Ref { value: None });
+                default_properties.insert("AnchorPoint", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("BorderSizePixel", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -8389,67 +8389,67 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ExtentsOffset",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BillboardGui"),
-                    },
-                );
-                default_properties.insert("SizeOffset", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ExtentsOffsetWorldSpace",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
-                default_properties.insert("PlayerToHideFrom", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "StudsOffsetWorldSpace",
+                    "ExtentsOffset",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("BillboardGui"),
-                    },
-                );
-                default_properties.insert(
-                    "MaxDistance",
-                    RbxValue::Float32 {
-                        value: 1000000000.0,
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
                 default_properties.insert("LightInfluence", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties.insert("ZIndexBehavior", RbxValue::Enum { value: 0 });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
+                default_properties.insert("SizeOffset", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("PlayerToHideFrom", RbxValue::Ref { value: None });
+                default_properties.insert("ResetOnSpawn", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "StudsOffset",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("ResetOnSpawn", RbxValue::Bool { value: true });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "MaxDistance",
+                    RbxValue::Float32 {
+                        value: 1000000000.0,
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("BillboardGui"),
+                    },
+                );
+                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "StudsOffsetWorldSpace",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("BillboardGui"),
+                    },
+                );
+                default_properties.insert("AbsoluteSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties
             },
         },
@@ -8553,25 +8553,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("DisplayOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("IgnoreGuiInset", RbxValue::Bool { value: false });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert("OnTopOfCoreBlur", RbxValue::Bool { value: false });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert("ZIndexBehavior", RbxValue::Enum { value: 0 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("ResetOnSpawn", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "AbsoluteSize",
-                    RbxValue::Vector2 {
-                        value: [800.0, 600.0],
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ScreenGui"),
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("OnTopOfCoreBlur", RbxValue::Bool { value: false });
+                default_properties.insert("IgnoreGuiInset", RbxValue::Bool { value: false });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("DisplayOrder", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
                 default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
@@ -8579,12 +8574,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ScreenGui"),
                     },
                 );
+                default_properties.insert("ResetOnSpawn", RbxValue::Bool { value: true });
+                default_properties
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("ZIndexBehavior", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ScreenGui"),
+                    "AbsoluteSize",
+                    RbxValue::Vector2 {
+                        value: [800.0, 600.0],
                     },
                 );
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -8602,38 +8602,38 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
                 default_properties
                     .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties.insert("IgnoreGuiInset", RbxValue::Bool { value: false });
-                default_properties.insert("ResetOnSpawn", RbxValue::Bool { value: true });
                 default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert("OnTopOfCoreBlur", RbxValue::Bool { value: false });
-                default_properties.insert("DisplayOrder", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("GuiMain"),
-                    },
-                );
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "AbsoluteSize",
-                    RbxValue::Vector2 {
-                        value: [800.0, 600.0],
-                    },
-                );
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("GuiMain"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("ZIndexBehavior", RbxValue::Enum { value: 0 });
+                default_properties.insert("DisplayOrder", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "AbsoluteSize",
+                    RbxValue::Vector2 {
+                        value: [800.0, 600.0],
+                    },
+                );
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
+                default_properties.insert("IgnoreGuiInset", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("GuiMain"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("ResetOnSpawn", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -8714,31 +8714,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("SurfaceGui"),
-                    },
-                );
-                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: true });
-                default_properties.insert("ResetOnSpawn", RbxValue::Bool { value: true });
-                default_properties.insert("Localize", RbxValue::Bool { value: true });
-                default_properties
-                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
-                default_properties.insert("ZIndexBehavior", RbxValue::Enum { value: 0 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                default_properties.insert("Face", RbxValue::Enum { value: 5 });
-                default_properties.insert("ZOffset", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("LightInfluence", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "AbsoluteSize",
-                    RbxValue::Vector2 {
-                        value: [800.0, 600.0],
                     },
                 );
                 default_properties.insert(
@@ -8748,16 +8728,36 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
+                    "AbsoluteSize",
+                    RbxValue::Vector2 {
+                        value: [800.0, 600.0],
+                    },
+                );
+                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
+                default_properties
+                    .insert("ToolPunchThroughDistance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
+                default_properties.insert("ZOffset", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Localize", RbxValue::Bool { value: true });
+                default_properties.insert("ZIndexBehavior", RbxValue::Enum { value: 0 });
+                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SurfaceGui"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("AbsoluteRotation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Face", RbxValue::Enum { value: 5 });
                 default_properties
-                    .insert("ToolPunchThroughDistance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AutoLocalize", RbxValue::Bool { value: true });
-                default_properties.insert("RootLocalizationTable", RbxValue::Ref { value: None });
+                    .insert("AbsolutePosition", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Active", RbxValue::Bool { value: true });
+                default_properties.insert("ResetOnSpawn", RbxValue::Bool { value: true });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("LightInfluence", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ClipsDescendants", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -8876,11 +8876,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FloorWire"),
+                    "Color3",
+                    RbxValue::Color3 {
+                        value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
                 default_properties.insert(
@@ -8889,17 +8888,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("CycleOffset", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("From", RbxValue::Ref { value: None });
-                default_properties.insert("To", RbxValue::Ref { value: None });
+                default_properties.insert("TextureSize", RbxValue::Vector2 { value: [1.0, 1.0] });
                 default_properties.insert(
-                    "Color3",
-                    RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("FloorWire"),
                     },
                 );
+                default_properties.insert("To", RbxValue::Ref { value: None });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("WireRadius", RbxValue::Float32 { value: 0.0625 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("Velocity", RbxValue::Float32 { value: 2.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -8907,9 +8908,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("StudsBetweenTextures", RbxValue::Float32 { value: 4.0 });
-                default_properties.insert("WireRadius", RbxValue::Float32 { value: 0.0625 });
-                default_properties.insert("TextureSize", RbxValue::Vector2 { value: [1.0, 1.0] });
-                default_properties.insert("Velocity", RbxValue::Float32 { value: 2.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("CycleOffset", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
@@ -9004,18 +9004,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
                 default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("BoxHandleAdornment"),
                     },
                 );
                 default_properties.insert(
@@ -9024,29 +9017,36 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("BoxHandleAdornment"),
                     },
                 );
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
-                    "SizeRelativeOffset",
+                    "Size",
                     RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
+                        value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("BoxHandleAdornment"),
-                    },
-                );
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
                 default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
                         value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "SizeRelativeOffset",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -9078,23 +9078,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Height", RbxValue::Float32 { value: 2.0 });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ConeHandleAdornment"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "SizeRelativeOffset",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
                 default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9102,21 +9085,38 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ConeHandleAdornment"),
+                    },
+                );
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("Radius", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Height", RbxValue::Float32 { value: 2.0 });
                 default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "SizeRelativeOffset",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
+                default_properties.insert("Radius", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("ConeHandleAdornment"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -9148,44 +9148,44 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
+                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CylinderHandleAdornment"),
                     },
                 );
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Color3",
-                    RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Height", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
-                default_properties.insert(
-                    "SizeRelativeOffset",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("CylinderHandleAdornment"),
                     },
                 );
+                default_properties.insert(
+                    "SizeRelativeOffset",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Color3",
+                    RbxValue::Color3 {
+                        value: [0.050980397, 0.41176474, 0.6745098],
+                    },
+                );
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Height", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
                 default_properties.insert("Radius", RbxValue::Float32 { value: 1.0 });
                 default_properties
             },
@@ -9218,35 +9218,33 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ImageHandleAdornment"),
+                    "SizeRelativeOffset",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ImageHandleAdornment"),
                     },
                 );
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "SizeRelativeOffset",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
+                    "Image",
+                    RbxValue::String {
+                        value: String::from("rbxasset://textures/SurfacesDefault.png"),
                     },
                 );
                 default_properties.insert(
@@ -9255,13 +9253,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.9490197, 0.95294124, 0.95294124],
                     },
                 );
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Size", RbxValue::Vector2 { value: [1.0, 1.0] });
                 default_properties.insert(
-                    "Image",
+                    "Name",
                     RbxValue::String {
-                        value: String::from("rbxasset://textures/SurfacesDefault.png"),
+                        value: String::from("ImageHandleAdornment"),
                     },
                 );
-                default_properties.insert("Size", RbxValue::Vector2 { value: [1.0, 1.0] });
                 default_properties
             },
         },
@@ -9293,45 +9293,45 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Thickness", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert("Adornee", RbxValue::Ref { value: None });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LineHandleAdornment"),
-                    },
-                );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("LineHandleAdornment"),
-                    },
-                );
                 default_properties.insert(
                     "SizeRelativeOffset",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
                         value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("LineHandleAdornment"),
+                    },
+                );
+                default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("LineHandleAdornment"),
+                    },
+                );
                 default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
                 default_properties.insert("Length", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("Thickness", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -9357,12 +9357,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Color3",
-                    RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
-                    },
-                );
-                default_properties.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
@@ -9374,12 +9368,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("SphereHandleAdornment"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("Radius", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties.insert("AlwaysOnTop", RbxValue::Bool { value: false });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -9387,11 +9377,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Radius", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "SizeRelativeOffset",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("ZIndex", RbxValue::Float32 { value: -1.0 });
+                default_properties.insert(
+                    "Color3",
+                    RbxValue::Color3 {
+                        value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
                 default_properties
@@ -9446,34 +9446,34 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Thickness", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
-                default_properties.insert("B", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ParabolaAdornment"),
-                    },
-                );
-                default_properties.insert(
-                    "Color3",
-                    RbxValue::Color3 {
-                        value: [0.9490197, 0.95294124, 0.95294124],
-                    },
-                );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Range", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("C", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ParabolaAdornment"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("A", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Thickness", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert(
+                    "Color3",
+                    RbxValue::Color3 {
+                        value: [0.9490197, 0.95294124, 0.95294124],
+                    },
+                );
+                default_properties.insert("C", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ParabolaAdornment"),
+                    },
+                );
+                default_properties.insert("B", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Range", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -9519,37 +9519,37 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "SurfaceColor3",
-                    RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
-                    },
-                );
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert("LineThickness", RbxValue::Float32 { value: 0.15 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SelectionBox"),
                     },
                 );
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Color3",
-                    RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
-                    },
-                );
-                default_properties.insert("LineThickness", RbxValue::Float32 { value: 0.15 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("SurfaceTransparency", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("SelectionBox"),
                     },
                 );
+                default_properties.insert(
+                    "SurfaceColor3",
+                    RbxValue::Color3 {
+                        value: [0.050980397, 0.41176474, 0.6745098],
+                    },
+                );
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Color3",
+                    RbxValue::Color3 {
+                        value: [0.050980397, 0.41176474, 0.6745098],
+                    },
+                );
+                default_properties.insert("SurfaceTransparency", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -9588,16 +9588,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "SurfaceColor3",
-                    RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("SurfaceTransparency", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9605,19 +9600,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SelectionSphere"),
+                    "SurfaceColor3",
+                    RbxValue::Color3 {
+                        value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
-                default_properties.insert("SurfaceTransparency", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SelectionSphere"),
                     },
                 );
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SelectionSphere"),
+                    },
+                );
                 default_properties
             },
         },
@@ -9683,15 +9683,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("ArcHandles"),
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("ArcHandles"),
                     },
@@ -9702,10 +9706,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -9738,28 +9738,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Handles"),
-                    },
-                );
-                default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
                         value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
                 default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Handles"),
                     },
                 );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Handles"),
+                    },
+                );
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties.insert("Style", RbxValue::Enum { value: 0 });
                 default_properties
             },
@@ -9785,30 +9785,30 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SurfaceSelection"),
-                    },
-                );
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
                         value: [0.050980397, 0.41176474, 0.6745098],
                     },
                 );
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Adornee", RbxValue::Ref { value: None });
-                default_properties.insert("TargetSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SurfaceSelection"),
                     },
                 );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TargetSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SurfaceSelection"),
+                    },
+                );
+                default_properties.insert("Adornee", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -9857,24 +9857,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SelectionPartLasso"),
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SelectionPartLasso"),
                     },
                 );
-                default_properties.insert("Part", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Humanoid", RbxValue::Ref { value: None });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Part", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SelectionPartLasso"),
+                    },
+                );
                 default_properties.insert(
                     "Color3",
                     RbxValue::Color3 {
@@ -9905,10 +9905,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Humanoid", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Point",
                     RbxValue::Vector3 {
@@ -9921,19 +9918,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("SelectionPointLasso"),
                     },
                 );
-                default_properties.insert("Visible", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Color3",
-                    RbxValue::Color3 {
-                        value: [0.050980397, 0.41176474, 0.6745098],
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Humanoid", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("SelectionPointLasso"),
                     },
                 );
+                default_properties.insert(
+                    "Color3",
+                    RbxValue::Color3 {
+                        value: [0.050980397, 0.41176474, 0.6745098],
+                    },
+                );
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Visible", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -9969,19 +9969,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Backpack"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Backpack"),
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Backpack"),
+                    },
+                );
                 default_properties
             },
         },
@@ -10043,21 +10043,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("HopperBin"),
-                    },
-                );
-                default_properties.insert("BinType", RbxValue::Enum { value: 0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("HopperBin"),
                     },
                 );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("HopperBin"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("BinType", RbxValue::Enum { value: 0 });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
@@ -10146,36 +10146,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("RequiresHandle", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "GripUp",
-                    RbxValue::Vector3 {
-                        value: [0.0, 1.0, 0.0],
-                    },
-                );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "GripRight",
-                    RbxValue::Vector3 {
-                        value: [1.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "GripForward",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, -1.0],
-                    },
-                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Tool"),
-                    },
-                );
-                default_properties.insert(
-                    "Grip",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
                 default_properties.insert(
@@ -10185,27 +10159,53 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "TextureId",
+                    "ToolTip",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "GripRight",
+                    RbxValue::Vector3 {
+                        value: [1.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("CanBeDropped", RbxValue::Bool { value: true });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Grip",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("RequiresHandle", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "GripUp",
+                    RbxValue::Vector3 {
+                        value: [0.0, 1.0, 0.0],
+                    },
+                );
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Tool"),
                     },
                 );
+                default_properties.insert("ManualActivationOnly", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ToolTip",
+                    "TextureId",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("CanBeDropped", RbxValue::Bool { value: true });
-                default_properties.insert("ManualActivationOnly", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "GripForward",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, -1.0],
+                    },
+                );
                 default_properties
             },
         },
@@ -10230,25 +10230,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("CanBeDropped", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ToolTip",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Flag"),
-                    },
-                );
-                default_properties.insert(
-                    "Grip",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
                 default_properties.insert("RequiresHandle", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "GripForward",
@@ -10257,14 +10238,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "TextureId",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Flag"),
@@ -10272,22 +10245,49 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 );
                 default_properties.insert("ManualActivationOnly", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "GripUp",
+                    "GripPos",
                     RbxValue::Vector3 {
-                        value: [0.0, 1.0, 0.0],
+                        value: [0.0, 0.0, 0.0],
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "GripPos",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
+                    "ToolTip",
+                    RbxValue::String {
+                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
                     "GripRight",
                     RbxValue::Vector3 {
                         value: [1.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("CanBeDropped", RbxValue::Bool { value: true });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Flag"),
+                    },
+                );
+                default_properties.insert(
+                    "GripUp",
+                    RbxValue::Vector3 {
+                        value: [0.0, 1.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "TextureId",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert(
+                    "Grip",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
                 default_properties
@@ -10358,20 +10358,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("StarterPack"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("StarterPack"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -10459,24 +10459,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("SelectedCoreObject", RbxValue::Ref { value: None });
-                default_properties.insert("CoreGuiFolder", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("CoreGuiNavigationEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("CoreEffectFolder", RbxValue::Ref { value: None });
-                default_properties.insert("IsModalDialog", RbxValue::Bool { value: false });
-                default_properties.insert("AutoSelectGuiEnabled", RbxValue::Bool { value: true });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("SelectedObject", RbxValue::Ref { value: None });
-                default_properties.insert("GuiNavigationEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("IsWindows", RbxValue::Bool { value: true });
+                default_properties.insert("CoreGuiFolder", RbxValue::Ref { value: None });
+                default_properties.insert("IsModalDialog", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("GuiService"),
                     },
                 );
+                default_properties.insert("GuiNavigationEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("CoreEffectFolder", RbxValue::Ref { value: None });
+                default_properties
+                    .insert("CoreGuiNavigationEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("IsWindows", RbxValue::Bool { value: true });
+                default_properties.insert("SelectedObject", RbxValue::Ref { value: None });
                 default_properties.insert("MenuIsOpen", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ClassName",
@@ -10484,6 +10481,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("GuiService"),
                     },
                 );
+                default_properties.insert("AutoSelectGuiEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("SelectedCoreObject", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -10519,19 +10519,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("HapticService"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("HapticService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("HapticService"),
+                    },
+                );
                 default_properties
             },
         },
@@ -10549,20 +10549,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("HttpRbxApiService"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("HttpRbxApiService"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -10611,13 +10611,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("HttpService"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -10852,41 +10852,27 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("PlatformStand", RbxValue::Bool { value: false });
-                default_properties.insert("LeftLeg", RbxValue::Ref { value: None });
-                default_properties.insert("Torso", RbxValue::Ref { value: None });
-                default_properties.insert("BreakJointsOnDeath", RbxValue::Bool { value: true });
-                default_properties.insert("HipHeight", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("HealthDisplayType", RbxValue::Enum { value: 0 });
-                default_properties.insert("WalkSpeed", RbxValue::Float32 { value: 16.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
-                    .insert("HealthDisplayDistance", RbxValue::Float32 { value: 100.0 });
-                default_properties.insert("SeatPart", RbxValue::Ref { value: None });
-                default_properties.insert("AutoRotate", RbxValue::Bool { value: true });
-                default_properties.insert("MaxSlopeAngle", RbxValue::Float32 { value: 89.0 });
-                default_properties.insert("maxHealth", RbxValue::Float32 { value: 100.0 });
-                default_properties.insert("MaxHealth", RbxValue::Float32 { value: 100.0 });
+                    .insert("AutomaticScalingEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("FloorMaterial", RbxValue::Enum { value: 1792 });
+                default_properties.insert("NameOcclusion", RbxValue::Enum { value: 2 });
+                default_properties.insert("JumpPower", RbxValue::Float32 { value: 50.0 });
+                default_properties.insert("DisplayDistanceType", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "MoveDirection",
+                    "CameraOffset",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties
-                    .insert("AutomaticScalingEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("NameOcclusion", RbxValue::Enum { value: 2 });
-                default_properties.insert("JumpPower", RbxValue::Float32 { value: 50.0 });
+                default_properties.insert("HipHeight", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("MaxHealth", RbxValue::Float32 { value: 100.0 });
                 default_properties.insert("Sit", RbxValue::Bool { value: false });
-                default_properties.insert("WalkToPart", RbxValue::Ref { value: None });
-                default_properties.insert("Jump", RbxValue::Bool { value: false });
-                default_properties.insert("Health", RbxValue::Float32 { value: 100.0 });
-                default_properties.insert("DisplayDistanceType", RbxValue::Enum { value: 0 });
+                default_properties.insert("RigType", RbxValue::Enum { value: 0 });
                 default_properties.insert("RootPart", RbxValue::Ref { value: None });
                 default_properties.insert("AutoJumpEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("RightLeg", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("Humanoid"),
                     },
@@ -10897,29 +10883,43 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties
-                    .insert("NameDisplayDistance", RbxValue::Float32 { value: 100.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "CameraOffset",
+                    "MoveDirection",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("Torso", RbxValue::Ref { value: None });
+                default_properties.insert("WalkSpeed", RbxValue::Float32 { value: 16.0 });
+                default_properties
+                    .insert("NameDisplayDistance", RbxValue::Float32 { value: 100.0 });
+                default_properties.insert("Health", RbxValue::Float32 { value: 100.0 });
+                default_properties.insert("HealthDisplayType", RbxValue::Enum { value: 0 });
+                default_properties.insert("BreakJointsOnDeath", RbxValue::Bool { value: true });
+                default_properties.insert("SeatPart", RbxValue::Ref { value: None });
+                default_properties
+                    .insert("HealthDisplayDistance", RbxValue::Float32 { value: 100.0 });
+                default_properties.insert("PlatformStand", RbxValue::Bool { value: false });
+                default_properties.insert("MaxSlopeAngle", RbxValue::Float32 { value: 89.0 });
+                default_properties.insert("maxHealth", RbxValue::Float32 { value: 100.0 });
+                default_properties.insert("WalkToPart", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("LeftLeg", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Humanoid"),
+                    },
+                );
+                default_properties.insert("RightLeg", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "TargetPoint",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Humanoid"),
-                    },
-                );
-                default_properties.insert("RigType", RbxValue::Enum { value: 0 });
-                default_properties.insert("FloorMaterial", RbxValue::Enum { value: 1792 });
+                default_properties.insert("Jump", RbxValue::Bool { value: false });
+                default_properties.insert("AutoRotate", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -11196,14 +11196,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Face", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BodyTypeScale", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("WalkAnimation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
-                    "WaistAccessory",
-                    RbxValue::String {
-                        value: String::from(""),
+                    "LeftArmColor",
+                    RbxValue::Color3 {
+                        value: [0.0, 0.0, 0.0],
                     },
                 );
                 default_properties.insert(
@@ -11212,70 +11208,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("GraphicTShirt", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("HumanoidDescription"),
-                    },
-                );
-                default_properties.insert("RightLeg", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "FaceAccessory",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("DepthScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Shirt", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
-                    "HatAccessory",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("IdleAnimation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "LeftLegColor",
-                    RbxValue::Color3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "NeckAccessory",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("HumanoidDescription"),
                     },
                 );
-                default_properties.insert(
-                    "BackAccessory",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert(
-                    "LeftArmColor",
-                    RbxValue::Color3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("LeftLeg", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("LeftArm", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("WidthScale", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Shirt", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "TorsoColor",
-                    RbxValue::Color3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Torso", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("JumpAnimation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "HairAccessory",
                     RbxValue::String {
@@ -11283,40 +11229,94 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "ShouldersAccessory",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("RunAnimation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ProportionScale", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("HeightScale", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Head", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("RightArm", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("SwimAnimation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("HeadScale", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert(
                     "HeadColor",
                     RbxValue::Color3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Pants", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("GraphicTShirt", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
-                    "RightArmColor",
+                    "LeftLegColor",
                     RbxValue::Color3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert(
+                    "TorsoColor",
+                    RbxValue::Color3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("HeightScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert(
+                    "BackAccessory",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("FallAnimation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("HeadScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert(
+                    "ShouldersAccessory",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("Pants", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "NeckAccessory",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("RightLeg", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("SwimAnimation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Torso", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("WidthScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("DepthScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("RightArm", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("WalkAnimation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LeftArm", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "HatAccessory",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("Face", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ClimbAnimation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("HumanoidDescription"),
+                    },
+                );
+                default_properties.insert("RunAnimation", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "RightLegColor",
                     RbxValue::Color3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("ClimbAnimation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("FallAnimation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "RightArmColor",
+                    RbxValue::Color3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Head", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BodyTypeScale", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("LeftLeg", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ProportionScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("JumpAnimation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("IdleAnimation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "WaistAccessory",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
                 default_properties
             },
         },
@@ -11400,21 +11400,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("AllowInsertFreeModels", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("InsertService"),
                     },
                 );
-                default_properties.insert("AllowInsertFreeModels", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("InsertService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -11516,28 +11516,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RotateP"),
-                    },
-                );
-                default_properties.insert(
-                    "C1",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("RotateP"),
-                    },
-                );
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -11546,6 +11524,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 );
                 default_properties.insert("BaseAngle", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("part1", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "C1",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("RotateP"),
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("RotateP"),
+                    },
+                );
                 default_properties
             },
         },
@@ -11563,13 +11563,27 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
                 default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("BaseAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "C0",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("RotateV"),
                     },
                 );
                 default_properties.insert(
@@ -11578,22 +11592,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("RotateV"),
                     },
                 );
-                default_properties.insert(
-                    "C0",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("BaseAngle", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("part1", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("RotateV"),
-                    },
-                );
                 default_properties
             },
         },
@@ -11640,28 +11640,35 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
+                    "C1",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "F2",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
                     "C0",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Glue"),
-                    },
-                );
-                default_properties.insert(
-                    "F1",
+                    "F3",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("part1", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "F2",
+                    "F1",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
@@ -11672,27 +11679,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Glue"),
                     },
                 );
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
+                default_properties.insert("part1", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Glue"),
+                    },
+                );
                 default_properties.insert(
                     "F0",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert(
-                    "F3",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "C1",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
                 default_properties
             },
         },
@@ -11728,16 +11728,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "C1",
+                    "C0",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
                 default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "C0",
+                    "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
@@ -11748,15 +11747,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ManualGlue"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("part1", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ManualGlue"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("part1", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -11774,13 +11774,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("part1", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ManualWeld"),
+                    "C0",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
                 default_properties.insert(
@@ -11789,21 +11787,23 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "C0",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ManualWeld"),
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("part1", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ManualWeld"),
                     },
                 );
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -11842,30 +11842,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
-                default_properties.insert("part1", RbxValue::Ref { value: None });
-                default_properties.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("MaxVelocity", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Motor"),
-                    },
-                );
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Motor"),
                     },
                 );
                 default_properties.insert(
@@ -11874,7 +11854,27 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Motor"),
+                    },
+                );
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
+                default_properties.insert("MaxVelocity", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Motor"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("DesiredAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("part1", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -11900,29 +11900,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Motor6D"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Transform",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert(
                     "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
-                default_properties.insert("DesiredAngle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("part1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("DesiredAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "C0",
                     RbxValue::CFrame {
@@ -11931,13 +11917,27 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 );
                 default_properties.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Motor6D"),
+                    },
+                );
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
+                default_properties.insert("MaxVelocity", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Motor6D"),
                     },
                 );
-                default_properties.insert("MaxVelocity", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Transform",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
                 default_properties
             },
         },
@@ -11955,36 +11955,36 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("part1", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "C0",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert(
-                    "C1",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Rotate"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "C0",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Rotate"),
                     },
                 );
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "C1",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("part1", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -12002,21 +12002,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("part1", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("Snap"),
                     },
                 );
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "C0",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
+                default_properties.insert("part1", RbxValue::Ref { value: None });
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "C1",
                     RbxValue::CFrame {
@@ -12024,13 +12020,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "ClassName",
+                    "C0",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert(
+                    "Name",
                     RbxValue::String {
                         value: String::from("Snap"),
                     },
                 );
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties
             },
@@ -12077,40 +12077,40 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("DesiredAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "C0",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("VelocityMotor"),
-                    },
-                );
+                default_properties.insert("MaxVelocity", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "C1",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
+                default_properties.insert("Hole", RbxValue::Ref { value: None });
+                default_properties.insert("CurrentAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("part1", RbxValue::Ref { value: None });
-                default_properties.insert("MaxVelocity", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("VelocityMotor"),
                     },
                 );
-                default_properties.insert("Hole", RbxValue::Ref { value: None });
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("DesiredAngle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("VelocityMotor"),
+                    },
+                );
                 default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -12128,22 +12128,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("Active", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Weld"),
-                    },
-                );
+                default_properties.insert("part1", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "C0",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "C1",
                     RbxValue::CFrame {
@@ -12156,8 +12148,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Weld"),
                     },
                 );
-                default_properties.insert("part1", RbxValue::Ref { value: None });
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Weld"),
+                    },
+                );
                 default_properties
             },
         },
@@ -12175,16 +12175,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("JointsService"),
-                    },
-                );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Name",
+                    RbxValue::String {
+                        value: String::from("JointsService"),
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("JointsService"),
                     },
@@ -12206,18 +12206,18 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("KeyboardService"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Instance"),
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("KeyboardService"),
                     },
                 );
                 default_properties
@@ -12245,20 +12245,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Keyframe"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Keyframe"),
                     },
                 );
                 default_properties.insert("Time", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Keyframe"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -12283,22 +12283,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("KeyframeMarker"),
-                    },
-                );
                 default_properties.insert(
                     "Value",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
+                    RbxValue::String {
+                        value: String::from("KeyframeMarker"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
                     RbxValue::String {
                         value: String::from("KeyframeMarker"),
                     },
@@ -12342,6 +12342,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Priority", RbxValue::Enum { value: 2 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Loop", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("AuthoredHipHeight", RbxValue::Float32 { value: 1.35 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -12354,10 +12358,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("KeyframeSequence"),
                     },
                 );
-                default_properties.insert("Loop", RbxValue::Bool { value: true });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("AuthoredHipHeight", RbxValue::Float32 { value: 1.35 });
                 default_properties
             },
         },
@@ -12375,20 +12375,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("KeyframeSequenceProvider"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Instance"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("KeyframeSequenceProvider"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -12458,19 +12458,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("PointLight"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Range", RbxValue::Float32 { value: 8.0 });
+                default_properties.insert("Brightness", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert(
                     "Color",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
+                default_properties.insert("Shadows", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -12478,10 +12476,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Shadows", RbxValue::Bool { value: false });
-                default_properties.insert("Range", RbxValue::Float32 { value: 8.0 });
-                default_properties.insert("Brightness", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("PointLight"),
+                    },
+                );
                 default_properties
             },
         },
@@ -12520,31 +12520,31 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Shadows", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Color",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SpotLight"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Angle", RbxValue::Float32 { value: 90.0 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Shadows", RbxValue::Bool { value: false });
                 default_properties.insert("Face", RbxValue::Enum { value: 5 });
+                default_properties.insert("Brightness", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SpotLight"),
                     },
                 );
-                default_properties.insert("Brightness", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Angle", RbxValue::Float32 { value: 90.0 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SpotLight"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Range", RbxValue::Float32 { value: 16.0 });
                 default_properties
             },
@@ -12584,32 +12584,32 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Shadows", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SurfaceLight"),
-                    },
-                );
-                default_properties.insert("Range", RbxValue::Float32 { value: 16.0 });
-                default_properties.insert("Brightness", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert("Angle", RbxValue::Float32 { value: 90.0 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
+                default_properties.insert("Face", RbxValue::Enum { value: 5 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SurfaceLight"),
                     },
                 );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SurfaceLight"),
+                    },
+                );
+                default_properties.insert(
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [1.0, 1.0, 1.0],
+                    },
+                );
+                default_properties.insert("Range", RbxValue::Float32 { value: 16.0 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Face", RbxValue::Enum { value: 5 });
+                default_properties.insert("Brightness", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Shadows", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -12739,10 +12739,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("ClockTime", RbxValue::Float32 { value: 14.0 });
-                default_properties.insert("FogEnd", RbxValue::Float32 { value: 100000.0 });
                 default_properties.insert(
-                    "Ambient",
+                    "OutdoorAmbient",
                     RbxValue::Color3 {
                         value: [0.5, 0.5, 0.5],
                     },
@@ -12753,21 +12751,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.75, 0.75, 0.75],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Lighting"),
-                    },
-                );
                 default_properties.insert("Outlines", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ShadowColor",
-                    RbxValue::Color3 {
-                        value: [0.7, 0.7, 0.72],
-                    },
-                );
-                default_properties.insert("FogStart", RbxValue::Float32 { value: 0.0 });
                 default_properties
                     .insert("GeographicLatitude", RbxValue::Float32 { value: 41.7333 });
                 default_properties.insert(
@@ -12777,33 +12761,49 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "ColorShift_Bottom",
-                    RbxValue::Color3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Brightness", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "OutdoorAmbient",
+                    "Ambient",
                     RbxValue::Color3 {
                         value: [0.5, 0.5, 0.5],
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Lighting"),
+                    },
+                );
+                default_properties.insert("ClockTime", RbxValue::Float32 { value: 14.0 });
                 default_properties.insert(
                     "ColorShift_Top",
                     RbxValue::Color3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("GlobalShadows", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Lighting"),
                     },
                 );
+                default_properties.insert("GlobalShadows", RbxValue::Bool { value: false });
                 default_properties.insert("ExposureCompensation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FogEnd", RbxValue::Float32 { value: 100000.0 });
+                default_properties.insert("FogStart", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "ColorShift_Bottom",
+                    RbxValue::Color3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Brightness", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert(
+                    "ShadowColor",
+                    RbxValue::Color3 {
+                        value: [0.7, 0.7, 0.72],
+                    },
+                );
                 default_properties
             },
         },
@@ -12922,9 +12922,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "RobloxLocaleId",
+                    "ClassName",
                     RbxValue::String {
-                        value: String::from("en-us"),
+                        value: String::from("LocalizationService"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "RobloxForcePlayModeGameLocaleId",
+                    RbxValue::String {
+                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
@@ -12933,24 +12941,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("en-us"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LocalizationService"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "RobloxForcePlayModeGameLocaleId",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("LocalizationService"),
+                    },
+                );
+                default_properties.insert(
+                    "RobloxLocaleId",
+                    RbxValue::String {
+                        value: String::from("en-us"),
                     },
                 );
                 default_properties.insert(
@@ -12998,12 +12998,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "SourceLocaleId",
-                    RbxValue::String {
-                        value: String::from("en-us"),
-                    },
-                );
                 default_properties.insert("Root", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
@@ -13014,15 +13008,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("LocalizationTable"),
+                    },
+                );
+                default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("LocalizationTable"),
                     },
                 );
                 default_properties.insert(
-                    "ClassName",
+                    "SourceLocaleId",
                     RbxValue::String {
-                        value: String::from("LocalizationTable"),
+                        value: String::from("en-us"),
                     },
                 );
                 default_properties
@@ -13043,15 +13043,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("LogService"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("LogService"),
                     },
@@ -13235,9 +13235,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Script"),
+                    },
+                );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Disabled", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Source",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert(
+                    "LinkedSource",
                     RbxValue::String {
                         value: String::from(""),
                     },
@@ -13247,19 +13260,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "Name",
                     RbxValue::String {
                         value: String::from("Script"),
-                    },
-                );
-                default_properties.insert("Disabled", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Script"),
-                    },
-                );
-                default_properties.insert(
-                    "LinkedSource",
-                    RbxValue::String {
-                        value: String::from(""),
                     },
                 );
                 default_properties
@@ -13279,6 +13279,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Disabled", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "Source",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("LocalScript"),
+                    },
+                );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "LinkedSource",
@@ -13286,24 +13300,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("Disabled", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LocalScript"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("LocalScript"),
-                    },
-                );
-                default_properties.insert(
-                    "Source",
-                    RbxValue::String {
-                        value: String::from(""),
                     },
                 );
                 default_properties
@@ -13343,13 +13343,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ModuleScript"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -13362,7 +13356,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ModuleScript"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -13381,19 +13381,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("LuaWebService"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Instance"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("LuaWebService"),
+                    },
+                );
                 default_properties
             },
         },
@@ -13417,14 +13417,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("MarketplaceService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("MarketplaceService"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -13449,20 +13449,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Message"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Text",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -13487,6 +13487,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Message"),
+                    },
+                );
+                default_properties.insert(
                     "Text",
                     RbxValue::String {
                         value: String::from(""),
@@ -13496,12 +13502,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Hint"),
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Message"),
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
@@ -13523,20 +13523,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("MessagingService"),
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("MessagingService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("MessagingService"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -13702,14 +13702,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Instance"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("MouseService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -14150,32 +14150,32 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("IsLuaBottomBarEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("IsLuaGamesPageEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("NotificationService"),
-                    },
-                );
-                default_properties.insert("IsLuaChatEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("IsLuaGameDetailsEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("IsLuaHomePageEnabled", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("NotificationService"),
-                    },
-                );
                 default_properties.insert(
                     "SelectedTheme",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("IsLuaBottomBarEnabled", RbxValue::Bool { value: true });
+                default_properties
+                    .insert("IsLuaGameDetailsEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("IsLuaHomePageEnabled", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("NotificationService"),
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("NotificationService"),
+                    },
+                );
+                default_properties.insert("IsLuaChatEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("IsLuaGamesPageEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -14591,112 +14591,112 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "Velocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("CornerWedge"),
                     },
                 );
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "Orientation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Rotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [2.0, 2.0, 2.0],
-                    },
-                );
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CornerWedgePart"),
                     },
                 );
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "RotVelocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Size",
+                    RbxValue::Vector3 {
+                        value: [2.0, 2.0, 2.0],
+                    },
+                );
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties
             },
         },
@@ -14752,114 +14752,114 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
-                default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [4.0, 1.2, 2.0],
-                    },
-                );
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Rotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Orientation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "Velocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Part"),
-                    },
-                );
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Part"),
-                    },
-                );
                 default_properties.insert(
                     "RotVelocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "Size",
+                    RbxValue::Vector3 {
+                        value: [4.0, 1.2, 2.0],
+                    },
+                );
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Part"),
+                    },
+                );
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
                 default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
                 default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Part"),
+                    },
+                );
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
                 default_properties
             },
         },
@@ -14884,96 +14884,64 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("FlagStand"),
-                    },
-                );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
                 default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
-                default_properties.insert(
-                    "Velocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Rotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("FlagStand"),
                     },
                 );
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "Velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "RotVelocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Orientation",
@@ -14981,17 +14949,49 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("FlagStand"),
+                    },
+                );
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert(
                     "Size",
                     RbxValue::Vector3 {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
                 default_properties
             },
         },
@@ -15040,44 +15040,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Disabled", RbxValue::Bool { value: false });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "Velocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Size",
                     RbxValue::Vector3 {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("Occupant", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -15085,71 +15056,100 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Seat"),
+                    "Velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Position",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Occupant", RbxValue::Ref { value: None });
                 default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert(
-                    "Orientation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Seat"),
                     },
                 );
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
-                default_properties.insert(
-                    "Rotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert(
                     "Color",
                     RbxValue::Color3 {
                         value: [0.6392157, 0.63529414, 0.64705884],
                     },
                 );
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Disabled", RbxValue::Bool { value: false });
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
+                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert(
+                    "RotVelocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties
             },
         },
@@ -15202,119 +15202,119 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "Orientation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [4.0, 1.2, 2.0],
-                    },
-                );
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Steer", RbxValue::Float32 { value: 0.0 });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
-                default_properties.insert(
-                    "Velocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Throttle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("StickyWheels", RbxValue::Bool { value: true });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SkateboardPlatform"),
-                    },
-                );
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert(
                     "Rotation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "RotVelocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("ControllingHumanoid", RbxValue::Ref { value: None });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Size",
+                    RbxValue::Vector3 {
+                        value: [4.0, 1.2, 2.0],
+                    },
+                );
                 default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("Steer", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ControllingHumanoid", RbxValue::Ref { value: None });
+                default_properties.insert("Throttle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SkateboardPlatform"),
                     },
                 );
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("Controller", RbxValue::Ref { value: None });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
                 default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Controller", RbxValue::Ref { value: None });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SkateboardPlatform"),
+                    },
+                );
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("StickyWheels", RbxValue::Bool { value: true });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
                 default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties
             },
         },
@@ -15367,63 +15367,89 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "CFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("Duration", RbxValue::Float32 { value: 10.0 });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SpawnLocation"),
-                    },
-                );
-                default_properties.insert("Neutral", RbxValue::Bool { value: true });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "LocalTransparencyModifier",
                     RbxValue::Float32 { value: 0.0 },
                 );
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Neutral", RbxValue::Bool { value: true });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties
                     .insert("AllowTeamChangeOnTouch", RbxValue::Bool { value: false });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Velocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "Rotation",
+                    "RotVelocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SpawnLocation"),
+                    },
+                );
+                default_properties.insert("Duration", RbxValue::Float32 { value: 10.0 });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("SpawnLocation"),
+                    },
+                );
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "Size",
+                    RbxValue::Vector3 {
+                        value: [4.0, 1.2, 2.0],
+                    },
+                );
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Color",
                     RbxValue::Color3 {
@@ -15431,55 +15457,29 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SpawnLocation"),
-                    },
-                );
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert(
                     "Orientation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("Shape", RbxValue::Enum { value: 1 });
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
-                    "Position",
+                    "Rotation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [4.0, 1.2, 2.0],
-                    },
-                );
-                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties
             },
         },
@@ -15497,113 +15497,113 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Position",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "Rotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Anchored", RbxValue::Bool { value: false });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("WedgePart"),
-                    },
-                );
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FormFactor", RbxValue::Enum { value: 1 });
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "Orientation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Color",
                     RbxValue::Color3 {
                         value: [0.6392157, 0.63529414, 0.64705884],
                     },
                 );
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Velocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [4.0, 1.2, 2.0],
-                    },
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
                 );
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Wedge"),
                     },
                 );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("WedgePart"),
+                    },
+                );
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "RotVelocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Size",
+                    RbxValue::Vector3 {
+                        value: [4.0, 1.2, 2.0],
+                    },
+                );
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
                 default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties
             },
         },
@@ -15649,67 +15649,43 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "MeshId",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Rotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Orientation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("MeshPart"),
-                    },
-                );
-                default_properties.insert(
-                    "Velocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "LocalTransparencyModifier",
                     RbxValue::Float32 { value: 0.0 },
                 );
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert(
-                    "TextureID",
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Name",
                     RbxValue::String {
-                        value: String::from(""),
+                        value: String::from("MeshPart"),
                     },
                 );
                 default_properties.insert(
@@ -15718,55 +15694,79 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("MeshPart"),
                     },
                 );
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "TextureID",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Size",
                     RbxValue::Vector3 {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
+                    "MeshId",
+                    RbxValue::String {
+                        value: String::from(""),
                     },
                 );
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "RotVelocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
                 default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -15812,115 +15812,115 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "Velocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "RotVelocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
                 default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RenderFidelity", RbxValue::Enum { value: 1 });
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Position",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("UsePartColor", RbxValue::Bool { value: false });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "Orientation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "Rotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("PartOperation"),
-                    },
-                );
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Color",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("UsePartColor", RbxValue::Bool { value: false });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
                 default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
                 default_properties.insert(
-                    "ClassName",
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("TriangleCount", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Name",
                     RbxValue::String {
                         value: String::from("PartOperation"),
                     },
                 );
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("TriangleCount", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Size",
                     RbxValue::Vector3 {
                         value: [4.0, 1.2, 2.0],
                     },
                 );
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("PartOperation"),
+                    },
+                );
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("RenderFidelity", RbxValue::Enum { value: 1 });
+                default_properties.insert(
+                    "Velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -15938,51 +15938,75 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("UsePartColor", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("NegativePart"),
-                    },
-                );
                 default_properties.insert("TriangleCount", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert(
-                    "Position",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Material", RbxValue::Enum { value: 256 });
                 default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.1 });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RenderFidelity", RbxValue::Enum { value: 1 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "Size",
+                    RbxValue::Vector3 {
+                        value: [4.0, 1.2, 2.0],
+                    },
+                );
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("NegateOperation"),
                     },
                 );
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "RotVelocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [1.0, 1.0, 1.0],
+                    },
+                );
+                default_properties.insert(
+                    "Position",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("NegativePart"),
+                    },
+                );
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert(
                     "Orientation",
                     RbxValue::Vector3 {
@@ -15990,63 +16014,39 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [4.0, 1.2, 2.0],
-                    },
-                );
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
                     "Rotation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.1 });
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Velocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: false });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("RenderFidelity", RbxValue::Enum { value: 1 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: true });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("UsePartColor", RbxValue::Bool { value: false });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Anchored", RbxValue::Bool { value: true });
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: false });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -16064,115 +16064,115 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("TriangleCount", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties
                     .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("RenderFidelity", RbxValue::Enum { value: 1 });
                 default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert("UsePartColor", RbxValue::Bool { value: false });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Union"),
-                    },
-                );
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UnionOperation"),
-                    },
-                );
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [4.0, 1.2, 2.0],
-                    },
-                );
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert(
                     "Position",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
-                    "Orientation",
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Union"),
+                    },
+                );
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "RotVelocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert(
-                    "Rotation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("RenderFidelity", RbxValue::Enum { value: 1 });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Velocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("TriangleCount", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("UsePartColor", RbxValue::Bool { value: false });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [1.0, 1.0, 1.0],
+                    },
+                );
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Size",
+                    RbxValue::Vector3 {
+                        value: [4.0, 1.2, 2.0],
+                    },
+                );
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("UnionOperation"),
+                    },
+                );
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties
             },
         },
@@ -16270,58 +16270,50 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
                 default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Truss"),
                     },
                 );
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 2.0 });
                 default_properties.insert("RightSurface", RbxValue::Enum { value: 5 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "Orientation",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Color",
                     RbxValue::Color3 {
                         value: [0.6392157, 0.63529414, 0.64705884],
                     },
                 );
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 5 });
-                default_properties.insert("Style", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 5 });
-                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Rotation",
+                    "Orientation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 5 });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert(
-                    "Velocity",
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("TrussPart"),
+                    },
+                );
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "RotVelocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
@@ -16332,51 +16324,59 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 5 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TrussPart"),
-                    },
-                );
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Truss"),
-                    },
-                );
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 5 });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
                 default_properties.insert(
                     "Size",
                     RbxValue::Vector3 {
                         value: [2.0, 2.0, 2.0],
                     },
                 );
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 5 });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 2.0 });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 5 });
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 5 });
+                default_properties.insert(
+                    "Velocity",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 5 });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 5 });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Rotation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Style", RbxValue::Enum { value: 0 });
                 default_properties
             },
         },
@@ -16471,31 +16471,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("AreHingesDetected", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("Torque", RbxValue::Float32 { value: 10.0 });
-                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("VehicleSeat"),
-                    },
-                );
-                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Orientation",
+                    "Position",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert(
-                    "CFrame",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
                 default_properties.insert(
@@ -16504,73 +16484,59 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
+                default_properties.insert("BackParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ThrottleFloat", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("RootPriority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("BackSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Throttle", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TurnSpeed", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
                 default_properties.insert("Disabled", RbxValue::Bool { value: false });
                 default_properties.insert("TopParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VehicleSeat"),
-                    },
-                );
-                default_properties.insert("RightSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("FrontSurfaceInput", RbxValue::Enum { value: 0 });
-                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("LeftParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Occupant", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Size",
-                    RbxValue::Vector3 {
-                        value: [4.0, 1.2, 2.0],
-                    },
-                );
-                default_properties.insert("ThrottleFloat", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("BottomSurfaceInput", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "LocalTransparencyModifier",
-                    RbxValue::Float32 { value: 0.0 },
-                );
-                default_properties.insert("Locked", RbxValue::Bool { value: false });
-                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("HeadsUpDisplay", RbxValue::Bool { value: true });
-                default_properties.insert("Steer", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
-                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
-                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
-                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Material", RbxValue::Enum { value: 256 });
-                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("MaxSpeed", RbxValue::Float32 { value: 25.0 });
-                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BackParamA", RbxValue::Float32 { value: -0.5 });
-                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Color",
-                    RbxValue::Color3 {
-                        value: [0.6392157, 0.63529414, 0.64705884],
-                    },
-                );
-                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Position",
+                    "RotVelocity",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
-                default_properties.insert("ReceiveAge", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("TurnSpeed", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("AreHingesDetected", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Reflectance", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FrontSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "Orientation",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
+                default_properties.insert("MaxSpeed", RbxValue::Float32 { value: 25.0 });
+                default_properties.insert("Elasticity", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("BottomSurface", RbxValue::Enum { value: 4 });
+                default_properties.insert("TopParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("CanCollide", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "CFrame",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert("SpecificGravity", RbxValue::Float32 { value: 0.7 });
+                default_properties.insert("LeftSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("FrontParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("CollisionGroupId", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Torque", RbxValue::Float32 { value: 10.0 });
+                default_properties.insert(
+                    "LocalTransparencyModifier",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert("FrontParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Transparency", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Rotation",
                     RbxValue::Vector3 {
@@ -16578,16 +16544,50 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("SteerFloat", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Massless", RbxValue::Bool { value: false });
-                default_properties.insert("Anchored", RbxValue::Bool { value: false });
+                default_properties.insert("TopSurface", RbxValue::Enum { value: 3 });
+                default_properties.insert("RightSurface", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "RotVelocity",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("VehicleSeat"),
                     },
                 );
-                default_properties.insert("Throttle", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BottomParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert(
+                    "Color",
+                    RbxValue::Color3 {
+                        value: [0.6392157, 0.63529414, 0.64705884],
+                    },
+                );
+                default_properties.insert("Occupant", RbxValue::Ref { value: None });
+                default_properties.insert("Friction", RbxValue::Float32 { value: 0.3 });
+                default_properties.insert("ResizeIncrement", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Material", RbxValue::Enum { value: 256 });
+                default_properties.insert("RightParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("LeftSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("LeftParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties
+                    .insert("CustomPhysicalProperties", RbxValue::Ref { value: None });
+                default_properties.insert("Steer", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("TopSurfaceInput", RbxValue::Enum { value: 0 });
+                default_properties.insert("BackSurface", RbxValue::Enum { value: 0 });
+                default_properties.insert("Massless", RbxValue::Bool { value: false });
+                default_properties.insert("RightParamA", RbxValue::Float32 { value: -0.5 });
+                default_properties.insert("Locked", RbxValue::Bool { value: false });
+                default_properties.insert("HeadsUpDisplay", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Size",
+                    RbxValue::Vector3 {
+                        value: [4.0, 1.2, 2.0],
+                    },
+                );
+                default_properties.insert("BottomParamB", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("VehicleSeat"),
+                    },
+                );
                 default_properties
             },
         },
@@ -16612,21 +16612,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Model"),
-                    },
-                );
+                default_properties.insert("PrimaryPart", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Model"),
                     },
                 );
-                default_properties.insert("PrimaryPart", RbxValue::Ref { value: None });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Model"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -16706,13 +16706,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 properties.insert(
-                    "PGSPhysicsSolverEnabled",
-                    RbxInstanceProperty {
-                        name: "PGSPhysicsSolverEnabled",
-                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                    },
-                );
-                properties.insert(
                     "StreamingEnabled",
                     RbxInstanceProperty {
                         name: "StreamingEnabled",
@@ -16752,32 +16745,32 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Terrain", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "FallenPartsDestroyHeight",
+                    RbxValue::Float32 { value: -500.0 },
+                );
+                default_properties.insert("PrimaryPart", RbxValue::Ref { value: None });
                 default_properties.insert("DistributedGameTime", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("AllowThirdPartySales", RbxValue::Bool { value: false });
+                default_properties.insert("Gravity", RbxValue::Float32 { value: 196.2 });
+                default_properties.insert("CurrentCamera", RbxValue::Ref { value: None });
+                default_properties.insert("StreamingEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("FilteringEnabled", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Workspace"),
                     },
                 );
-                default_properties.insert("Gravity", RbxValue::Float32 { value: 196.2 });
-                default_properties.insert("AllowThirdPartySales", RbxValue::Bool { value: false });
-                default_properties.insert("CurrentCamera", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("StreamingEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("PrimaryPart", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Workspace"),
                     },
                 );
-                default_properties.insert("FilteringEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "FallenPartsDestroyHeight",
-                    RbxValue::Float32 { value: -500.0 },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Terrain", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -16925,7 +16918,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -16933,6 +16925,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -17096,43 +17089,43 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("VelocityInheritance", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("SpreadAngle", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert("LightEmission", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ParticleEmitter"),
                     },
                 );
-                default_properties.insert("VelocitySpread", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("ZOffset", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("LightInfluence", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LockedToPart", RbxValue::Bool { value: false });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("ParticleEmitter"),
                     },
                 );
-                default_properties.insert("EmissionDirection", RbxValue::Enum { value: 1 });
-                default_properties.insert("LockedToPart", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Acceleration",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("SpreadAngle", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Texture",
                     RbxValue::String {
                         value: String::from("rbxasset://textures/particles/sparkles_main.dds"),
                     },
                 );
-                default_properties.insert("Drag", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("LightInfluence", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("VelocitySpread", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("VelocityInheritance", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Rate", RbxValue::Float32 { value: 20.0 });
+                default_properties.insert("EmissionDirection", RbxValue::Enum { value: 1 });
+                default_properties.insert("Drag", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Acceleration",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
                 default_properties
             },
         },
@@ -17181,21 +17174,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("EmptyCutoff", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Instance"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("PathfindingService"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("EmptyCutoff", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -17230,8 +17223,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -17831,29 +17824,29 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("CharacterAutoLoads", RbxValue::Bool { value: true });
-                default_properties.insert("RespawnTime", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("localPlayer", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("BubbleChat", RbxValue::Bool { value: false });
+                default_properties.insert("ClassicChat", RbxValue::Bool { value: true });
+                default_properties.insert("LocalPlayer", RbxValue::Ref { value: None });
+                default_properties.insert("NumPlayers", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Players"),
                     },
                 );
-                default_properties.insert("LocalPlayer", RbxValue::Ref { value: None });
-                default_properties.insert("MaxPlayers", RbxValue::Float32 { value: 12.0 });
-                default_properties.insert("localPlayer", RbxValue::Ref { value: None });
-                default_properties.insert("numPlayers", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("PreferredPlayers", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("BubbleChat", RbxValue::Bool { value: false });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("RespawnTime", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("MaxPlayers", RbxValue::Float32 { value: 12.0 });
+                default_properties.insert("numPlayers", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("PreferredPlayers", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Players"),
                     },
                 );
-                default_properties.insert("NumPlayers", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ClassicChat", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -17937,7 +17930,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("AllowBinding", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ActionId",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -17963,13 +17962,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("AllowBinding", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ActionId",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -18032,20 +18025,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("PluginGuiService"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("PluginGuiService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("PluginGuiService"),
+                    },
+                );
                 default_properties
             },
         },
@@ -18166,20 +18159,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("PointsService"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("PointsService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -18232,6 +18225,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Pose"),
+                    },
+                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "CFrame",
@@ -18239,23 +18238,17 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Pose"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("EasingStyle", RbxValue::Enum { value: 0 });
+                default_properties.insert("MaskWeight", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Weight", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("EasingDirection", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Pose"),
                     },
                 );
-                default_properties.insert("MaskWeight", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("EasingDirection", RbxValue::Enum { value: 0 });
-                default_properties.insert("EasingStyle", RbxValue::Enum { value: 0 });
-                default_properties.insert("Weight", RbxValue::Float32 { value: 1.0 });
                 default_properties
             },
         },
@@ -18318,24 +18311,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Intensity", RbxValue::Float32 { value: 0.4 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Size", RbxValue::Float32 { value: 24.0 });
+                default_properties.insert("Intensity", RbxValue::Float32 { value: 0.4 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("BloomEffect"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Bloom"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Threshold", RbxValue::Float32 { value: 0.95 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -18360,13 +18353,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Blur"),
-                    },
-                );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -18374,8 +18361,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Size", RbxValue::Float32 { value: 24.0 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Blur"),
+                    },
+                );
                 default_properties
             },
         },
@@ -18421,6 +18414,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Brightness", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Contrast", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Saturation", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "TintColor",
+                    RbxValue::Color3 {
+                        value: [1.0, 1.0, 1.0],
+                    },
+                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -18433,18 +18436,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ColorCorrectionEffect"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Brightness", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Contrast", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Saturation", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "TintColor",
-                    RbxValue::Color3 {
-                        value: [1.0, 1.0, 1.0],
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -18476,6 +18469,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SunRays"),
+                    },
+                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
@@ -18483,16 +18482,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("SunRaysEffect"),
                     },
                 );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Intensity", RbxValue::Float32 { value: 0.25 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SunRays"),
-                    },
-                );
                 default_properties.insert("Spread", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Intensity", RbxValue::Float32 { value: 0.25 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -18517,13 +18510,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ReflectionMetadata"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Instance"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -18572,6 +18565,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ReflectionMetadataClasses"),
+                    },
+                );
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -18579,13 +18579,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataClasses"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -18603,6 +18596,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
@@ -18616,7 +18610,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ReflectionMetadataEnums"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -18634,14 +18627,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ReflectionMetadataEvents"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -18665,20 +18658,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ReflectionMetadataFunctions"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
                 default_properties
             },
         },
@@ -18839,30 +18832,31 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("UIMinimum", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "PreferredParents",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
                 default_properties.insert(
                     "PreferredParent",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataClass"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("EditingDisabled", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Constraint",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("ServerOnly", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
+                    "ScriptContext",
                     RbxValue::String {
-                        value: String::from("Instance"),
+                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
@@ -18871,6 +18865,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("UIMaximum", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("IsBackend", RbxValue::Bool { value: false });
+                default_properties.insert("Deprecated", RbxValue::Bool { value: false });
+                default_properties.insert("ExplorerOrder", RbxValue::Float32 { value: -1.0 });
+                default_properties.insert("Insertable", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Browsable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
+                default_properties.insert("ClientOnly", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ClassCategory",
                     RbxValue::String {
@@ -18878,29 +18886,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("ExplorerImageIndex", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Insertable", RbxValue::Bool { value: true });
-                default_properties.insert("UIMinimum", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Browsable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ReflectionMetadataClass"),
+                    },
+                );
+                default_properties.insert("ServerOnly", RbxValue::Bool { value: false });
                 default_properties.insert("UINumTicks", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ExplorerOrder", RbxValue::Float32 { value: -1.0 });
-                default_properties.insert(
-                    "PreferredParents",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("UIMaximum", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Deprecated", RbxValue::Bool { value: false });
-                default_properties.insert("IsBackend", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "ScriptContext",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("EditingDisabled", RbxValue::Bool { value: false });
-                default_properties.insert("ClientOnly", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -18918,35 +18911,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("UIMaximum", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("UIMinimum", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Deprecated", RbxValue::Bool { value: false });
+                default_properties.insert("ClientOnly", RbxValue::Bool { value: false });
+                default_properties.insert("EditingDisabled", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "summary",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert(
-                    "ClassCategory",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Browsable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
-                default_properties.insert("Deprecated", RbxValue::Bool { value: false });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("ServerOnly", RbxValue::Bool { value: false });
-                default_properties.insert("UINumTicks", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("IsBackend", RbxValue::Bool { value: false });
-                default_properties.insert("ClientOnly", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "ScriptContext",
                     RbxValue::String {
                         value: String::from(""),
                     },
@@ -18957,14 +18928,36 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("ServerOnly", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ReflectionMetadataEnum"),
                     },
                 );
-                default_properties.insert("UIMinimum", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("EditingDisabled", RbxValue::Bool { value: false });
+                default_properties.insert("IsBackend", RbxValue::Bool { value: false });
+                default_properties.insert("UIMaximum", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("UINumTicks", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Browsable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
+                default_properties.insert(
+                    "ClassCategory",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert(
+                    "ScriptContext",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
                 default_properties
             },
         },
@@ -18982,28 +18975,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("ServerOnly", RbxValue::Bool { value: false });
-                default_properties.insert("UIMinimum", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Browsable", RbxValue::Bool { value: true });
-                default_properties.insert("IsBackend", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "summary",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
-                default_properties.insert("UIMaximum", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("UINumTicks", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ClientOnly", RbxValue::Bool { value: false });
-                default_properties.insert("Deprecated", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "Constraint",
+                    "ScriptContext",
                     RbxValue::String {
                         value: String::from(""),
                     },
@@ -19014,21 +18987,41 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ReflectionMetadataEnumItem"),
                     },
                 );
+                default_properties.insert("EditingDisabled", RbxValue::Bool { value: false });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Browsable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
+                default_properties.insert("Deprecated", RbxValue::Bool { value: false });
+                default_properties.insert("ClientOnly", RbxValue::Bool { value: false });
+                default_properties.insert("UINumTicks", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("UIMinimum", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("UIMaximum", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassCategory",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("ServerOnly", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("IsBackend", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "ScriptContext",
+                    "summary",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("EditingDisabled", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "Constraint",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
                 default_properties
             },
         },
@@ -19047,19 +19040,37 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
+                    "ScriptContext",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
+                default_properties.insert(
                     "ClassCategory",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("EditingDisabled", RbxValue::Bool { value: false });
+                default_properties.insert("Browsable", RbxValue::Bool { value: true });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("UIMinimum", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ServerOnly", RbxValue::Bool { value: false });
                 default_properties.insert(
-                    "summary",
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("ReflectionMetadataMember"),
+                    },
+                );
+                default_properties.insert("ClientOnly", RbxValue::Bool { value: false });
+                default_properties.insert("IsBackend", RbxValue::Bool { value: false });
+                default_properties.insert("UIMaximum", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Constraint",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -19067,32 +19078,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "Constraint",
+                    "summary",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
-                default_properties.insert("UIMaximum", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("IsBackend", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("ReflectionMetadataMember"),
-                    },
-                );
-                default_properties.insert(
-                    "ScriptContext",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("Browsable", RbxValue::Bool { value: true });
-                default_properties.insert("UIMinimum", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("UINumTicks", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Deprecated", RbxValue::Bool { value: false });
-                default_properties.insert("EditingDisabled", RbxValue::Bool { value: false });
-                default_properties.insert("ClientOnly", RbxValue::Bool { value: false });
-                default_properties.insert("ServerOnly", RbxValue::Bool { value: false });
+                default_properties.insert("UINumTicks", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -19110,20 +19103,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ReflectionMetadataProperties"),
                     },
                 );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -19141,7 +19134,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
@@ -19149,12 +19147,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ReflectionMetadataYieldFunctions"),
                     },
                 );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -19173,19 +19166,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("RemoteEvent"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("RemoteEvent"),
                     },
                 );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("RemoteEvent"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -19203,12 +19196,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RemoteFunction"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
@@ -19216,7 +19204,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("RemoteFunction"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("RemoteFunction"),
+                    },
+                );
                 default_properties
             },
         },
@@ -19413,9 +19406,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
+                    "Ticket",
                     RbxValue::String {
-                        value: String::from("RenderingTest"),
+                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
@@ -19424,21 +19417,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("ShouldSkip", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Orientation",
                     RbxValue::Vector3 {
                         value: [0.0, 0.0, 0.0],
                     },
                 );
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("RenderingTest"),
-                    },
-                );
-                default_properties
-                    .insert("ComparisonPsnrThreshold", RbxValue::Float32 { value: 50.0 });
+                default_properties.insert("FieldOfView", RbxValue::Float32 { value: 70.0 });
+                default_properties.insert("ShouldSkip", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Position",
                     RbxValue::Vector3 {
@@ -19446,24 +19432,31 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "Ticket",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("ComparisonDiffThreshold", RbxValue::Float32 { value: 10.0 });
-                default_properties.insert("ComparisonMethod", RbxValue::Enum { value: 0 });
-                default_properties.insert("QualityLevel", RbxValue::Float32 { value: 21.0 });
-                default_properties.insert("FieldOfView", RbxValue::Float32 { value: 70.0 });
-                default_properties.insert(
                     "Description",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("QualityLevel", RbxValue::Float32 { value: 21.0 });
+                default_properties
+                    .insert("ComparisonDiffThreshold", RbxValue::Float32 { value: 10.0 });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("RenderingTest"),
+                    },
+                );
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("RenderingTest"),
+                    },
+                );
+                default_properties
+                    .insert("ComparisonPsnrThreshold", RbxValue::Float32 { value: 50.0 });
+                default_properties.insert("ComparisonMethod", RbxValue::Enum { value: 0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -19481,20 +19474,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ReplicatedFirst"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("ReplicatedFirst"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -19513,19 +19506,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ReplicatedStorage"),
-                    },
-                );
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ReplicatedStorage"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ReplicatedStorage"),
+                    },
+                );
                 default_properties
             },
         },
@@ -19543,14 +19536,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("RobloxReplicatedStorage"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -19643,7 +19636,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Script Context"),
+                    },
+                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
@@ -19651,12 +19649,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("ScriptContext"),
                     },
                 );
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Script Context"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -19719,13 +19712,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -19733,6 +19719,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Instance"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -19762,8 +19755,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Selection"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -19820,19 +19813,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("ServerStorage"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ServerStorage"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("ServerStorage"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -20148,34 +20141,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("SunAngularSize", RbxValue::Float32 { value: 21.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Sky"),
-                    },
-                );
-                default_properties.insert(
-                    "SkyboxFt",
-                    RbxValue::String {
-                        value: String::from("rbxasset://textures/sky/sky512_ft.tex"),
-                    },
-                );
-                default_properties.insert(
-                    "SkyboxDn",
-                    RbxValue::String {
-                        value: String::from("rbxasset://textures/sky/sky512_dn.tex"),
-                    },
-                );
-                default_properties.insert(
-                    "SkyboxRt",
-                    RbxValue::String {
-                        value: String::from("rbxasset://textures/sky/sky512_rt.tex"),
-                    },
-                );
-                default_properties.insert(
-                    "SkyboxUp",
-                    RbxValue::String {
-                        value: String::from("rbxasset://textures/sky/sky512_up.tex"),
                     },
                 );
                 default_properties.insert(
@@ -20184,34 +20154,57 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Sky"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("SunAngularSize", RbxValue::Float32 { value: 21.0 });
+                default_properties.insert("CelestialBodiesShown", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "SkyboxRt",
+                    RbxValue::String {
+                        value: String::from("rbxasset://textures/sky/sky512_rt.tex"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "SkyboxFt",
+                    RbxValue::String {
+                        value: String::from("rbxasset://textures/sky/sky512_ft.tex"),
+                    },
+                );
                 default_properties.insert(
                     "SkyboxLf",
                     RbxValue::String {
                         value: String::from("rbxasset://textures/sky/sky512_lf.tex"),
                     },
                 );
-                default_properties.insert("StarCount", RbxValue::Float32 { value: 3000.0 });
                 default_properties.insert(
                     "SunTextureId",
                     RbxValue::String {
                         value: String::from("rbxasset://sky/sun.jpg"),
                     },
                 );
-                default_properties.insert("CelestialBodiesShown", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "SkyboxBk",
+                    "SkyboxUp",
                     RbxValue::String {
-                        value: String::from("rbxasset://textures/sky/sky512_bk.tex"),
+                        value: String::from("rbxasset://textures/sky/sky512_up.tex"),
                     },
                 );
+                default_properties.insert("StarCount", RbxValue::Float32 { value: 3000.0 });
                 default_properties.insert("MoonAngularSize", RbxValue::Float32 { value: 11.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "SkyboxDn",
+                    RbxValue::String {
+                        value: String::from("rbxasset://textures/sky/sky512_dn.tex"),
+                    },
+                );
                 default_properties.insert(
                     "MoonTextureId",
                     RbxValue::String {
                         value: String::from("rbxasset://sky/moon.jpg"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "SkyboxBk",
+                    RbxValue::String {
+                        value: String::from("rbxasset://textures/sky/sky512_bk.tex"),
                     },
                 );
                 default_properties
@@ -20266,30 +20259,30 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Size", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Opacity", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Smoke"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Smoke"),
                     },
                 );
+                default_properties.insert("RiseVelocity", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Smoke"),
+                    },
+                );
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Size", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Color",
                     RbxValue::Color3 {
                         value: [1.0, 1.0, 1.0],
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("RiseVelocity", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Opacity", RbxValue::Float32 { value: 0.5 });
                 default_properties
             },
         },
@@ -20319,8 +20312,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("SocialService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -20471,44 +20464,44 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("isPlaying", RbxValue::Bool { value: false });
-                default_properties.insert("IsLoaded", RbxValue::Bool { value: false });
-                default_properties.insert("SoundGroup", RbxValue::Ref { value: None });
-                default_properties.insert("Volume", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("PlaybackLoudness", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("IsPlaying", RbxValue::Bool { value: false });
-                default_properties.insert("Pitch", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("PlaybackSpeed", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Sound"),
-                    },
-                );
-                default_properties.insert("TimePosition", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("TimeLength", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Playing", RbxValue::Bool { value: false });
+                default_properties.insert("PlayOnRemove", RbxValue::Bool { value: false });
+                default_properties.insert("MaxDistance", RbxValue::Float32 { value: 10000.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("PlaybackLoudness", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Sound"),
                     },
                 );
-                default_properties.insert("PlayOnRemove", RbxValue::Bool { value: false });
+                default_properties.insert("SoundGroup", RbxValue::Ref { value: None });
+                default_properties.insert("Volume", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("IsLoaded", RbxValue::Bool { value: false });
+                default_properties.insert("isPlaying", RbxValue::Bool { value: false });
                 default_properties.insert("EmitterSize", RbxValue::Float32 { value: 10.0 });
-                default_properties.insert("RollOffMode", RbxValue::Enum { value: 0 });
-                default_properties.insert("MaxDistance", RbxValue::Float32 { value: 10000.0 });
+                default_properties.insert("Looped", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "SoundId",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("IsPaused", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Sound"),
+                    },
+                );
+                default_properties.insert("PlaybackSpeed", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Pitch", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("RollOffMode", RbxValue::Enum { value: 0 });
                 default_properties.insert("MinDistance", RbxValue::Float32 { value: 10.0 });
-                default_properties.insert("Looped", RbxValue::Bool { value: false });
+                default_properties.insert("IsPlaying", RbxValue::Bool { value: false });
+                default_properties.insert("TimePosition", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -20578,25 +20571,25 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("ChorusSoundEffect"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("ChorusSoundEffect"),
                     },
                 );
-                default_properties.insert("Mix", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Rate", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Depth", RbxValue::Float32 { value: 0.15 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Mix", RbxValue::Float32 { value: 0.5 });
                 default_properties
             },
         },
@@ -20656,28 +20649,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Ratio", RbxValue::Float32 { value: 40.0 });
-                default_properties.insert("GainMakeup", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("SideChain", RbxValue::Ref { value: None });
-                default_properties.insert("Release", RbxValue::Float32 { value: 0.1 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("CompressorSoundEffect"),
                     },
                 );
+                default_properties.insert("Attack", RbxValue::Float32 { value: 0.1 });
+                default_properties.insert("SideChain", RbxValue::Ref { value: None });
+                default_properties.insert("GainMakeup", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Release", RbxValue::Float32 { value: 0.1 });
+                default_properties.insert("Ratio", RbxValue::Float32 { value: 40.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CompressorSoundEffect"),
                     },
                 );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Threshold", RbxValue::Float32 { value: -40.0 });
-                default_properties.insert("Attack", RbxValue::Float32 { value: 0.1 });
                 default_properties
             },
         },
@@ -20702,23 +20695,23 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("DistortionSoundEffect"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("DistortionSoundEffect"),
                     },
                 );
-                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Level", RbxValue::Float32 { value: 0.75 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("DistortionSoundEffect"),
+                    },
+                );
+                default_properties.insert("Level", RbxValue::Float32 { value: 0.75 });
+                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -20764,6 +20757,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Feedback", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("DryLevel", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Delay", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
@@ -20771,19 +20768,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("EchoSoundEffect"),
                     },
                 );
-                default_properties.insert("WetLevel", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Feedback", RbxValue::Float32 { value: 0.5 });
-                default_properties.insert("Delay", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("DryLevel", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("EchoSoundEffect"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("WetLevel", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -20822,25 +20815,25 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("HighGain", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("HighGain", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("MidGain", RbxValue::Float32 { value: -10.0 });
+                default_properties.insert("LowGain", RbxValue::Float32 { value: -20.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("EqualizerSoundEffect"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("LowGain", RbxValue::Float32 { value: -20.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("EqualizerSoundEffect"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -20879,17 +20872,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Rate", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Depth", RbxValue::Float32 { value: 0.45 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("FlangeSoundEffect"),
                     },
                 );
-                default_properties.insert("Rate", RbxValue::Float32 { value: 5.0 });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Depth", RbxValue::Float32 { value: 0.45 });
-                default_properties.insert("Mix", RbxValue::Float32 { value: 0.85 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
@@ -20897,6 +20889,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("FlangeSoundEffect"),
                     },
                 );
+                default_properties.insert("Mix", RbxValue::Float32 { value: 0.85 });
                 default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
@@ -20922,23 +20915,23 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("PitchShiftSoundEffect"),
-                    },
-                );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Octave", RbxValue::Float32 { value: 1.25 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("PitchShiftSoundEffect"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("PitchShiftSoundEffect"),
+                    },
+                );
+                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Octave", RbxValue::Float32 { value: 1.25 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -20992,22 +20985,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("ReverbSoundEffect"),
                     },
                 );
-                default_properties.insert("WetLevel", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("DryLevel", RbxValue::Float32 { value: -6.0 });
-                default_properties.insert("DecayTime", RbxValue::Float32 { value: 1.5 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert("Density", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("DecayTime", RbxValue::Float32 { value: 1.5 });
+                default_properties.insert("WetLevel", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("DryLevel", RbxValue::Float32 { value: -6.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Diffusion", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("ReverbSoundEffect"),
                     },
@@ -21050,25 +21043,25 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("TremoloSoundEffect"),
                     },
                 );
-                default_properties.insert("Frequency", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Duty", RbxValue::Float32 { value: 0.5 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Frequency", RbxValue::Float32 { value: 5.0 });
+                default_properties.insert("Depth", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("TremoloSoundEffect"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Depth", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Priority", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -21094,20 +21087,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("SoundGroup"),
-                    },
-                );
+                default_properties.insert("Volume", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("SoundGroup"),
                     },
                 );
-                default_properties.insert("Volume", RbxValue::Float32 { value: 0.5 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("SoundGroup"),
+                    },
+                );
                 default_properties
             },
         },
@@ -21160,26 +21153,26 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("DopplerScale", RbxValue::Float32 { value: 1.0 });
-                default_properties
-                    .insert("RespectFilteringEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("DistanceFactor", RbxValue::Float32 { value: 3.33 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("SoundService"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("RolloffScale", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("AmbientReverb", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("SoundService"),
                     },
                 );
+                default_properties.insert("DistanceFactor", RbxValue::Float32 { value: 3.33 });
+                default_properties
+                    .insert("RespectFilteringEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("DopplerScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("SoundService"),
+                    },
+                );
+                default_properties.insert("AmbientReverb", RbxValue::Enum { value: 0 });
+                default_properties.insert("RolloffScale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -21219,13 +21212,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("Sparkles"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Sparkles"),
@@ -21237,12 +21223,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: [1.0000001, 1.0, 1.0],
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "SparkleColor",
                     RbxValue::Color3 {
                         value: [0.5647059, 0.09803922, 1.0],
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("Sparkles"),
                     },
                 );
                 default_properties
@@ -21285,13 +21278,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("StarterGear"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("StarterGear"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
@@ -21383,6 +21376,125 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 properties.insert(
+                    "GameSettingsAssetIDFace",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDFace",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDHead",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDHead",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDLeftArm",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDLeftArm",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDLeftLeg",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDLeftLeg",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDPants",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDPants",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDRightArm",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDRightArm",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDRightLeg",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDRightLeg",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDShirt",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDShirt",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDTeeShirt",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDTeeShirt",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAssetIDTorso",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAssetIDTorso",
+                        value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsAvatarType",
+                    RbxInstanceProperty {
+                        name: "GameSettingsAvatarType",
+                        value_type: RbxPropertyType::Enum("GameAvatarType"),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsR15CollisionType",
+                    RbxInstanceProperty {
+                        name: "GameSettingsR15CollisionType",
+                        value_type: RbxPropertyType::Enum("R15CollisionType"),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsScaleBodyType",
+                    RbxInstanceProperty {
+                        name: "GameSettingsScaleBodyType",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsScaleHead",
+                    RbxInstanceProperty {
+                        name: "GameSettingsScaleHead",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsScaleHeight",
+                    RbxInstanceProperty {
+                        name: "GameSettingsScaleHeight",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsScaleProportion",
+                    RbxInstanceProperty {
+                        name: "GameSettingsScaleProportion",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                    },
+                );
+                properties.insert(
+                    "GameSettingsScaleWidth",
+                    RbxInstanceProperty {
+                        name: "GameSettingsScaleWidth",
+                        value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                    },
+                );
+                properties.insert(
                     "HealthDisplayDistance",
                     RbxInstanceProperty {
                         name: "HealthDisplayDistance",
@@ -21408,18 +21520,45 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("GameSettingsAvatarType", RbxValue::Enum { value: 2 });
+                default_properties
+                    .insert("NameDisplayDistance", RbxValue::Float32 { value: 100.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("StarterPlayer"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties
+                    .insert("HealthDisplayDistance", RbxValue::Float32 { value: 100.0 });
+                default_properties.insert("EnableMouseLockOption", RbxValue::Bool { value: true });
+                default_properties
+                    .insert("GameSettingsAssetIDHead", RbxValue::Float32 { value: 0.0 });
+                default_properties
+                    .insert("CameraMaxZoomDistance", RbxValue::Float32 { value: 400.0 });
+                default_properties
+                    .insert("GameSettingsAssetIDPants", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("DevCameraOcclusionMode", RbxValue::Enum { value: 0 });
                 default_properties.insert("AutoJumpEnabled", RbxValue::Bool { value: true });
                 default_properties
-                    .insert("DevTouchCameraMovementMode", RbxValue::Enum { value: 0 });
-                default_properties.insert("CameraMode", RbxValue::Enum { value: 0 });
-                default_properties.insert("AllowCustomAnimations", RbxValue::Bool { value: true });
-                default_properties.insert("EnableMouseLockOption", RbxValue::Bool { value: true });
+                    .insert("LoadCharacterAppearance", RbxValue::Bool { value: true });
+                default_properties
+                    .insert("GameSettingsAssetIDFace", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "GameSettingsAssetIDLeftLeg",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties.insert(
+                    "GameSettingsAssetIDTeeShirt",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties
+                    .insert("GameSettingsAssetIDShirt", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "GameSettingsAssetIDRightArm",
+                    RbxValue::Float32 { value: 0.0 },
+                );
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -21427,22 +21566,28 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties
-                    .insert("LoadCharacterAppearance", RbxValue::Bool { value: true });
+                    .insert("GameSettingsAssetIDTorso", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("CameraMode", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "GameSettingsAssetIDLeftArm",
+                    RbxValue::Float32 { value: 0.0 },
+                );
                 default_properties.insert("DevComputerMovementMode", RbxValue::Enum { value: 0 });
-                default_properties
-                    .insert("HealthDisplayDistance", RbxValue::Float32 { value: 100.0 });
+                default_properties.insert("DevTouchMovementMode", RbxValue::Enum { value: 0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties
-                    .insert("CameraMaxZoomDistance", RbxValue::Float32 { value: 400.0 });
-                default_properties
-                    .insert("NameDisplayDistance", RbxValue::Float32 { value: 100.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("DevCameraOcclusionMode", RbxValue::Enum { value: 0 });
+                default_properties.insert("AllowCustomAnimations", RbxValue::Bool { value: true });
                 default_properties
                     .insert("CameraMinZoomDistance", RbxValue::Float32 { value: 0.5 });
                 default_properties
+                    .insert("GameSettingsR15CollisionType", RbxValue::Enum { value: 0 });
+                default_properties
+                    .insert("DevTouchCameraMovementMode", RbxValue::Enum { value: 0 });
+                default_properties.insert(
+                    "GameSettingsAssetIDRightLeg",
+                    RbxValue::Float32 { value: 0.0 },
+                );
+                default_properties
                     .insert("DevComputerCameraMovementMode", RbxValue::Enum { value: 0 });
-                default_properties.insert("DevTouchMovementMode", RbxValue::Enum { value: 0 });
                 default_properties
             },
         },
@@ -21461,7 +21606,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -21474,6 +21618,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("StarterPlayerScripts"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -21491,6 +21636,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("StarterCharacterScripts"),
+                    },
+                );
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -21498,13 +21650,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("StarterCharacterScripts"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -21592,14 +21737,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("PhysicsSendKbps", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("InstanceCount", RbxValue::Float32 { value: 6761.0 });
-                default_properties
-                    .insert("HeartbeatTimeMs", RbxValue::Float32 { value: 0.012322837 });
+                default_properties.insert("PrimitivesCount", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("ContactsCount", RbxValue::Float32 { value: 0.0 });
-                default_properties
-                    .insert("MovingPrimitivesCount", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("PhysicsReceiveKbps", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -21607,17 +21747,27 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("DataSendKbps", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("PrimitivesCount", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("PhysicsStepTimeMs", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "PhysicsStepTimeMs",
+                    RbxValue::Float32 {
+                        value: 0.00026783822,
+                    },
+                );
+                default_properties
+                    .insert("MovingPrimitivesCount", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Stats"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("PhysicsSendKbps", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("PhysicsReceiveKbps", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("DataReceiveKbps", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties
+                    .insert("HeartbeatTimeMs", RbxValue::Float32 { value: 0.0370983 });
+                default_properties.insert("InstanceCount", RbxValue::Float32 { value: 6699.0 });
                 default_properties
             },
         },
@@ -22258,6 +22408,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("ActiveScript", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("StudioService"),
+                    },
+                );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
@@ -22265,14 +22422,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("StudioService"),
                     },
                 );
-                default_properties.insert("ActiveScript", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("StudioService"),
-                    },
-                );
                 default_properties
             },
         },
@@ -22380,7 +22530,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
@@ -22388,15 +22537,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Team"),
                     },
                 );
-                default_properties.insert("AutoAssignable", RbxValue::Bool { value: true });
-                default_properties.insert("AutoColorCharacters", RbxValue::Bool { value: true });
-                default_properties.insert("Score", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Team"),
                     },
                 );
+                default_properties.insert("AutoAssignable", RbxValue::Bool { value: true });
+                default_properties.insert("AutoColorCharacters", RbxValue::Bool { value: true });
+                default_properties.insert("Score", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -22414,16 +22564,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("Teams"),
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("Teams"),
                     },
@@ -22453,18 +22603,18 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("TeleportService"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("CustomizedTeleportUI", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Teleport Service"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("TeleportService"),
                     },
                 );
                 default_properties
@@ -22498,9 +22648,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("IsSmooth", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "SizeInCells",
                     RbxValue::Vector3 {
@@ -22508,13 +22655,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("TerrainRegion"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("IsSmooth", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("TerrainRegion"),
                     },
@@ -22620,14 +22770,30 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("NumberOfPlayers", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("ExecuteWithStudioRun", RbxValue::Bool { value: false });
-                default_properties.insert("TestCount", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("AutoRuns", RbxValue::Bool { value: true });
                 default_properties.insert("SimulateSecondsLag", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("TestService"),
+                    },
+                );
+                default_properties.insert("TestCount", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ExecuteWithStudioRun", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("ErrorCount", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "IsPhysicsEnvironmentalThrottled",
+                    RbxValue::Bool { value: true },
+                );
+                default_properties.insert("WarnCount", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("IsSleepAllowed", RbxValue::Bool { value: true });
+                default_properties.insert("NumberOfPlayers", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Is30FpsThrottleEnabled", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Description",
+                    RbxValue::String {
+                        value: String::from(""),
                     },
                 );
                 default_properties.insert(
@@ -22637,23 +22803,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Timeout", RbxValue::Float32 { value: 10.0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Is30FpsThrottleEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("AutoRuns", RbxValue::Bool { value: true });
-                default_properties.insert("WarnCount", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("IsSleepAllowed", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "IsPhysicsEnvironmentalThrottled",
-                    RbxValue::Bool { value: true },
-                );
-                default_properties.insert("ErrorCount", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Description",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
                 default_properties
             },
         },
@@ -22688,7 +22838,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -22696,6 +22845,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -22742,14 +22892,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Instance"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("TimerService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -22767,20 +22917,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("TouchInputService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("TouchInputService"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -22921,19 +23071,25 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Lifetime", RbxValue::Float32 { value: 2.0 });
+                default_properties.insert("MinLength", RbxValue::Float32 { value: 0.1 });
+                default_properties.insert(
+                    "Texture",
+                    RbxValue::String {
+                        value: String::from(""),
+                    },
+                );
                 default_properties.insert("TextureMode", RbxValue::Enum { value: 0 });
-                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
-                default_properties.insert("FaceCamera", RbxValue::Bool { value: false });
+                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
                 default_properties.insert("TextureLength", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Attachment1", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Trail"),
                     },
                 );
-                default_properties.insert("Attachment0", RbxValue::Ref { value: None });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -22941,16 +23097,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("LightEmission", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("MaxLength", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert(
-                    "Texture",
-                    RbxValue::String {
-                        value: String::from(""),
-                    },
-                );
                 default_properties.insert("LightInfluence", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("MinLength", RbxValue::Float32 { value: 0.1 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("MaxLength", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("FaceCamera", RbxValue::Bool { value: false });
                 default_properties
             },
         },
@@ -23031,21 +23181,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Tween"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Instance", RbxValue::Ref { value: None });
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Tween"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Tween"),
+                    },
+                );
                 default_properties.insert("PlaybackState", RbxValue::Enum { value: 0 });
+                default_properties.insert("Instance", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -23063,15 +23213,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("TweenService"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("TweenService"),
                     },
@@ -23166,23 +23316,23 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("DominantAxis", RbxValue::Enum { value: 0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("AspectRatio", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("UIAspectRatioConstraint"),
                     },
                 );
+                default_properties.insert("AspectType", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("UIAspectRatioConstraint"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("AspectType", RbxValue::Enum { value: 0 });
+                default_properties.insert("DominantAxis", RbxValue::Enum { value: 0 });
                 default_properties
             },
         },
@@ -23215,11 +23365,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("MinSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert(
-                    "MaxSize",
-                    RbxValue::Vector2 {
-                        value: [1000000000.0, 1000000000.0],
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("UISizeConstraint"),
                     },
                 );
                 default_properties.insert(
@@ -23229,10 +23378,11 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("MinSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UISizeConstraint"),
+                    "MaxSize",
+                    RbxValue::Vector2 {
+                        value: [1000000000.0, 1000000000.0],
                     },
                 );
                 default_properties
@@ -23266,22 +23416,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("MaxTextSize", RbxValue::Float32 { value: 100.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("UITextSizeConstraint"),
                     },
                 );
-                default_properties.insert("MaxTextSize", RbxValue::Float32 { value: 100.0 });
-                default_properties.insert("MinTextSize", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("UITextSizeConstraint"),
                     },
                 );
+                default_properties.insert("MinTextSize", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -23397,30 +23547,30 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UIGridLayout"),
-                    },
+                    "AbsoluteContentSize",
+                    RbxValue::Vector2 { value: [0.0, 0.0] },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties
-                    .insert("FillDirectionMaxCells", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("SortOrder", RbxValue::Enum { value: 0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("UIGridLayout"),
                     },
                 );
-                default_properties.insert("StartCorner", RbxValue::Enum { value: 0 });
                 default_properties.insert(
-                    "AbsoluteContentSize",
-                    RbxValue::Vector2 { value: [0.0, 0.0] },
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("UIGridLayout"),
+                    },
                 );
-                default_properties.insert("VerticalAlignment", RbxValue::Enum { value: 1 });
+                default_properties
+                    .insert("FillDirectionMaxCells", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("SortOrder", RbxValue::Enum { value: 0 });
+                default_properties.insert("StartCorner", RbxValue::Enum { value: 0 });
                 default_properties.insert("FillDirection", RbxValue::Enum { value: 0 });
+                default_properties.insert("VerticalAlignment", RbxValue::Enum { value: 1 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("HorizontalAlignment", RbxValue::Enum { value: 1 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -23445,27 +23595,27 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("FillDirection", RbxValue::Enum { value: 1 });
+                default_properties.insert("HorizontalAlignment", RbxValue::Enum { value: 1 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "AbsoluteContentSize",
+                    RbxValue::Vector2 { value: [0.0, 0.0] },
+                );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("SortOrder", RbxValue::Enum { value: 0 });
+                default_properties.insert("VerticalAlignment", RbxValue::Enum { value: 1 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("UIListLayout"),
                     },
                 );
-                default_properties.insert("VerticalAlignment", RbxValue::Enum { value: 1 });
-                default_properties.insert("HorizontalAlignment", RbxValue::Enum { value: 1 });
-                default_properties.insert("SortOrder", RbxValue::Enum { value: 0 });
-                default_properties.insert("FillDirection", RbxValue::Enum { value: 1 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("UIListLayout"),
                     },
-                );
-                default_properties.insert(
-                    "AbsoluteContentSize",
-                    RbxValue::Vector2 { value: [0.0, 0.0] },
                 );
                 default_properties
             },
@@ -23555,37 +23705,37 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert("TweenTime", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("HorizontalAlignment", RbxValue::Enum { value: 1 });
-                default_properties.insert("Circular", RbxValue::Bool { value: false });
-                default_properties.insert("TouchInputEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("CurrentPage", RbxValue::Ref { value: None });
-                default_properties.insert("FillDirection", RbxValue::Enum { value: 0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("GamepadInputEnabled", RbxValue::Bool { value: true });
-                default_properties.insert(
-                    "AbsoluteContentSize",
-                    RbxValue::Vector2 { value: [0.0, 0.0] },
-                );
-                default_properties.insert("Animated", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("UIPageLayout"),
                     },
                 );
-                default_properties.insert("SortOrder", RbxValue::Enum { value: 0 });
-                default_properties.insert("EasingDirection", RbxValue::Enum { value: 1 });
-                default_properties.insert("VerticalAlignment", RbxValue::Enum { value: 1 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("UIPageLayout"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("HorizontalAlignment", RbxValue::Enum { value: 1 });
+                default_properties.insert("GamepadInputEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("TouchInputEnabled", RbxValue::Bool { value: true });
                 default_properties
                     .insert("ScrollWheelInputEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("Animated", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "AbsoluteContentSize",
+                    RbxValue::Vector2 { value: [0.0, 0.0] },
+                );
+                default_properties.insert("Circular", RbxValue::Bool { value: false });
+                default_properties.insert("VerticalAlignment", RbxValue::Enum { value: 1 });
+                default_properties.insert("CurrentPage", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("SortOrder", RbxValue::Enum { value: 0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("FillDirection", RbxValue::Enum { value: 0 });
                 default_properties.insert("EasingStyle", RbxValue::Enum { value: 2 });
+                default_properties.insert("EasingDirection", RbxValue::Enum { value: 1 });
                 default_properties
             },
         },
@@ -23631,31 +23781,31 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("VerticalAlignment", RbxValue::Enum { value: 1 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("UITableLayout"),
                     },
                 );
-                default_properties.insert("FillEmptySpaceColumns", RbxValue::Bool { value: false });
-                default_properties.insert("FillEmptySpaceRows", RbxValue::Bool { value: false });
                 default_properties.insert("FillDirection", RbxValue::Enum { value: 1 });
-                default_properties.insert("MajorAxis", RbxValue::Enum { value: 0 });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("HorizontalAlignment", RbxValue::Enum { value: 1 });
                 default_properties.insert("SortOrder", RbxValue::Enum { value: 0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("FillEmptySpaceColumns", RbxValue::Bool { value: false });
+                default_properties.insert("FillEmptySpaceRows", RbxValue::Bool { value: false });
                 default_properties.insert(
                     "AbsoluteContentSize",
                     RbxValue::Vector2 { value: [0.0, 0.0] },
                 );
+                default_properties.insert("MajorAxis", RbxValue::Enum { value: 0 });
+                default_properties.insert("VerticalAlignment", RbxValue::Enum { value: 1 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("UITableLayout"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -23701,16 +23851,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
                         value: String::from("UIPadding"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
                         value: String::from("UIPadding"),
                     },
@@ -23739,21 +23889,21 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Scale", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("UIScale"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Scale", RbxValue::Float32 { value: 1.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("UIScale"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -24201,60 +24351,60 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
+                default_properties.insert(
+                    "OnScreenKeyboardSize",
+                    RbxValue::Vector2 { value: [0.0, 0.0] },
+                );
+                default_properties.insert("GyroscopeEnabled", RbxValue::Bool { value: false });
                 default_properties
                     .insert("MouseDeltaSensitivity", RbxValue::Float32 { value: 1.0 });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("UserInputService"),
-                    },
-                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "UserHeadCFrame",
                     RbxValue::CFrame {
                         value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
                     },
                 );
-                default_properties.insert("MouseIconEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("RightBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("GyroscopeEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("ModalEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("VREnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("BottomBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Instance"),
                     },
                 );
-                default_properties.insert("MouseEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("StatusBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("TouchEnabled", RbxValue::Bool { value: false });
                 default_properties
                     .insert("LegacyInputEventsEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("MouseBehavior", RbxValue::Enum { value: 0 });
+                default_properties.insert("GazeSelectionEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("RightBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("AccelerometerEnabled", RbxValue::Bool { value: false });
+                default_properties
+                    .insert("OnScreenKeyboardVisible", RbxValue::Bool { value: false });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("OverrideMouseIconBehavior", RbxValue::Enum { value: 0 });
+                default_properties.insert("StatusBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("VREnabled", RbxValue::Bool { value: false });
+                default_properties.insert("GamepadEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("NavBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
+                default_properties.insert("KeyboardEnabled", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "OnScreenKeyboardPosition",
                     RbxValue::Vector2 { value: [0.0, 0.0] },
                 );
-                default_properties.insert("AccelerometerEnabled", RbxValue::Bool { value: false });
-                default_properties.insert("TouchEnabled", RbxValue::Bool { value: false });
+                default_properties.insert("ModalEnabled", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("UserInputService"),
+                    },
+                );
+                default_properties.insert("MouseIconEnabled", RbxValue::Bool { value: true });
+                default_properties.insert("MouseEnabled", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "OnScreenKeyboardAnimationDuration",
                     RbxValue::Float32 { value: 0.0 },
                 );
-                default_properties.insert("GazeSelectionEnabled", RbxValue::Bool { value: true });
-                default_properties.insert("BottomBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties
-                    .insert("OnScreenKeyboardVisible", RbxValue::Bool { value: false });
-                default_properties.insert("NavBarSize", RbxValue::Vector2 { value: [0.0, 0.0] });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("OverrideMouseIconBehavior", RbxValue::Enum { value: 0 });
-                default_properties.insert("MouseBehavior", RbxValue::Enum { value: 0 });
-                default_properties.insert("GamepadEnabled", RbxValue::Bool { value: false });
-                default_properties.insert(
-                    "OnScreenKeyboardSize",
-                    RbxValue::Vector2 { value: [0.0, 0.0] },
-                );
-                default_properties.insert("KeyboardEnabled", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -24293,22 +24443,22 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("GuiInputUserCFrame", RbxValue::Enum { value: 0 });
-                default_properties.insert("VREnabled", RbxValue::Bool { value: false });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("VRService"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("VREnabled", RbxValue::Bool { value: false });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("GuiInputUserCFrame", RbxValue::Enum { value: 0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("VRService"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "VRDeviceName",
                     RbxValue::String {
@@ -24355,7 +24505,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Value"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "ClassName",
@@ -24363,6 +24512,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("BinaryStringValue"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -24387,19 +24537,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("BoolValue"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Value", RbxValue::Bool { value: false });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Value"),
+                    },
+                );
+                default_properties.insert("Value", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("BoolValue"),
                     },
                 );
                 default_properties
@@ -24426,20 +24576,20 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Value"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("BrickColorValue"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Value"),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -24465,6 +24615,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
+                    "Value",
+                    RbxValue::CFrame {
+                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                    },
+                );
+                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("CFrameValue"),
@@ -24476,14 +24632,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Value"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "Value",
-                    RbxValue::CFrame {
-                        value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
-                    },
-                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -24508,7 +24658,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Value",
                     RbxValue::Color3 {
@@ -24527,6 +24676,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Value"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
@@ -24574,23 +24724,23 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Value"),
-                    },
-                );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("DoubleConstrainedValue"),
                     },
                 );
-                default_properties.insert("ConstrainedValue", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("MaxValue", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert("MinValue", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ConstrainedValue", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("MaxValue", RbxValue::Float32 { value: 1.0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Value", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Value"),
+                    },
+                );
                 default_properties
             },
         },
@@ -24636,14 +24786,15 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Value", RbxValue::Float32 { value: 0.0 });
-                default_properties.insert("MinValue", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("ConstrainedValue", RbxValue::Float32 { value: 0.0 });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("IntConstrainedValue"),
                     },
                 );
+                default_properties.insert("MinValue", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -24651,9 +24802,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("ConstrainedValue", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("MaxValue", RbxValue::Float32 { value: 10.0 });
+                default_properties.insert("Value", RbxValue::Float32 { value: 0.0 });
                 default_properties
             },
         },
@@ -24678,8 +24828,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Value", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -24692,6 +24840,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Value"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Value", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
@@ -24717,7 +24867,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Value", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
@@ -24725,13 +24875,13 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Value"),
                     },
                 );
-                default_properties.insert("Value", RbxValue::Float32 { value: 0.0 });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("NumberValue"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -24756,7 +24906,8 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Value", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -24769,8 +24920,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("Value"),
                     },
                 );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Value", RbxValue::Ref { value: None });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -24796,19 +24946,19 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("Value"),
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("RayValue"),
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("Value"),
+                    },
+                );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
         },
@@ -24834,23 +24984,23 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
+                    "ClassName",
                     RbxValue::String {
-                        value: String::from("Value"),
+                        value: String::from("StringValue"),
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Value",
                     RbxValue::String {
                         value: String::from(""),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
-                    "ClassName",
+                    "Name",
                     RbxValue::String {
-                        value: String::from("StringValue"),
+                        value: String::from("Value"),
                     },
                 );
                 default_properties
@@ -24878,18 +25028,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Value",
-                    RbxValue::Vector3 {
-                        value: [0.0, 0.0, 0.0],
-                    },
-                );
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Value"),
                     },
                 );
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
@@ -24897,6 +25041,12 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     },
                 );
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Value",
+                    RbxValue::Vector3 {
+                        value: [0.0, 0.0, 0.0],
+                    },
+                );
                 default_properties
             },
         },
@@ -24922,15 +25072,16 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
                 default_properties.insert(
-                    "Name",
-                    RbxValue::String {
-                        value: String::from("VirtualInputManager"),
-                    },
-                );
-                default_properties.insert(
                     "AdditionalLuaState",
                     RbxValue::String {
                         value: String::from(""),
+                    },
+                );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert(
+                    "Name",
+                    RbxValue::String {
+                        value: String::from("VirtualInputManager"),
                     },
                 );
                 default_properties.insert(
@@ -24939,7 +25090,6 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                         value: String::from("VirtualInputManager"),
                     },
                 );
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties
             },
@@ -24958,18 +25108,18 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("VirtualUser"),
-                    },
-                );
                 default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert("Parent", RbxValue::Ref { value: None });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("Instance"),
+                    },
+                );
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("VirtualUser"),
                     },
                 );
                 default_properties
@@ -24989,14 +25139,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "ClassName",
                     RbxValue::String {
                         value: String::from("Visit"),
                     },
                 );
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
@@ -25048,24 +25198,24 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
             default_properties: {
                 #[allow(unused_mut)]
                 let mut default_properties = HashMap::new();
-                default_properties.insert("Archivable", RbxValue::Bool { value: true });
-                default_properties.insert("Part1", RbxValue::Ref { value: None });
-                default_properties.insert("Part0", RbxValue::Ref { value: None });
-                default_properties.insert("Parent", RbxValue::Ref { value: None });
-                default_properties.insert(
-                    "ClassName",
-                    RbxValue::String {
-                        value: String::from("WeldConstraint"),
-                    },
-                );
+                default_properties.insert("Enabled", RbxValue::Bool { value: true });
                 default_properties.insert(
                     "Name",
                     RbxValue::String {
                         value: String::from("WeldConstraint"),
                     },
                 );
-                default_properties.insert("Enabled", RbxValue::Bool { value: true });
+                default_properties.insert("Archivable", RbxValue::Bool { value: true });
+                default_properties.insert("Parent", RbxValue::Ref { value: None });
+                default_properties.insert("Part1", RbxValue::Ref { value: None });
                 default_properties.insert("Active", RbxValue::Bool { value: false });
+                default_properties.insert(
+                    "ClassName",
+                    RbxValue::String {
+                        value: String::from("WeldConstraint"),
+                    },
+                );
+                default_properties.insert("Part0", RbxValue::Ref { value: None });
                 default_properties
             },
         },
@@ -27985,6 +28135,7 @@ pub fn generate_enums() -> HashMap<&'static str, RbxEnum> {
                 let mut items = HashMap::new();
                 items.insert("Legacy", 0);
                 items.insert("Voxel", 1);
+                items.insert("Compatibility", 2);
                 items
             },
         },
