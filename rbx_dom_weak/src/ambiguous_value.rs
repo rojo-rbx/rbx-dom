@@ -1,5 +1,6 @@
 use std::fmt;
 
+use serde_derive::Serialize;
 use serde::{Deserialize, Deserializer};
 use serde::de::{self, Visitor, MapAccess, SeqAccess};
 
@@ -7,7 +8,7 @@ use crate::value::RbxValue;
 
 /// Represents a value that was deserialized that might not have full type
 /// information attached.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
 pub enum UnresolvedRbxValue {
     /// The type has full type information that was either declared explicitly
     /// or was inferred and unambiguous.
@@ -18,10 +19,16 @@ pub enum UnresolvedRbxValue {
     Ambiguous(AmbiguousRbxValue),
 }
 
+impl From<RbxValue> for UnresolvedRbxValue {
+    fn from(value: RbxValue) -> UnresolvedRbxValue {
+        UnresolvedRbxValue::Concrete(value)
+    }
+}
+
 /// Represents a value that doesn't have explicit type information attached to
 /// it. Given more reflection information, it should be possible to recover the
 /// exact type of this value.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
 pub enum AmbiguousRbxValue {
     /// One of String or Enum
     String(String),
@@ -48,6 +55,13 @@ impl<'de> Deserialize<'de> for UnresolvedRbxValue {
 
             fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
                 formatter.write_str("Roblox value")
+            }
+
+            fn visit_bool<E>(self, value: bool) -> Result<Self::Value, E>
+            where
+                E: de::Error,
+            {
+                Ok(UnresolvedRbxValue::Concrete(RbxValue::Bool { value }))
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
