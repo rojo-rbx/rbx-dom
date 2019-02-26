@@ -1,6 +1,9 @@
 # rbx_reflection Changelog
 
 ## [Unreleased]
+
+## 1.0.373 (2019-02-26)
+* Adjusted version number scheme again to account for patches to the library
 * Added `ValueResolveError` to public interface
 
 ## 0.2.373 (2019-02-25)
