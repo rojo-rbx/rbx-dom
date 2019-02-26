@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
+
+## 0.3.1 (2019-02-26)
 * Added support for bare bool values when deserializing `UnresolvedRbxValue`
 * Implemented `Serialize` for `UnresolvedRbxValue` and `AmbiguousRbxValue`
 * Implemented `From<RbxValue>` for `UnresolvedRbxValue`
