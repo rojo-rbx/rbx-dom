@@ -89,8 +89,6 @@ fn try_resolve_string(
 /// Note that because every number is held as a Float64, we might run into
 /// precision issues for values outside a 64-bit float's integer precision.
 fn try_resolve_one_float(
-    class_name: &str,
-    property_name: &str,
     property_type: RbxPropertyType,
     x: f64,
 ) -> Result<RbxValue, ValueResolveError> {
@@ -104,8 +102,6 @@ fn try_resolve_one_float(
 
 /// Two floats can result in a Vector2 or Vector2int16.
 fn try_resolve_two_floats(
-    class_name: &str,
-    property_name: &str,
     property_type: RbxPropertyType,
     (x, y): (f64, f64),
 ) -> Result<RbxValue, ValueResolveError> {
@@ -125,8 +121,6 @@ fn try_resolve_two_floats(
 /// Color3uint8 is another value to handle here, but shouldn't come up in the
 /// resolution case since no user-reflected values have that has a type.
 fn try_resolve_three_floats(
-    class_name: &str,
-    property_name: &str,
     property_type: RbxPropertyType,
     (x, y, z): (f64, f64, f64),
 ) -> Result<RbxValue, ValueResolveError> {
@@ -173,14 +167,10 @@ pub fn try_resolve_value(
                 AmbiguousRbxValue::String(string_value) => {
                     try_resolve_string(class_name, property_name, property_type, string_value)
                 }
-                AmbiguousRbxValue::Float1(x) => {
-                    try_resolve_one_float(class_name, property_name, property_type, *x)
-                }
-                AmbiguousRbxValue::Float2(x, y) => {
-                    try_resolve_two_floats(class_name, property_name, property_type, (*x, *y))
-                }
+                AmbiguousRbxValue::Float1(x) => try_resolve_one_float(property_type, *x),
+                AmbiguousRbxValue::Float2(x, y) => try_resolve_two_floats(property_type, (*x, *y)),
                 AmbiguousRbxValue::Float3(x, y, z) => {
-                    try_resolve_three_floats(class_name, property_name, property_type, (*x, *y, *z))
+                    try_resolve_three_floats(property_type, (*x, *y, *z))
                 }
             }
         }
