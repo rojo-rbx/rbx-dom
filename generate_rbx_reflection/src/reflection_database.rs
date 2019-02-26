@@ -20,7 +20,7 @@ pub fn generate(
 
     quote! {
         use std::collections::HashMap;
-        use rbx_dom_weak::{RbxValue, RbxValueType, PhysicalProperties};
+        use rbx_dom_weak::{RbxValue, RbxValueType};
         use crate::types::*;
 
         pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {

@@ -3,7 +3,7 @@
 //! `gen-reflection` in the root.
 #![allow(unused_mut)]
 use crate::types::*;
-use rbx_dom_weak::{PhysicalProperties, RbxValue, RbxValueType};
+use rbx_dom_weak::{RbxValue, RbxValueType};
 use std::collections::HashMap;
 pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
     let mut output = HashMap::with_capacity(405);
