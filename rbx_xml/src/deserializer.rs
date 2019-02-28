@@ -13,8 +13,10 @@ use crate::{
     reflection::XML_TO_CANONICAL_NAME,
     types::{
         deserialize_binary_string,
+        deserialize_protected_string,
         deserialize_bool,
         deserialize_cframe,
+        deserialize_content,
         deserialize_color3,
         deserialize_color3uint8,
         deserialize_enum,
@@ -452,6 +454,7 @@ fn deserialize_properties<R: Read>(
             "bool" => deserialize_bool(reader)?,
             "string" => deserialize_string(reader)?,
             "BinaryString" => deserialize_binary_string(reader)?,
+            "ProtectedString" => deserialize_protected_string(reader)?,
             "int" => deserialize_int32(reader)?,
             "float" => deserialize_float32(reader)?,
             "token" => deserialize_enum(reader)?,
@@ -462,6 +465,7 @@ fn deserialize_properties<R: Read>(
             "Color3" => deserialize_color3(reader)?,
             "Color3uint8" => deserialize_color3uint8(reader)?,
             "CoordinateFrame" => deserialize_cframe(reader)?,
+            "Content" => deserialize_content(reader)?,
             "PhysicalProperties" => deserialize_physical_properties(reader)?,
             "Ref" => deserialize_ref(reader)?,
             unknown => {

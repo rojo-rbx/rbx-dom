@@ -12,6 +12,7 @@ use crate::{
         serialize_binary_string,
         serialize_bool,
         serialize_cframe,
+        serialize_content,
         serialize_color3,
         serialize_color3uint8,
         serialize_enum,
@@ -133,6 +134,7 @@ fn serialize_value<W: Write>(
         RbxValue::PhysicalProperties { value } => serialize_physical_properties(writer, xml_name, *value),
         RbxValue::Ref { value } => serialize_ref(writer, xml_name, *value),
         RbxValue::CFrame { value } => serialize_cframe(writer, xml_name, *value),
+        RbxValue::Content { value } => serialize_content(writer, xml_name, value),
         RbxValue::Color3 { value } => serialize_color3(writer, xml_name, *value),
         RbxValue::Color3uint8 { value } => serialize_color3uint8(writer, xml_name, *value),
         unknown => {

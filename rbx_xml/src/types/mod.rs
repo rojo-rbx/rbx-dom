@@ -1,6 +1,7 @@
 mod binary_string;
 mod bool;
 mod cframe;
+mod content;
 mod colors;
 mod enumeration;
 mod numbers;
@@ -12,6 +13,7 @@ mod vectors;
 pub use self::binary_string::*;
 pub use self::bool::*;
 pub use self::cframe::*;
+pub use self::content::*;
 pub use self::colors::*;
 pub use self::enumeration::*;
 pub use self::numbers::*;

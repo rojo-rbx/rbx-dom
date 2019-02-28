@@ -9,6 +9,7 @@ use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
 static TEST_MODELS: &[&str] = &[
     include_str!("../test-files/parts.rbxmx"),
     include_str!("../test-files/terrain.rbxmx"),
+    include_str!("../test-files/decals.rbxmx"),
     // include_str!("../test-files/gui.rbxmx"),
 ];
 
