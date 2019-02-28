@@ -36,7 +36,7 @@ pub enum AmbiguousRbxValue {
     /// One of Float32, Int32, or Enum
     Float1(f64),
 
-    /// One of Vector2 or Vector2int16
+    /// One of Vector2, Vector2int16, or UDim
     Float2(f64, f64),
 
     /// One of Vector3, Vector3int16, Color3, or Color3uint8
@@ -104,7 +104,7 @@ impl<'de> Deserialize<'de> for UnresolvedRbxValue {
                     de::Error::invalid_length(1, &"sequence of length 2, 3, or 12")
                 )?;
 
-                // The value is either a Float2, a Float3, or a CFrame here
+                // The value is either a Float2, a Float3, a UDim, or a CFrame here
 
                 let third: Option<f64> = visitor.next_element()?;
                 let third = match third {
@@ -114,7 +114,7 @@ impl<'de> Deserialize<'de> for UnresolvedRbxValue {
                     },
                 };
 
-                // The value is either a Float3 or a CFrame here
+                // The value is either a Float3, a UDim2, or a CFrame here
 
                 let fourth: Option<f64> = visitor.next_element()?;
                 let fourth = match fourth {
@@ -124,14 +124,27 @@ impl<'de> Deserialize<'de> for UnresolvedRbxValue {
                     },
                 };
 
+                // The value is either a UDim2 or a CFrame here
+
+                let fifth: Option<f64> = visitor.next_element()?;
+                let fifth = match fifth {
+                    Some(value) => value,
+                    None => {
+                        return Ok(UnresolvedRbxValue::Concrete(RbxValue::UDim2 {
+                            value: (first as f32, second as i32, third as f32, fourth as i32),
+                        }));
+                    },
+                };
+
                 // The value must be a CFrame
                 let mut value = [0.0; 12];
                 value[0] = first as f32;
                 value[1] = second as f32;
                 value[2] = third as f32;
                 value[3] = fourth as f32;
+                value[4] = fifth as f32;
 
-                for i in 4..12 {
+                for i in 5..12 {
                     value[i] = visitor.next_element()?.ok_or_else(||
                         de::Error::invalid_length(i, &"sequence of length 2, 3, or 12")
                     )?;
@@ -229,6 +242,19 @@ mod tests {
         let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
 
         assert_eq!(value, UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float3(1.0, 2.0, 5.0)));
+    }
+
+    #[test]
+    fn implicit_quadruple() {
+        let input = r#"
+            [1, 2, 5, 6]
+        "#;
+
+        let value: UnresolvedRbxValue = serde_json::from_str(input).unwrap();
+
+        assert_eq!(value, UnresolvedRbxValue::Concrete(RbxValue::UDim2 {
+            value: (1.0, 2, 5.0, 6),
+        }));
     }
 
     #[test]
