@@ -269,6 +269,24 @@ fn emit_value(value: &RbxValue) -> TokenStream {
 
             quote!(RbxValue::PhysicalProperties { value: #value_literal })
         },
+        RbxValue::UDim { value } => {
+            let literal_scale = Literal::f32_unsuffixed(value.0);
+            let literal_offset = Literal::i32_unsuffixed(value.1);
+
+            quote!(RbxValue::UDim {
+                value: (#literal_scale, #literal_offset)
+            })
+        },
+        RbxValue::UDim2 { value } => {
+            let literal_x_scale = Literal::f32_unsuffixed(value.0);
+            let literal_x_offset = Literal::i32_unsuffixed(value.1);
+            let literal_y_scale = Literal::f32_unsuffixed(value.2);
+            let literal_y_offset = Literal::i32_unsuffixed(value.3);
+
+            quote!(RbxValue::UDim2 {
+                value: (#literal_x_scale, #literal_x_offset, #literal_y_scale, #literal_y_offset)
+            })
+        },
     }
 }
 
