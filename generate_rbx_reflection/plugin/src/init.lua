@@ -27,6 +27,8 @@ local blacklistedProperties = {
 	formFactor = true, -- on FormFactorPart
 	RequestQueueSize = true, -- on ContentProvider, mistakenly marked serializable
 
+	-- Stuff that doesn't have meaningful defaults
+	Parent = true,
 	DataCost = true,
 	RobloxLocked = true,
 }
