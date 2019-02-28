@@ -12,6 +12,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Instance",
             superclass: None,
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: {
                 let mut properties = HashMap::with_capacity(8);
                 properties.insert(
@@ -80,6 +81,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ABTestService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -98,6 +102,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Accoutrement",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -184,6 +189,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Accessory",
             superclass: Some("Accoutrement"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(6);
@@ -232,6 +238,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Hat",
             superclass: Some("Accoutrement"),
+            tags: RbxInstanceTags::Deprecated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(6);
@@ -280,6 +287,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AdService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -298,6 +306,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AdvancedDragger",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -316,6 +325,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AnalyticsService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -334,6 +344,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Animation",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -368,6 +379,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AnimationController",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -386,6 +398,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AnimationTrack",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(9);
                 properties.insert(
@@ -461,6 +474,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Animator",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -479,6 +493,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AssetService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -497,6 +512,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Attachment",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -670,6 +686,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BadgeService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -688,6 +705,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BasePlayerGui",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -697,6 +715,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CoreGui",
             superclass: Some("BasePlayerGui"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -734,6 +755,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PlayerGui",
             superclass: Some("BasePlayerGui"),
+            tags: RbxInstanceTags::PlayerReplicated | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -767,6 +789,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterGui",
             superclass: Some("BasePlayerGui"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -819,6 +842,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Beam",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(18);
                 properties.insert(
@@ -987,6 +1011,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BindableEvent",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -1005,6 +1030,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BindableFunction",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -1023,6 +1049,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyMover",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -1032,6 +1059,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyAngularVelocity",
             superclass: Some("BodyMover"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -1113,6 +1141,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyForce",
             superclass: Some("BodyMover"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -1160,6 +1189,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyGyro",
             superclass: Some("BodyMover"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -1243,6 +1273,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyPosition",
             superclass: Some("BodyMover"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -1332,6 +1363,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyThrust",
             superclass: Some("BodyMover"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -1405,6 +1437,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyVelocity",
             superclass: Some("BodyMover"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -1486,6 +1519,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RocketPropulsion",
             superclass: Some("BodyMover"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(11);
                 properties.insert(
@@ -1605,6 +1639,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BrowserService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -1614,6 +1651,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CacheableContentProvider",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -1623,6 +1663,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MeshContentProvider",
             superclass: Some("CacheableContentProvider"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -1641,6 +1684,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SolidModelContentProvider",
             superclass: Some("CacheableContentProvider"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -1659,6 +1705,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Camera",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(11);
                 properties.insert(
@@ -1779,6 +1826,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ChangeHistoryService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -1797,6 +1845,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CharacterAppearance",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -1806,6 +1855,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyColors",
             superclass: Some("CharacterAppearance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -1947,6 +1997,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CharacterMesh",
             superclass: Some("CharacterAppearance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -2000,6 +2051,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Clothing",
             superclass: Some("CharacterAppearance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -2019,6 +2071,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Pants",
             superclass: Some("Clothing"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -2059,6 +2112,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Shirt",
             superclass: Some("Clothing"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -2099,6 +2153,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ShirtGraphic",
             superclass: Some("CharacterAppearance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -2146,6 +2201,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Skin",
             superclass: Some("CharacterAppearance"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -2174,6 +2230,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Chat",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -2211,6 +2270,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ClickDetector",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -2253,6 +2313,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ClusterPacketCache",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -2262,6 +2325,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CollectionService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -2280,6 +2344,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Configuration",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -2298,6 +2363,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Constraint",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -2352,6 +2418,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AlignOrientation",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(7);
                 properties.insert(
@@ -2439,6 +2506,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AlignPosition",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -2518,6 +2586,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BallSocketConstraint",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(7);
                 properties.insert(
@@ -2600,6 +2669,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HingeConstraint",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -2735,6 +2805,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LineForce",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -2806,6 +2877,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RodConstraint",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -2856,6 +2928,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RopeConstraint",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -2914,6 +2987,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SlidingBallConstraint",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -3017,6 +3091,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CylindricalConstraint",
             superclass: Some("SlidingBallConstraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(15);
                 properties.insert(
@@ -3191,6 +3266,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PrismaticConstraint",
             superclass: Some("SlidingBallConstraint"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(19);
@@ -3232,6 +3308,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SpringConstraint",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(11);
                 properties.insert(
@@ -3351,6 +3428,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Torque",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3398,6 +3476,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VectorForce",
             superclass: Some("Constraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -3453,6 +3532,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ContentProvider",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3494,6 +3576,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ContextActionService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3512,6 +3595,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Controller",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3521,6 +3605,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HumanoidController",
             superclass: Some("Controller"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3539,6 +3624,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SkateboardController",
             superclass: Some("Controller"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3574,6 +3660,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VehicleController",
             superclass: Some("Controller"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3592,6 +3679,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ControllerService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3610,6 +3700,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CookiesService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3628,6 +3719,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CorePackages",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3646,6 +3740,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CoreScriptSyncService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3655,6 +3752,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CustomEvent",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Deprecated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3673,6 +3771,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CustomEventReceiver",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -3702,6 +3801,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DataModelMesh",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -3735,6 +3835,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BevelMesh",
             superclass: Some("DataModelMesh"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Deprecated
+                | RbxInstanceTags::NotBrowsable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3744,6 +3847,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BlockMesh",
             superclass: Some("BevelMesh"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(4);
@@ -3780,6 +3884,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CylinderMesh",
             superclass: Some("BevelMesh"),
+            tags: RbxInstanceTags::Deprecated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(4);
@@ -3816,6 +3921,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FileMesh",
             superclass: Some("DataModelMesh"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3881,6 +3987,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SpecialMesh",
             superclass: Some("FileMesh"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -3940,6 +4047,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DataStoreService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3975,6 +4085,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Debris",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4004,6 +4115,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DebugSettings",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Settings | RbxInstanceTags::NotBrowsable,
             properties: {
                 let mut properties = HashMap::with_capacity(20);
                 properties.insert(
@@ -4156,6 +4268,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DebuggerBreakpoint",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -4189,6 +4302,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DebuggerManager",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4208,6 +4322,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DebuggerWatch",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4227,6 +4342,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Dialog",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -4342,6 +4458,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DialogChoice",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -4410,6 +4527,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Dragger",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -4428,6 +4546,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Explosion",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -4505,6 +4624,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FaceInstance",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4524,6 +4644,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Decal",
             superclass: Some("FaceInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -4603,6 +4724,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Texture",
             superclass: Some("Decal"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -4656,6 +4778,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Feature",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -4696,6 +4819,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Hole",
             superclass: Some("Feature"),
+            tags: RbxInstanceTags::Deprecated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(5);
@@ -4718,6 +4842,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MotorFeature",
             superclass: Some("Feature"),
+            tags: RbxInstanceTags::Deprecated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(5);
@@ -4740,6 +4865,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "File",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -4773,6 +4899,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Fire",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -4852,6 +4979,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FlagStandService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -4861,6 +4989,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FlyweightService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -4870,6 +4999,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CSGDictionaryService",
             superclass: Some("FlyweightService"),
+            tags: RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -4879,6 +5009,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NonReplicatedCSGDictionaryService",
             superclass: Some("FlyweightService"),
+            tags: RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -4888,6 +5019,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Folder",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -4906,6 +5038,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ForceField",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4935,6 +5068,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FriendService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -4953,6 +5087,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FunctionalTest",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4987,6 +5122,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GamePassService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -5005,6 +5141,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GameSettings",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Settings | RbxInstanceTags::NotBrowsable,
             properties: {
                 let mut properties = HashMap::with_capacity(14);
                 properties.insert(
@@ -5115,6 +5252,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GamepadService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -5133,6 +5271,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Geometry",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -5151,6 +5290,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GlobalDataStore",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -5160,6 +5300,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "OrderedDataStore",
             superclass: Some("GlobalDataStore"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -5169,6 +5310,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GoogleAnalyticsConfiguration",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -5178,6 +5320,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GroupService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -5196,6 +5341,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiBase",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -5205,6 +5351,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiBase2d",
             superclass: Some("GuiBase"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -5259,6 +5406,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiObject",
             superclass: Some("GuiBase2d"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(24);
                 properties.insert(
@@ -5439,6 +5587,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Frame",
             superclass: Some("GuiObject"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -5514,6 +5663,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiButton",
             superclass: Some("GuiObject"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -5554,6 +5704,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ImageButton",
             superclass: Some("GuiButton"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -5744,6 +5895,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TextButton",
             superclass: Some("GuiButton"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(19);
                 properties.insert(
@@ -5984,6 +6136,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiLabel",
             superclass: Some("GuiObject"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -5993,6 +6146,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ImageLabel",
             superclass: Some("GuiLabel"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -6153,6 +6307,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TextLabel",
             superclass: Some("GuiLabel"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(19);
                 properties.insert(
@@ -6389,6 +6544,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ScrollingFrame",
             superclass: Some("GuiObject"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(15);
                 properties.insert(
@@ -6607,6 +6763,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TextBox",
             superclass: Some("GuiObject"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(26);
                 properties.insert(
@@ -6903,6 +7060,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ViewportFrame",
             superclass: Some("GuiObject"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -6999,6 +7157,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LayerCollector",
             superclass: Some("GuiBase2d"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -7032,6 +7191,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BillboardGui",
             superclass: Some("LayerCollector"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -7194,6 +7354,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginGui",
             superclass: Some("LayerCollector"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -7213,6 +7374,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DockWidgetPluginGui",
             superclass: Some("PluginGui"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -7232,6 +7394,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "QWidgetPluginGui",
             superclass: Some("PluginGui"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -7241,6 +7404,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ScreenGui",
             superclass: Some("LayerCollector"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -7292,6 +7456,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiMain",
             superclass: Some("ScreenGui"),
+            tags: RbxInstanceTags::Deprecated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(10);
@@ -7319,6 +7484,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SurfaceGui",
             superclass: Some("LayerCollector"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(9);
                 properties.insert(
@@ -7424,6 +7590,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiBase3d",
             superclass: Some("GuiBase"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -7464,6 +7631,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FloorWire",
             superclass: Some("GuiBase3d"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(8);
                 properties.insert(
@@ -7562,6 +7730,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PVAdornment",
             superclass: Some("GuiBase3d"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -7581,6 +7750,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HandleAdornment",
             superclass: Some("PVAdornment"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -7621,6 +7791,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BoxHandleAdornment",
             superclass: Some("HandleAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -7678,6 +7849,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ConeHandleAdornment",
             superclass: Some("HandleAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -7738,6 +7910,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CylinderHandleAdornment",
             superclass: Some("HandleAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -7798,6 +7971,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ImageHandleAdornment",
             superclass: Some("HandleAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -7863,6 +8037,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LineHandleAdornment",
             superclass: Some("HandleAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -7923,6 +8098,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SphereHandleAdornment",
             superclass: Some("HandleAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -7975,6 +8151,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ParabolaAdornment",
             superclass: Some("PVAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -8040,6 +8217,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SelectionBox",
             superclass: Some("PVAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -8106,6 +8284,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SelectionSphere",
             superclass: Some("PVAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -8164,6 +8343,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PartAdornment",
             superclass: Some("GuiBase3d"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8183,6 +8363,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HandlesBase",
             superclass: Some("PartAdornment"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8192,6 +8373,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ArcHandles",
             superclass: Some("HandlesBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8229,6 +8411,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Handles",
             superclass: Some("HandlesBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -8274,6 +8457,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SurfaceSelection",
             superclass: Some("PartAdornment"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8312,6 +8496,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SelectionLasso",
             superclass: Some("GuiBase3d"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8331,6 +8516,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SelectionPartLasso",
             superclass: Some("SelectionLasso"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8369,6 +8555,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SelectionPointLasso",
             superclass: Some("SelectionLasso"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8412,6 +8599,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiItem",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8421,6 +8609,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Backpack",
             superclass: Some("GuiItem"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -8439,6 +8628,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BackpackItem",
             superclass: Some("GuiItem"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8458,6 +8648,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HopperBin",
             superclass: Some("BackpackItem"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -8501,6 +8692,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Tool",
             superclass: Some("BackpackItem"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -8638,6 +8830,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Flag",
             superclass: Some("Tool"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8712,6 +8905,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ButtonBindingWidget",
             superclass: Some("GuiItem"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8721,6 +8915,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiRoot",
             superclass: Some("GuiItem"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8730,6 +8925,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Hopper",
             superclass: Some("GuiItem"),
+            tags: RbxInstanceTags::Deprecated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8739,6 +8937,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterPack",
             superclass: Some("GuiItem"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -8757,6 +8956,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -8854,6 +9056,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuidRegistryService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8863,6 +9066,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HapticService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -8881,6 +9087,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HttpRbxApiService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -8899,6 +9106,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HttpRequest",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8908,6 +9116,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HttpService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -8936,6 +9145,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Humanoid",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(31);
                 properties.insert(
@@ -9196,6 +9406,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HumanoidDescription",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(37);
                 properties.insert(
@@ -9583,6 +9794,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "InputObject",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -9630,6 +9842,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "InsertService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -9666,6 +9879,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "JointInstance",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -9720,6 +9934,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DynamicRotate",
             superclass: Some("JointInstance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -9739,6 +9954,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RotateP",
             superclass: Some("DynamicRotate"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(7);
@@ -9773,6 +9989,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RotateV",
             superclass: Some("DynamicRotate"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(7);
@@ -9807,6 +10024,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Glue",
             superclass: Some("JointInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -9895,6 +10113,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ManualSurfaceJointInstance",
             superclass: Some("JointInstance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -9904,6 +10123,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ManualGlue",
             superclass: Some("ManualSurfaceJointInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(6);
@@ -9937,6 +10157,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ManualWeld",
             superclass: Some("ManualSurfaceJointInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(6);
@@ -9970,6 +10191,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Motor",
             superclass: Some("JointInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -10030,6 +10252,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Motor6D",
             superclass: Some("Motor"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -10076,6 +10299,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Rotate",
             superclass: Some("JointInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(6);
@@ -10109,6 +10333,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Snap",
             superclass: Some("JointInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(6);
@@ -10142,6 +10367,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VelocityMotor",
             superclass: Some("JointInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -10210,6 +10436,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Weld",
             superclass: Some("JointInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(6);
@@ -10243,6 +10470,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "JointsService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -10261,6 +10489,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "KeyboardService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -10279,6 +10508,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Keyframe",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -10308,6 +10538,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "KeyframeMarker",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -10342,6 +10573,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "KeyframeSequence",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -10387,6 +10619,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "KeyframeSequenceProvider",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -10405,6 +10640,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Light",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -10445,6 +10681,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PointLight",
             superclass: Some("Light"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -10483,6 +10720,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SpotLight",
             superclass: Some("Light"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -10537,6 +10775,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SurfaceLight",
             superclass: Some("Light"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -10591,6 +10830,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Lighting",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(16);
                 properties.insert(
@@ -10774,6 +11014,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LocalStorageService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10783,6 +11026,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AppStorageService",
             superclass: Some("LocalStorageService"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10792,6 +11038,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UserStorageService",
             superclass: Some("LocalStorageService"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10801,6 +11050,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LocalizationService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(7);
                 properties.insert(
@@ -10883,6 +11135,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LocalizationTable",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -10937,6 +11190,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LogService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -10955,6 +11209,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LoginService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10964,6 +11219,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LuaSettings",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Settings,
             properties: {
                 let mut properties = HashMap::with_capacity(7);
                 properties.insert(
@@ -11025,6 +11281,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LuaSourceContainer",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11044,6 +11301,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BaseScript",
             superclass: Some("LuaSourceContainer"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -11070,6 +11328,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CoreScript",
             superclass: Some("BaseScript"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11079,6 +11338,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Script",
             superclass: Some("BaseScript"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11120,6 +11380,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LocalScript",
             superclass: Some("Script"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(4);
@@ -11151,6 +11412,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ModuleScript",
             superclass: Some("LuaSourceContainer"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -11198,6 +11460,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LuaWebService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -11216,6 +11479,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MarketplaceService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -11234,6 +11498,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Message",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11268,6 +11533,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Hint",
             superclass: Some("Message"),
+            tags: RbxInstanceTags::Deprecated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(2);
@@ -11292,6 +11558,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MessagingService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -11310,6 +11579,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Mouse",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -11413,6 +11683,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PlayerMouse",
             superclass: Some("Mouse"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11422,6 +11693,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginMouse",
             superclass: Some("Mouse"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11431,6 +11703,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MouseService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -11449,6 +11724,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkMarker",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11458,6 +11734,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkPeer",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11467,6 +11744,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkClient",
             superclass: Some("NetworkPeer"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11486,6 +11766,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkServer",
             superclass: Some("NetworkPeer"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11505,6 +11788,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkReplicator",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11514,6 +11798,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ClientReplicator",
             superclass: Some("NetworkReplicator"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11523,6 +11808,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ServerReplicator",
             superclass: Some("NetworkReplicator"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11532,6 +11818,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkSettings",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(33);
                 properties.insert(
@@ -11775,6 +12062,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NotificationService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -11844,6 +12132,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PVInstance",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11853,6 +12142,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BasePart",
             superclass: Some("PVInstance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: {
                 let mut properties = HashMap::with_capacity(52);
                 properties.insert(
@@ -12229,6 +12519,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CornerWedgePart",
             superclass: Some("BasePart"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(45);
@@ -12331,6 +12622,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FormFactorPart",
             superclass: Some("BasePart"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -12357,6 +12649,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Part",
             superclass: Some("FormFactorPart"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -12471,6 +12764,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FlagStand",
             superclass: Some("Part"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -12585,6 +12879,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Platform",
             superclass: Some("Part"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -12594,6 +12889,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Seat",
             superclass: Some("Part"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -12716,6 +13012,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SkateboardPlatform",
             superclass: Some("Part"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -12861,6 +13158,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SpawnLocation",
             superclass: Some("Part"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -13007,6 +13305,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "WedgePart",
             superclass: Some("FormFactorPart"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(46);
@@ -13110,6 +13409,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MeshPart",
             superclass: Some("BasePart"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -13255,6 +13555,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PartOperation",
             superclass: Some("BasePart"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -13391,6 +13692,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NegateOperation",
             superclass: Some("PartOperation"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(48);
@@ -13496,6 +13798,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UnionOperation",
             superclass: Some("PartOperation"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(48);
@@ -13601,6 +13904,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Terrain",
             superclass: Some("BasePart"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(8);
                 properties.insert(
@@ -13669,6 +13973,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TrussPart",
             superclass: Some("BasePart"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -13782,6 +14087,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VehicleSeat",
             superclass: Some("BasePart"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(11);
                 properties.insert(
@@ -13973,6 +14279,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Model",
             superclass: Some("PVInstance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14002,6 +14309,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Status",
             superclass: Some("Model"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Deprecated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14011,6 +14319,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Workspace",
             superclass: Some("Model"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -14127,6 +14436,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PackageLink",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -14167,6 +14477,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Pages",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14186,6 +14497,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DataStorePages",
             superclass: Some("Pages"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14195,6 +14507,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FriendPages",
             superclass: Some("Pages"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14204,6 +14517,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "InventoryPages",
             superclass: Some("Pages"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14213,6 +14527,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StandardPages",
             superclass: Some("Pages"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14222,6 +14537,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PartOperationAsset",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -14240,6 +14556,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ParticleEmitter",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(20);
                 properties.insert(
@@ -14424,6 +14741,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Path",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14443,6 +14761,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PathfindingService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14472,6 +14793,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PhysicsPacketCache",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14481,6 +14805,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PhysicsService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -14499,6 +14824,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PhysicsSettings",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Settings,
             properties: {
                 let mut properties = HashMap::with_capacity(22);
                 properties.insert(
@@ -14665,6 +14991,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Player",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(40);
                 properties.insert(
@@ -14957,6 +15284,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PlayerScripts",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14966,6 +15294,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Players",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -15073,6 +15402,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Plugin",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -15106,6 +15436,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginAction",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -15155,6 +15486,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginDragEvent",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -15195,6 +15527,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginGuiService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15213,6 +15548,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginManager",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -15222,6 +15558,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginMenu",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -15248,6 +15585,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginToolbar",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -15257,6 +15595,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginToolbarButton",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -15290,6 +15629,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PointsService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Deprecated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15308,6 +15650,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Pose",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -15374,6 +15717,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PostEffect",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -15393,6 +15737,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BloomEffect",
             superclass: Some("PostEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -15439,6 +15784,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BlurEffect",
             superclass: Some("PostEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -15469,6 +15815,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ColorCorrectionEffect",
             superclass: Some("PostEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -15528,6 +15875,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SunRaysEffect",
             superclass: Some("PostEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -15566,6 +15914,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadata",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15584,6 +15933,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataCallbacks",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15602,6 +15952,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataClasses",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15620,6 +15971,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataEnums",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15638,6 +15990,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataEvents",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15656,6 +16009,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataFunctions",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15674,6 +16028,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataItem",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -15777,6 +16132,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataClass",
             superclass: Some("ReflectionMetadataItem"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -15886,6 +16242,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataEnum",
             superclass: Some("ReflectionMetadataItem"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(14);
@@ -15937,6 +16294,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataEnumItem",
             superclass: Some("ReflectionMetadataItem"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(14);
@@ -15988,6 +16346,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataMember",
             superclass: Some("ReflectionMetadataItem"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(14);
@@ -16039,6 +16398,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataProperties",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16057,6 +16417,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataYieldFunctions",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16075,6 +16436,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RemoteEvent",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16093,6 +16455,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RemoteFunction",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16111,6 +16474,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RenderSettings",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -16207,6 +16571,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RenderingTest",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(11);
                 properties.insert(
@@ -16341,6 +16706,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReplicatedFirst",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16359,6 +16725,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReplicatedStorage",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16377,6 +16744,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RobloxReplicatedStorage",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotBrowsable
+                | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16395,6 +16765,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RunService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16413,6 +16786,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RuntimeScriptService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16431,6 +16807,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ScriptContext",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -16459,6 +16838,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ScriptDebugger",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -16499,6 +16879,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ScriptService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16517,6 +16898,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Selection",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16535,6 +16917,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ServerScriptService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -16563,6 +16948,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ServerStorage",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16581,6 +16969,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ServiceProvider",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16590,6 +16979,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DataModel",
             superclass: Some("ServiceProvider"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(16);
                 properties.insert(
@@ -16714,6 +17104,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GenericSettings",
             superclass: Some("ServiceProvider"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16723,6 +17114,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AnalysticsSettings",
             superclass: Some("GenericSettings"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16732,6 +17124,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GlobalSettings",
             superclass: Some("GenericSettings"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16741,6 +17134,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UserSettings",
             superclass: Some("GenericSettings"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16750,6 +17144,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Sky",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -16907,6 +17302,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Smoke",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -16973,6 +17369,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SocialService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16991,6 +17390,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Sound",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(19);
                 properties.insert(
@@ -17162,6 +17562,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SoundEffect",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -17188,6 +17589,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ChorusSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -17235,6 +17637,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CompressorSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -17306,6 +17709,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DistortionSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -17337,6 +17741,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "EchoSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -17392,6 +17797,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "EqualizerSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -17439,6 +17845,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FlangeSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -17486,6 +17893,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PitchShiftSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -17517,6 +17925,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReverbSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -17580,6 +17989,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TremoloSoundEffect",
             superclass: Some("SoundEffect"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -17627,6 +18037,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SoundGroup",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -17656,6 +18067,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SoundService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -17717,6 +18129,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Sparkles",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -17772,6 +18185,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SpawnerService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -17781,6 +18195,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterGear",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -17799,6 +18214,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterPlayer",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(31);
                 properties.insert(
@@ -18078,6 +18494,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterPlayerScripts",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -18096,6 +18513,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterCharacterScripts",
             superclass: Some("StarterPlayerScripts"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -18114,6 +18532,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Stats",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -18205,6 +18624,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StatsItem",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18214,6 +18634,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RunningAverageItemDouble",
             superclass: Some("StatsItem"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18223,6 +18644,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RunningAverageItemInt",
             superclass: Some("StatsItem"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18232,6 +18654,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RunningAverageTimeIntervalItem",
             superclass: Some("StatsItem"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18241,6 +18664,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TotalCountTimeIntervalItem",
             superclass: Some("StatsItem"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18250,6 +18674,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StopWatchReporter",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18259,6 +18686,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Studio",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(74);
                 properties.insert(
@@ -18789,6 +19217,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StudioService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -18817,6 +19248,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StudioTheme",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18826,6 +19258,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TaskScheduler",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -18866,6 +19299,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Team",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -18918,6 +19352,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Teams",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -18936,6 +19371,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TeleportService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -18965,6 +19401,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TerrainRegion",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -19000,6 +19437,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TestService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -19125,6 +19563,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TextFilterResult",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19134,6 +19573,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TextService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -19152,6 +19594,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ThirdPartyUserService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19161,6 +19606,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TimerService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -19179,6 +19625,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TouchInputService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -19197,6 +19644,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TouchTransmitter",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19206,6 +19654,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Trail",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(15);
                 properties.insert(
@@ -19349,6 +19798,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Translator",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -19368,6 +19818,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TweenBase",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotBrowsable | RbxInstanceTags::NotCreatable,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -19387,6 +19838,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Tween",
             superclass: Some("TweenBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -19423,6 +19875,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TweenService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -19441,6 +19894,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIBase",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19450,6 +19904,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIComponent",
             superclass: Some("UIBase"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19459,6 +19914,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIConstraint",
             superclass: Some("UIComponent"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19468,6 +19924,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIAspectRatioConstraint",
             superclass: Some("UIConstraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -19513,6 +19970,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UISizeConstraint",
             superclass: Some("UIConstraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -19555,6 +20013,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UITextSizeConstraint",
             superclass: Some("UIConstraint"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -19592,6 +20051,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UILayout",
             superclass: Some("UIComponent"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19601,6 +20061,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIGridStyleLayout",
             superclass: Some("UILayout"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -19648,6 +20109,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIGridLayout",
             superclass: Some("UIGridStyleLayout"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -19719,6 +20181,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIListLayout",
             superclass: Some("UIGridStyleLayout"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -19756,6 +20219,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIPageLayout",
             superclass: Some("UIGridStyleLayout"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -19865,6 +20329,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UITableLayout",
             superclass: Some("UIGridStyleLayout"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -19931,6 +20396,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIPadding",
             superclass: Some("UIComponent"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -19984,6 +20450,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIScale",
             superclass: Some("UIComponent"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20013,6 +20480,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UserGameSettings",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(36);
                 properties.insert(
@@ -20277,6 +20745,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UserInputService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated,
             properties: {
                 let mut properties = HashMap::with_capacity(23);
                 properties.insert(
@@ -20470,6 +20941,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VRService",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -20513,6 +20985,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ValueBase",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -20522,6 +20995,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BinaryStringValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -20540,6 +21014,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BoolValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20569,6 +21044,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BrickColorValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20597,6 +21073,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CFrameValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20631,6 +21108,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Color3Value",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20665,6 +21143,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DoubleConstrainedValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -20718,6 +21197,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "IntConstrainedValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::Deprecated,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -20771,6 +21251,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "IntValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20800,6 +21281,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NumberValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20829,6 +21311,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ObjectValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20858,6 +21341,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RayValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20886,6 +21370,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StringValue",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20920,6 +21405,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Vector3Value",
             superclass: Some("ValueBase"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20954,6 +21440,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VirtualInputManager",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20988,6 +21475,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VirtualUser",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::Service
+                | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -21006,6 +21496,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Visit",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::Service
+                | RbxInstanceTags::NotReplicated
+                | RbxInstanceTags::NotCreatable,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -21024,6 +21517,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "WeldConstraint",
             superclass: Some("Instance"),
+            tags: RbxInstanceTags::empty(),
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(

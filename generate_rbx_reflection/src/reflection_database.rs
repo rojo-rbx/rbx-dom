@@ -50,16 +50,36 @@ fn emit_class(
         quote!(Some(#superclass_literal))
     };
 
-    let defaults = emit_default_properties(&class.name, default_properties);
+    let tags = emit_class_tags(class);
     let properties = emit_properties(class);
+    let defaults = emit_default_properties(&class.name, default_properties);
 
     quote! {
         output.insert(#class_name_literal, RbxInstanceClass {
             name: #class_name_literal,
             superclass: #superclass_value,
+            tags: #tags,
             properties: #properties,
             default_properties: #defaults,
         });
+    }
+}
+
+fn emit_class_tags(class: &DumpClass) -> TokenStream {
+    if class.tags.len() == 0 {
+        return quote!(RbxInstanceTags::empty());
+    }
+
+    let tags = class.tags
+        .iter()
+        .map(|tag| {
+            let name_literal = Ident::new(tag.name(), Span::call_site());
+
+            quote!(RbxInstanceTags::#name_literal)
+        });
+
+    quote! {
+        #(#tags)|*
     }
 }
 

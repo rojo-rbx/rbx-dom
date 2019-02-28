@@ -1,4 +1,5 @@
 use std::{
+    collections::HashSet,
     io,
     fs,
     process::Command,
@@ -21,7 +22,35 @@ pub struct Dump {
 pub struct DumpClass {
     pub name: String,
     pub superclass: String,
+
+    #[serde(default)]
+    pub tags: HashSet<DumpClassTag>,
     pub members: Vec<DumpClassMember>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Deserialize)]
+pub enum DumpClassTag {
+    Deprecated,
+    NotBrowsable,
+    NotCreatable,
+    NotReplicated,
+    PlayerReplicated,
+    Service,
+    Settings,
+}
+
+impl DumpClassTag {
+    pub fn name(&self) -> &'static str {
+        match self {
+            DumpClassTag::Deprecated => "Deprecated",
+            DumpClassTag::NotBrowsable => "NotBrowsable",
+            DumpClassTag::NotCreatable => "NotCreatable",
+            DumpClassTag::NotReplicated => "NotReplicated",
+            DumpClassTag::PlayerReplicated => "PlayerReplicated",
+            DumpClassTag::Service => "Service",
+            DumpClassTag::Settings => "Settings",
+        }
+    }
 }
 
 #[derive(Debug, Deserialize)]

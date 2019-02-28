@@ -10,6 +10,7 @@ authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
-lazy_static = "1.2"
+bitflags = "1.0.4"
+lazy_static = "1.2.0"
 failure = "0.1.5"
 rbx_dom_weak = { version = "0.3.0", path = "../rbx_dom_weak" }
