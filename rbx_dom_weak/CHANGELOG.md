@@ -1,7 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
-* Added support for `UDim` and `UDim2` values
+* Added support for `UDim`, `UDim2`, and `Content` value types
 
 ## 0.3.1 (2019-02-26)
 * Added support for bare bool values when deserializing `UnresolvedRbxValue`

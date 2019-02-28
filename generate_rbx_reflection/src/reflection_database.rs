@@ -307,6 +307,13 @@ fn emit_value(value: &RbxValue) -> TokenStream {
                 value: (#literal_x_scale, #literal_x_offset, #literal_y_scale, #literal_y_offset)
             })
         },
+        RbxValue::Content { value } => {
+            let value_literal = Literal::string(value);
+
+            quote!(RbxValue::Content {
+                value: #value_literal,
+            })
+        },
     }
 }
 

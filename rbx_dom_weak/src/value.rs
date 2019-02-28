@@ -11,18 +11,19 @@ pub enum RbxValueType {
     CFrame,
     Color3,
     Color3uint8,
+    Content,
     Enum,
     Float32,
     Int32,
     PhysicalProperties,
     Ref,
     String,
+    UDim,
+    UDim2,
     Vector2,
     Vector2int16,
     Vector3,
     Vector3int16,
-    UDim,
-    UDim2,
 }
 
 /// Represents a value that can be assigned to the properties of an instance.
@@ -30,89 +31,58 @@ pub enum RbxValueType {
 #[serde(tag = "Type")]
 pub enum RbxValue {
     #[serde(rename_all = "PascalCase")]
-    String {
-        value: String,
-    },
+    BinaryString { value: Vec<u8> },
 
     #[serde(rename_all = "PascalCase")]
-    BinaryString {
-        value: Vec<u8>,
-    },
+    Bool { value: bool },
 
     #[serde(rename_all = "PascalCase")]
-    Bool {
-        value: bool,
-    },
+    CFrame { value: [f32; 12] },
 
     #[serde(rename_all = "PascalCase")]
-    Int32 {
-        value: i32,
-    },
+    Color3 { value: [f32; 3] },
 
     #[serde(rename_all = "PascalCase")]
-    Float32 {
-        value: f32,
-    },
+    Color3uint8 { value: [u8; 3] },
 
     #[serde(rename_all = "PascalCase")]
-    Enum {
-        value: u32,
-    },
+    Content { value: String },
 
     #[serde(rename_all = "PascalCase")]
-    Vector3 {
-        value: [f32; 3],
-    },
+    Enum { value: u32 },
 
     #[serde(rename_all = "PascalCase")]
-    Vector2 {
-        value: [f32; 2],
-    },
+    Float32 { value: f32 },
 
     #[serde(rename_all = "PascalCase")]
-    Color3 {
-        value: [f32; 3],
-    },
+    Int32 { value: i32 },
 
     #[serde(rename_all = "PascalCase")]
-    Color3uint8 {
-        value: [u8; 3],
-    },
+    PhysicalProperties { value: Option<PhysicalProperties> },
 
     #[serde(rename_all = "PascalCase")]
-    Vector3int16 {
-        value: [i16; 3],
-    },
+    Ref { value: Option<RbxId> },
 
     #[serde(rename_all = "PascalCase")]
-    Vector2int16 {
-        value: [i16; 2],
-    },
+    String { value: String },
 
     #[serde(rename_all = "PascalCase")]
-    UDim {
-        value: (f32, i32),
-    },
+    UDim { value: (f32, i32) },
 
     #[serde(rename_all = "PascalCase")]
-    UDim2 {
-        value: (f32, i32, f32, i32),
-    },
+    UDim2 { value: (f32, i32, f32, i32) },
 
     #[serde(rename_all = "PascalCase")]
-    CFrame {
-        value: [f32; 12],
-    },
+    Vector2 { value: [f32; 2] },
 
     #[serde(rename_all = "PascalCase")]
-    PhysicalProperties {
-        value: Option<PhysicalProperties>,
-    },
+    Vector2int16 { value: [i16; 2] },
 
     #[serde(rename_all = "PascalCase")]
-    Ref {
-        value: Option<RbxId>,
-    },
+    Vector3 { value: [f32; 3] },
+
+    #[serde(rename_all = "PascalCase")]
+    Vector3int16 { value: [i16; 3] },
 }
 
 impl RbxValue {
@@ -126,18 +96,19 @@ impl RbxValue {
             RbxValue::CFrame { .. } => RbxValueType::CFrame,
             RbxValue::Color3 { .. } => RbxValueType::Color3,
             RbxValue::Color3uint8 { .. } => RbxValueType::Color3uint8,
+            RbxValue::Content { .. } => RbxValueType::Content,
             RbxValue::Enum { .. } => RbxValueType::Enum,
             RbxValue::Float32 { .. } => RbxValueType::Float32,
             RbxValue::Int32 { .. } => RbxValueType::Int32,
             RbxValue::PhysicalProperties { .. } => RbxValueType::PhysicalProperties,
             RbxValue::Ref { .. } => RbxValueType::Ref,
             RbxValue::String { .. } => RbxValueType::String,
+            RbxValue::UDim { .. } => RbxValueType::UDim,
+            RbxValue::UDim2 { .. } => RbxValueType::UDim2,
             RbxValue::Vector2 { .. } => RbxValueType::Vector2,
             RbxValue::Vector2int16 { .. } => RbxValueType::Vector2int16,
             RbxValue::Vector3 { .. } => RbxValueType::Vector3,
             RbxValue::Vector3int16 { .. } => RbxValueType::Vector3int16,
-            RbxValue::UDim { .. } => RbxValueType::UDim,
-            RbxValue::UDim2 { .. } => RbxValueType::UDim2,
         }
     }
 }

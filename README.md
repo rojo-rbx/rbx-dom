@@ -39,7 +39,7 @@ Roblox reflection information for working with Instances in external tooling.
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ❌ |
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ❌ |
 | ColorSequence      | `Beam.Color`                    | ❌ | ❌ | ❌ |
-| Content            | `Decal.Texture`                 | ❌ | ❌ | ❌ |
+| Content            | `Decal.Texture`                 | ✔ | ❌ | ❌ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
 | Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ❌ |
