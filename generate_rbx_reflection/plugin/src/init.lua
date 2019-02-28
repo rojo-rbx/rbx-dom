@@ -147,6 +147,18 @@ local typeConverters = {
 			Value = value.Value,
 		}
 	end,
+	UDim = function(value)
+		return {
+			Type = "UDim",
+			Value = {value.Scale, value.Offset},
+		}
+	end,
+	UDim2 = function(value)
+		return {
+			Type = "UDim2",
+			Value = {value.X.Scale, value.X.Offset, value.Y.Scale, value.Y.Offset},
+		}
+	end,
 }
 
 local function robloxValueToRojoValue(robloxValue)

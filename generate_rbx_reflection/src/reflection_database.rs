@@ -323,6 +323,8 @@ fn resolve_value_type(value_type: &ValueType) -> TokenStream {
                 "CFrame" => quote!(RbxValueType::CFrame),
                 "PhysicalProperties" => quote!(RbxValueType::PhysicalProperties),
                 "BinaryString" => quote!(RbxValueType::BinaryString),
+                "UDim" => quote!(RbxValueType::UDim),
+                "UDim2" => quote!(RbxValueType::UDim2),
 
                 unknown => {
                     println!("Can't emit data of type {}", unknown);
