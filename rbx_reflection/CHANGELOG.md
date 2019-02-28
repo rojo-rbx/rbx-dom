@@ -1,6 +1,8 @@
 # rbx_reflection Changelog
 
 ## [Unreleased]
+* Removed default values for some properties like `Parent`
+* Added `tags` field (of type `RbxInstanceTags`) to `RbxInstanceClass`
 
 ## 1.0.373 (2019-02-26)
 * Adjusted version number scheme again to account for patches to the library
