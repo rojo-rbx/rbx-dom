@@ -2,7 +2,7 @@
 
 ## Unreleased
 * Fixed `ProtectedString` support, which was missing from the main deserializer loop
-* Added support for `Content` values
+* Added support for `Content`, `UDim` and `UDim2` values
 * Fixed `Ref` properties pointing to invalid IDs by changing them to always deserialize to `None` for now
 
 ## 0.3.0 (2019-02-14)

@@ -57,8 +57,8 @@ Roblox reflection information for working with Instances in external tooling.
 | Ref                | `Model.PrimaryPart`             | ✔ | ➖ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
-| UDim               | `UIListLayout.Padding`          | ✔ | ❌ | ❌ |
-| UDim2              | `Frame.Size`                    | ✔ | ❌ | ❌ |
+| UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ❌ |
+| UDim2              | `Frame.Size`                    | ✔ | ✔ | ❌ |
 | Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ❌ |
 | Vector2int16       | `N/A`                           | ✔ | ✔ | ❌ |
 | Vector3            | `Part.Size`                     | ✔ | ✔ | ❌ |
