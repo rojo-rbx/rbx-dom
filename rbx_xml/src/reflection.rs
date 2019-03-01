@@ -14,6 +14,8 @@ lazy_static! {
         "FormFactor" => "formFactorRaw",
         "Size" => "size",
         "Shape" => "shape",
+        "MaxPlayers" => "MaxPlayersInternal",
+        "PreferredPlayers" => "PreferredPlayersInternal",
     };
 
     /// This is a reverse map from `CANONICAL_TO_XML_NAME`. In the future, it
