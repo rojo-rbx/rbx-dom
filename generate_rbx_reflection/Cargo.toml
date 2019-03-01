@@ -10,8 +10,8 @@ futures = "0.1"
 hyper = "0.12"
 proc-macro2 = "0.4"
 quote = "0.6"
-rbx_dom_weak = { version = "0.3.0", path = "../rbx_dom_weak" }
-rbx_xml = { version = "0.3.0", path = "../rbx_xml" }
+rbx_dom_weak = { path = "../rbx_dom_weak" }
+rbx_xml = { path = "../rbx_xml" }
 serde = "1"
 serde_derive = "1"
 serde_json = "1"
