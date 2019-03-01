@@ -1,5 +1,4 @@
 use std::{
-    collections::HashSet,
     io,
     fs,
     process::Command,
@@ -24,7 +23,7 @@ pub struct DumpClass {
     pub superclass: String,
 
     #[serde(default)]
-    pub tags: HashSet<DumpClassTag>,
+    pub tags: Vec<DumpClassTag>,
     pub members: Vec<DumpClassMember>,
 }
 
