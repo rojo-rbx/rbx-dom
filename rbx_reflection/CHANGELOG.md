@@ -1,6 +1,10 @@
 # rbx_reflection Changelog
 
 ## [Unreleased]
+
+## 2.0.374 (2019-03-01)
+* Updated to `rbx_dom_weak` 1.0
+* Updated reflection database
 * Removed default values for some properties like `Parent`
 * Added `tags` field (of type `RbxInstanceTags`) to `RbxInstanceClass`
 

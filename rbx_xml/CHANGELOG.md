@@ -1,6 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.4.0 (2019-03-01)
+* Updated to `rbx_dom_weak` 1.0
 * Fixed `ProtectedString` support, which was missing from the main deserializer loop
 * Added support for `Content`, `UDim` and `UDim2` values
 * Fixed `Ref` properties pointing to invalid IDs by changing them to always deserialize to `None` for now

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 0.4.0 (2019-03-01)
+* Updated to `rbx_dom_weak` 1.0
+
 ## 0.3.0 (2019-02-14)
 * Updated `rbx_tree` dependency to `rbx_dom_weak` 0.3.0
 

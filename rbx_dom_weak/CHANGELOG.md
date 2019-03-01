@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
+
+## 1.0.0 (2019-03-01)
 * `RbxValue` and `RbxValueType` can no longer be matched exhaustively, which enables adding new types without breaking code in the future
 * Added support for `UDim`, `UDim2`, and `Content` value types
 * `PhysicalProperties` is no longer a stub type
