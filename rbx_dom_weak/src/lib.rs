@@ -71,14 +71,14 @@
 //! [`RbxInstanceProperties`]: struct.RbxInstanceProperties.html
 //! [maplit]: https://crates.io/crates/maplit
 
-mod ambiguous_value;
+mod unresolved_value;
 mod id;
 mod instance;
 mod tree;
 mod value;
 
 pub use crate::{
-    ambiguous_value::{AmbiguousRbxValue, UnresolvedRbxValue},
+    unresolved_value::{AmbiguousRbxValue, UnresolvedRbxValue},
     id::RbxId,
     instance::{RbxInstanceProperties, RbxInstance},
     tree::{RbxTree, Descendants},
