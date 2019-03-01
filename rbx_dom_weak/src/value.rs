@@ -114,7 +114,12 @@ impl RbxValue {
 }
 
 /// Represents possible custom physical properties on a `BasePart`.
-///
-/// Currently a stub.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-pub struct PhysicalProperties;
+#[serde(rename_all = "PascalCase")]
+pub struct PhysicalProperties {
+    density: f32,
+    friction: f32,
+    elasticity: f32,
+    friction_weight: f32,
+    elasticity_weight: f32,
+}

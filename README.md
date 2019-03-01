@@ -48,7 +48,7 @@ Roblox reflection information for working with Instances in external tooling.
 | Int64              | `Player.UserId`                 | ❌ | ❌ | ❌ |
 | NumberRange        | `ParticleEmitter.Lifetime`      | ❌ | ❌ | ❌ |
 | NumberSequence     | `Beam.Transparency`             | ❌ | ❌ | ❌ |
-| PhysicalProperties | `Part.CustomPhysicalProperties` | ➖ | ➖ | ❌ |
+| PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ➖ | ❌ |
 | ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |
 | QDir               | `Studio.Auto-Save Path`         | ❌ | ❌ | ❌ |
 | QFont              | `Studio.Font`                   | ❌ | ❌ | ❌ |

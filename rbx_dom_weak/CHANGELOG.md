@@ -2,6 +2,7 @@
 
 ## Unreleased
 * Added support for `UDim`, `UDim2`, and `Content` value types
+* `PhysicalProperties` is no longer a stub type
 
 ## 0.3.1 (2019-02-26)
 * Added support for bare bool values when deserializing `UnresolvedRbxValue`
