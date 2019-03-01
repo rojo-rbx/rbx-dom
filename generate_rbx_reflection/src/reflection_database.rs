@@ -314,6 +314,7 @@ fn emit_value(value: &RbxValue) -> TokenStream {
                 value: #value_literal,
             })
         },
+        _ => unimplemented!(),
     }
 }
 

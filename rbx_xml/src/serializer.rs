@@ -128,7 +128,6 @@ fn serialize_value<W: Write>(
         .get(canonical_name)
         .unwrap_or(&canonical_name);
 
-    #[allow(unreachable_patterns)]
     match value {
         RbxValue::BinaryString { value } => serialize_binary_string(writer, xml_name, value),
         RbxValue::Bool { value } => serialize_bool(writer, xml_name, *value),
