@@ -811,40 +811,42 @@ mod test {
         }));
     }
 
-    #[test]
-    fn with_ref_some() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Folder" referent="RBX1B9CDD1FD0884F76BFE6091C1731E1FB">
-                </Item>
+    // TODO(#12): This test should be reinstated once ref mapping is a thing
 
-                <Item class="ObjectValue" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <Ref name="Value">RBX1B9CDD1FD0884F76BFE6091C1731E1FB</Ref>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
+    // #[test]
+    // fn with_ref_some() {
+    //     let _ = env_logger::try_init();
+    //     let document = r#"
+    //         <roblox version="4">
+    //             <Item class="Folder" referent="RBX1B9CDD1FD0884F76BFE6091C1731E1FB">
+    //             </Item>
 
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
+    //             <Item class="ObjectValue" referent="hello">
+    //                 <Properties>
+    //                     <string name="Name">Test</string>
+    //                     <Ref name="Value">RBX1B9CDD1FD0884F76BFE6091C1731E1FB</Ref>
+    //                 </Properties>
+    //             </Item>
+    //         </roblox>
+    //     "#;
 
-        decode_str(&mut tree, root_id, document).expect("should work D:");
+    //     let mut tree = new_data_model();
+    //     let root_id = tree.get_root_id();
 
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Test");
-        assert_eq!(descendant.class_name, "ObjectValue");
+    //     decode_str(&mut tree, root_id, document).expect("should work D:");
 
-        let value = descendant.properties.get("Value").expect("no value property");
-        if let RbxValue::Ref { value } = value {
-            let value = value.expect("ref was None");
-            assert_eq!(value.to_string(), "1b9cdd1f-d088-4f76-bfe6-091c1731e1fb");
-        } else {
-            panic!("rbxvalue was not ref, but instead {:?}", value.get_type())
-        }
-    }
+    //     let descendant = tree.descendants(root_id).nth(1).unwrap();
+    //     assert_eq!(descendant.name, "Test");
+    //     assert_eq!(descendant.class_name, "ObjectValue");
+
+    //     let value = descendant.properties.get("Value").expect("no value property");
+    //     if let RbxValue::Ref { value } = value {
+    //         let value = value.expect("ref was None");
+    //         assert_eq!(value.to_string(), "1b9cdd1f-d088-4f76-bfe6-091c1731e1fb");
+    //     } else {
+    //         panic!("rbxvalue was not ref, but instead {:?}", value.get_type())
+    //     }
+    // }
 
     #[test]
     fn with_ref_none() {

@@ -3,6 +3,7 @@
 ## Unreleased
 * Fixed `ProtectedString` support, which was missing from the main deserializer loop
 * Added support for `Content` values
+* Fixed `Ref` properties pointing to invalid IDs by changing them to always deserialize to `None` for now
 
 ## 0.3.0 (2019-02-14)
 * Updated `rbx_tree` dependency to `rbx_dom_weak` 0.3.0
