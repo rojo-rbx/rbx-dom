@@ -55,10 +55,10 @@ mod test {
     use super::*;
 
     #[test]
-    fn round_trip_string() {
+    fn round_trip_content_url() {
         let _ = env_logger::try_init();
 
-        let test_value = "Hello,\n\tworld!\n";
+        let test_value = "url://not/really/a/url";
 
         let mut buffer = Vec::new();
 
@@ -73,6 +73,62 @@ mod test {
 
         assert_eq!(value, RbxValue::Content {
             value: test_value.to_owned(),
+        });
+    }
+
+    #[test]
+    fn round_trip_content_null() {
+        let _ = env_logger::try_init();
+
+        let test_value = "";
+
+        let mut buffer = Vec::new();
+
+        let mut writer = XmlEventWriter::from_output(&mut buffer);
+        serialize_content(&mut writer, "foo", test_value).unwrap();
+
+        println!("{}", std::str::from_utf8(&buffer).unwrap());
+
+        let mut reader = EventIterator::from_source(buffer.as_slice());
+        reader.next().unwrap().unwrap(); // Eat StartDocument event
+        let value = deserialize_content(&mut reader).unwrap();
+
+        assert_eq!(value, RbxValue::Content {
+            value: test_value.to_owned(),
+        });
+    }
+
+    #[test]
+    fn de_content_url() {
+        let buffer = r#"
+            <Content name="something">
+                <url>Some URL</url>
+            </Content>
+        "#;
+
+        let mut reader = EventIterator::from_source(buffer.as_bytes());
+        reader.next().unwrap().unwrap(); // Eat StartDocument event
+        let value = deserialize_content(&mut reader).unwrap();
+
+        assert_eq!(value, RbxValue::Content {
+            value: String::from("Some URL"),
+        });
+    }
+
+    #[test]
+    fn de_content_null() {
+        let buffer = r#"
+            <Content name="something">
+                <null></null>
+            </Content>
+        "#;
+
+        let mut reader = EventIterator::from_source(buffer.as_bytes());
+        reader.next().unwrap().unwrap(); // Eat StartDocument event
+        let value = deserialize_content(&mut reader).unwrap();
+
+        assert_eq!(value, RbxValue::Content {
+            value: String::new(),
         });
     }
 }
