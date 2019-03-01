@@ -50,8 +50,8 @@ Roblox reflection information for working with Instances in external tooling.
 | NumberSequence     | `Beam.Transparency`             | ❌ | ❌ | ❌ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ➖ | ❌ |
 | ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |
-| QDir               | `Studio.Auto-Save Path`         | ❌ | ❌ | ❌ |
-| QFont              | `Studio.Font`                   | ❌ | ❌ | ❌ |
+| QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ |
+| QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ |
 | Ray                | `RayValue.Value`                | ❌ | ❌ | ❌ |
 | Rect2D             | `ImageButton.SliceCenter`       | ❌ | ❌ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ➖ | ❌ |
@@ -64,7 +64,7 @@ Roblox reflection information for working with Instances in external tooling.
 | Vector3            | `Part.Size`                     | ✔ | ✔ | ❌ |
 | Vector3int16       | `N/A`                           | ✔ | ✔ | ❌ |
 
-✔ Implemented | ❌ Unimplemented | ➖ Partially Implemented
+✔ Implemented | ❌ Unimplemented | ➖ Partially Implemented | ⛔ Never
 
 1. ProtectedString is deserialized as String, which is technically lossy but does not change semantics in practice
 
