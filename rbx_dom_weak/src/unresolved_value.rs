@@ -43,6 +43,28 @@ pub enum AmbiguousRbxValue {
     Float3(f64, f64, f64),
 }
 
+impl Serialize for UnresolvedRbxValue {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match self {
+            UnresolvedRbxValue::AmbiguousRbxValue(ambiguous) => {
+                match ambiguous {
+                    AmbiguousRbxValue::String(value) => serializer.serialize_str(&value),
+                    AmbiguousRbxValue::Float1(value) => serializer.serialize_f64(&value),
+                    AmbiguousRbxValue::Float2(x, y) => serializer.serialize_tuple((x, y)),
+                    AmbiguousRbxValue::Float2(x, y, z) => serializer.serialize_tuple((x, y, z)),
+                }
+            },
+            UnresolvedRbxValue::Concrete(value) => {
+                unimplemented!();
+            },
+        }
+        serializer.serialize_i32(*self)
+    }
+}
+
 impl<'de> Deserialize<'de> for UnresolvedRbxValue {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
