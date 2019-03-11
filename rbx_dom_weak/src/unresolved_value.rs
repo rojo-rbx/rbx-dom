@@ -1,14 +1,13 @@
 use std::fmt;
 
-use serde_derive::Serialize;
-use serde::{Deserialize, Deserializer};
+use serde::{Serialize, Serializer, Deserialize, Deserializer};
 use serde::de::{self, Visitor, MapAccess, SeqAccess};
 
 use crate::value::RbxValue;
 
 /// Represents a value that was deserialized that might not have full type
 /// information attached.
-#[derive(Debug, Clone, PartialEq, Serialize)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum UnresolvedRbxValue {
     /// The type has full type information that was either declared explicitly
     /// or was inferred and unambiguous.
@@ -28,7 +27,7 @@ impl From<RbxValue> for UnresolvedRbxValue {
 /// Represents a value that doesn't have explicit type information attached to
 /// it. Given more reflection information, it should be possible to recover the
 /// exact type of this value.
-#[derive(Debug, Clone, PartialEq, Serialize)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum AmbiguousRbxValue {
     /// One of String or Enum
     String(String),
@@ -49,19 +48,16 @@ impl Serialize for UnresolvedRbxValue {
         S: Serializer,
     {
         match self {
-            UnresolvedRbxValue::AmbiguousRbxValue(ambiguous) => {
+            UnresolvedRbxValue::Ambiguous(ambiguous) => {
                 match ambiguous {
                     AmbiguousRbxValue::String(value) => serializer.serialize_str(&value),
-                    AmbiguousRbxValue::Float1(value) => serializer.serialize_f64(&value),
-                    AmbiguousRbxValue::Float2(x, y) => serializer.serialize_tuple((x, y)),
-                    AmbiguousRbxValue::Float2(x, y, z) => serializer.serialize_tuple((x, y, z)),
+                    AmbiguousRbxValue::Float1(value) => serializer.serialize_f64(*value),
+                    AmbiguousRbxValue::Float2(x, y) => (x, y).serialize(serializer),
+                    AmbiguousRbxValue::Float3(x, y, z) => (x, y, z).serialize(serializer),
                 }
             },
-            UnresolvedRbxValue::Concrete(value) => {
-                unimplemented!();
-            },
+            UnresolvedRbxValue::Concrete(concrete) => concrete.serialize(serializer),
         }
-        serializer.serialize_i32(*self)
     }
 }
 
@@ -300,5 +296,70 @@ mod tests {
                 10.0, 11.0, 12.0,
             ],
         }));
+    }
+
+    #[test]
+    fn round_trip_ambiguous() {
+        let values = vec![
+            UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::String("Hello, world!".to_owned())),
+            UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float1(1.0)),
+            UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float2(3.0, 2.0)),
+            UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float3(5.0, 7.0, 21.0)),
+        ];
+
+        let round_tripped: Vec<UnresolvedRbxValue> = values
+            .iter()
+            .map(|value| serde_json::to_string(value).unwrap())
+            .map(|str| serde_json::from_str(&str).unwrap())
+            .collect();
+
+        assert_eq!(values, round_tripped);
+    }
+
+    #[test]
+    fn round_trip_concrete() {
+        use crate::value::PhysicalProperties;
+
+        let values = vec![
+            RbxValue::BinaryString { value: vec![0, 1, 2, 3] },
+            RbxValue::Bool { value: true },
+            RbxValue::CFrame { value: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 2.0, 3.0, 4.0] },
+            RbxValue::Color3 { value: [1.0, 2.0, 3.0] },
+            RbxValue::Color3uint8 { value: [0, 8, 129] },
+            RbxValue::Content { value: "some content path".to_owned() },
+            RbxValue::Float32 { value: 5.0 },
+            RbxValue::Int32 { value: 50 },
+            RbxValue::PhysicalProperties {
+                value: Some(PhysicalProperties {
+                    density: 1.0,
+                    friction: 2.0,
+                    elasticity: 3.0,
+                    friction_weight: 4.0,
+                    elasticity_weight: 5.0,
+                })
+            },
+            RbxValue::Ref { value: None },
+            RbxValue::String { value: "pretty cool string, huh?".to_owned() },
+            RbxValue::UDim { value: (1.0, 20) },
+            RbxValue::UDim2 { value: (2.0, 50, 3.0, 100) },
+            RbxValue::Vector2 { value: [516.0, 792.0] },
+            RbxValue::Vector2int16 { value: [12345, 5674] },
+            RbxValue::Vector3 { value: [9876.0, 65325.0, 12331.0] },
+            RbxValue::Vector3int16 { value: [5234, 2361, 12355] },
+            RbxValue::Enum { value: 0 },
+        ];
+
+        let unresolved: Vec<UnresolvedRbxValue> = values
+            .iter()
+            .map(|value| UnresolvedRbxValue::Concrete(value.clone()))
+            .collect();
+
+        let round_tripped: Vec<UnresolvedRbxValue> = unresolved
+            .iter()
+            .map(|value| serde_json::to_string(value).unwrap())
+            .map(|str| serde_json::from_str(&str).unwrap())
+            .collect();
+
+        assert_eq!(unresolved, round_tripped);
     }
 }
