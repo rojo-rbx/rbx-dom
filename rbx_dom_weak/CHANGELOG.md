@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
+* Marked `PhysicalProperties` as `pub`
 
 ## 1.0.0 (2019-03-01)
 * `RbxValue` and `RbxValueType` can no longer be matched exhaustively, which enables adding new types without breaking code in the future

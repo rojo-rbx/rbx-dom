@@ -124,9 +124,9 @@ impl RbxValue {
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct PhysicalProperties {
-    density: f32,
-    friction: f32,
-    elasticity: f32,
-    friction_weight: f32,
-    elasticity_weight: f32,
+    pub density: f32,
+    pub friction: f32,
+    pub elasticity: f32,
+    pub friction_weight: f32,
+    pub elasticity_weight: f32,
 }
