@@ -2,6 +2,8 @@
 
 ## Unreleased
 * Marked `PhysicalProperties` as `pub`
+* Fixed `Serialize` impl for `UnresolvedRbxValue`
+	* This removes `Serialize` from `AmbiguousRbxValue`, which should not break any real code.
 
 ## 1.0.0 (2019-03-01)
 * `RbxValue` and `RbxValueType` can no longer be matched exhaustively, which enables adding new types without breaking code in the future
