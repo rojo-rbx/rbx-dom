@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
+
+## 1.1.0 (2019-03-11)
 * Marked `PhysicalProperties` as `pub`
 * Fixed `Serialize` impl for `UnresolvedRbxValue`
 	* This removes `Serialize` from `AmbiguousRbxValue`, which should not break any real code.
