@@ -1,5 +1,8 @@
-use std::io::{self, Write};
-use std::fmt::Write as FmtWrite;
+use std::{
+    collections::HashMap,
+    io::{self, Write},
+    fmt::Write as FmtWrite,
+};
 
 use log::warn;
 use failure::Fail;
@@ -54,11 +57,12 @@ impl From<xml::writer::Error> for EncodeError {
 /// writing to `output`.
 pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), EncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
+    let mut state = EmitState::new();
 
     writer.write(XmlWriteEvent::start_element("roblox").attr("version", "4"))?;
 
     for id in ids {
-        serialize_instance(&mut writer, tree, *id)?;
+        serialize_instance(&mut writer, &mut state, tree, *id)?;
     }
 
     writer.write(XmlWriteEvent::end_element())?;
@@ -119,8 +123,35 @@ impl<W: Write> XmlEventWriter<W> {
     }
 }
 
+struct EmitState {
+    referent_map: HashMap<RbxId, u32>,
+    next_referent: u32,
+}
+
+impl EmitState {
+    pub fn new() -> EmitState {
+        EmitState {
+            referent_map: HashMap::new(),
+            next_referent: 0,
+        }
+    }
+
+    pub fn map_id(&mut self, id: RbxId) -> u32 {
+        match self.referent_map.get(&id) {
+            Some(&value) => value,
+            None => {
+                let referent = self.next_referent;
+                self.next_referent += 1;
+                self.referent_map.insert(id, referent);
+                referent
+            }
+        }
+    }
+}
+
 fn serialize_value<W: Write>(
     writer: &mut XmlEventWriter<W>,
+    state: &mut EmitState,
     canonical_name: &str,
     value: &RbxValue,
 ) -> Result<(), EncodeError> {
@@ -155,25 +186,32 @@ fn serialize_value<W: Write>(
     }
 }
 
-fn serialize_instance<W: Write>(writer: &mut XmlEventWriter<W>, tree: &RbxTree, id: RbxId) -> Result<(), EncodeError> {
+fn serialize_instance<W: Write>(
+    writer: &mut XmlEventWriter<W>,
+    state: &mut EmitState,
+    tree: &RbxTree,
+    id: RbxId,
+) -> Result<(), EncodeError> {
     let instance = tree.get_instance(id).unwrap();
+    let mapped_id = state.map_id(id);
+
     writer.write(XmlWriteEvent::start_element("Item")
         .attr("class", &instance.class_name)
-        .attr("referent", &instance.get_id().to_string()))?;
+        .attr("referent", &mapped_id.to_string()))?;
 
     writer.write(XmlWriteEvent::start_element("Properties"))?;
 
-    serialize_value(writer, "Name", &RbxValue::String {
+    serialize_value(writer, state, "Name", &RbxValue::String {
         value: instance.name.clone(),
     })?;
 
     for (name, value) in &instance.properties {
-        serialize_value(writer, name, value)?;
+        serialize_value(writer, state, name, value)?;
     }
     writer.write(XmlWriteEvent::end_element())?;
 
     for child_id in instance.get_children_ids() {
-        serialize_instance(writer, tree, *child_id)?;
+        serialize_instance(writer, state, tree, *child_id)?;
     }
 
     writer.write(XmlWriteEvent::end_element())?;

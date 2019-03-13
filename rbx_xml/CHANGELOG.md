@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Changed referents to be emitted as consecutive integers, which makes generating XML models deterministic regardless of IDs
 
 ## 0.4.0 (2019-03-01)
 * Updated to `rbx_dom_weak` 1.0
