@@ -39,7 +39,7 @@ pub struct RbxInstanceProperties {
 ///
 /// [`RbxTree`]: struct.RbxTree.html
 /// [`RbxTree::get_instance`]: struct.RbxTree.html#method.get_instance
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RbxInstance {
     #[serde(flatten)]
@@ -78,12 +78,6 @@ impl RbxInstance {
     /// Returns a list of the IDs of the children of this instance.
     pub fn get_children_ids(&self) -> &[RbxId] {
         &self.children
-    }
-}
-
-impl Clone for RbxInstance {
-    fn clone(&self) -> Self {
-        unimplemented!()
     }
 }
 
