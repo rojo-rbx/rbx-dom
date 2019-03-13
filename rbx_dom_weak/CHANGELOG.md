@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
+
+## 1.2.0 (2019-03-13)
 * `RbxTree` and `RbxInstance` are now clonable without an `unimplemented` panic
 	* Cloned trees preserve their IDs as-is and there's no public API yet to transplant instances between trees. This is mostly useful for comparing trees before/after a mutation, which we're using in Rojo.
 
