@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.5.0 (2019-03-13)
 * Changed referents to be emitted as consecutive integers, which makes generating XML models deterministic regardless of IDs
 
 ## 0.4.0 (2019-03-01)
