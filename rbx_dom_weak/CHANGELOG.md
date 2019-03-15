@@ -1,7 +1,9 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
-* Added `sort_children_by_key` and `sort_children_unstable_by_key` methods to `RbxInstance` reorder children safely
+
+## 1.3.0 (2019-03-14)
+* Added `sort_children_by_key` and `sort_children_unstable_by_key` methods to `RbxInstance` to reorder children safely
 
 ## 1.2.0 (2019-03-13)
 * `RbxTree` and `RbxInstance` are now clonable without an `unimplemented` panic
