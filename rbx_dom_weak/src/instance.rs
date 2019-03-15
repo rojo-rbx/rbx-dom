@@ -79,6 +79,28 @@ impl RbxInstance {
     pub fn get_children_ids(&self) -> &[RbxId] {
         &self.children
     }
+
+    /// Re-orders children using the given key function. This sort is stable.
+    ///
+    /// Works the same as `Vec::sort_by_key` which is used internally.
+    pub fn sort_children_by_key<K, F>(&mut self, mut f: F)
+    where
+        F: FnMut(RbxId) -> K,
+        K: Ord,
+    {
+        self.children.sort_by_key(|&id| f(id));
+    }
+
+    /// Re-orders children using the given key function. This sort is unstable.
+    ///
+    /// Works the same as `Vec::sort_unstable_by_key` which is used internally.
+    pub fn sort_children_unstable_by_key<K, F>(&mut self, mut f: F)
+    where
+        F: FnMut(RbxId) -> K,
+        K: Ord,
+    {
+        self.children.sort_unstable_by_key(|&id| f(id));
+    }
 }
 
 impl std::ops::Deref for RbxInstance {
