@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## 2.0.377 (2019-03-20)
+* Updated reflection database to client 0.377.1.289039
+
 ## 2.0.374 (2019-03-01)
 * Updated to `rbx_dom_weak` 1.0
 * Updated reflection database

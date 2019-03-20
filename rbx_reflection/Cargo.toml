@@ -5,7 +5,7 @@ license = "MIT"
 documentation = "https://docs.rs/rbx_reflection"
 homepage = "https://github.com/LPGhatguy/rbx-dom"
 repository = "https://github.com/LPGhatguy/rbx-dom.git"
-version = "2.0.374"
+version = "2.0.377"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 

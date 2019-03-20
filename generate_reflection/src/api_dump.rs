@@ -135,8 +135,11 @@ impl Dump {
             .status()?;
 
         let contents = fs::read_to_string(&dump_path)?;
-        let dump: Dump = serde_json::from_str(&contents)
+        let mut dump: Dump = serde_json::from_str(&contents)
             .expect("Roblox Studio produced an invalid dump");
+
+        dump.classes.sort_by_key(|class| class.name.clone());
+        dump.enums.sort_by_key(|rbx_enum| rbx_enum.name.clone());
 
         Ok((contents, dump))
     }
