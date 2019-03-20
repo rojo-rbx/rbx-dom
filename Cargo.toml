@@ -1,6 +1,6 @@
 [workspace]
 members = [
-	"generate_rbx_reflection",
+	"generate_reflection",
 	"rbx_binary",
 	"rbx_dom_weak",
 	"rbx_reflection",

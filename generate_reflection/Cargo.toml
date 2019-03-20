@@ -1,5 +1,5 @@
 [package]
-name = "generate_rbx_reflection"
+name = "generate_reflection"
 version = "0.1.0"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"

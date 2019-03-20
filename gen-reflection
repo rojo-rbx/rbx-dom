@@ -2,6 +2,6 @@
 
 set -e
 
-cargo run --bin generate_rbx_reflection
+cargo run --bin generate_reflection
 cargo fmt --package rbx_reflection
 cargo test --package rbx_reflection
