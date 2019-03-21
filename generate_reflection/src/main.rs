@@ -6,6 +6,7 @@ mod emitter_lua;
 mod emitter_rust;
 mod roblox_install;
 mod run_in_roblox;
+mod reflection_types;
 
 use std::{
     collections::HashMap,
