@@ -4,12 +4,18 @@ use std::{
     path::Path,
 };
 
+use lazy_static::lazy_static;
+use regex::Regex;
 use rbx_dom_weak::RbxValue;
 
 use crate::{
     database::ReflectionDatabase,
     api_dump::{DumpClass, DumpClassMember},
 };
+
+lazy_static! {
+    static ref LUA_IDENT: Regex = Regex::new("^[a-zA-Z_]+[a-zA-Z0-9_]*$").unwrap();
+}
 
 pub fn emit(database: &ReflectionDatabase, output_dir: &Path) -> io::Result<()> {
     let output_path = output_dir.join("dump.lua");
@@ -35,10 +41,18 @@ fn emit_class<W: Write>(output: &mut W, database: &ReflectionDatabase, class: &D
 
     writeln!(output, "\t{} = {{", class.name)?;
 
+    if class.superclass != "<<<ROOT>>>" {
+        writeln!(output, "\t\tsuperclass = \"{}\",", class.superclass)?;
+    }
+
     writeln!(output, "\t\tproperties = {{")?;
     for member in &class.members {
         match member {
             DumpClassMember::Property(property) => {
+                if !LUA_IDENT.is_match(&property.name) {
+                    continue;
+                }
+
                 writeln!(output, "\t\t\t{} = {{", property.name)?;
                 writeln!(output, "\t\t\t\ttype = \"{}\",", property.value_type.name)?;
 

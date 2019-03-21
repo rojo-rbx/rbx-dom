@@ -1,3 +1,3 @@
-local database = require(script.database)
-
-return {}
+return {
+	readInstance = require(script.readInstance),
+}

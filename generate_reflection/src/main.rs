@@ -102,7 +102,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         lua_output_dir.pop();
         lua_output_dir.push("rbx_dom_lua");
         lua_output_dir.push("src");
-        lua_output_dir.push("database");
+        lua_output_dir.push("ReflectionDatabase");
         lua_output_dir
     };
 

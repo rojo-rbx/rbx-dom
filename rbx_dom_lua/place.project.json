@@ -1,0 +1,22 @@
+{
+  "name": "rbx_dom_lua test place",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+
+      "RbxDom": {
+        "$path": "src"
+      }
+    },
+
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+
+      "RbxDomTest": {
+        "$path": "test.server.lua"
+      }
+    }
+  }
+}
