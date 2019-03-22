@@ -267,7 +267,7 @@ enum Compression {
     Uncompressed,
 }
 
-fn encode_chunk<W: Write, F>(mut output: W, chunk_name: &[u8], compression: Compression, body: F) -> io::Result<()>
+fn encode_chunk<W: Write, F>(output: &mut W, chunk_name: &[u8], compression: Compression, body: F) -> io::Result<()>
     where F: Fn(Cursor<&mut Vec<u8>>) -> io::Result<()>
 {
     output.write_all(chunk_name)?;
