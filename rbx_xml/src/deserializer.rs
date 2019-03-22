@@ -12,6 +12,8 @@ use xml::reader::{self, ParserConfig};
 use crate::{
     reflection::XML_TO_CANONICAL_NAME,
     types::{
+        float32,
+        int32,
         deserialize_binary_string,
         deserialize_bool,
         deserialize_cframe,
@@ -19,8 +21,6 @@ use crate::{
         deserialize_color3uint8,
         deserialize_content,
         deserialize_enum,
-        deserialize_float32,
-        deserialize_int32,
         deserialize_physical_properties,
         deserialize_protected_string,
         deserialize_ref,
@@ -459,8 +459,8 @@ fn deserialize_properties<R: Read>(
             "Color3uint8" => deserialize_color3uint8(reader)?,
             "Content" => deserialize_content(reader)?,
             "CoordinateFrame" => deserialize_cframe(reader)?,
-            "float" => deserialize_float32(reader)?,
-            "int" => deserialize_int32(reader)?,
+            "float" => float32::deserialize(reader)?,
+            "int" => int32::deserialize(reader)?,
             "PhysicalProperties" => deserialize_physical_properties(reader)?,
             "ProtectedString" => deserialize_protected_string(reader)?,
             "Ref" => deserialize_ref(reader)?,
