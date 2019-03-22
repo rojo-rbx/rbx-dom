@@ -18,9 +18,9 @@ This document is based on:
 - [Data Types](#data-types)
 	- [String](#string)
 	- [Bool](#bool)
-	- [32-bit Integer](#32-bit-integer)
-	- [32-bit Float](#32-bit-float)
-	- [64-bit Float](#64-bit-float)
+	- [Int32](#int32)
+	- [Float32](#float32)
+	- [Float64](#float64)
 	- [UDim](#udim)
 	- [UDim2](#udim2)
 	- [Ray](#ray)
@@ -32,6 +32,14 @@ This document is based on:
 	- [Vector3](#vector3)
 	- [CFrame](#cframe)
 	- [Referent](#referent)
+	- [Vector3int16](#vector3int16)
+	- [NumberSequence](#numbersequence)
+	- [ColorSequence](#colorsequence)
+	- [NumberRange](#numberrange)
+	- [Rect2D](#rect2d)
+	- [PhysicalProperties](#physicalproperties)
+	- [Color3uint8](#color3uint8)
+	- [Int64](#int64)
 - [Data Storage Notes](#data-storage-notes)
 	- [Interleaved Array](#interleaved-array)
 
@@ -233,7 +241,7 @@ String data is UTF-8 encoded.
 ### Bool
 **Type ID `0x02`**
 
-### 32-bit Integer
+### Int32
 **Type ID `0x03`**
 
 **Untransformed integers**, generally in header data, are little-endian and two's complement. Integers are untransformed unless denoted otherwise.
@@ -270,10 +278,10 @@ fn untransform_i32(value: i32) -> i32 {
 }
 ```
 
-### 32-bit Float
+### Float32
 **Type ID 0x04**
 
-### 64-bit Float
+### Float64
 **Type ID 0x05**
 
 ### UDim
@@ -347,6 +355,30 @@ When reading an [Interleaved Array](#interleaved-array) of referents, they shoul
 		<th width="40">1634</th>
 	</tr>
 </table>
+
+### Vector3int16
+**Type ID 0x14**
+
+### NumberSequence
+**Type ID 0x15**
+
+### ColorSequence
+**Type ID 0x16**
+
+### NumberRange
+**Type ID 0x17**
+
+### Rect2D
+**Type ID 0x18**
+
+### PhysicalProperties
+**Type ID 0x19**
+
+### Color3uint8
+**Type ID 0x1A**
+
+### Int64
+**Type ID 0x1B**
 
 ## Data Storage Notes
 
