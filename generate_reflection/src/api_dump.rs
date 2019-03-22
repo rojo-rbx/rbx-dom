@@ -104,8 +104,8 @@ pub enum ValueCategory {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Serialization {
-    can_save: bool,
-    can_load: bool,
+    pub can_save: bool,
+    pub can_load: bool,
 }
 
 #[derive(Debug, Deserialize)]

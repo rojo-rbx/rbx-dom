@@ -25,20 +25,44 @@ pub fn emit(database: &ReflectionDatabase, output_dir: &Path) -> io::Result<()> 
 
     writeln!(file, "local classes = {{")?;
     for class in &database.dump.classes {
-        emit_class(&mut file, database, class)?;
+        emit_class(&mut file, class)?;
     }
     writeln!(file, "}}")?;
 
+    emit_defaults(&mut file, database)?;
+
     writeln!(file, "return {{")?;
     writeln!(file, "\tclasses = classes,")?;
+    writeln!(file, "\tdefaults = defaults,")?;
     writeln!(file, "}}")?;
 
     Ok(())
 }
 
-fn emit_class<W: Write>(output: &mut W, database: &ReflectionDatabase, class: &DumpClass) -> io::Result<()> {
-    let maybe_defaults = database.default_properties.get(&class.name);
+fn emit_defaults<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
+    writeln!(output, "local defaults = {{")?;
+    for (instance_name, instance_properties) in &database.default_properties {
+        writeln!(output, "\t{} = {{", instance_name)?;
 
+        for (property_name, default_value) in instance_properties {
+            if !LUA_IDENT.is_match(property_name) {
+                continue;
+            }
+
+            write!(output, "\t\t{} = ", property_name)?;
+            emit_value(output, default_value)?;
+            writeln!(output, ",")?;
+        }
+
+        writeln!(output, "\t}},")?;
+    }
+    writeln!(output, "}}")?;
+
+
+    Ok(())
+}
+
+fn emit_class<W: Write>(output: &mut W, class: &DumpClass) -> io::Result<()> {
     writeln!(output, "\t{} = {{", class.name)?;
 
     if class.superclass != "<<<ROOT>>>" {
@@ -56,17 +80,8 @@ fn emit_class<W: Write>(output: &mut W, database: &ReflectionDatabase, class: &D
                 writeln!(output, "\t\t\t{} = {{", property.name)?;
                 writeln!(output, "\t\t\t\ttype = \"{}\",", property.value_type.name)?;
 
-                match maybe_defaults {
-                    Some(defaults) => match defaults.get(&property.name) {
-                        Some(default_value) => {
-                            write!(output, "\t\t\t\tdefault = ")?;
-                            emit_value(output, default_value)?;
-                            writeln!(output, ",")?;
-                        }
-                        None => {}
-                    },
-                    None => {}
-                }
+                writeln!(output, "\t\t\t\tcanSave = {},", property.serialization.can_save)?;
+                writeln!(output, "\t\t\t\tcanLoad = {},", property.serialization.can_load)?;
 
                 writeln!(output, "\t\t\t}},")?;
             },
