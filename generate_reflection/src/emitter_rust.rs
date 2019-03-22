@@ -223,6 +223,10 @@ fn emit_value(value: &RbxValue) -> TokenStream {
             let value_literal = Literal::i32_unsuffixed(*value);
             quote!(RbxValue::Int32 { value: #value_literal })
         },
+        RbxValue::Int64 { value } => {
+            let value_literal = Literal::i64_unsuffixed(*value);
+            quote!(RbxValue::Int64 { value: #value_literal })
+        },
         RbxValue::Float32 { value } => {
             let value_literal = Literal::f32_unsuffixed(*value);
             quote!(RbxValue::Float32 { value: #value_literal })
@@ -352,11 +356,11 @@ fn resolve_value_type(value_type: &ValueType) -> TokenStream {
                 "bool" => quote!(RbxValueType::Bool),
                 "string" => quote!(RbxValueType::String),
                 "int" => quote!(RbxValueType::Int32),
+                "int64" => quote!(RbxValueType::Int64),
                 "float" => quote!(RbxValueType::Float32),
 
                 // These aren't quite right:
                 "double" => quote!(RbxValueType::Float32),
-                "int64" => quote!(RbxValueType::Int32),
 
                 unknown => {
                     println!("Can't emit primitives of type {}", unknown);

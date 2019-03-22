@@ -14,6 +14,7 @@ use crate::{
     types::{
         float32,
         int32,
+        int64,
         deserialize_binary_string,
         deserialize_bool,
         deserialize_cframe,
@@ -461,6 +462,7 @@ fn deserialize_properties<R: Read>(
             "CoordinateFrame" => deserialize_cframe(reader)?,
             "float" => float32::deserialize(reader)?,
             "int" => int32::deserialize(reader)?,
+            "int64" => int64::deserialize(reader)?,
             "PhysicalProperties" => deserialize_physical_properties(reader)?,
             "ProtectedString" => deserialize_protected_string(reader)?,
             "Ref" => deserialize_ref(reader)?,

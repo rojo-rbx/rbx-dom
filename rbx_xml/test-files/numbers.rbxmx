@@ -35,5 +35,12 @@
 				<token name="ZIndexBehavior">1</token>
 			</Properties>
 		</Item>
+		<Item class="IntValue" referent="RBX8F56D62B2CCB4EE38E8F9746AC18CA9D">
+			<Properties>
+				<string name="Name">Int64</string>
+				<BinaryString name="Tags"></BinaryString>
+				<int64 name="Value">281474976710656</int64>
+			</Properties>
+		</Item>
 	</Item>
 </roblox>

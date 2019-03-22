@@ -14,6 +14,7 @@ use crate::{
     types::{
         float32,
         int32,
+        int64,
         serialize_binary_string,
         serialize_bool,
         serialize_cframe,
@@ -169,6 +170,7 @@ fn serialize_value<W: Write>(
         RbxValue::Enum { value } => serialize_enum(writer, xml_name, *value),
         RbxValue::Float32 { value } => float32::serialize(writer, xml_name, *value),
         RbxValue::Int32 { value } => int32::serialize(writer, xml_name, *value),
+        RbxValue::Int64 { value } => int64::serialize(writer, xml_name, *value),
         RbxValue::PhysicalProperties { value } => serialize_physical_properties(writer, xml_name, *value),
         RbxValue::Ref { value } => serialize_ref(writer, xml_name, *value),
         RbxValue::String { value } => serialize_string(writer, xml_name, value),

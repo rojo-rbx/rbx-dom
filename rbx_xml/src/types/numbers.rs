@@ -59,3 +59,4 @@ macro_rules! number_type {
 
 number_type!(float32: f32, Float32, "float", 123456.0);
 number_type!(int32: i32, Int32, "int", -4654321);
+number_type!(int64: i64, Int64, "int64", 281474976710656);
