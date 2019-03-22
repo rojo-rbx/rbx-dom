@@ -147,7 +147,7 @@ Observed metadata entries and their values:
 | Type Name ([String](#string)) |
 | Object Format (`u8`) |
 | Number Instances (`u32`) |
-| Instance Referents ([Referent Array](#referent-array)) |
+| Instance Referents ([Referent](#referent) Array) |
 | Service Markers (`u8` * number instances) |
 
 The Instance chunk (`INST`) defines a type of instance, how many of them there are in this file, and what referent IDs they have.
@@ -194,8 +194,8 @@ Because of the shape of this chunk, every instance of a given type must have the
 | ----------------- |
 | Version (`u8`, zero) |
 | Number of Objects (`u32`) |
-| Object Array ([Referent Array](#referent-array)) |
-| Parent Array ([Referent Array](#referent-array)) |
+| Object Array ([Referent](#referent) Array) |
+| Parent Array ([Referent](#referent) Array) |
 
 The parent chunk (`PRNT`) defines the hierarchy relationship between every instance in the file.
 
