@@ -1,21 +1,7 @@
 {
-  "name": "rbx_dom_lua test place",
+  "name": "rbx-dom",
   "tree": {
     "$className": "DataModel",
-    "ReplicatedStorage": {
-      "$className": "ReplicatedStorage",
-
-      "RbxDom": {
-        "$path": "src"
-      }
-    },
-    "ServerScriptService": {
-      "$className": "ServerScriptService",
-
-      "RbxDomTest": {
-        "$path": "test.server.lua"
-      }
-    },
     "HttpService": {
       "$className": "HttpService",
       "$properties": {
@@ -34,6 +20,12 @@
         ],
         "Technology": "Voxel",
         "Brightness": 2.0
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Source": {
+        "$path": "src"
       }
     },
     "SoundService": {

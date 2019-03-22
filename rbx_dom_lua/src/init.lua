@@ -1,3 +1,4 @@
 return {
-	readInstance = require(script.readInstance),
+	CanonicalProperty = require(script.CanonicalProperty),
+	CanonicalInstance = require(script.CanonicalInstance),
 }
