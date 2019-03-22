@@ -13,6 +13,7 @@ use crate::{
     reflection::XML_TO_CANONICAL_NAME,
     types::{
         float32,
+        float64,
         int32,
         int64,
         deserialize_binary_string,
@@ -460,6 +461,7 @@ fn deserialize_properties<R: Read>(
             "Color3uint8" => deserialize_color3uint8(reader)?,
             "Content" => deserialize_content(reader)?,
             "CoordinateFrame" => deserialize_cframe(reader)?,
+            "double" => float64::deserialize(reader)?,
             "float" => float32::deserialize(reader)?,
             "int" => int32::deserialize(reader)?,
             "int64" => int64::deserialize(reader)?,

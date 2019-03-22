@@ -13,6 +13,7 @@ use crate::{
     reflection::CANONICAL_TO_XML_NAME,
     types::{
         float32,
+        float64,
         int32,
         int64,
         serialize_binary_string,
@@ -169,6 +170,7 @@ fn serialize_value<W: Write>(
         RbxValue::Content { value } => serialize_content(writer, xml_name, value),
         RbxValue::Enum { value } => serialize_enum(writer, xml_name, *value),
         RbxValue::Float32 { value } => float32::serialize(writer, xml_name, *value),
+        RbxValue::Float64 { value } => float64::serialize(writer, xml_name, *value),
         RbxValue::Int32 { value } => int32::serialize(writer, xml_name, *value),
         RbxValue::Int64 { value } => int64::serialize(writer, xml_name, *value),
         RbxValue::PhysicalProperties { value } => serialize_physical_properties(writer, xml_name, *value),

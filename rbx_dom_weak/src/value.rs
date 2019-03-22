@@ -14,6 +14,7 @@ pub enum RbxValueType {
     Content,
     Enum,
     Float32,
+    Float64,
     Int32,
     Int64,
     PhysicalProperties,
@@ -57,6 +58,9 @@ pub enum RbxValue {
 
     #[serde(rename_all = "PascalCase")]
     Float32 { value: f32 },
+
+    #[serde(rename_all = "PascalCase")]
+    Float64 { value: f64 },
 
     #[serde(rename_all = "PascalCase")]
     Int32 { value: i32 },
@@ -109,6 +113,7 @@ impl RbxValue {
             RbxValue::Content { .. } => RbxValueType::Content,
             RbxValue::Enum { .. } => RbxValueType::Enum,
             RbxValue::Float32 { .. } => RbxValueType::Float32,
+            RbxValue::Float64 { .. } => RbxValueType::Float64,
             RbxValue::Int32 { .. } => RbxValueType::Int32,
             RbxValue::Int64 { .. } => RbxValueType::Int64,
             RbxValue::PhysicalProperties { .. } => RbxValueType::PhysicalProperties,

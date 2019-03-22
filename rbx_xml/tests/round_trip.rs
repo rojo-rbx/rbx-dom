@@ -15,7 +15,7 @@ static TEST_MODELS: &[&str] = &[
     // Blocked on Rect2D
     // include_str!("../test-files/gui.rbxmx"),
 
-    // Blocked on double, int64, NumberRange
+    // Blocked on NumberRange
     // include_str!("../test-files/baseplate.rbxlx"),
 ];
 

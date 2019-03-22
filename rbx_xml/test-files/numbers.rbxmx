@@ -42,5 +42,12 @@
 				<int64 name="Value">281474976710656</int64>
 			</Properties>
 		</Item>
+		<Item class="NumberValue" referent="RBXBA58581CA31545A480E20D8DD930F7EB">
+			<Properties>
+				<string name="Name">Float64</string>
+				<BinaryString name="Tags"></BinaryString>
+				<double name="Value">30945934908.983894348</double>
+			</Properties>
+		</Item>
 	</Item>
 </roblox>
