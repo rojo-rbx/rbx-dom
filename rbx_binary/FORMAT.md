@@ -72,7 +72,7 @@ Every file starts with:
 		<td colspan="2">Version (<code>0</code>)</td>
 	</tr>
 	<tr>
-		<td colspan="4">Number of classes (<code>u32</code>)</td>
+		<td colspan="4">Number of instance types (<code>u32</code>)</td>
 		<td colspan="4">Number of instances (<code>u32</code>)</td>
 		<td colspan="8">Reserved bytes (always 0)</td>
 	</tr>
@@ -147,7 +147,7 @@ Observed metadata entries and their values:
 | Type Name ([String](#string)) |
 | Object Format (`u8`) |
 | Number Instances (`u32`) |
-| Instance Referents ([Referent Array](#referent-array) |
+| Instance Referents ([Referent Array](#referent-array)) |
 | Service Markers (`u8` * number instances) |
 
 The Instance chunk (`INST`) defines a type of instance, how many of them there are in this file, and what referent IDs they have.
