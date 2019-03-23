@@ -7,7 +7,7 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_bool<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: bool) -> Result<(), EncodeError> {
+pub fn serialize<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: bool) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element("bool").attr("name", name))?;
 
     let value_as_str = if value {
@@ -22,7 +22,7 @@ pub fn serialize_bool<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, valu
     Ok(())
 }
 
-pub fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("bool")?;
 
     let value = read_event!(reader, XmlReadEvent::Characters(content) => {

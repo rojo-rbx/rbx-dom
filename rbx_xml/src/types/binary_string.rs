@@ -7,7 +7,7 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_binary_string<W: Write>(
+pub fn serialize<W: Write>(
     writer: &mut XmlEventWriter<W>,
     name: &str,
     value: &[u8]
@@ -19,7 +19,7 @@ pub fn serialize_binary_string<W: Write>(
     Ok(())
 }
 
-pub fn deserialize_binary_string<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("BinaryString")?;
 
     let contents = match reader.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {

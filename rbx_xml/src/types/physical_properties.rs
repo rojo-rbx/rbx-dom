@@ -7,7 +7,7 @@ use crate::{
     deserializer::{DecodeError, EventIterator},
 };
 
-pub fn deserialize_physical_properties<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     // TODO: Actually read properties
 
     reader.eat_unknown_tag()?;
@@ -17,7 +17,7 @@ pub fn deserialize_physical_properties<R: Read>(reader: &mut EventIterator<R>) -
     })
 }
 
-pub fn serialize_physical_properties<W: Write>(
+pub fn serialize<W: Write>(
     _writer: &mut XmlEventWriter<W>,
     _name: &str,
     _value: Option<PhysicalProperties>,

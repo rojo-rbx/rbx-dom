@@ -7,7 +7,7 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_content<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: &str) -> Result<(), EncodeError> {
+pub fn serialize<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: &str) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element("Content").attr("name", name))?;
 
     if value.len() == 0 {
@@ -25,7 +25,7 @@ pub fn serialize_content<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, v
     Ok(())
 }
 
-pub fn deserialize_content<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("Content")?;
 
     let value = read_event!(reader, XmlReadEvent::StartElement { name, .. } => {

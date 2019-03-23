@@ -7,30 +7,38 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_string<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: &str) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("string").attr("name", name))?;
-    writer.write(XmlWriteEvent::characters(&value))?;
-    writer.write(XmlWriteEvent::end_element())?;
+pub mod string {
+    use super::*;
 
-    Ok(())
+    pub fn serialize<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: &str) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element("string").attr("name", name))?;
+        writer.write(XmlWriteEvent::characters(&value))?;
+        writer.write(XmlWriteEvent::end_element())?;
+
+        Ok(())
+    }
+
+    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name("string")?;
+        let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
+        reader.expect_end_with_name("string")?;
+
+        Ok(value)
+    }
 }
 
-pub fn deserialize_string<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    reader.expect_start_with_name("string")?;
-    let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-    reader.expect_end_with_name("string")?;
+pub mod protected_string {
+    use super::*;
 
-    Ok(value)
-}
+    // Protected strings are asymmetrical -- they deserialize to regular string
+    // values, since their existence is a historical artifact.
+    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name("ProtectedString")?;
+        let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
+        reader.expect_end_with_name("ProtectedString")?;
 
-// Protected strings are asymmetrical -- they deserialize to regular string
-// values, since their existence is a historical artifact.
-pub fn deserialize_protected_string<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    reader.expect_start_with_name("ProtectedString")?;
-    let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-    reader.expect_end_with_name("ProtectedString")?;
-
-    Ok(value)
+        Ok(value)
+    }
 }
 
 #[cfg(test)]

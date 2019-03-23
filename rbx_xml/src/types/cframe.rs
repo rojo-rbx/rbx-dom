@@ -9,7 +9,7 @@ use crate::{
 
 static TAG_NAMES: [&str; 12] = ["X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22"];
 
-pub fn serialize_cframe<W: Write>(
+pub fn serialize<W: Write>(
     writer: &mut XmlEventWriter<W>,
     name: &str,
     value: [f32; 12],
@@ -21,7 +21,7 @@ pub fn serialize_cframe<W: Write>(
     Ok(())
 }
 
-pub fn deserialize_cframe<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
     reader.expect_start_with_name("CoordinateFrame")?;
 
     let mut components = [0.0; 12];

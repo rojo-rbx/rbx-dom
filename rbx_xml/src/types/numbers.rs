@@ -8,16 +8,16 @@ use crate::{
 };
 
 macro_rules! number_type {
-    ($name:ident: $ty:ty, $value:ident, $element:expr, $test:expr) => {
-        pub mod $name {
+    ($module_name: ident: $rust_type: ty, $rbx_type: ident, $xml_name: expr, $test_value: expr) => {
+        pub mod $module_name {
             use super::*;
 
             pub fn serialize<W: Write>(
                 writer: &mut XmlEventWriter<W>,
                 name: &str,
-                value: $ty,
+                value: $rust_type,
             ) -> Result<(), EncodeError> {
-                writer.write(XmlWriteEvent::start_element($element).attr("name", name))?;
+                writer.write(XmlWriteEvent::start_element($xml_name).attr("name", name))?;
                 writer.write(XmlWriteEvent::characters(&value.to_string()))?;
                 writer.write(XmlWriteEvent::end_element())?;
 
@@ -25,9 +25,9 @@ macro_rules! number_type {
             }
 
             pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-                let value: $ty = reader.read_tag_contents($element)?.parse()?;
+                let value: $rust_type = reader.read_tag_contents($xml_name)?.parse()?;
 
-                Ok(RbxValue::$value {
+                Ok(RbxValue::$rbx_type {
                     value,
                 })
             }
@@ -37,7 +37,7 @@ macro_rules! number_type {
             fn round_trip() {
                 let _ = env_logger::try_init();
 
-                let test_input: $ty = $test;
+                let test_input: $rust_type = $test_value;
                 let mut buffer = Vec::new();
 
                 let mut writer = XmlEventWriter::from_output(&mut buffer);
@@ -49,7 +49,7 @@ macro_rules! number_type {
                 reader.next().unwrap().unwrap(); // Eat StartDocument event
                 let value = deserialize(&mut reader).unwrap();
 
-                assert_eq!(value, RbxValue::$value {
+                assert_eq!(value, RbxValue::$rbx_type {
                     value: test_input,
                 });
             }
