@@ -8,6 +8,7 @@
 #[macro_use]
 mod macros;
 
+mod core;
 mod deserializer;
 mod serializer;
 mod types;

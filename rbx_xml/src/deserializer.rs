@@ -10,6 +10,7 @@ use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
+    core::XmlType,
     reflection::XML_TO_CANONICAL_NAME,
     types,
 };
@@ -449,7 +450,7 @@ fn deserialize_properties<R: Read>(
             "string" => types::string::deserialize(reader)?,
             "token" => types::enumeration::deserialize(reader)?,
             "UDim" => types::udim::deserialize(reader)?,
-            "UDim2" => types::udim2::deserialize(reader)?,
+            types::UDim2::XML_NAME => types::UDim2::read_xml(reader)?,
             "Vector2" => types::vector2::deserialize(reader)?,
             "Vector2int16" => types::vector2int16::deserialize(reader)?,
             "Vector3" => types::vector3::deserialize(reader)?,

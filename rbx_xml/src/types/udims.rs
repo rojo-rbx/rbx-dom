@@ -3,6 +3,7 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
@@ -39,66 +40,18 @@ pub mod udim {
     }
 }
 
-// pub trait XmlType<T> {
-//     fn write<W: Write>(
-//         value: &T,
-//         name: &str,
-//         writer: &mut XmlEventWriter<W>,
-//     ) -> Result<(), EncodeError>;
+pub struct UDim2;
+type UDim2Value = (f32, i32, f32, i32);
 
-//     fn read<R: Read>(
-//         reader: &mut EventIterator<R>,
-//     ) -> Result<RbxValue, DecodeError>;
-// }
+impl XmlType<UDim2Value> for UDim2 {
+    const XML_NAME: &'static str = "UDim2";
 
-// pub struct UDim2;
-// type UDim2Value = (f32, i32, f32, i32);
-
-// impl XmlType<UDim2Value> for UDim2 {
-//     fn write<W: Write>(
-//         value: &UDimValue,
-//         name: &str,
-//         writer: &mut XmlEventWriter<W>,
-//     ) -> Result<(), EncodeError> {
-//         writer.write(XmlWriteEvent::start_element("UDim2").attr("name", name))?;
-
-//         writer.write_tag_characters("XS", value.0)?;
-//         writer.write_tag_characters("XO", value.1)?;
-//         writer.write_tag_characters("YS", value.2)?;
-//         writer.write_tag_characters("YO", value.3)?;
-
-//         writer.write(XmlWriteEvent::end_element())?;
-
-//         Ok(())
-//     }
-
-//     fn read<W: Write>(
-//         reader: &mut EventIterator<R>,
-//     ) -> Result<RbxValue, DecodeError> {
-//         reader.expect_start_with_name("UDim2")?;
-
-//         let x_scale: f32 = reader.read_tag_contents("XS")?.parse()?;
-//         let x_offset: i32 = reader.read_tag_contents("XO")?.parse()?;
-//         let y_scale: f32 = reader.read_tag_contents("YS")?.parse()?;
-//         let y_offset: i32 = reader.read_tag_contents("YO")?.parse()?;
-
-//         reader.expect_end_with_name("UDim2")?;
-
-//         Ok(RbxValue::UDim2 {
-//             value: (x_scale, x_offset, y_scale, y_offset),
-//         })
-//     }
-// }
-
-pub mod udim2 {
-    use super::*;
-
-    pub fn serialize<W: Write>(
+    fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: (f32, i32, f32, i32),
+        value: &UDim2Value,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("UDim2").attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
 
         writer.write_tag_characters("XS", value.0)?;
         writer.write_tag_characters("XO", value.1)?;
@@ -110,15 +63,17 @@ pub mod udim2 {
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("UDim2")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         let x_scale: f32 = reader.read_tag_contents("XS")?.parse()?;
         let x_offset: i32 = reader.read_tag_contents("XO")?.parse()?;
         let y_scale: f32 = reader.read_tag_contents("YS")?.parse()?;
         let y_offset: i32 = reader.read_tag_contents("YO")?.parse()?;
 
-        reader.expect_end_with_name("UDim2")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(RbxValue::UDim2 {
             value: (x_scale, x_offset, y_scale, y_offset),

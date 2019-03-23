@@ -10,6 +10,7 @@ use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
+    core::XmlType,
     reflection::CANONICAL_TO_XML_NAME,
     types,
 };
@@ -156,7 +157,7 @@ fn serialize_value<W: Write>(
         RbxValue::Ref { value } => types::referent::serialize(writer, xml_name, *value),
         RbxValue::String { value } => types::string::serialize(writer, xml_name, value),
         RbxValue::UDim { value } => types::udim::serialize(writer, xml_name, *value),
-        RbxValue::UDim2 { value } => types::udim2::serialize(writer, xml_name, *value),
+        RbxValue::UDim2 { value } => types::UDim2::write_xml(writer, xml_name, value),
         RbxValue::Vector2 { value } => types::vector2::serialize(writer, xml_name, *value),
         RbxValue::Vector2int16 { value } => types::vector2int16::serialize(writer, xml_name, *value),
         RbxValue::Vector3 { value } => types::vector3::serialize(writer, xml_name, *value),
