@@ -142,7 +142,7 @@ fn serialize_value<W: Write>(
         .unwrap_or(&canonical_name);
 
     match value {
-        RbxValue::BinaryString { value } => types::binary_string::serialize(writer, xml_name, value),
+        RbxValue::BinaryString { value } => types::BinaryString::write_xml(writer, xml_name, value),
         RbxValue::Bool { value } => types::bool::serialize(writer, xml_name, *value),
         RbxValue::CFrame { value } => types::cframe::serialize(writer, xml_name, *value),
         RbxValue::Color3 { value } => types::color3::serialize(writer, xml_name, *value),

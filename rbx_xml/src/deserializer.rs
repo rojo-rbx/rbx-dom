@@ -434,7 +434,7 @@ fn deserialize_properties<R: Read>(
             .unwrap_or(xml_property_name);
 
         let value = match property_type.as_str() {
-            "BinaryString" => types::binary_string::deserialize(reader)?,
+            types::BinaryString::XML_NAME => types::BinaryString::read_xml(reader)?,
             "bool" => types::bool::deserialize(reader)?,
             "Color3" => types::color3::deserialize(reader)?,
             "Color3uint8" => types::color3uint8::deserialize(reader)?,

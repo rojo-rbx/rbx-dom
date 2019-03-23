@@ -7,7 +7,7 @@ use crate::{
     serializer::{EncodeError, XmlEventWriter},
 };
 
-pub trait XmlType<T> {
+pub trait XmlType<T: ?Sized> {
     const XML_NAME: &'static str;
 
     fn write_xml<W: Write>(

@@ -3,50 +3,59 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, XmlReadEvent, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    name: &str,
-    value: &[u8]
-) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("BinaryString").attr("name", name))?;
-    writer.write(XmlWriteEvent::cdata(&base64::encode(value)))?;
-    writer.write(XmlWriteEvent::end_element())?;
+pub struct BinaryString;
 
-    Ok(())
-}
+impl XmlType<[u8]> for BinaryString {
+    const XML_NAME: &'static str = "BinaryString";
 
-pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    reader.expect_start_with_name("BinaryString")?;
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &[u8],
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element("BinaryString").attr("name", name))?;
+        writer.write(XmlWriteEvent::cdata(&base64::encode(value)))?;
+        writer.write(XmlWriteEvent::end_element())?;
 
-    let contents = match reader.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
-        XmlReadEvent::Characters(contents) => contents,
-        XmlReadEvent::EndElement { name } => {
-            if name.local_name == "BinaryString" {
-                return Ok(RbxValue::BinaryString {
-                    value: Vec::new()
-                });
-            } else {
-                return Err(DecodeError::Message("Unexpected closing tag"));
-            }
-        },
-        _ => return Err(DecodeError::Message("Unexpected stuff in BinaryString")),
-    };
+        Ok(())
+    }
 
-    reader.expect_end_with_name("BinaryString")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name("BinaryString")?;
 
-    // Roblox wraps base64 BinaryString data at the 72 byte mark. The base64
-    // crate doesn't like that very much.
-    let contents = contents.replace("\n", "");
+        let contents = match reader.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
+            XmlReadEvent::Characters(contents) => contents,
+            XmlReadEvent::EndElement { name } => {
+                if name.local_name == "BinaryString" {
+                    return Ok(RbxValue::BinaryString {
+                        value: Vec::new()
+                    });
+                } else {
+                    return Err(DecodeError::Message("Unexpected closing tag"));
+                }
+            },
+            _ => return Err(DecodeError::Message("Unexpected stuff in BinaryString")),
+        };
 
-    let value = base64::decode(&contents)?;
+        reader.expect_end_with_name("BinaryString")?;
 
-    Ok(RbxValue::BinaryString {
-        value,
-    })
+        // Roblox wraps base64 BinaryString data at the 72 byte mark. The base64
+        // crate doesn't like that very much.
+        let contents = contents.replace("\n", "");
+
+        let value = base64::decode(&contents)?;
+
+        Ok(RbxValue::BinaryString {
+            value,
+        })
+    }
 }
 
 #[cfg(test)]
