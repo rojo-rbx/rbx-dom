@@ -4,15 +4,13 @@ use std::{
     fmt::Write as FmtWrite,
 };
 
-use log::warn;
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
-    core::XmlType,
     reflection::CANONICAL_TO_XML_NAME,
-    types,
+    value::write_value_xml,
 };
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
@@ -141,33 +139,7 @@ fn serialize_value<W: Write>(
         .get(canonical_name)
         .unwrap_or(&canonical_name);
 
-    match value {
-        RbxValue::BinaryString { value } => types::BinaryString::write_xml(writer, xml_name, value),
-        RbxValue::Bool { value } => types::Bool::write_xml(writer, xml_name, value),
-        RbxValue::CFrame { value } => types::CFrame::write_xml(writer, xml_name, value),
-        RbxValue::Color3 { value } => types::color3::serialize(writer, xml_name, *value),
-        RbxValue::Color3uint8 { value } => types::color3uint8::serialize(writer, xml_name, *value),
-        RbxValue::Content { value } => types::content::serialize(writer, xml_name, value),
-        RbxValue::Enum { value } => types::enumeration::serialize(writer, xml_name, *value),
-        RbxValue::Float32 { value } => types::float32::serialize(writer, xml_name, *value),
-        RbxValue::Float64 { value } => types::float64::serialize(writer, xml_name, *value),
-        RbxValue::Int32 { value } => types::int32::serialize(writer, xml_name, *value),
-        RbxValue::Int64 { value } => types::int64::serialize(writer, xml_name, *value),
-        RbxValue::PhysicalProperties { value } => types::physical_properties::serialize(writer, xml_name, *value),
-        RbxValue::Ref { value } => types::referent::serialize(writer, xml_name, *value),
-        RbxValue::String { value } => types::string::serialize(writer, xml_name, value),
-        RbxValue::UDim { value } => types::udim::serialize(writer, xml_name, *value),
-        RbxValue::UDim2 { value } => types::UDim2::write_xml(writer, xml_name, value),
-        RbxValue::Vector2 { value } => types::vector2::serialize(writer, xml_name, *value),
-        RbxValue::Vector2int16 { value } => types::vector2int16::serialize(writer, xml_name, *value),
-        RbxValue::Vector3 { value } => types::vector3::serialize(writer, xml_name, *value),
-        RbxValue::Vector3int16 { value } => types::vector3int16::serialize(writer, xml_name, *value),
-
-        unknown => {
-            warn!("Property value {:?} cannot be serialized yet", unknown);
-            unimplemented!();
-        },
-    }
+    write_value_xml(writer, xml_name, value)
 }
 
 fn serialize_instance<W: Write>(

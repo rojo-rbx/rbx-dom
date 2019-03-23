@@ -5,14 +5,13 @@ use std::{
 };
 
 use failure::Fail;
-use log::{trace, warn};
+use log::trace;
 use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
-    core::XmlType,
     reflection::XML_TO_CANONICAL_NAME,
-    types,
+    value::read_value_xml,
 };
 
 pub use xml::reader::XmlEvent as XmlReadEvent;
@@ -433,33 +432,7 @@ fn deserialize_properties<R: Read>(
             .map(|value| value.to_string())
             .unwrap_or(xml_property_name);
 
-        let value = match property_type.as_str() {
-            types::BinaryString::XML_NAME => types::BinaryString::read_xml(reader)?,
-            types::Bool::XML_NAME => types::Bool::read_xml(reader)?,
-            "Color3" => types::color3::deserialize(reader)?,
-            "Color3uint8" => types::color3uint8::deserialize(reader)?,
-            "Content" => types::content::deserialize(reader)?,
-            types::CFrame::XML_NAME => types::CFrame::read_xml(reader)?,
-            "double" => types::float64::deserialize(reader)?,
-            "float" => types::float32::deserialize(reader)?,
-            "int" => types::int32::deserialize(reader)?,
-            "int64" => types::int64::deserialize(reader)?,
-            "PhysicalProperties" => types::physical_properties::deserialize(reader)?,
-            "ProtectedString" => types::protected_string::deserialize(reader)?,
-            "Ref" => types::referent::deserialize(reader)?,
-            "string" => types::string::deserialize(reader)?,
-            "token" => types::enumeration::deserialize(reader)?,
-            "UDim" => types::udim::deserialize(reader)?,
-            types::UDim2::XML_NAME => types::UDim2::read_xml(reader)?,
-            "Vector2" => types::vector2::deserialize(reader)?,
-            "Vector2int16" => types::vector2int16::deserialize(reader)?,
-            "Vector3" => types::vector3::deserialize(reader)?,
-            "Vector3int16" => types::vector3int16::deserialize(reader)?,
-            unknown => {
-                warn!("rbx_xml can't decode properties of type {}", unknown);
-                return Err(DecodeError::Message("don't know how to decode this prop type"));
-            },
-        };
+        let value = read_value_xml(reader, &property_type)?;
 
         props.insert(canonical_name, value);
     }
