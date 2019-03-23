@@ -21,7 +21,7 @@ impl XmlType<CFrameValue> for CFrame {
         name: &str,
         value: &CFrameValue,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("CoordinateFrame").attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
         writer.write_tag_array(value, &TAG_NAMES)?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -31,7 +31,7 @@ impl XmlType<CFrameValue> for CFrame {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("CoordinateFrame")?;
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         let mut components = [0.0; 12];
 
@@ -40,7 +40,7 @@ impl XmlType<CFrameValue> for CFrame {
             components[index] = reader.read_tag_contents(tag_name)?.parse()?;
         }
 
-        reader.expect_end_with_name("CoordinateFrame")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(RbxValue::CFrame {
             value: components,
@@ -65,13 +65,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_cframe(&mut writer, "foo", test_input).unwrap();
+        CFrame::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_cframe(&mut reader).unwrap();
+        let value = CFrame::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::CFrame {
             value: test_input,

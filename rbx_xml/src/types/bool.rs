@@ -64,13 +64,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_bool(&mut writer, "foo", true).unwrap();
+        Bool::write_xml(&mut writer, "foo", &true).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_bool(&mut reader).unwrap();
+        let value = Bool::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Bool {
             value: true,

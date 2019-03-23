@@ -48,13 +48,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_enum(&mut writer, "foo", test_input).unwrap();
+        Enumeration::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_enum(&mut reader).unwrap();
+        let value = Enumeration::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Enum {
             value: test_input,

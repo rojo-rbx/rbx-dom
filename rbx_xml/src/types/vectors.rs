@@ -121,7 +121,7 @@ impl XmlType<[i16; 3]> for Vector3int16 {
         name: &str,
         value: &[i16; 3],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("Vector3int16").attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
         writer.write_tag_array(value, &VECTOR3_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -131,13 +131,13 @@ impl XmlType<[i16; 3]> for Vector3int16 {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("Vector3int16")?;
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         let x: i16 = reader.read_tag_contents("X")?.parse()?;
         let y: i16 = reader.read_tag_contents("Y")?.parse()?;
         let z: i16 = reader.read_tag_contents("Z")?.parse()?;
 
-        reader.expect_end_with_name("Vector3int16")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(RbxValue::Vector3int16 {
             value: [x, y, z],
@@ -157,13 +157,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_vector2(&mut writer, "foo", test_input).unwrap();
+        Vector2::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_vector2(&mut reader).unwrap();
+        let value = Vector2::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Vector2 {
             value: test_input,
@@ -178,13 +178,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_vector2int16(&mut writer, "foo", test_input).unwrap();
+        Vector2int16::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_vector2int16(&mut reader).unwrap();
+        let value = Vector2int16::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Vector2int16 {
             value: test_input,
@@ -199,13 +199,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_vector3(&mut writer, "foo", test_input).unwrap();
+        Vector3::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_vector3(&mut reader).unwrap();
+        let value = Vector3::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Vector3 {
             value: test_input,
@@ -220,13 +220,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_vector3int16(&mut writer, "foo", test_input).unwrap();
+        Vector3int16::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_vector3int16(&mut reader).unwrap();
+        let value = Vector3int16::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Vector3int16 {
             value: test_input,

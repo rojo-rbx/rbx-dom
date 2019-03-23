@@ -77,13 +77,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_string(&mut writer, "foo", test_value).unwrap();
+        String::write_xml(&mut writer, "foo", test_value).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_string(&mut reader).unwrap();
+        let value = String::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::String {
             value: test_value.to_owned(),
@@ -99,7 +99,7 @@ mod test {
 
         let mut reader = EventIterator::from_source(source.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_protected_string(&mut reader).unwrap();
+        let value = ProtectedString::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::String {
             value: test_value.to_owned(),

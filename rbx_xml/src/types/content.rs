@@ -18,7 +18,7 @@ impl XmlType<str> for Content {
         name: &str,
         value: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("Content").attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
 
         if value.len() == 0 {
             // This doesn't feel like a great XML idiom
@@ -38,7 +38,7 @@ impl XmlType<str> for Content {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("Content")?;
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         let value = read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
             match name.local_name.as_str() {
@@ -57,7 +57,7 @@ impl XmlType<str> for Content {
             }
         });
 
-        reader.expect_end_with_name("Content")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(RbxValue::Content { value })
     }
@@ -76,13 +76,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_content(&mut writer, "foo", test_value).unwrap();
+        Content::write_xml(&mut writer, "foo", test_value).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_content(&mut reader).unwrap();
+        let value = Content::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Content {
             value: test_value.to_owned(),
@@ -98,13 +98,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_content(&mut writer, "foo", test_value).unwrap();
+        Content::write_xml(&mut writer, "foo", test_value).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_content(&mut reader).unwrap();
+        let value = Content::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Content {
             value: test_value.to_owned(),
@@ -121,7 +121,7 @@ mod test {
 
         let mut reader = EventIterator::from_source(buffer.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_content(&mut reader).unwrap();
+        let value = Content::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Content {
             value: String::from("Some URL"),
@@ -138,7 +138,7 @@ mod test {
 
         let mut reader = EventIterator::from_source(buffer.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_content(&mut reader).unwrap();
+        let value = Content::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Content {
             value: String::new(),
