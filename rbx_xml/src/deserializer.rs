@@ -435,11 +435,11 @@ fn deserialize_properties<R: Read>(
 
         let value = match property_type.as_str() {
             types::BinaryString::XML_NAME => types::BinaryString::read_xml(reader)?,
-            "bool" => types::bool::deserialize(reader)?,
+            types::Bool::XML_NAME => types::Bool::read_xml(reader)?,
             "Color3" => types::color3::deserialize(reader)?,
             "Color3uint8" => types::color3uint8::deserialize(reader)?,
             "Content" => types::content::deserialize(reader)?,
-            "CoordinateFrame" => types::cframe::deserialize(reader)?,
+            types::CFrame::XML_NAME => types::CFrame::read_xml(reader)?,
             "double" => types::float64::deserialize(reader)?,
             "float" => types::float32::deserialize(reader)?,
             "int" => types::int32::deserialize(reader)?,

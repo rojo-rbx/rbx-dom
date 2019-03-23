@@ -3,39 +3,49 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
 static TAG_NAMES: [&str; 12] = ["X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22"];
 
-pub fn serialize<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    name: &str,
-    value: [f32; 12],
-) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("CoordinateFrame").attr("name", name))?;
-    writer.write_tag_array(&value, &TAG_NAMES)?;
-    writer.write(XmlWriteEvent::end_element())?;
+pub struct CFrame;
+type CFrameValue = [f32; 12];
 
-    Ok(())
-}
+impl XmlType<CFrameValue> for CFrame {
+    const XML_NAME: &'static str = "CoordinateFrame";
 
-pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    reader.expect_start_with_name("CoordinateFrame")?;
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &CFrameValue,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element("CoordinateFrame").attr("name", name))?;
+        writer.write_tag_array(value, &TAG_NAMES)?;
+        writer.write(XmlWriteEvent::end_element())?;
 
-    let mut components = [0.0; 12];
-
-    for index in 0..12 {
-        let tag_name = TAG_NAMES[index];
-        components[index] = reader.read_tag_contents(tag_name)?.parse()?;
+        Ok(())
     }
 
-    reader.expect_end_with_name("CoordinateFrame")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name("CoordinateFrame")?;
 
-    Ok(RbxValue::CFrame {
-        value: components,
-    })
+        let mut components = [0.0; 12];
+
+        for index in 0..12 {
+            let tag_name = TAG_NAMES[index];
+            components[index] = reader.read_tag_contents(tag_name)?.parse()?;
+        }
+
+        reader.expect_end_with_name("CoordinateFrame")?;
+
+        Ok(RbxValue::CFrame {
+            value: components,
+        })
+    }
 }
 
 #[cfg(test)]

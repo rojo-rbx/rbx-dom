@@ -3,41 +3,54 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, XmlReadEvent, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: bool) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("bool").attr("name", name))?;
+pub struct Bool;
 
-    let value_as_str = if value {
-        "true"
-    } else {
-        "false"
-    };
+impl XmlType<bool> for Bool {
+    const XML_NAME: &'static str = "bool";
 
-    writer.write(XmlWriteEvent::characters(value_as_str))?;
-    writer.write(XmlWriteEvent::end_element())?;
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &bool,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
 
-    Ok(())
-}
+        let value_as_str = if *value {
+            "true"
+        } else {
+            "false"
+        };
 
-pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    reader.expect_start_with_name("bool")?;
+        writer.write(XmlWriteEvent::characters(value_as_str))?;
+        writer.write(XmlWriteEvent::end_element())?;
 
-    let value = read_event!(reader, XmlReadEvent::Characters(content) => {
-        match content.as_str() {
-            "true" => true,
-            "false" => false,
-            _ => return Err(DecodeError::Message("invalid boolean value, expected true or false")),
-        }
-    });
+        Ok(())
+    }
 
-    reader.expect_end_with_name("bool")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
-    Ok(RbxValue::Bool {
-        value
-    })
+        let value = read_event!(reader, XmlReadEvent::Characters(content) => {
+            match content.as_str() {
+                "true" => true,
+                "false" => false,
+                _ => return Err(DecodeError::Message("invalid boolean value, expected true or false")),
+            }
+        });
+
+        reader.expect_end_with_name(Self::XML_NAME)?;
+
+        Ok(RbxValue::Bool {
+            value
+        })
+    }
 }
 
 #[cfg(test)]

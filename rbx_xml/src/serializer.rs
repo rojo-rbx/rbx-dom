@@ -143,8 +143,8 @@ fn serialize_value<W: Write>(
 
     match value {
         RbxValue::BinaryString { value } => types::BinaryString::write_xml(writer, xml_name, value),
-        RbxValue::Bool { value } => types::bool::serialize(writer, xml_name, *value),
-        RbxValue::CFrame { value } => types::cframe::serialize(writer, xml_name, *value),
+        RbxValue::Bool { value } => types::Bool::write_xml(writer, xml_name, value),
+        RbxValue::CFrame { value } => types::CFrame::write_xml(writer, xml_name, value),
         RbxValue::Color3 { value } => types::color3::serialize(writer, xml_name, *value),
         RbxValue::Color3uint8 { value } => types::color3uint8::serialize(writer, xml_name, *value),
         RbxValue::Content { value } => types::content::serialize(writer, xml_name, value),
