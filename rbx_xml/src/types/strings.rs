@@ -3,14 +3,21 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, XmlReadEvent, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub mod string {
-    use super::*;
+pub struct String;
 
-    pub fn serialize<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: &str) -> Result<(), EncodeError> {
+impl XmlType<str> for String {
+    const XML_NAME: &'static str = "string";
+
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &str,
+    ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element("string").attr("name", name))?;
         writer.write(XmlWriteEvent::characters(&value))?;
         writer.write(XmlWriteEvent::end_element())?;
@@ -18,7 +25,9 @@ pub mod string {
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name("string")?;
         let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
         reader.expect_end_with_name("string")?;

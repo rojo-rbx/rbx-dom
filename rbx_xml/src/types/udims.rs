@@ -8,13 +8,16 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub mod udim {
-    use super::*;
+pub struct UDim;
+type UDimValue = (f32, i32);
 
-    pub fn serialize<W: Write>(
+impl XmlType<UDimValue> for UDim {
+    const XML_NAME: &'static str = "UDim";
+
+    fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: (f32, i32),
+        value: &UDimValue,
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element("UDim").attr("name", name))?;
 
@@ -26,7 +29,9 @@ pub mod udim {
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name("UDim")?;
 
         let scale: f32 = reader.read_tag_contents("S")?.parse()?;

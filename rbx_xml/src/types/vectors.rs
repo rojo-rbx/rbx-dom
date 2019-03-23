@@ -3,6 +3,7 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
@@ -10,28 +11,32 @@ use crate::{
 static VECTOR2_TAGS: [&str; 2] = ["X", "Y"];
 static VECTOR3_TAGS: [&str; 3] = ["X", "Y", "Z"];
 
-pub mod vector2 {
-    use super::*;
+pub struct Vector2;
 
-    pub fn serialize<W: Write>(
+impl XmlType<[f32; 2]> for Vector2 {
+    const XML_NAME: &'static str = "Vector2";
+
+    fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: [f32; 2],
+        value: &[f32; 2],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("Vector2").attr("name", name))?;
-        writer.write_tag_array(&value, &VECTOR2_TAGS)?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write_tag_array(value, &VECTOR2_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("Vector2")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         let x: f32 = reader.read_tag_contents("X")?.parse()?;
         let y: f32 = reader.read_tag_contents("Y")?.parse()?;
 
-        reader.expect_end_with_name("Vector2")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(RbxValue::Vector2 {
             value: [x, y],
@@ -39,28 +44,32 @@ pub mod vector2 {
     }
 }
 
-pub mod vector2int16 {
-    use super::*;
+pub struct Vector2int16;
 
-    pub fn serialize<W: Write>(
+impl XmlType<[i16; 2]> for Vector2int16 {
+    const XML_NAME: &'static str = "Vector2int16";
+
+    fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: [i16; 2],
+        value: &[i16; 2],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("Vector2int16").attr("name", name))?;
-        writer.write_tag_array(&value, &VECTOR2_TAGS)?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write_tag_array(value, &VECTOR2_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("Vector2int16")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         let x: i16 = reader.read_tag_contents("X")?.parse()?;
         let y: i16 = reader.read_tag_contents("Y")?.parse()?;
 
-        reader.expect_end_with_name("Vector2int16")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(RbxValue::Vector2int16 {
             value: [x, y],
@@ -68,29 +77,33 @@ pub mod vector2int16 {
     }
 }
 
-pub mod vector3 {
-    use super::*;
+pub struct Vector3;
 
-    pub fn serialize<W: Write>(
+impl XmlType<[f32; 3]> for Vector3 {
+    const XML_NAME: &'static str = "Vector3";
+
+    fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: [f32; 3],
+        value: &[f32; 3],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("Vector3").attr("name", name))?;
-        writer.write_tag_array(&value, &VECTOR3_TAGS)?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write_tag_array(value, &VECTOR3_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("Vector3")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         let x: f32 = reader.read_tag_contents("X")?.parse()?;
         let y: f32 = reader.read_tag_contents("Y")?.parse()?;
         let z: f32 = reader.read_tag_contents("Z")?.parse()?;
 
-        reader.expect_end_with_name("Vector3")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(RbxValue::Vector3 {
             value: [x, y, z],
@@ -98,22 +111,26 @@ pub mod vector3 {
     }
 }
 
-pub mod vector3int16 {
-    use super::*;
+pub struct Vector3int16;
 
-    pub fn serialize<W: Write>(
+impl XmlType<[i16; 3]> for Vector3int16 {
+    const XML_NAME: &'static str = "Vector3int16";
+
+    fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: [i16; 3],
+        value: &[i16; 3],
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element("Vector3int16").attr("name", name))?;
-        writer.write_tag_array(&value, &VECTOR3_TAGS)?;
+        writer.write_tag_array(value, &VECTOR3_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name("Vector3int16")?;
 
         let x: i16 = reader.read_tag_contents("X")?.parse()?;

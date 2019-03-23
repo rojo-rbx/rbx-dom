@@ -3,29 +3,34 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, XmlReadEvent, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
 static TAG_NAMES: [&str; 3] = ["R", "G", "B"];
 
-pub mod color3 {
-    use super::*;
+pub struct Color3;
 
-    pub fn serialize<W: Write>(
+impl XmlType<[f32; 3]> for Color3 {
+    const XML_NAME: &'static str = "Color3";
+
+    fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: [f32; 3],
+        value: &[f32; 3],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("Color3").attr("name", name))?;
-        writer.write_tag_array(&value, &TAG_NAMES)?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write_tag_array(value, &TAG_NAMES)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("Color3")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         // Color3s have two possibilities:
         // They are either a packed int (like Color3uint8) or they are a triple of
@@ -51,23 +56,25 @@ pub mod color3 {
             }
         };
 
-        reader.expect_end_with_name("Color3")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(value)
     }
 }
 
-pub mod color3uint8 {
-    use super::*;
+pub struct Color3uint8;
 
-    pub fn serialize<W: Write>(
+impl XmlType<[u8; 3]> for Color3uint8 {
+    const XML_NAME: &'static str = "Color3uint8";
+
+    fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: [u8; 3],
+        value: &[u8; 3],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("Color3uint8").attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
 
-        let encoded = encode_packed_color3(value);
+        let encoded = encode_packed_color3(*value);
         writer.write(XmlWriteEvent::characters(&encoded.to_string()))?;
 
         writer.write(XmlWriteEvent::end_element())?;
@@ -75,8 +82,10 @@ pub mod color3uint8 {
         Ok(())
     }
 
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("Color3uint8")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_NAME)?;
 
         // Color3uint8s are stored as packed u32s.
         let value = read_event!(reader, XmlReadEvent::Characters(content) => {
@@ -85,7 +94,7 @@ pub mod color3uint8 {
             }
         });
 
-        reader.expect_end_with_name("Color3uint8")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(value)
     }
