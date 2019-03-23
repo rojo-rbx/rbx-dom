@@ -3,33 +3,42 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{RbxId, RbxValue};
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    name: &str,
-    value: Option<RbxId>,
-) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("Ref").attr("name", name))?;
+pub struct Referent;
 
-    match value {
-        Some(value) => writer.write(XmlWriteEvent::characters(&value.to_string()))?,
-        None => writer.write(XmlWriteEvent::characters("null"))?,
+impl XmlType<Option<RbxId>> for Referent {
+    const XML_NAME: &'static str = "Ref";
+
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &Option<RbxId>,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+
+        match value {
+            Some(value) => writer.write(XmlWriteEvent::characters(&value.to_string()))?,
+            None => writer.write(XmlWriteEvent::characters("null"))?,
+        }
+
+        writer.write(XmlWriteEvent::end_element())?;
+
+        Ok(())
     }
 
-    writer.write(XmlWriteEvent::end_element())?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        let _ref_contents = reader.read_tag_contents(Self::XML_NAME)?;
 
-    Ok(())
-}
-
-pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    let _ref_contents = reader.read_tag_contents("Ref")?;
-
-    // TODO: Return a different type and use it to figure out the instance's
-    // actual rbx_dom_weak ID, which is separate from Roblox refs.
-    Ok(RbxValue::Ref { value: None })
+        // TODO: Return a different type and use it to figure out the instance's
+        // actual rbx_dom_weak ID, which is separate from Roblox refs.
+        Ok(RbxValue::Ref { value: None })
+    }
 }
 
 #[cfg(test)]

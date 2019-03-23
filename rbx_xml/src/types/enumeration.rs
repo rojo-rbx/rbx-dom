@@ -3,28 +3,37 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    name: &str,
-    value: u32,
-) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("token").attr("name", name))?;
-    writer.write(XmlWriteEvent::characters(&value.to_string()))?;
-    writer.write(XmlWriteEvent::end_element())?;
+pub struct Enumeration;
 
-    Ok(())
-}
+impl XmlType<u32> for Enumeration {
+    const XML_NAME: &'static str = "token";
 
-pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    let value: u32 = reader.read_tag_contents("token")?.parse()?;
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &u32,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::characters(&value.to_string()))?;
+        writer.write(XmlWriteEvent::end_element())?;
 
-    Ok(RbxValue::Enum {
-        value,
-    })
+        Ok(())
+    }
+
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        let value: u32 = reader.read_tag_contents(Self::XML_NAME)?.parse()?;
+
+        Ok(RbxValue::Enum {
+            value,
+        })
+    }
 }
 
 #[cfg(test)]

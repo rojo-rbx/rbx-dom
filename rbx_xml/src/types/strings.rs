@@ -18,7 +18,7 @@ impl XmlType<str> for String {
         name: &str,
         value: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element("string").attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
         writer.write(XmlWriteEvent::characters(&value))?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -28,23 +28,37 @@ impl XmlType<str> for String {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("string")?;
+        reader.expect_start_with_name(Self::XML_NAME)?;
         let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-        reader.expect_end_with_name("string")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(value)
     }
 }
 
-pub mod protected_string {
-    use super::*;
+pub struct ProtectedString;
 
-    // Protected strings are asymmetrical -- they deserialize to regular string
-    // values, since their existence is a historical artifact.
-    pub fn deserialize<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name("ProtectedString")?;
+impl XmlType<str> for ProtectedString {
+    const XML_NAME: &'static str = "ProtectedString";
+
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &str,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::characters(&value))?;
+        writer.write(XmlWriteEvent::end_element())?;
+
+        Ok(())
+    }
+
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_NAME)?;
         let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-        reader.expect_end_with_name("ProtectedString")?;
+        reader.expect_end_with_name(Self::XML_NAME)?;
 
         Ok(value)
     }

@@ -20,7 +20,7 @@ macro_rules! number_type {
                 name: &str,
                 value: &$rust_type,
             ) -> Result<(), EncodeError> {
-                writer.write(XmlWriteEvent::start_element($xml_name).attr("name", name))?;
+                writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
                 writer.write(XmlWriteEvent::characters(&value.to_string()))?;
                 writer.write(XmlWriteEvent::end_element())?;
 
@@ -30,7 +30,7 @@ macro_rules! number_type {
             fn read_xml<R: Read>(
                 reader: &mut EventIterator<R>,
             ) -> Result<RbxValue, DecodeError> {
-                let value: $rust_type = reader.read_tag_contents($xml_name)?.parse()?;
+                let value: $rust_type = reader.read_tag_contents(Self::XML_NAME)?.parse()?;
 
                 Ok(RbxValue::$rbx_type {
                     value,
