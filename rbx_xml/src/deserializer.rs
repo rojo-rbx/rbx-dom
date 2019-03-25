@@ -11,7 +11,7 @@ use xml::reader::{self, ParserConfig};
 
 use crate::{
     reflection::XML_TO_CANONICAL_NAME,
-    value::read_value_xml,
+    types::read_value_xml,
 };
 
 pub use xml::reader::XmlEvent as XmlReadEvent;

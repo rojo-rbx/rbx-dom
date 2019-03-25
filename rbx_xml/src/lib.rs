@@ -13,7 +13,6 @@ mod deserializer;
 mod serializer;
 mod types;
 mod reflection;
-mod value;
 
 pub use crate::{
     serializer::{encode, EncodeError},

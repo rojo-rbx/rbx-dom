@@ -10,7 +10,7 @@ use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
     reflection::CANONICAL_TO_XML_NAME,
-    value::write_value_xml,
+    types::write_value_xml,
 };
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
