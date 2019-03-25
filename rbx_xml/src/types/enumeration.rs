@@ -8,9 +8,9 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub struct Enumeration;
+pub struct Enum;
 
-impl XmlType<u32> for Enumeration {
+impl XmlType<u32> for Enum {
     const XML_NAME: &'static str = "token";
 
     fn write_xml<W: Write>(
@@ -48,13 +48,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Enumeration::write_xml(&mut writer, "foo", &test_input).unwrap();
+        Enum::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Enumeration::read_xml(&mut reader).unwrap();
+        let value = Enum::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Enum {
             value: test_input,
