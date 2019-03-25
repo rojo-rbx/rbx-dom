@@ -3,26 +3,35 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{PhysicalProperties, RbxValue};
 
 use crate::{
+    core::XmlType,
     serializer::{EncodeError, XmlEventWriter},
     deserializer::{DecodeError, EventIterator},
 };
 
-pub fn deserialize_physical_properties<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    // TODO: Actually read properties
+pub struct PhysicalPropertiesType;
 
-    reader.eat_unknown_tag()?;
+impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
+    const XML_TAG_NAME: &'static str = "PhysicalProperties";
 
-    Ok(RbxValue::PhysicalProperties {
-        value: None,
-    })
-}
+    fn write_xml<W: Write>(
+        _writer: &mut XmlEventWriter<W>,
+        _name: &str,
+        _value: &Option<PhysicalProperties>,
+    ) -> Result<(), EncodeError> {
+        // TODO: Serialize data once it exists
 
-pub fn serialize_physical_properties<W: Write>(
-    _writer: &mut XmlEventWriter<W>,
-    _name: &str,
-    _value: Option<PhysicalProperties>,
-) -> Result<(), EncodeError> {
-    // TODO: Serialize data once it exists
+        Ok(())
+    }
 
-    Ok(())
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        // TODO: Actually read properties
+
+        reader.eat_unknown_tag()?;
+
+        Ok(RbxValue::PhysicalProperties {
+            value: None,
+        })
+    }
 }

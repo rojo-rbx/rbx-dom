@@ -5,35 +5,13 @@ use std::{
 };
 
 use failure::Fail;
-use log::{trace, warn};
+use log::trace;
 use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
     reflection::XML_TO_CANONICAL_NAME,
-    types::{
-        float32,
-        float64,
-        int32,
-        int64,
-        deserialize_binary_string,
-        deserialize_bool,
-        deserialize_cframe,
-        deserialize_color3,
-        deserialize_color3uint8,
-        deserialize_content,
-        deserialize_enum,
-        deserialize_physical_properties,
-        deserialize_protected_string,
-        deserialize_ref,
-        deserialize_string,
-        deserialize_udim,
-        deserialize_udim2,
-        deserialize_vector2,
-        deserialize_vector2int16,
-        deserialize_vector3,
-        deserialize_vector3int16,
-    },
+    types::read_value_xml,
 };
 
 pub use xml::reader::XmlEvent as XmlReadEvent;
@@ -454,33 +432,7 @@ fn deserialize_properties<R: Read>(
             .map(|value| value.to_string())
             .unwrap_or(xml_property_name);
 
-        let value = match property_type.as_str() {
-            "BinaryString" => deserialize_binary_string(reader)?,
-            "bool" => deserialize_bool(reader)?,
-            "Color3" => deserialize_color3(reader)?,
-            "Color3uint8" => deserialize_color3uint8(reader)?,
-            "Content" => deserialize_content(reader)?,
-            "CoordinateFrame" => deserialize_cframe(reader)?,
-            "double" => float64::deserialize(reader)?,
-            "float" => float32::deserialize(reader)?,
-            "int" => int32::deserialize(reader)?,
-            "int64" => int64::deserialize(reader)?,
-            "PhysicalProperties" => deserialize_physical_properties(reader)?,
-            "ProtectedString" => deserialize_protected_string(reader)?,
-            "Ref" => deserialize_ref(reader)?,
-            "string" => deserialize_string(reader)?,
-            "token" => deserialize_enum(reader)?,
-            "UDim" => deserialize_udim(reader)?,
-            "UDim2" => deserialize_udim2(reader)?,
-            "Vector2" => deserialize_vector2(reader)?,
-            "Vector2int16" => deserialize_vector2int16(reader)?,
-            "Vector3" => deserialize_vector3(reader)?,
-            "Vector3int16" => deserialize_vector3int16(reader)?,
-            unknown => {
-                warn!("rbx_xml can't decode properties of type {}", unknown);
-                return Err(DecodeError::Message("don't know how to decode this prop type"));
-            },
-        };
+        let value = read_value_xml(reader, &property_type)?;
 
         props.insert(canonical_name, value);
     }

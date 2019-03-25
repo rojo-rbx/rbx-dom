@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::RbxValue;
+use rbx_dom_weak::{RbxId, RbxValue};
 
 use crate::{
     core::XmlType,
@@ -8,18 +8,23 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub struct EnumType;
+pub struct RefType;
 
-impl XmlType<u32> for EnumType {
-    const XML_TAG_NAME: &'static str = "token";
+impl XmlType<Option<RbxId>> for RefType {
+    const XML_TAG_NAME: &'static str = "Ref";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: &u32,
+        value: &Option<RbxId>,
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write(XmlWriteEvent::characters(&value.to_string()))?;
+
+        match value {
+            Some(value) => writer.write(XmlWriteEvent::characters(&value.to_string()))?,
+            None => writer.write(XmlWriteEvent::characters("null"))?,
+        }
+
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
@@ -28,11 +33,11 @@ impl XmlType<u32> for EnumType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        let value: u32 = reader.read_tag_contents(Self::XML_TAG_NAME)?.parse()?;
+        let _ref_contents = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::Enum {
-            value,
-        })
+        // TODO: Return a different type and use it to figure out the instance's
+        // actual rbx_dom_weak ID, which is separate from Roblox refs.
+        Ok(RbxValue::Ref { value: None })
     }
 }
 
@@ -41,22 +46,21 @@ mod test {
     use super::*;
 
     #[test]
-    fn round_trip() {
+    fn round_trip_ref_none() {
         let _ = env_logger::try_init();
 
-        let test_input: u32 = 4654321;
+        let test_input: Option<RbxId> = None;
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        EnumType::write_xml(&mut writer, "foo", &test_input).unwrap();
-
+        RefType::write_xml(&mut writer, "foo", &test_input).unwrap();
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = EnumType::read_xml(&mut reader).unwrap();
+        let value = RefType::read_xml(&mut reader).unwrap();
 
-        assert_eq!(value, RbxValue::Enum {
+        assert_eq!(value, RbxValue::Ref {
             value: test_input,
         });
     }

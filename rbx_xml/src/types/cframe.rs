@@ -3,39 +3,49 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
+    core::XmlType,
     deserializer::{DecodeError, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
 static TAG_NAMES: [&str; 12] = ["X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22"];
 
-pub fn serialize_cframe<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    name: &str,
-    value: [f32; 12],
-) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("CoordinateFrame").attr("name", name))?;
-    writer.write_tag_array(&value, &TAG_NAMES)?;
-    writer.write(XmlWriteEvent::end_element())?;
+pub struct CFrameType;
+type CFrameValue = [f32; 12];
 
-    Ok(())
-}
+impl XmlType<CFrameValue> for CFrameType {
+    const XML_TAG_NAME: &'static str = "CoordinateFrame";
 
-pub fn deserialize_cframe<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    reader.expect_start_with_name("CoordinateFrame")?;
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &CFrameValue,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
+        writer.write_tag_array(value, &TAG_NAMES)?;
+        writer.write(XmlWriteEvent::end_element())?;
 
-    let mut components = [0.0; 12];
-
-    for index in 0..12 {
-        let tag_name = TAG_NAMES[index];
-        components[index] = reader.read_tag_contents(tag_name)?.parse()?;
+        Ok(())
     }
 
-    reader.expect_end_with_name("CoordinateFrame")?;
+    fn read_xml<R: Read>(
+        reader: &mut EventIterator<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-    Ok(RbxValue::CFrame {
-        value: components,
-    })
+        let mut components = [0.0; 12];
+
+        for index in 0..12 {
+            let tag_name = TAG_NAMES[index];
+            components[index] = reader.read_tag_contents(tag_name)?.parse()?;
+        }
+
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
+
+        Ok(RbxValue::CFrame {
+            value: components,
+        })
+    }
 }
 
 #[cfg(test)]
@@ -55,13 +65,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_cframe(&mut writer, "foo", test_input).unwrap();
+        CFrameType::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_cframe(&mut reader).unwrap();
+        let value = CFrameType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::CFrame {
             value: test_input,

@@ -4,35 +4,13 @@ use std::{
     fmt::Write as FmtWrite,
 };
 
-use log::warn;
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
     reflection::CANONICAL_TO_XML_NAME,
-    types::{
-        float32,
-        float64,
-        int32,
-        int64,
-        serialize_binary_string,
-        serialize_bool,
-        serialize_cframe,
-        serialize_color3,
-        serialize_color3uint8,
-        serialize_content,
-        serialize_enum,
-        serialize_physical_properties,
-        serialize_ref,
-        serialize_string,
-        serialize_udim,
-        serialize_udim2,
-        serialize_vector2,
-        serialize_vector2int16,
-        serialize_vector3,
-        serialize_vector3int16,
-    },
+    types::write_value_xml,
 };
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
@@ -161,33 +139,7 @@ fn serialize_value<W: Write>(
         .get(canonical_name)
         .unwrap_or(&canonical_name);
 
-    match value {
-        RbxValue::BinaryString { value } => serialize_binary_string(writer, xml_name, value),
-        RbxValue::Bool { value } => serialize_bool(writer, xml_name, *value),
-        RbxValue::CFrame { value } => serialize_cframe(writer, xml_name, *value),
-        RbxValue::Color3 { value } => serialize_color3(writer, xml_name, *value),
-        RbxValue::Color3uint8 { value } => serialize_color3uint8(writer, xml_name, *value),
-        RbxValue::Content { value } => serialize_content(writer, xml_name, value),
-        RbxValue::Enum { value } => serialize_enum(writer, xml_name, *value),
-        RbxValue::Float32 { value } => float32::serialize(writer, xml_name, *value),
-        RbxValue::Float64 { value } => float64::serialize(writer, xml_name, *value),
-        RbxValue::Int32 { value } => int32::serialize(writer, xml_name, *value),
-        RbxValue::Int64 { value } => int64::serialize(writer, xml_name, *value),
-        RbxValue::PhysicalProperties { value } => serialize_physical_properties(writer, xml_name, *value),
-        RbxValue::Ref { value } => serialize_ref(writer, xml_name, *value),
-        RbxValue::String { value } => serialize_string(writer, xml_name, value),
-        RbxValue::UDim { value } => serialize_udim(writer, xml_name, *value),
-        RbxValue::UDim2 { value } => serialize_udim2(writer, xml_name, *value),
-        RbxValue::Vector2 { value } => serialize_vector2(writer, xml_name, *value),
-        RbxValue::Vector2int16 { value } => serialize_vector2int16(writer, xml_name, *value),
-        RbxValue::Vector3 { value } => serialize_vector3(writer, xml_name, *value),
-        RbxValue::Vector3int16 { value } => serialize_vector3int16(writer, xml_name, *value),
-
-        unknown => {
-            warn!("Property value {:?} cannot be serialized yet", unknown);
-            unimplemented!();
-        },
-    }
+    write_value_xml(writer, xml_name, value)
 }
 
 fn serialize_instance<W: Write>(
