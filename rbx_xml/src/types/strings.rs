@@ -11,14 +11,14 @@ use crate::{
 pub struct StringType;
 
 impl XmlType<str> for StringType {
-    const XML_NAME: &'static str = "string";
+    const XML_TAG_NAME: &'static str = "string";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write(XmlWriteEvent::characters(&value))?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -28,9 +28,9 @@ impl XmlType<str> for StringType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
         let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(value)
     }
@@ -39,14 +39,14 @@ impl XmlType<str> for StringType {
 pub struct ProtectedStringType;
 
 impl XmlType<str> for ProtectedStringType {
-    const XML_NAME: &'static str = "ProtectedString";
+    const XML_TAG_NAME: &'static str = "ProtectedString";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write(XmlWriteEvent::characters(&value))?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -56,9 +56,9 @@ impl XmlType<str> for ProtectedStringType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
         let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(value)
     }

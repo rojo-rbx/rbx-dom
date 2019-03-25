@@ -11,7 +11,7 @@ use crate::{
 pub struct PhysicalPropertiesType;
 
 impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
-    const XML_NAME: &'static str = "PhysicalProperties";
+    const XML_TAG_NAME: &'static str = "PhysicalProperties";
 
     fn write_xml<W: Write>(
         _writer: &mut XmlEventWriter<W>,

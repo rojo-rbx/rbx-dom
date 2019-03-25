@@ -14,14 +14,14 @@ static VECTOR3_TAGS: [&str; 3] = ["X", "Y", "Z"];
 pub struct Vector2Type;
 
 impl XmlType<[f32; 2]> for Vector2Type {
-    const XML_NAME: &'static str = "Vector2";
+    const XML_TAG_NAME: &'static str = "Vector2";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &[f32; 2],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write_tag_array(value, &VECTOR2_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -31,12 +31,12 @@ impl XmlType<[f32; 2]> for Vector2Type {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x: f32 = reader.read_tag_contents("X")?.parse()?;
         let y: f32 = reader.read_tag_contents("Y")?.parse()?;
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::Vector2 {
             value: [x, y],
@@ -47,14 +47,14 @@ impl XmlType<[f32; 2]> for Vector2Type {
 pub struct Vector2int16Type;
 
 impl XmlType<[i16; 2]> for Vector2int16Type {
-    const XML_NAME: &'static str = "Vector2int16";
+    const XML_TAG_NAME: &'static str = "Vector2int16";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &[i16; 2],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write_tag_array(value, &VECTOR2_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -64,12 +64,12 @@ impl XmlType<[i16; 2]> for Vector2int16Type {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x: i16 = reader.read_tag_contents("X")?.parse()?;
         let y: i16 = reader.read_tag_contents("Y")?.parse()?;
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::Vector2int16 {
             value: [x, y],
@@ -80,14 +80,14 @@ impl XmlType<[i16; 2]> for Vector2int16Type {
 pub struct Vector3Type;
 
 impl XmlType<[f32; 3]> for Vector3Type {
-    const XML_NAME: &'static str = "Vector3";
+    const XML_TAG_NAME: &'static str = "Vector3";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &[f32; 3],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write_tag_array(value, &VECTOR3_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -97,13 +97,13 @@ impl XmlType<[f32; 3]> for Vector3Type {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x: f32 = reader.read_tag_contents("X")?.parse()?;
         let y: f32 = reader.read_tag_contents("Y")?.parse()?;
         let z: f32 = reader.read_tag_contents("Z")?.parse()?;
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::Vector3 {
             value: [x, y, z],
@@ -114,14 +114,14 @@ impl XmlType<[f32; 3]> for Vector3Type {
 pub struct Vector3int16Type;
 
 impl XmlType<[i16; 3]> for Vector3int16Type {
-    const XML_NAME: &'static str = "Vector3int16";
+    const XML_TAG_NAME: &'static str = "Vector3int16";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &[i16; 3],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write_tag_array(value, &VECTOR3_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -131,13 +131,13 @@ impl XmlType<[i16; 3]> for Vector3int16Type {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x: i16 = reader.read_tag_contents("X")?.parse()?;
         let y: i16 = reader.read_tag_contents("Y")?.parse()?;
         let z: i16 = reader.read_tag_contents("Z")?.parse()?;
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::Vector3int16 {
             value: [x, y, z],

@@ -13,14 +13,14 @@ macro_rules! number_type {
         pub struct $type_struct;
 
         impl XmlType<$rust_type> for $type_struct {
-            const XML_NAME: &'static str = $xml_name;
+            const XML_TAG_NAME: &'static str = $xml_name;
 
             fn write_xml<W: Write>(
                 writer: &mut XmlEventWriter<W>,
                 name: &str,
                 value: &$rust_type,
             ) -> Result<(), EncodeError> {
-                writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+                writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
                 writer.write(XmlWriteEvent::characters(&value.to_string()))?;
                 writer.write(XmlWriteEvent::end_element())?;
 
@@ -30,7 +30,7 @@ macro_rules! number_type {
             fn read_xml<R: Read>(
                 reader: &mut EventIterator<R>,
             ) -> Result<RbxValue, DecodeError> {
-                let value: $rust_type = reader.read_tag_contents(Self::XML_NAME)?.parse()?;
+                let value: $rust_type = reader.read_tag_contents(Self::XML_TAG_NAME)?.parse()?;
 
                 Ok(RbxValue::$rbx_type {
                     value,

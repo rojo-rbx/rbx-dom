@@ -35,7 +35,7 @@ use crate::{
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
 /// `write_value_xml`.
 macro_rules! declare_rbx_types {
-    { $($rbx_type: ident => $typedef: path),* } => {
+    { $($typedef: path => $rbx_type: ident),* } => {
 
         /// Reads a Roblox property value with the given type from the XML event
         /// stream.
@@ -44,10 +44,10 @@ macro_rules! declare_rbx_types {
             xml_type_name: &str,
         ) -> Result<RbxValue, DecodeError> {
             match xml_type_name {
-                $(<$typedef>::XML_NAME => <$typedef>::read_xml(reader),)*
+                $(<$typedef>::XML_TAG_NAME => <$typedef>::read_xml(reader),)*
 
                 // Protected strings are only read, never written
-                self::strings::ProtectedStringType::XML_NAME => self::strings::ProtectedStringType::read_xml(reader),
+                self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
 
                 unknown => {
                     warn!("Properties of type {:?} cannot be deserialized yet", unknown);

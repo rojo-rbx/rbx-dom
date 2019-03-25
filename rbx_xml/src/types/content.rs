@@ -11,14 +11,14 @@ use crate::{
 pub struct ContentType;
 
 impl XmlType<str> for ContentType {
-    const XML_NAME: &'static str = "Content";
+    const XML_TAG_NAME: &'static str = "Content";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
         if value.len() == 0 {
             // This doesn't feel like a great XML idiom
@@ -38,7 +38,7 @@ impl XmlType<str> for ContentType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let value = read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
             match name.local_name.as_str() {
@@ -57,7 +57,7 @@ impl XmlType<str> for ContentType {
             }
         });
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::Content { value })
     }

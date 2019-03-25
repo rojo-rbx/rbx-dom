@@ -11,14 +11,14 @@ use crate::{
 pub struct RefType;
 
 impl XmlType<Option<RbxId>> for RefType {
-    const XML_NAME: &'static str = "Ref";
+    const XML_TAG_NAME: &'static str = "Ref";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &Option<RbxId>,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
         match value {
             Some(value) => writer.write(XmlWriteEvent::characters(&value.to_string()))?,
@@ -33,7 +33,7 @@ impl XmlType<Option<RbxId>> for RefType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        let _ref_contents = reader.read_tag_contents(Self::XML_NAME)?;
+        let _ref_contents = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 
         // TODO: Return a different type and use it to figure out the instance's
         // actual rbx_dom_weak ID, which is separate from Roblox refs.

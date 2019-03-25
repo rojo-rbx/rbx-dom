@@ -14,14 +14,14 @@ pub struct CFrameType;
 type CFrameValue = [f32; 12];
 
 impl XmlType<CFrameValue> for CFrameType {
-    const XML_NAME: &'static str = "CoordinateFrame";
+    const XML_TAG_NAME: &'static str = "CoordinateFrame";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &CFrameValue,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write_tag_array(value, &TAG_NAMES)?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -31,7 +31,7 @@ impl XmlType<CFrameValue> for CFrameType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let mut components = [0.0; 12];
 
@@ -40,7 +40,7 @@ impl XmlType<CFrameValue> for CFrameType {
             components[index] = reader.read_tag_contents(tag_name)?.parse()?;
         }
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::CFrame {
             value: components,

@@ -13,14 +13,14 @@ static TAG_NAMES: [&str; 3] = ["R", "G", "B"];
 pub struct Color3Type;
 
 impl XmlType<[f32; 3]> for Color3Type {
-    const XML_NAME: &'static str = "Color3";
+    const XML_TAG_NAME: &'static str = "Color3";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &[f32; 3],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write_tag_array(value, &TAG_NAMES)?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -30,7 +30,7 @@ impl XmlType<[f32; 3]> for Color3Type {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         // Color3s have two possibilities:
         // They are either a packed int (like Color3uint8) or they are a triple of
@@ -56,7 +56,7 @@ impl XmlType<[f32; 3]> for Color3Type {
             }
         };
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(value)
     }
@@ -65,14 +65,14 @@ impl XmlType<[f32; 3]> for Color3Type {
 pub struct Color3uint8Type;
 
 impl XmlType<[u8; 3]> for Color3uint8Type {
-    const XML_NAME: &'static str = "Color3uint8";
+    const XML_TAG_NAME: &'static str = "Color3uint8";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &[u8; 3],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
         let encoded = encode_packed_color3(*value);
         writer.write(XmlWriteEvent::characters(&encoded.to_string()))?;
@@ -85,7 +85,7 @@ impl XmlType<[u8; 3]> for Color3uint8Type {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         // Color3uint8s are stored as packed u32s.
         let value = read_event!(reader, XmlReadEvent::Characters(content) => {
@@ -94,7 +94,7 @@ impl XmlType<[u8; 3]> for Color3uint8Type {
             }
         });
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(value)
     }

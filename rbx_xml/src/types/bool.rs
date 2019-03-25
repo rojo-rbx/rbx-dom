@@ -11,14 +11,14 @@ use crate::{
 pub struct BoolType;
 
 impl XmlType<bool> for BoolType {
-    const XML_NAME: &'static str = "bool";
+    const XML_TAG_NAME: &'static str = "bool";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &bool,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
         let value_as_str = if *value {
             "true"
@@ -35,7 +35,7 @@ impl XmlType<bool> for BoolType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let value = read_event!(reader, XmlReadEvent::Characters(content) => {
             match content.as_str() {
@@ -45,7 +45,7 @@ impl XmlType<bool> for BoolType {
             }
         });
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::Bool {
             value

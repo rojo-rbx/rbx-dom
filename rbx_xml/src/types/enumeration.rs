@@ -11,14 +11,14 @@ use crate::{
 pub struct EnumType;
 
 impl XmlType<u32> for EnumType {
-    const XML_NAME: &'static str = "token";
+    const XML_TAG_NAME: &'static str = "token";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &u32,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write(XmlWriteEvent::characters(&value.to_string()))?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -28,7 +28,7 @@ impl XmlType<u32> for EnumType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        let value: u32 = reader.read_tag_contents(Self::XML_NAME)?.parse()?;
+        let value: u32 = reader.read_tag_contents(Self::XML_TAG_NAME)?.parse()?;
 
         Ok(RbxValue::Enum {
             value,

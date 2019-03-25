@@ -8,7 +8,7 @@ use crate::{
 };
 
 pub trait XmlType<T: ?Sized> {
-    const XML_NAME: &'static str;
+    const XML_TAG_NAME: &'static str;
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,

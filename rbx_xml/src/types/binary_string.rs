@@ -11,14 +11,14 @@ use crate::{
 pub struct BinaryStringType;
 
 impl XmlType<[u8]> for BinaryStringType {
-    const XML_NAME: &'static str = "BinaryString";
+    const XML_TAG_NAME: &'static str = "BinaryString";
 
     fn write_xml<W: Write>(
         writer: &mut XmlEventWriter<W>,
         name: &str,
         value: &[u8],
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_NAME).attr("name", name))?;
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write(XmlWriteEvent::cdata(&base64::encode(value)))?;
         writer.write(XmlWriteEvent::end_element())?;
 
@@ -28,12 +28,12 @@ impl XmlType<[u8]> for BinaryStringType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_NAME)?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let contents = match reader.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
             XmlReadEvent::Characters(contents) => contents,
             XmlReadEvent::EndElement { name } => {
-                if name.local_name == Self::XML_NAME {
+                if name.local_name == Self::XML_TAG_NAME {
                     return Ok(RbxValue::BinaryString {
                         value: Vec::new()
                     });
@@ -44,7 +44,7 @@ impl XmlType<[u8]> for BinaryStringType {
             _ => return Err(DecodeError::Message("Unexpected stuff in BinaryString")),
         };
 
-        reader.expect_end_with_name(Self::XML_NAME)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         // Roblox wraps base64 BinaryString data at the 72 byte mark. The base64
         // crate doesn't like that very much.
