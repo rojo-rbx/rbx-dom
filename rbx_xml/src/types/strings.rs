@@ -8,9 +8,9 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub struct String;
+pub struct StringType;
 
-impl XmlType<str> for String {
+impl XmlType<str> for StringType {
     const XML_NAME: &'static str = "string";
 
     fn write_xml<W: Write>(
@@ -36,9 +36,9 @@ impl XmlType<str> for String {
     }
 }
 
-pub struct ProtectedString;
+pub struct ProtectedStringType;
 
-impl XmlType<str> for ProtectedString {
+impl XmlType<str> for ProtectedStringType {
     const XML_NAME: &'static str = "ProtectedString";
 
     fn write_xml<W: Write>(
@@ -77,13 +77,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        String::write_xml(&mut writer, "foo", test_value).unwrap();
+        StringType::write_xml(&mut writer, "foo", test_value).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = String::read_xml(&mut reader).unwrap();
+        let value = StringType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::String {
             value: test_value.to_owned(),
@@ -99,7 +99,7 @@ mod test {
 
         let mut reader = EventIterator::from_source(source.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = ProtectedString::read_xml(&mut reader).unwrap();
+        let value = ProtectedStringType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::String {
             value: test_value.to_owned(),

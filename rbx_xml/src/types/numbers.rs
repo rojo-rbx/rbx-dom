@@ -9,10 +9,10 @@ use crate::{
 };
 
 macro_rules! number_type {
-    ($rbx_type: ident, $rust_type: ty, $xml_name: expr) => {
-        pub struct $rbx_type;
+    ($rbx_type: ident, $type_struct: ident, $rust_type: ty, $xml_name: expr) => {
+        pub struct $type_struct;
 
-        impl XmlType<$rust_type> for $rbx_type {
+        impl XmlType<$rust_type> for $type_struct {
             const XML_NAME: &'static str = $xml_name;
 
             fn write_xml<W: Write>(
@@ -40,10 +40,10 @@ macro_rules! number_type {
     };
 }
 
-number_type!(Float32, f32, "float");
-number_type!(Float64, f64, "double");
-number_type!(Int32, i32, "int");
-number_type!(Int64, i64, "int64");
+number_type!(Float32, Float32Type, f32, "float");
+number_type!(Float64, Float64Type, f64, "double");
+number_type!(Int32, Int32Type, i32, "int");
+number_type!(Int64, Int64Type, i64, "int64");
 
 #[cfg(test)]
 mod test {
@@ -57,13 +57,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Float32::write_xml(&mut writer, "foo", &test_input).unwrap();
+        Float32Type::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Float32::read_xml(&mut reader).unwrap();
+        let value = Float32Type::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Float32 {
             value: test_input,
@@ -78,13 +78,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Float64::write_xml(&mut writer, "foo", &test_input).unwrap();
+        Float64Type::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Float64::read_xml(&mut reader).unwrap();
+        let value = Float64Type::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Float64 {
             value: test_input,
@@ -99,13 +99,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Int32::write_xml(&mut writer, "foo", &test_input).unwrap();
+        Int32Type::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Int32::read_xml(&mut reader).unwrap();
+        let value = Int32Type::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Int32 {
             value: test_input,
@@ -120,13 +120,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Int64::write_xml(&mut writer, "foo", &test_input).unwrap();
+        Int64Type::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Int64::read_xml(&mut reader).unwrap();
+        let value = Int64Type::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Int64 {
             value: test_input,

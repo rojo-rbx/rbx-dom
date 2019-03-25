@@ -10,9 +10,9 @@ use crate::{
 
 static TAG_NAMES: [&str; 3] = ["R", "G", "B"];
 
-pub struct Color3;
+pub struct Color3Type;
 
-impl XmlType<[f32; 3]> for Color3 {
+impl XmlType<[f32; 3]> for Color3Type {
     const XML_NAME: &'static str = "Color3";
 
     fn write_xml<W: Write>(
@@ -62,9 +62,9 @@ impl XmlType<[f32; 3]> for Color3 {
     }
 }
 
-pub struct Color3uint8;
+pub struct Color3uint8Type;
 
-impl XmlType<[u8; 3]> for Color3uint8 {
+impl XmlType<[u8; 3]> for Color3uint8Type {
     const XML_NAME: &'static str = "Color3uint8";
 
     fn write_xml<W: Write>(

@@ -8,9 +8,9 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub struct Ref;
+pub struct RefType;
 
-impl XmlType<Option<RbxId>> for Ref {
+impl XmlType<Option<RbxId>> for RefType {
     const XML_NAME: &'static str = "Ref";
 
     fn write_xml<W: Write>(
@@ -53,12 +53,12 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Ref::write_xml(&mut writer, "foo", &test_input).unwrap();
+        RefType::write_xml(&mut writer, "foo", &test_input).unwrap();
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Ref::read_xml(&mut reader).unwrap();
+        let value = RefType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Ref {
             value: test_input,

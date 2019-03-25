@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{PhysicalProperties as RbxPhysicalProperties, RbxValue};
+use rbx_dom_weak::{PhysicalProperties, RbxValue};
 
 use crate::{
     core::XmlType,
@@ -8,15 +8,15 @@ use crate::{
     deserializer::{DecodeError, EventIterator},
 };
 
-pub struct PhysicalProperties;
+pub struct PhysicalPropertiesType;
 
-impl XmlType<Option<RbxPhysicalProperties>> for PhysicalProperties {
+impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
     const XML_NAME: &'static str = "PhysicalProperties";
 
     fn write_xml<W: Write>(
         _writer: &mut XmlEventWriter<W>,
         _name: &str,
-        _value: &Option<RbxPhysicalProperties>,
+        _value: &Option<PhysicalProperties>,
     ) -> Result<(), EncodeError> {
         // TODO: Serialize data once it exists
 

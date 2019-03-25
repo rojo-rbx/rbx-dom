@@ -8,10 +8,10 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub struct UDim;
+pub struct UDimType;
 type UDimValue = (f32, i32);
 
-impl XmlType<UDimValue> for UDim {
+impl XmlType<UDimValue> for UDimType {
     const XML_NAME: &'static str = "UDim";
 
     fn write_xml<W: Write>(
@@ -45,10 +45,10 @@ impl XmlType<UDimValue> for UDim {
     }
 }
 
-pub struct UDim2;
+pub struct UDim2Type;
 type UDim2Value = (f32, i32, f32, i32);
 
-impl XmlType<UDim2Value> for UDim2 {
+impl XmlType<UDim2Value> for UDim2Type {
     const XML_NAME: &'static str = "UDim2";
 
     fn write_xml<W: Write>(
@@ -98,11 +98,11 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        UDim::write_xml(&mut writer, "foo", &test_input).unwrap();
+        UDimType::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = UDim::read_xml(&mut reader).unwrap();
+        let value = UDimType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::UDim {
             value: test_input,
@@ -117,11 +117,11 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        UDim2::write_xml(&mut writer, "foo", &test_input).unwrap();
+        UDim2Type::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = UDim2::read_xml(&mut reader).unwrap();
+        let value = UDim2Type::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::UDim2 {
             value: test_input,
@@ -141,7 +141,7 @@ mod test {
 
         let mut reader = EventIterator::from_source(buffer.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = UDim::read_xml(&mut reader).unwrap();
+        let value = UDimType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::UDim {
             value: (0.5, 1),
@@ -163,7 +163,7 @@ mod test {
 
         let mut reader = EventIterator::from_source(buffer.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = UDim2::read_xml(&mut reader).unwrap();
+        let value = UDim2Type::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::UDim2 {
             value: (0.5, 1, 1.5, 2),

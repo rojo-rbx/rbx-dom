@@ -10,10 +10,10 @@ use crate::{
 
 static TAG_NAMES: [&str; 12] = ["X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22"];
 
-pub struct CFrame;
+pub struct CFrameType;
 type CFrameValue = [f32; 12];
 
-impl XmlType<CFrameValue> for CFrame {
+impl XmlType<CFrameValue> for CFrameType {
     const XML_NAME: &'static str = "CoordinateFrame";
 
     fn write_xml<W: Write>(
@@ -65,13 +65,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        CFrame::write_xml(&mut writer, "foo", &test_input).unwrap();
+        CFrameType::write_xml(&mut writer, "foo", &test_input).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = CFrame::read_xml(&mut reader).unwrap();
+        let value = CFrameType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::CFrame {
             value: test_input,

@@ -8,9 +8,9 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub struct Bool;
+pub struct BoolType;
 
-impl XmlType<bool> for Bool {
+impl XmlType<bool> for BoolType {
     const XML_NAME: &'static str = "bool";
 
     fn write_xml<W: Write>(
@@ -64,13 +64,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Bool::write_xml(&mut writer, "foo", &true).unwrap();
+        BoolType::write_xml(&mut writer, "foo", &true).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Bool::read_xml(&mut reader).unwrap();
+        let value = BoolType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Bool {
             value: true,

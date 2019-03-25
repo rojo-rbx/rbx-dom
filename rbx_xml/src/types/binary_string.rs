@@ -8,9 +8,9 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub struct BinaryString;
+pub struct BinaryStringType;
 
-impl XmlType<[u8]> for BinaryString {
+impl XmlType<[u8]> for BinaryStringType {
     const XML_NAME: &'static str = "BinaryString";
 
     fn write_xml<W: Write>(
@@ -71,13 +71,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        BinaryString::write_xml(&mut writer, "foo", TEST_VALUE).unwrap();
+        BinaryStringType::write_xml(&mut writer, "foo", TEST_VALUE).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = BinaryString::read_xml(&mut reader).unwrap();
+        let value = BinaryStringType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::BinaryString {
             value: TEST_VALUE.to_owned(),

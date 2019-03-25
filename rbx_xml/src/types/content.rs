@@ -8,9 +8,9 @@ use crate::{
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub struct Content;
+pub struct ContentType;
 
-impl XmlType<str> for Content {
+impl XmlType<str> for ContentType {
     const XML_NAME: &'static str = "Content";
 
     fn write_xml<W: Write>(
@@ -76,13 +76,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Content::write_xml(&mut writer, "foo", test_value).unwrap();
+        ContentType::write_xml(&mut writer, "foo", test_value).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Content::read_xml(&mut reader).unwrap();
+        let value = ContentType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Content {
             value: test_value.to_owned(),
@@ -98,13 +98,13 @@ mod test {
         let mut buffer = Vec::new();
 
         let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Content::write_xml(&mut writer, "foo", test_value).unwrap();
+        ContentType::write_xml(&mut writer, "foo", test_value).unwrap();
 
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
         let mut reader = EventIterator::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Content::read_xml(&mut reader).unwrap();
+        let value = ContentType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Content {
             value: test_value.to_owned(),
@@ -121,7 +121,7 @@ mod test {
 
         let mut reader = EventIterator::from_source(buffer.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Content::read_xml(&mut reader).unwrap();
+        let value = ContentType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Content {
             value: String::from("Some URL"),
@@ -138,7 +138,7 @@ mod test {
 
         let mut reader = EventIterator::from_source(buffer.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Content::read_xml(&mut reader).unwrap();
+        let value = ContentType::read_xml(&mut reader).unwrap();
 
         assert_eq!(value, RbxValue::Content {
             value: String::new(),
