@@ -40,7 +40,7 @@ Roblox reflection information for working with Instances in external tooling.
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ❌ |
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ❌ |
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ❌ |
-| ColorSequence      | `Beam.Color`                    | ✔ | ❌ | ❌ |
+| ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ❌ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ❌ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
 | Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
@@ -48,8 +48,8 @@ Roblox reflection information for working with Instances in external tooling.
 | Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ❌ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
 | Int64              | `Player.UserId`                 | ✔ | ✔ | ❌ |
-| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ❌ | ❌ |
-| NumberSequence     | `Beam.Transparency`             | ✔ | ❌ | ❌ |
+| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ❌ |
+| NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ❌ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ➖ | ❌ |
 | ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |
 | QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ |

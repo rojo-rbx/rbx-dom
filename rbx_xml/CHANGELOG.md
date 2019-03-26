@@ -2,7 +2,7 @@
 
 ## Unreleased
 * Added support for new types:
-	* `Rect` ([#23](https://github.com/LPGhatguy/rbx-dom/pull/23))
+	* `Rect`, `NumberRange`, `NumberSequence`, and `ColorSequence` ([#23](https://github.com/LPGhatguy/rbx-dom/pull/23))
 	* `Int64` and `Float64` ([#15](https://github.com/LPGhatguy/rbx-dom/pull/15))
 * Improved handling of many XML idioms and whitespace ([#17](https://github.com/LPGhatguy/rbx-dom/pull/17), [#19](https://github.com/LPGhatguy/rbx-dom/pull/19))
 
