@@ -52,29 +52,22 @@ impl XmlType<CFrameValue> for CFrameType {
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
     fn round_trip() {
-        let _ = env_logger::try_init();
-
         let test_input: [f32; 12] = [
             123.0, 456.0, 789.0,
             987.0, 654.0, 432.0,
             210.0, 0.0, -12345.0,
             765.0, 234.0, 123123.0,
         ];
-        let mut buffer = Vec::new();
 
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        CFrameType::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = CFrameType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::CFrame {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<CFrameType, _>(
+            &test_input,
+            RbxValue::CFrame {
+                value: test_input,
+            }
+        );
     }
 }
