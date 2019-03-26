@@ -90,83 +90,61 @@ impl XmlType<UDim2Value> for UDim2Type {
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
     fn round_trip_udim() {
-        let _ = env_logger::try_init();
-
         let test_input = (0.5, 1);
-        let mut buffer = Vec::new();
 
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        UDimType::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = UDimType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::UDim {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<UDimType, _>(
+            &test_input,
+            RbxValue::UDim {
+                value: test_input,
+            }
+        );
     }
 
     #[test]
     fn round_trip_udim2() {
-        let _ = env_logger::try_init();
-
         let test_input = (0.5, 1, 1.5, 2);
-        let mut buffer = Vec::new();
 
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        UDim2Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = UDim2Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::UDim2 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<UDim2Type, _>(
+            &test_input,
+            RbxValue::UDim2 {
+                value: test_input,
+            }
+        );
     }
 
     #[test]
     fn de_udim() {
-        let _ = env_logger::try_init();
-
-        let buffer = r#"
-            <UDim>
-                <S>0.5</S>
-                <O>1</O>
-            </UDim>
-        "#;
-
-        let mut reader = EventIterator::from_source(buffer.as_bytes());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = UDimType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::UDim {
-            value: (0.5, 1),
-        });
+        test_util::test_xml_deserialize::<UDimType, _>(
+            r#"
+                <UDim>
+                    <S>0.5</S>
+                    <O>1</O>
+                </UDim>
+            "#,
+            RbxValue::UDim {
+                value: (0.5, 1),
+            }
+        );
     }
 
     #[test]
     fn de_udim2() {
-        let _ = env_logger::try_init();
-
-        let buffer = r#"
-            <UDim2>
-                <XS>0.5</XS>
-                <XO>1</XO>
-                <YS>1.5</YS>
-                <YO>2</YO>
-            </UDim2>
-        "#;
-
-        let mut reader = EventIterator::from_source(buffer.as_bytes());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = UDim2Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::UDim2 {
-            value: (0.5, 1, 1.5, 2),
-        });
+        test_util::test_xml_deserialize::<UDim2Type, _>(
+            r#"
+                <UDim2>
+                    <XS>0.5</XS>
+                    <XO>1</XO>
+                    <YS>1.5</YS>
+                    <YO>2</YO>
+                </UDim2>
+            "#,
+            RbxValue::UDim2 {
+                value: (0.5, 1, 1.5, 2),
+            }
+        );
     }
 }
