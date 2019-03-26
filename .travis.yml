@@ -4,4 +4,3 @@ cache: cargo
 
 script:
   - cargo test --verbose
-  - cargo test --verbose --all-features
