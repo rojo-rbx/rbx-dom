@@ -104,19 +104,15 @@ mod test {
         );
     }
 
-    // TODO: This test fails since CDATA blocks containing only whitespace are
-    // transformed into `Whitespace` events, which gets stripped, instead of
-    // `Characters` events.
+    #[test]
+    fn round_trip_just_whitespace_string() {
+        let test_value = "\n\t";
+        let expected_value = RbxValue::String {
+            value: test_value.to_owned(),
+        };
 
-    // #[test]
-    // fn round_trip_just_whitespace_string() {
-    //     let test_value = "\n\t";
-    //     let expected_value = RbxValue::String {
-    //         value: test_value.to_owned(),
-    //     };
-
-    //     test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
-    // }
+        test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
+    }
 
     #[test]
     fn de_protected_string() {

@@ -50,6 +50,8 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), 
     Ok(())
 }
 
+/// A wrapper around an xml-rs `EventWriter` as well as other state kept around
+/// for performantly emitting XML.
 pub struct XmlEventWriter<W> {
     inner: EventWriter<W>,
     character_buffer: String,
