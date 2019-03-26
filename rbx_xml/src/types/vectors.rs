@@ -149,87 +149,53 @@ impl XmlType<[i16; 3]> for Vector3int16Type {
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
     fn round_trip_vector2() {
-        let _ = env_logger::try_init();
-
         let test_input: [f32; 2] = [123.0, 456.0];
-        let mut buffer = Vec::new();
 
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Vector2Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Vector2Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Vector2 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<Vector2Type, _>(
+            &test_input,
+            RbxValue::Vector2 {
+                value: test_input,
+            }
+        );
     }
 
     #[test]
     fn round_trip_vector2int16() {
-        let _ = env_logger::try_init();
+        let test_input: [i16; 2] = [1234, 4567];
 
-        let test_input: [i16; 2] = [12345, -24321];
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Vector2int16Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Vector2int16Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Vector2int16 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<Vector2int16Type, _>(
+            &test_input,
+            RbxValue::Vector2int16 {
+                value: test_input,
+            }
+        );
     }
 
     #[test]
     fn round_trip_vector3() {
-        let _ = env_logger::try_init();
+        let test_input: [f32; 3] = [123.0, 456.0, 7890.0];
 
-        let test_input: [f32; 3] = [123.0, 456.0, -52349.0];
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Vector3Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Vector3Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Vector3 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<Vector3Type, _>(
+            &test_input,
+            RbxValue::Vector3 {
+                value: test_input,
+            }
+        );
     }
 
     #[test]
     fn round_trip_vector3int16() {
-        let _ = env_logger::try_init();
+        let test_input: [i16; 3] = [1234, 4567, 8913];
 
-        let test_input: [i16; 3] = [12345, -24321, 321];
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Vector3int16Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Vector3int16Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Vector3int16 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<Vector3int16Type, _>(
+            &test_input,
+            RbxValue::Vector3int16 {
+                value: test_input,
+            }
+        );
     }
 }
