@@ -57,23 +57,25 @@ impl XmlType<bool> for BoolType {
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
-    fn round_trip() {
-        let _ = env_logger::try_init();
+    fn round_trip_true() {
+        test_util::test_xml_round_trip::<BoolType, _>(
+            &true,
+            RbxValue::Bool {
+                value: true,
+            }
+        );
+    }
 
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        BoolType::write_xml(&mut writer, "foo", &true).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = BoolType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Bool {
-            value: true,
-        });
+    #[test]
+    fn round_trip_false() {
+        test_util::test_xml_round_trip::<BoolType, _>(
+            &false,
+            RbxValue::Bool {
+                value: false,
+            }
+        );
     }
 }
