@@ -74,9 +74,7 @@ impl<W: Write> XmlEventWriter<W> {
         self.inner.write(event)
     }
 
-    pub fn write_string<T: std::fmt::Display>(&mut self, value: T) -> Result<(), writer::Error> {
-        write!(self.character_buffer, "{}", value).unwrap();
-
+    pub fn write_string(&mut self, value: &str) -> Result<(), writer::Error> {
         let first_char = self.character_buffer.chars().next();
         let last_char = self.character_buffer.chars().next_back();
 
@@ -90,12 +88,10 @@ impl<W: Write> XmlEventWriter<W> {
         };
 
         if has_outer_whitespace {
-            self.inner.write(XmlWriteEvent::cdata(&self.character_buffer))?;
+            self.inner.write(XmlWriteEvent::cdata(value))?;
         } else {
-            self.inner.write(XmlWriteEvent::characters(&self.character_buffer))?;
+            self.inner.write(XmlWriteEvent::characters(value))?;
         }
-
-        self.character_buffer.clear();
 
         Ok(())
     }
