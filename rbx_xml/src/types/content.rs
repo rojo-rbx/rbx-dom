@@ -1,7 +1,4 @@
-use std::{
-    io::{Read, Write},
-    iter::Iterator,
-};
+use std::io::{Read, Write};
 
 use rbx_dom_weak::RbxValue;
 
