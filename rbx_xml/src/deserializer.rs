@@ -130,6 +130,74 @@ impl<R: Read> EventIterator<R> {
         Ok(())
     }
 
+    /// Reads one `Characters` or `CData` event if the next event is a
+    /// `Characters` or `CData` event.
+    ///
+    /// If the next event in the stream is not a character event, this function
+    /// will return `Ok(None)` and leave the stream untouched.
+    ///
+    /// This is the inner kernel of `read_characters`, which is the public
+    /// version of a similar idea.
+    fn read_one_characters_event(&mut self) -> Result<Option<String>, DecodeError> {
+        // This pattern (peek + next) is pretty gnarly but is useful for looking
+        // ahead without touching the stream.
+
+        match self.peek() {
+            // If the next event is a `Characters` or `CData` event, we need to
+            // use `next` to take ownership over it (with some careful unwraps)
+            // and extract the data out of it.
+            //
+            // We could also clone the borrowed data obtained from peek, but
+            // some of the character events can contain several megabytes of
+            // data, so a copy is really expensive.
+            Some(Ok(XmlReadEvent::Characters(_))) | Some(Ok(XmlReadEvent::CData(_))) => {
+                match self.next().unwrap().unwrap() {
+                    XmlReadEvent::Characters(value) | XmlReadEvent::CData(value) => Ok(Some(value)),
+                    _ => unreachable!()
+                }
+            }
+
+            // Since we can't use `?` (we have a `&Result` instead of a `Result`)
+            // we have to do something similar to what it would do.
+            Some(Err(_)) => Err(self.next().unwrap().unwrap_err().into()),
+
+            None | Some(Ok(_)) => Ok(None),
+        }
+    }
+
+    /// Reads a contiguous sequence of `Characters` and `CData` events from the
+    /// event stream.
+    ///
+    /// Normally, consumers of xml-rs shouldn't need to do this since the
+    /// combination of `cdata_to_characters` and `coalesce_characters` does
+    /// something very similar. Because we want to support CDATA sequences that
+    /// contain only whitespace, we have two options:
+    ///
+    /// 1. Every time we want to read an XML event, use a loop and skip over all
+    ///    `Whitespace` events
+    ///
+    /// 2. Turn off `cdata_to_characters` in `ParserConfig` and use a regular
+    ///    iterator filter to strip `Whitespace` events
+    ///
+    /// For complexity, performance, and correctness reasons, we switched from
+    /// #1 to #2. However, this means we need to coalesce `Characters` and
+    /// `CData` events ourselves.
+    pub fn read_characters(&mut self) -> Result<String, DecodeError> {
+        let mut buffer = match self.read_one_characters_event()? {
+            Some(buffer) => buffer,
+            None => return Ok(String::new()),
+        };
+
+        loop {
+            match self.read_one_characters_event()? {
+                Some(piece) => buffer.push_str(&piece),
+                None => break,
+            }
+        }
+
+        Ok(buffer)
+    }
+
     /// Reads a tag completely and returns its text content. This is intended
     /// for parsing simple tags where we don't care about the attributes or
     /// children, only the text value, for Vector3s and such, which are encoded
