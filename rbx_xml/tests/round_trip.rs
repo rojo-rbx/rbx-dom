@@ -14,7 +14,7 @@ static TEST_MODELS: &[&str] = &[
     include_str!("../test-files/parts.rbxmx"),
     include_str!("../test-files/terrain.rbxmx"),
 
-    // Blocked on NumberSequence, ColorSequence
+    // Blocked on ColorSequence
     // include_str!("../test-files/effects.rbxmx"),
 ];
 

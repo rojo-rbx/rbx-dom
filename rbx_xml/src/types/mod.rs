@@ -13,6 +13,8 @@ mod cframe;
 mod colors;
 mod content;
 mod enumeration;
+mod number_range;
+mod number_sequence;
 mod numbers;
 mod physical_properties;
 mod rect;
@@ -20,7 +22,6 @@ mod referent;
 mod strings;
 mod udims;
 mod vectors;
-mod number_range;
 
 use std::io::{Read, Write};
 
@@ -86,6 +87,7 @@ declare_rbx_types! {
     self::content::ContentType => Content,
     self::enumeration::EnumType => Enum,
     self::number_range::NumberRangeType => NumberRange,
+    self::number_sequence::NumberSequenceType => NumberSequence,
     self::numbers::Float32Type => Float32,
     self::numbers::Float64Type => Float64,
     self::numbers::Int32Type => Int32,
