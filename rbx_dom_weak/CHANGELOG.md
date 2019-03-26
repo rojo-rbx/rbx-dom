@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
+* Added `Int64` and `Float64` types to `RbxValue`
 
 ## 1.3.0 (2019-03-14)
 * Added `sort_children_by_key` and `sort_children_unstable_by_key` methods to `RbxInstance` to reorder children safely

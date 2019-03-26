@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Added support for `Int64` and `Float64` types ([#15](https://github.com/LPGhatguy/rbx-dom/pull/15))
+* Improved handling of many XML idioms and whitespace ([#17](https://github.com/LPGhatguy/rbx-dom/pull/17), [#19](https://github.com/LPGhatguy/rbx-dom/pull/19))
 
 ## 0.5.0 (2019-03-13)
 * Changed referents to be emitted as consecutive integers, which makes generating XML models deterministic regardless of IDs
