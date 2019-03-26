@@ -11,13 +11,17 @@ pub enum RbxValueType {
     CFrame,
     Color3,
     Color3uint8,
+    ColorSequence,
     Content,
     Enum,
     Float32,
     Float64,
     Int32,
     Int64,
+    NumberSequence,
     PhysicalProperties,
+    Ray,
+    Rect,
     Ref,
     String,
     UDim,
@@ -51,6 +55,9 @@ pub enum RbxValue {
     Color3uint8 { value: [u8; 3] },
 
     #[serde(rename_all = "PascalCase")]
+    ColorSequence { value: ColorSequence },
+
+    #[serde(rename_all = "PascalCase")]
     Content { value: String },
 
     #[serde(rename_all = "PascalCase")]
@@ -69,7 +76,16 @@ pub enum RbxValue {
     Int64 { value: i64 },
 
     #[serde(rename_all = "PascalCase")]
+    NumberSequence { value: NumberSequence },
+
+    #[serde(rename_all = "PascalCase")]
     PhysicalProperties { value: Option<PhysicalProperties> },
+
+    #[serde(rename_all = "PascalCase")]
+    Ray { value: Ray },
+
+    #[serde(rename_all = "PascalCase")]
+    Rect { value: Rect },
 
     #[serde(rename_all = "PascalCase")]
     Ref { value: Option<RbxId> },
@@ -110,13 +126,17 @@ impl RbxValue {
             RbxValue::CFrame { .. } => RbxValueType::CFrame,
             RbxValue::Color3 { .. } => RbxValueType::Color3,
             RbxValue::Color3uint8 { .. } => RbxValueType::Color3uint8,
+            RbxValue::ColorSequence { .. } => RbxValueType::ColorSequence,
             RbxValue::Content { .. } => RbxValueType::Content,
             RbxValue::Enum { .. } => RbxValueType::Enum,
             RbxValue::Float32 { .. } => RbxValueType::Float32,
             RbxValue::Float64 { .. } => RbxValueType::Float64,
             RbxValue::Int32 { .. } => RbxValueType::Int32,
             RbxValue::Int64 { .. } => RbxValueType::Int64,
+            RbxValue::NumberSequence { .. } => RbxValueType::NumberSequence,
             RbxValue::PhysicalProperties { .. } => RbxValueType::PhysicalProperties,
+            RbxValue::Ray { .. } => RbxValueType::Ray,
+            RbxValue::Rect { .. } => RbxValueType::Rect,
             RbxValue::Ref { .. } => RbxValueType::Ref,
             RbxValue::String { .. } => RbxValueType::String,
             RbxValue::UDim { .. } => RbxValueType::UDim,
@@ -128,6 +148,47 @@ impl RbxValue {
             RbxValue::__Nonexhaustive => unreachable!(),
         }
     }
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct ColorSequence {
+    pub keypoints: Vec<ColorSequenceKeypoint>
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct ColorSequenceKeypoint {
+    pub time: f32,
+    pub color: [f32; 3],
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct NumberSequence {
+    pub keypoints: Vec<NumberSequenceKeypoint>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct NumberSequenceKeypoint {
+    pub time: f32,
+    pub value: f32,
+    pub envelope: f32,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct Ray {
+    pub origin: [f32; 3],
+    pub direction: [f32; 3],
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct Rect {
+    pub min: (f32, f32),
+    pub max: (f32, f32),
 }
 
 /// Represents possible custom physical properties on a `BasePart`.

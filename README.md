@@ -38,7 +38,7 @@ Roblox reflection information for working with Instances in external tooling.
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ❌ |
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ❌ |
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ❌ |
-| ColorSequence      | `Beam.Color`                    | ❌ | ❌ | ❌ |
+| ColorSequence      | `Beam.Color`                    | ✔ | ❌ | ❌ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ❌ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
 | Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
@@ -47,13 +47,13 @@ Roblox reflection information for working with Instances in external tooling.
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
 | Int64              | `Player.UserId`                 | ✔ | ✔ | ❌ |
 | NumberRange        | `ParticleEmitter.Lifetime`      | ❌ | ❌ | ❌ |
-| NumberSequence     | `Beam.Transparency`             | ❌ | ❌ | ❌ |
+| NumberSequence     | `Beam.Transparency`             | ✔ | ❌ | ❌ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ➖ | ❌ |
 | ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |
 | QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ |
 | QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ |
-| Ray                | `RayValue.Value`                | ❌ | ❌ | ❌ |
-| Rect2D             | `ImageButton.SliceCenter`       | ❌ | ❌ | ❌ |
+| Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ |
+| Rect               | `ImageButton.SliceCenter`       | ✔ | ❌ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ➖ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
