@@ -40,24 +40,15 @@ impl XmlType<u32> for EnumType {
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
     fn round_trip() {
-        let _ = env_logger::try_init();
-
-        let test_input: u32 = 4654321;
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        EnumType::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = EnumType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Enum {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<EnumType, _>(
+            &4654321,
+            RbxValue::Enum {
+                value: 4654321,
+            }
+        );
     }
 }
