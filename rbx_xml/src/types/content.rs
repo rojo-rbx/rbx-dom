@@ -71,50 +71,28 @@ mod test {
 
     #[test]
     fn round_trip_content_url() {
-        let _ = env_logger::try_init();
-
         let test_value = "url://not/really/a/url";
 
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        ContentType::write_xml(&mut writer, "foo", test_value).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = ContentType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Content {
-            value: test_value.to_owned(),
-        });
+        test_util::test_xml_round_trip::<ContentType, _>(
+            test_value,
+            RbxValue::Content {
+                value: test_value.to_owned(),
+            }
+        );
     }
 
     #[test]
     fn round_trip_content_null() {
-        let _ = env_logger::try_init();
-
-        let test_value = "";
-
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        ContentType::write_xml(&mut writer, "foo", test_value).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = ContentType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Content {
-            value: test_value.to_owned(),
-        });
+        test_util::test_xml_round_trip::<ContentType, _>(
+            "",
+            RbxValue::Content {
+                value: String::new(),
+            }
+        );
     }
 
     #[test]
-    fn de_content_url() {
+    fn deserialize_content_url() {
         test_util::test_xml_deserialize::<ContentType, _>(
             r#"
                 <Content name="something">
@@ -128,7 +106,21 @@ mod test {
     }
 
     #[test]
-    fn se_content_url() {
+    fn deserialize_content_null() {
+        test_util::test_xml_deserialize::<ContentType, _>(
+            r#"
+                <Content name="something">
+                    <null></null>
+                </Content>
+            "#,
+            RbxValue::Content {
+                value: String::new(),
+            }
+        );
+    }
+
+    #[test]
+    fn serialize_content_url() {
         test_util::test_xml_serialize::<ContentType, _>(
             r#"
                 <Content name="foo">
@@ -140,16 +132,14 @@ mod test {
     }
 
     #[test]
-    fn de_content_null() {
-        test_util::test_xml_deserialize::<ContentType, _>(
+    fn serialize_content_null() {
+        test_util::test_xml_serialize::<ContentType, _>(
             r#"
-                <Content name="something">
+                <Content name="foo">
                     <null></null>
                 </Content>
             "#,
-            RbxValue::Content {
-                value: String::new(),
-            }
+            ""
         );
     }
 }
