@@ -48,7 +48,7 @@ Roblox reflection information for working with Instances in external tooling.
 | Float64            | `PlaybackLoudness`              | ✔ | ✔ | ❌ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
 | Int64              | `Player.UserId`                 | ✔ | ✔ | ❌ |
-| NumberRange        | `ParticleEmitter.Lifetime`      | ❌ | ❌ | ❌ |
+| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ❌ | ❌ |
 | NumberSequence     | `Beam.Transparency`             | ✔ | ❌ | ❌ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ➖ | ❌ |
 | ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |

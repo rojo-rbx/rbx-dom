@@ -18,6 +18,7 @@ pub enum RbxValueType {
     Float64,
     Int32,
     Int64,
+    NumberRange,
     NumberSequence,
     PhysicalProperties,
     Ray,
@@ -74,6 +75,9 @@ pub enum RbxValue {
 
     #[serde(rename_all = "PascalCase")]
     Int64 { value: i64 },
+
+    #[serde(rename_all = "PascalCase")]
+    NumberRange { value: (f32, f32) },
 
     #[serde(rename_all = "PascalCase")]
     NumberSequence { value: NumberSequence },
@@ -133,6 +137,7 @@ impl RbxValue {
             RbxValue::Float64 { .. } => RbxValueType::Float64,
             RbxValue::Int32 { .. } => RbxValueType::Int32,
             RbxValue::Int64 { .. } => RbxValueType::Int64,
+            RbxValue::NumberRange { .. } => RbxValueType::NumberRange,
             RbxValue::NumberSequence { .. } => RbxValueType::NumberSequence,
             RbxValue::PhysicalProperties { .. } => RbxValueType::PhysicalProperties,
             RbxValue::Ray { .. } => RbxValueType::Ray,

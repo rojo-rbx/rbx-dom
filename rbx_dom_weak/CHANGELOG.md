@@ -2,6 +2,7 @@
 
 ## Unreleased
 * Added support for new types:
+	* `NumberRange`
 	* [#15](https://github.com/LPGhatguy/rbx-dom/pull/15):
 		* `Int64`
 		* `Float64`
