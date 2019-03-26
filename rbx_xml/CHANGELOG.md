@@ -1,7 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
-* Added support for `Int64` and `Float64` types ([#15](https://github.com/LPGhatguy/rbx-dom/pull/15))
+* Added support for new types:
+	* `Rect` ([#23](https://github.com/LPGhatguy/rbx-dom/pull/23))
+	* `Int64` and `Float64` ([#15](https://github.com/LPGhatguy/rbx-dom/pull/15))
 * Improved handling of many XML idioms and whitespace ([#17](https://github.com/LPGhatguy/rbx-dom/pull/17), [#19](https://github.com/LPGhatguy/rbx-dom/pull/19))
 
 ## 0.5.0 (2019-03-13)
