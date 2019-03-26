@@ -53,7 +53,7 @@ Roblox reflection information for working with Instances in external tooling.
 | QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ |
 | QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ |
 | Ray                | `RayValue.Value`                | ❌ | ❌ | ❌ |
-| Rect2D             | `ImageButton.SliceCenter`       | ✔ | ❌ | ❌ |
+| Rect               | `ImageButton.SliceCenter`       | ✔ | ❌ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ➖ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ |

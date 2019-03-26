@@ -2,8 +2,14 @@
 
 ## Unreleased
 * Added support for new types:
-	* `Int64` and `Float64` ([#15](https://github.com/LPGhatguy/rbx-dom/pull/15))
-	* `Rect`, `ColorSequence`, and `NumberSequence`
+	* [#15](https://github.com/LPGhatguy/rbx-dom/pull/15):
+		* `Int64`
+		* `Float64`
+	* [#20](https://github.com/LPGhatguy/rbx-dom/pull/20):
+		* `Rect`
+		* `Ray`
+		* `ColorSequence`
+		* `NumberSequence`
 
 ## 1.3.0 (2019-03-14)
 * Added `sort_children_by_key` and `sort_children_unstable_by_key` methods to `RbxInstance` to reorder children safely

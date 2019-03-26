@@ -20,6 +20,7 @@ pub enum RbxValueType {
     Int64,
     NumberSequence,
     PhysicalProperties,
+    Ray,
     Rect,
     Ref,
     String,
@@ -81,6 +82,9 @@ pub enum RbxValue {
     PhysicalProperties { value: Option<PhysicalProperties> },
 
     #[serde(rename_all = "PascalCase")]
+    Ray { value: Ray },
+
+    #[serde(rename_all = "PascalCase")]
     Rect { value: Rect },
 
     #[serde(rename_all = "PascalCase")]
@@ -131,6 +135,7 @@ impl RbxValue {
             RbxValue::Int64 { .. } => RbxValueType::Int64,
             RbxValue::NumberSequence { .. } => RbxValueType::NumberSequence,
             RbxValue::PhysicalProperties { .. } => RbxValueType::PhysicalProperties,
+            RbxValue::Ray { .. } => RbxValueType::Ray,
             RbxValue::Rect { .. } => RbxValueType::Rect,
             RbxValue::Ref { .. } => RbxValueType::Ref,
             RbxValue::String { .. } => RbxValueType::String,
@@ -170,6 +175,13 @@ pub struct NumberSequenceKeypoint {
     pub time: f32,
     pub value: f32,
     pub envelope: f32,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct Ray {
+    pub origin: [f32; 3],
+    pub direction: [f32; 3],
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
