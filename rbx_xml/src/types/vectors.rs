@@ -4,7 +4,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
@@ -29,7 +29,7 @@ impl XmlType<[f32; 2]> for Vector2Type {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
@@ -62,7 +62,7 @@ impl XmlType<[i16; 2]> for Vector2int16Type {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
@@ -95,7 +95,7 @@ impl XmlType<[f32; 3]> for Vector3Type {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
@@ -129,7 +129,7 @@ impl XmlType<[i16; 3]> for Vector3int16Type {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 

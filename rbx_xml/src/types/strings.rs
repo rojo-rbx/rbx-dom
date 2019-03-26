@@ -4,7 +4,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
@@ -26,7 +26,7 @@ impl XmlType<str> for StringType {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         let value = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 
@@ -52,7 +52,7 @@ impl XmlType<str> for ProtectedStringType {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         let value = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 

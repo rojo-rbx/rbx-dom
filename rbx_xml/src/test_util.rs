@@ -2,7 +2,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::EventIterator,
+    deserializer::XmlEventReader,
     serializer::XmlEventWriter,
 };
 
@@ -20,7 +20,7 @@ where
 
     println!("{}", std::str::from_utf8(&buffer).unwrap());
 
-    let mut reader = EventIterator::from_source(buffer.as_slice());
+    let mut reader = XmlEventReader::from_source(buffer.as_slice());
     reader.next().unwrap().unwrap(); // Eat StartDocument event
 
     let value = Xml::read_xml(&mut reader).unwrap();
@@ -40,8 +40,8 @@ where
 
     Xml::write_xml(&mut writer, "foo", test_value).unwrap();
 
-    let mut expected_events = EventIterator::from_source(expected_source.as_bytes());
-    let mut actual_events = EventIterator::from_source(buffer.as_slice());
+    let mut expected_events = XmlEventReader::from_source(expected_source.as_bytes());
+    let mut actual_events = XmlEventReader::from_source(buffer.as_slice());
 
     let fail = || panic!(
         "Expected XML:\n{}\n\nActual XML:\n{}",
@@ -77,7 +77,7 @@ where
 {
     let _ = env_logger::try_init();
 
-    let mut reader = EventIterator::from_source(source.as_bytes());
+    let mut reader = XmlEventReader::from_source(source.as_bytes());
     reader.next().unwrap().unwrap(); // Eat StartDocument event
     let value = Xml::read_xml(&mut reader).unwrap();
 

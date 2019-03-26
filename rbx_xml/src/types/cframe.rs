@@ -4,7 +4,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
@@ -29,7 +29,7 @@ impl XmlType<CFrameValue> for CFrameType {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 

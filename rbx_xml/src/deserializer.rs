@@ -74,7 +74,7 @@ pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<
 /// happens in the case of places as well as Studio users choosing multiple
 /// objects when saving a model file.
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
-    let mut iterator = EventIterator::from_source(source);
+    let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(tree);
 
     deserialize_root(&mut iterator, &mut state, parent_id)
@@ -92,23 +92,23 @@ fn filter_whitespace_events(event: &Result<XmlReadEvent, xml::reader::Error>) ->
 }
 
 /// A wrapper around an XML event iterator created by xml-rs.
-pub struct EventIterator<R: Read> {
+pub struct XmlEventReader<R: Read> {
     inner: Peekable<Filter<reader::Events<R>, EventFilterFn>>,
 }
 
-impl<R: Read> EventIterator<R> {
+impl<R: Read> XmlEventReader<R> {
     /// Borrows the next element from the event stream without consuming it.
     pub fn peek(&mut self) -> Option<&<Self as Iterator>::Item> {
         self.inner.peek()
     }
 
-    /// Constructs a new `EventIterator` from a source that implements `Read`.
-    pub fn from_source(source: R) -> EventIterator<R> {
+    /// Constructs a new `XmlEventReader` from a source that implements `Read`.
+    pub fn from_source(source: R) -> XmlEventReader<R> {
         let reader = ParserConfig::new()
             .ignore_comments(true)
             .create_reader(source);
 
-        EventIterator {
+        XmlEventReader {
             inner: reader.into_iter().filter(filter_whitespace_events as EventFilterFn).peekable(),
         }
     }
@@ -260,7 +260,7 @@ impl<R: Read> EventIterator<R> {
     }
 }
 
-impl<R: Read> Iterator for EventIterator<R> {
+impl<R: Read> Iterator for XmlEventReader<R> {
     type Item = reader::Result<XmlReadEvent>;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -286,7 +286,7 @@ impl<'a> ParseState<'a> {
 }
 
 fn deserialize_root<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId
 ) -> Result<(), DecodeError> {
@@ -352,7 +352,7 @@ fn deserialize_root<R: Read>(
     Ok(())
 }
 
-fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState) -> Result<(), DecodeError> {
+fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), DecodeError> {
     // TODO: Strongly type metadata instead?
 
     let name = read_event!(reader, XmlReadEvent::StartElement { name, mut attributes, .. } => {
@@ -385,7 +385,7 @@ fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 }
 
 fn deserialize_instance<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId,
 ) -> Result<(), DecodeError> {
@@ -466,7 +466,7 @@ fn deserialize_instance<R: Read>(
 }
 
 fn deserialize_properties<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
     props: &mut HashMap<String, RbxValue>,
 ) -> Result<(), DecodeError> {
     read_event!(reader, XmlReadEvent::StartElement { name, .. } => {

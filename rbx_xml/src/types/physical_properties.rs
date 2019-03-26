@@ -5,7 +5,7 @@ use rbx_dom_weak::{PhysicalProperties, RbxValue};
 use crate::{
     core::XmlType,
     serializer::{EncodeError, XmlEventWriter},
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
 };
 
 pub struct PhysicalPropertiesType;
@@ -24,7 +24,7 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         // TODO: Actually read properties
 

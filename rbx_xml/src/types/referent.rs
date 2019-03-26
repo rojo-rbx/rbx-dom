@@ -4,7 +4,7 @@ use rbx_dom_weak::{RbxId, RbxValue};
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
@@ -31,7 +31,7 @@ impl XmlType<Option<RbxId>> for RefType {
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
         let _ref_contents = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 
@@ -56,7 +56,7 @@ mod test {
         RefType::write_xml(&mut writer, "foo", &test_input).unwrap();
         println!("{}", std::str::from_utf8(&buffer).unwrap());
 
-        let mut reader = EventIterator::from_source(buffer.as_slice());
+        let mut reader = XmlEventReader::from_source(buffer.as_slice());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
         let value = RefType::read_xml(&mut reader).unwrap();
 

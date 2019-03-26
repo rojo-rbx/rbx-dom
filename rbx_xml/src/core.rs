@@ -3,7 +3,7 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlEventWriter},
 };
 
@@ -17,6 +17,6 @@ pub trait XmlType<T: ?Sized> {
     ) -> Result<(), EncodeError>;
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError>;
 }
