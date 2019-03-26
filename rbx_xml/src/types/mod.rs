@@ -20,6 +20,7 @@ mod referent;
 mod strings;
 mod udims;
 mod vectors;
+mod number_range;
 
 use std::io::{Read, Write};
 
@@ -84,6 +85,7 @@ declare_rbx_types! {
     self::colors::Color3uint8Type => Color3uint8,
     self::content::ContentType => Content,
     self::enumeration::EnumType => Enum,
+    self::number_range::NumberRangeType => NumberRange,
     self::numbers::Float32Type => Float32,
     self::numbers::Float64Type => Float64,
     self::numbers::Int32Type => Int32,
