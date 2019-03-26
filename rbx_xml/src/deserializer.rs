@@ -100,8 +100,8 @@ impl<R: Read> EventIterator<R> {
 
     pub fn from_source(source: R) -> EventIterator<R> {
         let reader = ParserConfig::new()
-            .coalesce_characters(true)
-            .cdata_to_characters(true)
+            // .coalesce_characters(true)
+            // .cdata_to_characters(true)
             .ignore_comments(true)
             .create_reader(source);
 
@@ -215,12 +215,7 @@ impl<R: Read> EventIterator<R> {
             }
         });
 
-        let contents = match self.peek() {
-            Some(Ok(XmlReadEvent::Characters(_))) => {
-                read_event!(self, XmlReadEvent::Characters(contents) => contents)
-            }
-            _ => String::new(),
-        };
+        let contents = self.read_characters()?;
 
         read_event!(self, XmlReadEvent::EndElement { .. } => {});
 

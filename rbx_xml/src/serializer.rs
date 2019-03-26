@@ -75,8 +75,8 @@ impl<W: Write> XmlEventWriter<W> {
     }
 
     pub fn write_string(&mut self, value: &str) -> Result<(), writer::Error> {
-        let first_char = self.character_buffer.chars().next();
-        let last_char = self.character_buffer.chars().next_back();
+        let first_char = value.chars().next();
+        let last_char = value.chars().next_back();
 
         // If the string has leading or trailing whitespace, we switch to
         // writing it as part of a CDATA block instead of a regular characters
