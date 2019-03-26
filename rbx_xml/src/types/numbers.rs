@@ -21,7 +21,7 @@ macro_rules! number_type {
                 value: &$rust_type,
             ) -> Result<(), EncodeError> {
                 writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-                writer.write(XmlWriteEvent::characters(&value.to_string()))?;
+                writer.write_characters(*value)?;
                 writer.write(XmlWriteEvent::end_element())?;
 
                 Ok(())
