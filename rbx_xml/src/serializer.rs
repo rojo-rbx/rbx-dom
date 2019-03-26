@@ -74,6 +74,32 @@ impl<W: Write> XmlEventWriter<W> {
         self.inner.write(event)
     }
 
+    pub fn write_string<T: std::fmt::Display>(&mut self, value: T) -> Result<(), writer::Error> {
+        write!(self.character_buffer, "{}", value).unwrap();
+
+        let first_char = self.character_buffer.chars().next();
+        let last_char = self.character_buffer.chars().next_back();
+
+        // If the string has leading or trailing whitespace, we switch to
+        // writing it as part of a CDATA block instead of a regular characters
+        // block.
+        let has_outer_whitespace = match (first_char, last_char) {
+            (Some(first), Some(last)) => first.is_whitespace() || last.is_whitespace(),
+            (Some(char), None) | (None, Some(char)) => char.is_whitespace(),
+            (None, None) => false,
+        };
+
+        if has_outer_whitespace {
+            self.inner.write(XmlWriteEvent::cdata(&self.character_buffer))?;
+        } else {
+            self.inner.write(XmlWriteEvent::characters(&self.character_buffer))?;
+        }
+
+        self.character_buffer.clear();
+
+        Ok(())
+    }
+
     /// A more efficient implementation to write characters to the XML output
     /// stream that reuses a buffer for each string.
     pub fn write_characters<T: std::fmt::Display>(&mut self, value: T) -> Result<(), writer::Error> {

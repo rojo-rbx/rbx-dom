@@ -14,6 +14,9 @@ mod serializer;
 mod types;
 mod reflection;
 
+#[cfg(test)]
+mod test_util;
+
 pub use crate::{
     serializer::{encode, EncodeError},
     deserializer::{decode, decode_str, DecodeError},

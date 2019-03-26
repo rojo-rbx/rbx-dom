@@ -1,4 +1,7 @@
-use std::io::{Read, Write};
+use std::{
+    io::{Read, Write},
+    iter::Iterator,
+};
 
 use rbx_dom_weak::RbxValue;
 
@@ -26,7 +29,7 @@ impl XmlType<str> for ContentType {
             writer.write(XmlWriteEvent::end_element())?;
         } else {
             writer.write(XmlWriteEvent::start_element("url"))?;
-            writer.write(XmlWriteEvent::characters(&value))?;
+            writer.write_string(value)?;
             writer.write(XmlWriteEvent::end_element())?;
         }
 
@@ -66,6 +69,8 @@ impl XmlType<str> for ContentType {
 #[cfg(test)]
 mod test {
     use super::*;
+
+    use crate::test_util;
 
     #[test]
     fn round_trip_content_url() {
@@ -113,35 +118,41 @@ mod test {
 
     #[test]
     fn de_content_url() {
-        let buffer = r#"
-            <Content name="something">
-                <url>Some URL</url>
-            </Content>
-        "#;
+        test_util::test_xml_deserialize::<ContentType, _>(
+            r#"
+                <Content name="something">
+                    <url>Some URL</url>
+                </Content>
+            "#,
+            RbxValue::Content {
+                value: String::from("Some URL"),
+            }
+        );
+    }
 
-        let mut reader = EventIterator::from_source(buffer.as_bytes());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = ContentType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Content {
-            value: String::from("Some URL"),
-        });
+    #[test]
+    fn se_content_url() {
+        test_util::test_xml_serialize::<ContentType, _>(
+            r#"
+                <Content name="foo">
+                    <url>Some URL</url>
+                </Content>
+            "#,
+            "Some URL"
+        );
     }
 
     #[test]
     fn de_content_null() {
-        let buffer = r#"
-            <Content name="something">
-                <null></null>
-            </Content>
-        "#;
-
-        let mut reader = EventIterator::from_source(buffer.as_bytes());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = ContentType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Content {
-            value: String::new(),
-        });
+        test_util::test_xml_deserialize::<ContentType, _>(
+            r#"
+                <Content name="something">
+                    <null></null>
+                </Content>
+            "#,
+            RbxValue::Content {
+                value: String::new(),
+            }
+        );
     }
 }

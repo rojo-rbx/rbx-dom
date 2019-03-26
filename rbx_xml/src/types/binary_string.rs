@@ -62,25 +62,16 @@ impl XmlType<[u8]> for BinaryStringType {
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
     fn round_trip_binary_string() {
-        let _ = env_logger::try_init();
+        let test_value = b"\x00\x01hello,\n\x7Fworld, from a fairly sizable binary string literal.\n";
 
-        static TEST_VALUE: &[u8] = b"\x00\x01hello,\n\x7Fworld, from a fairly sizable binary string literal.\n";
+        let wrapped_value = RbxValue::BinaryString {
+            value: test_value.to_vec(),
+        };
 
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        BinaryStringType::write_xml(&mut writer, "foo", TEST_VALUE).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = BinaryStringType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::BinaryString {
-            value: TEST_VALUE.to_owned(),
-        });
+        test_util::test_xml_round_trip::<BinaryStringType, _>(test_value, wrapped_value);
     }
 }

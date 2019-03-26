@@ -19,7 +19,7 @@ impl XmlType<str> for StringType {
         value: &str,
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write(XmlWriteEvent::characters(&value))?;
+        writer.write_string(value)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
@@ -47,7 +47,7 @@ impl XmlType<str> for ProtectedStringType {
         value: &str,
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write(XmlWriteEvent::characters(&value))?;
+        writer.write_string(value)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
@@ -89,6 +89,20 @@ mod test {
             value: test_value.to_owned(),
         });
     }
+
+    // TODO: This test fails since CDATA blocks containing only whitespace are
+    // transformed into `Whitespace` events, which gets stripped, instead of
+    // `Characters` events.
+
+    // #[test]
+    // fn round_trip_just_whitespace_string() {
+    //     let test_value = "\n\t";
+    //     let expected_value = RbxValue::String {
+    //         value: test_value.to_owned(),
+    //     };
+
+    //     test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
+    // }
 
     #[test]
     fn de_protected_string() {

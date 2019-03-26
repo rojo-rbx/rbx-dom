@@ -1,6 +1,6 @@
 use std::{
     io::Read,
-    iter::Peekable,
+    iter::{Filter, Peekable},
     collections::HashMap,
 };
 
@@ -80,8 +80,17 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Resul
     deserialize_root(&mut iterator, &mut state, parent_id)
 }
 
+type EventFilterFn = fn(&Result<XmlReadEvent, xml::reader::Error>) -> bool;
+
+fn filter_whitespace_events(event: &Result<XmlReadEvent, xml::reader::Error>) -> bool {
+    match event {
+        Ok(XmlReadEvent::Whitespace(_)) => false,
+        _ => true,
+    }
+}
+
 pub struct EventIterator<R: Read> {
-    inner: Peekable<reader::Events<R>>,
+    inner: Peekable<Filter<reader::Events<R>, EventFilterFn>>,
 }
 
 impl<R: Read> EventIterator<R> {
@@ -97,7 +106,7 @@ impl<R: Read> EventIterator<R> {
             .create_reader(source);
 
         EventIterator {
-            inner: reader.into_iter().peekable(),
+            inner: reader.into_iter().filter(filter_whitespace_events as EventFilterFn).peekable(),
         }
     }
 
