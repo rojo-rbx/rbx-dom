@@ -1,6 +1,6 @@
 use std::{
     io::Read,
-    iter::Peekable,
+    iter::{Filter, Peekable},
     collections::HashMap,
 };
 
@@ -74,33 +74,47 @@ pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<
 /// happens in the case of places as well as Studio users choosing multiple
 /// objects when saving a model file.
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
-    let mut iterator = EventIterator::from_source(source);
+    let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(tree);
 
     deserialize_root(&mut iterator, &mut state, parent_id)
 }
 
-pub struct EventIterator<R: Read> {
-    inner: Peekable<reader::Events<R>>,
+/// Since this function type needs to be mentioned a couple times, we keep this
+/// type alias around.
+type EventFilterFn = fn(&Result<XmlReadEvent, xml::reader::Error>) -> bool;
+
+fn filter_whitespace_events(event: &Result<XmlReadEvent, xml::reader::Error>) -> bool {
+    match event {
+        Ok(XmlReadEvent::Whitespace(_)) => false,
+        _ => true,
+    }
 }
 
-impl<R: Read> EventIterator<R> {
+/// A wrapper around an XML event iterator created by xml-rs.
+pub struct XmlEventReader<R: Read> {
+    inner: Peekable<Filter<reader::Events<R>, EventFilterFn>>,
+}
+
+impl<R: Read> XmlEventReader<R> {
+    /// Borrows the next element from the event stream without consuming it.
     pub fn peek(&mut self) -> Option<&<Self as Iterator>::Item> {
         self.inner.peek()
     }
 
-    pub fn from_source(source: R) -> EventIterator<R> {
+    /// Constructs a new `XmlEventReader` from a source that implements `Read`.
+    pub fn from_source(source: R) -> XmlEventReader<R> {
         let reader = ParserConfig::new()
-            .coalesce_characters(true)
-            .cdata_to_characters(true)
             .ignore_comments(true)
             .create_reader(source);
 
-        EventIterator {
-            inner: reader.into_iter().peekable(),
+        XmlEventReader {
+            inner: reader.into_iter().filter(filter_whitespace_events as EventFilterFn).peekable(),
         }
     }
 
+    /// Consumes the next event and returns `Ok(())` if it was an opening tag
+    /// with the given name, otherwise returns an error.
     pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
         read_event!(self, XmlReadEvent::StartElement { name, .. } => {
             if name.local_name != expected_name {
@@ -111,6 +125,8 @@ impl<R: Read> EventIterator<R> {
         Ok(())
     }
 
+    /// Consumes the next event and returns `Ok(())` if it was a closing tag
+    /// with the given name, otherwise returns an error.
     pub fn expect_end_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
         read_event!(self, XmlReadEvent::EndElement { name } => {
             if name.local_name != expected_name {
@@ -119,6 +135,74 @@ impl<R: Read> EventIterator<R> {
         });
 
         Ok(())
+    }
+
+    /// Reads one `Characters` or `CData` event if the next event is a
+    /// `Characters` or `CData` event.
+    ///
+    /// If the next event in the stream is not a character event, this function
+    /// will return `Ok(None)` and leave the stream untouched.
+    ///
+    /// This is the inner kernel of `read_characters`, which is the public
+    /// version of a similar idea.
+    fn read_one_characters_event(&mut self) -> Result<Option<String>, DecodeError> {
+        // This pattern (peek + next) is pretty gnarly but is useful for looking
+        // ahead without touching the stream.
+
+        match self.peek() {
+            // If the next event is a `Characters` or `CData` event, we need to
+            // use `next` to take ownership over it (with some careful unwraps)
+            // and extract the data out of it.
+            //
+            // We could also clone the borrowed data obtained from peek, but
+            // some of the character events can contain several megabytes of
+            // data, so a copy is really expensive.
+            Some(Ok(XmlReadEvent::Characters(_))) | Some(Ok(XmlReadEvent::CData(_))) => {
+                match self.next().unwrap().unwrap() {
+                    XmlReadEvent::Characters(value) | XmlReadEvent::CData(value) => Ok(Some(value)),
+                    _ => unreachable!()
+                }
+            }
+
+            // Since we can't use `?` (we have a `&Result` instead of a `Result`)
+            // we have to do something similar to what it would do.
+            Some(Err(_)) => Err(self.next().unwrap().unwrap_err().into()),
+
+            None | Some(Ok(_)) => Ok(None),
+        }
+    }
+
+    /// Reads a contiguous sequence of zero or more `Characters` and `CData`
+    /// events from the event stream.
+    ///
+    /// Normally, consumers of xml-rs shouldn't need to do this since the
+    /// combination of `cdata_to_characters` and `coalesce_characters` does
+    /// something very similar. Because we want to support CDATA sequences that
+    /// contain only whitespace, we have two options:
+    ///
+    /// 1. Every time we want to read an XML event, use a loop and skip over all
+    ///    `Whitespace` events
+    ///
+    /// 2. Turn off `cdata_to_characters` in `ParserConfig` and use a regular
+    ///    iterator filter to strip `Whitespace` events
+    ///
+    /// For complexity, performance, and correctness reasons, we switched from
+    /// #1 to #2. However, this means we need to coalesce `Characters` and
+    /// `CData` events ourselves.
+    pub fn read_characters(&mut self) -> Result<String, DecodeError> {
+        let mut buffer = match self.read_one_characters_event()? {
+            Some(buffer) => buffer,
+            None => return Ok(String::new()),
+        };
+
+        loop {
+            match self.read_one_characters_event()? {
+                Some(piece) => buffer.push_str(&piece),
+                None => break,
+            }
+        }
+
+        Ok(buffer)
     }
 
     /// Reads a tag completely and returns its text content. This is intended
@@ -134,11 +218,12 @@ impl<R: Read> EventIterator<R> {
     pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
         read_event!(self, XmlReadEvent::StartElement { name, .. } => {
             if name.local_name != expected_name {
-                return Err(DecodeError::Message("got wrong tag name"));
+                return Err(DecodeError::Message("Got wrong tag name"));
             }
         });
 
-        let contents = read_event!(self, XmlReadEvent::Characters(content) => content);
+        let contents = self.read_characters()?;
+
         read_event!(self, XmlReadEvent::EndElement { .. } => {});
 
         Ok(contents)
@@ -175,7 +260,7 @@ impl<R: Read> EventIterator<R> {
     }
 }
 
-impl<R: Read> Iterator for EventIterator<R> {
+impl<R: Read> Iterator for XmlEventReader<R> {
     type Item = reader::Result<XmlReadEvent>;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -183,6 +268,7 @@ impl<R: Read> Iterator for EventIterator<R> {
     }
 }
 
+/// The state needed to deserialize an XML model into an `RbxTree`.
 struct ParseState<'a> {
     referents: HashMap<String, RbxId>,
     metadata: HashMap<String, String>,
@@ -200,7 +286,7 @@ impl<'a> ParseState<'a> {
 }
 
 fn deserialize_root<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId
 ) -> Result<(), DecodeError> {
@@ -256,9 +342,6 @@ fn deserialize_root<R: Read>(
                 }
             },
             Ok(XmlReadEvent::EndDocument) => break,
-            Ok(XmlReadEvent::Whitespace(_)) => {
-                let _ = reader.next();
-            },
             Ok(_) => return Err(DecodeError::Message("Unexpected top-level stuff")),
             Err(_) => {
                 reader.next().unwrap()?;
@@ -269,7 +352,7 @@ fn deserialize_root<R: Read>(
     Ok(())
 }
 
-fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState) -> Result<(), DecodeError> {
+fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), DecodeError> {
     // TODO: Strongly type metadata instead?
 
     let name = read_event!(reader, XmlReadEvent::StartElement { name, mut attributes, .. } => {
@@ -302,7 +385,7 @@ fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 }
 
 fn deserialize_instance<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId,
 ) -> Result<(), DecodeError> {
@@ -362,9 +445,6 @@ fn deserialize_instance<R: Read>(
                 reader.next();
                 break;
             },
-            Ok(XmlReadEvent::Whitespace(_)) => {
-                reader.next();
-            },
             unexpected => panic!("Unexpected XmlReadEvent {:?}", unexpected),
         }
     }
@@ -386,7 +466,7 @@ fn deserialize_instance<R: Read>(
 }
 
 fn deserialize_properties<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
     props: &mut HashMap<String, RbxValue>,
 ) -> Result<(), DecodeError> {
     read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
@@ -419,9 +499,6 @@ fn deserialize_properties<R: Read>(
                         trace!("Unexpected end element {:?}, expected Properties", name);
                         return Err(DecodeError::Message("Unexpected end element, expected Properties"))
                     }
-                },
-                Ok(XmlReadEvent::Whitespace(_)) => {
-                    reader.next().unwrap()?;
                 },
                 Ok(_) | Err(_) => return Err(DecodeError::Message("Unexpected thing in Properties section")),
             };

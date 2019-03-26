@@ -4,7 +4,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
@@ -21,14 +21,14 @@ macro_rules! number_type {
                 value: &$rust_type,
             ) -> Result<(), EncodeError> {
                 writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-                writer.write(XmlWriteEvent::characters(&value.to_string()))?;
+                writer.write_characters(*value)?;
                 writer.write(XmlWriteEvent::end_element())?;
 
                 Ok(())
             }
 
             fn read_xml<R: Read>(
-                reader: &mut EventIterator<R>,
+                reader: &mut XmlEventReader<R>,
             ) -> Result<RbxValue, DecodeError> {
                 let value: $rust_type = reader.read_tag_contents(Self::XML_TAG_NAME)?.parse()?;
 
@@ -49,87 +49,45 @@ number_type!(Int64, Int64Type, i64, "int64");
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
     fn round_trip_f32() {
-        let _ = env_logger::try_init();
-
-        let test_input = 123456.0;
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Float32Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Float32Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Float32 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<Float32Type, _>(
+            &123456.0,
+            RbxValue::Float32 {
+                value: 123456.0,
+            }
+        );
     }
 
     #[test]
     fn round_trip_f64() {
-        let _ = env_logger::try_init();
-
-        let test_input = 123456.0;
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Float64Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Float64Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Float64 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<Float64Type, _>(
+            &123456.0,
+            RbxValue::Float64 {
+                value: 123456.0,
+            }
+        );
     }
 
     #[test]
     fn round_trip_i32() {
-        let _ = env_logger::try_init();
-
-        let test_input = -4654321;
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Int32Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Int32Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Int32 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<Int32Type, _>(
+            &-4654321,
+            RbxValue::Int32 {
+                value: -4654321,
+            }
+        );
     }
 
     #[test]
     fn round_trip_i64() {
-        let _ = env_logger::try_init();
-
-        let test_input = 281474976710656;
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        Int64Type::write_xml(&mut writer, "foo", &test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = Int64Type::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Int64 {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<Int64Type, _>(
+            &281474976710656,
+            RbxValue::Int64 {
+                value: 281474976710656,
+            }
+        );
     }
 }

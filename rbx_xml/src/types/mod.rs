@@ -27,7 +27,7 @@ use log::warn;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlEventWriter},
 };
 
@@ -40,7 +40,7 @@ macro_rules! declare_rbx_types {
         /// Reads a Roblox property value with the given type from the XML event
         /// stream.
         pub fn read_value_xml<R: Read>(
-            reader: &mut EventIterator<R>,
+            reader: &mut XmlEventReader<R>,
             xml_type_name: &str,
         ) -> Result<RbxValue, DecodeError> {
             match xml_type_name {

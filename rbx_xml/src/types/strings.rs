@@ -4,7 +4,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlReadEvent, EventIterator},
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
@@ -19,20 +19,18 @@ impl XmlType<str> for StringType {
         value: &str,
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write(XmlWriteEvent::characters(&value))?;
+        writer.write_string(value)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-        let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
+        let value = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 
-        Ok(value)
+        Ok(RbxValue::String { value })
     }
 }
 
@@ -47,20 +45,18 @@ impl XmlType<str> for ProtectedStringType {
         value: &str,
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write(XmlWriteEvent::characters(&value))?;
+        writer.write_string(value)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
     fn read_xml<R: Read>(
-        reader: &mut EventIterator<R>,
+        reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-        let value = read_event!(reader, XmlReadEvent::Characters(value) => RbxValue::String { value: value.to_owned() });
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
+        let value = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 
-        Ok(value)
+        Ok(RbxValue::String { value })
     }
 }
 
@@ -68,41 +64,68 @@ impl XmlType<str> for ProtectedStringType {
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
     fn round_trip_string() {
-        let _ = env_logger::try_init();
-
         let test_value = "Hello,\n\tworld!\n";
-
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        StringType::write_xml(&mut writer, "foo", test_value).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = StringType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::String {
+        let expected_value = RbxValue::String {
             value: test_value.to_owned(),
-        });
+        };
+
+        test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
+    }
+
+    #[test]
+    fn round_trip_empty_string() {
+        let test_value = "";
+        let expected_value = RbxValue::String {
+            value: test_value.to_owned(),
+        };
+
+        test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
+    }
+
+    #[test]
+    fn serialize_simple_string() {
+        test_util::test_xml_serialize::<StringType, _>(
+            r#"
+                <string name="foo">Hello!</string>
+            "#,
+            "Hello!"
+        );
+    }
+
+    #[test]
+    fn serialize_sensitive_whitespace_string() {
+        test_util::test_xml_serialize::<StringType, _>(
+            "<string name=\"foo\"><![CDATA[hello\n]]></string>",
+            "hello\n"
+        );
+    }
+
+    #[test]
+    fn round_trip_just_whitespace_string() {
+        let test_value = "\n\t";
+        let expected_value = RbxValue::String {
+            value: test_value.to_owned(),
+        };
+
+        test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
     }
 
     #[test]
     fn de_protected_string() {
-        let _ = env_logger::try_init();
-
         let test_value = "Hello,\n\tworld!\n";
-        let source = format!("<ProtectedString name=\"foo\">{}</ProtectedString>", test_value);
+        let test_source = format!(r#"
+            <ProtectedString name="something">{}</ProtectedString>
+        "#, test_value);
 
-        let mut reader = EventIterator::from_source(source.as_bytes());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = ProtectedStringType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::String {
-            value: test_value.to_owned(),
-        });
+        test_util::test_xml_deserialize::<ProtectedStringType, _>(
+            &test_source,
+            RbxValue::String {
+                value: test_value.to_owned(),
+            }
+        );
     }
 }
