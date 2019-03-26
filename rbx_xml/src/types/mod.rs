@@ -15,6 +15,7 @@ mod content;
 mod enumeration;
 mod numbers;
 mod physical_properties;
+mod rect;
 mod referent;
 mod strings;
 mod udims;
@@ -88,10 +89,11 @@ declare_rbx_types! {
     self::numbers::Int32Type => Int32,
     self::numbers::Int64Type => Int64,
     self::physical_properties::PhysicalPropertiesType => PhysicalProperties,
+    self::rect::RectType => Rect,
     self::referent::RefType => Ref,
     self::strings::StringType => String,
-    self::udims::UDimType => UDim,
     self::udims::UDim2Type => UDim2,
+    self::udims::UDimType => UDim,
     self::vectors::Vector2Type => Vector2,
     self::vectors::Vector2int16Type => Vector2int16,
     self::vectors::Vector3Type => Vector3,
