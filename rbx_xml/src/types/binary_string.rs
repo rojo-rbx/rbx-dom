@@ -4,7 +4,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlReadEvent, EventIterator},
+    deserializer::{DecodeError, EventIterator},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
@@ -28,23 +28,7 @@ impl XmlType<[u8]> for BinaryStringType {
     fn read_xml<R: Read>(
         reader: &mut EventIterator<R>,
     ) -> Result<RbxValue, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-
-        let contents = match reader.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
-            XmlReadEvent::Characters(contents) => contents,
-            XmlReadEvent::EndElement { name } => {
-                if name.local_name == Self::XML_TAG_NAME {
-                    return Ok(RbxValue::BinaryString {
-                        value: Vec::new()
-                    });
-                } else {
-                    return Err(DecodeError::Message("Unexpected closing tag"));
-                }
-            },
-            _ => return Err(DecodeError::Message("Unexpected stuff in BinaryString")),
-        };
-
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
+        let contents = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 
         // Roblox wraps base64 BinaryString data at the 72 byte mark. The base64
         // crate doesn't like that very much.
@@ -67,6 +51,17 @@ mod test {
     #[test]
     fn round_trip_binary_string() {
         let test_value = b"\x00\x01hello,\n\x7Fworld, from a fairly sizable binary string literal.\n";
+
+        let wrapped_value = RbxValue::BinaryString {
+            value: test_value.to_vec(),
+        };
+
+        test_util::test_xml_round_trip::<BinaryStringType, _>(test_value, wrapped_value);
+    }
+
+    #[test]
+    fn round_trip_empty() {
+        let test_value = b"";
 
         let wrapped_value = RbxValue::BinaryString {
             value: test_value.to_vec(),

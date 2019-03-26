@@ -143,11 +143,17 @@ impl<R: Read> EventIterator<R> {
     pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
         read_event!(self, XmlReadEvent::StartElement { name, .. } => {
             if name.local_name != expected_name {
-                return Err(DecodeError::Message("got wrong tag name"));
+                return Err(DecodeError::Message("Got wrong tag name"));
             }
         });
 
-        let contents = read_event!(self, XmlReadEvent::Characters(content) => content);
+        let contents = match self.peek() {
+            Some(Ok(XmlReadEvent::Characters(_))) => {
+                read_event!(self, XmlReadEvent::Characters(contents) => contents)
+            }
+            _ => String::new(),
+        };
+
         read_event!(self, XmlReadEvent::EndElement { .. } => {});
 
         Ok(contents)
