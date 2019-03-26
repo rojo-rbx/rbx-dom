@@ -45,7 +45,7 @@ Roblox reflection information for working with Instances in external tooling.
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
 | Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ❌ |
-| Float64            | `PlaybackLoudness`              | ✔ | ✔ | ❌ |
+| Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ❌ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
 | Int64              | `Player.UserId`                 | ✔ | ✔ | ❌ |
 | NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ❌ | ❌ |
@@ -57,6 +57,7 @@ Roblox reflection information for working with Instances in external tooling.
 | Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ❌ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ➖ | ❌ |
+| Region3            | `N/A`                           | ❌ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
 | UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ❌ |
