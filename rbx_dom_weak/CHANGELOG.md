@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
+
+## 1.4.0 (2019-03-27)
 * Added support for new types:
 	* `NumberRange`
 	* [#15](https://github.com/LPGhatguy/rbx-dom/pull/15):
