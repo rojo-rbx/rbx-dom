@@ -10,7 +10,7 @@ use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
     reflection::CANONICAL_TO_XML_NAME,
-    types::write_value_xml,
+    types::{write_value_xml, write_ref},
 };
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
@@ -179,7 +179,10 @@ fn serialize_value<W: Write>(
         .get(canonical_name)
         .unwrap_or(&canonical_name);
 
-    write_value_xml(writer, xml_name, value, state)
+    match value {
+        RbxValue::Ref { value } => write_ref(writer, xml_name, value, state),
+        _ => write_value_xml(writer, xml_name, value)
+    }
 }
 
 fn serialize_instance<W: Write>(

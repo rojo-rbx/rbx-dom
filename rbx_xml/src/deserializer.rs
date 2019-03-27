@@ -11,7 +11,7 @@ use xml::reader::{self, ParserConfig};
 
 use crate::{
     reflection::XML_TO_CANONICAL_NAME,
-    types::read_value_xml,
+    types::{read_value_xml, read_ref},
 };
 
 pub use xml::reader::XmlEvent as XmlReadEvent;
@@ -546,7 +546,10 @@ fn deserialize_properties<R: Read>(
             .map(|value| value.to_string())
             .unwrap_or(xml_property_name);
 
-        let value = read_value_xml(reader, &property_type, &canonical_name, instance_id, state)?;
+        let value = match property_type.as_str() {
+            "Ref" => read_ref(reader, instance_id, &canonical_name, state)?,
+            _ => read_value_xml(reader, &property_type)?
+        };
 
         props.insert(canonical_name, value);
     }

@@ -26,14 +26,16 @@ mod vectors;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{RbxId, RbxValue};
+use rbx_dom_weak::RbxValue;
 use log::warn;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader, ParseState},
-    serializer::{EncodeError, XmlEventWriter, EmitState},
+    deserializer::{DecodeError, XmlEventReader},
+    serializer::{EncodeError, XmlEventWriter},
 };
+
+pub use self::referent::{read_ref, write_ref};
 
 /// The `declare_rbx_types` macro generates the two big match statements that
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
@@ -46,14 +48,9 @@ macro_rules! declare_rbx_types {
         pub fn read_value_xml<R: Read>(
             reader: &mut XmlEventReader<R>,
             xml_type_name: &str,
-            property_name: &str,
-            instance_id: RbxId,
-            state: &mut ParseState,
         ) -> Result<RbxValue, DecodeError> {
             match xml_type_name {
                 $(<$typedef>::XML_TAG_NAME => <$typedef>::read_xml(reader),)*
-
-                self::referent::XML_TAG_NAME => self::referent::read_ref(reader, instance_id, property_name, state),
 
                 // Protected strings are only read, never written
                 self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
@@ -71,12 +68,9 @@ macro_rules! declare_rbx_types {
             writer: &mut XmlEventWriter<W>,
             xml_property_name: &str,
             value: &RbxValue,
-            state: &mut EmitState,
         ) -> Result<(), EncodeError> {
             match value {
                 $(RbxValue::$rbx_type { value } => <$typedef>::write_xml(writer, xml_property_name, value),)*
-
-                RbxValue::Ref { value } => self::referent::write_ref(writer, xml_property_name, value, state),
 
                 unknown => {
                     warn!("Property value {:?} cannot be serialized yet", unknown);
