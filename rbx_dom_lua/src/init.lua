@@ -1,4 +1,7 @@
+local CanonicalInstance = require(script.CanonicalInstance)
+
 return {
 	CanonicalProperty = require(script.CanonicalProperty),
-	CanonicalInstance = require(script.CanonicalInstance),
+	CanonicalInstance = CanonicalInstance,
+	PropertySelection = CanonicalInstance.PropertySelection,
 }

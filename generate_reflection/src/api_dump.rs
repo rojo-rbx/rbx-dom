@@ -77,6 +77,9 @@ pub struct DumpClassProperty {
     pub name: String,
     pub value_type: ValueType,
     pub serialization: Serialization,
+
+    #[serde(default)]
+    pub tags: Vec<String>,
 }
 
 #[derive(Debug, Deserialize)]

@@ -5,12 +5,13 @@ use std::{
     path::Path,
 };
 
+use heck::ShoutySnakeCase;
 use quote::quote;
 use proc_macro2::{TokenStream, Literal, Ident, Span};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    api_dump::{Dump, DumpClass, DumpEnum, DumpClassMember, ValueType},
+    api_dump::{Dump, DumpClass, DumpEnum, DumpClassProperty, DumpClassMember, ValueType},
     reflection_types::RbxPropertyType,
     database::ReflectionDatabase,
 };
@@ -99,9 +100,27 @@ fn emit_class_tags(class: &DumpClass) -> TokenStream {
     let tags = class.tags
         .iter()
         .map(|tag| {
-            let name_literal = Ident::new(tag.name(), Span::call_site());
+            let name_literal = Ident::new(&tag.name().to_shouty_snake_case(), Span::call_site());
 
             quote!(RbxInstanceTags::#name_literal)
+        });
+
+    quote! {
+        #(#tags)|*
+    }
+}
+
+fn emit_property_tags(property: &DumpClassProperty) -> TokenStream {
+    if property.tags.len() == 0 {
+        return quote!(RbxPropertyTags::empty());
+    }
+
+    let tags = property.tags
+        .iter()
+        .map(|tag| {
+            let name_literal = Ident::new(&tag.to_shouty_snake_case(), Span::call_site());
+
+            quote!(RbxPropertyTags::#name_literal)
         });
 
     quote! {
@@ -127,11 +146,13 @@ fn emit_properties(class: &DumpClass) -> TokenStream {
         .map(|property| {
             let member_name = Literal::string(&property.name);
             let resolved_type = emit_value_type(&property.value_type);
+            let tags = emit_property_tags(property);
 
             quote! {
                 properties.insert(#member_name, RbxInstanceProperty {
                     name: #member_name,
                     value_type: #resolved_type,
+                    tags: #tags,
                 });
             }
         });
