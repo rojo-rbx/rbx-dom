@@ -35,6 +35,8 @@ use crate::{
     serializer::{EncodeError, XmlEventWriter},
 };
 
+pub use self::referent::{read_ref, write_ref};
+
 /// The `declare_rbx_types` macro generates the two big match statements that
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
 /// `write_value_xml`.
@@ -96,7 +98,6 @@ declare_rbx_types! {
     self::numbers::Int64Type => Int64,
     self::physical_properties::PhysicalPropertiesType => PhysicalProperties,
     self::rect::RectType => Rect,
-    self::referent::RefType => Ref,
     self::strings::StringType => String,
     self::udims::UDim2Type => UDim2,
     self::udims::UDimType => UDim,

@@ -10,7 +10,7 @@ use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
     reflection::CANONICAL_TO_XML_NAME,
-    types::write_value_xml,
+    types::{write_value_xml, write_ref},
 };
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
@@ -143,7 +143,7 @@ fn write_characters_or_cdata<W: Write>(writer: &mut EventWriter<W>, value: &str)
     Ok(())
 }
 
-struct EmitState {
+pub struct EmitState {
     referent_map: HashMap<RbxId, u32>,
     next_referent: u32,
 }
@@ -171,7 +171,7 @@ impl EmitState {
 
 fn serialize_value<W: Write>(
     writer: &mut XmlEventWriter<W>,
-    _state: &mut EmitState,
+    state: &mut EmitState,
     canonical_name: &str,
     value: &RbxValue,
 ) -> Result<(), EncodeError> {
@@ -179,7 +179,12 @@ fn serialize_value<W: Write>(
         .get(canonical_name)
         .unwrap_or(&canonical_name);
 
-    write_value_xml(writer, xml_name, value)
+    // Refs need additional state that we don't want to thread through
+    // `write_value_xml`, so we handle it here.
+    match value {
+        RbxValue::Ref { value } => write_ref(writer, xml_name, value, state),
+        _ => write_value_xml(writer, xml_name, value)
+    }
 }
 
 fn serialize_instance<W: Write>(

@@ -56,7 +56,7 @@ Roblox reflection information for working with Instances in external tooling.
 | QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ |
 | Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ❌ |
-| Ref                | `Model.PrimaryPart`             | ✔ | ➖ | ❌ |
+| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ❌ |
 | Region3            | `N/A`                           | ❌ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
