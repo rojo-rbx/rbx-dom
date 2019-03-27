@@ -1,11 +1,13 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.6.0 (2019-03-27)
 * Added support for new types:
 	* `Rect`, `NumberRange`, `NumberSequence`, and `ColorSequence` ([#23](https://github.com/LPGhatguy/rbx-dom/pull/23))
 	* `Int64` and `Float64` ([#15](https://github.com/LPGhatguy/rbx-dom/pull/15))
-	* `PhysicalProperties`, no longer a stub!
-* Improved handling of many XML idioms and whitespace ([#17](https://github.com/LPGhatguy/rbx-dom/pull/17), [#19](https://github.com/LPGhatguy/rbx-dom/pull/19))
+	* `Ref` and `PhysicalProperties`, no longer stubs!
+* Rewrote lots of internals, which should improve whitespace handling ([#17](https://github.com/LPGhatguy/rbx-dom/pull/17), [#19](https://github.com/LPGhatguy/rbx-dom/pull/19))
 
 ## 0.5.0 (2019-03-13)
 * Changed referents to be emitted as consecutive integers, which makes generating XML models deterministic regardless of IDs

@@ -5,7 +5,7 @@ license = "MIT"
 documentation = "https://docs.rs/rbx_xml"
 homepage = "https://github.com/LPGhatguy/rbx-dom"
 repository = "https://github.com/LPGhatguy/rbx-dom.git"
-version = "0.5.0"
+version = "0.6.0"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
@@ -16,7 +16,7 @@ lazy_static = "1.2.0"
 log = "0.4.6"
 maplit = "1.0.1"
 paste = "0.1.5"
-rbx_dom_weak = { version = "1.0.0", path = "../rbx_dom_weak" }
+rbx_dom_weak = { version = "1.4.0", path = "../rbx_dom_weak" }
 xml-rs = "0.8"
 
 [dev-dependencies]
