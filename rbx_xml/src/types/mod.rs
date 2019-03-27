@@ -10,11 +10,15 @@
 mod binary_string;
 mod bool;
 mod cframe;
+mod color_sequence;
 mod colors;
 mod content;
 mod enumeration;
+mod number_range;
+mod number_sequence;
 mod numbers;
 mod physical_properties;
+mod rect;
 mod referent;
 mod strings;
 mod udims;
@@ -79,19 +83,23 @@ declare_rbx_types! {
     self::binary_string::BinaryStringType => BinaryString,
     self::bool::BoolType => Bool,
     self::cframe::CFrameType => CFrame,
+    self::color_sequence::ColorSequenceType => ColorSequence,
     self::colors::Color3Type => Color3,
     self::colors::Color3uint8Type => Color3uint8,
     self::content::ContentType => Content,
     self::enumeration::EnumType => Enum,
+    self::number_range::NumberRangeType => NumberRange,
+    self::number_sequence::NumberSequenceType => NumberSequence,
     self::numbers::Float32Type => Float32,
     self::numbers::Float64Type => Float64,
     self::numbers::Int32Type => Int32,
     self::numbers::Int64Type => Int64,
     self::physical_properties::PhysicalPropertiesType => PhysicalProperties,
+    self::rect::RectType => Rect,
     self::referent::RefType => Ref,
     self::strings::StringType => String,
-    self::udims::UDimType => UDim,
     self::udims::UDim2Type => UDim2,
+    self::udims::UDimType => UDim,
     self::vectors::Vector2Type => Vector2,
     self::vectors::Vector2int16Type => Vector2int16,
     self::vectors::Vector3Type => Vector3,
