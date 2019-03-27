@@ -3,65 +3,43 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{RbxId, RbxValue};
 
 use crate::{
-    core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    deserializer::{DecodeError, XmlEventReader, ParseState},
+    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter, EmitState},
 };
 
-pub struct RefType;
+pub const XML_TAG_NAME: &'static str = "Ref";
 
-impl XmlType<Option<RbxId>> for RefType {
-    const XML_TAG_NAME: &'static str = "Ref";
+pub fn write_ref<W: Write>(
+    writer: &mut XmlEventWriter<W>,
+    property_name: &str,
+    value: &Option<RbxId>,
+    state: &mut EmitState,
+) -> Result<(), EncodeError> {
+    writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
 
-    fn write_xml<W: Write>(
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-        value: &Option<RbxId>,
-    ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-
-        match value {
-            Some(value) => writer.write(XmlWriteEvent::characters(&value.to_string()))?,
-            None => writer.write(XmlWriteEvent::characters("null"))?,
-        }
-
-        writer.write(XmlWriteEvent::end_element())?;
-
-        Ok(())
+    match value {
+        Some(id) => writer.write_characters(state.map_id(*id))?,
+        None => writer.write(XmlWriteEvent::characters("null"))?
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
-        let _ref_contents = reader.read_tag_contents(Self::XML_TAG_NAME)?;
+    writer.write(XmlWriteEvent::end_element())?;
 
-        // TODO: Return a different type and use it to figure out the instance's
-        // actual rbx_dom_weak ID, which is separate from Roblox refs.
-        Ok(RbxValue::Ref { value: None })
-    }
+    Ok(())
 }
 
-#[cfg(test)]
-mod test {
-    use super::*;
+pub fn read_ref<R: Read>(
+    reader: &mut XmlEventReader<R>,
+    id: RbxId,
+    property_name: &str,
+    state: &mut ParseState,
+) -> Result<RbxValue, DecodeError> {
+    let ref_contents = reader.read_tag_contents(XML_TAG_NAME)?;
 
-    #[test]
-    fn round_trip_ref_none() {
-        let _ = env_logger::try_init();
-
-        let test_input: Option<RbxId> = None;
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        RefType::write_xml(&mut writer, "foo", &test_input).unwrap();
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = XmlEventReader::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = RefType::read_xml(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Ref {
-            value: test_input,
-        });
+    if ref_contents != "null" {
+        state.add_id_rewrite(id, property_name.to_owned(), ref_contents);
     }
+
+    Ok(RbxValue::Ref {
+        value: None,
+    })
 }

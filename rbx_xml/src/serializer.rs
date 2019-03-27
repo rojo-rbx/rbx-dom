@@ -143,7 +143,7 @@ fn write_characters_or_cdata<W: Write>(writer: &mut EventWriter<W>, value: &str)
     Ok(())
 }
 
-struct EmitState {
+pub struct EmitState {
     referent_map: HashMap<RbxId, u32>,
     next_referent: u32,
 }
@@ -171,7 +171,7 @@ impl EmitState {
 
 fn serialize_value<W: Write>(
     writer: &mut XmlEventWriter<W>,
-    _state: &mut EmitState,
+    state: &mut EmitState,
     canonical_name: &str,
     value: &RbxValue,
 ) -> Result<(), EncodeError> {
@@ -179,7 +179,7 @@ fn serialize_value<W: Write>(
         .get(canonical_name)
         .unwrap_or(&canonical_name);
 
-    write_value_xml(writer, xml_name, value)
+    write_value_xml(writer, xml_name, value, state)
 }
 
 fn serialize_instance<W: Write>(

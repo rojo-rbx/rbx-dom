@@ -77,7 +77,10 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Resul
     let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(tree);
 
-    deserialize_root(&mut iterator, &mut state, parent_id)
+    deserialize_root(&mut iterator, &mut state, parent_id)?;
+    apply_id_rewrites(&mut state);
+
+    Ok(())
 }
 
 /// Since this function type needs to be mentioned a couple times, we keep this
@@ -268,10 +271,17 @@ impl<R: Read> Iterator for XmlEventReader<R> {
     }
 }
 
+struct IdPropertyRewrite {
+    pub id: RbxId,
+    pub property_name: String,
+    pub referent_value: String,
+}
+
 /// The state needed to deserialize an XML model into an `RbxTree`.
-struct ParseState<'a> {
+pub struct ParseState<'a> {
     referents: HashMap<String, RbxId>,
     metadata: HashMap<String, String>,
+    rewrite_ids: Vec<IdPropertyRewrite>,
     tree: &'a mut RbxTree,
 }
 
@@ -280,8 +290,33 @@ impl<'a> ParseState<'a> {
         ParseState {
             referents: HashMap::new(),
             metadata: HashMap::new(),
+            rewrite_ids: Vec::new(),
             tree,
         }
+    }
+
+    pub fn add_id_rewrite(&mut self, id: RbxId, property_name: String, referent_value: String) {
+        self.rewrite_ids.push(IdPropertyRewrite {
+            id,
+            property_name,
+            referent_value,
+        });
+    }
+}
+
+fn apply_id_rewrites(state: &mut ParseState) {
+    for rewrite in &state.rewrite_ids {
+        let new_value = match state.referents.get(&rewrite.referent_value) {
+            Some(id) => *id,
+            None => continue
+        };
+
+        let instance = state.tree.get_instance_mut(rewrite.id)
+            .expect("rbx_xml bug: had ID in referent map that didn't end up in the tree");
+
+        instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
+            value: Some(new_value),
+        });
     }
 }
 
@@ -430,7 +465,7 @@ fn deserialize_instance<R: Read>(
         match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
             Ok(XmlReadEvent::StartElement { name, .. }) => match name.local_name.as_str() {
                 "Properties" => {
-                    deserialize_properties(reader, &mut properties)?;
+                    deserialize_properties(reader, state, instance_id, &mut properties)?;
                 },
                 "Item" => {
                     deserialize_instance(reader, state, instance_id)?;
@@ -467,6 +502,8 @@ fn deserialize_instance<R: Read>(
 
 fn deserialize_properties<R: Read>(
     reader: &mut XmlEventReader<R>,
+    state: &mut ParseState,
+    instance_id: RbxId,
     props: &mut HashMap<String, RbxValue>,
 ) -> Result<(), DecodeError> {
     read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
@@ -509,7 +546,7 @@ fn deserialize_properties<R: Read>(
             .map(|value| value.to_string())
             .unwrap_or(xml_property_name);
 
-        let value = read_value_xml(reader, &property_type)?;
+        let value = read_value_xml(reader, &property_type, &canonical_name, instance_id, state)?;
 
         props.insert(canonical_name, value);
     }
