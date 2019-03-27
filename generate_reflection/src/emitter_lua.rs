@@ -80,6 +80,14 @@ fn emit_class<W: Write>(output: &mut W, class: &DumpClass) -> io::Result<()> {
                 writeln!(output, "\t\t\t{} = {{", property.name)?;
                 writeln!(output, "\t\t\t\ttype = \"{}\",", property.value_type.name)?;
 
+                write!(output, "\t\t\t\ttags = {{")?;
+
+                for tag in &property.tags {
+                    write!(output, "{} = true, ", tag)?;
+                }
+
+                writeln!(output, "}},")?;
+
                 writeln!(output, "\t\t\t\tcanSave = {},", property.serialization.can_save)?;
                 writeln!(output, "\t\t\t\tcanLoad = {},", property.serialization.can_load)?;
 

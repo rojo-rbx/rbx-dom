@@ -1,3 +1,5 @@
+local ReflectionDatabase = require(script.Parent.ReflectionDatabase)
+
 local function identity(...)
 	return ...
 end
@@ -16,6 +18,22 @@ local canonicalProperties = {
 }
 
 local CanonicalProperty = {}
+
+function CanonicalProperty.isScriptable(className, propertyName)
+	local classDetails = ReflectionDatabase.dump.classes[className]
+
+	if classDetails == nil then
+		return true
+	end
+
+	local property = classDetails.properties[propertyName]
+
+	if property == nil then
+		return true
+	end
+
+	return not property.tags.NotScriptable
+end
 
 function CanonicalProperty.read(instance, key)
 	local instanceProperties = canonicalProperties[instance.ClassName]
