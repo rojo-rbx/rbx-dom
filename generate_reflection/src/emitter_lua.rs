@@ -103,8 +103,8 @@ fn emit_value<W: Write>(output: &mut W, value: &RbxValue) -> io::Result<()> {
             output.write_all(value)?;
             output.write_all(b"\"")?;
             Ok(())
-        },
-        Bool { value } => if *value { write!(output, "true") } else { write!(output, "false") },
+        }
+        Bool { value } => write!(output, "{}", *value),
         CFrame { value } => {
             write!(output,
                 "CFrame.new({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
@@ -118,15 +118,57 @@ fn emit_value<W: Write>(output: &mut W, value: &RbxValue) -> io::Result<()> {
         Content { value } => write!(output, "\"{}\"", value),
         Enum { value } => write!(output, "{}", value),
         Float32 { value } => write!(output, "{}", value),
+        Float64 { value } => write!(output, "{}", value),
         Int32 { value } => write!(output, "{}", value),
-        PhysicalProperties { value: _ } => unimplemented!(),
+        Int64 { value } => write!(output, "{}", value),
+        NumberRange { value } => write!(output, "NumberRange.new({}, {})", value.0, value.1),
+        NumberSequence { value } => {
+            write!(output, "NumberSequence.new(")?;
+
+            for (index, keypoint) in value.keypoints.iter().enumerate() {
+                write!(output, "NumberSequenceKeypoint.new({}, {}, {})",
+                    keypoint.time, keypoint.value, keypoint.envelope)?;
+
+                if index < value.keypoints.len() - 1 {
+                    write!(output, ", ")?;
+                }
+            }
+
+            write!(output, ")")
+        }
+        ColorSequence { value } => {
+            write!(output, "ColorSequence.new(")?;
+
+            for (index, keypoint) in value.keypoints.iter().enumerate() {
+                write!(output, "ColorSequenceKeypoint.new({}, Color3.new({}, {}, {}))",
+                    keypoint.time, keypoint.color[0], keypoint.color[1], keypoint.color[2])?;
+
+                if index < value.keypoints.len() - 1 {
+                    write!(output, ", ")?;
+                }
+            }
+
+            write!(output, ")")
+        }
+        Rect { value } => {
+            write!(output, "Rect.new({}, {}, {}, {})", value.min.0, value.min.1, value.max.0, value.max.1)
+        }
+        PhysicalProperties { value } => {
+            match value {
+                Some(props) => {
+                    write!(output, "PhysicalProperties.new({}, {}, {}, {}, {})",
+                        props.density, props.friction, props.elasticity, props.friction_weight, props.elasticity_weight)
+                }
+                None => write!(output, "nil")
+            }
+        }
         Ref { value } => {
             if value.is_some() {
                 panic!("Can't serialize non-None Ref");
             }
 
             write!(output, "nil")
-        },
+        }
         String { value } => write!(output, "\"{}\"", value),
         UDim { value } => write!(output, "UDim.new({}, {})", value.0, value.1),
         UDim2 { value } => write!(output, "UDim2.new({}, {}, {}, {})", value.0, value.1, value.2, value.3),
@@ -134,6 +176,6 @@ fn emit_value<W: Write>(output: &mut W, value: &RbxValue) -> io::Result<()> {
         Vector2int16 { value } => write!(output, "Vector2int16.new({}, {})", value[0], value[1]),
         Vector3 { value } => write!(output, "Vector3.new({}, {}, {})", value[0], value[1], value[2]),
         Vector3int16 { value } => write!(output, "Vector3int16.new({}, {}, {})", value[0], value[1], value[2]),
-        _ => unimplemented!(),
+        _ => unimplemented!()
     }
 }
