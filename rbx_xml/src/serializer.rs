@@ -179,6 +179,8 @@ fn serialize_value<W: Write>(
         .get(canonical_name)
         .unwrap_or(&canonical_name);
 
+    // Refs need additional state that we don't want to thread through
+    // `write_value_xml`, so we handle it here.
     match value {
         RbxValue::Ref { value } => write_ref(writer, xml_name, value, state),
         _ => write_value_xml(writer, xml_name, value)

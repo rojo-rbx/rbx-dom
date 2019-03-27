@@ -295,6 +295,10 @@ impl<'a> ParseState<'a> {
         }
     }
 
+    /// Marks that a property on this instance needs to be rewritten once we
+    /// have a complete view of how referents map to RbxId values.
+    ///
+    /// This is used to deserialize non-null Ref values correctly.
     pub fn add_id_rewrite(&mut self, id: RbxId, property_name: String, referent_value: String) {
         self.rewrite_ids.push(IdPropertyRewrite {
             id,
@@ -546,6 +550,8 @@ fn deserialize_properties<R: Read>(
             .map(|value| value.to_string())
             .unwrap_or(xml_property_name);
 
+        // Refs need lots of additional state that we don't want to pass to
+        // other property types unnecessarily, so we special-case it here.
         let value = match property_type.as_str() {
             "Ref" => read_ref(reader, instance_id, &canonical_name, state)?,
             _ => read_value_xml(reader, &property_type)?
@@ -888,42 +894,43 @@ mod test {
         }));
     }
 
-    // TODO(#12): This test should be reinstated once ref mapping is a thing
+    #[test]
+    fn with_ref_some() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Folder" referent="RBX1B9CDD1FD0884F76BFE6091C1731E1FB">
+                </Item>
 
-    // #[test]
-    // fn with_ref_some() {
-    //     let _ = env_logger::try_init();
-    //     let document = r#"
-    //         <roblox version="4">
-    //             <Item class="Folder" referent="RBX1B9CDD1FD0884F76BFE6091C1731E1FB">
-    //             </Item>
+                <Item class="ObjectValue" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <Ref name="Value">RBX1B9CDD1FD0884F76BFE6091C1731E1FB</Ref>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
 
-    //             <Item class="ObjectValue" referent="hello">
-    //                 <Properties>
-    //                     <string name="Name">Test</string>
-    //                     <Ref name="Value">RBX1B9CDD1FD0884F76BFE6091C1731E1FB</Ref>
-    //                 </Properties>
-    //             </Item>
-    //         </roblox>
-    //     "#;
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
 
-    //     let mut tree = new_data_model();
-    //     let root_id = tree.get_root_id();
+        decode_str(&mut tree, root_id, document).unwrap();
 
-    //     decode_str(&mut tree, root_id, document).expect("should work D:");
+        let root_instance = tree.get_instance(root_id).unwrap();
+        let target_instance_id = root_instance.get_children_ids()[0];
+        let source_instance_id = root_instance.get_children_ids()[1];
 
-    //     let descendant = tree.descendants(root_id).nth(1).unwrap();
-    //     assert_eq!(descendant.name, "Test");
-    //     assert_eq!(descendant.class_name, "ObjectValue");
+        let source_instance = tree.get_instance(source_instance_id).unwrap();
+        assert_eq!(source_instance.name, "Test");
+        assert_eq!(source_instance.class_name, "ObjectValue");
 
-    //     let value = descendant.properties.get("Value").expect("no value property");
-    //     if let RbxValue::Ref { value } = value {
-    //         let value = value.expect("ref was None");
-    //         assert_eq!(value.to_string(), "1b9cdd1f-d088-4f76-bfe6-091c1731e1fb");
-    //     } else {
-    //         panic!("rbxvalue was not ref, but instead {:?}", value.get_type())
-    //     }
-    // }
+        let value = source_instance.properties.get("Value").unwrap();
+        if let RbxValue::Ref { value } = value {
+            assert_eq!(value.unwrap(), target_instance_id);
+        } else {
+            panic!("RBXValue was not Ref, but instead {:?}", value);
+        }
+    }
 
     #[test]
     fn with_ref_none() {
