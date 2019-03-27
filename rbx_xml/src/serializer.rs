@@ -4,33 +4,13 @@ use std::{
     fmt::Write as FmtWrite,
 };
 
-use log::warn;
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
     reflection::CANONICAL_TO_XML_NAME,
-    types::{
-        serialize_binary_string,
-        serialize_bool,
-        serialize_cframe,
-        serialize_color3,
-        serialize_color3uint8,
-        serialize_content,
-        serialize_enum,
-        serialize_float32,
-        serialize_int32,
-        serialize_physical_properties,
-        serialize_ref,
-        serialize_string,
-        serialize_udim,
-        serialize_udim2,
-        serialize_vector2,
-        serialize_vector2int16,
-        serialize_vector3,
-        serialize_vector3int16,
-    },
+    types::{write_value_xml, write_ref},
 };
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
@@ -70,12 +50,15 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), 
     Ok(())
 }
 
+/// A wrapper around an xml-rs `EventWriter` as well as other state kept around
+/// for performantly emitting XML.
 pub struct XmlEventWriter<W> {
     inner: EventWriter<W>,
     character_buffer: String,
 }
 
 impl<W: Write> XmlEventWriter<W> {
+    /// Constructs an `XmlEventWriter` from an output that implements `Write`.
     pub fn from_output(output: W) -> XmlEventWriter<W> {
         let inner = EmitterConfig::new()
             .perform_indent(true)
@@ -88,42 +71,79 @@ impl<W: Write> XmlEventWriter<W> {
         }
     }
 
+    /// Writes a single XML event to the output stream.
     pub fn write<'a, E>(&mut self, event: E) -> Result<(), writer::Error>
         where E: Into<XmlWriteEvent<'a>>
     {
         self.inner.write(event)
     }
 
-    /// A more efficient implementation to write characters to the XML output
-    /// stream that reuses a buffer for each string.
+    /// Writes a string slice to the output stream as characters or CDATA.
+    pub fn write_string(&mut self, value: &str) -> Result<(), writer::Error> {
+        write_characters_or_cdata(&mut self.inner, value)
+    }
+
+    /// Writes a value that implements `Display` as characters or CDATA. Resuses
+    /// an internal buffer to avoid unnecessary allocations.
     pub fn write_characters<T: std::fmt::Display>(&mut self, value: T) -> Result<(), writer::Error> {
         write!(self.character_buffer, "{}", value).unwrap();
-        self.inner.write(XmlWriteEvent::characters(&self.character_buffer))?;
+        write_characters_or_cdata(&mut self.inner, &self.character_buffer)?;
         self.character_buffer.clear();
 
         Ok(())
     }
 
+    /// The same as `write_characters`, but wraps the characters in a tag with
+    /// the given name and no attributes.
     pub fn write_tag_characters<T: std::fmt::Display>(&mut self, tag: &str, value: T) -> Result<(), writer::Error> {
         self.write(XmlWriteEvent::start_element(tag))?;
         self.write_characters(value)?;
         self.write(XmlWriteEvent::end_element())
     }
 
+    /// Writes a list of values that implement `Display`, with each wrapped in
+    /// an associated tag. This method uses the same optimization as
+    /// `write_characters` to avoid extra allocations.
     pub fn write_tag_array<T: std::fmt::Display>(&mut self, values: &[T], tags: &[&str]) -> Result<(), writer::Error> {
         assert_eq!(values.len(), tags.len());
 
         for (index, component) in values.iter().enumerate() {
-            self.write(XmlWriteEvent::start_element(tags[index]))?;
-            self.write_characters(component)?;
-            self.write(XmlWriteEvent::end_element())?;
+            self.write_tag_characters(tags[index], component)?;
         }
 
         Ok(())
     }
 }
 
-struct EmitState {
+/// Given a value, writes a `Characters` event or a `CData` event depending on
+/// whether the input string contains whitespace that needs to be explicitly
+/// preserved.
+///
+/// This method is extracted so that it can be used inside both `write_string`
+/// and `write_characters` without borrowing issues.
+fn write_characters_or_cdata<W: Write>(writer: &mut EventWriter<W>, value: &str) -> Result<(), writer::Error> {
+    let first_char = value.chars().next();
+    let last_char = value.chars().next_back();
+
+    // If the string has leading or trailing whitespace, we switch to
+    // writing it as part of a CDATA block instead of a regular characters
+    // block.
+    let has_outer_whitespace = match (first_char, last_char) {
+        (Some(first), Some(last)) => first.is_whitespace() || last.is_whitespace(),
+        (Some(char), None) | (None, Some(char)) => char.is_whitespace(),
+        (None, None) => false,
+    };
+
+    if has_outer_whitespace {
+        writer.write(XmlWriteEvent::cdata(value))?;
+    } else {
+        writer.write(XmlWriteEvent::characters(value))?;
+    }
+
+    Ok(())
+}
+
+pub struct EmitState {
     referent_map: HashMap<RbxId, u32>,
     next_referent: u32,
 }
@@ -159,30 +179,11 @@ fn serialize_value<W: Write>(
         .get(canonical_name)
         .unwrap_or(&canonical_name);
 
+    // Refs need additional state that we don't want to thread through
+    // `write_value_xml`, so we handle it here.
     match value {
-        RbxValue::BinaryString { value } => serialize_binary_string(writer, xml_name, value),
-        RbxValue::Bool { value } => serialize_bool(writer, xml_name, *value),
-        RbxValue::CFrame { value } => serialize_cframe(writer, xml_name, *value),
-        RbxValue::Color3 { value } => serialize_color3(writer, xml_name, *value),
-        RbxValue::Color3uint8 { value } => serialize_color3uint8(writer, xml_name, *value),
-        RbxValue::Content { value } => serialize_content(writer, xml_name, value),
-        RbxValue::Enum { value } => serialize_enum(writer, xml_name, *value),
-        RbxValue::Float32 { value } => serialize_float32(writer, xml_name, *value),
-        RbxValue::Int32 { value } => serialize_int32(writer, xml_name, *value),
-        RbxValue::PhysicalProperties { value } => serialize_physical_properties(writer, xml_name, *value),
-        RbxValue::Ref { value } => serialize_ref(writer, xml_name, *value),
-        RbxValue::String { value } => serialize_string(writer, xml_name, value),
-        RbxValue::UDim { value } => serialize_udim(writer, xml_name, *value),
-        RbxValue::UDim2 { value } => serialize_udim2(writer, xml_name, *value),
-        RbxValue::Vector2 { value } => serialize_vector2(writer, xml_name, *value),
-        RbxValue::Vector2int16 { value } => serialize_vector2int16(writer, xml_name, *value),
-        RbxValue::Vector3 { value } => serialize_vector3(writer, xml_name, *value),
-        RbxValue::Vector3int16 { value } => serialize_vector3int16(writer, xml_name, *value),
-
-        unknown => {
-            warn!("Property value {:?} cannot be serialized yet", unknown);
-            unimplemented!();
-        },
+        RbxValue::Ref { value } => write_ref(writer, xml_name, value, state),
+        _ => write_value_xml(writer, xml_name, value)
     }
 }
 
@@ -217,53 +218,4 @@ fn serialize_instance<W: Write>(
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
-}
-
-#[cfg(test)]
-mod test {
-    use super::encode;
-
-    use std::collections::HashMap;
-    use std::str;
-
-    use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxValue};
-
-    #[test]
-    fn serialize() {
-        let _ = env_logger::try_init();
-
-        let mut properties = HashMap::new();
-        properties.insert("SomethingEnabled".to_string(), RbxValue::String {
-            value: "Yes Please".to_string(),
-        });
-
-        let root_instance = RbxInstanceProperties {
-            name: "DataModel".to_string(),
-            class_name: "DataModel".to_string(),
-            properties,
-        };
-
-        let mut child_properties = HashMap::new();
-        child_properties.insert("StreamingEnabled".to_string(), RbxValue::Bool {
-            value: true,
-        });
-
-        let child = RbxInstanceProperties {
-            name: "Workspace".to_string(),
-            class_name: "Workspace".to_string(),
-            properties: child_properties,
-        };
-
-        let mut tree = RbxTree::new(root_instance);
-        let root_id = tree.get_root_id();
-        tree.insert_instance(child, root_id);
-
-        let root = tree.get_instance(root_id).unwrap();
-
-        let mut output = Vec::new();
-        encode(&tree, &root.get_children_ids(), &mut output).unwrap();
-        let _as_str = str::from_utf8(&output).unwrap();
-
-        // TODO: Serialize/deserialize and assert output?
-    }
 }

@@ -3,64 +3,79 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    deserializer::{DecodeError, XmlReadEvent, EventIterator},
+    core::XmlType,
+    deserializer::{DecodeError, XmlReadEvent, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_bool<W: Write>(writer: &mut XmlEventWriter<W>, name: &str, value: bool) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("bool").attr("name", name))?;
+pub struct BoolType;
 
-    let value_as_str = if value {
-        "true"
-    } else {
-        "false"
-    };
+impl XmlType<bool> for BoolType {
+    const XML_TAG_NAME: &'static str = "bool";
 
-    writer.write(XmlWriteEvent::characters(value_as_str))?;
-    writer.write(XmlWriteEvent::end_element())?;
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &bool,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
-    Ok(())
-}
+        let value_as_str = if *value {
+            "true"
+        } else {
+            "false"
+        };
 
-pub fn deserialize_bool<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    reader.expect_start_with_name("bool")?;
+        writer.write(XmlWriteEvent::characters(value_as_str))?;
+        writer.write(XmlWriteEvent::end_element())?;
 
-    let value = read_event!(reader, XmlReadEvent::Characters(content) => {
-        match content.as_str() {
-            "true" => true,
-            "false" => false,
-            _ => return Err(DecodeError::Message("invalid boolean value, expected true or false")),
-        }
-    });
+        Ok(())
+    }
 
-    reader.expect_end_with_name("bool")?;
+    fn read_xml<R: Read>(
+        reader: &mut XmlEventReader<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-    Ok(RbxValue::Bool {
-        value
-    })
+        let value = read_event!(reader, XmlReadEvent::Characters(content) => {
+            match content.as_str() {
+                "true" => true,
+                "false" => false,
+                _ => return Err(DecodeError::Message("invalid boolean value, expected true or false")),
+            }
+        });
+
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
+
+        Ok(RbxValue::Bool {
+            value
+        })
+    }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
-    fn round_trip() {
-        let _ = env_logger::try_init();
+    fn round_trip_true() {
+        test_util::test_xml_round_trip::<BoolType, _>(
+            &true,
+            RbxValue::Bool {
+                value: true,
+            }
+        );
+    }
 
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_bool(&mut writer, "foo", true).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_bool(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Bool {
-            value: true,
-        });
+    #[test]
+    fn round_trip_false() {
+        test_util::test_xml_round_trip::<BoolType, _>(
+            &false,
+            RbxValue::Bool {
+                value: false,
+            }
+        );
     }
 }

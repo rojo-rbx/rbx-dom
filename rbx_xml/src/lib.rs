@@ -8,10 +8,14 @@
 #[macro_use]
 mod macros;
 
+mod core;
 mod deserializer;
 mod serializer;
 mod types;
 mod reflection;
+
+#[cfg(test)]
+mod test_util;
 
 pub use crate::{
     serializer::{encode, EncodeError},

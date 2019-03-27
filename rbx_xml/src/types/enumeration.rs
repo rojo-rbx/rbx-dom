@@ -3,52 +3,52 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    deserializer::{DecodeError, EventIterator},
+    core::XmlType,
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_enum<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    name: &str,
-    value: u32,
-) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("token").attr("name", name))?;
-    writer.write(XmlWriteEvent::characters(&value.to_string()))?;
-    writer.write(XmlWriteEvent::end_element())?;
+pub struct EnumType;
 
-    Ok(())
-}
+impl XmlType<u32> for EnumType {
+    const XML_TAG_NAME: &'static str = "token";
 
-pub fn deserialize_enum<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    let value: u32 = reader.read_tag_contents("token")?.parse()?;
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &u32,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
+        writer.write_characters(*value)?;
+        writer.write(XmlWriteEvent::end_element())?;
 
-    Ok(RbxValue::Enum {
-        value,
-    })
+        Ok(())
+    }
+
+    fn read_xml<R: Read>(
+        reader: &mut XmlEventReader<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        let value: u32 = reader.read_tag_contents(Self::XML_TAG_NAME)?.parse()?;
+
+        Ok(RbxValue::Enum {
+            value,
+        })
+    }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
     fn round_trip() {
-        let _ = env_logger::try_init();
-
-        let test_input: u32 = 4654321;
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_enum(&mut writer, "foo", test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_enum(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Enum {
-            value: test_input,
-        });
+        test_util::test_xml_round_trip::<EnumType, _>(
+            &4654321,
+            RbxValue::Enum {
+                value: 4654321,
+            }
+        );
     }
 }

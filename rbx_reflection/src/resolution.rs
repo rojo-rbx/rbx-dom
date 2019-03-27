@@ -94,8 +94,9 @@ fn try_resolve_one_float(
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
         RbxPropertyType::Data(RbxValueType::Float32) => Ok(RbxValue::Float32 { value: x as f32 }),
+        RbxPropertyType::Data(RbxValueType::Float64) => Ok(RbxValue::Float64 { value: x as f64 }),
         RbxPropertyType::Data(RbxValueType::Int32) => Ok(RbxValue::Int32 { value: x as i32 }),
-        // TODO: Float64, Int64 when they're added
+        RbxPropertyType::Data(RbxValueType::Int64) => Ok(RbxValue::Int64 { value: x as i64 }),
         _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
     }
 }

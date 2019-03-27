@@ -224,9 +224,17 @@ fn emit_value(value: &RbxValue) -> TokenStream {
             let value_literal = Literal::i32_unsuffixed(*value);
             quote!(RbxValue::Int32 { value: #value_literal })
         },
+        RbxValue::Int64 { value } => {
+            let value_literal = Literal::i64_unsuffixed(*value);
+            quote!(RbxValue::Int64 { value: #value_literal })
+        },
         RbxValue::Float32 { value } => {
             let value_literal = Literal::f32_unsuffixed(*value);
             quote!(RbxValue::Float32 { value: #value_literal })
+        },
+        RbxValue::Float64 { value } => {
+            let value_literal = Literal::f64_unsuffixed(*value);
+            quote!(RbxValue::Float64 { value: #value_literal })
         },
         RbxValue::Bool { value } => {
             let value_literal = if *value {

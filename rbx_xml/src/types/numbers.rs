@@ -3,93 +3,91 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    deserializer::{DecodeError, EventIterator},
+    core::XmlType,
+    deserializer::{DecodeError, XmlEventReader},
     serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
 };
 
-pub fn serialize_float32<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    name: &str,
-    value: f32,
-) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("float").attr("name", name))?;
-    writer.write(XmlWriteEvent::characters(&value.to_string()))?;
-    writer.write(XmlWriteEvent::end_element())?;
+macro_rules! number_type {
+    ($rbx_type: ident, $type_struct: ident, $rust_type: ty, $xml_name: expr) => {
+        pub struct $type_struct;
 
-    Ok(())
+        impl XmlType<$rust_type> for $type_struct {
+            const XML_TAG_NAME: &'static str = $xml_name;
+
+            fn write_xml<W: Write>(
+                writer: &mut XmlEventWriter<W>,
+                name: &str,
+                value: &$rust_type,
+            ) -> Result<(), EncodeError> {
+                writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
+                writer.write_characters(*value)?;
+                writer.write(XmlWriteEvent::end_element())?;
+
+                Ok(())
+            }
+
+            fn read_xml<R: Read>(
+                reader: &mut XmlEventReader<R>,
+            ) -> Result<RbxValue, DecodeError> {
+                let value: $rust_type = reader.read_tag_contents(Self::XML_TAG_NAME)?.parse()?;
+
+                Ok(RbxValue::$rbx_type {
+                    value,
+                })
+            }
+        }
+    };
 }
 
-pub fn deserialize_float32<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    let value: f32 = reader.read_tag_contents("float")?.parse()?;
-
-    Ok(RbxValue::Float32 {
-        value,
-    })
-}
-
-pub fn serialize_int32<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    name: &str,
-    value: i32,
-) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element("int").attr("name", name))?;
-    writer.write(XmlWriteEvent::characters(&value.to_string()))?;
-    writer.write(XmlWriteEvent::end_element())?;
-
-    Ok(())
-}
-
-pub fn deserialize_int32<R: Read>(reader: &mut EventIterator<R>) -> Result<RbxValue, DecodeError> {
-    let value: i32 = reader.read_tag_contents("int")?.parse()?;
-
-    Ok(RbxValue::Int32 {
-        value,
-    })
-}
+number_type!(Float32, Float32Type, f32, "float");
+number_type!(Float64, Float64Type, f64, "double");
+number_type!(Int32, Int32Type, i32, "int");
+number_type!(Int64, Int64Type, i64, "int64");
 
 #[cfg(test)]
 mod test {
     use super::*;
 
+    use crate::test_util;
+
     #[test]
-    fn round_trip_float32() {
-        let _ = env_logger::try_init();
-
-        let test_input: f32 = 123456.0;
-        let mut buffer = Vec::new();
-
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_float32(&mut writer, "foo", test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_float32(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Float32 {
-            value: test_input,
-        });
+    fn round_trip_f32() {
+        test_util::test_xml_round_trip::<Float32Type, _>(
+            &123456.0,
+            RbxValue::Float32 {
+                value: 123456.0,
+            }
+        );
     }
 
     #[test]
-    fn round_trip_int32() {
-        let _ = env_logger::try_init();
+    fn round_trip_f64() {
+        test_util::test_xml_round_trip::<Float64Type, _>(
+            &123456.0,
+            RbxValue::Float64 {
+                value: 123456.0,
+            }
+        );
+    }
 
-        let test_input: i32 = -4654321;
-        let mut buffer = Vec::new();
+    #[test]
+    fn round_trip_i32() {
+        test_util::test_xml_round_trip::<Int32Type, _>(
+            &-4654321,
+            RbxValue::Int32 {
+                value: -4654321,
+            }
+        );
+    }
 
-        let mut writer = XmlEventWriter::from_output(&mut buffer);
-        serialize_int32(&mut writer, "foo", test_input).unwrap();
-
-        println!("{}", std::str::from_utf8(&buffer).unwrap());
-
-        let mut reader = EventIterator::from_source(buffer.as_slice());
-        reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = deserialize_int32(&mut reader).unwrap();
-
-        assert_eq!(value, RbxValue::Int32 {
-            value: test_input,
-        });
+    #[test]
+    fn round_trip_i64() {
+        test_util::test_xml_round_trip::<Int64Type, _>(
+            &281474976710656,
+            RbxValue::Int64 {
+                value: 281474976710656,
+            }
+        );
     }
 }

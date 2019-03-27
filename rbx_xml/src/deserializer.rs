@@ -1,37 +1,17 @@
 use std::{
     io::Read,
-    iter::Peekable,
+    iter::{Filter, Peekable},
     collections::HashMap,
 };
 
 use failure::Fail;
-use log::{trace, warn};
+use log::trace;
 use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
     reflection::XML_TO_CANONICAL_NAME,
-    types::{
-        deserialize_binary_string,
-        deserialize_bool,
-        deserialize_cframe,
-        deserialize_color3,
-        deserialize_color3uint8,
-        deserialize_content,
-        deserialize_enum,
-        deserialize_float32,
-        deserialize_int32,
-        deserialize_physical_properties,
-        deserialize_protected_string,
-        deserialize_ref,
-        deserialize_string,
-        deserialize_udim,
-        deserialize_udim2,
-        deserialize_vector2,
-        deserialize_vector2int16,
-        deserialize_vector3,
-        deserialize_vector3int16,
-    },
+    types::{read_value_xml, read_ref},
 };
 
 pub use xml::reader::XmlEvent as XmlReadEvent;
@@ -94,33 +74,50 @@ pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<
 /// happens in the case of places as well as Studio users choosing multiple
 /// objects when saving a model file.
 pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
-    let mut iterator = EventIterator::from_source(source);
+    let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(tree);
 
-    deserialize_root(&mut iterator, &mut state, parent_id)
+    deserialize_root(&mut iterator, &mut state, parent_id)?;
+    apply_id_rewrites(&mut state);
+
+    Ok(())
 }
 
-pub struct EventIterator<R: Read> {
-    inner: Peekable<reader::Events<R>>,
+/// Since this function type needs to be mentioned a couple times, we keep this
+/// type alias around.
+type EventFilterFn = fn(&Result<XmlReadEvent, xml::reader::Error>) -> bool;
+
+fn filter_whitespace_events(event: &Result<XmlReadEvent, xml::reader::Error>) -> bool {
+    match event {
+        Ok(XmlReadEvent::Whitespace(_)) => false,
+        _ => true,
+    }
 }
 
-impl<R: Read> EventIterator<R> {
+/// A wrapper around an XML event iterator created by xml-rs.
+pub struct XmlEventReader<R: Read> {
+    inner: Peekable<Filter<reader::Events<R>, EventFilterFn>>,
+}
+
+impl<R: Read> XmlEventReader<R> {
+    /// Borrows the next element from the event stream without consuming it.
     pub fn peek(&mut self) -> Option<&<Self as Iterator>::Item> {
         self.inner.peek()
     }
 
-    pub fn from_source(source: R) -> EventIterator<R> {
+    /// Constructs a new `XmlEventReader` from a source that implements `Read`.
+    pub fn from_source(source: R) -> XmlEventReader<R> {
         let reader = ParserConfig::new()
-            .coalesce_characters(true)
-            .cdata_to_characters(true)
             .ignore_comments(true)
             .create_reader(source);
 
-        EventIterator {
-            inner: reader.into_iter().peekable(),
+        XmlEventReader {
+            inner: reader.into_iter().filter(filter_whitespace_events as EventFilterFn).peekable(),
         }
     }
 
+    /// Consumes the next event and returns `Ok(())` if it was an opening tag
+    /// with the given name, otherwise returns an error.
     pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
         read_event!(self, XmlReadEvent::StartElement { name, .. } => {
             if name.local_name != expected_name {
@@ -131,6 +128,8 @@ impl<R: Read> EventIterator<R> {
         Ok(())
     }
 
+    /// Consumes the next event and returns `Ok(())` if it was a closing tag
+    /// with the given name, otherwise returns an error.
     pub fn expect_end_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
         read_event!(self, XmlReadEvent::EndElement { name } => {
             if name.local_name != expected_name {
@@ -139,6 +138,74 @@ impl<R: Read> EventIterator<R> {
         });
 
         Ok(())
+    }
+
+    /// Reads one `Characters` or `CData` event if the next event is a
+    /// `Characters` or `CData` event.
+    ///
+    /// If the next event in the stream is not a character event, this function
+    /// will return `Ok(None)` and leave the stream untouched.
+    ///
+    /// This is the inner kernel of `read_characters`, which is the public
+    /// version of a similar idea.
+    fn read_one_characters_event(&mut self) -> Result<Option<String>, DecodeError> {
+        // This pattern (peek + next) is pretty gnarly but is useful for looking
+        // ahead without touching the stream.
+
+        match self.peek() {
+            // If the next event is a `Characters` or `CData` event, we need to
+            // use `next` to take ownership over it (with some careful unwraps)
+            // and extract the data out of it.
+            //
+            // We could also clone the borrowed data obtained from peek, but
+            // some of the character events can contain several megabytes of
+            // data, so a copy is really expensive.
+            Some(Ok(XmlReadEvent::Characters(_))) | Some(Ok(XmlReadEvent::CData(_))) => {
+                match self.next().unwrap().unwrap() {
+                    XmlReadEvent::Characters(value) | XmlReadEvent::CData(value) => Ok(Some(value)),
+                    _ => unreachable!()
+                }
+            }
+
+            // Since we can't use `?` (we have a `&Result` instead of a `Result`)
+            // we have to do something similar to what it would do.
+            Some(Err(_)) => Err(self.next().unwrap().unwrap_err().into()),
+
+            None | Some(Ok(_)) => Ok(None),
+        }
+    }
+
+    /// Reads a contiguous sequence of zero or more `Characters` and `CData`
+    /// events from the event stream.
+    ///
+    /// Normally, consumers of xml-rs shouldn't need to do this since the
+    /// combination of `cdata_to_characters` and `coalesce_characters` does
+    /// something very similar. Because we want to support CDATA sequences that
+    /// contain only whitespace, we have two options:
+    ///
+    /// 1. Every time we want to read an XML event, use a loop and skip over all
+    ///    `Whitespace` events
+    ///
+    /// 2. Turn off `cdata_to_characters` in `ParserConfig` and use a regular
+    ///    iterator filter to strip `Whitespace` events
+    ///
+    /// For complexity, performance, and correctness reasons, we switched from
+    /// #1 to #2. However, this means we need to coalesce `Characters` and
+    /// `CData` events ourselves.
+    pub fn read_characters(&mut self) -> Result<String, DecodeError> {
+        let mut buffer = match self.read_one_characters_event()? {
+            Some(buffer) => buffer,
+            None => return Ok(String::new()),
+        };
+
+        loop {
+            match self.read_one_characters_event()? {
+                Some(piece) => buffer.push_str(&piece),
+                None => break,
+            }
+        }
+
+        Ok(buffer)
     }
 
     /// Reads a tag completely and returns its text content. This is intended
@@ -154,11 +221,12 @@ impl<R: Read> EventIterator<R> {
     pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
         read_event!(self, XmlReadEvent::StartElement { name, .. } => {
             if name.local_name != expected_name {
-                return Err(DecodeError::Message("got wrong tag name"));
+                return Err(DecodeError::Message("Got wrong tag name"));
             }
         });
 
-        let contents = read_event!(self, XmlReadEvent::Characters(content) => content);
+        let contents = self.read_characters()?;
+
         read_event!(self, XmlReadEvent::EndElement { .. } => {});
 
         Ok(contents)
@@ -195,7 +263,7 @@ impl<R: Read> EventIterator<R> {
     }
 }
 
-impl<R: Read> Iterator for EventIterator<R> {
+impl<R: Read> Iterator for XmlEventReader<R> {
     type Item = reader::Result<XmlReadEvent>;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -203,9 +271,17 @@ impl<R: Read> Iterator for EventIterator<R> {
     }
 }
 
-struct ParseState<'a> {
+struct IdPropertyRewrite {
+    pub id: RbxId,
+    pub property_name: String,
+    pub referent_value: String,
+}
+
+/// The state needed to deserialize an XML model into an `RbxTree`.
+pub struct ParseState<'a> {
     referents: HashMap<String, RbxId>,
     metadata: HashMap<String, String>,
+    rewrite_ids: Vec<IdPropertyRewrite>,
     tree: &'a mut RbxTree,
 }
 
@@ -214,13 +290,42 @@ impl<'a> ParseState<'a> {
         ParseState {
             referents: HashMap::new(),
             metadata: HashMap::new(),
+            rewrite_ids: Vec::new(),
             tree,
         }
+    }
+
+    /// Marks that a property on this instance needs to be rewritten once we
+    /// have a complete view of how referents map to RbxId values.
+    ///
+    /// This is used to deserialize non-null Ref values correctly.
+    pub fn add_id_rewrite(&mut self, id: RbxId, property_name: String, referent_value: String) {
+        self.rewrite_ids.push(IdPropertyRewrite {
+            id,
+            property_name,
+            referent_value,
+        });
+    }
+}
+
+fn apply_id_rewrites(state: &mut ParseState) {
+    for rewrite in &state.rewrite_ids {
+        let new_value = match state.referents.get(&rewrite.referent_value) {
+            Some(id) => *id,
+            None => continue
+        };
+
+        let instance = state.tree.get_instance_mut(rewrite.id)
+            .expect("rbx_xml bug: had ID in referent map that didn't end up in the tree");
+
+        instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
+            value: Some(new_value),
+        });
     }
 }
 
 fn deserialize_root<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId
 ) -> Result<(), DecodeError> {
@@ -276,9 +381,6 @@ fn deserialize_root<R: Read>(
                 }
             },
             Ok(XmlReadEvent::EndDocument) => break,
-            Ok(XmlReadEvent::Whitespace(_)) => {
-                let _ = reader.next();
-            },
             Ok(_) => return Err(DecodeError::Message("Unexpected top-level stuff")),
             Err(_) => {
                 reader.next().unwrap()?;
@@ -289,7 +391,7 @@ fn deserialize_root<R: Read>(
     Ok(())
 }
 
-fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut ParseState) -> Result<(), DecodeError> {
+fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), DecodeError> {
     // TODO: Strongly type metadata instead?
 
     let name = read_event!(reader, XmlReadEvent::StartElement { name, mut attributes, .. } => {
@@ -322,7 +424,7 @@ fn deserialize_metadata<R: Read>(reader: &mut EventIterator<R>, state: &mut Pars
 }
 
 fn deserialize_instance<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId,
 ) -> Result<(), DecodeError> {
@@ -367,7 +469,7 @@ fn deserialize_instance<R: Read>(
         match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
             Ok(XmlReadEvent::StartElement { name, .. }) => match name.local_name.as_str() {
                 "Properties" => {
-                    deserialize_properties(reader, &mut properties)?;
+                    deserialize_properties(reader, state, instance_id, &mut properties)?;
                 },
                 "Item" => {
                     deserialize_instance(reader, state, instance_id)?;
@@ -381,9 +483,6 @@ fn deserialize_instance<R: Read>(
 
                 reader.next();
                 break;
-            },
-            Ok(XmlReadEvent::Whitespace(_)) => {
-                reader.next();
             },
             unexpected => panic!("Unexpected XmlReadEvent {:?}", unexpected),
         }
@@ -406,7 +505,9 @@ fn deserialize_instance<R: Read>(
 }
 
 fn deserialize_properties<R: Read>(
-    reader: &mut EventIterator<R>,
+    reader: &mut XmlEventReader<R>,
+    state: &mut ParseState,
+    instance_id: RbxId,
     props: &mut HashMap<String, RbxValue>,
 ) -> Result<(), DecodeError> {
     read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
@@ -440,9 +541,6 @@ fn deserialize_properties<R: Read>(
                         return Err(DecodeError::Message("Unexpected end element, expected Properties"))
                     }
                 },
-                Ok(XmlReadEvent::Whitespace(_)) => {
-                    reader.next().unwrap()?;
-                },
                 Ok(_) | Err(_) => return Err(DecodeError::Message("Unexpected thing in Properties section")),
             };
         };
@@ -452,30 +550,11 @@ fn deserialize_properties<R: Read>(
             .map(|value| value.to_string())
             .unwrap_or(xml_property_name);
 
+        // Refs need lots of additional state that we don't want to pass to
+        // other property types unnecessarily, so we special-case it here.
         let value = match property_type.as_str() {
-            "BinaryString" => deserialize_binary_string(reader)?,
-            "bool" => deserialize_bool(reader)?,
-            "Color3" => deserialize_color3(reader)?,
-            "Color3uint8" => deserialize_color3uint8(reader)?,
-            "Content" => deserialize_content(reader)?,
-            "CoordinateFrame" => deserialize_cframe(reader)?,
-            "float" => deserialize_float32(reader)?,
-            "int" => deserialize_int32(reader)?,
-            "PhysicalProperties" => deserialize_physical_properties(reader)?,
-            "ProtectedString" => deserialize_protected_string(reader)?,
-            "Ref" => deserialize_ref(reader)?,
-            "string" => deserialize_string(reader)?,
-            "token" => deserialize_enum(reader)?,
-            "UDim" => deserialize_udim(reader)?,
-            "UDim2" => deserialize_udim2(reader)?,
-            "Vector2" => deserialize_vector2(reader)?,
-            "Vector2int16" => deserialize_vector2int16(reader)?,
-            "Vector3" => deserialize_vector3(reader)?,
-            "Vector3int16" => deserialize_vector3int16(reader)?,
-            unknown => {
-                warn!("rbx_xml can't decode properties of type {}", unknown);
-                return Err(DecodeError::Message("don't know how to decode this prop type"));
-            },
+            "Ref" => read_ref(reader, instance_id, &canonical_name, state)?,
+            _ => read_value_xml(reader, &property_type)?
         };
 
         props.insert(canonical_name, value);
@@ -815,42 +894,43 @@ mod test {
         }));
     }
 
-    // TODO(#12): This test should be reinstated once ref mapping is a thing
+    #[test]
+    fn with_ref_some() {
+        let _ = env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Folder" referent="RBX1B9CDD1FD0884F76BFE6091C1731E1FB">
+                </Item>
 
-    // #[test]
-    // fn with_ref_some() {
-    //     let _ = env_logger::try_init();
-    //     let document = r#"
-    //         <roblox version="4">
-    //             <Item class="Folder" referent="RBX1B9CDD1FD0884F76BFE6091C1731E1FB">
-    //             </Item>
+                <Item class="ObjectValue" referent="hello">
+                    <Properties>
+                        <string name="Name">Test</string>
+                        <Ref name="Value">RBX1B9CDD1FD0884F76BFE6091C1731E1FB</Ref>
+                    </Properties>
+                </Item>
+            </roblox>
+        "#;
 
-    //             <Item class="ObjectValue" referent="hello">
-    //                 <Properties>
-    //                     <string name="Name">Test</string>
-    //                     <Ref name="Value">RBX1B9CDD1FD0884F76BFE6091C1731E1FB</Ref>
-    //                 </Properties>
-    //             </Item>
-    //         </roblox>
-    //     "#;
+        let mut tree = new_data_model();
+        let root_id = tree.get_root_id();
 
-    //     let mut tree = new_data_model();
-    //     let root_id = tree.get_root_id();
+        decode_str(&mut tree, root_id, document).unwrap();
 
-    //     decode_str(&mut tree, root_id, document).expect("should work D:");
+        let root_instance = tree.get_instance(root_id).unwrap();
+        let target_instance_id = root_instance.get_children_ids()[0];
+        let source_instance_id = root_instance.get_children_ids()[1];
 
-    //     let descendant = tree.descendants(root_id).nth(1).unwrap();
-    //     assert_eq!(descendant.name, "Test");
-    //     assert_eq!(descendant.class_name, "ObjectValue");
+        let source_instance = tree.get_instance(source_instance_id).unwrap();
+        assert_eq!(source_instance.name, "Test");
+        assert_eq!(source_instance.class_name, "ObjectValue");
 
-    //     let value = descendant.properties.get("Value").expect("no value property");
-    //     if let RbxValue::Ref { value } = value {
-    //         let value = value.expect("ref was None");
-    //         assert_eq!(value.to_string(), "1b9cdd1f-d088-4f76-bfe6-091c1731e1fb");
-    //     } else {
-    //         panic!("rbxvalue was not ref, but instead {:?}", value.get_type())
-    //     }
-    // }
+        let value = source_instance.properties.get("Value").unwrap();
+        if let RbxValue::Ref { value } = value {
+            assert_eq!(value.unwrap(), target_instance_id);
+        } else {
+            panic!("RBXValue was not Ref, but instead {:?}", value);
+        }
+    }
 
     #[test]
     fn with_ref_none() {

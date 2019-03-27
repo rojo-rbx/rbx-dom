@@ -1,4 +1,6 @@
 # rbx-dom
+![Travis-CI Build Status](https://api.travis-ci.org/LPGhatguy/rbx-dom.svg?branch=master)
+
 rbx-dom is a collection of crates to help represent, serialize, and deserialize Roblox DOMs. The goal of rbx-dom is to have a common format that projects like [Rojo](https://github.com/LPGhatguy/rojo) can use for handling Instances efficiently.
 
 ## [rbx_dom_weak](rbx_dom_weak)
@@ -30,7 +32,7 @@ Roblox reflection information for working with Instances in external tooling.
 ## Property Type Coverage
 
 | Property Type      | Example Property                | rbx\_dom\_weak | rbx\_xml | rbx\_binary |
-| ------------------ | ------------------------------- |:---------:|:--------:|:-----------:|
+|:------------------ |:------------------------------- |:---------:|:--------:|:-----------:|
 | Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ |
 | BinaryString       | `Terrain.MaterialColors`        | ✔ | ✔ | ❌ |
 | Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ |
@@ -38,23 +40,24 @@ Roblox reflection information for working with Instances in external tooling.
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ❌ |
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ❌ |
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ❌ |
-| ColorSequence      | `Beam.Color`                    | ❌ | ❌ | ❌ |
+| ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ❌ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ❌ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
 | Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ❌ |
-| Float64            | `PlaybackLoudness`              | ❌ | ❌ | ❌ |
+| Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ❌ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
-| Int64              | `Player.UserId`                 | ❌ | ❌ | ❌ |
-| NumberRange        | `ParticleEmitter.Lifetime`      | ❌ | ❌ | ❌ |
-| NumberSequence     | `Beam.Transparency`             | ❌ | ❌ | ❌ |
-| PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ➖ | ❌ |
+| Int64              | `Player.UserId`                 | ✔ | ✔ | ❌ |
+| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ❌ |
+| NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ❌ |
+| PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ❌ |
 | ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |
 | QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ |
 | QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ |
-| Ray                | `RayValue.Value`                | ❌ | ❌ | ❌ |
-| Rect2D             | `ImageButton.SliceCenter`       | ❌ | ❌ | ❌ |
-| Ref                | `Model.PrimaryPart`             | ✔ | ➖ | ❌ |
+| Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ |
+| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ❌ |
+| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ❌ |
+| Region3            | `N/A`                           | ❌ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
 | UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ❌ |
