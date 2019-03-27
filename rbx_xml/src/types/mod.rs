@@ -10,6 +10,7 @@
 mod binary_string;
 mod bool;
 mod cframe;
+mod color_sequence;
 mod colors;
 mod content;
 mod enumeration;
@@ -82,6 +83,7 @@ declare_rbx_types! {
     self::binary_string::BinaryStringType => BinaryString,
     self::bool::BoolType => Bool,
     self::cframe::CFrameType => CFrame,
+    self::color_sequence::ColorSequenceType => ColorSequence,
     self::colors::Color3Type => Color3,
     self::colors::Color3uint8Type => Color3uint8,
     self::content::ContentType => Content,
