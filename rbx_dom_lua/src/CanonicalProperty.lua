@@ -5,6 +5,8 @@ local function identity(...)
 end
 
 local canonicalProperties = {
+	-- TODO: Tags
+	-- TODO: Terrain
 	LocalizationTable = {
 		Contents = {
 			read = function(instance, key)
