@@ -8,18 +8,19 @@ stds.roblox = {
 		"script",
 
 		-- Extra functions
-		"tick", "warn", "spawn",
-		"wait", "settings", "typeof",
+		"tick", "warn",
+		"wait", "typeof",
 
 		-- Types
-		"Vector2", "Vector3",
-		"Vector2int16", "Vector3int16",
-		"Color3",
-		"UDim", "UDim2",
-		"Rect",
 		"CFrame",
+		"Color3",
 		"Enum",
 		"Instance",
+		"NumberRange",
+		"Rect",
+		"UDim", "UDim2",
+		"Vector2", "Vector3",
+		"Vector2int16", "Vector3int16",
 	}
 }
 
