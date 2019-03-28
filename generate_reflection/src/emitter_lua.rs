@@ -10,7 +10,8 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     database::ReflectionDatabase,
-    api_dump::{DumpClass, DumpClassMember},
+    api_dump::{DumpClass, DumpClassMember, ValueType},
+    reflection_types::RbxPropertyType,
 };
 
 lazy_static! {
@@ -78,7 +79,10 @@ fn emit_class<W: Write>(output: &mut W, class: &DumpClass) -> io::Result<()> {
                 }
 
                 writeln!(output, "\t\t\t{} = {{", property.name)?;
-                writeln!(output, "\t\t\t\ttype = \"{}\",", property.value_type.name)?;
+
+                write!(output, "\t\t\t\ttype = ")?;
+                emit_value_type(output, &property.value_type)?;
+                writeln!(output, ",")?;
 
                 write!(output, "\t\t\t\ttags = {{")?;
 
@@ -185,5 +189,21 @@ fn emit_value<W: Write>(output: &mut W, value: &RbxValue) -> io::Result<()> {
         Vector3 { value } => write!(output, "Vector3.new({}, {}, {})", value[0], value[1], value[2]),
         Vector3int16 { value } => write!(output, "Vector3int16.new({}, {}, {})", value[0], value[1], value[2]),
         _ => unimplemented!()
+    }
+}
+
+fn emit_value_type<W: Write>(output: &mut W, value_type: &ValueType) -> io::Result<()> {
+    let property_type = RbxPropertyType::from(value_type);
+
+    match property_type {
+        RbxPropertyType::Data(name) => {
+            write!(output, "{{type = \"data\", name = \"{:?}\"}}", name)
+        }
+        RbxPropertyType::Enum(enum_name) => {
+            write!(output, "{{type = \"enum\", enum = \"{}\"}}", enum_name)
+        }
+        RbxPropertyType::UnimplementedType(type_name) => {
+            write!(output, "{{type = \"unimplemented\", name = \"{}\"}}", type_name)
+        }
     }
 }

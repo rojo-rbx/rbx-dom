@@ -83,12 +83,19 @@ end
 
 function EncodedValue.encode(rbxValue, reflectionType)
 	if reflectionType ~= nil then
-		local encoder = encoders[reflectionType]
+		if reflectionType.type == "data" then
+			local encoder = encoders[reflectionType.name]
 
-		if encoder ~= nil then
+			if encoder ~= nil then
+				return true, {
+					Type = reflectionType.name,
+					Value = encoder(rbxValue),
+				}
+			end
+		elseif reflectionType.type == "enum" then
 			return true, {
-				Type = reflectionType,
-				Value = encoder(rbxValue),
+				Type = "Enum",
+				Value = rbxValue.Value,
 			}
 		end
 	end
