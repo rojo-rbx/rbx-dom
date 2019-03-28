@@ -51,7 +51,7 @@ local function readInstance(instance, selectionMode)
 				local skip = false
 
 				if ignoreUnserializable then
-					if not propertyDetails.canLoad or not propertyDetails.canSave then
+					if propertyDetails.tags.ReadOnly or not propertyDetails.canSave then
 						skip = true
 					end
 				end
@@ -85,7 +85,14 @@ local function readInstance(instance, selectionMode)
 	return output
 end
 
+local function writeInstance(instance, properties)
+	for key, value in pairs(properties) do
+		CanonicalProperty.write(instance, key, value)
+	end
+end
+
 return {
 	PropertySelection = PropertySelection,
 	readInstance = readInstance,
+	writeInstance = writeInstance,
 }
