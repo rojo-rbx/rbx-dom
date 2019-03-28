@@ -161,8 +161,8 @@ impl EmitState {
             Some(&value) => value,
             None => {
                 let referent = self.next_referent;
-                self.next_referent += 1;
                 self.referent_map.insert(id, referent);
+                self.next_referent += 1;
                 referent
             }
         }
@@ -182,7 +182,7 @@ fn serialize_value<W: Write>(
     // Refs need additional state that we don't want to thread through
     // `write_value_xml`, so we handle it here.
     match value {
-        RbxValue::Ref { value } => write_ref(writer, xml_name, value, state),
+        RbxValue::Ref { value: id } => write_ref(writer, xml_name, id, state),
         _ => write_value_xml(writer, xml_name, value)
     }
 }
