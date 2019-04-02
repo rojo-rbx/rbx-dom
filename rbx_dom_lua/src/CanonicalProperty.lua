@@ -1,3 +1,5 @@
+local CollectionService = game:GetService("CollectionService")
+
 local ReflectionDatabase = require(script.Parent.ReflectionDatabase)
 
 local function identity(...)
@@ -5,19 +7,59 @@ local function identity(...)
 end
 
 local canonicalProperties = {
-	-- TODO: Tags
 	-- TODO: Terrain
+	Instance = {
+		Tags = {
+			read = function(instance, key)
+				local tagList = CollectionService:GetTags(instance)
+
+				return true, table.concat(tagList, "\0")
+			end,
+			write = function(instance, key, value)
+				local tagList = string.split(value, "\0")
+
+				for _, tag in ipairs(tagList) do
+					CollectionService:AddTag(instance, tag)
+				end
+
+				return true
+			end,
+		},
+	},
 	LocalizationTable = {
 		Contents = {
 			read = function(instance, key)
-				return instance:GetContents()
+				return true, instance:GetContents()
 			end,
 			write = function(instance, key, value)
-				return instance:SetContents(value)
+				instance:SetContents(value)
+				return true
 			end,
 		},
 	},
 }
+
+local function findCanonicalGetterSetter(className, propertyName)
+	repeat
+		local instanceProperties = canonicalProperties[className]
+
+		if instanceProperties ~= nil then
+			local property = instanceProperties[propertyName]
+
+			if property ~= nil then
+				return property
+			end
+		end
+
+		local classDetails = ReflectionDatabase.dump.classes[className]
+
+		if classDetails == nil then
+			return nil
+		end
+
+		className = classDetails.superclass
+	until className == nil
+end
 
 local CanonicalProperty = {}
 
@@ -37,35 +79,27 @@ function CanonicalProperty.isScriptable(className, propertyName)
 	return not property.tags.NotScriptable
 end
 
-function CanonicalProperty.read(instance, key)
-	local instanceProperties = canonicalProperties[instance.ClassName]
+function CanonicalProperty.read(instance, propertyName)
+	local property = findCanonicalGetterSetter(instance.ClassName, propertyName)
 
-	if instanceProperties ~= nil then
-		local methods = instanceProperties[key]
-
-		if methods ~= nil then
-			return methods.read(instance, key)
-		end
+	if property ~= nil then
+		return property.read(instance, propertyName)
 	end
 
 	return xpcall(function()
-		return instance[key]
+		return instance[propertyName]
 	end, identity)
 end
 
-function CanonicalProperty.write(instance, key, value)
-	local instanceProperties = canonicalProperties[instance.ClassName]
+function CanonicalProperty.write(instance, propertyName, value)
+	local property = findCanonicalGetterSetter(instance.ClassName, propertyName)
 
-	if instanceProperties ~= nil then
-		local methods = instanceProperties[key]
-
-		if methods ~= nil then
-			return methods.write(instance, key, value)
-		end
+	if property ~= nil then
+		return property.write(instance, propertyName, value)
 	end
 
 	return xpcall(function()
-		instance[key] = value
+		instance[propertyName] = value
 	end, identity)
 end
 

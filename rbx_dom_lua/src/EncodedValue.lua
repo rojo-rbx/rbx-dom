@@ -6,6 +6,7 @@ local primitiveTypes = {
 	Int32 = true,
 	Int64 = true,
 	String = true,
+	Content = true,
 }
 
 local function identity(...)
@@ -20,6 +21,7 @@ local encoders = {
 	Int64 = identity,
 	String = identity,
 	BinaryString = identity,
+	Content = identity,
 	CFrame = function(value)
 		return {value:GetComponents()}
 	end,

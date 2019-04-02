@@ -1,6 +1,23 @@
 local ReflectionDatabase = require(script.Parent.ReflectionDatabase)
 local CanonicalProperty = require(script.Parent.CanonicalProperty)
 
+local patches = {
+	Part = {
+		Size = {
+			type = {type = "data", name = "Vector3"},
+			tags = {},
+			canSave = true,
+			canLoad = true,
+		},
+		Color = {
+			type = {type = "data", name = "Color3"},
+			tags = {},
+			canSave = true,
+			canLoad = true,
+		},
+	},
+}
+
 local PropertySelection = {
 	All = {
 		ignoreDefaults = false,
@@ -45,6 +62,15 @@ local function readInstance(instance, selectionMode)
 
 	while reflectionEntry ~= nil do
 		for key, propertyDetails in pairs(reflectionEntry.properties) do
+			local patchedInstance = patches[className]
+			if patchedInstance ~= nil then
+				local patchedProperty = patchedInstance[key]
+
+				if patchedProperty ~= nil then
+					propertyDetails = patchedProperty
+				end
+			end
+
 			local success, value = CanonicalProperty.read(instance, key)
 
 			if success then
