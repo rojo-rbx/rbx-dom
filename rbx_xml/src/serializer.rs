@@ -63,6 +63,7 @@ impl<W: Write> XmlEventWriter<W> {
         let inner = EmitterConfig::new()
             .perform_indent(true)
             .write_document_declaration(false)
+            .normalize_empty_elements(false)
             .create_writer(output);
 
         XmlEventWriter {
