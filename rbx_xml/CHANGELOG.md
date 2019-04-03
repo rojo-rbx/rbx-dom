@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Fixed serializing empty `Content` properties ([#146](https://github.com/LPGhatguy/rojo/issues/146))
 
 ## 0.6.0 (2019-03-27)
 * Added support for new types:
