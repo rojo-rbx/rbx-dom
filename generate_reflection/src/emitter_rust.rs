@@ -5,12 +5,14 @@ use std::{
     path::Path,
 };
 
+use heck::ShoutySnakeCase;
 use quote::quote;
 use proc_macro2::{TokenStream, Literal, Ident, Span};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    api_dump::{Dump, DumpClass, DumpEnum, DumpClassMember, ValueType, ValueCategory},
+    api_dump::{Dump, DumpClass, DumpEnum, DumpClassProperty, DumpClassMember, ValueType},
+    reflection_types::RbxPropertyType,
     database::ReflectionDatabase,
 };
 
@@ -98,9 +100,27 @@ fn emit_class_tags(class: &DumpClass) -> TokenStream {
     let tags = class.tags
         .iter()
         .map(|tag| {
-            let name_literal = Ident::new(tag.name(), Span::call_site());
+            let name_literal = Ident::new(&tag.name().to_shouty_snake_case(), Span::call_site());
 
             quote!(RbxInstanceTags::#name_literal)
+        });
+
+    quote! {
+        #(#tags)|*
+    }
+}
+
+fn emit_property_tags(property: &DumpClassProperty) -> TokenStream {
+    if property.tags.len() == 0 {
+        return quote!(RbxPropertyTags::empty());
+    }
+
+    let tags = property.tags
+        .iter()
+        .map(|tag| {
+            let name_literal = Ident::new(&tag.to_shouty_snake_case(), Span::call_site());
+
+            quote!(RbxPropertyTags::#name_literal)
         });
 
     quote! {
@@ -125,12 +145,14 @@ fn emit_properties(class: &DumpClass) -> TokenStream {
         .iter()
         .map(|property| {
             let member_name = Literal::string(&property.name);
-            let resolved_type = resolve_value_type(&property.value_type);
+            let resolved_type = emit_value_type(&property.value_type);
+            let tags = emit_property_tags(property);
 
             quote! {
                 properties.insert(#member_name, RbxInstanceProperty {
                     name: #member_name,
                     value_type: #resolved_type,
+                    tags: #tags,
                 });
             }
         });
@@ -351,51 +373,22 @@ fn emit_value(value: &RbxValue) -> TokenStream {
     }
 }
 
-fn resolve_value_type(value_type: &ValueType) -> TokenStream {
-    let name = Literal::string(&value_type.name);
+fn emit_value_type(value_type: &ValueType) -> TokenStream {
+    let property_type = RbxPropertyType::from(value_type);
 
-    match value_type.category {
-        ValueCategory::Primitive => {
-            let data_kind = match value_type.name.as_str() {
-                "bool" => quote!(RbxValueType::Bool),
-                "string" => quote!(RbxValueType::String),
-                "int" => quote!(RbxValueType::Int32),
-                "int64" => quote!(RbxValueType::Int64),
-                "float" => quote!(RbxValueType::Float32),
-                "double" => quote!(RbxValue::Float64),
-
-                unknown => {
-                    println!("Can't emit primitives of type {}", unknown);
-
-                    let unknown_name = Literal::string(unknown);
-                    return quote!(RbxPropertyType::UnimplementedType(#unknown_name));
-                },
-            };
-
-            quote!(RbxPropertyType::Data(#data_kind))
-        },
-        ValueCategory::DataType => {
-            let data_kind = match value_type.name.as_str() {
-                "Vector3" => quote!(RbxValueType::Vector3),
-                "Vector2" => quote!(RbxValueType::Vector2),
-                "Color3" => quote!(RbxValueType::Color3),
-                "CFrame" => quote!(RbxValueType::CFrame),
-                "PhysicalProperties" => quote!(RbxValueType::PhysicalProperties),
-                "BinaryString" => quote!(RbxValueType::BinaryString),
-                "UDim" => quote!(RbxValueType::UDim),
-                "UDim2" => quote!(RbxValueType::UDim2),
-
-                unknown => {
-                    println!("Can't emit data of type {}", unknown);
-
-                    let unknown_name = Literal::string(unknown);
-                    return quote!(RbxPropertyType::UnimplementedType(#unknown_name));
-                },
-            };
-
-            quote!(RbxPropertyType::Data(#data_kind))
-        },
-        ValueCategory::Enum => quote!(RbxPropertyType::Enum(#name)),
-        ValueCategory::Class => quote!(RbxPropertyType::Data(RbxValueType::Ref)),
+    match property_type {
+        RbxPropertyType::Data(kind) => {
+            let type_name = format!("{:?}", kind);
+            let type_literal = Ident::new(&type_name, Span::call_site());
+            quote!(RbxPropertyType::Data(RbxValueType::#type_literal))
+        }
+        RbxPropertyType::Enum(enum_name) => {
+            let enum_literal = Literal::string(enum_name);
+            quote!(RbxPropertyType::Enum(#enum_literal))
+        }
+        RbxPropertyType::UnimplementedType(type_name) => {
+            let type_literal = Literal::string(type_name);
+            quote!(RbxPropertyType::UnimplementedType(#type_literal))
+        }
     }
 }

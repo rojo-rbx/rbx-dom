@@ -12,9 +12,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ABTestService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -90,6 +90,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AttachmentForward",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -97,6 +98,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AttachmentPoint",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -104,6 +106,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AttachmentPos",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -111,6 +114,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AttachmentRight",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -118,6 +122,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AttachmentUp",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -169,7 +174,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AdService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -215,6 +220,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AlignType",
                         value_type: RbxPropertyType::Enum("AlignType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -222,6 +228,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxAngularVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -229,6 +236,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -236,6 +244,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrimaryAxisOnly",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -243,6 +252,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReactionTorqueEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -250,6 +260,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Responsiveness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -257,6 +268,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RigidityEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -303,6 +315,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ApplyAtCenterOfMass",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -310,6 +323,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -317,6 +331,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -324,6 +339,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReactionForceEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -331,6 +347,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Responsiveness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -338,6 +355,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RigidityEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -375,7 +393,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AnalysticsSettings",
             superclass: Some("GenericSettings"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -385,7 +403,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AnalyticsService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -412,6 +430,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -419,6 +438,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -426,6 +446,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RelativeTo",
                         value_type: RbxPropertyType::Enum("ActuatorRelativeTo"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -468,6 +489,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AnimationId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -514,7 +536,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AnimationTrack",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(9);
                 properties.insert(
@@ -522,6 +544,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Animation",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -529,6 +552,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsPlaying",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -536,6 +560,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Length",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -543,6 +568,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Looped",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -550,6 +576,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Priority",
                         value_type: RbxPropertyType::Enum("AnimationPriority"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -557,6 +584,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Speed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -564,6 +592,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TimePosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -571,6 +600,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WeightCurrent",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -578,6 +608,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WeightTarget",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -609,9 +640,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AppStorageService",
             superclass: Some("LocalStorageService"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -629,6 +660,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Axes",
                         value_type: RbxPropertyType::UnimplementedType("Axes"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -659,7 +691,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "AssetService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -686,6 +718,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Axis",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -693,6 +726,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -700,6 +734,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Orientation",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -707,6 +742,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Position",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -714,6 +750,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Rotation",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -721,6 +760,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SecondaryAxis",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -728,6 +768,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Visible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -735,6 +776,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WorldAxis",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -742,6 +784,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WorldCFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -749,6 +792,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WorldOrientation",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -756,6 +800,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WorldPosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -763,6 +808,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WorldRotation",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -770,6 +819,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WorldSecondaryAxis",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -871,7 +921,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BackpackItem",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -879,6 +929,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -891,7 +942,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BadgeService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -918,6 +969,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LimitsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -925,6 +977,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Radius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -932,6 +985,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Restitution",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -939,6 +993,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TwistLimitsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -946,6 +1001,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TwistLowerAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -953,6 +1009,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TwistUpperAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -960,6 +1017,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UpperAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -993,7 +1051,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BasePart",
             superclass: Some("PVInstance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(52);
                 properties.insert(
@@ -1001,6 +1059,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Anchored",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1008,6 +1067,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BackParamA",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1015,6 +1075,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BackParamB",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1022,6 +1083,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BackSurface",
                         value_type: RbxPropertyType::Enum("SurfaceType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1029,6 +1091,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BackSurfaceInput",
                         value_type: RbxPropertyType::Enum("InputType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1036,6 +1099,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BottomParamA",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1043,6 +1107,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BottomParamB",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1050,6 +1115,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BottomSurface",
                         value_type: RbxPropertyType::Enum("SurfaceType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1057,6 +1123,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BottomSurfaceInput",
                         value_type: RbxPropertyType::Enum("InputType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1064,6 +1131,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BrickColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1071,6 +1139,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1078,6 +1147,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CanCollide",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1085,6 +1155,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CenterOfMass",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1092,6 +1163,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CollisionGroupId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1099,6 +1171,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1106,6 +1179,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CustomPhysicalProperties",
                         value_type: RbxPropertyType::Data(RbxValueType::PhysicalProperties),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1113,6 +1187,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Elasticity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -1120,6 +1197,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Friction",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -1127,6 +1207,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FrontParamA",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1134,6 +1215,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FrontParamB",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1141,6 +1223,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FrontSurface",
                         value_type: RbxPropertyType::Enum("SurfaceType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1148,6 +1231,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FrontSurfaceInput",
                         value_type: RbxPropertyType::Enum("InputType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1155,6 +1239,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftParamA",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1162,6 +1247,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftParamB",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1169,6 +1255,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftSurface",
                         value_type: RbxPropertyType::Enum("SurfaceType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1176,6 +1263,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftSurfaceInput",
                         value_type: RbxPropertyType::Enum("InputType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1183,6 +1271,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LocalTransparencyModifier",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1190,6 +1279,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Locked",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1197,6 +1287,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Massless",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1204,6 +1295,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Material",
                         value_type: RbxPropertyType::Enum("Material"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1211,6 +1303,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Orientation",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1218,6 +1311,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Position",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1225,6 +1319,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReceiveAge",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1232,6 +1329,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Reflectance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1239,6 +1337,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ResizeIncrement",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1246,6 +1345,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ResizeableFaces",
                         value_type: RbxPropertyType::UnimplementedType("Faces"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1253,6 +1353,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightParamA",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1260,6 +1361,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightParamB",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1267,6 +1369,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightSurface",
                         value_type: RbxPropertyType::Enum("SurfaceType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1274,6 +1377,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightSurfaceInput",
                         value_type: RbxPropertyType::Enum("InputType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1281,6 +1385,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RootPriority",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1288,6 +1393,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RotVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1295,6 +1401,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Rotation",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1302,6 +1409,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1309,6 +1417,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SpecificGravity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -1316,6 +1427,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TopParamA",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1323,6 +1435,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TopParamB",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1330,6 +1443,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TopSurface",
                         value_type: RbxPropertyType::Enum("SurfaceType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1337,6 +1451,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TopSurfaceInput",
                         value_type: RbxPropertyType::Enum("InputType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1344,6 +1459,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Transparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1351,6 +1467,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Velocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1358,6 +1475,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "brickColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -1370,7 +1488,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BasePlayerGui",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -1380,7 +1498,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BaseScript",
             superclass: Some("LuaSourceContainer"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -1388,6 +1506,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Disabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1395,6 +1514,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LinkedSource",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -1415,6 +1535,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Attachment0",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1422,6 +1543,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Attachment1",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1429,6 +1551,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::UnimplementedType("ColorSequence"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1436,6 +1559,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurveSize0",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1443,6 +1567,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurveSize1",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1450,6 +1575,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1457,6 +1583,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FaceCamera",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1464,6 +1591,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LightEmission",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1471,6 +1599,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LightInfluence",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1478,6 +1607,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Segments",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1485,6 +1615,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Texture",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1492,6 +1623,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1499,6 +1631,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureMode",
                         value_type: RbxPropertyType::Enum("TextureMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1506,6 +1639,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1513,6 +1647,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Transparency",
                         value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1520,6 +1655,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Width0",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1527,6 +1663,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Width1",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1534,6 +1671,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ZOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -1576,9 +1714,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BevelMesh",
             superclass: Some("DataModelMesh"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::NotBrowsable
-                | RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::NOT_BROWSABLE
+                | RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -1596,6 +1734,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Active",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1603,6 +1742,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Adornee",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1610,6 +1750,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AlwaysOnTop",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1617,6 +1758,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClipsDescendants",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1624,6 +1766,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExtentsOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1631,6 +1774,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExtentsOffsetWorldSpace",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1638,6 +1782,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LightInfluence",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1645,6 +1790,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1652,6 +1798,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlayerToHideFrom",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1659,6 +1806,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1666,6 +1814,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SizeOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1673,6 +1822,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StudsOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1680,6 +1830,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StudsOffsetWorldSpace",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -1853,6 +2004,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Intensity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1860,6 +2012,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1867,6 +2020,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Threshold",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -1900,6 +2054,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -1931,6 +2086,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1938,6 +2094,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1945,6 +2102,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "P",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -1952,6 +2110,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "angularvelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -1959,6 +2118,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "maxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -2013,6 +2173,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeadColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2020,6 +2181,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeadColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2027,6 +2189,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftArmColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2034,6 +2197,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftArmColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2041,6 +2205,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftLegColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2048,6 +2213,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftLegColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2055,6 +2221,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightArmColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2062,6 +2229,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightArmColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2069,6 +2237,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightLegColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2076,6 +2245,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightLegColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2083,6 +2253,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TorsoColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2090,6 +2261,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TorsoColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -2155,6 +2327,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Force",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2162,6 +2335,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "force",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -2203,6 +2377,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2210,6 +2385,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "D",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2217,6 +2393,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2224,6 +2401,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "P",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2231,6 +2409,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "cframe",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -2238,6 +2417,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "maxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -2279,7 +2459,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BodyMover",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -2297,6 +2477,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "D",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2304,6 +2485,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2311,6 +2493,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "P",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2318,6 +2501,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Position",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2325,6 +2509,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "maxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -2332,6 +2517,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "position",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -2387,6 +2573,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Force",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2394,6 +2581,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Location",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2401,6 +2589,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "force",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -2408,6 +2597,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "location",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -2461,6 +2651,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2468,6 +2659,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "P",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2475,6 +2667,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Velocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2482,6 +2675,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "maxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -2489,6 +2683,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "velocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -2543,6 +2738,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -2573,6 +2769,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -2631,6 +2828,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -2652,9 +2850,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "BrowserService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -2672,6 +2870,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -2699,7 +2898,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CSGDictionaryService",
             superclass: Some("FlyweightService"),
-            tags: RbxInstanceTags::Service,
+            tags: RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -2709,9 +2908,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CacheableContentProvider",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -2721,7 +2920,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Camera",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(11);
                 properties.insert(
@@ -2729,6 +2928,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2736,6 +2936,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraSubject",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2743,6 +2944,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraType",
                         value_type: RbxPropertyType::Enum("CameraType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2750,6 +2952,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CoordinateFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -2757,6 +2962,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FieldOfView",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2764,6 +2970,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Focus",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2771,6 +2978,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeadLocked",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2778,6 +2986,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeadScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2785,6 +2994,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NearPlaneZ",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -2792,6 +3002,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ViewportSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -2799,6 +3010,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "focus",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -2842,7 +3054,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ChangeHistoryService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -2861,7 +3073,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CharacterAppearance",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -2879,6 +3091,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BaseTextureId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2886,6 +3099,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BodyPart",
                         value_type: RbxPropertyType::Enum("BodyPart"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2893,6 +3107,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MeshId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2900,6 +3115,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OverlayTextureId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -2925,9 +3141,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Chat",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -2935,6 +3151,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BubbleChatEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2942,6 +3159,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LoadDefaultChat",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -2973,6 +3191,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Depth",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2980,6 +3199,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Mix",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -2987,6 +3207,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Rate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3021,6 +3242,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CursorIcon",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3028,6 +3250,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxActivationDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3056,7 +3279,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ClientReplicator",
             superclass: Some("NetworkReplicator"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3066,7 +3289,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Clothing",
             superclass: Some("CharacterAppearance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -3074,6 +3297,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3086,9 +3310,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ClusterPacketCache",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3098,7 +3322,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CollectionService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3125,6 +3349,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3160,6 +3385,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Brightness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3167,6 +3393,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Contrast",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3174,6 +3401,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Saturation",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3181,6 +3409,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TintColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3220,6 +3449,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Attack",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3227,6 +3457,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GainMakeup",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3234,6 +3465,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Ratio",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3241,6 +3473,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Release",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3248,6 +3481,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SideChain",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3255,6 +3489,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Threshold",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3292,6 +3527,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Height",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3299,6 +3535,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Radius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3364,7 +3601,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Constraint",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -3372,6 +3609,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Active",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -3379,6 +3617,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Attachment0",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3386,6 +3625,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Attachment1",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3393,6 +3633,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3400,6 +3641,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3407,6 +3649,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Visible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3419,9 +3662,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ContentProvider",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3429,6 +3672,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BaseUrl",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -3436,6 +3680,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RequestQueueSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -3463,7 +3708,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ContextActionService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3482,7 +3727,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Controller",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3492,9 +3737,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ControllerService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3513,7 +3758,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CookiesService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3532,9 +3777,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CoreGui",
             superclass: Some("BasePlayerGui"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3542,6 +3787,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SelectionImageObject",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3549,6 +3795,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Version",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -3572,9 +3819,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CorePackages",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3593,7 +3840,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CoreScript",
             superclass: Some("BaseScript"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3603,9 +3850,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CoreScriptSyncService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3718,7 +3965,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CustomEvent",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3737,7 +3984,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CustomEventReceiver",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -3745,6 +3992,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Source",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3775,6 +4023,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Height",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3782,6 +4031,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Radius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -3828,7 +4078,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "CylinderMesh",
             superclass: Some("BevelMesh"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(4);
@@ -3873,6 +4123,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularActuatorType",
                         value_type: RbxPropertyType::Enum("ActuatorType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3880,6 +4131,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularLimitsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3887,6 +4139,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularRestitution",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3894,6 +4147,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3901,6 +4155,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3908,6 +4163,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -3915,6 +4171,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "InclinationAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3922,6 +4179,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LowerAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3929,6 +4187,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MotorMaxAngularAcceleration",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3936,6 +4195,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MotorMaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3943,6 +4203,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RotationAxisVisible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3950,6 +4211,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ServoMaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3957,6 +4219,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3964,6 +4227,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UpperAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -3971,6 +4235,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WorldRotationAxis",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -4040,7 +4305,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DataModel",
             superclass: Some("ServiceProvider"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(16);
                 properties.insert(
@@ -4048,6 +4313,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CreatorId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4055,6 +4321,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CreatorType",
                         value_type: RbxPropertyType::Enum("CreatorType"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4062,6 +4329,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4069,6 +4337,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GearGenreSetting",
                         value_type: RbxPropertyType::Enum("GearGenreSetting"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4076,6 +4345,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Genre",
                         value_type: RbxPropertyType::Enum("Genre"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4083,6 +4353,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsSFFlagsLoaded",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4090,6 +4361,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "JobId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4097,6 +4369,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlaceId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4104,6 +4377,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlaceVersion",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4111,6 +4385,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrivateServerId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4118,6 +4393,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrivateServerOwnerId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4125,6 +4401,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VIPServerId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -4132,6 +4412,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VIPServerOwnerId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -4139,6 +4423,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Workspace",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4146,6 +4431,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "lighting",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -4153,6 +4441,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "workspace",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -4165,7 +4456,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DataModelMesh",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -4173,6 +4464,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Offset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4180,6 +4472,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Scale",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4187,6 +4480,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VertexColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -4199,7 +4493,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DataStorePages",
             superclass: Some("Pages"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -4209,9 +4503,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DataStoreService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -4219,6 +4513,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutomaticRetry",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4226,6 +4521,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LegacyNamingScheme",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -4247,7 +4543,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Debris",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4255,6 +4551,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxItems",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -4277,7 +4574,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DebugSettings",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Settings | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::SETTINGS | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(20);
                 properties.insert(
@@ -4285,6 +4582,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataModel",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4292,6 +4590,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ErrorReporting",
                         value_type: RbxPropertyType::Enum("ErrorReporting"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4299,6 +4598,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GfxCard",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4306,6 +4606,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "InstanceCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4313,6 +4614,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsFmodProfilingEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4320,6 +4622,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsScriptStackTracingEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4327,6 +4630,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "JobCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4334,6 +4638,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LuaRamLimit",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4341,6 +4646,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OsIs64Bit",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4348,6 +4654,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OsPlatform",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4355,6 +4662,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OsPlatformId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4362,6 +4670,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OsVer",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4369,6 +4678,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlayerCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4376,6 +4686,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReportSoundWarnings",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4383,6 +4694,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RobloxProductName",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4390,6 +4702,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RobloxVersion",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4397,6 +4710,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SIMD",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4404,6 +4718,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SystemProductName",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4411,6 +4726,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TickCountPreciseOverride",
                         value_type: RbxPropertyType::Enum("TickCountSampleMethod"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4418,6 +4734,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VideoMemory",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -4430,7 +4747,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DebuggerBreakpoint",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -4438,6 +4755,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Condition",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4445,6 +4763,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4452,6 +4771,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Line",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -4464,7 +4784,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DebuggerManager",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4472,6 +4792,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DebuggingEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -4492,6 +4813,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Expression",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -4512,6 +4834,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4519,6 +4842,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LocalTransparencyModifier",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4526,6 +4850,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Shiny",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -4533,6 +4858,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Specular",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -4540,6 +4866,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Texture",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4547,6 +4874,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Transparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -4592,6 +4920,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BehaviorType",
                         value_type: RbxPropertyType::Enum("DialogBehaviorType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4599,6 +4928,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ConversationDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4606,6 +4936,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GoodbyeChoiceActive",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4613,6 +4944,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GoodbyeDialog",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4620,6 +4952,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "InUse",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4627,6 +4960,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "InitialPrompt",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4634,6 +4968,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Purpose",
                         value_type: RbxPropertyType::Enum("DialogPurpose"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4641,6 +4976,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Tone",
                         value_type: RbxPropertyType::Enum("DialogTone"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4648,6 +4984,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TriggerDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4655,6 +4992,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TriggerOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -4708,6 +5046,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GoodbyeChoiceActive",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4715,6 +5054,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GoodbyeDialog",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4722,6 +5062,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ResponseDialog",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4729,6 +5070,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UserDialog",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -4777,6 +5119,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Level",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -4801,7 +5144,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DockWidgetPluginGui",
             superclass: Some("PluginGui"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4809,6 +5152,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HostWidgetWasRestored",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -4821,7 +5165,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DoubleConstrainedValue",
             superclass: Some("ValueBase"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -4829,6 +5173,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ConstrainedValue",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -4836,6 +5181,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxValue",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4843,6 +5189,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MinValue",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4850,6 +5197,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -4894,7 +5242,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "DynamicRotate",
             superclass: Some("JointInstance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -4902,6 +5250,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BaseAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -4922,6 +5271,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Delay",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4929,6 +5279,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DryLevel",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4936,6 +5287,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Feedback",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4943,6 +5295,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WetLevel",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -4978,6 +5331,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HighGain",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4985,6 +5339,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LowGain",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -4992,6 +5347,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MidGain",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5026,6 +5382,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BlastPressure",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5033,6 +5390,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BlastRadius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5040,6 +5398,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DestroyJointRadiusPercent",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5047,6 +5406,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExplosionType",
                         value_type: RbxPropertyType::Enum("ExplosionType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5054,6 +5414,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Position",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5061,6 +5422,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Visible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5096,7 +5458,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FaceInstance",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -5104,6 +5466,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Face",
                         value_type: RbxPropertyType::Enum("NormalId"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5116,7 +5479,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Feature",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -5124,6 +5487,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FaceId",
                         value_type: RbxPropertyType::Enum("NormalId"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5131,6 +5495,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "InOut",
                         value_type: RbxPropertyType::Enum("InOut"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5138,6 +5503,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftRight",
                         value_type: RbxPropertyType::Enum("LeftRight"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5145,6 +5511,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TopBottom",
                         value_type: RbxPropertyType::Enum("TopBottom"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5157,7 +5524,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "File",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -5165,6 +5532,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FileName",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -5172,6 +5543,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FileSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -5179,6 +5554,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -5199,6 +5577,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MeshId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5206,6 +5585,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5265,6 +5645,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5272,6 +5653,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5279,6 +5661,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Heat",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -5286,6 +5669,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SecondaryColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5293,6 +5677,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -5300,6 +5685,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "size",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -5337,7 +5723,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Flag",
             superclass: Some("Tool"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -5345,6 +5731,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TeamColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5412,7 +5799,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FlagStand",
             superclass: Some("Part"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -5420,6 +5807,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TeamColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5527,7 +5915,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FlagStandService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -5545,6 +5933,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Depth",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5552,6 +5941,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Mix",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5559,6 +5949,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Rate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5585,7 +5976,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FloorWire",
             superclass: Some("GuiBase3d"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(8);
                 properties.insert(
@@ -5593,6 +5984,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CycleOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5600,6 +5992,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "From",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5607,6 +6000,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StudsBetweenTextures",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5614,6 +6008,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Texture",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5621,6 +6016,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5628,6 +6024,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "To",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5635,6 +6032,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Velocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5642,6 +6040,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WireRadius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5684,7 +6083,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FlyweightService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service,
+            tags: RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -5721,6 +6120,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Visible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5743,7 +6143,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FormFactorPart",
             superclass: Some("BasePart"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -5751,6 +6151,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FormFactor",
                         value_type: RbxPropertyType::Enum("FormFactor"),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -5758,6 +6159,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "formFactor",
                         value_type: RbxPropertyType::Enum("FormFactor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -5778,6 +6182,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Style",
                         value_type: RbxPropertyType::Enum("FrameStyle"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5846,7 +6251,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FriendPages",
             superclass: Some("Pages"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -5856,7 +6261,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FriendService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -5875,7 +6280,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "FunctionalTest",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -5883,6 +6288,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Description",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -5910,7 +6316,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GamePassService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -5929,7 +6335,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GameSettings",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Settings | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::SETTINGS | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(14);
                 properties.insert(
@@ -5937,6 +6343,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AdditionalCoreIncludeDirs",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5944,6 +6351,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BubbleChatLifetime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5951,6 +6359,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BubbleChatMaxBubbles",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5958,6 +6367,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ChatHistory",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5965,6 +6375,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ChatScrollLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5972,6 +6383,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CollisionSoundEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -5979,6 +6391,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CollisionSoundVolume",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -5986,6 +6399,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HardwareMouse",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -5993,6 +6407,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxCollisionSounds",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -6000,6 +6415,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OverrideStarterScript",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6007,6 +6423,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReportAbuseChatHistory",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6014,6 +6431,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SoftwareSound",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6021,6 +6439,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VideoCaptureEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6028,6 +6447,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VideoQuality",
                         value_type: RbxPropertyType::Enum("VideoQualitySettings"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6040,7 +6460,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GamepadService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -6059,7 +6479,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GenericSettings",
             superclass: Some("ServiceProvider"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -6069,7 +6489,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Geometry",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -6088,7 +6508,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GlobalDataStore",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -6098,7 +6518,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GlobalSettings",
             superclass: Some("GenericSettings"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -6116,6 +6536,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "F0",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6123,6 +6544,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "F1",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6130,6 +6552,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "F2",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6137,6 +6560,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "F3",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6197,7 +6621,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GoogleAnalyticsConfiguration",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service,
+            tags: RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -6207,9 +6631,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GroupService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -6228,7 +6652,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiBase",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -6238,7 +6662,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiBase2d",
             superclass: Some("GuiBase"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -6246,6 +6670,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AbsolutePosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6253,6 +6678,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AbsoluteRotation",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6260,6 +6686,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AbsoluteSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6267,6 +6694,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoLocalize",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6274,6 +6702,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Localize",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -6281,6 +6712,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RootLocalizationTable",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6293,7 +6725,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiBase3d",
             superclass: Some("GuiBase"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -6301,6 +6733,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -6308,6 +6743,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6315,6 +6751,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Transparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6322,6 +6759,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Visible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6334,7 +6772,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiButton",
             superclass: Some("GuiObject"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -6342,6 +6780,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoButtonColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6349,6 +6788,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Modal",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6356,6 +6796,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Selected",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6363,6 +6804,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Style",
                         value_type: RbxPropertyType::Enum("ButtonStyle"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6375,7 +6817,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiLabel",
             superclass: Some("GuiObject"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -6385,7 +6827,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiMain",
             superclass: Some("ScreenGui"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(10);
@@ -6413,7 +6855,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiObject",
             superclass: Some("GuiBase2d"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(24);
                 properties.insert(
@@ -6421,6 +6863,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Active",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6428,6 +6871,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AnchorPoint",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6435,6 +6879,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BackgroundColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -6442,6 +6889,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BackgroundColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6449,6 +6897,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BackgroundTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6456,6 +6905,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BorderColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -6463,6 +6915,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BorderColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6470,6 +6923,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BorderSizePixel",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6477,6 +6931,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClipsDescendants",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6484,6 +6939,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Draggable",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -6491,6 +6947,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LayoutOrder",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6498,6 +6955,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NextSelectionDown",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6505,6 +6963,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NextSelectionLeft",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6512,6 +6971,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NextSelectionRight",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6519,6 +6979,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NextSelectionUp",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6526,6 +6987,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Position",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6533,6 +6995,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Rotation",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6540,6 +7003,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Selectable",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6547,6 +7011,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SelectionImageObject",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6554,6 +7019,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6561,6 +7027,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SizeConstraint",
                         value_type: RbxPropertyType::Enum("SizeConstraint"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6568,6 +7035,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Transparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6575,6 +7043,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Visible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6582,6 +7051,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ZIndex",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6594,9 +7064,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuiService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -6604,6 +7074,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoSelectGuiEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6611,6 +7082,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CoreEffectFolder",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6618,6 +7090,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CoreGuiFolder",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6625,6 +7098,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CoreGuiNavigationEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6632,6 +7106,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GuiNavigationEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6639,6 +7114,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsModalDialog",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -6646,6 +7124,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsWindows",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -6653,6 +7134,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MenuIsOpen",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6660,6 +7142,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SelectedCoreObject",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6667,6 +7150,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SelectedObject",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6694,7 +7178,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "GuidRegistryService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -6704,7 +7188,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HandleAdornment",
             superclass: Some("PVAdornment"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -6712,6 +7196,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AlwaysOnTop",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6719,6 +7204,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6726,6 +7212,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SizeRelativeOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6733,6 +7220,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ZIndex",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6753,6 +7241,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Faces",
                         value_type: RbxPropertyType::UnimplementedType("Faces"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6760,6 +7249,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Style",
                         value_type: RbxPropertyType::Enum("HandlesStyle"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -6791,7 +7281,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HandlesBase",
             superclass: Some("PartAdornment"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -6801,9 +7291,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HapticService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -6822,7 +7312,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Hat",
             superclass: Some("Accoutrement"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(6);
@@ -6879,6 +7369,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ActuatorType",
                         value_type: RbxPropertyType::Enum("ActuatorType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6886,6 +7377,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6893,6 +7385,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AngularVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6900,6 +7393,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6907,6 +7401,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LimitsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6914,6 +7409,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LowerAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6921,6 +7417,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MotorMaxAcceleration",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6928,6 +7425,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MotorMaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6935,6 +7433,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Radius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6942,6 +7441,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Restitution",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6949,6 +7449,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ServoMaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6956,6 +7457,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -6963,6 +7465,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UpperAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -7007,7 +7510,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Hint",
             superclass: Some("Message"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(2);
@@ -7032,7 +7535,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Hole",
             superclass: Some("Feature"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(5);
@@ -7055,9 +7558,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Hopper",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -7067,7 +7570,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HopperBin",
             superclass: Some("BackpackItem"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -7075,6 +7578,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Active",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7082,6 +7586,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BinType",
                         value_type: RbxPropertyType::Enum("BinType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -7111,7 +7616,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HttpRbxApiService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -7130,7 +7635,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HttpRequest",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -7140,7 +7645,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "HttpService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -7148,6 +7653,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HttpEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -7177,6 +7683,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoJumpEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7184,6 +7691,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoRotate",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7191,6 +7699,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutomaticScalingEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7198,6 +7707,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BreakJointsOnDeath",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7205,6 +7715,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7212,6 +7723,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CollisionType",
                         value_type: RbxPropertyType::Enum("HumanoidCollisionType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7219,6 +7731,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DisplayDistanceType",
                         value_type: RbxPropertyType::Enum("HumanoidDisplayDistanceType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7226,6 +7739,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FloorMaterial",
                         value_type: RbxPropertyType::Enum("Material"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7233,6 +7747,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Health",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7240,6 +7755,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HealthDisplayDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7247,6 +7763,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HealthDisplayType",
                         value_type: RbxPropertyType::Enum("HumanoidHealthDisplayType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7254,6 +7771,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HipHeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7261,6 +7779,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Jump",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7268,6 +7787,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "JumpHeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7275,6 +7795,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "JumpPower",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7282,6 +7803,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftLeg",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -7289,6 +7813,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxHealth",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7296,6 +7821,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxSlopeAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7303,6 +7829,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MoveDirection",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7310,6 +7837,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NameDisplayDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7317,6 +7845,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NameOcclusion",
                         value_type: RbxPropertyType::Enum("NameOcclusion"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7324,6 +7853,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlatformStand",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7331,6 +7861,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RigType",
                         value_type: RbxPropertyType::Enum("HumanoidRigType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7338,6 +7869,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightLeg",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -7345,6 +7879,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RootPart",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7352,6 +7887,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SeatPart",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7359,6 +7895,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Sit",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7366,6 +7903,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetPoint",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7373,6 +7911,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Torso",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -7380,6 +7921,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UseJumpPower",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7387,6 +7929,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WalkSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7394,6 +7937,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WalkToPart",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7401,6 +7945,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WalkToPoint",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7408,6 +7953,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "maxHealth",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -7481,6 +8027,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BackAccessory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7488,6 +8035,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BodyTypeScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7495,6 +8043,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClimbAnimation",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7502,6 +8051,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DepthScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7509,6 +8059,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Face",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7516,6 +8067,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FaceAccessory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7523,6 +8075,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FallAnimation",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7530,6 +8083,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FrontAccessory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7537,6 +8091,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GraphicTShirt",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7544,6 +8099,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HairAccessory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7551,6 +8107,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HatAccessory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7558,6 +8115,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Head",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7565,6 +8123,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeadColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7572,6 +8131,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeadScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7579,6 +8139,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeightScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7586,6 +8147,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IdleAnimation",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7593,6 +8155,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "JumpAnimation",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7600,6 +8163,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftArm",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7607,6 +8171,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftArmColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7614,6 +8179,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftLeg",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7621,6 +8187,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LeftLegColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7628,6 +8195,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NeckAccessory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7635,6 +8203,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Pants",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7642,6 +8211,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ProportionScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7649,6 +8219,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightArm",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7656,6 +8227,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightArmColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7663,6 +8235,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightLeg",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7670,6 +8243,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightLegColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7677,6 +8251,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RunAnimation",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7684,6 +8259,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Shirt",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7691,6 +8267,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShouldersAccessory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7698,6 +8275,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SwimAnimation",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7705,6 +8283,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Torso",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7712,6 +8291,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TorsoColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7719,6 +8299,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WaistAccessory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7726,6 +8307,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WalkAnimation",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7733,6 +8315,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WidthScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -7869,6 +8452,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HoverImage",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7876,6 +8460,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Image",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7883,6 +8468,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7890,6 +8476,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageRectOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7897,6 +8484,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageRectSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7904,6 +8492,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7911,6 +8500,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsLoaded",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7918,6 +8508,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PressedImage",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7925,6 +8516,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScaleType",
                         value_type: RbxPropertyType::Enum("ScaleType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7932,6 +8524,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SliceCenter",
                         value_type: RbxPropertyType::UnimplementedType("Rect"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7939,6 +8532,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SliceScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -7946,6 +8540,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TileSize",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8060,6 +8655,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Image",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8067,6 +8663,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8126,6 +8723,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Image",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8133,6 +8731,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8140,6 +8739,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageRectOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8147,6 +8747,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageRectSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8154,6 +8755,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8161,6 +8763,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsLoaded",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8168,6 +8771,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScaleType",
                         value_type: RbxPropertyType::Enum("ScaleType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8175,6 +8779,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SliceCenter",
                         value_type: RbxPropertyType::UnimplementedType("Rect"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8182,6 +8787,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SliceScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8189,6 +8795,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TileSize",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8279,7 +8886,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "InputObject",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -8287,6 +8894,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Delta",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8294,6 +8902,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "KeyCode",
                         value_type: RbxPropertyType::Enum("KeyCode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8301,6 +8910,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Position",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8308,6 +8918,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UserInputState",
                         value_type: RbxPropertyType::Enum("UserInputState"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8315,6 +8926,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UserInputType",
                         value_type: RbxPropertyType::Enum("UserInputType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8327,7 +8939,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "InsertService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -8335,6 +8947,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AllowClientInsertModels",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -8342,6 +8955,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AllowInsertFreeModels",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::NOT_BROWSABLE
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -8364,7 +8980,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Instance",
             superclass: None,
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(8);
                 properties.insert(
@@ -8372,6 +8988,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Archivable",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8379,6 +8996,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClassName",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8386,6 +9004,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataCost",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8393,6 +9012,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Name",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8400,6 +9020,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Parent",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8407,6 +9028,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RobloxLocked",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8414,6 +9036,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "archivable",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -8421,6 +9046,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "className",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -8433,7 +9061,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "IntConstrainedValue",
             superclass: Some("ValueBase"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -8441,6 +9069,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ConstrainedValue",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8448,6 +9077,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxValue",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8455,6 +9085,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MinValue",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8462,6 +9093,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -8495,6 +9127,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8517,7 +9150,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "InventoryPages",
             superclass: Some("Pages"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8527,7 +9160,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "JointInstance",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -8535,6 +9168,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Active",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8542,6 +9176,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "C0",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8549,6 +9184,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "C1",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8556,6 +9192,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Part0",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8563,6 +9200,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Part1",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8570,6 +9208,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "part1",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -8582,7 +9223,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "JointsService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -8601,7 +9242,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "KeyboardService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -8628,6 +9269,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Time",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8658,6 +9300,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8693,6 +9336,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AuthoredHipHeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8700,6 +9344,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Loop",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8707,13 +9352,14 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Priority",
                         value_type: RbxPropertyType::Enum("AnimationPriority"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
             },
             default_properties: {
                 let mut defaults = HashMap::with_capacity(4);
-                defaults.insert("AuthoredHipHeight", RbxValue::Float32 { value: 1.35 });
+                defaults.insert("AuthoredHipHeight", RbxValue::Float32 { value: 2.0 });
                 defaults.insert("Loop", RbxValue::Bool { value: true });
                 defaults.insert(
                     "Name",
@@ -8731,9 +9377,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "KeyframeSequenceProvider",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -8752,7 +9398,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LayerCollector",
             superclass: Some("GuiBase2d"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -8760,6 +9406,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8767,6 +9414,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ResetOnSpawn",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8774,6 +9422,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ZIndexBehavior",
                         value_type: RbxPropertyType::Enum("ZIndexBehavior"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8786,7 +9435,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Light",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -8794,6 +9443,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Brightness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8801,6 +9451,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8808,6 +9459,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8815,6 +9467,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Shadows",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -8827,7 +9480,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Lighting",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(16);
                 properties.insert(
@@ -8835,6 +9488,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Ambient",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8842,6 +9496,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Brightness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8849,6 +9504,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClockTime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8856,6 +9512,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ColorShift_Bottom",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8863,6 +9520,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ColorShift_Top",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8870,6 +9528,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExposureCompensation",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8877,6 +9536,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FogColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8884,6 +9544,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FogEnd",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8891,6 +9552,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FogStart",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8898,6 +9560,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GeographicLatitude",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8905,6 +9568,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GlobalShadows",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8912,6 +9576,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OutdoorAmbient",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8919,6 +9584,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Outlines",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -8926,6 +9592,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShadowColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -8933,6 +9600,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Technology",
                         value_type: RbxPropertyType::Enum("Technology"),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -8940,6 +9608,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TimeOfDay",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9019,6 +9688,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ApplyAtCenterOfMass",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9026,6 +9696,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "InverseSquareLaw",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9033,6 +9704,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Magnitude",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9040,6 +9712,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9047,6 +9720,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReactionForceEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9091,6 +9765,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Length",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9098,6 +9773,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Thickness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9176,9 +9852,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LocalStorageService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -9188,9 +9864,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LocalizationService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(7);
                 properties.insert(
@@ -9198,6 +9874,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ForcePlayModeGameLocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -9205,6 +9882,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ForcePlayModeRobloxLocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -9212,6 +9890,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsTextScraperRunning",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -9219,6 +9898,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RobloxForcePlayModeGameLocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -9226,6 +9906,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RobloxForcePlayModeRobloxLocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -9233,6 +9914,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RobloxLocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -9240,6 +9922,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SystemLocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -9281,6 +9964,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevelopmentLanguage",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -9288,6 +9974,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Root",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -9295,6 +9984,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SourceLocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9328,7 +10018,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LogService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -9347,7 +10037,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LoginService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -9357,7 +10047,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LuaSettings",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Settings,
+            tags: RbxInstanceTags::SETTINGS,
             properties: {
                 let mut properties = HashMap::with_capacity(7);
                 properties.insert(
@@ -9365,6 +10055,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreScriptStartsReported",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9372,6 +10063,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DefaultWaitTime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9379,6 +10071,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GcFrequency",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9386,6 +10079,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GcLimit",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9393,6 +10087,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GcPause",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9400,6 +10095,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GcStepMul",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9407,6 +10103,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WaitingThreadsBudget",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9419,7 +10116,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LuaSourceContainer",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -9427,6 +10124,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentEditor",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties
@@ -9439,7 +10137,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "LuaWebService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -9492,7 +10190,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ManualSurfaceJointInstance",
             superclass: Some("JointInstance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -9536,7 +10234,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MarketplaceService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -9555,9 +10253,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MeshContentProvider",
             superclass: Some("CacheableContentProvider"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -9584,6 +10282,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CollisionFidelity",
                         value_type: RbxPropertyType::Enum("CollisionFidelity"),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -9591,6 +10290,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MeshID",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -9598,6 +10298,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MeshId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9605,6 +10306,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureID",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9722,7 +10424,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Message",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -9730,6 +10432,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Text",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9757,9 +10460,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MessagingService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -9786,6 +10489,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrimaryPart",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9816,6 +10520,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LinkedSource",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9823,6 +10528,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Source",
                         value_type: RbxPropertyType::UnimplementedType("ProtectedString"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9864,6 +10570,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -9871,6 +10578,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DesiredAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -9878,6 +10586,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -9925,6 +10634,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Transform",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -9964,7 +10674,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MotorFeature",
             superclass: Some("Feature"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(5);
@@ -9987,7 +10697,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Mouse",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -9995,6 +10705,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Hit",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10002,6 +10713,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Icon",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10009,6 +10721,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Origin",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10016,6 +10729,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Target",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10023,6 +10737,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetFilter",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10030,6 +10745,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetSurface",
                         value_type: RbxPropertyType::Enum("NormalId"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10037,6 +10753,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UnitRay",
                         value_type: RbxPropertyType::UnimplementedType("Ray"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10044,6 +10761,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ViewSizeX",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10051,6 +10769,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ViewSizeY",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10058,6 +10777,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "X",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10065,6 +10785,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Y",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10072,6 +10793,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "hit",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -10079,6 +10804,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "target",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -10091,9 +10819,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "MouseService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -10218,9 +10946,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkClient",
             superclass: Some("NetworkPeer"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -10228,6 +10956,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Ticket",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -10240,7 +10969,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkMarker",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10250,7 +10979,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkPeer",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10260,7 +10989,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkReplicator",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10270,9 +10999,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkServer",
             superclass: Some("NetworkPeer"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -10280,6 +11009,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Port",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -10292,7 +11022,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NetworkSettings",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::SERVICE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(33);
                 properties.insert(
@@ -10300,6 +11030,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ArePhysicsRejectionsReported",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10307,6 +11038,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClientPhysicsSendRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10314,6 +11046,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataGCRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10321,6 +11054,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataMtuAdjust",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10328,6 +11062,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataSendPriority",
                         value_type: RbxPropertyType::Enum("PacketPriority"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10335,6 +11070,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataSendRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10342,6 +11078,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExtraMemoryUsed",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10349,6 +11086,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FreeMemoryMBytes",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10356,6 +11096,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IncommingReplicationLag",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10363,6 +11104,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsQueueErrorComputed",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10370,6 +11112,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NetworkOwnerRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10377,6 +11120,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PhysicsMtuAdjust",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10384,6 +11128,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PhysicsSendPriority",
                         value_type: RbxPropertyType::Enum("PacketPriority"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10391,6 +11136,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PhysicsSendRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10398,6 +11144,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PreferredClientPort",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10405,6 +11152,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintBits",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10412,6 +11160,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintEvents",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10419,6 +11168,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintFilters",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10426,6 +11176,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintInstances",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10433,6 +11184,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintPhysicsErrors",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10440,6 +11192,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintProperties",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10447,6 +11200,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintSplitMessage",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10454,6 +11208,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintStreamInstanceQuota",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10461,6 +11216,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrintTouches",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10468,6 +11224,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ProxyEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10475,6 +11232,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ProxyURL",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10482,6 +11240,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReceiveRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10489,6 +11248,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RenderStreamedRegions",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10496,6 +11256,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShowActiveAnimationAsset",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10503,6 +11264,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TouchSendRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10510,6 +11272,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TrackDataTypes",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10517,6 +11280,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TrackPhysicsDetails",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10524,6 +11288,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UsePhysicsPacketCache",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -10536,7 +11301,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NonReplicatedCSGDictionaryService",
             superclass: Some("FlyweightService"),
-            tags: RbxInstanceTags::Service,
+            tags: RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10546,7 +11311,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "NotificationService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -10554,6 +11319,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsLuaBottomBarEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10561,6 +11327,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsLuaChatEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10568,6 +11335,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsLuaGameDetailsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10575,6 +11343,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsLuaGamesPageEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10582,6 +11351,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsLuaHomePageEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10589,6 +11359,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SelectedTheme",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -10624,6 +11395,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -10654,6 +11426,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -10676,7 +11449,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "OrderedDataStore",
             superclass: Some("GlobalDataStore"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10686,7 +11459,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PVAdornment",
             superclass: Some("GuiBase3d"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -10694,6 +11467,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Adornee",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -10706,7 +11480,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PVInstance",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10716,7 +11490,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PackageLink",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -10724,6 +11498,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoUpdate",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -10731,6 +11506,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PackageId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10738,6 +11514,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Status",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10745,6 +11522,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VersionNumber",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -10757,9 +11535,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PackageService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10769,7 +11547,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Pages",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -10777,6 +11555,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsFinished",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -10797,6 +11576,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PantsTemplate",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -10838,6 +11618,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "A",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10845,6 +11626,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "B",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10852,6 +11634,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "C",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10859,6 +11642,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Range",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10866,6 +11650,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Thickness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -10904,6 +11689,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Shape",
                         value_type: RbxPropertyType::Enum("PartType"),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -11011,7 +11797,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PartAdornment",
             superclass: Some("GuiBase3d"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11019,6 +11805,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Adornee",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -11039,6 +11826,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CollisionFidelity",
                         value_type: RbxPropertyType::Enum("CollisionFidelity"),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -11046,6 +11834,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RenderFidelity",
                         value_type: RbxPropertyType::Enum("RenderFidelity"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11053,6 +11842,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TriangleCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11060,6 +11850,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UsePartColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -11195,6 +11986,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Acceleration",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11202,6 +11994,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::UnimplementedType("ColorSequence"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11209,6 +12002,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Drag",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11216,6 +12010,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EmissionDirection",
                         value_type: RbxPropertyType::Enum("NormalId"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11223,6 +12018,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11230,6 +12026,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Lifetime",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11237,6 +12034,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LightEmission",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11244,6 +12042,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LightInfluence",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11251,6 +12050,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LockedToPart",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11258,6 +12058,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Rate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11265,6 +12066,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RotSpeed",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11272,6 +12074,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Rotation",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11279,6 +12082,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11286,6 +12090,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Speed",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11293,6 +12098,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SpreadAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11300,6 +12106,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Texture",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11307,6 +12114,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Transparency",
                         value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11314,6 +12122,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VelocityInheritance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11321,6 +12130,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VelocitySpread",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -11328,6 +12138,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ZOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -11372,7 +12183,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Path",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11380,6 +12191,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Status",
                         value_type: RbxPropertyType::Enum("PathStatus"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -11392,9 +12204,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PathfindingService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11402,6 +12214,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EmptyCutoff",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -11424,9 +12237,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PhysicsPacketCache",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11436,7 +12249,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PhysicsService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -11455,7 +12268,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PhysicsSettings",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Settings,
+            tags: RbxInstanceTags::SETTINGS,
             properties: {
                 let mut properties = HashMap::with_capacity(22);
                 properties.insert(
@@ -11463,6 +12276,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AllowSleep",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11470,6 +12284,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreAnchorsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11477,6 +12292,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreAssembliesShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11484,6 +12300,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreAwakePartsHighlighted",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11491,6 +12308,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreBodyTypesShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11498,6 +12316,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreContactIslandsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11505,6 +12324,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreContactPointsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11512,6 +12332,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreJointCoordinatesShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11519,6 +12340,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreMechanismsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11526,6 +12348,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreModelCoordsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11533,6 +12356,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreOwnersShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11540,6 +12364,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ArePartCoordsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11547,6 +12372,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreRegionsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11554,6 +12380,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreUnalignedPartsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11561,6 +12388,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreWorldCoordsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11568,6 +12396,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DisableCSGv2",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11575,6 +12404,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsReceiveAgeShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11582,6 +12412,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsTreeShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11589,6 +12420,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PhysicsEnvironmentalThrottle",
                         value_type: RbxPropertyType::Enum("EnviromentalPhysicsThrottle"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11596,6 +12428,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShowDecompositionGeometry",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11603,6 +12436,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ThrottleAdjustTime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11610,6 +12444,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UseCSGv2",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -11630,6 +12465,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Octave",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -11654,7 +12490,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Platform",
             superclass: Some("Part"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11672,6 +12508,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AccountAge",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11679,6 +12516,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AppearanceDidLoad",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -11686,6 +12526,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoJumpEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11693,6 +12534,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraMaxZoomDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11700,6 +12542,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraMinZoomDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11707,6 +12550,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraMode",
                         value_type: RbxPropertyType::Enum("CameraMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11714,6 +12558,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CanLoadCharacterAppearance",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11721,6 +12566,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Character",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11728,6 +12574,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CharacterAppearance",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_BROWSABLE | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -11735,6 +12582,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CharacterAppearanceId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11742,6 +12590,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ChatMode",
                         value_type: RbxPropertyType::Enum("ChatMode"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11749,6 +12598,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataComplexity",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -11756,6 +12608,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataComplexityLimit",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -11763,6 +12616,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataReady",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -11770,6 +12626,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevCameraOcclusionMode",
                         value_type: RbxPropertyType::Enum("DevCameraOcclusionMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11777,6 +12634,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevComputerCameraMode",
                         value_type: RbxPropertyType::Enum("DevComputerCameraMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11784,6 +12642,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevComputerMovementMode",
                         value_type: RbxPropertyType::Enum("DevComputerMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11791,6 +12650,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevEnableMouseLock",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11798,6 +12658,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevTouchCameraMode",
                         value_type: RbxPropertyType::Enum("DevTouchCameraMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11805,6 +12666,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevTouchMovementMode",
                         value_type: RbxPropertyType::Enum("DevTouchMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11812,6 +12674,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DisplayName",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11819,6 +12682,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FollowUserId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11826,6 +12690,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Guest",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11833,6 +12698,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HealthDisplayDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11840,6 +12706,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11847,6 +12716,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaximumSimulationRadius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11854,6 +12724,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MembershipType",
                         value_type: RbxPropertyType::Enum("MembershipType"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11861,6 +12732,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NameDisplayDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11868,6 +12740,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Neutral",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11875,6 +12748,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OsPlatform",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11882,6 +12756,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReplicationFocus",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11889,6 +12764,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RespawnLocation",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11896,6 +12772,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SimulationRadius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11903,6 +12780,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Team",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11910,6 +12788,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TeamColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11917,6 +12796,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Teleported",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11924,6 +12806,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TeleportedIn",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11931,6 +12814,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UserId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11938,6 +12822,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VRDevice",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11945,6 +12830,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "userId",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -11957,7 +12843,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PlayerGui",
             superclass: Some("BasePlayerGui"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::PlayerReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::PLAYER_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -11965,6 +12851,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentScreenOrientation",
                         value_type: RbxPropertyType::Enum("ScreenOrientation"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -11972,6 +12859,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScreenOrientation",
                         value_type: RbxPropertyType::Enum("ScreenOrientation"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -11979,6 +12867,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SelectionImageObject",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -11991,7 +12880,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PlayerMouse",
             superclass: Some("Mouse"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -12001,7 +12890,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PlayerScripts",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -12011,7 +12900,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Players",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -12019,6 +12908,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BubbleChat",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12026,6 +12916,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CharacterAutoLoads",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12033,6 +12924,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClassicChat",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12040,6 +12932,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LocalPlayer",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12047,6 +12940,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxPlayers",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12054,6 +12948,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxPlayersInternal",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12061,6 +12956,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NumPlayers",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -12068,6 +12966,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PreferredPlayers",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12075,6 +12974,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PreferredPlayersInternal",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12082,6 +12982,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RespawnTime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12089,6 +12990,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "localPlayer",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -12096,6 +13001,10 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "numPlayers",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -12119,7 +13028,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Plugin",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -12127,6 +13036,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CollisionEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12134,6 +13044,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GridSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12141,6 +13052,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UsesAssetInsertionDrag",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -12153,7 +13065,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginAction",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -12161,6 +13073,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ActionId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12168,6 +13081,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AllowBinding",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12175,6 +13089,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StatusTip",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12182,6 +13097,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Text",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -12203,7 +13119,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginDragEvent",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -12211,6 +13127,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Data",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12218,6 +13135,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MimeType",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12225,6 +13143,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Position",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12232,6 +13151,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Sender",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -12244,7 +13164,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginGui",
             superclass: Some("LayerCollector"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -12252,6 +13172,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Title",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -12264,9 +13185,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginGuiService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -12285,7 +13206,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginManager",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -12295,7 +13216,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginMenu",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -12303,6 +13224,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Icon",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12310,6 +13232,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Title",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -12322,7 +13245,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginMouse",
             superclass: Some("Mouse"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -12332,7 +13255,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginToolbar",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -12342,7 +13265,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PluginToolbarButton",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -12350,6 +13273,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClickableWhenViewportHidden",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12357,6 +13281,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -12364,6 +13289,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Icon",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -12384,6 +13310,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Range",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -12415,9 +13342,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PointsService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -12444,6 +13371,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12451,6 +13379,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EasingDirection",
                         value_type: RbxPropertyType::Enum("PoseEasingDirection"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12458,6 +13387,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EasingStyle",
                         value_type: RbxPropertyType::Enum("PoseEasingStyle"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12465,6 +13395,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaskWeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -12472,6 +13403,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Weight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -12503,7 +13435,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "PostEffect",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -12511,6 +13443,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -12565,7 +13498,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "QWidgetPluginGui",
             superclass: Some("PluginGui"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -12583,6 +13516,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::UnimplementedType("Ray"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -12650,6 +13584,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExplorerImageIndex",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12657,6 +13592,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExplorerOrder",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12664,6 +13600,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Insertable",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12671,6 +13608,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PreferredParent",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12678,6 +13616,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PreferredParents",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -12932,7 +13871,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReflectionMetadataItem",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -12940,6 +13879,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Browsable",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12947,6 +13887,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClassCategory",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12954,6 +13895,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClientOnly",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12961,6 +13903,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Constraint",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12968,6 +13911,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Deprecated",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12975,6 +13919,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EditingDisabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12982,6 +13927,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsBackend",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12989,6 +13935,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScriptContext",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -12996,6 +13943,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ServerOnly",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13003,6 +13951,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UIMaximum",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13010,6 +13959,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UIMinimum",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13017,6 +13967,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UINumTicks",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13024,6 +13975,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "summary",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -13164,7 +14116,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RenderSettings",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::SERVICE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -13172,6 +14124,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoFRMLevel",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13179,6 +14132,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EagerBulkExecution",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13186,6 +14140,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EditQualityLevel",
                         value_type: RbxPropertyType::Enum("QualityLevel"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13193,6 +14148,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EnableFRM",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -13200,6 +14156,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExportMergeByMaterial",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13207,6 +14164,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FrameRateManager",
                         value_type: RbxPropertyType::Enum("FramerateManagerMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13214,6 +14172,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GraphicsMode",
                         value_type: RbxPropertyType::Enum("GraphicsMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13221,6 +14180,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MeshCacheSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13228,6 +14188,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "QualityLevel",
                         value_type: RbxPropertyType::Enum("QualityLevel"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13235,6 +14196,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ReloadAssets",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13242,6 +14204,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RenderCSGTrianglesDebug",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13249,6 +14212,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShowBoundingBoxes",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -13269,6 +14233,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13276,6 +14241,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ComparisonDiffThreshold",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13283,6 +14249,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ComparisonMethod",
                         value_type: RbxPropertyType::Enum("RenderingTestComparisonMethod"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13290,6 +14257,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ComparisonPsnrThreshold",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13297,6 +14265,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Description",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13304,6 +14273,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FieldOfView",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13311,6 +14281,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Orientation",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -13318,6 +14289,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Position",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -13325,6 +14297,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "QualityLevel",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13332,6 +14305,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShouldSkip",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13339,6 +14313,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Ticket",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -13396,7 +14371,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReplicatedFirst",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -13415,7 +14390,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ReplicatedStorage",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -13442,6 +14417,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DecayTime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13449,6 +14425,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Density",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13456,6 +14433,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Diffusion",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13463,6 +14441,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DryLevel",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13470,6 +14449,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WetLevel",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -13498,9 +14478,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RobloxReplicatedStorage",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_BROWSABLE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -13527,6 +14507,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CartoonFactor",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13534,6 +14515,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13541,6 +14523,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxThrust",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13548,6 +14531,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxTorque",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13555,6 +14539,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Target",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13562,6 +14547,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13569,6 +14555,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetRadius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13576,6 +14563,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ThrustD",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13583,6 +14571,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ThrustP",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13590,6 +14579,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TurnD",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13597,6 +14587,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TurnP",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -13647,6 +14638,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -13654,6 +14646,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Length",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13661,6 +14654,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Thickness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -13698,6 +14692,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -13705,6 +14700,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Length",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13712,6 +14708,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Restitution",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13719,6 +14716,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Thickness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -13853,9 +14851,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RunService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -13874,7 +14872,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RunningAverageItemDouble",
             superclass: Some("StatsItem"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -13884,7 +14882,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RunningAverageItemInt",
             superclass: Some("StatsItem"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -13894,7 +14892,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RunningAverageTimeIntervalItem",
             superclass: Some("StatsItem"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -13904,9 +14902,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "RuntimeScriptService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -13933,6 +14931,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DisplayOrder",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13940,6 +14939,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IgnoreGuiInset",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -13947,6 +14947,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OnTopOfCoreBlur",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties
@@ -13985,6 +14986,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Source",
                         value_type: RbxPropertyType::UnimplementedType("ProtectedString"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14019,9 +15021,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ScriptContext",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14029,6 +15031,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScriptsDisabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -14050,7 +15053,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ScriptDebugger",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -14058,6 +15061,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentLine",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -14065,6 +15069,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsDebugging",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -14072,6 +15077,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsPaused",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -14079,6 +15085,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Script",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -14091,7 +15098,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ScriptService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -14118,6 +15125,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AbsoluteWindowSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -14125,6 +15133,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BottomImage",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14132,6 +15141,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CanvasPosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14139,6 +15149,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CanvasSize",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14146,6 +15157,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ElasticBehavior",
                         value_type: RbxPropertyType::Enum("ElasticBehavior"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14153,6 +15165,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HorizontalScrollBarInset",
                         value_type: RbxPropertyType::Enum("ScrollBarInset"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14160,6 +15173,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MidImage",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14167,6 +15181,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScrollBarImageColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14174,6 +15189,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScrollBarImageTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14181,6 +15197,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScrollBarThickness",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14188,6 +15205,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScrollingDirection",
                         value_type: RbxPropertyType::Enum("ScrollingDirection"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14195,6 +15213,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScrollingEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14202,6 +15221,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TopImage",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14209,6 +15229,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VerticalScrollBarInset",
                         value_type: RbxPropertyType::Enum("ScrollBarInset"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14216,6 +15237,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VerticalScrollBarPosition",
                         value_type: RbxPropertyType::Enum("VerticalScrollBarPosition"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14337,6 +15359,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Disabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14344,6 +15367,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Occupant",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -14452,7 +15476,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Selection",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -14479,6 +15503,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LineThickness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14486,6 +15511,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SurfaceColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -14493,6 +15521,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SurfaceColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14500,6 +15529,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SurfaceTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14538,7 +15568,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SelectionLasso",
             superclass: Some("GuiBase3d"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14546,6 +15576,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Humanoid",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14558,7 +15589,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SelectionPartLasso",
             superclass: Some("SelectionLasso"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14566,6 +15597,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Part",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14597,7 +15629,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SelectionPointLasso",
             superclass: Some("SelectionLasso"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14605,6 +15637,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Point",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14649,6 +15682,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SurfaceColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -14656,6 +15692,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SurfaceColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14663,6 +15700,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SurfaceTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14700,7 +15738,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ServerReplicator",
             superclass: Some("NetworkReplicator"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14710,9 +15748,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ServerScriptService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -14720,6 +15758,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LoadStringEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties
@@ -14741,9 +15780,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ServerStorage",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -14762,7 +15801,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ServiceProvider",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -14780,6 +15819,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShirtTemplate",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14821,6 +15861,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14828,6 +15869,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Graphic",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -14869,6 +15911,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Steer",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -14876,6 +15919,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Throttle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -14897,7 +15941,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SkateboardPlatform",
             superclass: Some("Part"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -14905,6 +15949,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Controller",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -14912,6 +15957,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ControllingHumanoid",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -14919,6 +15965,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Steer",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14926,6 +15973,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StickyWheels",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -14933,6 +15981,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Throttle",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15043,7 +16092,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Skin",
             superclass: Some("CharacterAppearance"),
-            tags: RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::DEPRECATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -15051,6 +16100,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SkinColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15080,6 +16130,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CelestialBodiesShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15087,6 +16138,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MoonAngularSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15094,6 +16146,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MoonTextureId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15101,6 +16154,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SkyboxBk",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15108,6 +16162,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SkyboxDn",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15115,6 +16170,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SkyboxFt",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15122,6 +16178,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SkyboxLf",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15129,6 +16186,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SkyboxRt",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15136,6 +16194,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SkyboxUp",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15143,6 +16202,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StarCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15150,6 +16210,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SunAngularSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15157,6 +16218,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SunTextureId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15230,7 +16292,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SlidingBallConstraint",
             superclass: Some("Constraint"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(13);
                 properties.insert(
@@ -15238,6 +16300,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ActuatorType",
                         value_type: RbxPropertyType::Enum("ActuatorType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15245,6 +16308,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentPosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15252,6 +16316,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LimitsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15259,6 +16324,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LowerLimit",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15266,6 +16332,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MotorMaxAcceleration",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15273,6 +16340,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MotorMaxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15280,6 +16348,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Restitution",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15287,6 +16356,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ServoMaxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15294,6 +16364,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15301,6 +16372,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Speed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15308,6 +16380,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetPosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15315,6 +16388,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UpperLimit",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15322,6 +16396,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Velocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15342,6 +16417,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15349,6 +16425,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15356,6 +16433,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Opacity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15363,6 +16441,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RiseVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15370,6 +16449,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Size",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -15435,9 +16515,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SocialService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15456,9 +16536,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SolidModelContentProvider",
             superclass: Some("CacheableContentProvider"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15485,6 +16565,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EmitterSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15492,6 +16573,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsLoaded",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15499,6 +16581,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsPaused",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15506,6 +16589,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsPlaying",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15513,6 +16597,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Looped",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15520,6 +16605,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15527,6 +16613,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MinDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -15534,6 +16621,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Pitch",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -15541,6 +16629,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlayOnRemove",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15548,6 +16637,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlaybackLoudness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15555,6 +16645,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlaybackSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15562,6 +16653,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Playing",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15569,6 +16661,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RollOffMode",
                         value_type: RbxPropertyType::Enum("RollOffMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15576,6 +16669,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SoundGroup",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15583,6 +16677,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SoundId",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15590,6 +16685,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TimeLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15597,6 +16693,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TimePosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15604,6 +16701,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Volume",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15611,6 +16709,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "isPlaying",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -15649,7 +16750,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SoundEffect",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -15657,6 +16758,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15664,6 +16766,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Priority",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15684,6 +16787,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Volume",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15706,7 +16810,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SoundService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -15714,6 +16818,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AmbientReverb",
                         value_type: RbxPropertyType::Enum("ReverbType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15721,6 +16826,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DistanceFactor",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15728,6 +16834,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DopplerScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15735,6 +16842,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RespectFilteringEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15742,6 +16850,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RolloffScale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15776,6 +16885,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15783,6 +16893,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15790,6 +16901,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SparkleColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15832,6 +16944,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AllowTeamChangeOnTouch",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15839,6 +16952,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Duration",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15846,6 +16960,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15853,6 +16968,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Neutral",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -15860,6 +16976,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TeamColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -15971,7 +17088,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "SpawnerService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -15989,6 +17106,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MeshType",
                         value_type: RbxPropertyType::Enum("MeshType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -16049,6 +17167,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Radius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -16102,6 +17221,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Angle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16109,6 +17229,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Face",
                         value_type: RbxPropertyType::Enum("NormalId"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16116,6 +17237,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Range",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -16157,6 +17279,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Coils",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16164,6 +17287,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16171,6 +17295,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Damping",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16178,6 +17303,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FreeLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16185,6 +17311,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LimitsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16192,6 +17319,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxForce",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16199,6 +17327,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16206,6 +17335,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MinLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16213,6 +17343,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Radius",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16220,6 +17351,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Stiffness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16227,6 +17359,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Thickness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -16269,7 +17402,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StandardPages",
             superclass: Some("Pages"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16317,7 +17450,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterGui",
             superclass: Some("BasePlayerGui"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -16325,6 +17458,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ProcessUserInput",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16332,6 +17466,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ResetPlayerGuiOnSpawn",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -16339,6 +17474,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScreenOrientation",
                         value_type: RbxPropertyType::Enum("ScreenOrientation"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16346,6 +17482,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShowDevelopmentGui",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -16370,7 +17507,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterPack",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16389,7 +17526,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StarterPlayer",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(36);
                 properties.insert(
@@ -16397,6 +17534,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AllowCustomAnimations",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -16404,6 +17542,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoJumpEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16411,6 +17550,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraMaxZoomDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16418,6 +17558,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraMinZoomDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16425,6 +17566,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraMode",
                         value_type: RbxPropertyType::Enum("CameraMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16432,6 +17574,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CharacterJumpHeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -16439,6 +17582,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CharacterJumpPower",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -16446,6 +17590,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CharacterMaxSlopeAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -16453,6 +17598,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CharacterUseJumpPower",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -16460,6 +17606,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CharacterWalkSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -16467,6 +17614,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevCameraOcclusionMode",
                         value_type: RbxPropertyType::Enum("DevCameraOcclusionMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16474,6 +17622,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevComputerCameraMovementMode",
                         value_type: RbxPropertyType::Enum("DevComputerCameraMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16481,6 +17630,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevComputerMovementMode",
                         value_type: RbxPropertyType::Enum("DevComputerMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16488,6 +17638,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevTouchCameraMovementMode",
                         value_type: RbxPropertyType::Enum("DevTouchCameraMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16495,6 +17646,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DevTouchMovementMode",
                         value_type: RbxPropertyType::Enum("DevTouchMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16502,6 +17654,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EnableMouseLockOption",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16509,6 +17662,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDFace",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16516,6 +17670,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDHead",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16523,6 +17678,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDLeftArm",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16530,6 +17686,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDLeftLeg",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16537,6 +17694,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDPants",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16544,6 +17702,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDRightArm",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16551,6 +17710,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDRightLeg",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16558,6 +17718,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDShirt",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16565,6 +17726,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDTeeShirt",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16572,6 +17734,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAssetIDTorso",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16579,6 +17742,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsAvatarType",
                         value_type: RbxPropertyType::Enum("GameAvatarType"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16586,6 +17750,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsR15CollisionType",
                         value_type: RbxPropertyType::Enum("R15CollisionType"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16593,6 +17758,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsScaleBodyType",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16600,6 +17766,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsScaleHead",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16607,6 +17774,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsScaleHeight",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16614,6 +17782,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsScaleProportion",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16621,6 +17790,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GameSettingsScaleWidth",
                         value_type: RbxPropertyType::UnimplementedType("NumberRange"),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16628,6 +17798,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HealthDisplayDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16635,6 +17806,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LoadCharacterAppearance",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16642,6 +17814,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NameDisplayDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -16728,7 +17901,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Stats",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -16736,6 +17909,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ContactsCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16743,6 +17917,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataReceiveKbps",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16750,6 +17925,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DataSendKbps",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16757,6 +17933,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeartbeatTimeMs",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16764,6 +17941,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "InstanceCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16771,6 +17949,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MovingPrimitivesCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16778,6 +17957,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PhysicsReceiveKbps",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16785,6 +17965,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PhysicsSendKbps",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16792,6 +17973,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PhysicsStepTimeMs",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -16799,6 +17981,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PrimitivesCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -16820,7 +18003,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StatsItem",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16830,7 +18013,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Status",
             superclass: Some("Model"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Deprecated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::DEPRECATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16840,9 +18023,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StopWatchReporter",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -16860,6 +18043,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -16887,7 +18071,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Studio",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::SERVICE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(74);
                 properties.insert(
@@ -16895,6 +18079,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Always Save Script Changes",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16902,6 +18087,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Animate Hover Over",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16909,6 +18095,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Attach Debugger To",
                         value_type: RbxPropertyType::Enum("DEPRECATED_DebuggerDataModelPreference"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16916,6 +18103,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Auto Indent",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16923,6 +18111,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Auto-Recovery Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16930,6 +18119,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Auto-Recovery Interval (Minutes)",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16937,6 +18127,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Auto-Recovery Path",
                         value_type: RbxPropertyType::UnimplementedType("QDir"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16944,6 +18135,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Auto-Save Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16951,6 +18143,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Auto-Save Interval (Minutes)",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16958,6 +18151,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Auto-Save Path",
                         value_type: RbxPropertyType::UnimplementedType("QDir"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16965,6 +18159,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Background Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16972,6 +18167,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Basic Objects Display Mode",
                         value_type: RbxPropertyType::Enum("ListDisplayMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16979,6 +18175,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Built-in Function Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16986,6 +18183,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Camera Mouse Wheel Speed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -16993,6 +18191,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Camera Shift Speed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17000,6 +18199,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Camera Speed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17007,6 +18207,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Camera Zoom to Mouse Position",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17014,6 +18215,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Clear Output On Start",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17021,6 +18223,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Comment Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17028,6 +18231,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DefaultScriptFileDir",
                         value_type: RbxPropertyType::UnimplementedType("QDir"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17035,6 +18239,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DeprecatedObjectsShown",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17042,6 +18247,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Device Pairing Code",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17049,6 +18255,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Disable Accurate Play Solo",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17056,6 +18263,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Drag Multiple Parts As Single Part",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17063,6 +18271,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enable Autocomplete",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17070,6 +18279,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enable CoreScript Debugger",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17077,6 +18287,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enable Intellisense",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -17084,6 +18295,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Error Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17091,6 +18303,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Find Selection Background Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17098,6 +18311,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Font",
                         value_type: RbxPropertyType::UnimplementedType("QFont"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17105,6 +18319,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Hover Animate Speed",
                         value_type: RbxPropertyType::Enum("HoverAnimateSpeed"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17112,6 +18327,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Hover Over Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17119,6 +18335,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Import mesh files as single mesh",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17126,6 +18343,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Keyword Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17133,6 +18351,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Line Thickness",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17140,6 +18359,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LuaDebuggerEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17147,6 +18367,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LuaDebuggerEnabledAtStartup",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -17154,6 +18377,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Matching Word Background Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17161,6 +18385,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Maximum Output Lines",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17168,6 +18393,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Number Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17175,6 +18401,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Only Play Audio from Window in Focus",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17182,6 +18409,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Operator Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17189,6 +18417,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Output Font",
                         value_type: RbxPropertyType::UnimplementedType("QFont"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17196,6 +18425,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Output Layout Mode",
                         value_type: RbxPropertyType::Enum("OutputLayoutMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17203,6 +18433,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OverrideCoreScripts",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17210,6 +18441,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OverrideCoreScriptsDir",
                         value_type: RbxPropertyType::UnimplementedType("QDir"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17217,6 +18449,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PermissionLevelShown",
                         value_type: RbxPropertyType::Enum("PermissionLevelShown"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17224,6 +18457,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PluginsDir",
                         value_type: RbxPropertyType::UnimplementedType("QDir"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17231,6 +18465,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Preprocessor Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17238,6 +18473,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RecentSavesDir",
                         value_type: RbxPropertyType::UnimplementedType("QDir"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17245,6 +18481,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Render Throttle Percentage",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17252,6 +18489,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Respect Studio shortcuts when game has focus",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17259,6 +18497,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RuntimeUndoBehavior",
                         value_type: RbxPropertyType::Enum("RuntimeUndoBehavior"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17266,6 +18505,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScriptTimeoutLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17273,6 +18513,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Select Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17280,6 +18521,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Select/Hover Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17287,6 +18529,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Selection Background Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17294,6 +18537,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Selection Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17301,6 +18545,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Server Audio Behavior",
                         value_type: RbxPropertyType::Enum("ServerAudioBehavior"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17308,6 +18553,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Show Core GUI in Explorer while Playing",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17315,6 +18561,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Show Diagnostics Bar",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17322,6 +18569,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Show Hidden Objects in Explorer",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17329,6 +18577,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Show Hover Over",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17336,6 +18585,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Show Navigation Mesh",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17343,6 +18593,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Show Plugin GUI Service in Explorer",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17350,6 +18601,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Show QT warnings in output",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17357,6 +18609,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Show plus button on hover in Explorer",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17364,6 +18617,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "String Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17371,6 +18625,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Tab Width",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17378,6 +18633,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Text Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17385,6 +18641,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Text Wrapping",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17392,6 +18649,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Theme",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17399,6 +18657,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UI Theme",
                         value_type: RbxPropertyType::Enum("UITheme"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -17406,6 +18665,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Warning Color",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -17418,9 +18678,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StudioService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -17428,6 +18688,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ActiveScript",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -17449,7 +18710,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "StudioTheme",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -17467,6 +18728,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Intensity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17474,6 +18736,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Spread",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -17506,6 +18769,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Active",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17513,6 +18777,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Adornee",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17520,6 +18785,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AlwaysOnTop",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17527,6 +18793,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CanvasSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17534,6 +18801,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClipsDescendants",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17541,6 +18809,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Face",
                         value_type: RbxPropertyType::Enum("NormalId"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17548,6 +18817,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LightInfluence",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17555,6 +18825,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ToolPunchThroughDistance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17562,6 +18833,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ZOffset",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -17612,6 +18884,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Angle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17619,6 +18892,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Face",
                         value_type: RbxPropertyType::Enum("NormalId"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17626,6 +18900,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Range",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -17667,6 +18942,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TargetSurface",
                         value_type: RbxPropertyType::Enum("NormalId"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -17698,7 +18974,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TaskScheduler",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service,
+            tags: RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -17706,6 +18982,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SchedulerDutyCycle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -17713,6 +18990,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SchedulerRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -17720,6 +18998,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ThreadPoolConfig",
                         value_type: RbxPropertyType::Enum("ThreadPoolConfig"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17727,6 +19006,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ThreadPoolSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -17747,6 +19027,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoAssignable",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17754,6 +19035,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoColorCharacters",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -17761,6 +19043,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Score",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -17768,6 +19051,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TeamColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -17792,7 +19076,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Teams",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -17811,7 +19095,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TeleportService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -17819,6 +19103,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CustomizedTeleportUI",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties
@@ -17841,7 +19126,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Terrain",
             superclass: Some("BasePart"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(8);
                 properties.insert(
@@ -17849,6 +19134,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsSmooth",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -17856,6 +19144,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaterialColors",
                         value_type: RbxPropertyType::Data(RbxValueType::BinaryString),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -17863,6 +19152,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxExtents",
                         value_type: RbxPropertyType::UnimplementedType("Region3int16"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -17870,6 +19160,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WaterColor",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17877,6 +19168,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WaterReflectance",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17884,6 +19176,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WaterTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17891,6 +19184,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WaterWaveSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17898,6 +19192,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WaterWaveSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -17918,6 +19213,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsSmooth",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -17925,6 +19223,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SizeInCells",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -17946,7 +19245,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TestService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service,
+            tags: RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -17954,6 +19253,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoRuns",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17961,6 +19261,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Description",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17968,6 +19269,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ErrorCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -17975,6 +19277,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ExecuteWithStudioRun",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17982,6 +19285,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Is30FpsThrottleEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17989,6 +19293,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsPhysicsEnvironmentalThrottled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -17996,6 +19301,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsSleepAllowed",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18003,6 +19309,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NumberOfPlayers",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18010,6 +19317,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SimulateSecondsLag",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18017,6 +19325,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TestCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18024,6 +19333,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Timeout",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18031,6 +19341,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WarnCount",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -18080,6 +19391,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ClearTextOnFocus",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18087,6 +19399,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CursorPosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18094,6 +19407,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Font",
                         value_type: RbxPropertyType::Enum("Font"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18101,6 +19415,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FontSize",
                         value_type: RbxPropertyType::Enum("FontSize"),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18108,6 +19423,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LineHeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18115,6 +19431,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ManualFocusRelease",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18122,6 +19439,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MultiLine",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18129,6 +19447,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OverlayNativeInput",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18136,6 +19455,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlaceholderColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18143,6 +19463,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlaceholderText",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18150,6 +19471,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ShowNativeInput",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18157,6 +19479,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Text",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18164,6 +19487,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextBounds",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18171,6 +19495,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18178,6 +19505,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18185,6 +19513,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextFits",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18192,6 +19521,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextScaled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18199,6 +19529,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18206,6 +19537,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextStrokeColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18213,6 +19545,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextStrokeTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18220,6 +19553,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18227,6 +19561,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextTruncate",
                         value_type: RbxPropertyType::Enum("TextTruncate"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18234,6 +19569,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextWrap",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18241,6 +19577,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextWrapped",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18248,6 +19585,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextXAlignment",
                         value_type: RbxPropertyType::Enum("TextXAlignment"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18255,6 +19593,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextYAlignment",
                         value_type: RbxPropertyType::Enum("TextYAlignment"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -18377,6 +19716,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Font",
                         value_type: RbxPropertyType::Enum("Font"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18384,6 +19724,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FontSize",
                         value_type: RbxPropertyType::Enum("FontSize"),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18391,6 +19732,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LineHeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18398,6 +19740,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LocalizedText",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18405,6 +19750,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Text",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18412,6 +19758,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextBounds",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18419,6 +19766,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18426,6 +19776,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18433,6 +19784,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextFits",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18440,6 +19792,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextScaled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18447,6 +19800,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18454,6 +19808,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextStrokeColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18461,6 +19816,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextStrokeTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18468,6 +19824,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18475,6 +19832,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextTruncate",
                         value_type: RbxPropertyType::Enum("TextTruncate"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18482,6 +19840,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextWrap",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18489,6 +19848,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextWrapped",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18496,6 +19856,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextXAlignment",
                         value_type: RbxPropertyType::Enum("TextXAlignment"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18503,6 +19864,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextYAlignment",
                         value_type: RbxPropertyType::Enum("TextYAlignment"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -18610,7 +19972,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TextFilterResult",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18628,6 +19990,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Font",
                         value_type: RbxPropertyType::Enum("Font"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18635,6 +19998,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FontSize",
                         value_type: RbxPropertyType::Enum("FontSize"),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18642,6 +20006,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LineHeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18649,6 +20014,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LocalizedText",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18656,6 +20024,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Text",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18663,6 +20032,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextBounds",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18670,6 +20040,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextColor",
                         value_type: RbxPropertyType::UnimplementedType("BrickColor"),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18677,6 +20050,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18684,6 +20058,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextFits",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18691,6 +20066,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextScaled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18698,6 +20074,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18705,6 +20082,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextStrokeColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18712,6 +20090,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextStrokeTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18719,6 +20098,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18726,6 +20106,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextTruncate",
                         value_type: RbxPropertyType::Enum("TextTruncate"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18733,6 +20114,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextWrap",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -18740,6 +20122,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextWrapped",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18747,6 +20130,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextXAlignment",
                         value_type: RbxPropertyType::Enum("TextXAlignment"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18754,6 +20138,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextYAlignment",
                         value_type: RbxPropertyType::Enum("TextYAlignment"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -18857,9 +20242,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TextService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -18886,6 +20271,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StudsPerTileU",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18893,6 +20279,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StudsPerTileV",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -18932,9 +20319,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ThirdPartyUserService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -18944,7 +20331,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TimerService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -18971,6 +20358,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CanBeDropped",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18978,6 +20366,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18985,6 +20374,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Grip",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -18992,6 +20382,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GripForward",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -18999,6 +20390,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GripPos",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -19006,6 +20398,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GripRight",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -19013,6 +20406,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GripUp",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -19020,6 +20414,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ManualActivationOnly",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19027,6 +20422,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RequiresHandle",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19034,6 +20430,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ToolTip",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19109,6 +20506,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RelativeTo",
                         value_type: RbxPropertyType::Enum("ActuatorRelativeTo"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19116,6 +20514,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Torque",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19149,7 +20548,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TotalCountTimeIntervalItem",
             superclass: Some("StatsItem"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19159,7 +20558,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TouchInputService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -19178,7 +20577,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TouchTransmitter",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19196,6 +20595,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Attachment0",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19203,6 +20603,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Attachment1",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19210,6 +20611,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Color",
                         value_type: RbxPropertyType::UnimplementedType("ColorSequence"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19217,6 +20619,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19224,6 +20627,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FaceCamera",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19231,6 +20635,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Lifetime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19238,6 +20643,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LightEmission",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19245,6 +20651,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LightInfluence",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19252,6 +20659,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19259,6 +20667,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MinLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19266,6 +20675,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Texture",
                         value_type: RbxPropertyType::UnimplementedType("Content"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19273,6 +20683,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureLength",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19280,6 +20691,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TextureMode",
                         value_type: RbxPropertyType::Enum("TextureMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19287,6 +20699,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Transparency",
                         value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19294,6 +20707,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "WidthScale",
                         value_type: RbxPropertyType::UnimplementedType("NumberSequence"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19332,7 +20746,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Translator",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -19340,6 +20754,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LocaleId",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -19360,6 +20775,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Depth",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19367,6 +20783,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Duty",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19374,6 +20791,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Frequency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19408,6 +20826,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Style",
                         value_type: RbxPropertyType::Enum("Style"),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -19522,6 +20941,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Instance",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -19529,6 +20949,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TweenInfo",
                         value_type: RbxPropertyType::UnimplementedType("TweenInfo"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -19551,7 +20972,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TweenBase",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -19559,6 +20980,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PlaybackState",
                         value_type: RbxPropertyType::Enum("PlaybackState"),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -19571,7 +20993,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "TweenService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -19598,6 +21020,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AspectRatio",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19605,6 +21028,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AspectType",
                         value_type: RbxPropertyType::Enum("AspectType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19612,6 +21036,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DominantAxis",
                         value_type: RbxPropertyType::Enum("DominantAxis"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19636,7 +21061,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIBase",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19646,7 +21071,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIComponent",
             superclass: Some("UIBase"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19656,7 +21081,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIConstraint",
             superclass: Some("UIComponent"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19674,6 +21099,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CellPadding",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19681,6 +21107,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CellSize",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19688,6 +21115,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FillDirectionMaxCells",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19695,6 +21123,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StartCorner",
                         value_type: RbxPropertyType::Enum("StartCorner"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19738,7 +21167,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UIGridStyleLayout",
             superclass: Some("UILayout"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::NotBrowsable,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -19746,6 +21175,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AbsoluteContentSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -19753,6 +21183,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FillDirection",
                         value_type: RbxPropertyType::Enum("FillDirection"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19760,6 +21191,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HorizontalAlignment",
                         value_type: RbxPropertyType::Enum("HorizontalAlignment"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19767,6 +21199,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SortOrder",
                         value_type: RbxPropertyType::Enum("SortOrder"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19774,6 +21207,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VerticalAlignment",
                         value_type: RbxPropertyType::Enum("VerticalAlignment"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19786,7 +21220,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UILayout",
             superclass: Some("UIComponent"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19804,6 +21238,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Padding",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19842,6 +21277,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PaddingBottom",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19849,6 +21285,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PaddingLeft",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19856,6 +21293,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PaddingRight",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19863,6 +21301,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PaddingTop",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -19896,6 +21335,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Animated",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19903,6 +21343,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Circular",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19910,6 +21351,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentPage",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -19917,6 +21359,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EasingDirection",
                         value_type: RbxPropertyType::Enum("EasingDirection"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19924,6 +21367,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "EasingStyle",
                         value_type: RbxPropertyType::Enum("EasingStyle"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19931,6 +21375,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GamepadInputEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19938,6 +21383,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Padding",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19945,6 +21391,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ScrollWheelInputEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19952,6 +21399,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TouchInputEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -19959,6 +21407,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TweenTime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -20006,6 +21455,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Scale",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -20036,6 +21486,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20043,6 +21494,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MinSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -20079,6 +21531,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FillEmptySpaceColumns",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20086,6 +21539,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FillEmptySpaceRows",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20093,6 +21547,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MajorAxis",
                         value_type: RbxPropertyType::Enum("TableMajorAxis"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20100,6 +21555,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Padding",
                         value_type: RbxPropertyType::Data(RbxValueType::UDim2),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -20146,6 +21602,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxTextSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20153,6 +21610,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MinTextSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -20282,7 +21740,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UserGameSettings",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service,
+            tags: RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(36);
                 properties.insert(
@@ -20290,6 +21748,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AllTutorialsDisabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20297,6 +21756,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraMode",
                         value_type: RbxPropertyType::Enum("CustomCameraMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20304,6 +21764,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CameraYInverted",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20311,6 +21772,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ChatVisible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20318,6 +21780,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ComputerCameraMovementMode",
                         value_type: RbxPropertyType::Enum("ComputerCameraMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20325,6 +21788,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ComputerMovementMode",
                         value_type: RbxPropertyType::Enum("ComputerMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20332,6 +21796,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ControlMode",
                         value_type: RbxPropertyType::Enum("ControlMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20339,6 +21804,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Fullscreen",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20346,6 +21812,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GamepadCameraSensitivity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20353,6 +21820,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HasEverUsedVR",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20360,6 +21828,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsUsingCameraYInverted",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20367,6 +21838,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "IsUsingGamepadCameraSensitivity",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20374,6 +21848,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MasterVolume",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20381,6 +21856,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MicroProfilerWebServerEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -20388,6 +21864,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MicroProfilerWebServerIP",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20395,6 +21874,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MicroProfilerWebServerPort",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20402,6 +21884,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MouseSensitivity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20409,6 +21892,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MouseSensitivityFirstPerson",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20416,6 +21900,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MouseSensitivityThirdPerson",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20423,6 +21908,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OnScreenProfilerEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -20430,6 +21916,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OnboardingsCompleted",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20437,6 +21924,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "PerformanceStatsVisible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN,
                     },
                 );
                 properties.insert(
@@ -20444,6 +21932,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RCCProfilerRecordFrameRate",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20451,6 +21940,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RCCProfilerRecordTimeFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20458,6 +21948,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RotationType",
                         value_type: RbxPropertyType::Enum("RotationType"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20465,6 +21956,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SavedQualityLevel",
                         value_type: RbxPropertyType::Enum("SavedQualitySetting"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20472,6 +21964,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StartMaximized",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -20479,6 +21972,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StartScreenPosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -20486,6 +21980,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StartScreenSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -20493,6 +21988,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TouchCameraMovementMode",
                         value_type: RbxPropertyType::Enum("TouchCameraMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20500,6 +21996,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TouchMovementMode",
                         value_type: RbxPropertyType::Enum("TouchMovementMode"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20507,6 +22004,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UsedCoreGuiIsVisibleToggle",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20514,6 +22012,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UsedCustomGuiIsVisibleToggle",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20521,6 +22020,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UsedHideHudShortcut",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20528,6 +22028,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VREnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20535,6 +22036,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VRRotationIntensity",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -20547,9 +22049,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UserInputService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: {
                 let mut properties = HashMap::with_capacity(23);
                 properties.insert(
@@ -20557,6 +22059,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AccelerometerEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20564,6 +22067,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "BottomBarSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20571,6 +22075,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GamepadEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20578,6 +22083,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GazeSelectionEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20585,6 +22091,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GyroscopeEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20592,6 +22099,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "KeyboardEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20599,6 +22107,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "LegacyInputEventsEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20606,6 +22115,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ModalEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20613,6 +22123,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MouseBehavior",
                         value_type: RbxPropertyType::Enum("MouseBehavior"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20620,6 +22131,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MouseDeltaSensitivity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20627,6 +22139,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MouseEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20634,6 +22147,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MouseIconEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20641,6 +22155,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "NavBarSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20648,6 +22163,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OnScreenKeyboardAnimationDuration",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20655,6 +22171,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OnScreenKeyboardPosition",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20662,6 +22179,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OnScreenKeyboardSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20669,6 +22187,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OnScreenKeyboardVisible",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20676,6 +22195,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "OverrideMouseIconBehavior",
                         value_type: RbxPropertyType::Enum("OverrideMouseIconBehavior"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20683,6 +22203,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RightBarSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20690,6 +22211,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StatusBarSize",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20697,6 +22219,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TouchEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20704,6 +22227,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "UserHeadCFrame",
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
+                        tags: RbxPropertyTags::READ_ONLY
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::DEPRECATED,
                     },
                 );
                 properties.insert(
@@ -20711,6 +22237,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VREnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -20743,7 +22270,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UserSettings",
             superclass: Some("GenericSettings"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -20753,9 +22280,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "UserStorageService",
             superclass: Some("LocalStorageService"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -20765,7 +22292,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VRService",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -20773,6 +22300,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "GuiInputUserCFrame",
                         value_type: RbxPropertyType::Enum("UserCFrame"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20780,6 +22308,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VRDeviceName",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20787,6 +22316,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "VREnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -20809,7 +22339,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "ValueBase",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable,
+            tags: RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -20827,6 +22357,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Value",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -20862,6 +22393,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ApplyAtCenterOfMass",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20869,6 +22401,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Force",
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20876,6 +22409,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "RelativeTo",
                         value_type: RbxPropertyType::Enum("ActuatorRelativeTo"),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -20937,6 +22471,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AreHingesDetected",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20944,6 +22479,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Disabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20951,6 +22487,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "HeadsUpDisplay",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20958,6 +22495,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20965,6 +22503,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Occupant",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20972,6 +22511,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Steer",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20979,6 +22519,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "SteerFloat",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20986,6 +22527,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Throttle",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -20993,6 +22535,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ThrottleFloat",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21000,6 +22543,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Torque",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21007,6 +22551,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TurnSpeed",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -21129,6 +22674,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21136,6 +22682,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DesiredAngle",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21143,6 +22690,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Hole",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21150,6 +22698,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "MaxVelocity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -21198,6 +22747,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentCamera",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21205,6 +22755,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageColor3",
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21212,6 +22763,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "ImageTransparency",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties
@@ -21287,7 +22839,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VirtualInputManager",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::Service,
+            tags: RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -21295,6 +22847,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AdditionalLuaState",
                         value_type: RbxPropertyType::Data(RbxValueType::String),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -21322,9 +22875,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "VirtualUser",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -21343,9 +22896,9 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Visit",
             superclass: Some("Instance"),
-            tags: RbxInstanceTags::NotCreatable
-                | RbxInstanceTags::Service
-                | RbxInstanceTags::NotReplicated,
+            tags: RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE
+                | RbxInstanceTags::NOT_REPLICATED,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -21510,6 +23063,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Active",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21517,6 +23071,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Enabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21524,6 +23079,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Part0",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21531,6 +23087,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Part1",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -21556,7 +23113,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
         RbxInstanceClass {
             name: "Workspace",
             superclass: Some("Model"),
-            tags: RbxInstanceTags::NotCreatable | RbxInstanceTags::Service,
+            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -21564,6 +23121,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AllowThirdPartySales",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21571,6 +23129,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "AutoJointsMode",
                         value_type: RbxPropertyType::Enum("AutoJointsMode"),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -21578,6 +23137,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "CurrentCamera",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21585,6 +23145,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "DistributedGameTime",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21592,6 +23153,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FallenPartsDestroyHeight",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21599,6 +23161,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "FilteringEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21606,6 +23169,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Gravity",
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21613,6 +23177,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StreamingEnabled",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -21620,6 +23185,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StreamingMinRadius",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -21627,6 +23193,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "StreamingTargetRadius",
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
+                        tags: RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -21634,6 +23201,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "TemporaryLegacyPhysicsSolverOverride",
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -21641,6 +23209,7 @@ pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: "Terrain",
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
+                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -22295,12 +23864,13 @@ pub fn generate_enums() -> HashMap<&'static str, RbxEnum> {
         RbxEnum {
             name: "CoreGuiType",
             items: {
-                let mut items = HashMap::with_capacity(5);
+                let mut items = HashMap::with_capacity(6);
                 items.insert("PlayerList", 0);
                 items.insert("Health", 1);
                 items.insert("Backpack", 2);
                 items.insert("Chat", 3);
                 items.insert("All", 4);
+                items.insert("EmotesMenu", 5);
                 items
             },
         },
