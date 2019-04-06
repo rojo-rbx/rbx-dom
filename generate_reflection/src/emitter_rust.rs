@@ -153,6 +153,8 @@ fn emit_properties(class: &DumpClass) -> TokenStream {
                     name: #member_name,
                     value_type: #resolved_type,
                     tags: #tags,
+                    canonical_name: None,
+                    serialized_name: None,
                 });
             }
         });
