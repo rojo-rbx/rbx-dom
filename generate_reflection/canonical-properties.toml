@@ -1,6 +1,9 @@
 [Instance.Tags]
 scriptability = "Custom"
 
+[BasePart.CollisionGroups]
+scriptability = "Custom"
+
 [BasePart.Size]
 serialized_name = "size"
 
