@@ -1,0 +1,68 @@
+[Instance.Tags]
+scriptability = "Custom"
+
+[BasePart.Size]
+serialized_name = "size"
+
+[BasePart.size]
+canonical_name = "Size"
+
+[BasePart.Shape]
+serialized_name = "shape"
+
+[BasePart.shape]
+canonical_name = "Shape"
+
+[BasePart.FormFactor]
+serialized_name = "formFactorRaw"
+
+[BasePart.formFactorRaw]
+canonical_name = "FormFactor"
+
+[Players.MaxPlayers]
+serialized_name = "MaxPlayersInternal"
+
+[Players.MaxPlayersInternal]
+canonical_name = "MaxPlayers"
+
+[Players.PreferredPlayers]
+serialized_name = "PreferredPlayersInternal"
+
+[Players.PreferredPlayersInternal]
+canonical_name = "PreferredPlayers"
+
+[Fire.Size]
+serialized_name = "size_xml"
+
+[Fire.size]
+canonical_name = "Size"
+
+[Fire.size_xml]
+canonical_name = "Size"
+
+[Fire.Heat]
+serialized_name = "heat_xml"
+
+[Fire.heat_xml]
+canonical_name = "Heat"
+
+[Smoke.Opacity]
+serialized_name = "opacity_xml"
+
+[Smoke.opacity_xml]
+canonical_name = "Opacity"
+
+[Smoke.Size]
+serialized_name = "size_xml"
+
+[Smoke.size_xml]
+canonical_name = "Size"
+
+[Smoke.RiseVelocity]
+serialized_name = "riseVelocity_xml"
+
+[Smoke.riseVelocity_xml]
+canonical_name = "RiseVelocity"
+
+[LocalizationTable.Contents]
+scriptability = "Custom"

@@ -1,12 +1,13 @@
 #![recursion_limit="128"]
 
 mod api_dump;
+mod canonical_properties;
 mod database;
 mod emitter_lua;
 mod emitter_rust;
+mod reflection_types;
 mod roblox_install;
 mod run_in_roblox;
-mod reflection_types;
 
 use std::{
     collections::HashMap,
@@ -21,6 +22,7 @@ use crate::{
     run_in_roblox::{inject_plugin_main, run_in_roblox},
     api_dump::Dump,
     database::ReflectionDatabase,
+    canonical_properties::get_canonical_properties,
 };
 
 static PLUGIN_MODEL: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/plugin.rbxmx"));
@@ -86,6 +88,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let database = ReflectionDatabase {
         dump,
         default_properties,
+        canonical_properties: get_canonical_properties(),
         studio_version,
     };
 
