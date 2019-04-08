@@ -21,14 +21,23 @@ pub struct CanonicalPropertyDatabase {
 }
 
 impl CanonicalPropertyDatabase {
-    pub fn query<'a>(&'a self, class_name: &str, property_name: &str) -> Option<&'a CanonicalProperty> {
-        let class = self.inner.get(class_name)?;
+    pub fn query_property<'a>(&'a self, class_name: &str, property_name: &str) -> Option<&'a CanonicalProperty> {
+        let class = self.query_class(class_name)?;
         class.get(property_name)
+    }
+
+    pub fn query_class<'a>(&'a self, class_name: &str) -> Option<&'a HashMap<String, CanonicalProperty>> {
+        self.inner.get(class_name)
     }
 }
 
+const fn nope() -> bool { false }
+
 #[derive(Debug, Deserialize)]
 pub struct CanonicalProperty {
+    #[serde(default = "nope")]
+    is_canonical: bool,
+
     serialized_name: Option<String>,
     canonical_name: Option<String>,
     scriptability: Option<Scriptability>,
