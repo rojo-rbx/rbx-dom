@@ -25,7 +25,7 @@ use crate::{
     canonical_properties::get_canonical_properties,
 };
 
-static PLUGIN_MODEL: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/plugin.rbxmx"));
+static PLUGIN_MAIN: &str = include_str!("../plugin/main.lua");
 
 #[derive(Debug, Deserialize)]
 #[serde(tag = "type")]
@@ -46,15 +46,25 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let plugin = {
         let mut plugin = RbxTree::new(RbxInstanceProperties {
-            name: String::from("generate_rbx_reflection plugin"),
+            name: String::from("generate_reflection plugin"),
             class_name: String::from("Folder"),
             properties: Default::default(),
         });
 
         let root_id = plugin.get_root_id();
 
-        rbx_xml::decode(&mut plugin, root_id, PLUGIN_MODEL)
-            .expect("Couldn't deserialize built-in plugin");
+        let mut main_properties = HashMap::new();
+        main_properties.insert(String::from("Source"), RbxValue::String {
+            value: PLUGIN_MAIN.to_owned(),
+        });
+
+        let main = RbxInstanceProperties {
+            name: String::from("Main"),
+            class_name: String::from("ModuleScript"),
+            properties: main_properties,
+        };
+
+        plugin.insert_instance(main, root_id);
 
         inject_plugin_main(&mut plugin);
         inject_api_dump(&mut plugin, dump_source);

@@ -19,7 +19,7 @@ fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static 
             None => match &class.superclass {
                 Some(superclass) => current_class = &superclass,
                 None => return None,
-            }
+            },
         }
     }
 }
@@ -186,7 +186,7 @@ mod tests {
     fn find_inherited_property_types() {
         assert_eq!(
             find_property_type("Instance", "Name"),
-            Some(RbxPropertyType::Data(RbxValueType::String))
+            Some(&RbxPropertyType::Data(RbxValueType::String))
         );
         assert_eq!(
             find_property_type("Part", "Name"),
@@ -194,7 +194,7 @@ mod tests {
         );
         assert_eq!(
             find_property_type("Part", "Position"),
-            Some(RbxPropertyType::Data(RbxValueType::Vector3))
+            Some(&RbxPropertyType::Data(RbxValueType::Vector3))
         );
     }
 

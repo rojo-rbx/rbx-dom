@@ -26,44 +26,18 @@ pub fn emit(database: &ReflectionDatabase, output_dir: &Path) -> io::Result<()> 
 
     writeln!(file, "local classes = {{")?;
     for class in &database.dump.classes {
-        emit_class(&mut file, class)?;
+        emit_class(&mut file, class, database)?;
     }
     writeln!(file, "}}")?;
-
-    emit_defaults(&mut file, database)?;
 
     writeln!(file, "return {{")?;
     writeln!(file, "\tclasses = classes,")?;
-    writeln!(file, "\tdefaults = defaults,")?;
     writeln!(file, "}}")?;
 
     Ok(())
 }
 
-fn emit_defaults<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
-    writeln!(output, "local defaults = {{")?;
-    for (instance_name, instance_properties) in &database.default_properties {
-        writeln!(output, "\t{} = {{", instance_name)?;
-
-        for (property_name, default_value) in instance_properties {
-            if !LUA_IDENT.is_match(property_name) {
-                continue;
-            }
-
-            write!(output, "\t\t{} = ", property_name)?;
-            emit_value(output, default_value)?;
-            writeln!(output, ",")?;
-        }
-
-        writeln!(output, "\t}},")?;
-    }
-    writeln!(output, "}}")?;
-
-
-    Ok(())
-}
-
-fn emit_class<W: Write>(output: &mut W, class: &DumpClass) -> io::Result<()> {
+fn emit_class<W: Write>(output: &mut W, class: &DumpClass, database: &ReflectionDatabase) -> io::Result<()> {
     writeln!(output, "\t{} = {{", class.name)?;
 
     if class.superclass != "<<<ROOT>>>" {
@@ -102,7 +76,37 @@ fn emit_class<W: Write>(output: &mut W, class: &DumpClass) -> io::Result<()> {
     }
     writeln!(output, "\t\t}},")?;
 
+    emit_defaults(output, &class.name, database)?;
+
     writeln!(output, "\t}},")?;
+    Ok(())
+}
+
+fn emit_defaults<W: Write>(output: &mut W, class_name: &str, database: &ReflectionDatabase) -> io::Result<()> {
+    writeln!(output, "\t\tdefaults = {{")?;
+    if let Some(class_defaults) = database.default_properties.get(class_name) {
+        // Collect and sort keys to make output stable
+        let mut keys: Vec<_> = class_defaults
+            .keys()
+            .collect();
+
+        keys.sort();
+
+        for property_name in keys.into_iter() {
+            if !LUA_IDENT.is_match(property_name) {
+                continue;
+            }
+
+            let default_value = class_defaults.get(property_name).unwrap();
+
+            write!(output, "\t\t\t{} = ", property_name)?;
+            emit_value(output, default_value)?;
+            writeln!(output, ",")?;
+        }
+    }
+    writeln!(output, "\t\t}},")?;
+
+
     Ok(())
 }
 

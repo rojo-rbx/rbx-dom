@@ -1,7 +1,4 @@
-use std::{
-    borrow::Cow,
-    collections::HashMap,
-};
+use std::{borrow::Cow, collections::HashMap};
 
 use lazy_static::lazy_static;
 

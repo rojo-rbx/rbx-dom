@@ -30,7 +30,7 @@ type HyperResponse = Box<Future<Item = Response<Body>, Error = hyper::Error> + S
 
 const PORT: u16 = 54023;
 
-static PLUGIN_TEMPLATE: &'static str = include_str!("roblox_plugin_template.lua");
+static PLUGIN_TEMPLATE: &'static str = include_str!("../plugin/entry-template.lua");
 
 #[derive(Debug, Clone)]
 enum Message {

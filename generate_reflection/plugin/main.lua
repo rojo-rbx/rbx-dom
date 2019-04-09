@@ -1,5 +1,14 @@
 local HttpService = game:GetService("HttpService")
 
+local VERBOSE = false
+local ERROR_AT_END = false
+
+local function vwarn(message)
+	if VERBOSE then
+		vwarn(message)
+	end
+end
+
 --[[
 	Little function for use with pcall to avoid making so many closures.
 ]]
@@ -82,7 +91,7 @@ end
 
 local function serializeFloat(value)
 	if value == math.huge or value == -math.huge then
-		warn("Can't serialize infinity or negative infinity yet!")
+		vwarn("Can't serialize infinity or negative infinity yet!")
 		return 999999999 * math.sign(value)
 	end
 
@@ -105,7 +114,7 @@ local typeConverters = {
 		return { Type = "Ref", Value = nil }
 	end,
 	Instance = function(_value)
-		warn("Not sure how to serialize non-nil default Instance property")
+		vwarn("Not sure how to serialize non-nil default Instance property")
 		return { Type = "Ref", Value = nil }
 	end,
 	Vector3 = function(value)
@@ -191,7 +200,7 @@ return function(postMessage)
 		local instance = getDefaultInstance(class.Name)
 
 		if instance == nil then
-			warn("Couldn't find a default enough version of instance", class.Name)
+			vwarn("Couldn't find a default enough version of instance", class.Name)
 		else
 			local defaultProperties = {}
 
@@ -208,10 +217,10 @@ return function(postMessage)
 							if ok then
 								defaultProperties[member.Name] = rojoValue
 							else
-								warn("Couldn't convert property", member.Name, "on class", class.Name, "to a Rojo value")
+								vwarn("Couldn't convert property", member.Name, "on class", class.Name, "to a Rojo value")
 							end
 						else
-							warn("Couldn't read property", member.Name, "on class", class.Name)
+							vwarn("Couldn't read property", member.Name, "on class", class.Name)
 						end
 					end
 				end
@@ -229,5 +238,7 @@ return function(postMessage)
 		end
 	end
 
-	-- error("hold on")
+	if ERROR_AT_END then
+		error("Breaking here.")
+	end
 end

@@ -1,10 +1,7 @@
 // This file is also pulled in by generate_reflection in order to make sure that
 // types don't get out of sync.
 
-use std::{
-    borrow::Cow,
-    collections::HashMap,
-};
+use std::{borrow::Cow, collections::HashMap};
 
 use bitflags::bitflags;
 use rbx_dom_weak::{RbxValue, RbxValueType};
