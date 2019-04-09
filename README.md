@@ -31,41 +31,41 @@ Roblox reflection information for working with Instances in external tooling.
 
 ## Property Type Coverage
 
-| Property Type      | Example Property                | rbx\_dom\_weak | rbx\_xml | rbx\_binary |
-|:------------------ |:------------------------------- |:---------:|:--------:|:-----------:|
-| Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ |
-| BinaryString       | `Terrain.MaterialColors`        | ✔ | ✔ | ❌ |
-| Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ |
-| BrickColor         | `Part.BrickColor`               | ❌ | ❌ | ❌ |
-| CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ❌ |
-| Color3             | `Lighting.Ambient`              | ✔ | ✔ | ❌ |
-| Color3uint8        | `N/A`                           | ✔ | ✔ | ❌ |
-| ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ❌ |
-| Content            | `Decal.Texture`                 | ✔ | ✔ | ❌ |
-| Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
-| Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
-| Float32            | `Players.RespawnTime`           | ✔ | ✔ | ❌ |
-| Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ❌ |
-| Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
-| Int64              | `Player.UserId`                 | ✔ | ✔ | ❌ |
-| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ❌ |
-| NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ❌ |
-| PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ❌ |
-| ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |
-| QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ |
-| QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ |
-| Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ |
-| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ❌ |
-| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ❌ |
-| Region3            | `N/A`                           | ❌ | ❌ | ❌ |
-| Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
-| String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
-| UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ❌ |
-| UDim2              | `Frame.Size`                    | ✔ | ✔ | ❌ |
-| Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ❌ |
-| Vector2int16       | `N/A`                           | ✔ | ✔ | ❌ |
-| Vector3            | `Part.Size`                     | ✔ | ✔ | ❌ |
-| Vector3int16       | `N/A`                           | ✔ | ✔ | ❌ |
+| Property Type      | Example Property                | rbx\_dom\_weak | rbx\_dom\_lua | rbx\_xml | rbx\_binary
+|:------------------ |:------------------------------- |:--:|:--:|:--:|:--:|
+| Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ | ❌ |
+| BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ❌ |
+| Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
+| BrickColor         | `Part.BrickColor`               | ❌ | ❌ | ❌ | ❌ |
+| CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ❌ |
+| Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ❌ |
+| Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
+| Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ❌ |
+| Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ❌ |
+| Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ | ❌ |
+| Float32            | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ❌ |
+| Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ❌ |
+| Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ❌ |
+| Int64              | `Player.UserId`                 | ✔ | ✔ | ✔ | ❌ |
+| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ❌ |
+| NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ❌ |
+| PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ❌ |
+| ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔ | ✔¹ | ❌ |
+| Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ | ❌ |
+| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
+| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
+| Region3            | `N/A`                           | ❌ | ✔ | ❌ | ❌ |
+| Region3int16       | `Terrain.MaxExtents`            | ❌ | ✔ | ❌ | ❌ |
+| String             | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
+| UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ❌ |
+| UDim2              | `Frame.Size`                    | ✔ | ✔ | ✔ | ❌ |
+| Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ❌ |
+| Vector2int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| Vector3            | `Part.Size`                     | ✔ | ✔ | ✔ | ❌ |
+| Vector3int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ | ⛔ |
+| QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ | ⛔ |
 
 ✔ Implemented | ❌ Unimplemented | ➖ Partially Implemented | ⛔ Never
 
