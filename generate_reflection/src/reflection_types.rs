@@ -42,6 +42,16 @@ impl<'a> From<&'a ValueType> for RbxPropertyType {
                     "BinaryString" => RbxValueType::BinaryString,
                     "UDim" => RbxValueType::UDim,
                     "UDim2" => RbxValueType::UDim2,
+                    "Content" => RbxValueType::Content,
+                    "NumberRange" => RbxValueType::NumberRange,
+                    "NumberSequence" => RbxValueType::NumberSequence,
+                    "ColorSequence" => RbxValueType::ColorSequence,
+                    "ProtectedString" => RbxValueType::String,
+
+                    "QDir" | "QFont" => {
+                        // We're never going to support these types.
+                        return RbxPropertyType::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
+                    },
 
                     unknown => {
                         println!("Can't emit data of type {}", unknown);

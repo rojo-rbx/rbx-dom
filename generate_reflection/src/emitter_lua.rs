@@ -201,13 +201,13 @@ fn emit_value_type<W: Write>(output: &mut W, value_type: &ValueType) -> io::Resu
 
     match property_type {
         RbxPropertyType::Data(name) => {
-            write!(output, "{{type = \"data\", name = \"{:?}\"}}", name)
+            write!(output, "{{type = \"Data\", name = \"{:?}\"}}", name)
         }
         RbxPropertyType::Enum(enum_name) => {
-            write!(output, "{{type = \"enum\", enum = \"{}\"}}", enum_name)
+            write!(output, "{{type = \"Enum\", name = \"{}\"}}", enum_name)
         }
         RbxPropertyType::UnimplementedType(type_name) => {
-            write!(output, "{{type = \"unimplemented\", name = \"{}\"}}", type_name)
+            write!(output, "{{type = \"Unimplemented\", name = \"{}\"}}", type_name)
         }
     }
 }

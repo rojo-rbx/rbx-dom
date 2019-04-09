@@ -515,7 +515,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("AnimationId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AnimationId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -958,7 +958,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("TextureId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextureId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -1560,7 +1560,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("LinkedSource"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("LinkedSource"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -1597,9 +1597,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Color"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Color"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "ColorSequence",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::ColorSequence),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -1663,7 +1661,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Texture"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Texture"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -1695,9 +1693,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Transparency"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Transparency"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberSequence",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -3370,7 +3366,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("CursorIcon"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CursorIcon"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -5158,7 +5154,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Texture"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Texture"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -5893,7 +5889,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("MeshId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MeshId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -5901,7 +5897,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("TextureId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextureId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -6402,7 +6398,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Texture"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Texture"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -9052,7 +9048,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("HoverImage"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("HoverImage"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -9060,7 +9056,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Image"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Image"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -9108,7 +9104,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("PressedImage"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PressedImage"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -9312,7 +9308,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Image"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Image"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -9389,7 +9385,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Image"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Image"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -11054,7 +11050,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("MeshID"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MeshID"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::NOT_SCRIPTABLE | RbxPropertyTags::DEPRECATED,
                     },
                 );
@@ -11062,7 +11058,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("MeshId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MeshId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -11070,7 +11066,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("TextureID"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextureID"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -11353,7 +11349,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("LinkedSource"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("LinkedSource"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -11361,9 +11357,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Source"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Source"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "ProtectedString",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -11564,7 +11558,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Icon"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Icon"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -12432,7 +12426,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("PackageId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PackageId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -12502,7 +12496,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("PantsTemplate"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PantsTemplate"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13067,9 +13061,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Color"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Color"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "ColorSequence",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::ColorSequence),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13101,9 +13093,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Lifetime"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Lifetime"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13143,9 +13133,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("RotSpeed"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("RotSpeed"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13153,9 +13141,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Rotation"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Rotation"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13163,9 +13149,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Size"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Size"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberSequence",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13173,9 +13157,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Speed"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Speed"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13191,7 +13173,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Texture"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Texture"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13199,9 +13181,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Transparency"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Transparency"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberSequence",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -14412,7 +14392,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Icon"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Icon"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -16216,9 +16196,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Source"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Source"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "ProtectedString",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::String),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -16365,7 +16343,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("BottomImage"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("BottomImage"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -16405,7 +16383,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("MidImage"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MidImage"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -16453,7 +16431,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("TopImage"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TopImage"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17209,7 +17187,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("ShirtTemplate"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ShirtTemplate"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17259,7 +17237,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Graphic"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Graphic"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17608,7 +17586,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("MoonTextureId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MoonTextureId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17616,7 +17594,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SkyboxBk"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SkyboxBk"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17624,7 +17602,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SkyboxDn"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SkyboxDn"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17632,7 +17610,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SkyboxFt"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SkyboxFt"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17640,7 +17618,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SkyboxLf"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SkyboxLf"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17648,7 +17626,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SkyboxRt"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SkyboxRt"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17656,7 +17634,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SkyboxUp"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SkyboxUp"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -17680,7 +17658,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SunTextureId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SunTextureId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -18153,7 +18131,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SoundId"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SoundId"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -19363,9 +19341,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("GameSettingsScaleBodyType"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GameSettingsScaleBodyType"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -19373,9 +19349,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("GameSettingsScaleHead"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GameSettingsScaleHead"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -19383,9 +19357,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("GameSettingsScaleHeight"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GameSettingsScaleHeight"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -19393,9 +19365,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("GameSettingsScaleProportion"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GameSettingsScaleProportion"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -19403,9 +19373,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("GameSettingsScaleWidth"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GameSettingsScaleWidth"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberRange",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                         tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -22559,9 +22527,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Color"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Color"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "ColorSequence",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::ColorSequence),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -22625,7 +22591,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Texture"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Texture"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Content")),
+                        value_type: RbxPropertyType::Data(RbxValueType::Content),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -22649,9 +22615,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Transparency"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Transparency"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberSequence",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -22659,9 +22623,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("WidthScale"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("WidthScale"),
-                        value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
-                            "NumberSequence",
-                        )),
+                        value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
