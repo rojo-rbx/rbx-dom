@@ -2966,25 +2966,25 @@ local classes = {
 		superclass = "ValueBase",
 		properties = {
 			ConstrainedValue = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {Hidden = true, NotReplicated = true, },
 				canSave = false,
 				canLoad = true,
 			},
 			MaxValue = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
 			},
 			MinValue = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
 			},
 			Value = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {NotReplicated = true, },
 				canSave = false,
 				canLoad = true,
@@ -3909,7 +3909,7 @@ local classes = {
 		defaults = {
 			AbsoluteRotation = 0,
 			AutoLocalize = true,
-			DisplayOrder = 0,
+			DisplayOrder = 2147483600,
 			Enabled = true,
 			IgnoreGuiInset = false,
 			Localize = true,
@@ -5853,7 +5853,7 @@ local classes = {
 				canLoad = true,
 			},
 			DefaultWaitTime = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -6411,7 +6411,7 @@ local classes = {
 				canLoad = false,
 			},
 			IncommingReplicationLag = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -6519,7 +6519,7 @@ local classes = {
 				canLoad = true,
 			},
 			ReceiveRate = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -6620,7 +6620,7 @@ local classes = {
 		superclass = "ValueBase",
 		properties = {
 			Value = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -7250,7 +7250,7 @@ local classes = {
 				canLoad = true,
 			},
 			ThrottleAdjustTime = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -8164,19 +8164,19 @@ local classes = {
 				canLoad = true,
 			},
 			UIMaximum = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
 			},
 			UIMinimum = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
 			},
 			UINumTicks = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -9652,7 +9652,7 @@ local classes = {
 				canLoad = true,
 			},
 			PlaybackLoudness = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {ReadOnly = true, NotReplicated = true, },
 				canSave = false,
 				canLoad = false,
@@ -9688,13 +9688,13 @@ local classes = {
 				canLoad = true,
 			},
 			TimeLength = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {ReadOnly = true, NotReplicated = true, },
 				canSave = false,
 				canLoad = false,
 			},
 			TimePosition = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -10790,13 +10790,13 @@ local classes = {
 		superclass = "Instance",
 		properties = {
 			SchedulerDutyCycle = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {ReadOnly = true, NotReplicated = true, },
 				canSave = true,
 				canLoad = false,
 			},
 			SchedulerRate = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {ReadOnly = true, NotReplicated = true, },
 				canSave = true,
 				canLoad = false,
@@ -11002,7 +11002,7 @@ local classes = {
 				canLoad = true,
 			},
 			SimulateSecondsLag = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -11014,7 +11014,7 @@ local classes = {
 				canLoad = false,
 			},
 			Timeout = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {},
 				canSave = true,
 				canLoad = true,
@@ -12760,7 +12760,7 @@ local classes = {
 				canLoad = false,
 			},
 			OnScreenKeyboardAnimationDuration = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {ReadOnly = true, NotReplicated = true, },
 				canSave = false,
 				canLoad = false,
@@ -13315,7 +13315,7 @@ local classes = {
 				canLoad = true,
 			},
 			DistributedGameTime = {
-				type = {type = "Data", name = "Float32"},
+				type = {type = "Data", name = "Float64"},
 				tags = {NotReplicated = true, },
 				canSave = true,
 				canLoad = true,

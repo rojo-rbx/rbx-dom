@@ -5476,7 +5476,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("ConstrainedValue"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ConstrainedValue"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -5484,7 +5484,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("MaxValue"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MaxValue"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -5492,7 +5492,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("MinValue"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MinValue"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -5500,7 +5500,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Value"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Value"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -10825,7 +10825,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("DefaultWaitTime"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DefaultWaitTime"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -12016,7 +12016,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("IncommingReplicationLag"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IncommingReplicationLag"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -12160,7 +12160,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("ReceiveRate"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ReceiveRate"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -12315,7 +12315,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Value"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Value"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -13529,7 +13529,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("ThrottleAdjustTime"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ThrottleAdjustTime"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -15107,7 +15107,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("UIMaximum"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("UIMaximum"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -15115,7 +15115,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("UIMinimum"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("UIMinimum"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -15123,7 +15123,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("UINumTicks"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("UINumTicks"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -18091,7 +18091,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("PlaybackLoudness"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PlaybackLoudness"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -18139,7 +18139,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("TimeLength"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TimeLength"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -18147,7 +18147,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("TimePosition"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TimePosition"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -20675,7 +20675,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SchedulerDutyCycle"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SchedulerDutyCycle"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -20683,7 +20683,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SchedulerRate"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SchedulerRate"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -21021,7 +21021,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("SimulateSecondsLag"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SimulateSecondsLag"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -21037,7 +21037,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("Timeout"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Timeout"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::empty(),
                     },
                 );
@@ -24303,7 +24303,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("OnScreenKeyboardAnimationDuration"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OnScreenKeyboardAnimationDuration"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
@@ -25518,7 +25518,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     Cow::Borrowed("DistributedGameTime"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DistributedGameTime"),
-                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float64),
                         tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );

@@ -18,9 +18,7 @@ impl<'a> From<&'a ValueType> for RbxPropertyType {
                     "string" => RbxValueType::String,
                     "int" => RbxValueType::Int32,
                     "float" => RbxValueType::Float32,
-
-                    // These aren't quite right:
-                    "double" => RbxValueType::Float32,
+                    "double" => RbxValueType::Float64,
                     "int64" => RbxValueType::Int32,
 
                     unknown => {
