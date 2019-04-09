@@ -313,25 +313,11 @@ fn emit_value(value: &RbxValue) -> TokenStream {
             quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
         },
         RbxValue::CFrame { value } => {
-            let literal_0 = Literal::f32_unsuffixed(value[0]);
-            let literal_1 = Literal::f32_unsuffixed(value[1]);
-            let literal_2 = Literal::f32_unsuffixed(value[2]);
-            let literal_3 = Literal::f32_unsuffixed(value[3]);
-            let literal_4 = Literal::f32_unsuffixed(value[4]);
-            let literal_5 = Literal::f32_unsuffixed(value[5]);
-            let literal_6 = Literal::f32_unsuffixed(value[6]);
-            let literal_7 = Literal::f32_unsuffixed(value[7]);
-            let literal_8 = Literal::f32_unsuffixed(value[8]);
-            let literal_9 = Literal::f32_unsuffixed(value[9]);
-            let literal_10 = Literal::f32_unsuffixed(value[10]);
-            let literal_11 = Literal::f32_unsuffixed(value[11]);
+            let literals = value.into_iter().cloned().map(Literal::f32_unsuffixed);
 
             quote!(RbxValue::CFrame {
                 value: [
-                    #literal_0, #literal_1, #literal_2,
-                    #literal_3, #literal_4, #literal_5,
-                    #literal_6, #literal_7, #literal_8,
-                    #literal_9, #literal_10, #literal_11,
+                    #(#literals),*
                 ]
             })
         },
