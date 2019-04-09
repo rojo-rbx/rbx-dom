@@ -68,10 +68,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut studio_version = [0, 0, 0, 0];
 
     for message in &messages {
-        if let Ok(str) = std::str::from_utf8(message) {
-            println!("{}", str);
-        }
-
         let deserialized = serde_json::from_slice(&message)
             .expect("Couldn't deserialize message");
 

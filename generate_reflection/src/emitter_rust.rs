@@ -46,17 +46,20 @@ fn generate_database(
     let enums = dump.enums.iter().map(emit_enum);
 
     quote! {
-        use std::collections::HashMap;
+        use std::{
+            borrow::Cow,
+            collections::HashMap,
+        };
         use rbx_dom_weak::{RbxValue, RbxValueType};
         use crate::types::*;
 
-        pub fn generate_classes() -> HashMap<&'static str, RbxInstanceClass> {
+        pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             let mut output = HashMap::with_capacity(#class_len_literal);
             #(#classes)*
             output
         }
 
-        pub fn generate_enums() -> HashMap<&'static str, RbxEnum> {
+        pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
             let mut output = HashMap::with_capacity(#enum_len_literal);
             #(#enums)*
             output
@@ -74,7 +77,7 @@ fn emit_class(
         quote!(None)
     } else {
         let superclass_literal = Literal::string(&class.superclass);
-        quote!(Some(#superclass_literal))
+        quote!(Some(Cow::Borrowed(#superclass_literal)))
     };
 
     let tags = emit_class_tags(class);
@@ -82,8 +85,8 @@ fn emit_class(
     let defaults = emit_default_properties(&class.name, default_properties);
 
     quote! {
-        output.insert(#class_name_literal, RbxInstanceClass {
-            name: #class_name_literal,
+        output.insert(Cow::Borrowed(#class_name_literal), RbxInstanceClass {
+            name: Cow::Borrowed(#class_name_literal),
             superclass: #superclass_value,
             tags: #tags,
             properties: #properties,
@@ -93,14 +96,15 @@ fn emit_class(
 }
 
 fn emit_class_tags(class: &DumpClass) -> TokenStream {
-    if class.tags.len() == 0 {
+    if class.tags.is_empty() {
         return quote!(RbxInstanceTags::empty());
     }
 
     let tags = class.tags
         .iter()
         .map(|tag| {
-            let name_literal = Ident::new(&tag.name().to_shouty_snake_case(), Span::call_site());
+            let tag_name = format!("{:?}", tag).to_shouty_snake_case();
+            let name_literal = Ident::new(&tag_name, Span::call_site());
 
             quote!(RbxInstanceTags::#name_literal)
         });
@@ -111,7 +115,7 @@ fn emit_class_tags(class: &DumpClass) -> TokenStream {
 }
 
 fn emit_property_tags(property: &DumpClassProperty) -> TokenStream {
-    if property.tags.len() == 0 {
+    if property.tags.is_empty() {
         return quote!(RbxPropertyTags::empty());
     }
 
@@ -137,7 +141,7 @@ fn emit_properties(class: &DumpClass) -> TokenStream {
         })
         .collect();
 
-    if properties.len() == 0 {
+    if properties.is_empty() {
         return quote!(HashMap::new());
     }
 
@@ -149,12 +153,10 @@ fn emit_properties(class: &DumpClass) -> TokenStream {
             let tags = emit_property_tags(property);
 
             quote! {
-                properties.insert(#member_name, RbxInstanceProperty {
-                    name: #member_name,
+                properties.insert(Cow::Borrowed(#member_name), RbxInstanceProperty {
+                    name: Cow::Borrowed(#member_name),
                     value_type: #resolved_type,
                     tags: #tags,
-                    canonical_name: None,
-                    serialized_name: None,
                 });
             }
         });
@@ -177,7 +179,7 @@ fn emit_default_properties(
         None => return quote!(HashMap::new()),
     };
 
-    if defaults.len() == 0 {
+    if defaults.is_empty() {
         return quote!(HashMap::new());
     }
 
@@ -196,7 +198,7 @@ fn emit_default_properties(
             let key_literal = Literal::string(&key);
             let value_literal = emit_value(value);
 
-            quote!(defaults.insert(#key_literal, #value_literal);)
+            quote!(defaults.insert(Cow::Borrowed(#key_literal), #value_literal);)
         });
 
     let len_literal = Literal::usize_unsuffixed(defaults.len());
@@ -217,13 +219,13 @@ fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
         let item_value = Literal::u32_unsuffixed(item.value);
 
         quote! {
-            items.insert(#item_name, #item_value);
+            items.insert(Cow::Borrowed(#item_name), #item_value);
         }
     });
 
     quote! {
-        output.insert(#name_literal, RbxEnum {
-            name: #name_literal,
+        output.insert(Cow::Borrowed(#name_literal), RbxEnum {
+            name: Cow::Borrowed(#name_literal),
             items: {
                 let mut items = HashMap::with_capacity(#item_count_literal);
                 #(#items)*
@@ -385,12 +387,12 @@ fn emit_value_type(value_type: &ValueType) -> TokenStream {
             quote!(RbxPropertyType::Data(RbxValueType::#type_literal))
         }
         RbxPropertyType::Enum(enum_name) => {
-            let enum_literal = Literal::string(enum_name);
-            quote!(RbxPropertyType::Enum(#enum_literal))
+            let enum_literal = Literal::string(&enum_name);
+            quote!(RbxPropertyType::Enum(Cow::Borrowed(#enum_literal)))
         }
         RbxPropertyType::UnimplementedType(type_name) => {
-            let type_literal = Literal::string(type_name);
-            quote!(RbxPropertyType::UnimplementedType(#type_literal))
+            let type_literal = Literal::string(&type_name);
+            quote!(RbxPropertyType::UnimplementedType(Cow::Borrowed(#type_literal)))
         }
     }
 }

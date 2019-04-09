@@ -38,20 +38,6 @@ pub enum DumpClassTag {
     Settings,
 }
 
-impl DumpClassTag {
-    pub fn name(&self) -> &'static str {
-        match self {
-            DumpClassTag::Deprecated => "Deprecated",
-            DumpClassTag::NotBrowsable => "NotBrowsable",
-            DumpClassTag::NotCreatable => "NotCreatable",
-            DumpClassTag::NotReplicated => "NotReplicated",
-            DumpClassTag::PlayerReplicated => "PlayerReplicated",
-            DumpClassTag::Service => "Service",
-            DumpClassTag::Settings => "Settings",
-        }
-    }
-}
-
 #[derive(Debug, Deserialize)]
 #[serde(tag = "MemberType")]
 pub enum DumpClassMember {

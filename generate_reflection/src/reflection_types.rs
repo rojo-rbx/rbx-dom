@@ -1,17 +1,16 @@
+use std::borrow::Cow;
+
 use rbx_dom_weak::RbxValueType;
 
 use crate::api_dump::{ValueType, ValueCategory};
 
-#[derive(Debug, Clone, PartialEq)]
-pub enum RbxPropertyType<'a> {
-    Data(RbxValueType),
-    Enum(&'a str),
+#[path = "../../rbx_reflection/src/types.rs"]
+mod inner;
 
-    UnimplementedType(&'a str),
-}
+pub use inner::*;
 
-impl<'a> From<&'a ValueType> for RbxPropertyType<'a> {
-    fn from(value_type: &'a ValueType) -> RbxPropertyType<'a> {
+impl<'a> From<&'a ValueType> for RbxPropertyType {
+    fn from(value_type: &'a ValueType) -> RbxPropertyType {
         match value_type.category {
             ValueCategory::Primitive => {
                 let data_kind = match value_type.name.as_str() {
@@ -27,7 +26,7 @@ impl<'a> From<&'a ValueType> for RbxPropertyType<'a> {
                     unknown => {
                         println!("Can't emit primitives of type {}", unknown);
 
-                        return RbxPropertyType::UnimplementedType(&value_type.name);
+                        return RbxPropertyType::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
                     },
                 };
 
@@ -47,13 +46,13 @@ impl<'a> From<&'a ValueType> for RbxPropertyType<'a> {
                     unknown => {
                         println!("Can't emit data of type {}", unknown);
 
-                        return RbxPropertyType::UnimplementedType(&value_type.name);
+                        return RbxPropertyType::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
                     },
                 };
 
                 RbxPropertyType::Data(data_kind)
             }
-            ValueCategory::Enum => RbxPropertyType::Enum(&value_type.name),
+            ValueCategory::Enum => RbxPropertyType::Enum(Cow::Owned(value_type.name.to_owned())),
             ValueCategory::Class => RbxPropertyType::Data(RbxValueType::Ref),
         }
     }

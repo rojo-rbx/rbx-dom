@@ -1,39 +1,42 @@
-use std::collections::HashMap;
+// This file is also pulled in by generate_reflection in order to make sure that
+// types don't get out of sync.
+
+use std::{
+    borrow::Cow,
+    collections::HashMap,
+};
 
 use bitflags::bitflags;
 use rbx_dom_weak::{RbxValue, RbxValueType};
 
 #[derive(Debug, PartialEq)]
 pub struct RbxInstanceClass {
-    pub name: &'static str,
-    pub superclass: Option<&'static str>,
+    pub name: Cow<'static, str>,
+    pub superclass: Option<Cow<'static, str>>,
     pub tags: RbxInstanceTags,
-    pub properties: HashMap<&'static str, RbxInstanceProperty>,
-    pub default_properties: HashMap<&'static str, RbxValue>,
+    pub properties: HashMap<Cow<'static, str>, RbxInstanceProperty>,
+    pub default_properties: HashMap<Cow<'static, str>, RbxValue>,
 }
 
 #[derive(Debug, PartialEq)]
 pub struct RbxInstanceProperty {
-    pub name: &'static str,
+    pub name: Cow<'static, str>,
     pub value_type: RbxPropertyType,
     pub tags: RbxPropertyTags,
-    // pub canonical_name: Option<String>,
-    // pub serialized_name: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
 pub struct RbxEnum {
-    pub name: &'static str,
-    pub items: HashMap<&'static str, u32>,
+    pub name: Cow<'static, str>,
+    pub items: HashMap<Cow<'static, str>, u32>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum RbxPropertyType {
     Data(RbxValueType),
-    Enum(&'static str),
-    InstanceRef(&'static str),
+    Enum(Cow<'static, str>),
 
-    UnimplementedType(&'static str),
+    UnimplementedType(Cow<'static, str>),
 }
 
 bitflags! {

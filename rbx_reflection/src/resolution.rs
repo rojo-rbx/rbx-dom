@@ -6,7 +6,7 @@ use crate::{
     types::RbxPropertyType,
 };
 
-fn find_property_type(class_name: &str, property_name: &str) -> Option<RbxPropertyType> {
+fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static RbxPropertyType> {
     let classes = get_classes();
 
     let mut current_class = class_name;
@@ -15,10 +15,10 @@ fn find_property_type(class_name: &str, property_name: &str) -> Option<RbxProper
         let class = classes.get(current_class)?;
 
         match class.properties.get(property_name) {
-            Some(property) => return Some(property.value_type),
-            None => {
-                let superclass = class.superclass?;
-                current_class = superclass;
+            Some(property) => return Some(&property.value_type),
+            None => match &class.superclass {
+                Some(superclass) => current_class = &superclass,
+                None => return None,
             }
         }
     }
@@ -50,7 +50,7 @@ pub enum ValueResolveError {
 fn try_resolve_string(
     class_name: &str,
     property_name: &str,
-    property_type: RbxPropertyType,
+    property_type: &RbxPropertyType,
     value: &str,
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
@@ -74,7 +74,7 @@ fn try_resolve_string(
                     .items
                     .get(value)
                     .ok_or_else(|| ValueResolveError::InvalidEnumItem {
-                        enum_name: enum_name.to_owned(),
+                        enum_name: enum_name.to_string(),
                         item_name: value.to_owned(),
                     })?;
 
@@ -89,7 +89,7 @@ fn try_resolve_string(
 /// Note that because every number is held as a Float64, we might run into
 /// precision issues for values outside a 64-bit float's integer precision.
 fn try_resolve_one_float(
-    property_type: RbxPropertyType,
+    property_type: &RbxPropertyType,
     x: f64,
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
@@ -103,7 +103,7 @@ fn try_resolve_one_float(
 
 /// Two floats can result in a Vector2 or Vector2int16.
 fn try_resolve_two_floats(
-    property_type: RbxPropertyType,
+    property_type: &RbxPropertyType,
     (x, y): (f64, f64),
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
@@ -122,7 +122,7 @@ fn try_resolve_two_floats(
 /// Color3uint8 is another value to handle here, but shouldn't come up in the
 /// resolution case since no user-reflected values have that has a type.
 fn try_resolve_three_floats(
-    property_type: RbxPropertyType,
+    property_type: &RbxPropertyType,
     (x, y, z): (f64, f64, f64),
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
