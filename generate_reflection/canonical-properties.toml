@@ -1,8 +1,14 @@
 [Instance.Tags]
 scriptability = "Custom"
+type = "BinaryString"
+
+[LocalizationTable.Contents]
+scriptability = "Custom"
+type = "String"
 
 [BasePart.CollisionGroups]
 scriptability = "Custom"
+type = "String"
 
 [BasePart.Size]
 serialized_name = "size"
@@ -66,6 +72,3 @@ serialized_name = "riseVelocity_xml"
 
 [Smoke.riseVelocity_xml]
 canonical_name = "RiseVelocity"
-
-[LocalizationTable.Contents]
-scriptability = "Custom"
