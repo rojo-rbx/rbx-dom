@@ -17,8 +17,8 @@ pub struct RbxInstanceProperty {
     pub name: &'static str,
     pub value_type: RbxPropertyType,
     pub tags: RbxPropertyTags,
-    pub canonical_name: Option<String>,
-    pub serialized_name: Option<String>,
+    // pub canonical_name: Option<String>,
+    // pub serialized_name: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]

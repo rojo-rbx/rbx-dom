@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use bitflags::bitflags;
 use rbx_dom_weak::{RbxValue, RbxValueType};
 
 use crate::{
@@ -17,13 +18,13 @@ bitflags! {
     // Tags found via:
     // jq '[.Classes | .[] | .Tags // empty] | add | unique' api-dump.json
     pub struct ReflectionClassTags: u8 {
-        const DEPRECATED        = 0b00000001;
-        const NOT_BROWSABLE     = 0b00000010;
-        const NOT_CREATABLE     = 0b00000100;
-        const NOT_REPLICATED    = 0b00001000;
-        const PLAYER_REPLICATED = 0b00010000;
-        const SERVICE           = 0b00100000;
-        const SETTINGS          = 0b01000000;
+        const DEPRECATED = 0x1;
+        const NOT_BROWSABLE = 0x2;
+        const NOT_CREATABLE = 0x4;
+        const NOT_REPLICATED = 0x8;
+        const PLAYER_REPLICATED = 0x10;
+        const SERVICE = 0x20;
+        const SETTINGS = 0x40;
     }
 }
 
@@ -31,14 +32,14 @@ bitflags! {
     // Tags found via:
     // jq '[.Classes | .[] | .Members | .[] | select(.MemberType == "Property") | .Tags // empty] | add | unique' api-dump.json
     pub struct ReflectionPropertyTags: u8 {
-        const DEPRECATED     = 0b00000001;
-        const HIDDEN         = 0b00000010;
-        const NOT_BROWSABLE  = 0b00000100;
-        const NOT_REPLICATED = 0b00001000;
-        const NOT_SCRIPTABLE = 0b00010000;
-        const READ_ONLY      = 0b00100000;
+        const DEPRECATED = 0x1;
+        const HIDDEN 0x2;
+        const NOT_BROWSABLE = 0x4;
+        const NOT_REPLICATED = 0x8;
+        const NOT_SCRIPTABLE = 0x10;
+        const READ_ONLY = 0x20;
 
-        const CANONICAL      = 0b01000000;
+        const CANONICAL = 0x40;
     }
 }
 
