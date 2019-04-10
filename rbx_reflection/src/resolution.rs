@@ -3,7 +3,7 @@ use rbx_dom_weak::{AmbiguousRbxValue, RbxValue, RbxValueType, UnresolvedRbxValue
 
 use crate::{
     core::{get_classes, get_enums},
-    types::RbxPropertyType,
+    reflection_types::RbxPropertyType,
 };
 
 fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static RbxPropertyType> {

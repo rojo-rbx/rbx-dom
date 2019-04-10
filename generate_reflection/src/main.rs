@@ -10,6 +10,7 @@ mod roblox_install;
 mod run_in_roblox;
 
 use std::{
+    borrow::Cow,
     collections::HashMap,
     path::PathBuf,
     error::Error,
@@ -23,6 +24,7 @@ use crate::{
     api_dump::Dump,
     database::ReflectionDatabase,
     canonical_properties::get_canonical_properties,
+    reflection_types::{RbxInstanceClass, RbxInstanceTags},
 };
 
 static PLUGIN_MAIN: &str = include_str!("../plugin/main.lua");
@@ -43,6 +45,27 @@ enum PluginMessage {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let (dump_source, dump) = Dump::read_with_source()?;
+    let canonical_properties = get_canonical_properties();
+
+    let mut classes = HashMap::new();
+
+    for dump_class in &dump.classes {
+        let superclass = if dump_class.superclass == "<<<ROOT>>>" {
+            None
+        } else {
+            Some(dump_class.superclass.clone());
+        };
+
+        let class = RbxInstanceClass {
+            name: Cow::Owned(dump_class.name.clone()),
+            superclass,
+            tags: RbxInstanceTags::empty(),
+            properties: HashMap::new(),
+            default_properties: HashMap::new(),
+        };
+
+        classes.insert(dump_class.name.clone(), class);
+    }
 
     let plugin = {
         let mut plugin = RbxTree::new(RbxInstanceProperties {
@@ -94,8 +117,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     let database = ReflectionDatabase {
         dump,
         default_properties,
-        canonical_properties: get_canonical_properties(),
         studio_version,
+
+        classes,
     };
 
     let rust_output_dir = {

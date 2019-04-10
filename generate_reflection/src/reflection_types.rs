@@ -4,7 +4,7 @@ use rbx_dom_weak::RbxValueType;
 
 use crate::api_dump::{ValueType, ValueCategory};
 
-#[path = "../../rbx_reflection/src/types.rs"]
+#[path = "../../rbx_reflection/src/reflection_types.rs"]
 mod inner;
 
 pub use inner::*;

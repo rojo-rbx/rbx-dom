@@ -4,7 +4,7 @@ use lazy_static::lazy_static;
 
 use crate::{
     reflection_database::{generate_classes, generate_enums},
-    types::{RbxEnum, RbxInstanceClass},
+    reflection_types::{RbxEnum, RbxInstanceClass},
 };
 
 lazy_static! {

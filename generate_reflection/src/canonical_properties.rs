@@ -21,13 +21,13 @@ pub struct CanonicalPropertyDatabase {
 }
 
 impl CanonicalPropertyDatabase {
+    pub fn query_class<'a>(&'a self, class_name: &str) -> Option<&'a HashMap<String, CanonicalProperty>> {
+        self.inner.get(class_name)
+    }
+
     pub fn query_property<'a>(&'a self, class_name: &str, property_name: &str) -> Option<&'a CanonicalProperty> {
         let class = self.query_class(class_name)?;
         class.get(property_name)
-    }
-
-    pub fn query_class<'a>(&'a self, class_name: &str) -> Option<&'a HashMap<String, CanonicalProperty>> {
-        self.inner.get(class_name)
     }
 }
 

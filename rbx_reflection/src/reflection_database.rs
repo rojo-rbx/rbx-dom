@@ -2,7 +2,7 @@
 //! To update it, make sure you have Roblox Studio and Rojo installed and run
 //! `gen-reflection` in the root.
 #![allow(unused_mut)]
-use crate::types::*;
+use crate::reflection_types::*;
 use rbx_dom_weak::{RbxValue, RbxValueType};
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {

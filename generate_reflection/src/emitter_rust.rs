@@ -53,7 +53,7 @@ fn generate_database(
             collections::HashMap,
         };
         use rbx_dom_weak::{RbxValue, RbxValueType};
-        use crate::types::*;
+        use crate::reflection_types::*;
 
         pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             let mut output = HashMap::with_capacity(#class_len_literal);
