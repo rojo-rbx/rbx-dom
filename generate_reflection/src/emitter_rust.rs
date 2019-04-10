@@ -42,7 +42,9 @@ fn generate_database(
     let class_len_literal = Literal::usize_unsuffixed(dump.classes.len());
     let enum_len_literal = Literal::usize_unsuffixed(dump.enums.len());
 
-    let classes = dump.classes.iter().map(|class| emit_class(class, default_properties));
+    let classes = dump.classes
+        .iter()
+        .map(|class| emit_class(class, default_properties.get(&class.name)));
     let enums = dump.enums.iter().map(emit_enum);
 
     quote! {
@@ -69,7 +71,7 @@ fn generate_database(
 
 fn emit_class(
     class: &DumpClass,
-    default_properties: &HashMap<String, HashMap<String, RbxValue>>,
+    class_defaults: Option<&HashMap<String, RbxValue>>,
 ) -> TokenStream {
     let class_name_literal = Literal::string(&class.name);
 
@@ -82,7 +84,7 @@ fn emit_class(
 
     let tags = emit_class_tags(class);
     let properties = emit_properties(class);
-    let defaults = emit_default_properties(&class.name, default_properties);
+    let defaults = emit_default_properties(class_defaults);
 
     quote! {
         output.insert(Cow::Borrowed(#class_name_literal), RbxInstanceClass {
@@ -171,20 +173,19 @@ fn emit_properties(class: &DumpClass) -> TokenStream {
 }
 
 fn emit_default_properties(
-    class_name: &str,
-    all_defaults: &HashMap<String, HashMap<String, RbxValue>>,
+    class_defaults: Option<&HashMap<String, RbxValue>>,
 ) -> TokenStream {
-    let defaults = match all_defaults.get(class_name) {
+    let class_defaults = match class_defaults {
         Some(value) => value,
         None => return quote!(HashMap::new()),
     };
 
-    if defaults.is_empty() {
+    if class_defaults.is_empty() {
         return quote!(HashMap::new());
     }
 
     // Collect and sort keys to make output stable
-    let mut keys: Vec<_> = defaults
+    let mut keys: Vec<_> = class_defaults
         .keys()
         .collect();
 
@@ -193,7 +194,7 @@ fn emit_default_properties(
     let inserts = keys
         .iter()
         .map(|key| {
-            let value = defaults.get(key.as_str()).unwrap();
+            let value = class_defaults.get(key.as_str()).unwrap();
 
             let key_literal = Literal::string(&key);
             let value_literal = emit_value(value);
@@ -201,7 +202,7 @@ fn emit_default_properties(
             quote!(defaults.insert(Cow::Borrowed(#key_literal), #value_literal);)
         });
 
-    let len_literal = Literal::usize_unsuffixed(defaults.len());
+    let len_literal = Literal::usize_unsuffixed(class_defaults.len());
 
     quote!({
         let mut defaults = HashMap::with_capacity(#len_literal);
