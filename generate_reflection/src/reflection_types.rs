@@ -1,13 +1,75 @@
 use std::borrow::Cow;
 
+use log::warn;
 use rbx_dom_weak::RbxValueType;
 
-use crate::api_dump::{ValueType, ValueCategory};
+use crate::api_dump::{ValueType, ValueCategory, DumpClassProperty};
 
 #[path = "../../rbx_reflection/src/reflection_types.rs"]
 mod inner;
 
 pub use inner::*;
+
+impl RbxInstanceTags {
+    pub fn from_dump_tags<T: AsRef<str>>(dump_tags: &[T]) -> RbxInstanceTags {
+        let mut tags = RbxInstanceTags::empty();
+
+        for dump_tag in dump_tags {
+            let converted = match dump_tag.as_ref() {
+                "Deprecated" => RbxInstanceTags::DEPRECATED,
+                "NotBrowsable" => RbxInstanceTags::NOT_BROWSABLE,
+                "NotCreatable" => RbxInstanceTags::NOT_CREATABLE,
+                "NotReplicated" => RbxInstanceTags::NOT_REPLICATED,
+                "PlayerReplicated" => RbxInstanceTags::PLAYER_REPLICATED,
+                "Service" => RbxInstanceTags::SERVICE,
+                "Settings" => RbxInstanceTags::SETTINGS,
+                _ => {
+                    warn!("Unknown instance flag {}", dump_tag.as_ref());
+                    continue;
+                }
+            };
+
+            tags &= converted;
+        }
+
+        tags
+    }
+}
+
+impl RbxPropertyTags {
+    pub fn from_dump_tags<T: AsRef<str>>(dump_tags: &[T]) -> RbxPropertyTags {
+        let mut tags = RbxPropertyTags::empty();
+
+        for dump_tag in dump_tags {
+            let converted = match dump_tag.as_ref() {
+                "Deprecated" =>  RbxPropertyTags::DEPRECATED,
+                "Hidden" =>  RbxPropertyTags::HIDDEN,
+                "NotBrowsable" =>  RbxPropertyTags::NOT_BROWSABLE,
+                "NotReplicated" =>  RbxPropertyTags::NOT_REPLICATED,
+                "NotScriptable" =>  RbxPropertyTags::NOT_SCRIPTABLE,
+                "ReadOnly" =>  RbxPropertyTags::READ_ONLY,
+                _ => {
+                    warn!("Unknown instance flag {}", dump_tag.as_ref());
+                    continue;
+                }
+            };
+
+            tags &= converted;
+        }
+
+        tags
+    }
+}
+
+impl<'a> From<&'a DumpClassProperty> for RbxInstanceProperty {
+    fn from(dump_property: &'a DumpClassProperty) -> RbxInstanceProperty {
+        RbxInstanceProperty {
+            name: Cow::Owned(dump_property.name.clone()),
+            value_type: RbxPropertyType::from(&dump_property.value_type),
+            tags: RbxPropertyTags::from_dump_tags(&dump_property.tags),
+        }
+    }
+}
 
 impl<'a> From<&'a ValueType> for RbxPropertyType {
     fn from(value_type: &'a ValueType) -> RbxPropertyType {

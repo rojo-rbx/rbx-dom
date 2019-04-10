@@ -105,7 +105,7 @@ fn emit_class_tags(class: &DumpClass) -> TokenStream {
     let tags = class.tags
         .iter()
         .map(|tag| {
-            let tag_name = format!("{:?}", tag).to_shouty_snake_case();
+            let tag_name = tag.to_shouty_snake_case();
             let name_literal = Ident::new(&tag_name, Span::call_site());
 
             quote!(RbxInstanceTags::#name_literal)

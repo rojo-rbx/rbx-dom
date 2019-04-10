@@ -23,19 +23,8 @@ pub struct DumpClass {
     pub superclass: String,
 
     #[serde(default)]
-    pub tags: Vec<DumpClassTag>,
+    pub tags: Vec<String>,
     pub members: Vec<DumpClassMember>,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Deserialize)]
-pub enum DumpClassTag {
-    Deprecated,
-    NotBrowsable,
-    NotCreatable,
-    NotReplicated,
-    PlayerReplicated,
-    Service,
-    Settings,
 }
 
 #[derive(Debug, Deserialize)]

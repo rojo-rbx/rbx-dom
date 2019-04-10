@@ -21,7 +21,7 @@ use rbx_dom_weak::{RbxTree, RbxValue, RbxInstanceProperties};
 
 use crate::{
     run_in_roblox::{inject_plugin_main, run_in_roblox},
-    api_dump::Dump,
+    api_dump::{Dump, DumpClassMember},
     database::ReflectionDatabase,
     canonical_properties::get_canonical_properties,
     reflection_types::{RbxInstanceClass, RbxInstanceTags},
@@ -53,14 +53,27 @@ fn main() -> Result<(), Box<dyn Error>> {
         let superclass = if dump_class.superclass == "<<<ROOT>>>" {
             None
         } else {
-            Some(dump_class.superclass.clone());
+            Some(Cow::Owned(dump_class.superclass.clone()))
         };
+
+        let tags = RbxInstanceTags::from_dump_tags(&dump_class.tags);
+
+        let mut properties = HashMap::new();
+
+        for member in &dump_class.members {
+            match member {
+                DumpClassMember::Property(property) => {
+                    properties.insert(Cow::Owned(property.name.clone()), property.into());
+                }
+                _ => {}
+            }
+        }
 
         let class = RbxInstanceClass {
             name: Cow::Owned(dump_class.name.clone()),
             superclass,
-            tags: RbxInstanceTags::empty(),
-            properties: HashMap::new(),
+            tags,
+            properties,
             default_properties: HashMap::new(),
         };
 
