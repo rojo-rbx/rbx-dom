@@ -12,8 +12,10 @@ mod run_in_roblox;
 use std::{
     borrow::Cow,
     collections::HashMap,
-    path::PathBuf,
     error::Error,
+    fs::{self, File},
+    io::{BufWriter, Write},
+    path::PathBuf,
 };
 
 use serde_derive::Deserialize;
@@ -138,8 +140,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let rust_output_dir = {
         let mut rust_output_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         rust_output_dir.pop();
-        rust_output_dir.push("rbx_reflection");
-        rust_output_dir.push("src");
+        rust_output_dir.push("rbx_reflection/src/reflection_database");
         rust_output_dir
     };
 
@@ -152,7 +153,30 @@ fn main() -> Result<(), Box<dyn Error>> {
         lua_output_dir
     };
 
-    emitter_rust::emit(&database, &rust_output_dir)?;
+    fs::create_dir_all(&rust_output_dir)?;
+    fs::create_dir_all(&lua_output_dir)?;
+
+    {
+        let classes_path = rust_output_dir.join("classes.rs");
+        let mut classes_file = BufWriter::new(File::create(classes_path)?);
+        emitter_rust::emit_classes(&mut classes_file, &database)?;
+        classes_file.flush()?;
+    }
+
+    {
+        let enums_path = rust_output_dir.join("enums.rs");
+        let mut enums_file = BufWriter::new(File::create(enums_path)?);
+        emitter_rust::emit_enums(&mut enums_file, &database)?;
+        enums_file.flush()?;
+    }
+
+    {
+        let version_path = rust_output_dir.join("version.rs");
+        let mut version_file = BufWriter::new(File::create(version_path)?);
+        emitter_rust::emit_version(&mut version_file, &database)?;
+        version_file.flush()?;
+    }
+
     emitter_lua::emit(&database, &lua_output_dir)?;
 
     Ok(())

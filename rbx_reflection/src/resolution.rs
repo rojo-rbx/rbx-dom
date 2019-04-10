@@ -2,7 +2,7 @@ use failure::Fail;
 use rbx_dom_weak::{AmbiguousRbxValue, RbxValue, RbxValueType, UnresolvedRbxValue};
 
 use crate::{
-    core::{get_classes, get_enums},
+    reflection_database::{get_classes, get_enums},
     reflection_types::RbxPropertyType,
 };
 
