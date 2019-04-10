@@ -15,6 +15,7 @@ use std::{
     error::Error,
     fs::{self, File},
     io::{BufWriter, Write},
+    mem,
     path::PathBuf,
 };
 
@@ -41,7 +42,7 @@ enum PluginMessage {
     #[serde(rename_all = "camelCase")]
     DefaultProperties {
         class_name: String,
-        properties: HashMap<String, RbxValue>,
+        properties: HashMap<Cow<'static, str>, RbxValue>,
     }
 }
 
@@ -124,7 +125,16 @@ fn main() -> Result<(), Box<dyn Error>> {
                 studio_version = version;
             }
             PluginMessage::DefaultProperties { class_name, properties } => {
-                default_properties.insert(class_name, properties);
+                let legacy_defaults = properties
+                    .iter()
+                    .map(|(key, value)| (key.to_string(), value.clone()))
+                    .collect();
+
+                default_properties.insert(class_name.clone(), legacy_defaults);
+
+                if let Some(class) = classes.get_mut(&class_name) {
+                    mem::replace(&mut class.default_properties, properties);
+                }
             }
         }
     }
