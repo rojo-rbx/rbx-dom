@@ -113,7 +113,6 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let messages = run_in_roblox(&plugin);
 
-    let mut default_properties = HashMap::new();
     let mut studio_version = [0, 0, 0, 0];
 
     for message in &messages {
@@ -125,13 +124,6 @@ fn main() -> Result<(), Box<dyn Error>> {
                 studio_version = version;
             }
             PluginMessage::DefaultProperties { class_name, properties } => {
-                let legacy_defaults = properties
-                    .iter()
-                    .map(|(key, value)| (key.to_string(), value.clone()))
-                    .collect();
-
-                default_properties.insert(class_name.clone(), legacy_defaults);
-
                 if let Some(class) = classes.get_mut(&class_name) {
                     mem::replace(&mut class.default_properties, properties);
                 }
@@ -141,7 +133,6 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let database = ReflectionDatabase {
         dump,
-        default_properties,
         studio_version,
 
         classes,
