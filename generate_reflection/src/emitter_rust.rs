@@ -8,7 +8,7 @@ use proc_macro2::{TokenStream, Literal, Ident, Span};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    api_dump::{Dump, DumpEnum, ValueType},
+    api_dump::{Dump, DumpEnum},
     reflection_types::{RbxInstanceClass, RbxPropertyType, RbxPropertyTags},
     database::ReflectionDatabase,
 };
@@ -363,11 +363,6 @@ fn emit_value(value: &RbxValue) -> TokenStream {
         },
         _ => unimplemented!(),
     }
-}
-
-fn emit_value_type(value_type: &ValueType) -> TokenStream {
-    let property_type = RbxPropertyType::from(value_type);
-    emit_property_type(&property_type)
 }
 
 fn emit_property_type(property_type: &RbxPropertyType) -> TokenStream {
