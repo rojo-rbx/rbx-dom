@@ -1,5 +1,7 @@
 use std::{
+    borrow::Cow,
     collections::HashMap,
+    hash::Hash,
     io::{self, Write},
 };
 
@@ -73,7 +75,11 @@ fn generate_class(container: &Ident, class: &RbxInstanceClass) -> TokenStream {
 
     let tags = generate_class_tags(class);
     let properties = generate_properties(class);
-    let defaults = generate_default_properties(class);
+    let defaults = class.default_properties.as_rust();
+
+    let is_canonical = class.is_canonical.as_rust();
+    let canonical_name = class.canonical_name.as_rust();
+    let serialized_name = class.serialized_name.as_rust();
 
     quote! {
         #container.insert(Cow::Borrowed(#class_name_literal), RbxInstanceClass {
@@ -82,6 +88,9 @@ fn generate_class(container: &Ident, class: &RbxInstanceClass) -> TokenStream {
             tags: #tags,
             properties: #properties,
             default_properties: #defaults,
+            is_canonical: #is_canonical,
+            canonical_name: #canonical_name,
+            serialized_name: #serialized_name,
         });
     }
 }
@@ -156,13 +165,13 @@ fn generate_properties(class: &RbxInstanceClass) -> TokenStream {
         .map(|key| {
             let property = class.properties.get(key).unwrap();
 
-            let member_name = Literal::string(&property.name);
-            let resolved_type = emit_property_type(&property.value_type);
+            let member_name = property.name.as_rust();
+            let resolved_type = property.value_type.as_rust();
             let tags = generate_property_tags(&property.tags);
 
             quote! {
-                properties.insert(Cow::Borrowed(#member_name), RbxInstanceProperty {
-                    name: Cow::Borrowed(#member_name),
+                properties.insert(#member_name, RbxInstanceProperty {
+                    name: #member_name,
                     value_type: #resolved_type,
                     tags: #tags,
                 });
@@ -178,50 +187,16 @@ fn generate_properties(class: &RbxInstanceClass) -> TokenStream {
     })
 }
 
-fn generate_default_properties(
-    class: &RbxInstanceClass,
-) -> TokenStream {
-    if class.default_properties.is_empty() {
-        return quote!(HashMap::new());
-    }
-
-    // Collect and sort keys to make output stable
-    let mut keys: Vec<_> = class.default_properties
-        .keys()
-        .collect();
-
-    keys.sort();
-
-    let inserts = keys
-        .iter()
-        .map(|key| {
-            let value = class.default_properties.get(*key).unwrap();
-
-            let key_literal = Literal::string(&key);
-            let value_literal = emit_value(value);
-
-            quote!(defaults.insert(Cow::Borrowed(#key_literal), #value_literal);)
-        });
-
-    let len_literal = Literal::usize_unsuffixed(class.default_properties.len());
-
-    quote!({
-        let mut defaults = HashMap::with_capacity(#len_literal);
-        #(#inserts)*
-        defaults
-    })
-}
-
 fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
     let name_literal = Literal::string(&rbx_enum.name);
     let item_count_literal = Literal::usize_unsuffixed(rbx_enum.items.len());
 
     let items = rbx_enum.items.iter().map(|item| {
-        let item_name = Literal::string(&item.name);
+        let item_name = Cow::Borrowed(item.name.as_str()).as_rust();
         let item_value = Literal::u32_unsuffixed(item.value);
 
         quote! {
-            items.insert(Cow::Borrowed(#item_name), #item_value);
+            items.insert(#item_name, #item_value);
         }
     });
 
@@ -237,148 +212,220 @@ fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
     }
 }
 
-fn emit_value(value: &RbxValue) -> TokenStream {
-    match value {
-        RbxValue::String { value } => {
-            let value_literal = Literal::string(value);
-            quote!(RbxValue::String { value: String::from(#value_literal) })
-        },
-        RbxValue::BinaryString { value } => {
-            let value_literal = Literal::byte_string(value);
-            quote!(RbxValue::BinaryString { value: #value_literal.into() })
-        },
-        RbxValue::Int32 { value } => {
-            let value_literal = Literal::i32_unsuffixed(*value);
-            quote!(RbxValue::Int32 { value: #value_literal })
-        },
-        RbxValue::Int64 { value } => {
-            let value_literal = Literal::i64_unsuffixed(*value);
-            quote!(RbxValue::Int64 { value: #value_literal })
-        },
-        RbxValue::Float32 { value } => {
-            let value_literal = Literal::f32_unsuffixed(*value);
-            quote!(RbxValue::Float32 { value: #value_literal })
-        },
-        RbxValue::Float64 { value } => {
-            let value_literal = Literal::f64_unsuffixed(*value);
-            quote!(RbxValue::Float64 { value: #value_literal })
-        },
-        RbxValue::Bool { value } => {
-            let value_literal = if *value {
-                Ident::new("true", Span::call_site())
-            } else {
-                Ident::new("false", Span::call_site())
-            };
-            quote!(RbxValue::Bool { value: #value_literal })
-        },
-        RbxValue::Ref { .. } => {
-            quote!(RbxValue::Ref { value: None })
-        },
-        RbxValue::Vector2 { value } => {
-            let x_literal = Literal::f32_unsuffixed(value[0]);
-            let y_literal = Literal::f32_unsuffixed(value[1]);
+/// Trait that describes how to turn a value into Rust code that constructs that
+/// value.
+trait AsRust {
+    fn as_rust(&self) -> TokenStream;
+}
 
-            quote!(RbxValue::Vector2 { value: [#x_literal, #y_literal] })
-        },
-        RbxValue::Vector3 { value } => {
-            let x_literal = Literal::f32_unsuffixed(value[0]);
-            let y_literal = Literal::f32_unsuffixed(value[1]);
-            let z_literal = Literal::f32_unsuffixed(value[2]);
+impl AsRust for RbxValue {
+    fn as_rust(&self) -> TokenStream {
+        match self {
+            RbxValue::String { value } => {
+                let value_literal = Literal::string(value);
+                quote!(RbxValue::String { value: String::from(#value_literal) })
+            },
+            RbxValue::BinaryString { value } => {
+                let value_literal = Literal::byte_string(value);
+                quote!(RbxValue::BinaryString { value: #value_literal.into() })
+            },
+            RbxValue::Int32 { value } => {
+                let value_literal = Literal::i32_unsuffixed(*value);
+                quote!(RbxValue::Int32 { value: #value_literal })
+            },
+            RbxValue::Int64 { value } => {
+                let value_literal = Literal::i64_unsuffixed(*value);
+                quote!(RbxValue::Int64 { value: #value_literal })
+            },
+            RbxValue::Float32 { value } => {
+                let value_literal = Literal::f32_unsuffixed(*value);
+                quote!(RbxValue::Float32 { value: #value_literal })
+            },
+            RbxValue::Float64 { value } => {
+                let value_literal = Literal::f64_unsuffixed(*value);
+                quote!(RbxValue::Float64 { value: #value_literal })
+            },
+            RbxValue::Bool { value } => {
+                let value_literal = if *value {
+                    Ident::new("true", Span::call_site())
+                } else {
+                    Ident::new("false", Span::call_site())
+                };
+                quote!(RbxValue::Bool { value: #value_literal })
+            },
+            RbxValue::Ref { .. } => {
+                quote!(RbxValue::Ref { value: None })
+            },
+            RbxValue::Vector2 { value } => {
+                let x_literal = Literal::f32_unsuffixed(value[0]);
+                let y_literal = Literal::f32_unsuffixed(value[1]);
 
-            quote!(RbxValue::Vector3 { value: [#x_literal, #y_literal, #z_literal] })
-        },
-        RbxValue::Vector2int16 { value } => {
-            let x_literal = Literal::i16_unsuffixed(value[0]);
-            let y_literal = Literal::i16_unsuffixed(value[1]);
+                quote!(RbxValue::Vector2 { value: [#x_literal, #y_literal] })
+            },
+            RbxValue::Vector3 { value } => {
+                let x_literal = Literal::f32_unsuffixed(value[0]);
+                let y_literal = Literal::f32_unsuffixed(value[1]);
+                let z_literal = Literal::f32_unsuffixed(value[2]);
 
-            quote!(RbxValue::Vector2int16 { value: [#x_literal, #y_literal] })
-        },
-        RbxValue::Vector3int16 { value } => {
-            let x_literal = Literal::i16_unsuffixed(value[0]);
-            let y_literal = Literal::i16_unsuffixed(value[1]);
-            let z_literal = Literal::i16_unsuffixed(value[2]);
+                quote!(RbxValue::Vector3 { value: [#x_literal, #y_literal, #z_literal] })
+            },
+            RbxValue::Vector2int16 { value } => {
+                let x_literal = Literal::i16_unsuffixed(value[0]);
+                let y_literal = Literal::i16_unsuffixed(value[1]);
 
-            quote!(RbxValue::Vector3int16 { value: [#x_literal, #y_literal, #z_literal] })
-        },
-        RbxValue::Color3 { value } => {
-            let r_literal = Literal::f32_unsuffixed(value[0]);
-            let g_literal = Literal::f32_unsuffixed(value[1]);
-            let b_literal = Literal::f32_unsuffixed(value[2]);
+                quote!(RbxValue::Vector2int16 { value: [#x_literal, #y_literal] })
+            },
+            RbxValue::Vector3int16 { value } => {
+                let x_literal = Literal::i16_unsuffixed(value[0]);
+                let y_literal = Literal::i16_unsuffixed(value[1]);
+                let z_literal = Literal::i16_unsuffixed(value[2]);
 
-            quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
-        },
-        RbxValue::Color3uint8 { value } => {
-            let r_literal = Literal::u8_unsuffixed(value[0]);
-            let g_literal = Literal::u8_unsuffixed(value[1]);
-            let b_literal = Literal::u8_unsuffixed(value[2]);
+                quote!(RbxValue::Vector3int16 { value: [#x_literal, #y_literal, #z_literal] })
+            },
+            RbxValue::Color3 { value } => {
+                let r_literal = Literal::f32_unsuffixed(value[0]);
+                let g_literal = Literal::f32_unsuffixed(value[1]);
+                let b_literal = Literal::f32_unsuffixed(value[2]);
 
-            quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
-        },
-        RbxValue::CFrame { value } => {
-            let literals = value.into_iter().cloned().map(Literal::f32_unsuffixed);
+                quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
+            },
+            RbxValue::Color3uint8 { value } => {
+                let r_literal = Literal::u8_unsuffixed(value[0]);
+                let g_literal = Literal::u8_unsuffixed(value[1]);
+                let b_literal = Literal::u8_unsuffixed(value[2]);
 
-            quote!(RbxValue::CFrame {
-                value: [
-                    #(#literals),*
-                ]
-            })
-        },
-        RbxValue::Enum { value } => {
-            let value_literal = Literal::u32_unsuffixed(*value);
+                quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
+            },
+            RbxValue::CFrame { value } => {
+                let literals = value.into_iter().cloned().map(Literal::f32_unsuffixed);
 
-            quote!(RbxValue::Enum { value: #value_literal })
-        },
-        RbxValue::PhysicalProperties { value } => {
-            let value_literal = match value {
-                Some(_) => quote!(Some(PhysicalProperties)),
-                None => quote!(None),
-            };
+                quote!(RbxValue::CFrame {
+                    value: [
+                        #(#literals),*
+                    ]
+                })
+            },
+            RbxValue::Enum { value } => {
+                let value_literal = Literal::u32_unsuffixed(*value);
 
-            quote!(RbxValue::PhysicalProperties { value: #value_literal })
-        },
-        RbxValue::UDim { value } => {
-            let literal_scale = Literal::f32_unsuffixed(value.0);
-            let literal_offset = Literal::i32_unsuffixed(value.1);
+                quote!(RbxValue::Enum { value: #value_literal })
+            },
+            RbxValue::PhysicalProperties { value } => {
+                let value_literal = match value {
+                    Some(_) => quote!(Some(PhysicalProperties)),
+                    None => quote!(None),
+                };
 
-            quote!(RbxValue::UDim {
-                value: (#literal_scale, #literal_offset)
-            })
-        },
-        RbxValue::UDim2 { value } => {
-            let literal_x_scale = Literal::f32_unsuffixed(value.0);
-            let literal_x_offset = Literal::i32_unsuffixed(value.1);
-            let literal_y_scale = Literal::f32_unsuffixed(value.2);
-            let literal_y_offset = Literal::i32_unsuffixed(value.3);
+                quote!(RbxValue::PhysicalProperties { value: #value_literal })
+            },
+            RbxValue::UDim { value } => {
+                let literal_scale = Literal::f32_unsuffixed(value.0);
+                let literal_offset = Literal::i32_unsuffixed(value.1);
 
-            quote!(RbxValue::UDim2 {
-                value: (#literal_x_scale, #literal_x_offset, #literal_y_scale, #literal_y_offset)
-            })
-        },
-        RbxValue::Content { value } => {
-            let value_literal = Literal::string(value);
+                quote!(RbxValue::UDim {
+                    value: (#literal_scale, #literal_offset)
+                })
+            },
+            RbxValue::UDim2 { value } => {
+                let literal_x_scale = Literal::f32_unsuffixed(value.0);
+                let literal_x_offset = Literal::i32_unsuffixed(value.1);
+                let literal_y_scale = Literal::f32_unsuffixed(value.2);
+                let literal_y_offset = Literal::i32_unsuffixed(value.3);
 
-            quote!(RbxValue::Content {
-                value: #value_literal,
-            })
-        },
-        _ => unimplemented!(),
+                quote!(RbxValue::UDim2 {
+                    value: (#literal_x_scale, #literal_x_offset, #literal_y_scale, #literal_y_offset)
+                })
+            },
+            RbxValue::Content { value } => {
+                let value_literal = Literal::string(value);
+
+                quote!(RbxValue::Content {
+                    value: #value_literal,
+                })
+            },
+            _ => unimplemented!(),
+        }
     }
 }
 
-fn emit_property_type(property_type: &RbxPropertyType) -> TokenStream {
-    match property_type {
-        RbxPropertyType::Data(kind) => {
-            let type_name = format!("{:?}", kind);
-            let type_literal = Ident::new(&type_name, Span::call_site());
-            quote!(RbxPropertyType::Data(RbxValueType::#type_literal))
+impl<K, V> AsRust for HashMap<K, V>
+    where
+        K: AsRust + Eq + Hash + Ord,
+        V: AsRust
+{
+    fn as_rust(&self) -> TokenStream {
+        if self.is_empty() {
+            return quote!(HashMap::new());
         }
-        RbxPropertyType::Enum(enum_name) => {
-            let enum_literal = Literal::string(&enum_name);
-            quote!(RbxPropertyType::Enum(Cow::Borrowed(#enum_literal)))
+
+        let len_literal = Literal::usize_unsuffixed(self.len());
+
+        let mut keys: Vec<_> = self.keys().collect();
+        keys.sort();
+
+        let insertions = keys
+            .iter()
+            .map(|key| {
+                let value = self.get(key).unwrap();
+                let key_literal = key.as_rust();
+                let value_literal = value.as_rust();
+
+                quote!(map.insert(#key_literal, #value_literal))
+            });
+
+        quote!({
+            let mut map = HashMap::with_capacity(#len_literal);
+            #(#insertions;)*
+            map
+        })
+    }
+}
+
+impl AsRust for RbxPropertyType {
+    fn as_rust(&self) -> TokenStream {
+        match self {
+            RbxPropertyType::Data(kind) => {
+                let type_name = format!("{:?}", kind);
+                let type_literal = Ident::new(&type_name, Span::call_site());
+                quote!(RbxPropertyType::Data(RbxValueType::#type_literal))
+            }
+            RbxPropertyType::Enum(enum_name) => {
+                let enum_literal = enum_name.as_rust();
+                quote!(RbxPropertyType::Enum(#enum_literal))
+            }
+            RbxPropertyType::UnimplementedType(type_name) => {
+                let type_literal = type_name.as_rust();
+                quote!(RbxPropertyType::UnimplementedType(#type_literal))
+            }
         }
-        RbxPropertyType::UnimplementedType(type_name) => {
-            let type_literal = Literal::string(&type_name);
-            quote!(RbxPropertyType::UnimplementedType(Cow::Borrowed(#type_literal)))
+    }
+}
+
+impl AsRust for bool {
+    fn as_rust(&self) -> TokenStream {
+        if *self {
+            quote!(true)
+        } else {
+            quote!(false)
+        }
+    }
+}
+
+impl<'a> AsRust for Cow<'a, str> {
+    fn as_rust(&self) -> TokenStream {
+        let literal = Literal::string(self);
+        quote!(Cow::Borrowed(#literal))
+    }
+}
+
+impl<T> AsRust for Option<T> where T: AsRust {
+    fn as_rust(&self) -> TokenStream {
+        match self {
+            Some(value) => {
+                let inner_literal = value.as_rust();
+                quote!(Some(#inner_literal))
+            }
+            None => quote!(None)
         }
     }
 }

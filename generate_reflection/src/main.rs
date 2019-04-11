@@ -78,6 +78,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             tags,
             properties,
             default_properties: HashMap::new(),
+
+            is_canonical: true,
+            canonical_name: None,
+            serialized_name: None,
         };
 
         classes.insert(dump_class.name.clone(), class);
