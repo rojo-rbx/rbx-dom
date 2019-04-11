@@ -3,19 +3,18 @@ use std::{
     io::{self, Write},
 };
 
-use heck::ShoutySnakeCase;
 use quote::quote;
 use proc_macro2::{TokenStream, Literal, Ident, Span};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    api_dump::{Dump, DumpClass, DumpEnum, DumpClassProperty, DumpClassMember, ValueType},
-    reflection_types::RbxPropertyType,
+    api_dump::{Dump, DumpEnum, ValueType},
+    reflection_types::{RbxInstanceClass, RbxPropertyType, RbxPropertyTags},
     database::ReflectionDatabase,
 };
 
 pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
-    let classes = generate_classes(&database.dump, &database.default_properties);
+    let classes = generate_classes(&database.classes);
     write!(output, "{}", classes)
 }
 
@@ -33,14 +32,17 @@ pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
     Ok(())
 }
 
-fn generate_classes(
-    dump: &Dump,
-    default_properties: &HashMap<String, HashMap<String, RbxValue>>,
-) -> TokenStream {
-    let class_len_literal = Literal::usize_unsuffixed(dump.classes.len());
-    let classes = dump.classes
+fn generate_classes(classes: &HashMap<String, RbxInstanceClass>) -> TokenStream {
+    let class_len_literal = Literal::usize_unsuffixed(classes.len());
+
+    let mut keys: Vec<_> = classes.keys().collect();
+    keys.sort();
+
+    let container_name = Ident::new("output", Span::call_site());
+
+    let classes = keys
         .iter()
-        .map(|class| emit_class(class, default_properties.get(&class.name)));
+        .map(|key| generate_class(&container_name, classes.get(key.as_str()).unwrap()));
 
     quote! {
         use std::{
@@ -51,10 +53,74 @@ fn generate_classes(
         use crate::reflection_types::*;
 
         pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
-            let mut output = HashMap::with_capacity(#class_len_literal);
+            let mut #container_name = HashMap::with_capacity(#class_len_literal);
             #(#classes)*
-            output
+            #container_name
         }
+    }
+}
+
+fn generate_class(container: &Ident, class: &RbxInstanceClass) -> TokenStream {
+    let class_name_literal = Literal::string(&class.name);
+
+    let superclass_value = match &class.superclass {
+        None => quote!(None),
+        Some(superclass) => {
+            let superclass_literal = Literal::string(superclass);
+            quote!(Some(Cow::Borrowed(#superclass_literal)))
+        }
+    };
+
+    let tags = generate_class_tags(class);
+    let properties = generate_properties(class);
+    let defaults = generate_default_properties(class);
+
+    quote! {
+        #container.insert(Cow::Borrowed(#class_name_literal), RbxInstanceClass {
+            name: Cow::Borrowed(#class_name_literal),
+            superclass: #superclass_value,
+            tags: #tags,
+            properties: #properties,
+            default_properties: #defaults,
+        });
+    }
+}
+
+fn generate_class_tags(class: &RbxInstanceClass) -> TokenStream {
+    if class.tags.is_empty() {
+        return quote!(RbxInstanceTags::empty());
+    }
+
+    let tags = class.tags
+        .into_iter()
+        .map(|tag| {
+            let tag_name = format!("{:?}", tag);
+            let name_literal = Ident::new(&tag_name, Span::call_site());
+
+            quote!(RbxInstanceTags::#name_literal)
+        });
+
+    quote! {
+        #(#tags)|*
+    }
+}
+
+fn generate_property_tags(tags: &RbxPropertyTags) -> TokenStream {
+    if tags.is_empty() {
+        return quote!(RbxPropertyTags::empty());
+    }
+
+    let tags = tags
+        .into_iter()
+        .map(|tag| {
+            let tag_name = format!("{:?}", tag);
+            let name_literal = Ident::new(&tag_name, Span::call_site());
+
+            quote!(RbxPropertyTags::#name_literal)
+        });
+
+    quote! {
+        #(#tags)|*
     }
 }
 
@@ -77,90 +143,22 @@ fn generate_enums(dump: &Dump) -> TokenStream {
     }
 }
 
-fn emit_class(
-    class: &DumpClass,
-    class_defaults: Option<&HashMap<String, RbxValue>>,
-) -> TokenStream {
-    let class_name_literal = Literal::string(&class.name);
-
-    let superclass_value = if class.superclass == "<<<ROOT>>>" {
-        quote!(None)
-    } else {
-        let superclass_literal = Literal::string(&class.superclass);
-        quote!(Some(Cow::Borrowed(#superclass_literal)))
-    };
-
-    let tags = emit_class_tags(class);
-    let properties = emit_properties(class);
-    let defaults = emit_default_properties(class_defaults);
-
-    quote! {
-        output.insert(Cow::Borrowed(#class_name_literal), RbxInstanceClass {
-            name: Cow::Borrowed(#class_name_literal),
-            superclass: #superclass_value,
-            tags: #tags,
-            properties: #properties,
-            default_properties: #defaults,
-        });
-    }
-}
-
-fn emit_class_tags(class: &DumpClass) -> TokenStream {
-    if class.tags.is_empty() {
-        return quote!(RbxInstanceTags::empty());
-    }
-
-    let tags = class.tags
-        .iter()
-        .map(|tag| {
-            let tag_name = tag.to_shouty_snake_case();
-            let name_literal = Ident::new(&tag_name, Span::call_site());
-
-            quote!(RbxInstanceTags::#name_literal)
-        });
-
-    quote! {
-        #(#tags)|*
-    }
-}
-
-fn emit_property_tags(property: &DumpClassProperty) -> TokenStream {
-    if property.tags.is_empty() {
-        return quote!(RbxPropertyTags::empty());
-    }
-
-    let tags = property.tags
-        .iter()
-        .map(|tag| {
-            let name_literal = Ident::new(&tag.to_shouty_snake_case(), Span::call_site());
-
-            quote!(RbxPropertyTags::#name_literal)
-        });
-
-    quote! {
-        #(#tags)|*
-    }
-}
-
-fn emit_properties(class: &DumpClass) -> TokenStream {
-    let properties: Vec<_> = class.members
-        .iter()
-        .filter_map(|member| match member {
-            DumpClassMember::Property(property) => Some(property),
-            _ => None,
-        })
-        .collect();
-
-    if properties.is_empty() {
+fn generate_properties(class: &RbxInstanceClass) -> TokenStream {
+    if class.properties.is_empty() {
         return quote!(HashMap::new());
     }
 
-    let inserts = properties
-        .iter()
-        .map(|property| {
+    let mut keys: Vec<_> = class.properties.keys().collect();
+    keys.sort();
+
+    let inserts = keys
+        .into_iter()
+        .map(|key| {
+            let property = class.properties.get(key).unwrap();
+
             let member_name = Literal::string(&property.name);
-            let resolved_type = emit_value_type(&property.value_type);
-            let tags = emit_property_tags(property);
+            let resolved_type = emit_property_type(&property.value_type);
+            let tags = generate_property_tags(&property.tags);
 
             quote! {
                 properties.insert(Cow::Borrowed(#member_name), RbxInstanceProperty {
@@ -171,7 +169,7 @@ fn emit_properties(class: &DumpClass) -> TokenStream {
             }
         });
 
-    let len_literal = Literal::usize_unsuffixed(properties.len());
+    let len_literal = Literal::usize_unsuffixed(class.properties.len());
 
     quote!({
         let mut properties = HashMap::with_capacity(#len_literal);
@@ -180,20 +178,15 @@ fn emit_properties(class: &DumpClass) -> TokenStream {
     })
 }
 
-fn emit_default_properties(
-    class_defaults: Option<&HashMap<String, RbxValue>>,
+fn generate_default_properties(
+    class: &RbxInstanceClass,
 ) -> TokenStream {
-    let class_defaults = match class_defaults {
-        Some(value) => value,
-        None => return quote!(HashMap::new()),
-    };
-
-    if class_defaults.is_empty() {
+    if class.default_properties.is_empty() {
         return quote!(HashMap::new());
     }
 
     // Collect and sort keys to make output stable
-    let mut keys: Vec<_> = class_defaults
+    let mut keys: Vec<_> = class.default_properties
         .keys()
         .collect();
 
@@ -202,7 +195,7 @@ fn emit_default_properties(
     let inserts = keys
         .iter()
         .map(|key| {
-            let value = class_defaults.get(key.as_str()).unwrap();
+            let value = class.default_properties.get(*key).unwrap();
 
             let key_literal = Literal::string(&key);
             let value_literal = emit_value(value);
@@ -210,7 +203,7 @@ fn emit_default_properties(
             quote!(defaults.insert(Cow::Borrowed(#key_literal), #value_literal);)
         });
 
-    let len_literal = Literal::usize_unsuffixed(class_defaults.len());
+    let len_literal = Literal::usize_unsuffixed(class.default_properties.len());
 
     quote!({
         let mut defaults = HashMap::with_capacity(#len_literal);

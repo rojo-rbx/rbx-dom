@@ -9,8 +9,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("ABTestService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -567,7 +567,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Animation"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -575,7 +575,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsPlaying"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -583,7 +583,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Length"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -607,7 +607,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Speed"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -623,7 +623,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("WeightCurrent"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -631,7 +631,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("WeightTarget"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -664,8 +664,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("AppStorageService"),
             superclass: Some(Cow::Borrowed("LocalStorageService")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -776,9 +776,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Rotation"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -834,10 +834,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("WorldRotation"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -1094,9 +1094,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("BasePart"),
             superclass: Some(Cow::Borrowed("PVInstance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
-                let mut properties = HashMap::with_capacity(52);
+                let mut properties = HashMap::with_capacity(53);
                 properties.insert(
                     Cow::Borrowed("Anchored"),
                     RbxInstanceProperty {
@@ -1194,11 +1194,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 properties.insert(
+                    Cow::Borrowed("CastShadow"),
+                    RbxInstanceProperty {
+                        name: Cow::Borrowed("CastShadow"),
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::empty(),
+                    },
+                );
+                properties.insert(
                     Cow::Borrowed("CenterOfMass"),
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CenterOfMass"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -1230,9 +1238,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Elasticity"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1240,9 +1248,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Friction"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -1363,8 +1371,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("ReceiveAge"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -1380,7 +1388,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ResizeIncrement"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -1388,7 +1396,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ResizeableFaces"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Faces")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -1460,9 +1468,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SpecificGravity"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -1518,7 +1526,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("brickColor"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -1775,9 +1783,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("BevelMesh"),
             superclass: Some(Cow::Borrowed("DataModelMesh")),
-            tags: RbxInstanceTags::NOT_CREATABLE
+            tags: RbxInstanceTags::DEPRECATED
                 | RbxInstanceTags::NOT_BROWSABLE
-                | RbxInstanceTags::DEPRECATED,
+                | RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -2201,7 +2209,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("angularvelocity"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -2209,7 +2217,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("maxTorque"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -2426,7 +2434,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("force"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -2500,7 +2508,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("cframe"),
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -2508,7 +2516,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("maxTorque"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -2600,7 +2608,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("maxForce"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -2608,7 +2616,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("position"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -2680,7 +2688,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("force"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -2688,7 +2696,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("location"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -2766,7 +2774,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("maxForce"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -2774,7 +2782,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("velocity"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -2948,8 +2956,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("BrowserService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3006,8 +3014,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("CacheableContentProvider"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3049,9 +3057,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CoordinateFrame"),
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -3091,7 +3099,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("NearPlaneZ"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -3099,7 +3107,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ViewportSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -3107,7 +3115,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("focus"),
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -3257,8 +3265,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("Chat"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3435,8 +3443,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("ClusterPacketCache"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -3751,7 +3759,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Active"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -3805,8 +3813,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("ContentProvider"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3814,7 +3822,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("BaseUrl"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -3822,7 +3830,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("RequestQueueSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -3880,8 +3888,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("ControllerService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3920,8 +3928,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("CoreGui"),
             superclass: Some(Cow::Borrowed("BasePlayerGui")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -3937,7 +3945,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Version"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -3965,8 +3973,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("CorePackages"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -3996,8 +4004,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("CoreScriptSyncService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -4010,7 +4018,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(45);
+                let mut defaults = HashMap::with_capacity(46);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -4045,6 +4053,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -4383,7 +4392,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentAngle"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4455,7 +4464,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("WorldRotationAxis"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -4595,7 +4604,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CreatorId"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4603,7 +4612,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CreatorType"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("CreatorType")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4611,7 +4620,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GameId"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4619,7 +4628,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GearGenreSetting"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("GearGenreSetting")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4627,7 +4636,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Genre"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("Genre")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4635,7 +4644,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsSFFlagsLoaded"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4643,7 +4652,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("JobId"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4651,7 +4660,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PlaceId"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4659,7 +4668,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PlaceVersion"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4667,7 +4676,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PrivateServerId"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4675,7 +4684,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PrivateServerOwnerId"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4683,10 +4692,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("VIPServerId"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4694,10 +4703,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("VIPServerOwnerId"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4705,7 +4714,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Workspace"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4713,9 +4722,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("lighting"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4723,9 +4732,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("workspace"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -4738,7 +4747,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("DataModelMesh"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -4786,8 +4795,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("DataStoreService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(2);
                 properties.insert(
@@ -4859,7 +4868,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("DebugSettings"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::SETTINGS | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::SETTINGS,
             properties: {
                 let mut properties = HashMap::with_capacity(20);
                 properties.insert(
@@ -4867,7 +4876,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DataModel"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4883,7 +4892,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GfxCard"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4891,7 +4900,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("InstanceCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4915,7 +4924,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("JobCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4931,7 +4940,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OsIs64Bit"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4939,7 +4948,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OsPlatform"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4947,7 +4956,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OsPlatformId"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4955,7 +4964,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OsVer"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4963,7 +4972,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PlayerCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4979,7 +4988,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("RobloxProductName"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4987,7 +4996,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("RobloxVersion"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -4995,7 +5004,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SIMD"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -5003,7 +5012,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SystemProductName"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -5019,7 +5028,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("VideoMemory"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -5056,7 +5065,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Line"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -5077,7 +5086,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DebuggingEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -5135,7 +5144,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Shiny"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -5143,7 +5152,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Specular"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -5452,7 +5461,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("HostWidgetWasRestored"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -5767,7 +5776,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("FaceInstance"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -5841,10 +5850,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("FileName"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -5852,10 +5861,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("FileSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -5864,8 +5873,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("Size"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -5994,7 +6003,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("size"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -6131,7 +6140,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(47);
+                let mut defaults = HashMap::with_capacity(48);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -6166,6 +6175,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -6553,7 +6563,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("FormFactor"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("FormFactor")),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6561,9 +6571,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("formFactor"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("FormFactor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -6779,7 +6789,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("GameSettings"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::SETTINGS | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::SETTINGS,
             properties: {
                 let mut properties = HashMap::with_capacity(14);
                 properties.insert(
@@ -6827,7 +6837,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CollisionSoundEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6835,7 +6845,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CollisionSoundVolume"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6851,7 +6861,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MaxCollisionSounds"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -6962,7 +6972,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("GlobalSettings"),
             superclass: Some(Cow::Borrowed("GenericSettings")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -7075,8 +7085,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("GroupService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -7105,7 +7115,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("GuiBase2d"),
             superclass: Some(Cow::Borrowed("GuiBase")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(6);
                 properties.insert(
@@ -7113,7 +7123,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AbsolutePosition"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -7121,7 +7131,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AbsoluteRotation"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -7129,7 +7139,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AbsoluteSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -7145,9 +7155,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Localize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7176,9 +7186,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Color"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7215,7 +7225,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("GuiButton"),
             superclass: Some(Cow::Borrowed("GuiObject")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -7284,7 +7294,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 );
                 defaults.insert(
                     Cow::Borrowed("DisplayOrder"),
-                    RbxValue::Float32 { value: 0.0 },
+                    RbxValue::Float32 {
+                        value: 2147483600.0,
+                    },
                 );
                 defaults.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                 defaults.insert(
@@ -7316,7 +7328,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("GuiObject"),
             superclass: Some(Cow::Borrowed("GuiBase2d")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(24);
                 properties.insert(
@@ -7340,9 +7352,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("BackgroundColor"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7366,9 +7378,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("BorderColor"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -7526,8 +7538,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("GuiService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(10);
                 properties.insert(
@@ -7575,9 +7587,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsModalDialog"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -7585,9 +7597,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsWindows"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -7595,7 +7607,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MenuIsOpen"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -7771,8 +7783,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("HapticService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -7872,7 +7884,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentAngle"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -8066,9 +8078,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("Hopper"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::DEPRECATED,
+            tags: RbxInstanceTags::DEPRECATED
+                | RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -8249,7 +8261,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("FloorMaterial"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("Material")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -8315,9 +8327,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("LeftLeg"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8341,7 +8353,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MoveDirection"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -8381,9 +8393,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("RightLeg"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8391,7 +8403,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("RootPart"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -8399,7 +8411,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SeatPart"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -8423,9 +8435,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Torso"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -8465,7 +8477,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("maxHealth"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -9093,7 +9105,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsLoaded"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -9422,7 +9434,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsLoaded"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -9668,9 +9680,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AllowInsertFreeModels"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::NOT_REPLICATED
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_BROWSABLE
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -9696,7 +9708,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("Instance"),
             superclass: None,
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(8);
                 properties.insert(
@@ -9712,7 +9724,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ClassName"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -9720,7 +9732,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DataCost"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -9752,9 +9764,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("archivable"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -9762,9 +9774,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("className"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -9887,7 +9899,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Active"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -9927,9 +9939,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("part1"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -9942,9 +9954,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("JointsService"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::DEPRECATED,
+            tags: RbxInstanceTags::DEPRECATED
+                | RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -10102,8 +10114,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("KeyframeSequenceProvider"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -10122,7 +10134,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("LayerCollector"),
             superclass: Some(Cow::Borrowed("GuiBase2d")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(3);
                 properties.insert(
@@ -10206,7 +10218,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
             properties: {
-                let mut properties = HashMap::with_capacity(16);
+                let mut properties = HashMap::with_capacity(17);
                 properties.insert(
                     Cow::Borrowed("Ambient"),
                     RbxInstanceProperty {
@@ -10316,7 +10328,15 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ShadowColor"),
                         value_type: RbxPropertyType::Data(RbxValueType::Color3),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                    },
+                );
+                properties.insert(
+                    Cow::Borrowed("ShadowSoftness"),
+                    RbxInstanceProperty {
+                        name: Cow::Borrowed("ShadowSoftness"),
+                        value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                        tags: RbxPropertyTags::empty(),
                     },
                 );
                 properties.insert(
@@ -10338,7 +10358,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(16);
+                let mut defaults = HashMap::with_capacity(17);
                 defaults.insert(
                     Cow::Borrowed("Ambient"),
                     RbxValue::Color3 {
@@ -10406,6 +10426,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxValue::Color3 {
                         value: [0.7, 0.7, 0.72],
                     },
+                );
+                defaults.insert(
+                    Cow::Borrowed("ShadowSoftness"),
+                    RbxValue::Float32 { value: 0.5 },
                 );
                 defaults.insert(
                     Cow::Borrowed("TimeOfDay"),
@@ -10612,8 +10636,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("LocalStorageService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -10624,8 +10648,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("LocalizationService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(7);
                 properties.insert(
@@ -10673,7 +10697,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("RobloxLocaleId"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -10681,7 +10705,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SystemLocaleId"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -10723,9 +10747,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DevelopmentLanguage"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10733,9 +10757,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Root"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -10875,7 +10899,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("LuaSourceContainer"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11011,8 +11035,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("MeshContentProvider"),
             superclass: Some(Cow::Borrowed("CacheableContentProvider")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -11047,7 +11071,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MeshID"),
                         value_type: RbxPropertyType::Data(RbxValueType::Content),
-                        tags: RbxPropertyTags::NOT_SCRIPTABLE | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_SCRIPTABLE,
                     },
                 );
                 properties.insert(
@@ -11069,7 +11093,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(47);
+                let mut defaults = HashMap::with_capacity(48);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -11104,6 +11128,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -11287,8 +11312,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("MessagingService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -11547,7 +11572,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Hit"),
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11563,7 +11588,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Origin"),
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11571,7 +11596,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Target"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11587,7 +11612,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TargetSurface"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11595,7 +11620,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("UnitRay"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Ray")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11603,7 +11628,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ViewSizeX"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11611,7 +11636,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ViewSizeY"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11619,7 +11644,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("X"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11627,7 +11652,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Y"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11635,10 +11660,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("hit"),
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -11646,9 +11671,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("target"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -11662,8 +11687,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("MouseService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -11685,7 +11710,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(48);
+                let mut defaults = HashMap::with_capacity(49);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -11720,6 +11745,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: false });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -11864,8 +11890,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("NetworkClient"),
             superclass: Some(Cow::Borrowed("NetworkPeer")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11886,7 +11912,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("NetworkMarker"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11896,7 +11922,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("NetworkPeer"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -11917,8 +11943,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("NetworkServer"),
             superclass: Some(Cow::Borrowed("NetworkPeer")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -11926,7 +11952,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Port"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -11939,7 +11965,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("NetworkSettings"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::SERVICE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(33);
                 properties.insert(
@@ -12004,8 +12030,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("FreeMemoryMBytes"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12236,7 +12262,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsLuaBottomBarEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12244,7 +12270,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsLuaChatEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12252,7 +12278,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsLuaGameDetailsEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12260,7 +12286,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsLuaGamesPageEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12268,7 +12294,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsLuaHomePageEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12397,7 +12423,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("PVInstance"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -12407,7 +12433,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("PackageLink"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(4);
                 properties.insert(
@@ -12423,7 +12449,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PackageId"),
                         value_type: RbxPropertyType::Data(RbxValueType::Content),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12431,7 +12457,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Status"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12453,19 +12479,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("PackageService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
-            default_properties: {
-                let mut defaults = HashMap::with_capacity(1);
-                defaults.insert(
-                    Cow::Borrowed("Name"),
-                    RbxValue::String {
-                        value: String::from("Instance"),
-                    },
-                );
-                defaults
-            },
+            default_properties: HashMap::new(),
         },
     );
     output.insert(
@@ -12481,7 +12498,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsFinished"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -12624,7 +12641,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(47);
+                let mut defaults = HashMap::with_capacity(48);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -12659,6 +12676,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -12840,7 +12858,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TriangleCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -12854,7 +12872,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(48);
+                let mut defaults = HashMap::with_capacity(49);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -12889,6 +12907,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -13203,7 +13222,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("VelocitySpread"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -13285,7 +13304,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Status"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("PathStatus")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -13299,8 +13318,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("PathfindingService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -13308,7 +13327,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("EmptyCutoff"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -13335,8 +13354,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("PhysicsPacketCache"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -13607,7 +13626,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AccountAge"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13615,9 +13634,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AppearanceDidLoad"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13673,7 +13692,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CharacterAppearance"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::NOT_BROWSABLE | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_BROWSABLE,
                     },
                 );
                 properties.insert(
@@ -13689,7 +13708,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ChatMode"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("ChatMode")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13697,9 +13716,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DataComplexity"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13707,7 +13726,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DataComplexityLimit"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -13715,9 +13734,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DataReady"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13785,7 +13804,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("FollowUserId"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13793,7 +13812,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Guest"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13810,8 +13829,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("LocaleId"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13827,7 +13846,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MembershipType"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("MembershipType")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13900,8 +13919,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("Teleported"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -13954,7 +13973,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentScreenOrientation"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("ScreenOrientation")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14011,7 +14030,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("BubbleChat"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14027,7 +14046,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ClassicChat"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14035,7 +14054,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("LocalPlayer"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14043,7 +14062,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MaxPlayers"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14059,9 +14078,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("NumPlayers"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14069,7 +14088,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PreferredPlayers"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14093,10 +14112,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("localPlayer"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14104,10 +14123,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("numPlayers"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -14145,7 +14164,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CollisionEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14153,7 +14172,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GridSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14182,7 +14201,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ActionId"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14190,7 +14209,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AllowBinding"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14198,7 +14217,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("StatusTip"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14206,7 +14225,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Text"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -14236,7 +14255,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Data"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14244,7 +14263,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MimeType"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14252,7 +14271,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Position"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -14260,7 +14279,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Sender"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -14295,8 +14314,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("PluginGuiService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -14454,9 +14473,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("PointsService"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::DEPRECATED,
+            tags: RbxInstanceTags::DEPRECATED
+                | RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -14507,7 +14526,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MaskWeight"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -15284,7 +15303,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("RenderSettings"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::SERVICE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(12);
                 properties.insert(
@@ -15663,9 +15682,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("RobloxReplicatedStorage"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE
+                | RbxInstanceTags::NOT_CREATABLE
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -15832,7 +15851,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentDistance"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -15888,7 +15907,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentDistance"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -16050,8 +16069,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("RunService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16101,8 +16120,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("RuntimeScriptService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -16238,8 +16257,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("ScriptContext"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -16277,7 +16296,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentLine"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -16285,7 +16304,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsDebugging"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -16293,7 +16312,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsPaused"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -16301,7 +16320,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Script"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -16341,7 +16360,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AbsoluteWindowSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -16651,13 +16670,13 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Occupant"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(48);
+                let mut defaults = HashMap::with_capacity(49);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -16692,6 +16711,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -16864,9 +16884,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SurfaceColor"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -17050,9 +17070,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SurfaceColor"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -17123,8 +17143,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("ServerScriptService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -17155,8 +17175,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("ServerStorage"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -17175,7 +17195,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("ServiceProvider"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -17285,7 +17305,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Steer"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -17293,7 +17313,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Throttle"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -17323,7 +17343,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Controller"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -17331,7 +17351,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ControllingHumanoid"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -17361,7 +17381,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(50);
+                let mut defaults = HashMap::with_capacity(51);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -17396,6 +17416,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -17766,7 +17787,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentPosition"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -17976,8 +17997,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("SocialService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -17997,8 +18018,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("SolidModelContentProvider"),
             superclass: Some(Cow::Borrowed("CacheableContentProvider")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -18033,7 +18054,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsLoaded"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -18041,7 +18062,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsPaused"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -18049,7 +18070,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsPlaying"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -18097,7 +18118,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PlaybackLoudness"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float64),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -18145,7 +18166,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TimeLength"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float64),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -18169,9 +18190,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("isPlaying"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -18469,7 +18490,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(51);
+                let mut defaults = HashMap::with_capacity(52);
                 defaults.insert(
                     Cow::Borrowed("AllowTeamChangeOnTouch"),
                     RbxValue::Bool { value: false },
@@ -18508,6 +18529,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -18855,7 +18877,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentLength"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19573,7 +19595,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ContactsCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19581,7 +19603,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DataReceiveKbps"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19589,7 +19611,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("DataSendKbps"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19597,7 +19619,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("HeartbeatTimeMs"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19605,7 +19627,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("InstanceCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19613,7 +19635,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MovingPrimitivesCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19621,7 +19643,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PhysicsReceiveKbps"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19629,7 +19651,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PhysicsSendKbps"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19637,7 +19659,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PhysicsStepTimeMs"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -19645,7 +19667,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PrimitivesCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -19677,7 +19699,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("Status"),
             superclass: Some(Cow::Borrowed("Model")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::DEPRECATED,
+            tags: RbxInstanceTags::DEPRECATED | RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19688,8 +19710,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("StopWatchReporter"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -19735,7 +19757,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("Studio"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::SERVICE | RbxInstanceTags::NOT_REPLICATED,
+            tags: RbxInstanceTags::NOT_REPLICATED | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(74);
                 properties.insert(
@@ -19953,7 +19975,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Enable Intellisense"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20034,8 +20056,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("LuaDebuggerEnabledAtStartup"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -20323,7 +20345,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("UI Theme"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("UITheme")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -20345,8 +20367,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("StudioService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -20354,7 +20376,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ActiveScript"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -20681,7 +20703,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SchedulerDutyCycle"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float64),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -20689,7 +20711,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SchedulerRate"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float64),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -20705,7 +20727,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ThreadPoolSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -20734,7 +20756,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AutoColorCharacters"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20742,7 +20764,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Score"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -20808,7 +20830,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CustomizedTeleportUI"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties
@@ -20842,9 +20864,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsSmooth"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -20862,7 +20884,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed(
                             "Region3int16",
                         )),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -20923,9 +20945,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("IsSmooth"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -20933,7 +20955,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("SizeInCells"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector3),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -20979,7 +21001,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("ErrorCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21035,7 +21057,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TestCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21051,7 +21073,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("WarnCount"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -21113,7 +21135,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             superclass: Some(Cow::Borrowed("GuiObject")),
             tags: RbxInstanceTags::empty(),
             properties: {
-                let mut properties = HashMap::with_capacity(26);
+                let mut properties = HashMap::with_capacity(27);
                 properties.insert(
                     Cow::Borrowed("ClearTextOnFocus"),
                     RbxInstanceProperty {
@@ -21143,7 +21165,15 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("FontSize"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("FontSize")),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                    },
+                );
+                properties.insert(
+                    Cow::Borrowed("IsPassword"),
+                    RbxInstanceProperty {
+                        name: Cow::Borrowed("IsPassword"),
+                        value_type: RbxPropertyType::Data(RbxValueType::Bool),
+                        tags: RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21215,7 +21245,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextBounds"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21223,9 +21253,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextColor"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21241,7 +21271,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextFits"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21297,7 +21327,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextWrap"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21327,7 +21357,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(49);
+                let mut defaults = HashMap::with_capacity(50);
                 defaults.insert(
                     Cow::Borrowed("AbsoluteRotation"),
                     RbxValue::Float32 { value: 0.0 },
@@ -21372,6 +21402,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 defaults.insert(Cow::Borrowed("Draggable"), RbxValue::Bool { value: false });
                 defaults.insert(Cow::Borrowed("Font"), RbxValue::Enum { value: 0 });
                 defaults.insert(Cow::Borrowed("FontSize"), RbxValue::Enum { value: 0 });
+                defaults.insert(Cow::Borrowed("IsPassword"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("LayoutOrder"),
                     RbxValue::Float32 { value: 0.0 },
@@ -21518,7 +21549,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("FontSize"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("FontSize")),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21535,8 +21566,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("LocalizedText"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21552,7 +21583,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextBounds"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21560,9 +21591,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextColor"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21578,7 +21609,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextFits"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21634,7 +21665,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextWrap"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21849,7 +21880,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("FontSize"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("FontSize")),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21866,8 +21897,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("LocalizedText"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21883,7 +21914,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextBounds"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21891,9 +21922,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextColor"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("BrickColor")),
-                        tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED
+                            | RbxPropertyTags::HIDDEN
+                            | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -21909,7 +21940,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextFits"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -21965,7 +21996,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TextWrap"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::DEPRECATED,
+                        tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                     },
                 );
                 properties.insert(
@@ -22148,8 +22179,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("TextService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -22234,8 +22265,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("ThirdPartyUserService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -22499,7 +22530,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("TouchTransmitter"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -22685,7 +22716,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("LocaleId"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -22763,7 +22794,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(46);
+                let mut defaults = HashMap::with_capacity(47);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -22798,6 +22829,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -22941,7 +22973,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Instance"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -22949,7 +22981,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TweenInfo"),
                         value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("TweenInfo")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -22972,7 +23004,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("TweenBase"),
             superclass: Some(Cow::Borrowed("Instance")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(1);
                 properties.insert(
@@ -22980,7 +23012,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("PlaybackState"),
                         value_type: RbxPropertyType::Enum(Cow::Borrowed("PlaybackState")),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -23179,7 +23211,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
         RbxInstanceClass {
             name: Cow::Borrowed("UIGridStyleLayout"),
             superclass: Some(Cow::Borrowed("UILayout")),
-            tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_BROWSABLE,
+            tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
             properties: {
                 let mut properties = HashMap::with_capacity(5);
                 properties.insert(
@@ -23187,7 +23219,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AbsoluteContentSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -23381,7 +23413,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("CurrentPage"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -23706,7 +23738,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(48);
+                let mut defaults = HashMap::with_capacity(49);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -23741,6 +23773,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -23975,8 +24008,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("IsUsingCameraYInverted"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -23985,8 +24018,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("IsUsingGamepadCameraSensitivity"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24011,8 +24044,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("MicroProfilerWebServerIP"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24021,8 +24054,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         name: Cow::Borrowed("MicroProfilerWebServerPort"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
                         tags: RbxPropertyTags::HIDDEN
-                            | RbxPropertyTags::READ_ONLY
-                            | RbxPropertyTags::NOT_REPLICATED,
+                            | RbxPropertyTags::NOT_REPLICATED
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24196,8 +24229,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("UserInputService"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: {
                 let mut properties = HashMap::with_capacity(23);
                 properties.insert(
@@ -24205,7 +24238,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AccelerometerEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24213,7 +24246,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("BottomBarSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24221,7 +24254,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GamepadEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24237,7 +24270,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("GyroscopeEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24245,7 +24278,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("KeyboardEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24285,7 +24318,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("MouseEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24301,7 +24334,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("NavBarSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24309,7 +24342,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OnScreenKeyboardAnimationDuration"),
                         value_type: RbxPropertyType::Data(RbxValueType::Float64),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24317,7 +24350,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OnScreenKeyboardPosition"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24325,7 +24358,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OnScreenKeyboardSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24333,7 +24366,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("OnScreenKeyboardVisible"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24351,7 +24384,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("RightBarSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24359,7 +24392,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("StatusBarSize"),
                         value_type: RbxPropertyType::Data(RbxValueType::Vector2),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24367,7 +24400,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("TouchEnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24375,9 +24408,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("UserHeadCFrame"),
                         value_type: RbxPropertyType::Data(RbxValueType::CFrame),
-                        tags: RbxPropertyTags::READ_ONLY
+                        tags: RbxPropertyTags::DEPRECATED
                             | RbxPropertyTags::NOT_REPLICATED
-                            | RbxPropertyTags::DEPRECATED,
+                            | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24385,7 +24418,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("VREnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -24456,8 +24489,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("UserStorageService"),
             superclass: Some(Cow::Borrowed("LocalStorageService")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
         },
@@ -24483,7 +24516,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("VRDeviceName"),
                         value_type: RbxPropertyType::Data(RbxValueType::String),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24491,7 +24524,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("VREnabled"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties
@@ -24648,7 +24681,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("AreHingesDetected"),
                         value_type: RbxPropertyType::Data(RbxValueType::Int32),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24680,7 +24713,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Occupant"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -24734,7 +24767,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 properties
             },
             default_properties: {
-                let mut defaults = HashMap::with_capacity(54);
+                let mut defaults = HashMap::with_capacity(55);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -24769,6 +24802,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -25187,8 +25221,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("VirtualUser"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -25208,8 +25242,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             name: Cow::Borrowed("Visit"),
             superclass: Some(Cow::Borrowed("Instance")),
             tags: RbxInstanceTags::NOT_CREATABLE
-                | RbxInstanceTags::SERVICE
-                | RbxInstanceTags::NOT_REPLICATED,
+                | RbxInstanceTags::NOT_REPLICATED
+                | RbxInstanceTags::SERVICE,
             properties: HashMap::new(),
             default_properties: {
                 let mut defaults = HashMap::with_capacity(1);
@@ -25231,7 +25265,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             tags: RbxInstanceTags::empty(),
             properties: HashMap::new(),
             default_properties: {
-                let mut defaults = HashMap::with_capacity(46);
+                let mut defaults = HashMap::with_capacity(47);
                 defaults.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                 defaults.insert(
                     Cow::Borrowed("BackParamA"),
@@ -25266,6 +25300,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     },
                 );
                 defaults.insert(Cow::Borrowed("CanCollide"), RbxValue::Bool { value: true });
+                defaults.insert(Cow::Borrowed("CastShadow"), RbxValue::Bool { value: true });
                 defaults.insert(
                     Cow::Borrowed("CollisionGroupId"),
                     RbxValue::Float32 { value: 0.0 },
@@ -25442,7 +25477,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Active"),
                         value_type: RbxPropertyType::Data(RbxValueType::Bool),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties.insert(
@@ -25588,7 +25623,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     RbxInstanceProperty {
                         name: Cow::Borrowed("Terrain"),
                         value_type: RbxPropertyType::Data(RbxValueType::Ref),
-                        tags: RbxPropertyTags::READ_ONLY | RbxPropertyTags::NOT_REPLICATED,
+                        tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     },
                 );
                 properties

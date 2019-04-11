@@ -2601,7 +2601,7 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
         RbxEnum {
             name: Cow::Borrowed("StudioStyleGuideColor"),
             items: {
-                let mut items = HashMap::with_capacity(84);
+                let mut items = HashMap::with_capacity(89);
                 items.insert(Cow::Borrowed("MainBackground"), 0);
                 items.insert(Cow::Borrowed("Titlebar"), 1);
                 items.insert(Cow::Borrowed("Dropdown"), 2);
@@ -2686,6 +2686,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("HeaderSection"), 81);
                 items.insert(Cow::Borrowed("Midlight"), 82);
                 items.insert(Cow::Borrowed("StatusBar"), 83);
+                items.insert(Cow::Borrowed("DialogButton"), 84);
+                items.insert(Cow::Borrowed("DialogButtonText"), 85);
+                items.insert(Cow::Borrowed("DialogButtonBorder"), 86);
+                items.insert(Cow::Borrowed("DialogMainButton"), 87);
+                items.insert(Cow::Borrowed("DialogMainButtonText"), 88);
                 items
             },
         },
@@ -2784,10 +2789,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
         RbxEnum {
             name: Cow::Borrowed("Technology"),
             items: {
-                let mut items = HashMap::with_capacity(3);
+                let mut items = HashMap::with_capacity(4);
                 items.insert(Cow::Borrowed("Legacy"), 0);
                 items.insert(Cow::Borrowed("Voxel"), 1);
                 items.insert(Cow::Borrowed("Compatibility"), 2);
+                items.insert(Cow::Borrowed("ShadowMap"), 3);
                 items
             },
         },

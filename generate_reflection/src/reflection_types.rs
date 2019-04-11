@@ -29,7 +29,7 @@ impl RbxInstanceTags {
                 }
             };
 
-            tags &= converted;
+            tags |= converted;
         }
 
         tags
@@ -54,7 +54,7 @@ impl RbxPropertyTags {
                 }
             };
 
-            tags &= converted;
+            tags |= converted;
         }
 
         tags
