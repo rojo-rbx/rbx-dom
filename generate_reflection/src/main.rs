@@ -1,7 +1,7 @@
 #![recursion_limit="128"]
 
 mod api_dump;
-mod canonical_properties;
+mod property_patches;
 mod database;
 mod emitter_lua;
 mod emitter_rust;
@@ -26,7 +26,7 @@ use crate::{
     run_in_roblox::{inject_plugin_main, run_in_roblox},
     api_dump::{Dump, DumpClassMember},
     database::ReflectionDatabase,
-    canonical_properties::get_canonical_properties,
+    property_patches::get_property_patches,
     reflection_types::{RbxInstanceClass, RbxInstanceTags},
 };
 
@@ -48,7 +48,7 @@ enum PluginMessage {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let (dump_source, dump) = Dump::read_with_source()?;
-    let canonical_properties = get_canonical_properties();
+    let property_patches = get_property_patches();
 
     let mut classes = HashMap::new();
 
