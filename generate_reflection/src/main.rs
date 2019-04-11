@@ -157,9 +157,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let lua_output_dir = {
         let mut lua_output_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         lua_output_dir.pop();
-        lua_output_dir.push("rbx_dom_lua");
-        lua_output_dir.push("src");
-        lua_output_dir.push("ReflectionDatabase");
+        lua_output_dir.push("rbx_dom_lua/src/ReflectionDatabase");
         lua_output_dir
     };
 
@@ -187,7 +185,12 @@ fn main() -> Result<(), Box<dyn Error>> {
         version_file.flush()?;
     }
 
-    emitter_lua::emit(&database, &lua_output_dir)?;
+    {
+        let classes_path = lua_output_dir.join("classes.lua");
+        let mut classes_file = BufWriter::new(File::create(classes_path)?);
+        emitter_lua::emit_classes(&mut classes_file, &database)?;
+        classes_file.flush()?;
+    }
 
     Ok(())
 }

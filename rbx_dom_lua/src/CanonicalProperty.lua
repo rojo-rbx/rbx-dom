@@ -51,7 +51,7 @@ local function findCanonicalGetterSetter(className, propertyName)
 			end
 		end
 
-		local classDetails = ReflectionDatabase.dump.classes[className]
+		local classDetails = ReflectionDatabase.classes[className]
 
 		if classDetails == nil then
 			return nil
@@ -64,7 +64,7 @@ end
 local CanonicalProperty = {}
 
 function CanonicalProperty.isScriptable(className, propertyName)
-	local classDetails = ReflectionDatabase.dump.classes[className]
+	local classDetails = ReflectionDatabase.classes[className]
 
 	if classDetails == nil then
 		return true

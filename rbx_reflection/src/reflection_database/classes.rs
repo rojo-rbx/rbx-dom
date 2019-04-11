@@ -7294,9 +7294,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 );
                 defaults.insert(
                     Cow::Borrowed("DisplayOrder"),
-                    RbxValue::Float32 {
-                        value: 2147483600.0,
-                    },
+                    RbxValue::Float32 { value: 0.0 },
                 );
                 defaults.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                 defaults.insert(

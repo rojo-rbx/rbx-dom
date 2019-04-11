@@ -57,7 +57,7 @@ local function readInstance(instance, selectionMode)
 	local ignoreUnserializable = selectionMode.ignoreUnserializable
 
 	local className = instance.ClassName
-	local reflectionEntry = ReflectionDatabase.dump.classes[className]
+	local reflectionEntry = ReflectionDatabase.classes[className]
 	local output = {}
 
 	while reflectionEntry ~= nil do
@@ -83,7 +83,7 @@ local function readInstance(instance, selectionMode)
 				end
 
 				if not skip and ignoreDefaults then
-					local defaultInstance = ReflectionDatabase.dump.defaults[className]
+					local defaultInstance = ReflectionDatabase.defaults[className]
 					if defaultInstance ~= nil then
 						local defaultValue = defaultInstance[key]
 						if equalish(value, defaultValue) then
@@ -105,7 +105,7 @@ local function readInstance(instance, selectionMode)
 			break
 		end
 
-		reflectionEntry = ReflectionDatabase.dump.classes[superclass]
+		reflectionEntry = ReflectionDatabase.classes[superclass]
 	end
 
 	return output
