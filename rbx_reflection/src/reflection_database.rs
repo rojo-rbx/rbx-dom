@@ -8,7 +8,7 @@ mod classes;
 mod enums;
 mod version;
 
-pub use version::*;
+pub use self::version::*;
 
 lazy_static! {
     static ref CLASSES: HashMap<Cow<'static, str>, RbxInstanceClass> =
