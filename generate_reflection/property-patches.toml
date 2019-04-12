@@ -15,17 +15,19 @@ serialized_name = "size"
 
 [BasePart.size]
 canonical_name = "Size"
+type = { Data = "Vector3" }
 
-[BasePart.Shape]
+[Part.Shape]
 serialized_name = "shape"
 
-[BasePart.shape]
+[Part.shape]
 canonical_name = "Shape"
+type = { Enum = "PartType" }
 
-[BasePart.FormFactor]
+[FormFactorPart.FormFactor]
 serialized_name = "formFactorRaw"
 
-[BasePart.formFactorRaw]
+[FormFactorPart.formFactorRaw]
 canonical_name = "FormFactor"
 type = { Enum = "FormFactor" }
 
@@ -34,14 +36,12 @@ serialized_name = "MaxPlayersInternal"
 
 [Players.MaxPlayersInternal]
 canonical_name = "MaxPlayers"
-type = { Data = "Int32" }
 
 [Players.PreferredPlayers]
 serialized_name = "PreferredPlayersInternal"
 
 [Players.PreferredPlayersInternal]
 canonical_name = "PreferredPlayers"
-type = { Data = "Int32" }
 
 [Fire.Size]
 serialized_name = "size_xml"

@@ -67,6 +67,10 @@ impl<'a> From<&'a DumpClassProperty> for RbxInstanceProperty {
             name: Cow::Owned(dump_property.name.clone()),
             value_type: RbxPropertyType::from(&dump_property.value_type),
             tags: RbxPropertyTags::from_dump_tags(&dump_property.tags),
+
+            is_canonical: true,
+            canonical_name: None,
+            serialized_name: None,
         }
     }
 }

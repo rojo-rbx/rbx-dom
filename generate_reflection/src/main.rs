@@ -27,7 +27,7 @@ use crate::{
     api_dump::{Dump, DumpClassMember},
     database::ReflectionDatabase,
     property_patches::get_property_patches,
-    reflection_types::{RbxInstanceClass, RbxInstanceTags},
+    reflection_types::{RbxInstanceClass, RbxInstanceProperty, RbxPropertyTags, RbxInstanceTags},
 };
 
 static PLUGIN_MAIN: &str = include_str!("../plugin/main.lua");
@@ -77,10 +77,6 @@ fn main() -> Result<(), Box<dyn Error>> {
             tags,
             properties,
             default_properties: HashMap::new(),
-
-            is_canonical: true,
-            canonical_name: None,
-            serialized_name: None,
         };
 
         classes.insert(Cow::Owned(dump_class.name.clone()), class);
@@ -96,9 +92,43 @@ fn main() -> Result<(), Box<dyn Error>> {
             match class.properties.get_mut(property_name.as_str()) {
                 Some(existing_property) => {
                     println!("Modified property: {}.{}", class_name, property_name);
+
+                    if let Some(is_canonical) = property_patch.is_canonical {
+                        existing_property.is_canonical = is_canonical;
+                    }
+
+                    if let Some(canonical_name) = &property_patch.canonical_name {
+                        existing_property.canonical_name = Some(canonical_name.clone());
+                    }
+
+                    if let Some(serialized_name) = &property_patch.serialized_name {
+                        existing_property.serialized_name = Some(serialized_name.clone());
+                    }
                 }
                 None => {
                     println!("New property: {}.{}", class_name, property_name);
+
+                    let name = Cow::Owned(property_name.clone());
+                    let value_type = property_patch.property_type.clone()
+                        .unwrap_or_else(|| panic!("Property {}.{} was added but missing 'type'", class_name, property_name));
+
+                    let is_canonical = property_patch.is_canonical
+                        .unwrap_or(property_patch.canonical_name.is_none());
+
+                    let canonical_name = property_patch.canonical_name.clone();
+                    let serialized_name = property_patch.serialized_name.clone();
+
+                    let property = RbxInstanceProperty {
+                        name,
+                        value_type,
+                        is_canonical,
+                        canonical_name,
+                        serialized_name,
+
+                        tags: RbxPropertyTags::empty(),
+                    };
+
+                    class.properties.insert(Cow::Owned(property_name.clone()), property);
                 }
             }
         }

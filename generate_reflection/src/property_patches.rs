@@ -1,4 +1,7 @@
-use std::collections::HashMap;
+use std::{
+    borrow::Cow,
+    collections::HashMap,
+};
 
 use serde_derive::Deserialize;
 
@@ -20,12 +23,12 @@ pub fn get_property_patches() -> &'static PropertyPatchDatabase {
 
 #[derive(Debug, Deserialize)]
 pub struct CanonicalProperty {
-    is_canonical: Option<bool>,
+    pub is_canonical: Option<bool>,
     #[serde(rename = "type")]
-    property_type: Option<RbxPropertyType>,
-    serialized_name: Option<String>,
-    canonical_name: Option<String>,
-    scriptability: Option<Scriptability>,
+    pub property_type: Option<RbxPropertyType>,
+    pub serialized_name: Option<Cow<'static, str>>,
+    pub canonical_name: Option<Cow<'static, str>>,
+    pub scriptability: Option<Scriptability>,
 }
 
 #[derive(Debug, Deserialize)]

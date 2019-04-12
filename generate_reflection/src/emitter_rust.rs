@@ -114,9 +114,6 @@ impl AsRust for RbxInstanceClass {
         let tags = self.tags.as_rust();
         let properties = self.properties.as_rust();
         let defaults = self.default_properties.as_rust();
-        let is_canonical = self.is_canonical.as_rust();
-        let canonical_name = self.canonical_name.as_rust();
-        let serialized_name = self.serialized_name.as_rust();
 
         quote!(RbxInstanceClass {
             name: #class_name,
@@ -124,9 +121,6 @@ impl AsRust for RbxInstanceClass {
             tags: #tags,
             properties: #properties,
             default_properties: #defaults,
-            is_canonical: #is_canonical,
-            canonical_name: #canonical_name,
-            serialized_name: #serialized_name,
         })
     }
 }
@@ -136,11 +130,17 @@ impl AsRust for RbxInstanceProperty {
         let member_name = self.name.as_rust();
         let resolved_type = self.value_type.as_rust();
         let tags = self.tags.as_rust();
+        let is_canonical = self.is_canonical.as_rust();
+        let canonical_name = self.canonical_name.as_rust();
+        let serialized_name = self.serialized_name.as_rust();
 
         quote!(RbxInstanceProperty {
             name: #member_name,
             value_type: #resolved_type,
             tags: #tags,
+            is_canonical: #is_canonical,
+            canonical_name: #canonical_name,
+            serialized_name: #serialized_name,
         })
     }
 }
