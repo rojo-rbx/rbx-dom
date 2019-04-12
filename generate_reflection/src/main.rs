@@ -182,8 +182,20 @@ fn main() -> Result<(), Box<dyn Error>> {
                 };
             }
 
-            if property_name.chars().next().unwrap().is_lowercase() && property.is_canonical {
-                println!("Property {}.{} doesn't look canonical", class_name, property_name);
+            if property.is_canonical {
+                let mut probably_mistake = false;
+
+                if property_name.chars().next().unwrap().is_lowercase() {
+                    probably_mistake = true;
+                }
+
+                if  property_name.ends_with("_xml") {
+                    probably_mistake = true;
+                }
+
+                if probably_mistake {
+                    println!("Property {}.{} doesn't look canonical", class_name, property_name);
+                }
             }
         }
     }
