@@ -1,14 +1,14 @@
 [Instance.Tags]
 scriptability = "Custom"
-type = { type = "Data", name = "BinaryString" }
+type = { Data = "BinaryString" }
 
 [LocalizationTable.Contents]
 scriptability = "Custom"
-type = { type = "Data", name = "String" }
+type = { Data = "String" }
 
 [BasePart.CollisionGroups]
 scriptability = "Custom"
-type = { type = "Data", name = "String" }
+type = { Data = "String" }
 
 [BasePart.Size]
 serialized_name = "size"
@@ -27,21 +27,21 @@ serialized_name = "formFactorRaw"
 
 [BasePart.formFactorRaw]
 canonical_name = "FormFactor"
-type = { type = "Enum", name = "FormFactor" }
+type = { Enum = "FormFactor" }
 
 [Players.MaxPlayers]
 serialized_name = "MaxPlayersInternal"
 
 [Players.MaxPlayersInternal]
 canonical_name = "MaxPlayers"
-type = { type = "Data", name = "Int32" }
+type = { Data = "Int32" }
 
 [Players.PreferredPlayers]
 serialized_name = "PreferredPlayersInternal"
 
 [Players.PreferredPlayersInternal]
 canonical_name = "PreferredPlayers"
-type = { type = "Data", name = "Int32" }
+type = { Data = "Int32" }
 
 [Fire.Size]
 serialized_name = "size_xml"
@@ -51,32 +51,32 @@ canonical_name = "Size"
 
 [Fire.size_xml]
 canonical_name = "Size"
-type = { type = "Data", name = "Float32" }
+type = { Data = "Float32" }
 
 [Fire.Heat]
 serialized_name = "heat_xml"
 
 [Fire.heat_xml]
 canonical_name = "Heat"
-type = { type = "Data", name = "Float32" }
+type = { Data = "Float32" }
 
 [Smoke.Opacity]
 serialized_name = "opacity_xml"
 
 [Smoke.opacity_xml]
 canonical_name = "Opacity"
-type = { type = "Data", name = "Float32" }
+type = { Data = "Float32" }
 
 [Smoke.Size]
 serialized_name = "size_xml"
 
 [Smoke.size_xml]
 canonical_name = "Size"
-type = { type = "Data", name = "Float32" }
+type = { Data = "Float32" }
 
 [Smoke.RiseVelocity]
 serialized_name = "riseVelocity_xml"
 
 [Smoke.riseVelocity_xml]
 canonical_name = "RiseVelocity"
-type = { type = "Data", name = "Float32" }
+type = { Data = "Float32" }

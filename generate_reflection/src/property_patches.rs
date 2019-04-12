@@ -2,6 +2,8 @@ use std::collections::HashMap;
 
 use serde_derive::Deserialize;
 
+use crate::reflection_types::RbxPropertyType;
+
 lazy_static::lazy_static! {
     static ref PROPERTY_PATCHES: PropertyPatchDatabase = {
         let source = include_str!("../property-patches.toml");
@@ -16,13 +18,11 @@ pub fn get_property_patches() -> &'static PropertyPatchDatabase {
     &PROPERTY_PATCHES
 }
 
-const fn nope() -> bool { false }
-
 #[derive(Debug, Deserialize)]
 pub struct CanonicalProperty {
-    #[serde(default = "nope")]
-    is_canonical: bool,
-
+    is_canonical: Option<bool>,
+    #[serde(rename = "type")]
+    property_type: Option<RbxPropertyType>,
     serialized_name: Option<String>,
     canonical_name: Option<String>,
     scriptability: Option<Scriptability>,
