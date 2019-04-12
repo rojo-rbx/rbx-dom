@@ -11,7 +11,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     api_dump::{Dump, DumpEnum},
-    reflection_types::{RbxInstanceClass, RbxPropertyType, RbxPropertyTags},
+    reflection_types::{RbxInstanceClass, RbxInstanceProperty, RbxPropertyType, RbxPropertyTags},
     database::ReflectionDatabase,
 };
 
@@ -74,7 +74,7 @@ fn generate_class(container: &Ident, class: &RbxInstanceClass) -> TokenStream {
     };
 
     let tags = generate_class_tags(class);
-    let properties = generate_properties(class);
+    let properties = class.properties.as_rust();
     let defaults = class.default_properties.as_rust();
 
     let is_canonical = class.is_canonical.as_rust();
@@ -114,25 +114,6 @@ fn generate_class_tags(class: &RbxInstanceClass) -> TokenStream {
     }
 }
 
-fn generate_property_tags(tags: &RbxPropertyTags) -> TokenStream {
-    if tags.is_empty() {
-        return quote!(RbxPropertyTags::empty());
-    }
-
-    let tags = tags
-        .into_iter()
-        .map(|tag| {
-            let tag_name = format!("{:?}", tag);
-            let name_literal = Ident::new(&tag_name, Span::call_site());
-
-            quote!(RbxPropertyTags::#name_literal)
-        });
-
-    quote! {
-        #(#tags)|*
-    }
-}
-
 fn generate_enums(dump: &Dump) -> TokenStream {
     let enum_len_literal = Literal::usize_unsuffixed(dump.enums.len());
     let enums = dump.enums.iter().map(emit_enum);
@@ -150,41 +131,6 @@ fn generate_enums(dump: &Dump) -> TokenStream {
             output
         }
     }
-}
-
-fn generate_properties(class: &RbxInstanceClass) -> TokenStream {
-    if class.properties.is_empty() {
-        return quote!(HashMap::new());
-    }
-
-    let mut keys: Vec<_> = class.properties.keys().collect();
-    keys.sort();
-
-    let inserts = keys
-        .into_iter()
-        .map(|key| {
-            let property = class.properties.get(key).unwrap();
-
-            let member_name = property.name.as_rust();
-            let resolved_type = property.value_type.as_rust();
-            let tags = generate_property_tags(&property.tags);
-
-            quote! {
-                properties.insert(#member_name, RbxInstanceProperty {
-                    name: #member_name,
-                    value_type: #resolved_type,
-                    tags: #tags,
-                });
-            }
-        });
-
-    let len_literal = Literal::usize_unsuffixed(class.properties.len());
-
-    quote!({
-        let mut properties = HashMap::with_capacity(#len_literal);
-        #(#inserts)*
-        properties
-    })
 }
 
 fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
@@ -216,6 +162,41 @@ fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
 /// value.
 trait AsRust {
     fn as_rust(&self) -> TokenStream;
+}
+
+impl AsRust for RbxInstanceProperty {
+    fn as_rust(&self) -> TokenStream {
+        let member_name = self.name.as_rust();
+        let resolved_type = self.value_type.as_rust();
+        let tags = self.tags.as_rust();
+
+        quote!(RbxInstanceProperty {
+            name: #member_name,
+            value_type: #resolved_type,
+            tags: #tags,
+        })
+    }
+}
+
+impl AsRust for RbxPropertyTags {
+    fn as_rust(&self) -> TokenStream {
+        if self.is_empty() {
+            return quote!(RbxPropertyTags::empty());
+        }
+
+        let tags = self
+            .into_iter()
+            .map(|tag| {
+                let tag_name = format!("{:?}", tag);
+                let name_literal = Ident::new(&tag_name, Span::call_site());
+
+                quote!(RbxPropertyTags::#name_literal)
+            });
+
+        quote! {
+            #(#tags)|*
+        }
+    }
 }
 
 impl AsRust for RbxValue {
