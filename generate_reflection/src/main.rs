@@ -50,7 +50,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let (dump_source, dump) = Dump::read_with_source()?;
     let property_patches = get_property_patches();
 
-    let mut classes = HashMap::new();
+    let mut classes: HashMap<Cow<'static, str>, RbxInstanceClass> = HashMap::new();
 
     for dump_class in &dump.classes {
         let superclass = if dump_class.superclass == "<<<ROOT>>>" {
@@ -84,7 +84,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             serialized_name: None,
         };
 
-        classes.insert(dump_class.name.clone(), class);
+        classes.insert(Cow::Owned(dump_class.name.clone()), class);
     }
 
     let plugin = {
@@ -128,7 +128,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 studio_version = version;
             }
             PluginMessage::DefaultProperties { class_name, properties } => {
-                if let Some(class) = classes.get_mut(&class_name) {
+                if let Some(class) = classes.get_mut(class_name.as_str()) {
                     mem::replace(&mut class.default_properties, properties);
                 }
             }
@@ -138,7 +138,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let database = ReflectionDatabase {
         dump,
         studio_version,
-
         classes,
     };
 

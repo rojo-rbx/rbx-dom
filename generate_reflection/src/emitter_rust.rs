@@ -11,7 +11,13 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     api_dump::{Dump, DumpEnum},
-    reflection_types::{RbxInstanceClass, RbxInstanceProperty, RbxPropertyType, RbxPropertyTags},
+    reflection_types::{
+        RbxInstanceClass,
+        RbxInstanceProperty,
+        RbxInstanceTags,
+        RbxPropertyType,
+        RbxPropertyTags,
+    },
     database::ReflectionDatabase,
 };
 
@@ -34,17 +40,8 @@ pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
     Ok(())
 }
 
-fn generate_classes(classes: &HashMap<String, RbxInstanceClass>) -> TokenStream {
-    let class_len_literal = Literal::usize_unsuffixed(classes.len());
-
-    let mut keys: Vec<_> = classes.keys().collect();
-    keys.sort();
-
-    let container_name = Ident::new("output", Span::call_site());
-
-    let classes = keys
-        .iter()
-        .map(|key| generate_class(&container_name, classes.get(key.as_str()).unwrap()));
+fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxInstanceClass>) -> TokenStream {
+    let classes_literal = classes.as_rust();
 
     quote! {
         use std::{
@@ -55,62 +52,8 @@ fn generate_classes(classes: &HashMap<String, RbxInstanceClass>) -> TokenStream 
         use crate::reflection_types::*;
 
         pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
-            let mut #container_name = HashMap::with_capacity(#class_len_literal);
-            #(#classes)*
-            #container_name
+            #classes_literal
         }
-    }
-}
-
-fn generate_class(container: &Ident, class: &RbxInstanceClass) -> TokenStream {
-    let class_name_literal = Literal::string(&class.name);
-
-    let superclass_value = match &class.superclass {
-        None => quote!(None),
-        Some(superclass) => {
-            let superclass_literal = Literal::string(superclass);
-            quote!(Some(Cow::Borrowed(#superclass_literal)))
-        }
-    };
-
-    let tags = generate_class_tags(class);
-    let properties = class.properties.as_rust();
-    let defaults = class.default_properties.as_rust();
-
-    let is_canonical = class.is_canonical.as_rust();
-    let canonical_name = class.canonical_name.as_rust();
-    let serialized_name = class.serialized_name.as_rust();
-
-    quote! {
-        #container.insert(Cow::Borrowed(#class_name_literal), RbxInstanceClass {
-            name: Cow::Borrowed(#class_name_literal),
-            superclass: #superclass_value,
-            tags: #tags,
-            properties: #properties,
-            default_properties: #defaults,
-            is_canonical: #is_canonical,
-            canonical_name: #canonical_name,
-            serialized_name: #serialized_name,
-        });
-    }
-}
-
-fn generate_class_tags(class: &RbxInstanceClass) -> TokenStream {
-    if class.tags.is_empty() {
-        return quote!(RbxInstanceTags::empty());
-    }
-
-    let tags = class.tags
-        .into_iter()
-        .map(|tag| {
-            let tag_name = format!("{:?}", tag);
-            let name_literal = Ident::new(&tag_name, Span::call_site());
-
-            quote!(RbxInstanceTags::#name_literal)
-        });
-
-    quote! {
-        #(#tags)|*
     }
 }
 
@@ -164,6 +107,30 @@ trait AsRust {
     fn as_rust(&self) -> TokenStream;
 }
 
+impl AsRust for RbxInstanceClass {
+    fn as_rust(&self) -> TokenStream {
+        let class_name = self.name.as_rust();
+        let superclass = self.superclass.as_rust();
+        let tags = self.tags.as_rust();
+        let properties = self.properties.as_rust();
+        let defaults = self.default_properties.as_rust();
+        let is_canonical = self.is_canonical.as_rust();
+        let canonical_name = self.canonical_name.as_rust();
+        let serialized_name = self.serialized_name.as_rust();
+
+        quote!(RbxInstanceClass {
+            name: #class_name,
+            superclass: #superclass,
+            tags: #tags,
+            properties: #properties,
+            default_properties: #defaults,
+            is_canonical: #is_canonical,
+            canonical_name: #canonical_name,
+            serialized_name: #serialized_name,
+        })
+    }
+}
+
 impl AsRust for RbxInstanceProperty {
     fn as_rust(&self) -> TokenStream {
         let member_name = self.name.as_rust();
@@ -175,6 +142,27 @@ impl AsRust for RbxInstanceProperty {
             value_type: #resolved_type,
             tags: #tags,
         })
+    }
+}
+
+impl AsRust for RbxInstanceTags {
+    fn as_rust(&self) -> TokenStream {
+        if self.is_empty() {
+            return quote!(RbxInstanceTags::empty());
+        }
+
+        let tags = self
+            .into_iter()
+            .map(|tag| {
+                let tag_name = format!("{:?}", tag);
+                let name_literal = Ident::new(&tag_name, Span::call_site());
+
+                quote!(RbxInstanceTags::#name_literal)
+            });
+
+        quote! {
+            #(#tags)|*
+        }
     }
 }
 
