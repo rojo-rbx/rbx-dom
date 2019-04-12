@@ -5,6 +5,7 @@ use std::{borrow::Cow, collections::HashMap};
 
 use bitflags::bitflags;
 use rbx_dom_weak::{RbxValue, RbxValueType};
+use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq)]
 pub struct RbxInstanceClass {
@@ -32,7 +33,7 @@ pub struct RbxEnum {
     pub items: HashMap<Cow<'static, str>, u32>,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum RbxPropertyType {
     Data(RbxValueType),
     Enum(Cow<'static, str>),

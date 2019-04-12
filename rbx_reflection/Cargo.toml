@@ -14,3 +14,5 @@ bitflags = "1.0.4"
 lazy_static = "1.2.0"
 failure = "0.1.5"
 rbx_dom_weak = { version = "1.0.0", path = "../rbx_dom_weak" }
+serde = "1"
+serde_derive = "1"
