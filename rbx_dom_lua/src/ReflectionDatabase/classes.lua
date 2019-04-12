@@ -24,19 +24,19 @@ return {
 	Accoutrement = {
 		superclass = "Instance",
 		properties = {
-			AttachmentRight = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, },
-			},
 			AttachmentForward = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
-			AttachmentPos = {
+			AttachmentRight = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
 			AttachmentUp = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {NotReplicated = true, },
+			},
+			AttachmentPos = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
@@ -77,15 +77,19 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			MaxAngularVelocity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			Responsiveness = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			MaxTorque = {
+			AlignType = {
+				type = {type = "Enum", name = "AlignType"},
+				tags = {},
+			},
+			RigidityEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			MaxAngularVelocity = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -93,12 +97,8 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			RigidityEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			AlignType = {
-				type = {type = "Enum", name = "AlignType"},
+			MaxTorque = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -120,16 +120,20 @@ return {
 	AlignPosition = {
 		superclass = "Constraint",
 		properties = {
-			Responsiveness = {
-				type = {type = "Data", name = "Float32"},
+			ReactionForceEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			RigidityEnabled = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			MaxVelocity = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			RigidityEnabled = {
-				type = {type = "Data", name = "Bool"},
+			Responsiveness = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			ApplyAtCenterOfMass = {
@@ -138,10 +142,6 @@ return {
 			},
 			MaxForce = {
 				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ReactionForceEnabled = {
-				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -177,16 +177,16 @@ return {
 	AngularVelocity = {
 		superclass = "Constraint",
 		properties = {
-			MaxTorque = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			AngularVelocity = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
 			RelativeTo = {
 				type = {type = "Enum", name = "ActuatorRelativeTo"},
+				tags = {},
+			},
+			MaxTorque = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -225,20 +225,8 @@ return {
 	AnimationTrack = {
 		superclass = "Instance",
 		properties = {
-			Looped = {
+			IsPlaying = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Priority = {
-				type = {type = "Enum", name = "AnimationPriority"},
-				tags = {},
-			},
-			Speed = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Length = {
-				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			WeightTarget = {
@@ -249,16 +237,28 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			Priority = {
+				type = {type = "Enum", name = "AnimationPriority"},
+				tags = {},
+			},
 			TimePosition = {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, },
+			},
+			Looped = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
 			},
 			Animation = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			IsPlaying = {
-				type = {type = "Data", name = "Bool"},
+			Length = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Speed = {
+				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
@@ -307,15 +307,7 @@ return {
 	Attachment = {
 		superclass = "Instance",
 		properties = {
-			WorldOrientation = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, },
-			},
-			CFrame = {
-				type = {type = "Data", name = "CFrame"},
-				tags = {},
-			},
-			SecondaryAxis = {
+			Orientation = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
@@ -323,23 +315,23 @@ return {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
-			Rotation = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			WorldAxis = {
+			WorldSecondaryAxis = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
-			WorldCFrame = {
-				type = {type = "Data", name = "CFrame"},
+			SecondaryAxis = {
+				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
+			},
+			WorldRotation = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
 			},
 			Axis = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
-			Orientation = {
+			WorldAxis = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
@@ -351,13 +343,21 @@ return {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
-			WorldRotation = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
+			CFrame = {
+				type = {type = "Data", name = "CFrame"},
+				tags = {},
 			},
-			WorldSecondaryAxis = {
+			WorldOrientation = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
+			},
+			WorldCFrame = {
+				type = {type = "Data", name = "CFrame"},
+				tags = {NotReplicated = true, },
+			},
+			Rotation = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -405,14 +405,6 @@ return {
 	BallSocketConstraint = {
 		superclass = "Constraint",
 		properties = {
-			TwistLimitsEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			LimitsEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			TwistLowerAngle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
@@ -421,15 +413,23 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Restitution = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			UpperAngle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
+			LimitsEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
 			Radius = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			TwistLimitsEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Restitution = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -452,138 +452,6 @@ return {
 	BasePart = {
 		superclass = "PVInstance",
 		properties = {
-			BackParamB = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			CanCollide = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Orientation = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, },
-			},
-			ResizeableFaces = {
-				type = {type = "Unimplemented", name = "Faces"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			BottomSurface = {
-				type = {type = "Enum", name = "SurfaceType"},
-				tags = {},
-			},
-			TopSurface = {
-				type = {type = "Enum", name = "SurfaceType"},
-				tags = {},
-			},
-			ResizeIncrement = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			RightSurface = {
-				type = {type = "Enum", name = "SurfaceType"},
-				tags = {},
-			},
-			LeftParamB = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			RightParamA = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			LeftSurface = {
-				type = {type = "Enum", name = "SurfaceType"},
-				tags = {},
-			},
-			CustomPhysicalProperties = {
-				type = {type = "Data", name = "PhysicalProperties"},
-				tags = {},
-			},
-			FrontParamA = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			size = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			Friction = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			RightParamB = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Locked = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			TopParamB = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Transparency = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			SpecificGravity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
-			},
-			ReceiveAge = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			RootPriority = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			CollisionGroups = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			FrontSurfaceInput = {
-				type = {type = "Enum", name = "InputType"},
-				tags = {},
-			},
-			Material = {
-				type = {type = "Enum", name = "Material"},
-				tags = {},
-			},
-			TopSurfaceInput = {
-				type = {type = "Enum", name = "InputType"},
-				tags = {},
-			},
-			CollisionGroupId = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			Elasticity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			BottomParamB = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			BottomParamA = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			brickColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			BottomSurfaceInput = {
-				type = {type = "Enum", name = "InputType"},
-				tags = {},
-			},
-			FrontSurface = {
-				type = {type = "Enum", name = "SurfaceType"},
-				tags = {},
-			},
 			BackSurface = {
 				type = {type = "Enum", name = "SurfaceType"},
 				tags = {},
@@ -592,65 +460,129 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			CenterOfMass = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			LeftSurfaceInput = {
-				type = {type = "Enum", name = "InputType"},
-				tags = {},
-			},
-			Rotation = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, },
-			},
-			Velocity = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
 			BackSurfaceInput = {
 				type = {type = "Enum", name = "InputType"},
 				tags = {},
+			},
+			CustomPhysicalProperties = {
+				type = {type = "Data", name = "PhysicalProperties"},
+				tags = {},
+			},
+			Position = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {NotReplicated = true, },
+			},
+			brickColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {Deprecated = true, NotReplicated = true, },
 			},
 			CFrame = {
 				type = {type = "Data", name = "CFrame"},
 				tags = {},
 			},
-			FrontParamB = {
-				type = {type = "Data", name = "Float32"},
+			FrontSurface = {
+				type = {type = "Enum", name = "SurfaceType"},
 				tags = {},
 			},
 			LeftParamA = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			RotVelocity = {
-				type = {type = "Data", name = "Vector3"},
+			LeftParamB = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			BackParamA = {
-				type = {type = "Data", name = "Float32"},
+			TopSurfaceInput = {
+				type = {type = "Enum", name = "InputType"},
 				tags = {},
 			},
 			LocalTransparencyModifier = {
 				type = {type = "Data", name = "Float32"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			Size = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, },
+			ResizeableFaces = {
+				type = {type = "Unimplemented", name = "Faces"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			Anchored = {
+			Locked = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			Massless = {
-				type = {type = "Data", name = "Bool"},
+			BrickColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {NotReplicated = true, },
+			},
+			BottomSurfaceInput = {
+				type = {type = "Enum", name = "InputType"},
+				tags = {},
+			},
+			RightParamA = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			FrontParamA = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			TopParamA = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
+			},
+			CenterOfMass = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			RightSurface = {
+				type = {type = "Enum", name = "SurfaceType"},
+				tags = {},
+			},
+			Rotation = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {NotReplicated = true, },
+			},
+			BottomParamB = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Transparency = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			FrontSurfaceInput = {
+				type = {type = "Enum", name = "InputType"},
+				tags = {},
+			},
+			Velocity = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			CollisionGroupId = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			ReceiveAge = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			BottomSurface = {
+				type = {type = "Enum", name = "SurfaceType"},
+				tags = {},
+			},
+			LeftSurfaceInput = {
+				type = {type = "Enum", name = "InputType"},
+				tags = {},
+			},
+			Friction = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
+			RotVelocity = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			ResizeIncrement = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			Color = {
 				type = {type = "Data", name = "Color3"},
@@ -660,17 +592,85 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			RightSurfaceInput = {
-				type = {type = "Enum", name = "InputType"},
+			CanCollide = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			Position = {
+			Anchored = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			TopParamB = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			BackParamA = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Elasticity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
+			Material = {
+				type = {type = "Enum", name = "Material"},
+				tags = {},
+			},
+			Orientation = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
-			BrickColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+			Massless = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Size = {
+				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
+			},
+			CollisionGroups = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			RootPriority = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			size = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			BackParamB = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			SpecificGravity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+			},
+			FrontParamB = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			TopSurface = {
+				type = {type = "Enum", name = "SurfaceType"},
+				tags = {},
+			},
+			BottomParamA = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			RightParamB = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			LeftSurface = {
+				type = {type = "Enum", name = "SurfaceType"},
+				tags = {},
+			},
+			RightSurfaceInput = {
+				type = {type = "Enum", name = "InputType"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -686,12 +686,12 @@ return {
 	BaseScript = {
 		superclass = "LuaSourceContainer",
 		properties = {
-			LinkedSource = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
 			Disabled = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			LinkedSource = {
+				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
 		},
@@ -701,12 +701,28 @@ return {
 	Beam = {
 		superclass = "Instance",
 		properties = {
-			Color = {
-				type = {type = "Data", name = "ColorSequence"},
+			Attachment0 = {
+				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
-			LightInfluence = {
+			ZOffset = {
 				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			FaceCamera = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Texture = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
+			},
+			Enabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Attachment1 = {
+				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
 			CurveSize1 = {
@@ -717,27 +733,15 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			TextureMode = {
-				type = {type = "Enum", name = "TextureMode"},
+			Color = {
+				type = {type = "Data", name = "ColorSequence"},
 				tags = {},
 			},
 			LightEmission = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			ZOffset = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Enabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Segments = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			TextureSpeed = {
+			Width1 = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -745,32 +749,28 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Width0 = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Attachment1 = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
 			Transparency = {
 				type = {type = "Data", name = "NumberSequence"},
 				tags = {},
 			},
-			Width1 = {
+			TextureMode = {
+				type = {type = "Enum", name = "TextureMode"},
+				tags = {},
+			},
+			TextureSpeed = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Attachment0 = {
-				type = {type = "Data", name = "Ref"},
+			Segments = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			FaceCamera = {
-				type = {type = "Data", name = "Bool"},
+			LightInfluence = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Texture = {
-				type = {type = "Data", name = "Content"},
+			Width0 = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -808,10 +808,6 @@ return {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
-			StudsOffset = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
 			LightInfluence = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
@@ -820,28 +816,16 @@ return {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
-			AlwaysOnTop = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ClipsDescendants = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			SizeOffset = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {},
-			},
 			Size = {
 				type = {type = "Data", name = "UDim2"},
 				tags = {},
 			},
-			ExtentsOffsetWorldSpace = {
+			StudsOffset = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
-			MaxDistance = {
-				type = {type = "Data", name = "Float32"},
+			StudsOffsetWorldSpace = {
+				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
 			PlayerToHideFrom = {
@@ -852,8 +836,24 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			StudsOffsetWorldSpace = {
+			ClipsDescendants = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			ExtentsOffsetWorldSpace = {
 				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			AlwaysOnTop = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			MaxDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			SizeOffset = {
+				type = {type = "Data", name = "Vector2"},
 				tags = {},
 			},
 		},
@@ -919,7 +919,7 @@ return {
 	BloomEffect = {
 		superclass = "PostEffect",
 		properties = {
-			Intensity = {
+			Size = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -927,7 +927,7 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Size = {
+			Intensity = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -961,21 +961,21 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			AngularVelocity = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
 			maxTorque = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
 			},
-			MaxTorque = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
 			angularvelocity = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			AngularVelocity = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			MaxTorque = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -990,10 +990,6 @@ return {
 	BodyColors = {
 		superclass = "CharacterAppearance",
 		properties = {
-			RightLegColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {},
-			},
 			HeadColor3 = {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
@@ -1002,16 +998,8 @@ return {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
-			LeftLegColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {},
-			},
-			LeftLegColor3 = {
+			RightLegColor3 = {
 				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			HeadColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {},
 			},
 			LeftArmColor3 = {
@@ -1022,19 +1010,31 @@ return {
 				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {},
 			},
-			RightLegColor3 = {
+			RightArmColor3 = {
 				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			HeadColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {},
 			},
 			RightArmColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {},
 			},
-			RightArmColor3 = {
+			LeftLegColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {},
+			},
+			LeftLegColor3 = {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
 			LeftArmColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {},
+			},
+			RightLegColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {},
 			},
@@ -1052,13 +1052,13 @@ return {
 	BodyForce = {
 		superclass = "BodyMover",
 		properties = {
-			Force = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
 			force = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			Force = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -1070,9 +1070,13 @@ return {
 	BodyGyro = {
 		superclass = "BodyMover",
 		properties = {
-			cframe = {
-				type = {type = "Data", name = "CFrame"},
-				tags = {Deprecated = true, NotReplicated = true, },
+			P = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			D = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 			CFrame = {
 				type = {type = "Data", name = "CFrame"},
@@ -1082,17 +1086,13 @@ return {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
 			},
-			D = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			MaxTorque = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
-			P = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
+			cframe = {
+				type = {type = "Data", name = "CFrame"},
+				tags = {Deprecated = true, NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -1114,19 +1114,7 @@ return {
 	BodyPosition = {
 		superclass = "BodyMover",
 		properties = {
-			P = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			Position = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			position = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			MaxForce = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
@@ -1137,6 +1125,18 @@ return {
 			maxForce = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			position = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			MaxForce = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			P = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -1152,14 +1152,6 @@ return {
 	BodyThrust = {
 		superclass = "BodyMover",
 		properties = {
-			Location = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			Force = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
 			location = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
@@ -1167,6 +1159,14 @@ return {
 			force = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			Location = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			Force = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -1180,24 +1180,24 @@ return {
 	BodyVelocity = {
 		superclass = "BodyMover",
 		properties = {
+			MaxForce = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
 			maxForce = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			P = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 			velocity = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {Deprecated = true, NotReplicated = true, },
 			},
-			MaxForce = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
 			Velocity = {
 				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			P = {
-				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -1293,25 +1293,29 @@ return {
 	Camera = {
 		superclass = "Instance",
 		properties = {
-			focus = {
-				type = {type = "Data", name = "CFrame"},
-				tags = {Deprecated = true, NotReplicated = true, },
+			ViewportSize = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			FieldOfView = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 			HeadLocked = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			CFrame = {
+				type = {type = "Data", name = "CFrame"},
 				tags = {},
 			},
 			CameraSubject = {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
-			ViewportSize = {
-				type = {type = "Data", name = "Vector2"},
+			NearPlaneZ = {
+				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			CoordinateFrame = {
-				type = {type = "Data", name = "CFrame"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
 			CameraType = {
 				type = {type = "Enum", name = "CameraType"},
@@ -1321,17 +1325,13 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			FieldOfView = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			NearPlaneZ = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			CFrame = {
+			focus = {
 				type = {type = "Data", name = "CFrame"},
-				tags = {},
+				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			CoordinateFrame = {
+				type = {type = "Data", name = "CFrame"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
 			Focus = {
 				type = {type = "Data", name = "CFrame"},
@@ -1369,6 +1369,10 @@ return {
 	CharacterMesh = {
 		superclass = "CharacterAppearance",
 		properties = {
+			BaseTextureId = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
 			OverlayTextureId = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
@@ -1379,10 +1383,6 @@ return {
 			},
 			BodyPart = {
 				type = {type = "Enum", name = "BodyPart"},
-				tags = {},
-			},
-			BaseTextureId = {
-				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 		},
@@ -1397,11 +1397,11 @@ return {
 	Chat = {
 		superclass = "Instance",
 		properties = {
-			BubbleChatEnabled = {
+			LoadDefaultChat = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			LoadDefaultChat = {
+			BubbleChatEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -1419,11 +1419,11 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Mix = {
+			Rate = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Rate = {
+			Mix = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -1504,11 +1504,11 @@ return {
 	ColorCorrectionEffect = {
 		superclass = "PostEffect",
 		properties = {
-			Brightness = {
+			Saturation = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Saturation = {
+			Brightness = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -1533,19 +1533,15 @@ return {
 	CompressorSoundEffect = {
 		superclass = "SoundEffect",
 		properties = {
-			SideChain = {
-				type = {type = "Data", name = "Ref"},
+			Release = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			Ratio = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Release = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Attack = {
+			GainMakeup = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -1553,7 +1549,11 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			GainMakeup = {
+			SideChain = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			Attack = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -1573,11 +1573,11 @@ return {
 	ConeHandleAdornment = {
 		superclass = "HandleAdornment",
 		properties = {
-			Height = {
+			Radius = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Radius = {
+			Height = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -1607,16 +1607,8 @@ return {
 	Constraint = {
 		superclass = "Instance",
 		properties = {
-			Color = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {},
-			},
-			Active = {
+			Visible = {
 				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Attachment1 = {
-				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
 			Attachment0 = {
@@ -1627,8 +1619,16 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			Visible = {
+			Attachment1 = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			Active = {
 				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Color = {
+				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {},
 			},
 		},
@@ -1800,11 +1800,11 @@ return {
 	CylinderHandleAdornment = {
 		superclass = "HandleAdornment",
 		properties = {
-			Radius = {
+			Height = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Height = {
+			Radius = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -1837,27 +1837,11 @@ return {
 	CylindricalConstraint = {
 		superclass = "SlidingBallConstraint",
 		properties = {
-			AngularLimitsEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			AngularRestitution = {
+			AngularVelocity = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			UpperAngle = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			AngularSpeed = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			LowerAngle = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			TargetAngle = {
+			ServoMaxTorque = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -1865,25 +1849,29 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			AngularVelocity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			MotorMaxTorque = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			RotationAxisVisible = {
-				type = {type = "Data", name = "Bool"},
+			AngularSpeed = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			MotorMaxAngularAcceleration = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			TargetAngle = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			LowerAngle = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			WorldRotationAxis = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			MotorMaxAngularAcceleration = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
 			},
 			CurrentAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -1893,7 +1881,19 @@ return {
 				type = {type = "Enum", name = "ActuatorType"},
 				tags = {},
 			},
-			ServoMaxTorque = {
+			RotationAxisVisible = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			AngularRestitution = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			AngularLimitsEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			UpperAngle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -1937,69 +1937,69 @@ return {
 	DataModel = {
 		superclass = "ServiceProvider",
 		properties = {
-			GameId = {
+			PrivateServerOwnerId = {
 				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			PlaceId = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			VIPServerOwnerId = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			CreatorType = {
-				type = {type = "Enum", name = "CreatorType"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			JobId = {
-				type = {type = "Data", name = "String"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			workspace = {
-				type = {type = "Data", name = "Ref"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
-			},
-			Workspace = {
-				type = {type = "Data", name = "Ref"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			VIPServerId = {
-				type = {type = "Data", name = "String"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			IsSFFlagsLoaded = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			PrivateServerId = {
-				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			CreatorId = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			VIPServerId = {
+				type = {type = "Data", name = "String"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			PlaceId = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			PrivateServerId = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			CreatorType = {
+				type = {type = "Enum", name = "CreatorType"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			GearGenreSetting = {
+				type = {type = "Enum", name = "GearGenreSetting"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			JobId = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
 			lighting = {
 				type = {type = "Data", name = "Ref"},
 				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
 			},
-			GearGenreSetting = {
-				type = {type = "Enum", name = "GearGenreSetting"},
+			IsSFFlagsLoaded = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Workspace = {
+				type = {type = "Data", name = "Ref"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			VIPServerOwnerId = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			Genre = {
+				type = {type = "Enum", name = "Genre"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			PlaceVersion = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			Genre = {
-				type = {type = "Enum", name = "Genre"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			PrivateServerOwnerId = {
+			GameId = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			workspace = {
+				type = {type = "Data", name = "Ref"},
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
 			},
 		},
 		defaults = {
@@ -2012,11 +2012,11 @@ return {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
-			VertexColor = {
+			Offset = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
-			Offset = {
+			VertexColor = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
@@ -2063,17 +2063,9 @@ return {
 	DebugSettings = {
 		superclass = "Instance",
 		properties = {
-			GfxCard = {
-				type = {type = "Data", name = "String"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
 			IsFmodProfilingEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
-			},
-			VideoMemory = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			OsPlatform = {
 				type = {type = "Data", name = "String"},
@@ -2083,28 +2075,8 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			PlayerCount = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			DataModel = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			JobCount = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			SystemProductName = {
-				type = {type = "Data", name = "String"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			LuaRamLimit = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			OsVer = {
-				type = {type = "Data", name = "String"},
+			OsIs64Bit = {
+				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			RobloxProductName = {
@@ -2115,9 +2087,37 @@ return {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			ErrorReporting = {
-				type = {type = "Enum", name = "ErrorReporting"},
+			GfxCard = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			PlayerCount = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			SystemProductName = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			OsVer = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			LuaRamLimit = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
+			},
+			VideoMemory = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			InstanceCount = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			DataModel = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			RobloxVersion = {
 				type = {type = "Data", name = "String"},
@@ -2127,11 +2127,7 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			TickCountPreciseOverride = {
-				type = {type = "Enum", name = "TickCountSampleMethod"},
-				tags = {},
-			},
-			InstanceCount = {
+			JobCount = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -2139,9 +2135,13 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			OsIs64Bit = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
+			ErrorReporting = {
+				type = {type = "Enum", name = "ErrorReporting"},
+				tags = {},
+			},
+			TickCountPreciseOverride = {
+				type = {type = "Enum", name = "TickCountSampleMethod"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -2150,16 +2150,16 @@ return {
 	DebuggerBreakpoint = {
 		superclass = "Instance",
 		properties = {
+			IsEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
 			Line = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			Condition = {
 				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			IsEnabled = {
-				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -2191,19 +2191,15 @@ return {
 	Decal = {
 		superclass = "FaceInstance",
 		properties = {
-			Texture = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
-			Color3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			Specular = {
+			Shiny = {
 				type = {type = "Data", name = "Float32"},
 				tags = {Deprecated = true, NotReplicated = true, },
 			},
-			Shiny = {
+			Transparency = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Specular = {
 				type = {type = "Data", name = "Float32"},
 				tags = {Deprecated = true, NotReplicated = true, },
 			},
@@ -2211,8 +2207,12 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			Transparency = {
-				type = {type = "Data", name = "Float32"},
+			Texture = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
+			},
+			Color3 = {
+				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
 		},
@@ -2229,44 +2229,44 @@ return {
 	Dialog = {
 		superclass = "Instance",
 		properties = {
-			BehaviorType = {
-				type = {type = "Enum", name = "DialogBehaviorType"},
-				tags = {},
-			},
-			Purpose = {
-				type = {type = "Enum", name = "DialogPurpose"},
-				tags = {},
-			},
-			ConversationDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Tone = {
-				type = {type = "Enum", name = "DialogTone"},
-				tags = {},
-			},
-			GoodbyeDialog = {
-				type = {type = "Data", name = "String"},
+			InUse = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			TriggerDistance = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			GoodbyeChoiceActive = {
-				type = {type = "Data", name = "Bool"},
+			BehaviorType = {
+				type = {type = "Enum", name = "DialogBehaviorType"},
 				tags = {},
 			},
 			TriggerOffset = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
+			GoodbyeDialog = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			GoodbyeChoiceActive = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Tone = {
+				type = {type = "Enum", name = "DialogTone"},
+				tags = {},
+			},
+			Purpose = {
+				type = {type = "Enum", name = "DialogPurpose"},
+				tags = {},
+			},
 			InitialPrompt = {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
-			InUse = {
-				type = {type = "Data", name = "Bool"},
+			ConversationDistance = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -2286,7 +2286,11 @@ return {
 	DialogChoice = {
 		superclass = "Instance",
 		properties = {
-			ResponseDialog = {
+			GoodbyeDialog = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			UserDialog = {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
@@ -2294,11 +2298,7 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			GoodbyeDialog = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			UserDialog = {
+			ResponseDialog = {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
@@ -2340,6 +2340,10 @@ return {
 	DoubleConstrainedValue = {
 		superclass = "ValueBase",
 		properties = {
+			Value = {
+				type = {type = "Data", name = "Float64"},
+				tags = {NotReplicated = true, },
+			},
 			ConstrainedValue = {
 				type = {type = "Data", name = "Float64"},
 				tags = {Hidden = true, NotReplicated = true, },
@@ -2351,10 +2355,6 @@ return {
 			MinValue = {
 				type = {type = "Data", name = "Float64"},
 				tags = {},
-			},
-			Value = {
-				type = {type = "Data", name = "Float64"},
-				tags = {NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -2417,7 +2417,7 @@ return {
 	EqualizerSoundEffect = {
 		superclass = "SoundEffect",
 		properties = {
-			HighGain = {
+			LowGain = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -2425,7 +2425,7 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			LowGain = {
+			HighGain = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -2442,12 +2442,8 @@ return {
 	Explosion = {
 		superclass = "Instance",
 		properties = {
-			ExplosionType = {
-				type = {type = "Enum", name = "ExplosionType"},
-				tags = {},
-			},
-			Position = {
-				type = {type = "Data", name = "Vector3"},
+			DestroyJointRadiusPercent = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			BlastPressure = {
@@ -2458,12 +2454,16 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Visible = {
-				type = {type = "Data", name = "Bool"},
+			ExplosionType = {
+				type = {type = "Enum", name = "ExplosionType"},
 				tags = {},
 			},
-			DestroyJointRadiusPercent = {
-				type = {type = "Data", name = "Float32"},
+			Position = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			Visible = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -2491,20 +2491,20 @@ return {
 	Feature = {
 		superclass = "Instance",
 		properties = {
-			FaceId = {
-				type = {type = "Enum", name = "NormalId"},
-				tags = {},
-			},
 			InOut = {
 				type = {type = "Enum", name = "InOut"},
+				tags = {},
+			},
+			LeftRight = {
+				type = {type = "Enum", name = "LeftRight"},
 				tags = {},
 			},
 			TopBottom = {
 				type = {type = "Enum", name = "TopBottom"},
 				tags = {},
 			},
-			LeftRight = {
-				type = {type = "Enum", name = "LeftRight"},
+			FaceId = {
+				type = {type = "Enum", name = "NormalId"},
 				tags = {},
 			},
 		},
@@ -2518,13 +2518,13 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
 			},
-			Size = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
 			FileName = {
 				type = {type = "Data", name = "String"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			Size = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
 			},
 		},
 		defaults = {
@@ -2533,11 +2533,11 @@ return {
 	FileMesh = {
 		superclass = "DataModelMesh",
 		properties = {
-			TextureId = {
+			MeshId = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
-			MeshId = {
+			TextureId = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
@@ -2554,26 +2554,6 @@ return {
 	Fire = {
 		superclass = "Instance",
 		properties = {
-			Color = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			size_xml = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			heat_xml = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			SecondaryColor = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			Heat = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, },
-			},
 			size = {
 				type = {type = "Data", name = "Float32"},
 				tags = {Deprecated = true, NotReplicated = true, },
@@ -2582,8 +2562,28 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, },
 			},
+			Heat = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, },
+			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			SecondaryColor = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			size_xml = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Color = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			heat_xml = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -2689,7 +2689,7 @@ return {
 	FlangeSoundEffect = {
 		superclass = "SoundEffect",
 		properties = {
-			Depth = {
+			Mix = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -2697,7 +2697,7 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Mix = {
+			Depth = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -2714,23 +2714,7 @@ return {
 	FloorWire = {
 		superclass = "GuiBase3d",
 		properties = {
-			Texture = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
-			Velocity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			From = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
-			StudsBetweenTextures = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			To = {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
@@ -2738,12 +2722,28 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			TextureSize = {
-				type = {type = "Data", name = "Vector2"},
+			Velocity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Texture = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
+			},
+			To = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			StudsBetweenTextures = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			WireRadius = {
 				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			TextureSize = {
+				type = {type = "Data", name = "Vector2"},
 				tags = {},
 			},
 		},
@@ -2793,10 +2793,6 @@ return {
 	FormFactorPart = {
 		superclass = "BasePart",
 		properties = {
-			formFactor = {
-				type = {type = "Enum", name = "FormFactor"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
 			FormFactor = {
 				type = {type = "Enum", name = "FormFactor"},
 				tags = {Deprecated = true, NotReplicated = true, },
@@ -2804,6 +2800,10 @@ return {
 			formFactorRaw = {
 				type = {type = "Enum", name = "FormFactor"},
 				tags = {},
+			},
+			formFactor = {
+				type = {type = "Enum", name = "FormFactor"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -2887,7 +2887,7 @@ return {
 	GameSettings = {
 		superclass = "Instance",
 		properties = {
-			ReportAbuseChatHistory = {
+			ChatScrollLength = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
@@ -2895,35 +2895,15 @@ return {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
-			CollisionSoundEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			CollisionSoundVolume = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Deprecated = true, NotReplicated = true, },
+			BubbleChatMaxBubbles = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
 			},
 			MaxCollisionSounds = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Deprecated = true, NotReplicated = true, },
 			},
-			ChatScrollLength = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			HardwareMouse = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			BubbleChatMaxBubbles = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			AdditionalCoreIncludeDirs = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			SoftwareSound = {
+			VideoCaptureEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -2931,13 +2911,33 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			VideoCaptureEnabled = {
-				type = {type = "Data", name = "Bool"},
+			CollisionSoundVolume = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			AdditionalCoreIncludeDirs = {
+				type = {type = "Data", name = "String"},
 				tags = {},
 			},
 			BubbleChatLifetime = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
+			},
+			HardwareMouse = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			SoftwareSound = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			ReportAbuseChatHistory = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			CollisionSoundEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Deprecated = true, NotReplicated = true, },
 			},
 			VideoQuality = {
 				type = {type = "Enum", name = "VideoQualitySettings"},
@@ -2987,11 +2987,7 @@ return {
 	Glue = {
 		superclass = "JointInstance",
 		properties = {
-			F1 = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			F0 = {
+			F2 = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
@@ -2999,7 +2995,11 @@ return {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
-			F2 = {
+			F1 = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			F0 = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
@@ -3041,22 +3041,6 @@ return {
 	GuiBase2d = {
 		superclass = "GuiBase",
 		properties = {
-			AbsoluteSize = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Localize = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			AbsoluteRotation = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			RootLocalizationTable = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
 			AutoLocalize = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
@@ -3065,6 +3049,22 @@ return {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			AbsoluteSize = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			AbsoluteRotation = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Localize = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
+			RootLocalizationTable = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
 		},
 		defaults = {
 		},
@@ -3072,20 +3072,20 @@ return {
 	GuiBase3d = {
 		superclass = "GuiBase",
 		properties = {
-			Visible = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Color3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
 			Color = {
 				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
 			Transparency = {
 				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Color3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			Visible = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -3095,19 +3095,19 @@ return {
 	GuiButton = {
 		superclass = "GuiObject",
 		properties = {
-			Selected = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			Style = {
 				type = {type = "Enum", name = "ButtonStyle"},
 				tags = {},
 			},
-			Modal = {
+			AutoButtonColor = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			AutoButtonColor = {
+			Selected = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Modal = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -3142,28 +3142,48 @@ return {
 	GuiObject = {
 		superclass = "GuiBase2d",
 		properties = {
+			AnchorPoint = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {},
+			},
+			Visible = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			ZIndex = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			Transparency = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
 			Draggable = {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, },
 			},
-			Size = {
-				type = {type = "Data", name = "UDim2"},
+			NextSelectionUp = {
+				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
-			Active = {
-				type = {type = "Data", name = "Bool"},
+			Rotation = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			BorderColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			BackgroundColor3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
 			},
-			SizeConstraint = {
-				type = {type = "Enum", name = "SizeConstraint"},
+			LayoutOrder = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 			Selectable = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			SelectionImageObject = {
+				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
 			NextSelectionLeft = {
@@ -3178,65 +3198,45 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			Rotation = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ZIndex = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			BackgroundColor3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
 			NextSelectionRight = {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
-			AnchorPoint = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {},
-			},
-			BackgroundColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			BorderSizePixel = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			LayoutOrder = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			Visible = {
-				type = {type = "Data", name = "Bool"},
+			SizeConstraint = {
+				type = {type = "Enum", name = "SizeConstraint"},
 				tags = {},
 			},
 			BorderColor3 = {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
+			Active = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			BorderSizePixel = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			BackgroundColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
+			BorderColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
 			BackgroundTransparency = {
 				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			SelectionImageObject = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
-			NextSelectionUp = {
-				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
 			Position = {
 				type = {type = "Data", name = "UDim2"},
 				tags = {},
 			},
-			Transparency = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Hidden = true, NotReplicated = true, },
+			Size = {
+				type = {type = "Data", name = "UDim2"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -3245,45 +3245,45 @@ return {
 	GuiService = {
 		superclass = "Instance",
 		properties = {
-			CoreGuiFolder = {
-				type = {type = "Data", name = "Ref"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			CoreGuiNavigationEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			SelectedObject = {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
-			},
-			GuiNavigationEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			MenuIsOpen = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			AutoSelectGuiEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			IsWindows = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
 			},
 			IsModalDialog = {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
 			},
-			SelectedCoreObject = {
-				type = {type = "Data", name = "Ref"},
-				tags = {NotReplicated = true, },
+			MenuIsOpen = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			IsWindows = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+			},
+			AutoSelectGuiEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
 			},
 			CoreEffectFolder = {
 				type = {type = "Data", name = "Ref"},
 				tags = {Hidden = true, NotReplicated = true, },
+			},
+			CoreGuiFolder = {
+				type = {type = "Data", name = "Ref"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			GuiNavigationEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			CoreGuiNavigationEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			SelectedCoreObject = {
+				type = {type = "Data", name = "Ref"},
+				tags = {NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -3306,20 +3306,20 @@ return {
 	HandleAdornment = {
 		superclass = "PVAdornment",
 		properties = {
-			AlwaysOnTop = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			CFrame = {
-				type = {type = "Data", name = "CFrame"},
+			SizeRelativeOffset = {
+				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
 			ZIndex = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			SizeRelativeOffset = {
-				type = {type = "Data", name = "Vector3"},
+			CFrame = {
+				type = {type = "Data", name = "CFrame"},
+				tags = {},
+			},
+			AlwaysOnTop = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -3378,11 +3378,11 @@ return {
 	HingeConstraint = {
 		superclass = "Constraint",
 		properties = {
-			LowerAngle = {
-				type = {type = "Data", name = "Float32"},
+			ActuatorType = {
+				type = {type = "Enum", name = "ActuatorType"},
 				tags = {},
 			},
-			TargetAngle = {
+			AngularSpeed = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -3390,7 +3390,7 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			Radius = {
+			UpperAngle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -3398,23 +3398,11 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			AngularSpeed = {
+			LowerAngle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			AngularVelocity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ServoMaxTorque = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ActuatorType = {
-				type = {type = "Enum", name = "ActuatorType"},
-				tags = {},
-			},
-			MotorMaxAcceleration = {
+			Radius = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -3422,11 +3410,23 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
+			AngularVelocity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
 			Restitution = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			UpperAngle = {
+			ServoMaxTorque = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			TargetAngle = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			MotorMaxAcceleration = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -3529,97 +3529,17 @@ return {
 	Humanoid = {
 		superclass = "Instance",
 		properties = {
-			HipHeight = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			TargetPoint = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			Sit = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			LeftLeg = {
 				type = {type = "Data", name = "Ref"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			DisplayDistanceType = {
-				type = {type = "Enum", name = "HumanoidDisplayDistanceType"},
-				tags = {},
-			},
-			JumpHeight = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			PlatformStand = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			MoveDirection = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			RigType = {
-				type = {type = "Enum", name = "HumanoidRigType"},
-				tags = {},
-			},
-			NameDisplayDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
 			},
 			MaxSlopeAngle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			RootPart = {
+			Torso = {
 				type = {type = "Data", name = "Ref"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Health = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, },
-			},
-			BreakJointsOnDeath = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			WalkToPart = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
-			AutoRotate = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			HealthDisplayDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			FloorMaterial = {
-				type = {type = "Enum", name = "Material"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			maxHealth = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			MaxHealth = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			UseJumpPower = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			WalkSpeed = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			CameraOffset = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
 			JumpPower = {
 				type = {type = "Data", name = "Float32"},
@@ -3629,41 +3549,121 @@ return {
 				type = {type = "Enum", name = "HumanoidCollisionType"},
 				tags = {},
 			},
-			WalkToPoint = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			Torso = {
+			RightLeg = {
 				type = {type = "Data", name = "Ref"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
+			FloorMaterial = {
+				type = {type = "Enum", name = "Material"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			HipHeight = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			NameDisplayDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 			NameOcclusion = {
 				type = {type = "Enum", name = "NameOcclusion"},
 				tags = {},
 			},
-			AutomaticScalingEnabled = {
+			SeatPart = {
+				type = {type = "Data", name = "Ref"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			AutoJumpEnabled = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			PlatformStand = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			TargetPoint = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			maxHealth = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			WalkToPart = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			WalkSpeed = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			BreakJointsOnDeath = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			DisplayDistanceType = {
+				type = {type = "Enum", name = "HumanoidDisplayDistanceType"},
+				tags = {},
+			},
+			Sit = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Health = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, },
+			},
+			WalkToPoint = {
+				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
 			HealthDisplayType = {
 				type = {type = "Enum", name = "HumanoidHealthDisplayType"},
 				tags = {},
 			},
-			Jump = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, },
+			CameraOffset = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
 			},
-			SeatPart = {
+			UseJumpPower = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			RigType = {
+				type = {type = "Enum", name = "HumanoidRigType"},
+				tags = {},
+			},
+			AutomaticScalingEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			MoveDirection = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			JumpHeight = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			HealthDisplayDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			MaxHealth = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			AutoRotate = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			RootPart = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			RightLeg = {
-				type = {type = "Data", name = "Ref"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			AutoJumpEnabled = {
+			Jump = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
+				tags = {NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -3706,23 +3706,23 @@ return {
 	HumanoidDescription = {
 		superclass = "Instance",
 		properties = {
+			LeftLeg = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			TorsoColor = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			HeadColor = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
 			WaistAccessory = {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
-			HeadScale = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Torso = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			WidthScale = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ProportionScale = {
+			DepthScale = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -3730,95 +3730,11 @@ return {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
-			JumpAnimation = {
+			Torso = {
 				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			DepthScale = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			FallAnimation = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			Shirt = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			BackAccessory = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			Head = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			RunAnimation = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			IdleAnimation = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			LeftLeg = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			LeftArm = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			WalkAnimation = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			RightArmColor = {
-				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
 			LeftArmColor = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			GraphicTShirt = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			FrontAccessory = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			FaceAccessory = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			HeightScale = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			RightLegColor = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			RightArm = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			NeckAccessory = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			RightLeg = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			HeadColor = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			TorsoColor = {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
@@ -3830,7 +3746,75 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
+			RightArmColor = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			BackAccessory = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
 			ClimbAnimation = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			IdleAnimation = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			WidthScale = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			RightLeg = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			Head = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			ProportionScale = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			RightArm = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			Shirt = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			HatAccessory = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			HeadScale = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			GraphicTShirt = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			HeightScale = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			NeckAccessory = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			LeftArm = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			RunAnimation = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			FallAnimation = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
@@ -3838,12 +3822,8 @@ return {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
-			ShouldersAccessory = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			HatAccessory = {
-				type = {type = "Data", name = "String"},
+			WalkAnimation = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 			Pants = {
@@ -3852,6 +3832,26 @@ return {
 			},
 			BodyTypeScale = {
 				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			FrontAccessory = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			FaceAccessory = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			JumpAnimation = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			RightLegColor = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			ShouldersAccessory = {
+				type = {type = "Data", name = "String"},
 				tags = {},
 			},
 		},
@@ -3899,24 +3899,24 @@ return {
 	ImageButton = {
 		superclass = "GuiButton",
 		properties = {
-			PressedImage = {
-				type = {type = "Data", name = "Content"},
+			SliceCenter = {
+				type = {type = "Unimplemented", name = "Rect"},
 				tags = {},
 			},
 			TileSize = {
 				type = {type = "Data", name = "UDim2"},
 				tags = {},
 			},
-			ImageRectOffset = {
-				type = {type = "Data", name = "Vector2"},
+			ScaleType = {
+				type = {type = "Enum", name = "ScaleType"},
 				tags = {},
 			},
-			ImageColor3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
+			IsLoaded = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			SliceCenter = {
-				type = {type = "Unimplemented", name = "Rect"},
+			SliceScale = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			Image = {
@@ -3927,24 +3927,24 @@ return {
 				type = {type = "Data", name = "Vector2"},
 				tags = {},
 			},
+			ImageRectOffset = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {},
+			},
 			ImageTransparency = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			IsLoaded = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
+			ImageColor3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
 			},
-			HoverImage = {
+			PressedImage = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
-			SliceScale = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ScaleType = {
-				type = {type = "Enum", name = "ScaleType"},
+			HoverImage = {
+				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
 		},
@@ -4021,18 +4021,6 @@ return {
 	ImageLabel = {
 		superclass = "GuiLabel",
 		properties = {
-			SliceScale = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ImageRectSize = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {},
-			},
-			SliceCenter = {
-				type = {type = "Unimplemented", name = "Rect"},
-				tags = {},
-			},
 			Image = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
@@ -4041,19 +4029,31 @@ return {
 				type = {type = "Data", name = "Vector2"},
 				tags = {},
 			},
-			IsLoaded = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			ScaleType = {
-				type = {type = "Enum", name = "ScaleType"},
+			ImageTransparency = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			TileSize = {
 				type = {type = "Data", name = "UDim2"},
 				tags = {},
 			},
-			ImageTransparency = {
+			ImageRectSize = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {},
+			},
+			ScaleType = {
+				type = {type = "Enum", name = "ScaleType"},
+				tags = {},
+			},
+			IsLoaded = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			SliceCenter = {
+				type = {type = "Unimplemented", name = "Rect"},
+				tags = {},
+			},
+			SliceScale = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -4103,6 +4103,14 @@ return {
 	InputObject = {
 		superclass = "Instance",
 		properties = {
+			UserInputType = {
+				type = {type = "Enum", name = "UserInputType"},
+				tags = {},
+			},
+			Position = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
 			UserInputState = {
 				type = {type = "Enum", name = "UserInputState"},
 				tags = {},
@@ -4113,14 +4121,6 @@ return {
 			},
 			Delta = {
 				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			Position = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			UserInputType = {
-				type = {type = "Enum", name = "UserInputType"},
 				tags = {},
 			},
 		},
@@ -4150,17 +4150,21 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			ClassName = {
+			className = {
 				type = {type = "Data", name = "String"},
-				tags = {NotReplicated = true, ReadOnly = true, },
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
 			},
 			Parent = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, },
 			},
-			Name = {
-				type = {type = "Data", name = "String"},
+			Tags = {
+				type = {type = "Data", name = "BinaryString"},
 				tags = {},
+			},
+			ClassName = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			Archivable = {
 				type = {type = "Data", name = "Bool"},
@@ -4170,17 +4174,13 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			className = {
-				type = {type = "Data", name = "String"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
-			},
-			Tags = {
-				type = {type = "Data", name = "BinaryString"},
-				tags = {},
-			},
 			archivable = {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
+			Name = {
+				type = {type = "Data", name = "String"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -4189,21 +4189,21 @@ return {
 	IntConstrainedValue = {
 		superclass = "ValueBase",
 		properties = {
-			MinValue = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
 			MaxValue = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			Value = {
+			MinValue = {
 				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, },
+				tags = {},
 			},
 			ConstrainedValue = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Hidden = true, NotReplicated = true, },
+			},
+			Value = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -4237,14 +4237,6 @@ return {
 	JointInstance = {
 		superclass = "Instance",
 		properties = {
-			C0 = {
-				type = {type = "Data", name = "CFrame"},
-				tags = {},
-			},
-			Part0 = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
 			Active = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
@@ -4253,12 +4245,20 @@ return {
 				type = {type = "Data", name = "Ref"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
-			C1 = {
+			C0 = {
 				type = {type = "Data", name = "CFrame"},
+				tags = {},
+			},
+			Part0 = {
+				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
 			Part1 = {
 				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			C1 = {
+				type = {type = "Data", name = "CFrame"},
 				tags = {},
 			},
 		},
@@ -4310,16 +4310,16 @@ return {
 	KeyframeSequence = {
 		superclass = "Instance",
 		properties = {
+			Loop = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
 			AuthoredHipHeight = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			Priority = {
 				type = {type = "Enum", name = "AnimationPriority"},
-				tags = {},
-			},
-			Loop = {
-				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -4341,16 +4341,16 @@ return {
 	LayerCollector = {
 		superclass = "GuiBase2d",
 		properties = {
-			ZIndexBehavior = {
-				type = {type = "Enum", name = "ZIndexBehavior"},
+			ResetOnSpawn = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			ResetOnSpawn = {
-				type = {type = "Data", name = "Bool"},
+			ZIndexBehavior = {
+				type = {type = "Enum", name = "ZIndexBehavior"},
 				tags = {},
 			},
 		},
@@ -4360,20 +4360,20 @@ return {
 	Light = {
 		superclass = "Instance",
 		properties = {
-			Brightness = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			Shadows = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Color = {
+				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			Color = {
-				type = {type = "Data", name = "Color3"},
+			Brightness = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -4383,59 +4383,15 @@ return {
 	Lighting = {
 		superclass = "Instance",
 		properties = {
-			ColorShift_Bottom = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			ShadowColor = {
-				type = {type = "Data", name = "Color3"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			Brightness = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ColorShift_Top = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
+			Technology = {
+				type = {type = "Enum", name = "Technology"},
+				tags = {NotScriptable = true, },
 			},
 			FogColor = {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
-			FogEnd = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			FogStart = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			GeographicLatitude = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ClockTime = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, },
-			},
-			GlobalShadows = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			OutdoorAmbient = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			TimeOfDay = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			ShadowSoftness = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ExposureCompensation = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -4443,13 +4399,57 @@ return {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
+			OutdoorAmbient = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			ColorShift_Bottom = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			ColorShift_Top = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			ShadowColor = {
+				type = {type = "Data", name = "Color3"},
+				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			TimeOfDay = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			GlobalShadows = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			FogEnd = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Brightness = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			ClockTime = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, },
+			},
+			FogStart = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			ExposureCompensation = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
 			Outlines = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			Technology = {
-				type = {type = "Enum", name = "Technology"},
-				tags = {NotScriptable = true, },
+			ShadowSoftness = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -4475,7 +4475,7 @@ return {
 	LineForce = {
 		superclass = "Constraint",
 		properties = {
-			Magnitude = {
+			MaxForce = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -4483,15 +4483,15 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			MaxForce = {
+			ReactionForceEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Magnitude = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			InverseSquareLaw = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ReactionForceEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -4512,11 +4512,11 @@ return {
 	LineHandleAdornment = {
 		superclass = "HandleAdornment",
 		properties = {
-			Length = {
+			Thickness = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Thickness = {
+			Length = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -4556,15 +4556,7 @@ return {
 	LocalizationService = {
 		superclass = "Instance",
 		properties = {
-			IsTextScraperRunning = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, },
-			},
 			ForcePlayModeGameLocaleId = {
-				type = {type = "Data", name = "String"},
-				tags = {NotReplicated = true, },
-			},
-			RobloxForcePlayModeRobloxLocaleId = {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, },
 			},
@@ -4572,13 +4564,21 @@ return {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			SystemLocaleId = {
+			RobloxForcePlayModeRobloxLocaleId = {
 				type = {type = "Data", name = "String"},
-				tags = {NotReplicated = true, ReadOnly = true, },
+				tags = {NotReplicated = true, },
+			},
+			IsTextScraperRunning = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, },
 			},
 			RobloxForcePlayModeGameLocaleId = {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, },
+			},
+			SystemLocaleId = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			ForcePlayModeRobloxLocaleId = {
 				type = {type = "Data", name = "String"},
@@ -4594,20 +4594,20 @@ return {
 	LocalizationTable = {
 		superclass = "Instance",
 		properties = {
-			DevelopmentLanguage = {
-				type = {type = "Data", name = "String"},
+			Root = {
+				type = {type = "Data", name = "Ref"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			Contents = {
-				type = {type = "Data", name = "String"},
-				tags = {},
 			},
 			SourceLocaleId = {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
-			Root = {
-				type = {type = "Data", name = "Ref"},
+			Contents = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			DevelopmentLanguage = {
+				type = {type = "Data", name = "String"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
 		},
@@ -4635,10 +4635,6 @@ return {
 	LuaSettings = {
 		superclass = "Instance",
 		properties = {
-			AreScriptStartsReported = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			GcPause = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
@@ -4647,11 +4643,11 @@ return {
 				type = {type = "Data", name = "Float64"},
 				tags = {},
 			},
-			WaitingThreadsBudget = {
-				type = {type = "Data", name = "Float32"},
+			GcStepMul = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			GcStepMul = {
+			GcLimit = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
@@ -4659,8 +4655,12 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			GcLimit = {
-				type = {type = "Data", name = "Int32"},
+			WaitingThreadsBudget = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			AreScriptStartsReported = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -4736,7 +4736,7 @@ return {
 	MeshPart = {
 		superclass = "BasePart",
 		properties = {
-			TextureID = {
+			MeshId = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
@@ -4744,13 +4744,13 @@ return {
 				type = {type = "Data", name = "Content"},
 				tags = {Deprecated = true, NotScriptable = true, },
 			},
+			TextureID = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
+			},
 			CollisionFidelity = {
 				type = {type = "Enum", name = "CollisionFidelity"},
 				tags = {NotReplicated = true, NotScriptable = true, },
-			},
-			MeshId = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
 			},
 		},
 		defaults = {
@@ -4841,12 +4841,12 @@ return {
 	ModuleScript = {
 		superclass = "LuaSourceContainer",
 		properties = {
-			LinkedSource = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
 			Source = {
 				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			LinkedSource = {
+				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
 		},
@@ -4859,15 +4859,15 @@ return {
 	Motor = {
 		superclass = "JointInstance",
 		properties = {
-			MaxVelocity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			CurrentAngle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, },
 			},
 			DesiredAngle = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			MaxVelocity = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -4917,17 +4917,29 @@ return {
 	Mouse = {
 		superclass = "Instance",
 		properties = {
-			X = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
 			TargetSurface = {
 				type = {type = "Enum", name = "NormalId"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			hit = {
+			X = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Origin = {
 				type = {type = "Data", name = "CFrame"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Icon = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
+			},
+			ViewSizeX = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			TargetFilter = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
 			},
 			ViewSizeY = {
 				type = {type = "Data", name = "Int32"},
@@ -4937,36 +4949,24 @@ return {
 				type = {type = "Data", name = "Ref"},
 				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
 			},
+			hit = {
+				type = {type = "Data", name = "CFrame"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
 			Hit = {
 				type = {type = "Data", name = "CFrame"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Icon = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
-			Y = {
-				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			Target = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			Y = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
 			UnitRay = {
 				type = {type = "Unimplemented", name = "Ray"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Origin = {
-				type = {type = "Data", name = "CFrame"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			TargetFilter = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
-			ViewSizeX = {
-				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
@@ -5083,27 +5083,11 @@ return {
 	NetworkSettings = {
 		superclass = "Instance",
 		properties = {
-			DataMtuAdjust = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
+			DataSendPriority = {
+				type = {type = "Enum", name = "PacketPriority"},
+				tags = {Hidden = true, NotReplicated = true, },
 			},
-			IsQueueErrorComputed = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			PrintStreamInstanceQuota = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			DataGCRate = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			UsePhysicsPacketCache = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			RenderStreamedRegions = {
+			PrintTouches = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -5111,15 +5095,19 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
+			ProxyURL = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
 			PrintPhysicsErrors = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			FreeMemoryMBytes = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			DataMtuAdjust = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
 			},
-			PrintEvents = {
+			ProxyEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -5127,48 +5115,64 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			PrintFilters = {
+			PrintBits = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			PhysicsSendRate = {
-				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			ReceiveRate = {
 				type = {type = "Data", name = "Float64"},
 				tags = {},
 			},
-			ShowActiveAnimationAsset = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			PrintTouches = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			PhysicsSendPriority = {
 				type = {type = "Enum", name = "PacketPriority"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			PrintInstances = {
+			DataGCRate = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			NetworkOwnerRate = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			RenderStreamedRegions = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			ProxyURL = {
-				type = {type = "Data", name = "String"},
+			TouchSendRate = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			DataSendRate = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			IsQueueErrorComputed = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			FreeMemoryMBytes = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			PhysicsSendRate = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			IncommingReplicationLag = {
 				type = {type = "Data", name = "Float64"},
 				tags = {},
 			},
-			PrintBits = {
+			UsePhysicsPacketCache = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			TouchSendRate = {
-				type = {type = "Data", name = "Float32"},
+			PrintInstances = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			TrackPhysicsDetails = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			PhysicsMtuAdjust = {
@@ -5179,28 +5183,8 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			TrackDataTypes = {
+			PrintFilters = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			TrackPhysicsDetails = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			PreferredClientPort = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			DataSendPriority = {
-				type = {type = "Enum", name = "PacketPriority"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			DataSendRate = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			NetworkOwnerRate = {
-				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			PrintSplitMessage = {
@@ -5211,7 +5195,23 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			ProxyEnabled = {
+			PrintStreamInstanceQuota = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			TrackDataTypes = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			PreferredClientPort = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			ShowActiveAnimationAsset = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			PrintEvents = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -5229,6 +5229,18 @@ return {
 	NotificationService = {
 		superclass = "Instance",
 		properties = {
+			IsLuaGameDetailsEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			IsLuaGamesPageEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			SelectedTheme = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, },
+			},
 			IsLuaBottomBarEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
@@ -5237,19 +5249,7 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			IsLuaGameDetailsEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
 			IsLuaChatEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			SelectedTheme = {
-				type = {type = "Data", name = "String"},
-				tags = {NotReplicated = true, },
-			},
-			IsLuaGamesPageEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -5313,21 +5313,21 @@ return {
 	PackageLink = {
 		superclass = "Instance",
 		properties = {
-			VersionNumber = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, },
-			},
-			AutoUpdate = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotScriptable = true, },
-			},
 			Status = {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			VersionNumber = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, },
+			},
 			PackageId = {
 				type = {type = "Data", name = "Content"},
 				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			AutoUpdate = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotScriptable = true, },
 			},
 		},
 		defaults = {
@@ -5372,7 +5372,11 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			C = {
+			Range = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Thickness = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -5380,11 +5384,7 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Range = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Thickness = {
+			C = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -5400,13 +5400,13 @@ return {
 	Part = {
 		superclass = "FormFactorPart",
 		properties = {
-			Shape = {
-				type = {type = "Enum", name = "PartType"},
-				tags = {NotReplicated = true, },
-			},
 			shape = {
 				type = {type = "Enum", name = "PartType"},
 				tags = {},
+			},
+			Shape = {
+				type = {type = "Enum", name = "PartType"},
+				tags = {NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -5474,21 +5474,21 @@ return {
 	PartOperation = {
 		superclass = "BasePart",
 		properties = {
+			RenderFidelity = {
+				type = {type = "Enum", name = "RenderFidelity"},
+				tags = {},
+			},
 			CollisionFidelity = {
 				type = {type = "Enum", name = "CollisionFidelity"},
 				tags = {NotReplicated = true, NotScriptable = true, },
 			},
-			RenderFidelity = {
-				type = {type = "Enum", name = "RenderFidelity"},
+			UsePartColor = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			TriangleCount = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			UsePartColor = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
 			},
 		},
 		defaults = {
@@ -5554,8 +5554,48 @@ return {
 	ParticleEmitter = {
 		superclass = "Instance",
 		properties = {
-			SpreadAngle = {
-				type = {type = "Data", name = "Vector2"},
+			Size = {
+				type = {type = "Data", name = "NumberSequence"},
+				tags = {},
+			},
+			Acceleration = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			Texture = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
+			},
+			VelocityInheritance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Color = {
+				type = {type = "Data", name = "ColorSequence"},
+				tags = {},
+			},
+			ZOffset = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Lifetime = {
+				type = {type = "Data", name = "NumberRange"},
+				tags = {},
+			},
+			LightInfluence = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Drag = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Rotation = {
+				type = {type = "Data", name = "NumberRange"},
+				tags = {},
+			},
+			EmissionDirection = {
+				type = {type = "Enum", name = "NormalId"},
 				tags = {},
 			},
 			Enabled = {
@@ -5570,67 +5610,27 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			LightInfluence = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			RotSpeed = {
-				type = {type = "Data", name = "NumberRange"},
-				tags = {},
-			},
-			Drag = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Size = {
-				type = {type = "Data", name = "NumberSequence"},
-				tags = {},
-			},
-			ZOffset = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Acceleration = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			Speed = {
-				type = {type = "Data", name = "NumberRange"},
+			SpreadAngle = {
+				type = {type = "Data", name = "Vector2"},
 				tags = {},
 			},
 			Transparency = {
 				type = {type = "Data", name = "NumberSequence"},
 				tags = {},
 			},
-			VelocityInheritance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			VelocitySpread = {
 				type = {type = "Data", name = "Float32"},
 				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			Speed = {
+				type = {type = "Data", name = "NumberRange"},
+				tags = {},
 			},
 			LockedToPart = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			EmissionDirection = {
-				type = {type = "Enum", name = "NormalId"},
-				tags = {},
-			},
-			Lifetime = {
-				type = {type = "Data", name = "NumberRange"},
-				tags = {},
-			},
-			Color = {
-				type = {type = "Data", name = "ColorSequence"},
-				tags = {},
-			},
-			Texture = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
-			Rotation = {
+			RotSpeed = {
 				type = {type = "Data", name = "NumberRange"},
 				tags = {},
 			},
@@ -5698,19 +5698,31 @@ return {
 				type = {type = "Data", name = "Float64"},
 				tags = {},
 			},
-			DisableCSGv2 = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			AreAnchorsShown = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			AreAwakePartsHighlighted = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			AreModelCoordsShown = {
+			IsReceiveAgeShown = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			AreOwnersShown = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			IsTreeShown = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			AreBodyTypesShown = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			AreWorldCoordsShown = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			AreContactPointsShown = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -5718,7 +5730,11 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			UseCSGv2 = {
+			AllowSleep = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			AreJointCoordinatesShown = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -5726,7 +5742,7 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			IsTreeShown = {
+			ShowDecompositionGeometry = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -5738,11 +5754,15 @@ return {
 				type = {type = "Enum", name = "EnviromentalPhysicsThrottle"},
 				tags = {},
 			},
-			AllowSleep = {
+			AreAnchorsShown = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			AreAssembliesShown = {
+			DisableCSGv2 = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			UseCSGv2 = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -5750,35 +5770,15 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			AreBodyTypesShown = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			AreJointCoordinatesShown = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			AreOwnersShown = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			ArePartCoordsShown = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			ShowDecompositionGeometry = {
+			AreModelCoordsShown = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			AreContactPointsShown = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			AreWorldCoordsShown = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			IsReceiveAgeShown = {
+			AreAssembliesShown = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -5811,51 +5811,95 @@ return {
 	Player = {
 		superclass = "Instance",
 		properties = {
+			ReplicationFocus = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			CameraMode = {
+				type = {type = "Enum", name = "CameraMode"},
+				tags = {},
+			},
 			userId = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Deprecated = true, },
-			},
-			DevCameraOcclusionMode = {
-				type = {type = "Enum", name = "DevCameraOcclusionMode"},
-				tags = {},
-			},
-			UserId = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			NameDisplayDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
 			},
 			MaximumSimulationRadius = {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, },
 			},
-			CharacterAppearance = {
-				type = {type = "Data", name = "String"},
-				tags = {Deprecated = true, NotBrowsable = true, },
-			},
-			DataComplexityLimit = {
+			DataComplexity = {
 				type = {type = "Data", name = "Int32"},
-				tags = {Deprecated = true, NotReplicated = true, },
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
 			},
-			DevComputerMovementMode = {
-				type = {type = "Enum", name = "DevComputerMovementMode"},
+			HealthDisplayDistance = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			OsPlatform = {
+			AutoJumpEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			LocaleId = {
 				type = {type = "Data", name = "String"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			DevCameraOcclusionMode = {
+				type = {type = "Enum", name = "DevCameraOcclusionMode"},
 				tags = {},
 			},
-			DisplayName = {
-				type = {type = "Data", name = "String"},
+			DevTouchCameraMode = {
+				type = {type = "Enum", name = "DevTouchCameraMovementMode"},
 				tags = {},
+			},
+			MembershipType = {
+				type = {type = "Enum", name = "MembershipType"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			VRDevice = {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
+			CanLoadCharacterAppearance = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			DevComputerMovementMode = {
+				type = {type = "Enum", name = "DevComputerMovementMode"},
+				tags = {},
+			},
 			RespawnLocation = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			CharacterAppearance = {
+				type = {type = "Data", name = "String"},
+				tags = {Deprecated = true, NotBrowsable = true, },
+			},
+			OsPlatform = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			DevEnableMouseLock = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			DataComplexityLimit = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			SimulationRadius = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Team = {
+				type = {type = "Data", name = "Ref"},
+				tags = {NotReplicated = true, },
+			},
+			TeamColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {},
+			},
+			Character = {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
@@ -5863,59 +5907,7 @@ return {
 				type = {type = "Enum", name = "ChatMode"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			DevComputerCameraMode = {
-				type = {type = "Enum", name = "DevComputerCameraMovementMode"},
-				tags = {},
-			},
-			TeamColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {},
-			},
-			Neutral = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			AccountAge = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			FollowUserId = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			LocaleId = {
-				type = {type = "Data", name = "String"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			DevEnableMouseLock = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ReplicationFocus = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
 			CameraMaxZoomDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			DevTouchCameraMode = {
-				type = {type = "Enum", name = "DevTouchCameraMovementMode"},
-				tags = {},
-			},
-			Teleported = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			AutoJumpEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			CameraMode = {
-				type = {type = "Enum", name = "CameraMode"},
-				tags = {},
-			},
-			CameraMinZoomDistance = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -5923,27 +5915,15 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			MembershipType = {
-				type = {type = "Enum", name = "MembershipType"},
+			AccountAge = {
+				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			Character = {
-				type = {type = "Data", name = "Ref"},
+			UserId = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			Team = {
-				type = {type = "Data", name = "Ref"},
-				tags = {NotReplicated = true, },
-			},
-			AppearanceDidLoad = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
-			},
-			HealthDisplayDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			SimulationRadius = {
+			CameraMinZoomDistance = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -5951,25 +5931,45 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
 			},
+			Teleported = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			NameDisplayDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			DevComputerCameraMode = {
+				type = {type = "Enum", name = "DevComputerCameraMovementMode"},
+				tags = {},
+			},
 			DevTouchMovementMode = {
 				type = {type = "Enum", name = "DevTouchMovementMode"},
 				tags = {},
 			},
-			Guest = {
+			Neutral = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			AppearanceDidLoad = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+			},
+			DisplayName = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			FollowUserId = {
+				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			CharacterAppearanceId = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			CanLoadCharacterAppearance = {
+			Guest = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			DataComplexity = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
 		defaults = {
@@ -6011,36 +6011,44 @@ return {
 	Players = {
 		superclass = "Instance",
 		properties = {
-			CharacterAutoLoads = {
+			MaxPlayers = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			ClassicChat = {
 				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, },
-			},
-			NumPlayers = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
-			},
-			RespawnTime = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			PreferredPlayersInternal = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			LocalPlayer = {
-				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			numPlayers = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, ReadOnly = true, },
 			},
-			BubbleChat = {
+			PreferredPlayersInternal = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			MaxPlayersInternal = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			RespawnTime = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			CharacterAutoLoads = {
 				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, },
+			},
+			LocalPlayer = {
+				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			MaxPlayers = {
+			NumPlayers = {
 				type = {type = "Data", name = "Int32"},
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+			},
+			BubbleChat = {
+				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			localPlayer = {
@@ -6050,14 +6058,6 @@ return {
 			PreferredPlayers = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			ClassicChat = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			MaxPlayersInternal = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
 			},
 		},
 		defaults = {
@@ -6092,16 +6092,16 @@ return {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			Text = {
+				type = {type = "Data", name = "String"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
 			StatusTip = {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			AllowBinding = {
 				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Text = {
-				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
@@ -6112,7 +6112,7 @@ return {
 	PluginDragEvent = {
 		superclass = "Instance",
 		properties = {
-			MimeType = {
+			Data = {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -6120,7 +6120,7 @@ return {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			Data = {
+			MimeType = {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -6161,11 +6161,11 @@ return {
 	PluginMenu = {
 		superclass = "Instance",
 		properties = {
-			Icon = {
+			Title = {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, },
 			},
-			Title = {
+			Icon = {
 				type = {type = "Data", name = "String"},
 				tags = {NotReplicated = true, },
 			},
@@ -6194,12 +6194,12 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, },
 			},
-			Icon = {
-				type = {type = "Data", name = "Content"},
-				tags = {NotReplicated = true, },
-			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, },
+			},
+			Icon = {
+				type = {type = "Data", name = "Content"},
 				tags = {NotReplicated = true, },
 			},
 		},
@@ -6234,24 +6234,24 @@ return {
 	Pose = {
 		superclass = "Instance",
 		properties = {
+			CFrame = {
+				type = {type = "Data", name = "CFrame"},
+				tags = {},
+			},
 			MaskWeight = {
 				type = {type = "Data", name = "Float32"},
 				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			EasingStyle = {
-				type = {type = "Enum", name = "PoseEasingStyle"},
-				tags = {},
 			},
 			EasingDirection = {
 				type = {type = "Enum", name = "PoseEasingDirection"},
 				tags = {},
 			},
-			Weight = {
-				type = {type = "Data", name = "Float32"},
+			EasingStyle = {
+				type = {type = "Enum", name = "PoseEasingStyle"},
 				tags = {},
 			},
-			CFrame = {
-				type = {type = "Data", name = "CFrame"},
+			Weight = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -6338,15 +6338,7 @@ return {
 	ReflectionMetadataClass = {
 		superclass = "ReflectionMetadataItem",
 		properties = {
-			Insertable = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			PreferredParent = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			ExplorerImageIndex = {
+			ExplorerOrder = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
@@ -6354,7 +6346,15 @@ return {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
-			ExplorerOrder = {
+			PreferredParent = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			Insertable = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			ExplorerImageIndex = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
@@ -6458,16 +6458,16 @@ return {
 	ReflectionMetadataItem = {
 		superclass = "Instance",
 		properties = {
-			IsBackend = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			UINumTicks = {
-				type = {type = "Data", name = "Float64"},
-				tags = {},
-			},
 			ClassCategory = {
 				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			Constraint = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			Deprecated = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			UIMinimum = {
@@ -6478,23 +6478,7 @@ return {
 				type = {type = "Data", name = "Float64"},
 				tags = {},
 			},
-			ScriptContext = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			ClientOnly = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Browsable = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			EditingDisabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Deprecated = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -6506,8 +6490,24 @@ return {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
-			Constraint = {
+			ClientOnly = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Browsable = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			ScriptContext = {
 				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			UINumTicks = {
+				type = {type = "Data", name = "Float64"},
+				tags = {},
+			},
+			IsBackend = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -6570,25 +6570,17 @@ return {
 	RenderSettings = {
 		superclass = "Instance",
 		properties = {
-			MeshCacheSize = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			EditQualityLevel = {
+			QualityLevel = {
 				type = {type = "Enum", name = "QualityLevel"},
 				tags = {},
-			},
-			EnableFRM = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, NotReplicated = true, },
 			},
 			EagerBulkExecution = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			ReloadAssets = {
+			EnableFRM = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
+				tags = {Hidden = true, NotReplicated = true, },
 			},
 			FrameRateManager = {
 				type = {type = "Enum", name = "FramerateManagerMode"},
@@ -6598,11 +6590,19 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			QualityLevel = {
+			RenderCSGTrianglesDebug = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			EditQualityLevel = {
 				type = {type = "Enum", name = "QualityLevel"},
 				tags = {},
 			},
 			AutoFRMLevel = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			MeshCacheSize = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
@@ -6614,7 +6614,7 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			RenderCSGTrianglesDebug = {
+			ReloadAssets = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -6625,39 +6625,27 @@ return {
 	RenderingTest = {
 		superclass = "Instance",
 		properties = {
-			QualityLevel = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
 			ComparisonMethod = {
 				type = {type = "Enum", name = "RenderingTestComparisonMethod"},
-				tags = {},
-			},
-			ComparisonDiffThreshold = {
-				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 			Description = {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
-			Position = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, },
-			},
 			CFrame = {
 				type = {type = "Data", name = "CFrame"},
 				tags = {},
 			},
-			ShouldSkip = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			FieldOfView = {
-				type = {type = "Data", name = "Float32"},
+			QualityLevel = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 			ComparisonPsnrThreshold = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			FieldOfView = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -6665,8 +6653,20 @@ return {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
+			ComparisonDiffThreshold = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
 			Ticket = {
 				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			Position = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {NotReplicated = true, },
+			},
+			ShouldSkip = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -6704,7 +6704,7 @@ return {
 	ReverbSoundEffect = {
 		superclass = "SoundEffect",
 		properties = {
-			Diffusion = {
+			DryLevel = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -6712,15 +6712,15 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			DryLevel = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Density = {
+			Diffusion = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			DecayTime = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Density = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -6747,7 +6747,7 @@ return {
 	RocketPropulsion = {
 		superclass = "BodyMover",
 		properties = {
-			TurnP = {
+			MaxThrust = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -6755,15 +6755,11 @@ return {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
-			TargetOffset = {
+			MaxTorque = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
 			},
-			TargetRadius = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			CartoonFactor = {
+			ThrustD = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -6771,7 +6767,15 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			MaxThrust = {
+			TurnP = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			TargetOffset = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			CartoonFactor = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -6779,15 +6783,11 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			ThrustP = {
+			TargetRadius = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			MaxTorque = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {},
-			},
-			ThrustD = {
+			ThrustP = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -6810,13 +6810,13 @@ return {
 	RodConstraint = {
 		superclass = "Constraint",
 		properties = {
-			Thickness = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			CurrentDistance = {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Thickness = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 			Length = {
 				type = {type = "Data", name = "Float32"},
@@ -6841,13 +6841,13 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			CurrentDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
 			Thickness = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
+			},
+			CurrentDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			Length = {
 				type = {type = "Data", name = "Float32"},
@@ -6948,12 +6948,12 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {Hidden = true, },
 			},
-			DisplayOrder = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
 			IgnoreGuiInset = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			DisplayOrder = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 		},
@@ -7000,20 +7000,20 @@ return {
 	ScriptDebugger = {
 		superclass = "Instance",
 		properties = {
-			CurrentLine = {
-				type = {type = "Data", name = "Int32"},
+			Script = {
+				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			IsDebugging = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			IsPaused = {
-				type = {type = "Data", name = "Bool"},
+			CurrentLine = {
+				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			Script = {
-				type = {type = "Data", name = "Ref"},
+			IsPaused = {
+				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
@@ -7031,7 +7031,11 @@ return {
 	ScrollingFrame = {
 		superclass = "GuiObject",
 		properties = {
-			TopImage = {
+			ScrollBarImageColor3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			BottomImage = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
@@ -7039,56 +7043,52 @@ return {
 				type = {type = "Enum", name = "ElasticBehavior"},
 				tags = {},
 			},
-			BottomImage = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
 			CanvasPosition = {
 				type = {type = "Data", name = "Vector2"},
-				tags = {},
-			},
-			ScrollBarImageTransparency = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ScrollBarImageColor3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			ScrollingDirection = {
-				type = {type = "Enum", name = "ScrollingDirection"},
 				tags = {},
 			},
 			VerticalScrollBarInset = {
 				type = {type = "Enum", name = "ScrollBarInset"},
 				tags = {},
 			},
-			AbsoluteWindowSize = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			CanvasSize = {
-				type = {type = "Data", name = "UDim2"},
-				tags = {},
-			},
-			HorizontalScrollBarInset = {
-				type = {type = "Enum", name = "ScrollBarInset"},
+			VerticalScrollBarPosition = {
+				type = {type = "Enum", name = "VerticalScrollBarPosition"},
 				tags = {},
 			},
 			MidImage = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
-			ScrollBarThickness = {
-				type = {type = "Data", name = "Int32"},
+			TopImage = {
+				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
-			VerticalScrollBarPosition = {
-				type = {type = "Enum", name = "VerticalScrollBarPosition"},
+			AbsoluteWindowSize = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			HorizontalScrollBarInset = {
+				type = {type = "Enum", name = "ScrollBarInset"},
+				tags = {},
+			},
+			ScrollingDirection = {
+				type = {type = "Enum", name = "ScrollingDirection"},
 				tags = {},
 			},
 			ScrollingEnabled = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			CanvasSize = {
+				type = {type = "Data", name = "UDim2"},
+				tags = {},
+			},
+			ScrollBarImageTransparency = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			ScrollBarThickness = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 		},
@@ -7212,21 +7212,21 @@ return {
 	SelectionBox = {
 		superclass = "PVAdornment",
 		properties = {
+			SurfaceColor3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
 			LineThickness = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			SurfaceColor3 = {
-				type = {type = "Data", name = "Color3"},
+			SurfaceTransparency = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			SurfaceColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			SurfaceTransparency = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
 			},
 		},
 		defaults = {
@@ -7362,12 +7362,12 @@ return {
 	ShirtGraphic = {
 		superclass = "CharacterAppearance",
 		properties = {
-			Graphic = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
 			Color3 = {
 				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			Graphic = {
+				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
 		},
@@ -7380,11 +7380,11 @@ return {
 	SkateboardController = {
 		superclass = "Controller",
 		properties = {
-			Throttle = {
+			Steer = {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			Steer = {
+			Throttle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -7396,13 +7396,17 @@ return {
 	SkateboardPlatform = {
 		superclass = "Part",
 		properties = {
-			Controller = {
-				type = {type = "Data", name = "Ref"},
-				tags = {NotReplicated = true, ReadOnly = true, },
+			Throttle = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
 			},
 			StickyWheels = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
+			},
+			Controller = {
+				type = {type = "Data", name = "Ref"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			Steer = {
 				type = {type = "Data", name = "Int32"},
@@ -7411,10 +7415,6 @@ return {
 			ControllingHumanoid = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Throttle = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
 			},
 		},
 		defaults = {
@@ -7486,11 +7486,15 @@ return {
 	Sky = {
 		superclass = "Instance",
 		properties = {
+			SkyboxLf = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
+			},
 			CelestialBodiesShown = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			SkyboxFt = {
+			SkyboxRt = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
@@ -7498,27 +7502,15 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			SunTextureId = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
-			SkyboxUp = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
-			StarCount = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
 			SkyboxBk = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
-			MoonTextureId = {
+			SkyboxFt = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
-			SkyboxRt = {
+			SkyboxDn = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
@@ -7526,11 +7518,19 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			SkyboxLf = {
+			SunTextureId = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
-			SkyboxDn = {
+			StarCount = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			MoonTextureId = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
+			},
+			SkyboxUp = {
 				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
@@ -7554,30 +7554,6 @@ return {
 	SlidingBallConstraint = {
 		superclass = "Constraint",
 		properties = {
-			Velocity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			UpperLimit = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			ServoMaxForce = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			MotorMaxAcceleration = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Restitution = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Size = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			CurrentPosition = {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
@@ -7586,12 +7562,16 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			LimitsEnabled = {
-				type = {type = "Data", name = "Bool"},
+			Restitution = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			TargetPosition = {
+			MotorMaxAcceleration = {
 				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			LimitsEnabled = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			Speed = {
@@ -7602,7 +7582,27 @@ return {
 				type = {type = "Enum", name = "ActuatorType"},
 				tags = {},
 			},
+			TargetPosition = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
 			LowerLimit = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			ServoMaxForce = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			UpperLimit = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Velocity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Size = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -7617,13 +7617,9 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Color = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			RiseVelocity = {
+			size_xml = {
 				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, },
+				tags = {},
 			},
 			riseVelocity_xml = {
 				type = {type = "Data", name = "Float32"},
@@ -7631,6 +7627,10 @@ return {
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Color = {
+				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
 			Size = {
@@ -7641,9 +7641,9 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, },
 			},
-			size_xml = {
+			RiseVelocity = {
 				type = {type = "Data", name = "Float32"},
-				tags = {},
+				tags = {NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -7686,81 +7686,81 @@ return {
 	Sound = {
 		superclass = "Instance",
 		properties = {
-			SoundId = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
-			IsPlaying = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			EmitterSize = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			TimeLength = {
-				type = {type = "Data", name = "Float64"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Pitch = {
-				type = {type = "Data", name = "Float32"},
-				tags = {Deprecated = true, },
-			},
-			TimePosition = {
-				type = {type = "Data", name = "Float64"},
-				tags = {},
-			},
 			Looped = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			PlayOnRemove = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			PlaybackLoudness = {
-				type = {type = "Data", name = "Float64"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			Playing = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			PlaybackSpeed = {
-				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			RollOffMode = {
 				type = {type = "Enum", name = "RollOffMode"},
 				tags = {},
 			},
-			isPlaying = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+			Volume = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 			SoundGroup = {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
-			IsPaused = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
+			SoundId = {
+				type = {type = "Data", name = "Content"},
+				tags = {},
 			},
 			MaxDistance = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			MinDistance = {
+			TimePosition = {
+				type = {type = "Data", name = "Float64"},
+				tags = {},
+			},
+			Playing = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Pitch = {
 				type = {type = "Data", name = "Float32"},
 				tags = {Deprecated = true, },
 			},
-			Volume = {
+			PlaybackSpeed = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			IsLoaded = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			IsPaused = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			PlaybackLoudness = {
+				type = {type = "Data", name = "Float64"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			PlayOnRemove = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			isPlaying = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+			},
+			EmitterSize = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			IsPlaying = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			TimeLength = {
+				type = {type = "Data", name = "Float64"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			MinDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {Deprecated = true, },
 			},
 		},
 		defaults = {
@@ -7782,12 +7782,12 @@ return {
 	SoundEffect = {
 		superclass = "Instance",
 		properties = {
-			Priority = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Priority = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 		},
@@ -7810,8 +7810,8 @@ return {
 	SoundService = {
 		superclass = "Instance",
 		properties = {
-			DistanceFactor = {
-				type = {type = "Data", name = "Float32"},
+			AmbientReverb = {
+				type = {type = "Enum", name = "ReverbType"},
 				tags = {},
 			},
 			RolloffScale = {
@@ -7822,12 +7822,12 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			AmbientReverb = {
-				type = {type = "Enum", name = "ReverbType"},
-				tags = {},
-			},
 			RespectFilteringEnabled = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			DistanceFactor = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -7847,13 +7847,13 @@ return {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
-			Enabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			Color = {
 				type = {type = "Data", name = "Color3"},
 				tags = {Hidden = true, NotReplicated = true, },
+			},
+			Enabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -7866,24 +7866,24 @@ return {
 	SpawnLocation = {
 		superclass = "Part",
 		properties = {
-			Enabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			TeamColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {},
-			},
-			Neutral = {
-				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			AllowTeamChangeOnTouch = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
+			Neutral = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
 			Duration = {
 				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			Enabled = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -7991,7 +7991,7 @@ return {
 	SpotLight = {
 		superclass = "Light",
 		properties = {
-			Range = {
+			Angle = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -7999,7 +7999,7 @@ return {
 				type = {type = "Enum", name = "NormalId"},
 				tags = {},
 			},
-			Angle = {
+			Range = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -8018,36 +8018,12 @@ return {
 	SpringConstraint = {
 		superclass = "Constraint",
 		properties = {
-			MaxForce = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Stiffness = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			MaxLength = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			FreeLength = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			Coils = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Radius = {
+			MinLength = {
 				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			CurrentLength = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			LimitsEnabled = {
-				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			Damping = {
@@ -8058,9 +8034,33 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			MinLength = {
+			Radius = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
+			},
+			LimitsEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			MaxLength = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Stiffness = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			MaxForce = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			FreeLength = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			CurrentLength = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
 		defaults = {
@@ -8108,14 +8108,6 @@ return {
 	StarterGui = {
 		superclass = "BasePlayerGui",
 		properties = {
-			ScreenOrientation = {
-				type = {type = "Enum", name = "ScreenOrientation"},
-				tags = {},
-			},
-			ProcessUserInput = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
 			ShowDevelopmentGui = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
@@ -8123,6 +8115,14 @@ return {
 			ResetPlayerGuiOnSpawn = {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, },
+			},
+			ScreenOrientation = {
+				type = {type = "Enum", name = "ScreenOrientation"},
+				tags = {},
+			},
+			ProcessUserInput = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -8143,131 +8143,79 @@ return {
 	StarterPlayer = {
 		superclass = "Instance",
 		properties = {
-			DevCameraOcclusionMode = {
-				type = {type = "Enum", name = "DevCameraOcclusionMode"},
+			DevComputerCameraMovementMode = {
+				type = {type = "Enum", name = "DevComputerCameraMovementMode"},
 				tags = {},
 			},
-			GameSettingsScaleHead = {
-				type = {type = "Data", name = "NumberRange"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			GameSettingsR15CollisionType = {
-				type = {type = "Enum", name = "R15CollisionType"},
+			GameSettingsAssetIDLeftArm = {
+				type = {type = "Data", name = "Int32"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
 			EnableMouseLockOption = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			NameDisplayDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			GameSettingsAssetIDShirt = {
+			GameSettingsAssetIDPants = {
 				type = {type = "Data", name = "Int32"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			GameSettingsScaleBodyType = {
-				type = {type = "Data", name = "NumberRange"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			LoadCharacterAppearance = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			GameSettingsAssetIDLeftLeg = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			CharacterWalkSpeed = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			AutoJumpEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			GameSettingsAssetIDHead = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			DevTouchCameraMovementMode = {
-				type = {type = "Enum", name = "DevTouchCameraMovementMode"},
-				tags = {},
-			},
-			GameSettingsAssetIDRightArm = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			GameSettingsAssetIDLeftArm = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			GameSettingsScaleWidth = {
-				type = {type = "Data", name = "NumberRange"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
 			CameraMaxZoomDistance = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			GameSettingsAssetIDTorso = {
+			AllowCustomAnimations = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, },
+			},
+			GameSettingsAssetIDShirt = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			DevTouchMovementMode = {
-				type = {type = "Enum", name = "DevTouchMovementMode"},
-				tags = {},
-			},
-			CameraMode = {
-				type = {type = "Enum", name = "CameraMode"},
-				tags = {},
-			},
-			GameSettingsScaleProportion = {
-				type = {type = "Data", name = "NumberRange"},
+			GameSettingsR15CollisionType = {
+				type = {type = "Enum", name = "R15CollisionType"},
 				tags = {Hidden = true, NotReplicated = true, },
-			},
-			CharacterJumpHeight = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			GameSettingsAssetIDFace = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			HealthDisplayDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
 			},
 			GameSettingsAssetIDRightLeg = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			CharacterMaxSlopeAngle = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			GameSettingsScaleHeight = {
-				type = {type = "Data", name = "NumberRange"},
+			GameSettingsAssetIDLeftLeg = {
+				type = {type = "Data", name = "Int32"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			CharacterJumpPower = {
-				type = {type = "Data", name = "Float32"},
+			AutoJumpEnabled = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			CameraMinZoomDistance = {
-				type = {type = "Data", name = "Float32"},
+			DevCameraOcclusionMode = {
+				type = {type = "Enum", name = "DevCameraOcclusionMode"},
 				tags = {},
 			},
 			DevComputerMovementMode = {
 				type = {type = "Enum", name = "DevComputerMovementMode"},
 				tags = {},
 			},
-			AllowCustomAnimations = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, },
+			GameSettingsAssetIDTeeShirt = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Hidden = true, NotReplicated = true, },
 			},
-			GameSettingsAssetIDPants = {
+			GameSettingsScaleProportion = {
+				type = {type = "Data", name = "NumberRange"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			CharacterMaxSlopeAngle = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			CharacterJumpPower = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			GameSettingsScaleWidth = {
+				type = {type = "Data", name = "NumberRange"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			GameSettingsAssetIDHead = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
@@ -8275,17 +8223,69 @@ return {
 				type = {type = "Enum", name = "GameAvatarType"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			DevComputerCameraMovementMode = {
-				type = {type = "Enum", name = "DevComputerCameraMovementMode"},
+			GameSettingsScaleHead = {
+				type = {type = "Data", name = "NumberRange"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			DevTouchCameraMovementMode = {
+				type = {type = "Enum", name = "DevTouchCameraMovementMode"},
+				tags = {},
+			},
+			CharacterJumpHeight = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			GameSettingsScaleBodyType = {
+				type = {type = "Data", name = "NumberRange"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			GameSettingsAssetIDRightArm = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			CharacterWalkSpeed = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			CameraMode = {
+				type = {type = "Enum", name = "CameraMode"},
 				tags = {},
 			},
 			CharacterUseJumpPower = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			GameSettingsAssetIDTeeShirt = {
+			GameSettingsAssetIDTorso = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Hidden = true, NotReplicated = true, },
+			},
+			HealthDisplayDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			GameSettingsScaleHeight = {
+				type = {type = "Data", name = "NumberRange"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			GameSettingsAssetIDFace = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			CameraMinZoomDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			DevTouchMovementMode = {
+				type = {type = "Enum", name = "DevTouchMovementMode"},
+				tags = {},
+			},
+			LoadCharacterAppearance = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			NameDisplayDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -8334,18 +8334,6 @@ return {
 	Stats = {
 		superclass = "Instance",
 		properties = {
-			DataReceiveKbps = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			PhysicsSendKbps = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			MovingPrimitivesCount = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
 			PhysicsReceiveKbps = {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
@@ -8354,8 +8342,24 @@ return {
 				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			DataReceiveKbps = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			PhysicsSendKbps = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			PrimitivesCount = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
 			ContactsCount = {
 				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			DataSendKbps = {
+				type = {type = "Data", name = "Float32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			PhysicsStepTimeMs = {
@@ -8366,11 +8370,7 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			DataSendKbps = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			PrimitivesCount = {
+			MovingPrimitivesCount = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -8416,42 +8416,6 @@ return {
 	Studio = {
 		superclass = "Instance",
 		properties = {
-			OverrideCoreScripts = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ScriptTimeoutLength = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			LuaDebuggerEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			DefaultScriptFileDir = {
-				type = {type = "Unimplemented", name = "QDir"},
-				tags = {},
-			},
-			Theme = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
-			OverrideCoreScriptsDir = {
-				type = {type = "Unimplemented", name = "QDir"},
-				tags = {},
-			},
-			RecentSavesDir = {
-				type = {type = "Unimplemented", name = "QDir"},
-				tags = {},
-			},
-			LuaDebuggerEnabledAtStartup = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			Font = {
-				type = {type = "Unimplemented", name = "QFont"},
-				tags = {},
-			},
 			PluginsDir = {
 				type = {type = "Unimplemented", name = "QDir"},
 				tags = {},
@@ -8460,12 +8424,48 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
+			DefaultScriptFileDir = {
+				type = {type = "Unimplemented", name = "QDir"},
+				tags = {},
+			},
+			OverrideCoreScripts = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
 			PermissionLevelShown = {
 				type = {type = "Enum", name = "PermissionLevelShown"},
 				tags = {},
 			},
+			Theme = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
 			RuntimeUndoBehavior = {
 				type = {type = "Enum", name = "RuntimeUndoBehavior"},
+				tags = {},
+			},
+			OverrideCoreScriptsDir = {
+				type = {type = "Unimplemented", name = "QDir"},
+				tags = {},
+			},
+			Font = {
+				type = {type = "Unimplemented", name = "QFont"},
+				tags = {},
+			},
+			ScriptTimeoutLength = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			LuaDebuggerEnabledAtStartup = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			RecentSavesDir = {
+				type = {type = "Unimplemented", name = "QDir"},
+				tags = {},
+			},
+			LuaDebuggerEnabled = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -8494,11 +8494,11 @@ return {
 	SunRaysEffect = {
 		superclass = "PostEffect",
 		properties = {
-			Intensity = {
+			Spread = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Spread = {
+			Intensity = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -8513,40 +8513,40 @@ return {
 	SurfaceGui = {
 		superclass = "LayerCollector",
 		properties = {
-			AlwaysOnTop = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Active = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ToolPunchThroughDistance = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			ClipsDescendants = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ZOffset = {
-				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			Adornee = {
 				type = {type = "Data", name = "Ref"},
 				tags = {},
 			},
-			CanvasSize = {
-				type = {type = "Data", name = "Vector2"},
+			ToolPunchThroughDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			ZOffset = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			AlwaysOnTop = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Face = {
+				type = {type = "Enum", name = "NormalId"},
 				tags = {},
 			},
 			LightInfluence = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Face = {
-				type = {type = "Enum", name = "NormalId"},
+			CanvasSize = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {},
+			},
+			Active = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 		},
@@ -8573,16 +8573,16 @@ return {
 	SurfaceLight = {
 		superclass = "Light",
 		properties = {
-			Face = {
-				type = {type = "Enum", name = "NormalId"},
-				tags = {},
-			},
 			Range = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			Angle = {
 				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Face = {
+				type = {type = "Enum", name = "NormalId"},
 				tags = {},
 			},
 		},
@@ -8617,7 +8617,7 @@ return {
 	TaskScheduler = {
 		superclass = "Instance",
 		properties = {
-			SchedulerRate = {
+			SchedulerDutyCycle = {
 				type = {type = "Data", name = "Float64"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -8625,13 +8625,13 @@ return {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			SchedulerRate = {
+				type = {type = "Data", name = "Float64"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
 			ThreadPoolConfig = {
 				type = {type = "Enum", name = "ThreadPoolConfig"},
 				tags = {},
-			},
-			SchedulerDutyCycle = {
-				type = {type = "Data", name = "Float64"},
-				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
 		defaults = {
@@ -8644,10 +8644,6 @@ return {
 				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {},
 			},
-			AutoAssignable = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			Score = {
 				type = {type = "Data", name = "Int32"},
 				tags = {Deprecated = true, NotReplicated = true, },
@@ -8655,6 +8651,10 @@ return {
 			AutoColorCharacters = {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			AutoAssignable = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
 			},
 		},
 		defaults = {
@@ -8688,17 +8688,25 @@ return {
 	Terrain = {
 		superclass = "BasePart",
 		properties = {
+			WaterColor = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
 			WaterTransparency = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			WaterWaveSize = {
+			WaterReflectance = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			IsSmooth = {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+			},
+			WaterWaveSpeed = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 			MaterialColors = {
 				type = {type = "Data", name = "BinaryString"},
@@ -8708,15 +8716,7 @@ return {
 				type = {type = "Unimplemented", name = "Region3int16"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			WaterWaveSpeed = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			WaterColor = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			WaterReflectance = {
+			WaterWaveSize = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -8743,13 +8743,25 @@ return {
 	TestService = {
 		superclass = "Instance",
 		properties = {
-			Description = {
-				type = {type = "Data", name = "String"},
+			IsPhysicsEnvironmentalThrottled = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			TestCount = {
+			ErrorCount = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			IsSleepAllowed = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			SimulateSecondsLag = {
+				type = {type = "Data", name = "Float64"},
+				tags = {},
+			},
+			NumberOfPlayers = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
 			},
 			WarnCount = {
 				type = {type = "Data", name = "Int32"},
@@ -8759,37 +8771,25 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			SimulateSecondsLag = {
+			TestCount = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Timeout = {
 				type = {type = "Data", name = "Float64"},
+				tags = {},
+			},
+			Description = {
+				type = {type = "Data", name = "String"},
 				tags = {},
 			},
 			Is30FpsThrottleEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			NumberOfPlayers = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			IsPhysicsEnvironmentalThrottled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Timeout = {
-				type = {type = "Data", name = "Float64"},
-				tags = {},
-			},
 			AutoRuns = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
-			},
-			IsSleepAllowed = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ErrorCount = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
 		defaults = {
@@ -8811,31 +8811,87 @@ return {
 	TextBox = {
 		superclass = "GuiObject",
 		properties = {
-			Text = {
-				type = {type = "Data", name = "String"},
+			TextBounds = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			TextXAlignment = {
+				type = {type = "Enum", name = "TextXAlignment"},
 				tags = {},
 			},
-			ClearTextOnFocus = {
+			TextColor3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			MultiLine = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			Font = {
-				type = {type = "Enum", name = "Font"},
+			PlaceholderText = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			ManualFocusRelease = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, },
+			},
+			TextYAlignment = {
+				type = {type = "Enum", name = "TextYAlignment"},
 				tags = {},
 			},
 			TextFits = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			TextBounds = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {NotReplicated = true, ReadOnly = true, },
+			ShowNativeInput = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
 			},
-			PlaceholderText = {
+			TextColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
+			TextScaled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			TextTruncate = {
+				type = {type = "Enum", name = "TextTruncate"},
+				tags = {},
+			},
+			TextSize = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Text = {
 				type = {type = "Data", name = "String"},
 				tags = {},
 			},
+			TextWrap = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Deprecated = true, NotReplicated = true, },
+			},
 			IsPassword = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, },
+			},
+			TextTransparency = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Font = {
+				type = {type = "Enum", name = "Font"},
+				tags = {},
+			},
+			ClearTextOnFocus = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			LineHeight = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			OverlayNativeInput = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, },
 			},
@@ -8843,81 +8899,25 @@ return {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
-			TextYAlignment = {
-				type = {type = "Enum", name = "TextYAlignment"},
-				tags = {},
-			},
-			TextColor3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			FontSize = {
-				type = {type = "Enum", name = "FontSize"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			OverlayNativeInput = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, },
-			},
-			TextSize = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			PlaceholderColor3 = {
 				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			CursorPosition = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			TextWrap = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			TextColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
-			LineHeight = {
-				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			TextWrapped = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			ManualFocusRelease = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, },
+			CursorPosition = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
 			},
 			TextStrokeTransparency = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			MultiLine = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			TextTransparency = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			TextTruncate = {
-				type = {type = "Enum", name = "TextTruncate"},
-				tags = {},
-			},
-			TextXAlignment = {
-				type = {type = "Enum", name = "TextXAlignment"},
-				tags = {},
-			},
-			TextScaled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ShowNativeInput = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
+			FontSize = {
+				type = {type = "Enum", name = "FontSize"},
+				tags = {Deprecated = true, NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -8976,71 +8976,27 @@ return {
 	TextButton = {
 		superclass = "GuiButton",
 		properties = {
-			TextTransparency = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			LocalizedText = {
-				type = {type = "Data", name = "String"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			Text = {
-				type = {type = "Data", name = "String"},
+			TextYAlignment = {
+				type = {type = "Enum", name = "TextYAlignment"},
 				tags = {},
 			},
 			LineHeight = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Font = {
-				type = {type = "Enum", name = "Font"},
-				tags = {},
-			},
-			TextColor3 = {
-				type = {type = "Data", name = "Color3"},
+			TextScaled = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			TextStrokeColor3 = {
 				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
-			TextYAlignment = {
-				type = {type = "Enum", name = "TextYAlignment"},
-				tags = {},
-			},
-			FontSize = {
-				type = {type = "Enum", name = "FontSize"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			TextWrapped = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			TextTruncate = {
-				type = {type = "Enum", name = "TextTruncate"},
-				tags = {},
-			},
-			TextFits = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			TextColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
-			},
 			TextSize = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			TextBounds = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			TextXAlignment = {
-				type = {type = "Enum", name = "TextXAlignment"},
-				tags = {},
-			},
-			TextStrokeTransparency = {
+			TextTransparency = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -9048,8 +9004,52 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, NotReplicated = true, },
 			},
-			TextScaled = {
+			TextFits = {
 				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			TextColor3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			FontSize = {
+				type = {type = "Enum", name = "FontSize"},
+				tags = {Deprecated = true, NotReplicated = true, },
+			},
+			LocalizedText = {
+				type = {type = "Data", name = "String"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			TextTruncate = {
+				type = {type = "Enum", name = "TextTruncate"},
+				tags = {},
+			},
+			TextWrapped = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Text = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			TextStrokeTransparency = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			TextXAlignment = {
+				type = {type = "Enum", name = "TextXAlignment"},
+				tags = {},
+			},
+			TextColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			},
+			TextBounds = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			Font = {
+				type = {type = "Enum", name = "Font"},
 				tags = {},
 			},
 		},
@@ -9113,31 +9113,11 @@ return {
 	TextLabel = {
 		superclass = "GuiLabel",
 		properties = {
-			LocalizedText = {
-				type = {type = "Data", name = "String"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			Text = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			TextFits = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			TextColor3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			TextStrokeTransparency = {
+			TextTransparency = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			TextWrap = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Deprecated = true, NotReplicated = true, },
-			},
-			TextSize = {
+			TextStrokeTransparency = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -9145,48 +9125,68 @@ return {
 				type = {type = "Enum", name = "TextTruncate"},
 				tags = {},
 			},
-			Font = {
-				type = {type = "Enum", name = "Font"},
-				tags = {},
+			TextColor = {
+				type = {type = "Unimplemented", name = "BrickColor"},
+				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
 			},
-			LineHeight = {
+			TextSize = {
 				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			TextStrokeColor3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
-			TextXAlignment = {
-				type = {type = "Enum", name = "TextXAlignment"},
 				tags = {},
 			},
 			FontSize = {
 				type = {type = "Enum", name = "FontSize"},
 				tags = {Deprecated = true, NotReplicated = true, },
 			},
-			TextColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
-				tags = {Deprecated = true, Hidden = true, NotReplicated = true, },
+			LocalizedText = {
+				type = {type = "Data", name = "String"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
 			},
 			TextBounds = {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			TextColor3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			TextScaled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
 			TextWrapped = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
+			},
+			TextStrokeColor3 = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+			},
+			Text = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			Font = {
+				type = {type = "Enum", name = "Font"},
+				tags = {},
+			},
+			TextFits = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			TextWrap = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Deprecated = true, NotReplicated = true, },
 			},
 			TextYAlignment = {
 				type = {type = "Enum", name = "TextYAlignment"},
 				tags = {},
 			},
-			TextTransparency = {
-				type = {type = "Data", name = "Float32"},
+			TextXAlignment = {
+				type = {type = "Enum", name = "TextXAlignment"},
 				tags = {},
 			},
-			TextScaled = {
-				type = {type = "Data", name = "Bool"},
+			LineHeight = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -9286,17 +9286,17 @@ return {
 	Tool = {
 		superclass = "BackpackItem",
 		properties = {
-			GripForward = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, },
-			},
 			GripUp = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
 			},
-			RequiresHandle = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
+			GripRight = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {NotReplicated = true, },
+			},
+			GripPos = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {NotReplicated = true, },
 			},
 			ToolTip = {
 				type = {type = "Data", name = "String"},
@@ -9306,25 +9306,25 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			CanBeDropped = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			ManualActivationOnly = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			GripPos = {
+			RequiresHandle = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			GripForward = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {NotReplicated = true, },
+			},
+			CanBeDropped = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
 			},
 			Grip = {
 				type = {type = "Data", name = "CFrame"},
 				tags = {},
-			},
-			GripRight = {
-				type = {type = "Data", name = "Vector3"},
-				tags = {NotReplicated = true, },
 			},
 		},
 		defaults = {
@@ -9389,51 +9389,19 @@ return {
 	Trail = {
 		superclass = "Instance",
 		properties = {
-			LightInfluence = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Attachment1 = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
-			Attachment0 = {
-				type = {type = "Data", name = "Ref"},
-				tags = {},
-			},
-			WidthScale = {
-				type = {type = "Data", name = "NumberSequence"},
-				tags = {},
-			},
-			Enabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Lifetime = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Texture = {
-				type = {type = "Data", name = "Content"},
-				tags = {},
-			},
-			Transparency = {
-				type = {type = "Data", name = "NumberSequence"},
+			Color = {
+				type = {type = "Data", name = "ColorSequence"},
 				tags = {},
 			},
 			FaceCamera = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			Color = {
-				type = {type = "Data", name = "ColorSequence"},
-				tags = {},
-			},
-			LightEmission = {
+			TextureLength = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			TextureLength = {
+			MaxLength = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -9441,12 +9409,44 @@ return {
 				type = {type = "Enum", name = "TextureMode"},
 				tags = {},
 			},
+			WidthScale = {
+				type = {type = "Data", name = "NumberSequence"},
+				tags = {},
+			},
+			Lifetime = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			LightInfluence = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Enabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			LightEmission = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			Transparency = {
+				type = {type = "Data", name = "NumberSequence"},
+				tags = {},
+			},
+			Attachment0 = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
 			MinLength = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			MaxLength = {
-				type = {type = "Data", name = "Float32"},
+			Attachment1 = {
+				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			Texture = {
+				type = {type = "Data", name = "Content"},
 				tags = {},
 			},
 		},
@@ -9480,15 +9480,15 @@ return {
 	TremoloSoundEffect = {
 		superclass = "SoundEffect",
 		properties = {
+			Frequency = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
 			Depth = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			Duty = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Frequency = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
@@ -9563,12 +9563,12 @@ return {
 	Tween = {
 		superclass = "TweenBase",
 		properties = {
-			TweenInfo = {
-				type = {type = "Unimplemented", name = "TweenInfo"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
 			Instance = {
 				type = {type = "Data", name = "Ref"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			TweenInfo = {
+				type = {type = "Unimplemented", name = "TweenInfo"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
@@ -9599,16 +9599,16 @@ return {
 	UIAspectRatioConstraint = {
 		superclass = "UIConstraint",
 		properties = {
-			AspectType = {
-				type = {type = "Enum", name = "AspectType"},
-				tags = {},
-			},
 			AspectRatio = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			DominantAxis = {
 				type = {type = "Enum", name = "DominantAxis"},
+				tags = {},
+			},
+			AspectType = {
+				type = {type = "Enum", name = "AspectType"},
 				tags = {},
 			},
 		},
@@ -9643,16 +9643,16 @@ return {
 	UIGridLayout = {
 		superclass = "UIGridStyleLayout",
 		properties = {
+			CellPadding = {
+				type = {type = "Data", name = "UDim2"},
+				tags = {},
+			},
 			FillDirectionMaxCells = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 			StartCorner = {
 				type = {type = "Enum", name = "StartCorner"},
-				tags = {},
-			},
-			CellPadding = {
-				type = {type = "Data", name = "UDim2"},
 				tags = {},
 			},
 			CellSize = {
@@ -9676,13 +9676,13 @@ return {
 	UIGridStyleLayout = {
 		superclass = "UILayout",
 		properties = {
+			VerticalAlignment = {
+				type = {type = "Enum", name = "VerticalAlignment"},
+				tags = {},
+			},
 			AbsoluteContentSize = {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			HorizontalAlignment = {
-				type = {type = "Enum", name = "HorizontalAlignment"},
-				tags = {},
 			},
 			FillDirection = {
 				type = {type = "Enum", name = "FillDirection"},
@@ -9692,8 +9692,8 @@ return {
 				type = {type = "Enum", name = "SortOrder"},
 				tags = {},
 			},
-			VerticalAlignment = {
-				type = {type = "Enum", name = "VerticalAlignment"},
+			HorizontalAlignment = {
+				type = {type = "Enum", name = "HorizontalAlignment"},
 				tags = {},
 			},
 		},
@@ -9728,11 +9728,11 @@ return {
 	UIPadding = {
 		superclass = "UIComponent",
 		properties = {
-			PaddingLeft = {
+			PaddingRight = {
 				type = {type = "Data", name = "UDim"},
 				tags = {},
 			},
-			PaddingRight = {
+			PaddingLeft = {
 				type = {type = "Data", name = "UDim"},
 				tags = {},
 			},
@@ -9756,8 +9756,20 @@ return {
 	UIPageLayout = {
 		superclass = "UIGridStyleLayout",
 		properties = {
-			EasingDirection = {
-				type = {type = "Enum", name = "EasingDirection"},
+			EasingStyle = {
+				type = {type = "Enum", name = "EasingStyle"},
+				tags = {},
+			},
+			TouchInputEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			ScrollWheelInputEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			Animated = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			TweenTime = {
@@ -9765,18 +9777,6 @@ return {
 				tags = {},
 			},
 			Circular = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			GamepadInputEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			TouchInputEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			Animated = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -9788,12 +9788,12 @@ return {
 				type = {type = "Data", name = "UDim"},
 				tags = {},
 			},
-			ScrollWheelInputEnabled = {
+			GamepadInputEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
-			EasingStyle = {
-				type = {type = "Enum", name = "EasingStyle"},
+			EasingDirection = {
+				type = {type = "Enum", name = "EasingDirection"},
 				tags = {},
 			},
 		},
@@ -9850,10 +9850,6 @@ return {
 	UITableLayout = {
 		superclass = "UIGridStyleLayout",
 		properties = {
-			MajorAxis = {
-				type = {type = "Enum", name = "TableMajorAxis"},
-				tags = {},
-			},
 			Padding = {
 				type = {type = "Data", name = "UDim2"},
 				tags = {},
@@ -9864,6 +9860,10 @@ return {
 			},
 			FillEmptySpaceRows = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			MajorAxis = {
+				type = {type = "Enum", name = "TableMajorAxis"},
 				tags = {},
 			},
 		},
@@ -9957,149 +9957,149 @@ return {
 	UserGameSettings = {
 		superclass = "Instance",
 		properties = {
-			SavedQualityLevel = {
-				type = {type = "Enum", name = "SavedQualitySetting"},
-				tags = {},
-			},
-			GamepadCameraSensitivity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			MouseSensitivity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			StartScreenPosition = {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, NotScriptable = true, },
 			},
-			StartMaximized = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, NotScriptable = true, },
-			},
-			ControlMode = {
-				type = {type = "Enum", name = "ControlMode"},
-				tags = {},
-			},
-			Fullscreen = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ComputerCameraMovementMode = {
-				type = {type = "Enum", name = "ComputerCameraMovementMode"},
-				tags = {},
-			},
-			HasEverUsedVR = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			UsedHideHudShortcut = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			IsUsingCameraYInverted = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			OnboardingsCompleted = {
-				type = {type = "Data", name = "String"},
-				tags = {},
-			},
-			MouseSensitivityThirdPerson = {
+			MouseSensitivityFirstPerson = {
 				type = {type = "Data", name = "Vector2"},
 				tags = {Hidden = true, NotReplicated = true, },
 			},
-			MicroProfilerWebServerPort = {
-				type = {type = "Data", name = "Int32"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			VREnabled = {
+			ChatVisible = {
 				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			RCCProfilerRecordFrameRate = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 			CameraMode = {
 				type = {type = "Enum", name = "CustomCameraMode"},
 				tags = {},
 			},
-			TouchMovementMode = {
-				type = {type = "Enum", name = "TouchMovementMode"},
-				tags = {},
-			},
-			CameraYInverted = {
+			VREnabled = {
 				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			IsUsingGamepadCameraSensitivity = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			MasterVolume = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			UsedCoreGuiIsVisibleToggle = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			VRRotationIntensity = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			MicroProfilerWebServerIP = {
-				type = {type = "Data", name = "String"},
-				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
-			},
-			PerformanceStatsVisible = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, },
-			},
-			UsedCustomGuiIsVisibleToggle = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			ComputerMovementMode = {
-				type = {type = "Enum", name = "ComputerMovementMode"},
-				tags = {},
-			},
-			MouseSensitivityFirstPerson = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			RCCProfilerRecordFrameRate = {
-				type = {type = "Data", name = "Int32"},
-				tags = {},
-			},
-			OnScreenProfilerEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, },
-			},
-			RotationType = {
-				type = {type = "Enum", name = "RotationType"},
 				tags = {},
 			},
 			MicroProfilerWebServerEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {Hidden = true, },
 			},
+			MicroProfilerWebServerPort = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			IsUsingGamepadCameraSensitivity = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			AllTutorialsDisabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			MicroProfilerWebServerIP = {
+				type = {type = "Data", name = "String"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			IsUsingCameraYInverted = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, NotReplicated = true, ReadOnly = true, },
+			},
+			UsedCoreGuiIsVisibleToggle = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			HasEverUsedVR = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			UsedCustomGuiIsVisibleToggle = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			CameraYInverted = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
 			RCCProfilerRecordTimeFrame = {
 				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
+			Fullscreen = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			MouseSensitivity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			OnScreenProfilerEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, },
+			},
+			GamepadCameraSensitivity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			ComputerCameraMovementMode = {
+				type = {type = "Enum", name = "ComputerCameraMovementMode"},
+				tags = {},
+			},
+			StartScreenSize = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {NotReplicated = true, NotScriptable = true, },
+			},
+			MasterVolume = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			RotationType = {
+				type = {type = "Enum", name = "RotationType"},
+				tags = {},
+			},
+			TouchMovementMode = {
+				type = {type = "Enum", name = "TouchMovementMode"},
+				tags = {},
+			},
+			SavedQualityLevel = {
+				type = {type = "Enum", name = "SavedQualitySetting"},
+				tags = {},
+			},
+			MouseSensitivityThirdPerson = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			ControlMode = {
+				type = {type = "Enum", name = "ControlMode"},
+				tags = {},
+			},
+			PerformanceStatsVisible = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, },
+			},
+			StartMaximized = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, NotScriptable = true, },
+			},
+			UsedHideHudShortcut = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			OnboardingsCompleted = {
+				type = {type = "Data", name = "String"},
+				tags = {},
+			},
+			ComputerMovementMode = {
+				type = {type = "Enum", name = "ComputerMovementMode"},
 				tags = {},
 			},
 			TouchCameraMovementMode = {
 				type = {type = "Enum", name = "TouchCameraMovementMode"},
 				tags = {},
 			},
-			ChatVisible = {
-				type = {type = "Data", name = "Bool"},
+			VRRotationIntensity = {
+				type = {type = "Data", name = "Int32"},
 				tags = {},
-			},
-			AllTutorialsDisabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			StartScreenSize = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {NotReplicated = true, NotScriptable = true, },
 			},
 		},
 		defaults = {
@@ -10108,63 +10108,11 @@ return {
 	UserInputService = {
 		superclass = "Instance",
 		properties = {
-			KeyboardEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			AccelerometerEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			MouseIconEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			MouseBehavior = {
-				type = {type = "Enum", name = "MouseBehavior"},
-				tags = {},
-			},
-			ModalEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			UserHeadCFrame = {
-				type = {type = "Data", name = "CFrame"},
-				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
-			},
-			MouseEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			StatusBarSize = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			OnScreenKeyboardAnimationDuration = {
-				type = {type = "Data", name = "Float64"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			TouchEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			LegacyInputEventsEnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
 			NavBarSize = {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			OnScreenKeyboardVisible = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			OnScreenKeyboardPosition = {
-				type = {type = "Data", name = "Vector2"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
-			VREnabled = {
+			TouchEnabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -10172,7 +10120,39 @@ return {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			GyroscopeEnabled = {
+			OnScreenKeyboardAnimationDuration = {
+				type = {type = "Data", name = "Float64"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			UserHeadCFrame = {
+				type = {type = "Data", name = "CFrame"},
+				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true, },
+			},
+			ModalEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			RightBarSize = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			MouseEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			GazeSelectionEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {Hidden = true, NotReplicated = true, },
+			},
+			OverrideMouseIconBehavior = {
+				type = {type = "Enum", name = "OverrideMouseIconBehavior"},
+				tags = {},
+			},
+			MouseDeltaSensitivity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, },
+			},
+			OnScreenKeyboardVisible = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -10180,7 +10160,19 @@ return {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			RightBarSize = {
+			MouseIconEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+			},
+			StatusBarSize = {
+				type = {type = "Data", name = "Vector2"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			KeyboardEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			OnScreenKeyboardPosition = {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
@@ -10188,17 +10180,25 @@ return {
 				type = {type = "Data", name = "Vector2"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			GazeSelectionEnabled = {
+			LegacyInputEventsEnabled = {
 				type = {type = "Data", name = "Bool"},
-				tags = {Hidden = true, NotReplicated = true, },
-			},
-			MouseDeltaSensitivity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {NotReplicated = true, },
-			},
-			OverrideMouseIconBehavior = {
-				type = {type = "Enum", name = "OverrideMouseIconBehavior"},
 				tags = {},
+			},
+			MouseBehavior = {
+				type = {type = "Enum", name = "MouseBehavior"},
+				tags = {},
+			},
+			AccelerometerEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			VREnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
+			GyroscopeEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
 		defaults = {
@@ -10233,13 +10233,13 @@ return {
 	VRService = {
 		superclass = "Instance",
 		properties = {
-			VREnabled = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
-			},
 			GuiInputUserCFrame = {
 				type = {type = "Enum", name = "UserCFrame"},
 				tags = {},
+			},
+			VREnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 			VRDeviceName = {
 				type = {type = "Data", name = "String"},
@@ -10274,16 +10274,16 @@ return {
 	VectorForce = {
 		superclass = "Constraint",
 		properties = {
-			RelativeTo = {
-				type = {type = "Enum", name = "ActuatorRelativeTo"},
-				tags = {},
-			},
 			ApplyAtCenterOfMass = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			Force = {
 				type = {type = "Data", name = "Vector3"},
+				tags = {},
+			},
+			RelativeTo = {
+				type = {type = "Enum", name = "ActuatorRelativeTo"},
 				tags = {},
 			},
 		},
@@ -10309,31 +10309,39 @@ return {
 	VehicleSeat = {
 		superclass = "BasePart",
 		properties = {
+			Steer = {
+				type = {type = "Data", name = "Int32"},
+				tags = {},
+			},
 			AreHingesDetected = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			SteerFloat = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			TurnSpeed = {
-				type = {type = "Data", name = "Float32"},
+			Disabled = {
+				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
 			Throttle = {
 				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
-			HeadsUpDisplay = {
-				type = {type = "Data", name = "Bool"},
+			MaxSpeed = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			Torque = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
-			Disabled = {
+			SteerFloat = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			ThrottleFloat = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			HeadsUpDisplay = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
 			},
@@ -10341,16 +10349,8 @@ return {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
-			ThrottleFloat = {
+			TurnSpeed = {
 				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			MaxSpeed = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			Steer = {
-				type = {type = "Data", name = "Int32"},
 				tags = {},
 			},
 		},
@@ -10415,20 +10415,20 @@ return {
 	VelocityMotor = {
 		superclass = "JointInstance",
 		properties = {
-			DesiredAngle = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
-			CurrentAngle = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
-			},
 			MaxVelocity = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			Hole = {
 				type = {type = "Data", name = "Ref"},
+				tags = {},
+			},
+			DesiredAngle = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			CurrentAngle = {
+				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 		},
@@ -10447,16 +10447,16 @@ return {
 	ViewportFrame = {
 		superclass = "GuiObject",
 		properties = {
-			ImageColor3 = {
-				type = {type = "Data", name = "Color3"},
-				tags = {},
-			},
 			CurrentCamera = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, },
 			},
 			ImageTransparency = {
 				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
+			ImageColor3 = {
+				type = {type = "Data", name = "Color3"},
 				tags = {},
 			},
 		},
@@ -10591,6 +10591,10 @@ return {
 	WeldConstraint = {
 		superclass = "Instance",
 		properties = {
+			Active = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, ReadOnly = true, },
+			},
 			Part1 = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, },
@@ -10602,10 +10606,6 @@ return {
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
 				tags = {},
-			},
-			Active = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, ReadOnly = true, },
 			},
 		},
 		defaults = {
@@ -10619,13 +10619,13 @@ return {
 	Workspace = {
 		superclass = "Model",
 		properties = {
+			FallenPartsDestroyHeight = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+			},
 			StreamingTargetRadius = {
 				type = {type = "Data", name = "Int32"},
 				tags = {NotScriptable = true, },
-			},
-			Gravity = {
-				type = {type = "Data", name = "Float32"},
-				tags = {},
 			},
 			FilteringEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -10635,37 +10635,37 @@ return {
 				type = {type = "Data", name = "Float64"},
 				tags = {NotReplicated = true, },
 			},
-			AllowThirdPartySales = {
-				type = {type = "Data", name = "Bool"},
-				tags = {NotReplicated = true, },
-			},
-			CurrentCamera = {
-				type = {type = "Data", name = "Ref"},
-				tags = {NotReplicated = true, },
+			Gravity = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
 			},
 			StreamingEnabled = {
 				type = {type = "Data", name = "Bool"},
-				tags = {},
-			},
-			FallenPartsDestroyHeight = {
-				type = {type = "Data", name = "Float32"},
 				tags = {},
 			},
 			TemporaryLegacyPhysicsSolverOverride = {
 				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, NotScriptable = true, },
 			},
-			StreamingMinRadius = {
-				type = {type = "Data", name = "Int32"},
-				tags = {NotScriptable = true, },
-			},
 			Terrain = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true, ReadOnly = true, },
 			},
+			StreamingMinRadius = {
+				type = {type = "Data", name = "Int32"},
+				tags = {NotScriptable = true, },
+			},
 			AutoJointsMode = {
 				type = {type = "Enum", name = "AutoJointsMode"},
 				tags = {NotScriptable = true, },
+			},
+			CurrentCamera = {
+				type = {type = "Data", name = "Ref"},
+				tags = {NotReplicated = true, },
+			},
+			AllowThirdPartySales = {
+				type = {type = "Data", name = "Bool"},
+				tags = {NotReplicated = true, },
 			},
 		},
 		defaults = {

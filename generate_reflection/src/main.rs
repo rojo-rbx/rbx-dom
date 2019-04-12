@@ -84,52 +84,80 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let property_patches = get_property_patches();
 
-    for (class_name, class_patches) in property_patches {
+    for (class_name, class_changes) in &property_patches.change {
         let class = classes.get_mut(class_name.as_str())
-            .unwrap_or_else(|| panic!("Property {} defined in patch file wasn't present", class_name));
+            .unwrap_or_else(|| panic!("Class {} defined in patch file wasn't present", class_name));
 
-        for (property_name, property_patch) in class_patches {
-            match class.properties.get_mut(property_name.as_str()) {
-                Some(existing_property) => {
-                    println!("Modified property: {}.{}", class_name, property_name);
+        for (property_name, property_change) in class_changes {
+            let existing_property = class.properties.get_mut(property_name.as_str())
+                .unwrap_or_else(|| panic!("Property {}.{} did not exist in dump", class_name, property_name));
 
-                    if let Some(is_canonical) = property_patch.is_canonical {
-                        existing_property.is_canonical = is_canonical;
-                    }
+            println!("{}.{} changed", class_name, property_name);
 
-                    if let Some(canonical_name) = &property_patch.canonical_name {
-                        existing_property.canonical_name = Some(canonical_name.clone());
-                    }
+            existing_property.is_canonical = property_change.canonical_name.is_none();
 
-                    if let Some(serialized_name) = &property_patch.serialized_name {
-                        existing_property.serialized_name = Some(serialized_name.clone());
-                    }
+            if let Some(canonical_name) = &property_change.canonical_name {
+                existing_property.canonical_name = Some(canonical_name.clone());
+            }
+
+            if let Some(serialized_name) = &property_change.serialized_name {
+                existing_property.serialized_name = Some(serialized_name.clone());
+            }
+        }
+    }
+
+    for (class_name, class_adds) in &property_patches.add {
+        let class = classes.get_mut(class_name.as_str())
+            .unwrap_or_else(|| panic!("Class {} defined in patch file wasn't present", class_name));
+
+        for (property_name, property_add) in class_adds {
+            if class.properties.contains_key(property_name.as_str()) {
+                panic!("Property {}.{} marked for addition in patch was already present", class_name, property_name);
+            }
+
+            println!("{}.{} added", class_name, property_name);
+
+            let name = Cow::Owned(property_name.clone());
+            let value_type = property_add.property_type.clone();
+            let is_canonical = property_add.canonical_name.is_none();
+            let canonical_name = property_add.canonical_name.clone();
+            let serialized_name = property_add.serialized_name.clone();
+
+            let property = RbxInstanceProperty {
+                name,
+                value_type,
+                is_canonical,
+                canonical_name,
+                serialized_name,
+
+                tags: RbxPropertyTags::empty(),
+            };
+
+            class.properties.insert(Cow::Owned(property_name.clone()), property);
+        }
+    }
+
+    for (class_name, class) in &classes {
+        for (property_name, property) in &class.properties {
+            if let Some(canonical_name) = &property.canonical_name {
+                let canonical_property = match class.properties.get(canonical_name) {
+                    Some(value) => value,
+                    None => panic!("Property {}.{} refers to canonical property ({}) that does not exist.",
+                        class_name, property_name, canonical_name)
+                };
+
+                if !canonical_property.is_canonical {
+                    panic!("Property {}.{} is marked as the canonical form of {}, but is not canonical!",
+                        class_name, canonical_name, property_name);
                 }
-                None => {
-                    println!("New property: {}.{}", class_name, property_name);
+            }
 
-                    let name = Cow::Owned(property_name.clone());
-                    let value_type = property_patch.property_type.clone()
-                        .unwrap_or_else(|| panic!("Property {}.{} was added but missing 'type'", class_name, property_name));
-
-                    let is_canonical = property_patch.is_canonical
-                        .unwrap_or(property_patch.canonical_name.is_none());
-
-                    let canonical_name = property_patch.canonical_name.clone();
-                    let serialized_name = property_patch.serialized_name.clone();
-
-                    let property = RbxInstanceProperty {
-                        name,
-                        value_type,
-                        is_canonical,
-                        canonical_name,
-                        serialized_name,
-
-                        tags: RbxPropertyTags::empty(),
-                    };
-
-                    class.properties.insert(Cow::Owned(property_name.clone()), property);
-                }
+            if let Some(serialized_name) = &property.serialized_name {
+                let _serialized_property = match class.properties.get(serialized_name) {
+                    Some(value) => value,
+                    None => panic!("Property {}.{} refers to serialized property ({}) that does not exist.",
+                        class_name, property_name, serialized_name)
+                };
             }
         }
     }
