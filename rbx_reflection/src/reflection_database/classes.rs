@@ -23,9 +23,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -75,9 +72,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -94,6 +88,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AttachmentForward"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -102,6 +99,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AttachmentPoint"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -110,6 +110,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AttachmentPos"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -118,6 +121,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AttachmentRight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -126,6 +132,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AttachmentUp"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -170,9 +179,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -192,9 +198,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -214,9 +217,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -233,6 +233,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AlignType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("AlignType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -241,6 +244,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxAngularVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -249,6 +255,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -257,6 +266,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrimaryAxisOnly"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -265,6 +277,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ReactionTorqueEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -273,6 +288,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Responsiveness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -281,6 +299,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RigidityEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -326,9 +347,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -345,6 +363,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ApplyAtCenterOfMass"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -353,6 +374,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -361,6 +385,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -369,6 +396,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ReactionForceEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -377,6 +407,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Responsiveness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -385,6 +418,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RigidityEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -429,9 +465,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -442,9 +475,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -464,9 +494,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -483,6 +510,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -491,6 +521,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -499,6 +532,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RelativeTo"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ActuatorRelativeTo")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -525,9 +561,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -544,6 +577,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AnimationId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -564,9 +600,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -586,9 +619,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -605,6 +635,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Animation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -613,6 +646,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsPlaying"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -621,6 +657,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Length"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -629,6 +668,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Looped"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -637,6 +679,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Priority"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("AnimationPriority")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -645,6 +690,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Speed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -653,6 +701,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TimePosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -661,6 +712,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WeightCurrent"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -669,14 +723,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WeightTarget"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -696,9 +750,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -711,9 +762,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -730,6 +778,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Axes"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Axes")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -756,9 +807,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -778,9 +826,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -797,6 +842,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Axis"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -805,6 +853,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -813,6 +864,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Orientation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -821,6 +875,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -831,6 +888,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -839,6 +899,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SecondaryAxis"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -847,6 +910,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Visible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -855,6 +921,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WorldAxis"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -863,6 +932,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WorldCFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -871,6 +943,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WorldOrientation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -879,6 +954,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WorldPosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -890,6 +968,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -898,6 +979,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WorldSecondaryAxis"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -973,9 +1057,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -995,9 +1076,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1014,14 +1092,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1041,9 +1119,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1060,6 +1135,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LimitsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1068,6 +1146,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Radius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1076,6 +1157,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Restitution"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1084,6 +1168,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TwistLimitsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1092,6 +1179,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TwistLowerAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1100,6 +1190,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TwistUpperAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1108,6 +1201,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UpperAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -1151,9 +1247,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1163,13 +1256,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: Some(Cow::Borrowed("PVInstance")),
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: {
-                    let mut map = HashMap::with_capacity(53);
+                    let mut map = HashMap::with_capacity(55);
                     map.insert(
                         Cow::Borrowed("Anchored"),
                         RbxInstanceProperty {
                             name: Cow::Borrowed("Anchored"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1178,6 +1274,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BackParamA"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1186,6 +1285,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BackParamB"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1194,6 +1296,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BackSurface"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SurfaceType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1202,6 +1307,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BackSurfaceInput"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("InputType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1210,6 +1318,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BottomParamA"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1218,6 +1329,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BottomParamB"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1226,6 +1340,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BottomSurface"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SurfaceType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1234,6 +1351,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BottomSurfaceInput"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("InputType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1244,6 +1364,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1252,6 +1375,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1260,6 +1386,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CanCollide"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1268,6 +1397,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CastShadow"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1276,6 +1408,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CenterOfMass"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1284,6 +1419,20 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CollisionGroupId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("CollisionGroups"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("CollisionGroups"),
+                            value_type: RbxPropertyType::Data(RbxValueType::String),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1292,6 +1441,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1300,6 +1452,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CustomPhysicalProperties"),
                             value_type: RbxPropertyType::Data(RbxValueType::PhysicalProperties),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1310,6 +1465,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1320,6 +1478,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1328,6 +1489,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FrontParamA"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1336,6 +1500,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FrontParamB"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1344,6 +1511,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FrontSurface"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SurfaceType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1352,6 +1522,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FrontSurfaceInput"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("InputType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1360,6 +1533,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftParamA"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1368,6 +1544,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftParamB"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1376,6 +1555,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftSurface"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SurfaceType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1384,6 +1566,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftSurfaceInput"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("InputType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1392,6 +1577,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LocalTransparencyModifier"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1400,6 +1588,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Locked"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1408,6 +1599,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Massless"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1416,6 +1610,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Material"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("Material")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1424,6 +1621,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Orientation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1432,6 +1632,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1442,6 +1645,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1450,6 +1656,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Reflectance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1458,6 +1667,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ResizeIncrement"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1466,6 +1678,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ResizeableFaces"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Faces")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1474,6 +1689,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightParamA"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1482,6 +1700,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightParamB"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1490,6 +1711,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightSurface"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SurfaceType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1498,6 +1722,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightSurfaceInput"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("InputType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1506,6 +1733,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RootPriority"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1514,6 +1744,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RotVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1522,6 +1755,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Rotation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1530,6 +1766,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("size")),
                         },
                     );
                     map.insert(
@@ -1540,6 +1779,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1548,6 +1790,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TopParamA"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1556,6 +1801,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TopParamB"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1564,6 +1812,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TopSurface"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SurfaceType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1572,6 +1823,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TopSurfaceInput"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("InputType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1580,6 +1834,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Transparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1588,6 +1845,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Velocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1598,14 +1858,25 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("size"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("size"),
+                            value_type: RbxPropertyType::Data(RbxValueType::Vector3),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Size")),
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1616,9 +1887,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1635,6 +1903,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Disabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1643,14 +1914,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LinkedSource"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1667,6 +1938,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Attachment0"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1675,6 +1949,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Attachment1"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1683,6 +1960,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::ColorSequence),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1691,6 +1971,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurveSize0"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1699,6 +1982,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurveSize1"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1707,6 +1993,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1715,6 +2004,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FaceCamera"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1723,6 +2015,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LightEmission"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1731,6 +2026,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LightInfluence"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1739,6 +2037,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Segments"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1747,6 +2048,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Texture"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1755,6 +2059,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1763,6 +2070,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextureMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1771,6 +2081,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1779,6 +2092,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Transparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1787,6 +2103,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Width0"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1795,6 +2114,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Width1"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1803,6 +2125,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ZOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -1856,9 +2181,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZOffset"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1871,9 +2193,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -1890,6 +2209,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Active"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1898,6 +2220,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Adornee"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1906,6 +2231,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AlwaysOnTop"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1914,6 +2242,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClipsDescendants"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1922,6 +2253,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExtentsOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1930,6 +2264,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExtentsOffsetWorldSpace"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1938,6 +2275,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LightInfluence"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1946,6 +2286,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1954,6 +2297,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlayerToHideFrom"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1962,6 +2308,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1970,6 +2319,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SizeOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1978,6 +2330,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StudsOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -1986,6 +2341,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StudsOffsetWorldSpace"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2077,9 +2435,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndexBehavior"), RbxValue::Enum { value: 0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2099,9 +2454,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2121,9 +2473,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2143,9 +2492,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2183,9 +2529,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2202,6 +2545,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Intensity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2210,6 +2556,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2218,6 +2567,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Threshold"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2239,9 +2591,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2258,6 +2607,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2274,9 +2626,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Size"), RbxValue::Float32 { value: 24.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2293,6 +2642,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2301,6 +2653,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2309,6 +2664,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("P"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2317,6 +2675,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("angularvelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2325,6 +2686,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("maxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2364,9 +2728,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2385,6 +2746,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2393,6 +2757,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HeadColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2403,6 +2770,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2411,6 +2781,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftArmColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2421,6 +2794,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2429,6 +2805,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftLegColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2439,6 +2818,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2447,6 +2829,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightArmColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2457,6 +2842,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2465,6 +2853,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightLegColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2475,6 +2866,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2483,6 +2877,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TorsoColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2533,9 +2930,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2552,6 +2946,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Force"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2560,6 +2957,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("force"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2586,9 +2986,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2605,6 +3002,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2613,6 +3013,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("D"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2621,6 +3024,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2629,6 +3035,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("P"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2637,6 +3046,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("cframe"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2645,6 +3057,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("maxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2679,9 +3094,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2692,9 +3104,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2711,6 +3120,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("D"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2719,6 +3131,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2727,6 +3142,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("P"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2735,6 +3153,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2743,6 +3164,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("maxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2751,6 +3175,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2791,9 +3218,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2810,6 +3234,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Force"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2818,6 +3245,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Location"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2826,6 +3256,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("force"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2834,6 +3267,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("location"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2872,9 +3308,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2891,6 +3324,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2899,6 +3335,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("P"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2907,6 +3346,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Velocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2915,6 +3357,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("maxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -2923,6 +3368,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("velocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2962,9 +3410,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -2981,6 +3426,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -2996,9 +3444,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Value"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3015,6 +3460,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3064,9 +3512,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: -1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3085,6 +3530,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3099,9 +3547,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3114,9 +3559,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3133,6 +3575,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3153,9 +3598,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3166,9 +3608,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3181,9 +3620,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3200,6 +3636,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3208,6 +3647,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraSubject"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3216,6 +3658,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("CameraType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3226,6 +3671,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3234,6 +3682,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FieldOfView"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3242,6 +3693,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Focus"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3250,6 +3704,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HeadLocked"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3258,6 +3715,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HeadScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3266,6 +3726,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NearPlaneZ"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3274,6 +3737,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ViewportSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3282,6 +3748,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("focus"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3330,9 +3799,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3352,9 +3818,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3365,9 +3828,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3384,6 +3844,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BaseTextureId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3392,6 +3855,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BodyPart"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("BodyPart")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3400,6 +3866,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MeshId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3408,6 +3877,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OverlayTextureId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3432,9 +3904,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3453,6 +3922,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BubbleChatEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3461,6 +3933,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LoadDefaultChat"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3483,9 +3958,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3502,6 +3974,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Depth"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3510,6 +3985,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Mix"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3518,6 +3996,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Rate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3537,9 +4018,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Rate"), RbxValue::Float32 { value: 0.5 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3556,6 +4034,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CursorIcon"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3564,6 +4045,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxActivationDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3588,9 +4072,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3601,9 +4082,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3620,14 +4098,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3640,9 +4118,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3662,9 +4137,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3681,6 +4153,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3701,9 +4176,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3720,6 +4192,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Brightness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3728,6 +4203,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Contrast"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3736,6 +4214,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Saturation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3744,6 +4225,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TintColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3774,9 +4258,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3793,6 +4274,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Attack"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3801,6 +4285,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GainMakeup"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3809,6 +4296,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Ratio"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3817,6 +4307,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Release"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3825,6 +4318,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SideChain"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3833,6 +4329,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Threshold"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3861,9 +4360,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3880,6 +4376,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Height"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3888,6 +4387,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Radius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -3933,9 +4435,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: -1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3955,9 +4454,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -3974,6 +4470,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Active"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3982,6 +4481,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Attachment0"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -3990,6 +4492,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Attachment1"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4000,6 +4505,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4008,6 +4516,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4016,14 +4527,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Visible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4042,6 +4553,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BaseUrl"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4050,6 +4564,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RequestQueueSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -4070,9 +4587,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4092,9 +4606,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4105,9 +4616,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4129,9 +4637,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4151,9 +4656,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4172,6 +4674,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SelectionImageObject"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4180,6 +4685,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Version"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -4199,9 +4707,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Version"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4223,9 +4728,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4236,9 +4738,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4251,9 +4750,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4427,9 +4923,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4449,9 +4942,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4468,6 +4958,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Source"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -4483,9 +4976,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Source"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4502,6 +4992,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Height"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4510,6 +5003,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Radius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -4555,9 +5051,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: -1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4595,9 +5088,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4614,6 +5104,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularActuatorType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ActuatorType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4622,6 +5115,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularLimitsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4630,6 +5126,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularRestitution"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4638,6 +5137,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4646,6 +5148,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4654,6 +5159,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4662,6 +5170,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("InclinationAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4670,6 +5181,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LowerAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4678,6 +5192,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MotorMaxAngularAcceleration"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4686,6 +5203,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MotorMaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4694,6 +5214,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RotationAxisVisible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4702,6 +5225,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ServoMaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4710,6 +5236,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4718,6 +5247,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UpperAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4726,6 +5258,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WorldRotationAxis"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -4850,9 +5385,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -4869,6 +5401,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CreatorId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4877,6 +5412,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CreatorType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("CreatorType")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4885,6 +5423,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4893,6 +5434,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GearGenreSetting"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("GearGenreSetting")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4901,6 +5445,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Genre"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("Genre")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4909,6 +5456,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsSFFlagsLoaded"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4917,6 +5467,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("JobId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4925,6 +5478,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlaceId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4933,6 +5489,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlaceVersion"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4941,6 +5500,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrivateServerId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4949,6 +5511,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrivateServerOwnerId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4960,6 +5525,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4971,6 +5539,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4979,6 +5550,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Workspace"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4989,6 +5563,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -4999,14 +5576,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5023,6 +5600,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Offset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5031,6 +5611,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Scale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5039,14 +5622,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VertexColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5057,9 +5640,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5078,6 +5658,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutomaticRetry"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5086,6 +5669,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LegacyNamingScheme"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5100,9 +5686,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5119,6 +5702,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxItems"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::DEPRECATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5137,9 +5723,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5156,6 +5739,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataModel"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5164,6 +5750,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ErrorReporting"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ErrorReporting")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5172,6 +5761,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GfxCard"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5180,6 +5772,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("InstanceCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5188,6 +5783,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsFmodProfilingEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5196,6 +5794,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsScriptStackTracingEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5204,6 +5805,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("JobCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5212,6 +5816,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LuaRamLimit"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5220,6 +5827,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OsIs64Bit"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5228,6 +5838,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OsPlatform"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5236,6 +5849,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OsPlatformId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5244,6 +5860,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OsVer"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5252,6 +5871,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlayerCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5260,6 +5882,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ReportSoundWarnings"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5268,6 +5893,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RobloxProductName"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5276,6 +5904,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RobloxVersion"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5284,6 +5915,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SIMD"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5292,6 +5926,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SystemProductName"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5302,6 +5939,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "TickCountSampleMethod",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5310,14 +5950,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VideoMemory"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5334,6 +5974,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Condition"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5342,6 +5985,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5350,14 +5996,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Line"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5374,14 +6020,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DebuggingEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5398,14 +6044,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Expression"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5422,6 +6068,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5430,6 +6079,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LocalTransparencyModifier"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5438,6 +6090,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Shiny"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5446,6 +6101,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Specular"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5454,6 +6112,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Texture"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5462,6 +6123,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Transparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5495,9 +6159,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5514,6 +6175,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BehaviorType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("DialogBehaviorType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5522,6 +6186,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ConversationDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5530,6 +6197,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GoodbyeChoiceActive"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5538,6 +6208,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GoodbyeDialog"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5546,6 +6219,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("InUse"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5554,6 +6230,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("InitialPrompt"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5562,6 +6241,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Purpose"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("DialogPurpose")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5570,6 +6252,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Tone"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("DialogTone")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5578,6 +6263,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TriggerDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5586,6 +6274,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TriggerOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5633,9 +6324,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5652,6 +6340,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GoodbyeChoiceActive"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5660,6 +6351,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GoodbyeDialog"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5668,6 +6362,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ResponseDialog"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5676,6 +6373,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UserDialog"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5712,9 +6412,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5731,6 +6428,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Level"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5748,9 +6448,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Priority"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5767,14 +6464,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HostWidgetWasRestored"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5791,6 +6488,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ConstrainedValue"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5799,6 +6499,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxValue"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5807,6 +6510,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MinValue"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5815,6 +6521,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5836,9 +6545,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Value"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5858,9 +6564,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5877,14 +6580,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BaseAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5901,6 +6604,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Delay"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5909,6 +6615,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DryLevel"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5917,6 +6626,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Feedback"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5925,6 +6637,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WetLevel"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5945,9 +6660,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("WetLevel"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -5964,6 +6676,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HighGain"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5972,6 +6687,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LowGain"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -5980,6 +6698,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MidGain"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -5999,9 +6720,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Priority"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6018,6 +6736,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BlastPressure"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6026,6 +6747,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BlastRadius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6034,6 +6758,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DestroyJointRadiusPercent"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6042,6 +6769,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExplosionType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ExplosionType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6050,6 +6780,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6058,6 +6791,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Visible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -6092,9 +6828,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6111,14 +6844,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Face"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6135,6 +6868,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FaceId"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6143,6 +6879,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("InOut"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("InOut")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6151,6 +6890,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftRight"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("LeftRight")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6159,14 +6901,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TopBottom"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TopBottom")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6186,6 +6928,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6197,6 +6942,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6207,14 +6955,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6231,6 +6979,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MeshId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6239,6 +6990,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -6283,9 +7037,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6295,13 +7046,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(6);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(
                         Cow::Borrowed("Color"),
                         RbxInstanceProperty {
                             name: Cow::Borrowed("Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6310,6 +7064,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6318,6 +7075,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Heat"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("heat_xml")),
                         },
                     );
                     map.insert(
@@ -6326,6 +7086,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SecondaryColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6334,6 +7097,20 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("size_xml")),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("heat_xml"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("heat_xml"),
+                            value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Heat")),
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6342,6 +7119,20 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: Some(Cow::Borrowed("Size")),
+                            serialized_name: None,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("size_xml"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("size_xml"),
+                            value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Size")),
+                            serialized_name: None,
                         },
                     );
                     map
@@ -6372,9 +7163,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("size"), RbxValue::Float32 { value: 5.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6393,6 +7181,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -6462,9 +7253,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6483,6 +7271,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -6653,9 +7444,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6666,9 +7454,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6685,6 +7470,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Depth"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6693,6 +7481,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Mix"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6701,6 +7492,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Rate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -6720,9 +7514,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Rate"), RbxValue::Float32 { value: 5.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6739,6 +7530,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CycleOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6747,6 +7541,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("From"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6755,6 +7552,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StudsBetweenTextures"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6763,6 +7563,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Texture"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6771,6 +7574,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6779,6 +7585,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("To"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6787,6 +7596,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Velocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -6795,6 +7607,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WireRadius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -6845,9 +7660,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6858,9 +7670,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6880,9 +7689,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6899,6 +7705,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Visible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -6914,9 +7723,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6926,13 +7732,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: Some(Cow::Borrowed("BasePart")),
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: {
-                    let mut map = HashMap::with_capacity(2);
+                    let mut map = HashMap::with_capacity(3);
                     map.insert(
                         Cow::Borrowed("FormFactor"),
                         RbxInstanceProperty {
                             name: Cow::Borrowed("FormFactor"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("FormFactor")),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("formFactorRaw")),
                         },
                     );
                     map.insert(
@@ -6943,14 +7752,25 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("formFactorRaw"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("formFactorRaw"),
+                            value_type: RbxPropertyType::Enum(Cow::Borrowed("FormFactor")),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("FormFactor")),
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -6967,6 +7787,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Style"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("FrameStyle")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -7070,9 +7893,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7083,9 +7903,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7105,9 +7922,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7124,6 +7938,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Description"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -7144,9 +7961,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7166,9 +7980,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7185,6 +7996,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AdditionalCoreIncludeDirs"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7193,6 +8007,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BubbleChatLifetime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7201,6 +8018,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BubbleChatMaxBubbles"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7209,6 +8029,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ChatHistory"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7217,6 +8040,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ChatScrollLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7225,6 +8051,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CollisionSoundEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7233,6 +8062,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CollisionSoundVolume"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7241,6 +8073,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HardwareMouse"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7249,6 +8084,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxCollisionSounds"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7257,6 +8095,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OverrideStarterScript"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7265,6 +8106,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ReportAbuseChatHistory"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7273,6 +8117,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SoftwareSound"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7281,6 +8128,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VideoCaptureEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7291,14 +8141,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "VideoQualitySettings",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7318,9 +8168,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7331,9 +8178,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7353,9 +8197,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7366,9 +8207,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7379,9 +8217,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7398,6 +8233,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("F0"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7406,6 +8244,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("F1"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7414,6 +8255,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("F2"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7422,6 +8266,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("F3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -7474,9 +8321,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7487,9 +8331,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7511,9 +8352,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7524,9 +8362,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7543,6 +8378,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AbsolutePosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7551,6 +8389,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AbsoluteRotation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7559,6 +8400,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AbsoluteSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7567,6 +8411,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoLocalize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7577,6 +8424,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7585,14 +8435,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RootLocalizationTable"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7613,6 +8463,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7621,6 +8474,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7629,6 +8485,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Transparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7637,14 +8496,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Visible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7661,6 +8520,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoButtonColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7669,6 +8531,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Modal"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7677,6 +8542,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Selected"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7685,14 +8553,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Style"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ButtonStyle")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7703,9 +8571,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7752,9 +8617,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndexBehavior"), RbxValue::Enum { value: 0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7771,6 +8633,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Active"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7779,6 +8644,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AnchorPoint"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7791,6 +8659,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7799,6 +8670,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BackgroundColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7807,6 +8681,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BackgroundTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7819,6 +8696,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7827,6 +8707,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BorderColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7835,6 +8718,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BorderSizePixel"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7843,6 +8729,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClipsDescendants"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7851,6 +8740,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Draggable"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7859,6 +8751,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LayoutOrder"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7867,6 +8762,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NextSelectionDown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7875,6 +8773,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NextSelectionLeft"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7883,6 +8784,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NextSelectionRight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7891,6 +8795,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NextSelectionUp"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7899,6 +8806,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7907,6 +8817,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Rotation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7915,6 +8828,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Selectable"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7923,6 +8839,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SelectionImageObject"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7931,6 +8850,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7939,6 +8861,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SizeConstraint"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SizeConstraint")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7947,6 +8872,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Transparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7955,6 +8883,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Visible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7963,14 +8894,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ZIndex"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -7989,6 +8920,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoSelectGuiEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -7997,6 +8931,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CoreEffectFolder"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8005,6 +8942,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CoreGuiFolder"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8013,6 +8953,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CoreGuiNavigationEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8021,6 +8964,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GuiNavigationEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8031,6 +8977,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8041,6 +8990,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8049,6 +9001,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MenuIsOpen"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8057,6 +9012,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SelectedCoreObject"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8065,6 +9023,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SelectedObject"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -8100,9 +9061,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8113,9 +9071,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8132,6 +9087,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AlwaysOnTop"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8140,6 +9098,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8148,6 +9109,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SizeRelativeOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8156,14 +9120,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ZIndex"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8180,6 +9144,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Faces"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Faces")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8188,6 +9155,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Style"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("HandlesStyle")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -8215,9 +9185,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8228,9 +9195,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8252,9 +9216,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8304,9 +9265,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8323,6 +9281,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ActuatorType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ActuatorType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8331,6 +9292,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8339,6 +9303,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AngularVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8347,6 +9314,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8355,6 +9325,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LimitsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8363,6 +9336,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LowerAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8371,6 +9347,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MotorMaxAcceleration"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8379,6 +9358,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MotorMaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8387,6 +9369,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Radius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8395,6 +9380,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Restitution"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8403,6 +9391,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ServoMaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8411,6 +9402,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8419,6 +9413,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UpperAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -8485,9 +9482,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8513,9 +9507,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8539,9 +9530,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("TopBottom"), RbxValue::Enum { value: 1 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8554,9 +9542,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8573,6 +9558,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Active"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8581,6 +9569,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BinType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("BinType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -8603,9 +9594,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8625,9 +9613,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8638,9 +9623,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8657,6 +9639,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HttpEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -8671,9 +9656,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -8690,6 +9672,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoJumpEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8698,6 +9683,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoRotate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8706,6 +9694,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutomaticScalingEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8714,6 +9705,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BreakJointsOnDeath"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8722,6 +9716,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8732,6 +9729,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "HumanoidCollisionType",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8742,6 +9742,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "HumanoidDisplayDistanceType",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8750,6 +9753,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FloorMaterial"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("Material")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8758,6 +9764,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Health"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8766,6 +9775,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HealthDisplayDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8776,6 +9788,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "HumanoidHealthDisplayType",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8784,6 +9799,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HipHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8792,6 +9810,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Jump"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8800,6 +9821,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("JumpHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8808,6 +9832,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("JumpPower"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8818,6 +9845,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8826,6 +9856,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxHealth"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8834,6 +9867,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxSlopeAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8842,6 +9878,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MoveDirection"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8850,6 +9889,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NameDisplayDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8858,6 +9900,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NameOcclusion"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NameOcclusion")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8866,6 +9911,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlatformStand"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8874,6 +9922,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RigType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("HumanoidRigType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8884,6 +9935,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8892,6 +9946,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RootPart"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8900,6 +9957,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SeatPart"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8908,6 +9968,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Sit"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8916,6 +9979,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetPoint"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8926,6 +9992,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8934,6 +10003,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UseJumpPower"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8942,6 +10014,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WalkSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8950,6 +10025,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WalkToPart"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8958,6 +10036,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WalkToPoint"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -8966,6 +10047,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("maxHealth"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -9047,9 +10131,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -9069,9 +10150,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -9088,6 +10166,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BackAccessory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9096,6 +10177,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BodyTypeScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9104,6 +10188,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClimbAnimation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9112,6 +10199,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DepthScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9120,6 +10210,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Face"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9128,6 +10221,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FaceAccessory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9136,6 +10232,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FallAnimation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9144,6 +10243,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FrontAccessory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9152,6 +10254,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GraphicTShirt"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9160,6 +10265,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HairAccessory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9168,6 +10276,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HatAccessory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9176,6 +10287,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Head"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9184,6 +10298,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HeadColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9192,6 +10309,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HeadScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9200,6 +10320,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HeightScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9208,6 +10331,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IdleAnimation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9216,6 +10342,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("JumpAnimation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9224,6 +10353,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftArm"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9232,6 +10364,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftArmColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9240,6 +10375,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftLeg"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9248,6 +10386,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LeftLegColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9256,6 +10397,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NeckAccessory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9264,6 +10408,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Pants"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9272,6 +10419,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ProportionScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9280,6 +10430,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightArm"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9288,6 +10441,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightArmColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9296,6 +10452,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightLeg"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9304,6 +10463,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightLegColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9312,6 +10474,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RunAnimation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9320,6 +10485,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Shirt"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9328,6 +10496,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShouldersAccessory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9336,6 +10507,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SwimAnimation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9344,6 +10518,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Torso"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9352,6 +10529,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TorsoColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9360,6 +10540,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WaistAccessory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9368,6 +10551,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WalkAnimation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9376,6 +10562,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WidthScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -9536,9 +10725,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -9555,6 +10741,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HoverImage"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9563,6 +10752,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Image"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9571,6 +10763,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9579,6 +10774,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageRectOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9587,6 +10785,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageRectSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9595,6 +10796,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9603,6 +10807,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsLoaded"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9611,6 +10818,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PressedImage"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9619,6 +10829,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScaleType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ScaleType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9627,6 +10840,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SliceCenter"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Rect")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9635,6 +10851,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SliceScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9643,6 +10862,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TileSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -9799,9 +11021,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -9818,6 +11037,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Image"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9826,6 +11048,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -9879,9 +11104,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: -1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -9898,6 +11120,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Image"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9906,6 +11131,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9914,6 +11142,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageRectOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9922,6 +11153,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageRectSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9930,6 +11164,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9938,6 +11175,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsLoaded"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9946,6 +11186,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScaleType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ScaleType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9954,6 +11197,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SliceCenter"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Rect")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9962,6 +11208,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SliceScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -9970,6 +11219,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TileSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -10107,9 +11359,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10126,6 +11375,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Delta"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10134,6 +11386,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("KeyCode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("KeyCode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10142,6 +11397,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10150,6 +11408,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UserInputState"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("UserInputState")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10158,14 +11419,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UserInputType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("UserInputType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10182,6 +11443,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AllowClientInsertModels"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10192,6 +11456,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_BROWSABLE
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -10210,9 +11477,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10222,13 +11486,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: None,
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: {
-                    let mut map = HashMap::with_capacity(8);
+                    let mut map = HashMap::with_capacity(9);
                     map.insert(
                         Cow::Borrowed("Archivable"),
                         RbxInstanceProperty {
                             name: Cow::Borrowed("Archivable"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10237,6 +11504,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClassName"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10245,6 +11515,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataCost"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10253,6 +11526,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Name"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10261,6 +11537,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Parent"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10269,6 +11548,20 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RobloxLocked"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Tags"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("Tags"),
+                            value_type: RbxPropertyType::Data(RbxValueType::BinaryString),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10279,6 +11572,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10289,14 +11585,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10313,6 +11609,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ConstrainedValue"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10321,6 +11620,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxValue"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10329,6 +11631,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MinValue"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10337,6 +11642,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -10358,9 +11666,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Value"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10377,6 +11682,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -10392,9 +11700,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Value"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10405,9 +11710,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10424,6 +11726,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Active"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10432,6 +11737,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("C0"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10440,6 +11748,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("C1"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10448,6 +11759,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Part0"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10456,6 +11770,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Part1"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10466,14 +11783,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10495,9 +11812,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10517,9 +11831,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10536,6 +11847,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Time"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -10551,9 +11865,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Time"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10570,6 +11881,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -10590,9 +11904,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10609,6 +11920,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AuthoredHipHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10617,6 +11931,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Loop"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10625,6 +11942,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Priority"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("AnimationPriority")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -10645,9 +11965,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Priority"), RbxValue::Enum { value: 2 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10669,9 +11986,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10688,6 +12002,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10696,6 +12013,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ResetOnSpawn"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10704,14 +12024,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ZIndexBehavior"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ZIndexBehavior")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10728,6 +12048,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Brightness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10736,6 +12059,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10744,6 +12070,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10752,14 +12081,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Shadows"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -10776,6 +12105,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Ambient"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10784,6 +12116,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Brightness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10792,6 +12127,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClockTime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10800,6 +12138,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ColorShift_Bottom"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10808,6 +12149,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ColorShift_Top"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10816,6 +12160,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExposureCompensation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10824,6 +12171,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FogColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10832,6 +12182,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FogEnd"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10840,6 +12193,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FogStart"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10848,6 +12204,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GeographicLatitude"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10856,6 +12215,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GlobalShadows"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10864,6 +12226,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OutdoorAmbient"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10872,6 +12237,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Outlines"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10880,6 +12248,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShadowColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10888,6 +12259,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShadowSoftness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10896,6 +12270,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Technology"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("Technology")),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -10904,6 +12281,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TimeOfDay"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -10990,9 +12370,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11009,6 +12386,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ApplyAtCenterOfMass"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11017,6 +12397,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("InverseSquareLaw"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11025,6 +12408,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Magnitude"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11033,6 +12419,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11041,6 +12430,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ReactionForceEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -11081,9 +12473,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11100,6 +12489,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Length"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11108,6 +12500,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Thickness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -11153,9 +12548,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: -1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11188,9 +12580,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11203,9 +12592,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11224,6 +12610,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ForcePlayModeGameLocaleId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11232,6 +12621,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ForcePlayModeRobloxLocaleId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11240,6 +12632,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsTextScraperRunning"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11248,6 +12643,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RobloxForcePlayModeGameLocaleId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11256,6 +12654,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RobloxForcePlayModeRobloxLocaleId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11264,6 +12665,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RobloxLocaleId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11272,6 +12676,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SystemLocaleId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -11298,9 +12705,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11310,7 +12714,18 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(3);
+                    let mut map = HashMap::with_capacity(4);
+                    map.insert(
+                        Cow::Borrowed("Contents"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("Contents"),
+                            value_type: RbxPropertyType::Data(RbxValueType::String),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("DevelopmentLanguage"),
                         RbxInstanceProperty {
@@ -11319,6 +12734,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11329,6 +12747,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11337,6 +12758,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SourceLocaleId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -11363,9 +12787,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11385,9 +12806,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11398,9 +12816,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11417,6 +12832,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreScriptStartsReported"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11425,6 +12843,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DefaultWaitTime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11433,6 +12854,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GcFrequency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11441,6 +12865,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GcLimit"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11449,6 +12876,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GcPause"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11457,6 +12887,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GcStepMul"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11465,14 +12898,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WaitingThreadsBudget"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11489,14 +12922,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentEditor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11516,9 +12949,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11552,9 +12982,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11565,9 +12992,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11601,9 +13025,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11623,9 +13044,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11647,9 +13065,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11666,6 +13081,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CollisionFidelity"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("CollisionFidelity")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11674,6 +13092,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MeshID"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11682,6 +13103,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MeshId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11690,6 +13114,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureID"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -11870,9 +13297,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11889,6 +13313,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Text"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -11909,9 +13336,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11933,9 +13357,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11952,6 +13373,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrimaryPart"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -11967,9 +13391,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("PrimaryPart"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -11986,6 +13407,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LinkedSource"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -11994,6 +13418,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Source"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -12020,9 +13447,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12039,6 +13463,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12047,6 +13474,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DesiredAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12055,6 +13485,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -12095,9 +13528,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12114,6 +13544,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Transform"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -12154,9 +13587,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12180,9 +13610,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("TopBottom"), RbxValue::Enum { value: 1 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12199,6 +13626,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Hit"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12207,6 +13637,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Icon"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12215,6 +13648,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Origin"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12223,6 +13659,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Target"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12231,6 +13670,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetFilter"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12239,6 +13681,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetSurface"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12247,6 +13692,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UnitRay"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Ray")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12255,6 +13703,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ViewSizeX"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12263,6 +13714,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ViewSizeY"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12271,6 +13725,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("X"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12279,6 +13736,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Y"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12290,6 +13750,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12300,14 +13763,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12329,9 +13792,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12514,9 +13974,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12535,14 +13992,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Ticket"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12553,9 +14010,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12566,9 +14020,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12579,9 +14030,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12600,14 +14048,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Port"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12624,6 +14072,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ArePhysicsRejectionsReported"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12632,6 +14083,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClientPhysicsSendRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12640,6 +14094,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataGCRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12648,6 +14105,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataMtuAdjust"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12656,6 +14116,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataSendPriority"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("PacketPriority")),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12664,6 +14127,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataSendRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12672,6 +14138,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExtraMemoryUsed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12682,6 +14151,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12690,6 +14162,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IncommingReplicationLag"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12698,6 +14173,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsQueueErrorComputed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12706,6 +14184,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NetworkOwnerRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12714,6 +14195,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PhysicsMtuAdjust"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12722,6 +14206,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PhysicsSendPriority"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("PacketPriority")),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12730,6 +14217,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PhysicsSendRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12738,6 +14228,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PreferredClientPort"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12746,6 +14239,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintBits"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12754,6 +14250,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintEvents"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12762,6 +14261,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintFilters"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12770,6 +14272,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintInstances"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12778,6 +14283,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintPhysicsErrors"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12786,6 +14294,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintProperties"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12794,6 +14305,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintSplitMessage"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12802,6 +14316,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintStreamInstanceQuota"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12810,6 +14327,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrintTouches"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12818,6 +14338,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ProxyEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12826,6 +14349,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ProxyURL"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12834,6 +14360,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ReceiveRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12842,6 +14371,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RenderStreamedRegions"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12850,6 +14382,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShowActiveAnimationAsset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12858,6 +14393,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TouchSendRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12866,6 +14404,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TrackDataTypes"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12874,6 +14415,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TrackPhysicsDetails"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12882,14 +14426,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UsePhysicsPacketCache"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12900,9 +14444,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12919,6 +14460,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsLuaBottomBarEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12927,6 +14471,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsLuaChatEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12935,6 +14482,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsLuaGameDetailsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12943,6 +14493,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsLuaGamesPageEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12951,6 +14504,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsLuaHomePageEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -12959,6 +14515,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SelectedTheme"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -12979,9 +14538,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -12998,6 +14554,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -13013,9 +14572,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Value"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13032,6 +14588,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -13047,9 +14606,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Value"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13060,9 +14616,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13079,14 +14632,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Adornee"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13097,9 +14650,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13116,6 +14666,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoUpdate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13124,6 +14677,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PackageId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13132,6 +14688,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Status"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13140,14 +14699,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VersionNumber"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13160,9 +14719,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13179,14 +14735,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsFinished"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13203,6 +14759,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PantsTemplate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -13229,9 +14788,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13248,6 +14804,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("A"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13256,6 +14815,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("B"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13264,6 +14826,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("C"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13272,6 +14837,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Range"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13280,6 +14848,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Thickness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -13306,9 +14877,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13318,13 +14886,27 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: Some(Cow::Borrowed("FormFactorPart")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(1);
+                    let mut map = HashMap::with_capacity(2);
                     map.insert(
                         Cow::Borrowed("Shape"),
                         RbxInstanceProperty {
                             name: Cow::Borrowed("Shape"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("PartType")),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("shape")),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("shape"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("shape"),
+                            value_type: RbxPropertyType::Enum(Cow::Borrowed("PartType")),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Shape")),
+                            serialized_name: None,
                         },
                     );
                     map
@@ -13495,9 +15077,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13514,14 +15093,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Adornee"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13538,6 +15117,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CollisionFidelity"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("CollisionFidelity")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13546,6 +15128,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RenderFidelity"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("RenderFidelity")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13554,6 +15139,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TriangleCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13562,6 +15150,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UsePartColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -13739,9 +15330,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13761,9 +15349,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -13780,6 +15365,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Acceleration"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13788,6 +15376,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::ColorSequence),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13796,6 +15387,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Drag"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13804,6 +15398,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EmissionDirection"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13812,6 +15409,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13820,6 +15420,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Lifetime"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13828,6 +15431,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LightEmission"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13836,6 +15442,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LightInfluence"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13844,6 +15453,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LockedToPart"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13852,6 +15464,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Rate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13860,6 +15475,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RotSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13868,6 +15486,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Rotation"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13876,6 +15497,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13884,6 +15508,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Speed"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13892,6 +15519,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SpreadAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13900,6 +15530,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Texture"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13908,6 +15541,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Transparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13916,6 +15552,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VelocityInheritance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13924,6 +15563,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VelocitySpread"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -13932,6 +15574,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ZOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -13990,9 +15635,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZOffset"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14009,14 +15651,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Status"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("PathStatus")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14035,6 +15677,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EmptyCutoff"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -14053,9 +15698,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14068,9 +15710,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14090,9 +15729,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14109,6 +15745,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AllowSleep"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14117,6 +15756,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreAnchorsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14125,6 +15767,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreAssembliesShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14133,6 +15778,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreAwakePartsHighlighted"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14141,6 +15789,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreBodyTypesShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14149,6 +15800,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreContactIslandsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14157,6 +15811,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreContactPointsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14165,6 +15822,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreJointCoordinatesShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14173,6 +15833,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreMechanismsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14181,6 +15844,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreModelCoordsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14189,6 +15855,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreOwnersShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14197,6 +15866,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ArePartCoordsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14205,6 +15877,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreRegionsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14213,6 +15888,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreUnalignedPartsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14221,6 +15899,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreWorldCoordsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14229,6 +15910,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DisableCSGv2"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14237,6 +15921,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsReceiveAgeShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14245,6 +15932,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsTreeShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14255,6 +15945,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "EnviromentalPhysicsThrottle",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14263,6 +15956,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShowDecompositionGeometry"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14271,6 +15967,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ThrottleAdjustTime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14279,14 +15978,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UseCSGv2"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14303,6 +16002,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Octave"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -14320,9 +16022,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Priority"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14333,9 +16032,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14352,6 +16048,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AccountAge"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14362,6 +16061,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14370,6 +16072,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoJumpEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14378,6 +16083,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraMaxZoomDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14386,6 +16094,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraMinZoomDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14394,6 +16105,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("CameraMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14402,6 +16116,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CanLoadCharacterAppearance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14410,6 +16127,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Character"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14418,6 +16138,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CharacterAppearance"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_BROWSABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14426,6 +16149,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CharacterAppearanceId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14434,6 +16160,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ChatMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ChatMode")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14444,6 +16173,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14452,6 +16184,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataComplexityLimit"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14462,6 +16197,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14472,6 +16210,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevCameraOcclusionMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14482,6 +16223,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevComputerCameraMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14492,6 +16236,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevComputerMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14500,6 +16247,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DevEnableMouseLock"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14510,6 +16260,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevTouchCameraMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14520,6 +16273,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevTouchMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14528,6 +16284,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DisplayName"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14536,6 +16295,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FollowUserId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14544,6 +16306,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Guest"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14552,6 +16317,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HealthDisplayDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14562,6 +16330,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14570,6 +16341,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaximumSimulationRadius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14578,6 +16352,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MembershipType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("MembershipType")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14586,6 +16363,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NameDisplayDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14594,6 +16374,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Neutral"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14602,6 +16385,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OsPlatform"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14610,6 +16396,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ReplicationFocus"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14618,6 +16407,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RespawnLocation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14626,6 +16418,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SimulationRadius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14634,6 +16429,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Team"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14644,6 +16442,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14654,6 +16455,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14662,6 +16466,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TeleportedIn"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14670,6 +16477,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UserId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14678,6 +16488,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VRDevice"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14686,14 +16499,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("userId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::DEPRECATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14710,6 +16523,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentScreenOrientation"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ScreenOrientation")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14718,6 +16534,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScreenOrientation"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ScreenOrientation")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14726,14 +16545,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SelectionImageObject"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14744,9 +16563,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14757,9 +16573,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14776,6 +16589,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BubbleChat"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14784,6 +16600,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CharacterAutoLoads"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14792,6 +16611,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClassicChat"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14800,6 +16622,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LocalPlayer"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14808,6 +16633,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxPlayers"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("MaxPlayersInternal")),
                         },
                     );
                     map.insert(
@@ -14816,6 +16644,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxPlayersInternal"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: Some(Cow::Borrowed("MaxPlayers")),
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14826,6 +16657,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14834,6 +16668,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PreferredPlayers"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("PreferredPlayersInternal")),
                         },
                     );
                     map.insert(
@@ -14842,6 +16679,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PreferredPlayersInternal"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: Some(Cow::Borrowed("PreferredPlayers")),
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14850,6 +16690,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RespawnTime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14861,6 +16704,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14872,6 +16718,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -14894,9 +16743,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14913,6 +16759,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CollisionEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14921,6 +16770,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GridSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14929,14 +16781,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UsesAssetInsertionDrag"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -14953,6 +16805,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ActionId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14961,6 +16816,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AllowBinding"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14969,6 +16827,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StatusTip"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -14977,6 +16838,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Text"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -14991,9 +16855,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15010,6 +16871,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Data"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15018,6 +16882,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MimeType"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15026,6 +16893,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15034,14 +16904,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Sender"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15058,14 +16928,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Title"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15087,9 +16957,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15100,9 +16967,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15119,6 +16983,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Icon"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15127,14 +16994,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Title"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15145,9 +17012,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15158,9 +17022,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15177,6 +17038,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClickableWhenViewportHidden"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15185,6 +17049,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15193,14 +17060,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Icon"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15217,6 +17084,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Range"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -15244,9 +17114,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Shadows"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15268,9 +17135,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15287,6 +17151,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15295,6 +17162,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EasingDirection"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("PoseEasingDirection")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15303,6 +17173,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EasingStyle"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("PoseEasingStyle")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15311,6 +17184,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaskWeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15319,6 +17195,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Weight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -15349,9 +17228,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Weight"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15368,14 +17244,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15441,9 +17317,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15454,9 +17327,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15473,6 +17343,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("Ray")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -15487,9 +17360,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15509,9 +17379,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15531,9 +17398,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15550,6 +17414,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExplorerImageIndex"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15558,6 +17425,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExplorerOrder"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15566,6 +17436,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Insertable"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15574,6 +17447,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PreferredParent"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15582,6 +17458,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PreferredParents"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -15658,9 +17537,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15680,9 +17556,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15741,9 +17614,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15802,9 +17672,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15824,9 +17691,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15846,9 +17710,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15868,9 +17729,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -15887,6 +17745,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Browsable"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15895,6 +17756,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClassCategory"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15903,6 +17767,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClientOnly"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15911,6 +17778,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Constraint"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15919,6 +17789,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Deprecated"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15927,6 +17800,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EditingDisabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15935,6 +17811,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsBackend"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15943,6 +17822,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScriptContext"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15951,6 +17833,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ServerOnly"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15959,6 +17844,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UIMaximum"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15967,6 +17855,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UIMinimum"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15975,6 +17866,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UINumTicks"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -15983,14 +17877,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("summary"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16049,9 +17943,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16071,9 +17962,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16093,9 +17981,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16115,9 +18000,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16137,9 +18019,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16156,6 +18035,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoFRMLevel"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16164,6 +18046,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EagerBulkExecution"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16172,6 +18057,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EditQualityLevel"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("QualityLevel")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16180,6 +18068,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EnableFRM"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16188,6 +18079,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExportMergeByMaterial"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16198,6 +18092,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "FramerateManagerMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16206,6 +18103,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GraphicsMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("GraphicsMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16214,6 +18114,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MeshCacheSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16222,6 +18125,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("QualityLevel"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("QualityLevel")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16230,6 +18136,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ReloadAssets"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16238,6 +18147,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RenderCSGTrianglesDebug"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16246,14 +18158,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShowBoundingBoxes"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16270,6 +18182,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16278,6 +18193,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ComparisonDiffThreshold"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16288,6 +18206,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "RenderingTestComparisonMethod",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16296,6 +18217,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ComparisonPsnrThreshold"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16304,6 +18228,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Description"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16312,6 +18239,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FieldOfView"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16320,6 +18250,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Orientation"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16328,6 +18261,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16336,6 +18272,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("QualityLevel"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16344,6 +18283,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShouldSkip"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16352,6 +18294,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Ticket"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -16417,9 +18362,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16439,9 +18381,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16461,9 +18400,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16480,6 +18416,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DecayTime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16488,6 +18427,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Density"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16496,6 +18438,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Diffusion"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16504,6 +18449,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DryLevel"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16512,6 +18460,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WetLevel"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -16533,9 +18484,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("WetLevel"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16557,9 +18505,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16576,6 +18521,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CartoonFactor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16584,6 +18532,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16592,6 +18543,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxThrust"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16600,6 +18554,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxTorque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16608,6 +18565,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Target"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16616,6 +18576,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16624,6 +18587,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetRadius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16632,6 +18598,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ThrustD"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16640,6 +18609,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ThrustP"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16648,6 +18620,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TurnD"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16656,6 +18631,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TurnP"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -16700,9 +18678,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("TurnP"), RbxValue::Float32 { value: 3000.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16719,6 +18694,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16727,6 +18705,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Length"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16735,6 +18716,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Thickness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -16759,9 +18743,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16778,6 +18759,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16786,6 +18770,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Length"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16794,6 +18781,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Restitution"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -16802,6 +18792,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Thickness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -16830,9 +18823,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16866,9 +18856,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16903,9 +18890,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16940,9 +18924,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16964,9 +18945,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16977,9 +18955,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -16990,9 +18965,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17003,9 +18975,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17027,9 +18996,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17046,6 +19012,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DisplayOrder"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17054,6 +19023,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IgnoreGuiInset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17062,6 +19034,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OnTopOfCoreBlur"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -17103,9 +19078,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndexBehavior"), RbxValue::Enum { value: 0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17122,6 +19094,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Source"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -17149,9 +19124,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17170,6 +19142,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScriptsDisabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -17184,9 +19159,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17203,6 +19175,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentLine"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17211,6 +19186,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsDebugging"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17219,6 +19197,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsPaused"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17227,14 +19208,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Script"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17254,9 +19235,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17273,6 +19251,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AbsoluteWindowSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17281,6 +19262,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BottomImage"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17289,6 +19273,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CanvasPosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17297,6 +19284,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CanvasSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17305,6 +19295,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ElasticBehavior"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ElasticBehavior")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17313,6 +19306,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HorizontalScrollBarInset"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ScrollBarInset")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17321,6 +19317,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MidImage"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17329,6 +19328,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScrollBarImageColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17337,6 +19339,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScrollBarImageTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17345,6 +19350,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScrollBarThickness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17353,6 +19361,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScrollingDirection"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ScrollingDirection")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17361,6 +19372,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScrollingEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17369,6 +19383,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TopImage"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17377,6 +19394,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VerticalScrollBarInset"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ScrollBarInset")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17387,6 +19407,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "VerticalScrollBarPosition",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -17559,9 +19582,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17578,6 +19598,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Disabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17586,6 +19609,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Occupant"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -17757,9 +19783,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17779,9 +19802,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17798,6 +19818,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LineThickness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17810,6 +19833,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17818,6 +19844,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SurfaceColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -17826,6 +19855,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SurfaceTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -17866,9 +19898,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17885,14 +19914,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Humanoid"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17909,6 +19938,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Part"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -17936,9 +19968,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -17955,6 +19984,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Point"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -17987,9 +20019,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18010,6 +20039,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18018,6 +20050,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SurfaceColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18026,6 +20061,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SurfaceTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18062,9 +20100,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18075,9 +20110,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18096,6 +20128,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LoadStringEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18110,9 +20145,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18134,9 +20166,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18147,9 +20176,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18166,6 +20192,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShirtTemplate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18192,9 +20221,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18211,6 +20237,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18219,6 +20248,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Graphic"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18245,9 +20277,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18264,6 +20293,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Steer"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18272,6 +20304,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Throttle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18286,9 +20321,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18305,6 +20337,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Controller"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18313,6 +20348,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ControllingHumanoid"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18321,6 +20359,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Steer"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18329,6 +20370,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StickyWheels"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18337,6 +20381,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Throttle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18513,9 +20560,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18534,6 +20578,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18548,9 +20595,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18567,6 +20611,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CelestialBodiesShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18575,6 +20622,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MoonAngularSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18583,6 +20633,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MoonTextureId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18591,6 +20644,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SkyboxBk"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18599,6 +20655,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SkyboxDn"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18607,6 +20666,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SkyboxFt"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18615,6 +20677,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SkyboxLf"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18623,6 +20688,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SkyboxRt"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18631,6 +20699,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SkyboxUp"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18639,6 +20710,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StarCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18647,6 +20721,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SunAngularSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18655,6 +20732,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SunTextureId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18733,9 +20813,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18752,6 +20829,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ActuatorType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ActuatorType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18760,6 +20840,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentPosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18768,6 +20851,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LimitsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18776,6 +20862,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LowerLimit"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18784,6 +20873,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MotorMaxAcceleration"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18792,6 +20884,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MotorMaxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18800,6 +20895,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Restitution"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18808,6 +20906,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ServoMaxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18816,6 +20917,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18824,6 +20928,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Speed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18832,6 +20939,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetPosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18840,6 +20950,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UpperLimit"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18848,14 +20961,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Velocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18865,13 +20978,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(5);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(
                         Cow::Borrowed("Color"),
                         RbxInstanceProperty {
                             name: Cow::Borrowed("Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18880,6 +20996,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -18888,6 +21007,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Opacity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("opacity_xml")),
                         },
                     );
                     map.insert(
@@ -18896,6 +21018,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RiseVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("riseVelocity_xml")),
                         },
                     );
                     map.insert(
@@ -18904,6 +21029,42 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Size"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: Some(Cow::Borrowed("size_xml")),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("opacity_xml"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("opacity_xml"),
+                            value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Opacity")),
+                            serialized_name: None,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("riseVelocity_xml"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("riseVelocity_xml"),
+                            value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("RiseVelocity")),
+                            serialized_name: None,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("size_xml"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("size_xml"),
+                            value_type: RbxPropertyType::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Size")),
+                            serialized_name: None,
                         },
                     );
                     map
@@ -18931,9 +21092,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Size"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18967,9 +21125,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -18991,9 +21146,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19015,9 +21167,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19034,6 +21183,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EmitterSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19042,6 +21194,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsLoaded"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19050,6 +21205,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsPaused"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19058,6 +21216,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsPlaying"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19066,6 +21227,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Looped"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19074,6 +21238,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19082,6 +21249,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MinDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19090,6 +21260,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Pitch"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::DEPRECATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19098,6 +21271,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlayOnRemove"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19106,6 +21282,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlaybackLoudness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19114,6 +21293,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlaybackSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19122,6 +21304,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Playing"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19130,6 +21315,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RollOffMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("RollOffMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19138,6 +21326,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SoundGroup"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19146,6 +21337,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SoundId"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19154,6 +21348,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TimeLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19162,6 +21359,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TimePosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19170,6 +21370,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Volume"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19180,6 +21383,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -19226,9 +21432,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Volume"), RbxValue::Float32 { value: 0.5 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19245,6 +21448,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19253,14 +21459,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Priority"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19277,6 +21483,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Volume"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -19292,9 +21501,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Volume"), RbxValue::Float32 { value: 0.5 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19311,6 +21517,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AmbientReverb"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ReverbType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19319,6 +21528,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DistanceFactor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19327,6 +21539,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DopplerScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19335,6 +21550,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RespectFilteringEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19343,6 +21561,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RolloffScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -19374,9 +21595,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19393,6 +21611,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19401,6 +21622,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19409,6 +21633,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SparkleColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -19436,9 +21663,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19455,6 +21679,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AllowTeamChangeOnTouch"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19463,6 +21690,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Duration"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19471,6 +21701,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19479,6 +21712,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Neutral"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19489,6 +21725,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -19666,9 +21905,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19679,9 +21915,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19698,6 +21931,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MeshType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("MeshType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -19743,9 +21979,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19762,6 +21995,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Radius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -19806,9 +22042,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: -1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19825,6 +22058,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Angle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19833,6 +22069,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Face"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19841,6 +22080,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Range"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -19870,9 +22112,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Shadows"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -19889,6 +22128,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Coils"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19897,6 +22139,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19905,6 +22150,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Damping"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19913,6 +22161,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FreeLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19921,6 +22172,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LimitsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19929,6 +22183,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxForce"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19937,6 +22194,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19945,6 +22205,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MinLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19953,6 +22216,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Radius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19961,6 +22227,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Stiffness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -19969,6 +22238,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Thickness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -20012,9 +22284,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20025,9 +22294,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20047,9 +22313,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20069,9 +22332,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20088,6 +22348,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ProcessUserInput"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20096,6 +22359,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ResetPlayerGuiOnSpawn"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20104,6 +22370,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScreenOrientation"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ScreenOrientation")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20112,6 +22381,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShowDevelopmentGui"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -20138,9 +22410,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20160,9 +22429,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20179,6 +22445,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AllowCustomAnimations"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20187,6 +22456,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoJumpEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20195,6 +22467,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraMaxZoomDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20203,6 +22478,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraMinZoomDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20211,6 +22489,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("CameraMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20219,6 +22500,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CharacterJumpHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20227,6 +22511,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CharacterJumpPower"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20235,6 +22522,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CharacterMaxSlopeAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20243,6 +22533,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CharacterUseJumpPower"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20251,6 +22544,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CharacterWalkSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20261,6 +22557,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevCameraOcclusionMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20271,6 +22570,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevComputerCameraMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20281,6 +22583,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevComputerMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20291,6 +22596,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevTouchCameraMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20301,6 +22609,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DevTouchMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20309,6 +22620,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EnableMouseLockOption"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20317,6 +22631,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDFace"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20325,6 +22642,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDHead"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20333,6 +22653,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDLeftArm"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20341,6 +22664,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDLeftLeg"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20349,6 +22675,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDPants"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20357,6 +22686,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDRightArm"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20365,6 +22697,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDRightLeg"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20373,6 +22708,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDShirt"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20381,6 +22719,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDTeeShirt"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20389,6 +22730,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAssetIDTorso"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20397,6 +22741,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsAvatarType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("GameAvatarType")),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20405,6 +22752,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsR15CollisionType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("R15CollisionType")),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20413,6 +22763,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsScaleBodyType"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20421,6 +22774,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsScaleHead"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20429,6 +22785,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsScaleHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20437,6 +22796,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsScaleProportion"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20445,6 +22807,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GameSettingsScaleWidth"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20453,6 +22818,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HealthDisplayDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20461,6 +22829,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LoadCharacterAppearance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20469,6 +22840,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NameDisplayDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -20604,9 +22978,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20626,9 +22997,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20645,6 +23013,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ContactsCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20653,6 +23024,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataReceiveKbps"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20661,6 +23035,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DataSendKbps"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20669,6 +23046,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HeartbeatTimeMs"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20677,6 +23057,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("InstanceCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20685,6 +23068,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MovingPrimitivesCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20693,6 +23079,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PhysicsReceiveKbps"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20701,6 +23090,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PhysicsSendKbps"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20709,6 +23101,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PhysicsStepTimeMs"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20717,6 +23112,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PrimitivesCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -20731,9 +23129,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20744,9 +23139,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20757,9 +23149,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::DEPRECATED | RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20772,9 +23161,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20791,6 +23177,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -20811,9 +23200,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -20830,6 +23216,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Always Save Script Changes"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20838,6 +23227,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Animate Hover Over"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20848,6 +23240,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "DEPRECATED_DebuggerDataModelPreference",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20856,6 +23251,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Auto Indent"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20864,6 +23262,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Auto-Recovery Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20872,6 +23273,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Auto-Recovery Interval (Minutes)"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20880,6 +23284,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Auto-Recovery Path"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("QDir")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20888,6 +23295,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Auto-Save Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20896,6 +23306,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Auto-Save Interval (Minutes)"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20904,6 +23317,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Auto-Save Path"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("QDir")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20912,6 +23328,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Background Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20920,6 +23339,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Basic Objects Display Mode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ListDisplayMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20928,6 +23350,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Built-in Function Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20936,6 +23361,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Camera Mouse Wheel Speed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20944,6 +23372,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Camera Shift Speed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20952,6 +23383,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Camera Speed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20960,6 +23394,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Camera Zoom to Mouse Position"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20968,6 +23405,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Clear Output On Start"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20976,6 +23416,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Comment Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20984,6 +23427,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DefaultScriptFileDir"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("QDir")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -20992,6 +23438,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DeprecatedObjectsShown"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21000,6 +23449,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Device Pairing Code"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21008,6 +23460,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Disable Accurate Play Solo"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21016,6 +23471,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Drag Multiple Parts As Single Part"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21024,6 +23482,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enable Autocomplete"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21032,6 +23493,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enable CoreScript Debugger"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21040,6 +23504,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enable Intellisense"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21048,6 +23515,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Error Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21056,6 +23526,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Find Selection Background Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21064,6 +23537,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Font"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("QFont")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21072,6 +23548,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Hover Animate Speed"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("HoverAnimateSpeed")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21080,6 +23559,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Hover Over Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21088,6 +23570,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Import mesh files as single mesh"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21096,6 +23581,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Keyword Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21104,6 +23592,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Line Thickness"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21112,6 +23603,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LuaDebuggerEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21122,6 +23616,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21130,6 +23627,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Matching Word Background Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21138,6 +23638,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Maximum Output Lines"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21146,6 +23649,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Number Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21154,6 +23660,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Only Play Audio from Window in Focus"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21162,6 +23671,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Operator Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21170,6 +23682,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Output Font"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("QFont")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21178,6 +23693,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Output Layout Mode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("OutputLayoutMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21186,6 +23704,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OverrideCoreScripts"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21194,6 +23715,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OverrideCoreScriptsDir"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("QDir")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21204,6 +23728,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "PermissionLevelShown",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21212,6 +23739,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PluginsDir"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("QDir")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21220,6 +23750,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Preprocessor Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21228,6 +23761,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RecentSavesDir"),
                             value_type: RbxPropertyType::UnimplementedType(Cow::Borrowed("QDir")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21236,6 +23772,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Render Throttle Percentage"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21244,6 +23783,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Respect Studio shortcuts when game has focus"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21252,6 +23794,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RuntimeUndoBehavior"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("RuntimeUndoBehavior")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21260,6 +23805,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScriptTimeoutLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21268,6 +23816,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Select Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21276,6 +23827,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Select/Hover Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21284,6 +23838,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Selection Background Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21292,6 +23849,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Selection Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21300,6 +23860,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Server Audio Behavior"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ServerAudioBehavior")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21308,6 +23871,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Show Core GUI in Explorer while Playing"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21316,6 +23882,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Show Diagnostics Bar"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21324,6 +23893,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Show Hidden Objects in Explorer"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21332,6 +23904,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Show Hover Over"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21340,6 +23915,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Show Navigation Mesh"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21348,6 +23926,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Show Plugin GUI Service in Explorer"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21356,6 +23937,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Show QT warnings in output"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21364,6 +23948,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Show plus button on hover in Explorer"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21372,6 +23959,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("String Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21380,6 +23970,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Tab Width"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21388,6 +23981,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Text Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21396,6 +23992,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Text Wrapping"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21404,6 +24003,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Theme"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21412,6 +24014,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UI Theme"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("UITheme")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21420,14 +24025,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Warning Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21446,6 +24051,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ActiveScript"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -21460,9 +24068,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21473,9 +24078,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21492,6 +24094,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Intensity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21500,6 +24105,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Spread"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -21520,9 +24128,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Spread"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21539,6 +24144,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Active"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21547,6 +24155,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Adornee"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21555,6 +24166,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AlwaysOnTop"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21563,6 +24177,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CanvasSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21571,6 +24188,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClipsDescendants"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21579,6 +24199,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Face"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21587,6 +24210,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LightInfluence"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21595,6 +24221,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ToolPunchThroughDistance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21603,6 +24232,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ZOffset"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -21662,9 +24294,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZOffset"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21681,6 +24310,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Angle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21689,6 +24321,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Face"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21697,6 +24332,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Range"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -21726,9 +24364,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Shadows"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21745,6 +24380,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TargetSurface"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("NormalId")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -21772,9 +24410,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21791,6 +24426,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SchedulerDutyCycle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21799,6 +24437,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SchedulerRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21807,6 +24448,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ThreadPoolConfig"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ThreadPoolConfig")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21815,14 +24459,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ThreadPoolSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21839,6 +24483,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoAssignable"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21847,6 +24494,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoColorCharacters"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21855,6 +24505,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Score"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21865,6 +24518,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -21888,9 +24544,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Score"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21910,9 +24563,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21929,6 +24579,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CustomizedTeleportUI"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -21947,9 +24600,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -21968,6 +24618,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21976,6 +24629,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaterialColors"),
                             value_type: RbxPropertyType::Data(RbxValueType::BinaryString),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21986,6 +24642,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "Region3int16",
                             )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -21994,6 +24653,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WaterColor"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22002,6 +24664,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WaterReflectance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22010,6 +24675,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WaterTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22018,6 +24686,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WaterWaveSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22026,14 +24697,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WaterWaveSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -22052,6 +24723,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22060,6 +24734,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SizeInCells"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -22074,9 +24751,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -22093,6 +24767,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoRuns"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22101,6 +24778,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Description"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22109,6 +24789,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ErrorCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22117,6 +24800,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ExecuteWithStudioRun"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22125,6 +24811,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Is30FpsThrottleEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22133,6 +24822,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsPhysicsEnvironmentalThrottled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22141,6 +24833,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsSleepAllowed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22149,6 +24844,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NumberOfPlayers"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22157,6 +24855,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SimulateSecondsLag"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22165,6 +24866,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TestCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22173,6 +24877,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Timeout"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22181,6 +24888,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WarnCount"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -22233,9 +24943,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("WarnCount"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -22252,6 +24959,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ClearTextOnFocus"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22260,6 +24970,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CursorPosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22268,6 +24981,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Font"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("Font")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22276,6 +24992,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FontSize"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("FontSize")),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22284,6 +25003,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("IsPassword"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22292,6 +25014,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LineHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22300,6 +25025,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ManualFocusRelease"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22308,6 +25036,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MultiLine"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22316,6 +25047,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OverlayNativeInput"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22324,6 +25058,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlaceholderColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22332,6 +25069,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlaceholderText"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22340,6 +25080,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ShowNativeInput"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22348,6 +25091,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Text"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22356,6 +25102,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextBounds"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22368,6 +25117,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22376,6 +25128,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22384,6 +25139,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextFits"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22392,6 +25150,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextScaled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22400,6 +25161,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22408,6 +25172,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextStrokeColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22416,6 +25183,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextStrokeTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22424,6 +25194,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22432,6 +25205,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextTruncate"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextTruncate")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22440,6 +25216,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextWrap"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22448,6 +25227,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextWrapped"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22456,6 +25238,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextXAlignment"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextXAlignment")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22464,6 +25249,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextYAlignment"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextYAlignment")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -22638,9 +25426,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -22657,6 +25442,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Font"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("Font")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22665,6 +25453,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FontSize"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("FontSize")),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22673,6 +25464,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LineHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22683,6 +25477,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22691,6 +25488,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Text"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22699,6 +25499,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextBounds"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22711,6 +25514,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22719,6 +25525,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22727,6 +25536,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextFits"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22735,6 +25547,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextScaled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22743,6 +25558,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22751,6 +25569,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextStrokeColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22759,6 +25580,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextStrokeTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22767,6 +25591,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22775,6 +25602,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextTruncate"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextTruncate")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22783,6 +25613,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextWrap"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22791,6 +25624,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextWrapped"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22799,6 +25635,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextXAlignment"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextXAlignment")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -22807,6 +25646,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextYAlignment"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextYAlignment")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -22964,9 +25806,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -22977,9 +25816,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -22996,6 +25832,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Font"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("Font")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23004,6 +25843,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FontSize"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("FontSize")),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23012,6 +25854,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LineHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23022,6 +25867,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23030,6 +25878,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Text"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23038,6 +25889,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextBounds"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23050,6 +25904,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23058,6 +25915,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23066,6 +25926,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextFits"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23074,6 +25937,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextScaled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23082,6 +25948,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23090,6 +25959,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextStrokeColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23098,6 +25970,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextStrokeTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23106,6 +25981,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23114,6 +25992,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextTruncate"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextTruncate")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23122,6 +26003,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextWrap"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23130,6 +26014,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextWrapped"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23138,6 +26025,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextXAlignment"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextXAlignment")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23146,6 +26036,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextYAlignment"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextYAlignment")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -23296,9 +26189,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23320,9 +26210,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23339,6 +26226,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StudsPerTileU"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23347,6 +26237,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StudsPerTileV"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -23388,9 +26281,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23403,9 +26293,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23425,9 +26312,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23444,6 +26328,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CanBeDropped"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23452,6 +26339,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23460,6 +26350,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Grip"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23468,6 +26361,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GripForward"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23476,6 +26372,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GripPos"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23484,6 +26383,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GripRight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23492,6 +26394,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GripUp"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23500,6 +26405,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ManualActivationOnly"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23508,6 +26416,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RequiresHandle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23516,6 +26427,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ToolTip"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -23585,9 +26499,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23604,6 +26515,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RelativeTo"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ActuatorRelativeTo")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23612,6 +26526,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Torque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -23637,9 +26554,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23650,9 +26564,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23672,9 +26583,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23685,9 +26593,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23704,6 +26609,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Attachment0"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23712,6 +26620,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Attachment1"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23720,6 +26631,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::ColorSequence),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23728,6 +26642,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23736,6 +26653,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FaceCamera"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23744,6 +26664,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Lifetime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23752,6 +26675,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LightEmission"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23760,6 +26686,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LightInfluence"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23768,6 +26697,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23776,6 +26708,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MinLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23784,6 +26719,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Texture"),
                             value_type: RbxPropertyType::Data(RbxValueType::Content),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23792,6 +26730,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureLength"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23800,6 +26741,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TextureMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TextureMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23808,6 +26752,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Transparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23816,6 +26763,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("WidthScale"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberSequence),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -23856,9 +26806,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("TextureMode"), RbxValue::Enum { value: 0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23875,14 +26822,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LocaleId"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23899,6 +26846,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Depth"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23907,6 +26857,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Duty"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -23915,6 +26868,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Frequency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -23934,9 +26890,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Priority"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -23953,6 +26906,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Style"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("Style")),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24122,9 +27078,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24141,6 +27094,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Instance"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24151,6 +27107,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "TweenInfo",
                             )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24166,9 +27125,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("PlaybackState"), RbxValue::Enum { value: 0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24185,14 +27141,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PlaybackState"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("PlaybackState")),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24212,9 +27168,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24231,6 +27184,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AspectRatio"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24239,6 +27195,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AspectType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("AspectType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24247,6 +27206,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DominantAxis"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("DominantAxis")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24267,9 +27229,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24280,9 +27239,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24293,9 +27249,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24306,9 +27259,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24325,6 +27275,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CellPadding"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24333,6 +27286,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CellSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24341,6 +27297,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FillDirectionMaxCells"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24349,6 +27308,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StartCorner"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("StartCorner")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24394,9 +27356,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24413,6 +27372,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AbsoluteContentSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24421,6 +27383,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FillDirection"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("FillDirection")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24429,6 +27394,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HorizontalAlignment"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("HorizontalAlignment")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24437,6 +27405,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SortOrder"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SortOrder")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24445,14 +27416,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VerticalAlignment"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("VerticalAlignment")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24463,9 +27434,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24482,6 +27450,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Padding"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24511,9 +27482,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24530,6 +27498,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PaddingBottom"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24538,6 +27509,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PaddingLeft"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24546,6 +27520,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PaddingRight"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24554,6 +27531,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PaddingTop"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24584,9 +27564,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24603,6 +27580,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Animated"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24611,6 +27591,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Circular"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24619,6 +27602,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentPage"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24627,6 +27613,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EasingDirection"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("EasingDirection")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24635,6 +27624,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("EasingStyle"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("EasingStyle")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24643,6 +27635,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GamepadInputEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24651,6 +27646,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Padding"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24659,6 +27657,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ScrollWheelInputEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24667,6 +27668,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TouchInputEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24675,6 +27679,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TweenTime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24725,9 +27732,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24744,6 +27748,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Scale"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24759,9 +27766,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Scale"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24778,6 +27782,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24786,6 +27793,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MinSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24810,9 +27820,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24829,6 +27836,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FillEmptySpaceColumns"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24837,6 +27847,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FillEmptySpaceRows"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24845,6 +27858,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MajorAxis"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TableMajorAxis")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24853,6 +27869,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Padding"),
                             value_type: RbxPropertyType::Data(RbxValueType::UDim2),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24896,9 +27915,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -24915,6 +27931,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxTextSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -24923,6 +27942,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MinTextSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -24945,9 +27967,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25130,9 +28149,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25149,6 +28165,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AllTutorialsDisabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25157,6 +28176,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("CustomCameraMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25165,6 +28187,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CameraYInverted"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25173,6 +28198,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ChatVisible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25183,6 +28211,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "ComputerCameraMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25193,6 +28224,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "ComputerMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25201,6 +28235,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ControlMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ControlMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25209,6 +28246,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Fullscreen"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25217,6 +28257,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GamepadCameraSensitivity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25225,6 +28268,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HasEverUsedVR"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25235,6 +28281,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25245,6 +28294,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25253,6 +28305,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MasterVolume"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25261,6 +28316,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MicroProfilerWebServerEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25271,6 +28329,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25281,6 +28342,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25289,6 +28353,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MouseSensitivity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25297,6 +28364,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MouseSensitivityFirstPerson"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25305,6 +28375,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MouseSensitivityThirdPerson"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25313,6 +28386,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OnScreenProfilerEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25321,6 +28397,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OnboardingsCompleted"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25329,6 +28408,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("PerformanceStatsVisible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25337,6 +28419,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RCCProfilerRecordFrameRate"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25345,6 +28430,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RCCProfilerRecordTimeFrame"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25353,6 +28441,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RotationType"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("RotationType")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25361,6 +28452,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SavedQualityLevel"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("SavedQualitySetting")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25369,6 +28463,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StartMaximized"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25377,6 +28474,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StartScreenPosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25385,6 +28485,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StartScreenSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25395,6 +28498,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "TouchCameraMovementMode",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25403,6 +28509,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TouchMovementMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("TouchMovementMode")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25411,6 +28520,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UsedCoreGuiIsVisibleToggle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25419,6 +28531,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UsedCustomGuiIsVisibleToggle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25427,6 +28542,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("UsedHideHudShortcut"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25435,6 +28553,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VREnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25443,14 +28564,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VRRotationIntensity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
                 },
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25469,6 +28590,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AccelerometerEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25477,6 +28601,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("BottomBarSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25485,6 +28612,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GamepadEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25493,6 +28623,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GazeSelectionEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25501,6 +28634,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GyroscopeEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25509,6 +28645,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("KeyboardEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25517,6 +28656,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("LegacyInputEventsEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25525,6 +28667,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ModalEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25533,6 +28678,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MouseBehavior"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("MouseBehavior")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25541,6 +28689,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MouseDeltaSensitivity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25549,6 +28700,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MouseEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25557,6 +28711,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MouseIconEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25565,6 +28722,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("NavBarSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25573,6 +28733,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OnScreenKeyboardAnimationDuration"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25581,6 +28744,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OnScreenKeyboardPosition"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25589,6 +28755,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OnScreenKeyboardSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25597,6 +28766,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("OnScreenKeyboardVisible"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25607,6 +28779,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "OverrideMouseIconBehavior",
                             )),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25615,6 +28790,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RightBarSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25623,6 +28801,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StatusBarSize"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector2),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25631,6 +28812,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TouchEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25641,6 +28825,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25649,6 +28836,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VREnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -25701,9 +28891,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("VREnabled"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25714,9 +28901,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25729,9 +28913,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25748,6 +28929,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("GuiInputUserCFrame"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("UserCFrame")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25756,6 +28940,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VRDeviceName"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25764,6 +28951,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("VREnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -25779,9 +28969,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("VREnabled"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25792,9 +28979,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25811,6 +28995,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Value"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -25831,9 +29018,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25850,6 +29034,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ApplyAtCenterOfMass"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25858,6 +29045,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Force"),
                             value_type: RbxPropertyType::Data(RbxValueType::Vector3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25866,6 +29056,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("RelativeTo"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("ActuatorRelativeTo")),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -25895,9 +29088,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25917,9 +29107,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -25936,6 +29123,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AreHingesDetected"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25944,6 +29134,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Disabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25952,6 +29145,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("HeadsUpDisplay"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25960,6 +29156,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25968,6 +29167,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Occupant"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25976,6 +29178,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Steer"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25984,6 +29189,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("SteerFloat"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -25992,6 +29200,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Throttle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26000,6 +29211,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ThrottleFloat"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26008,6 +29222,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Torque"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26016,6 +29233,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TurnSpeed"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -26202,9 +29422,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26221,6 +29438,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26229,6 +29449,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DesiredAngle"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26237,6 +29460,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Hole"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26245,6 +29471,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("MaxVelocity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -26286,9 +29515,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26305,6 +29531,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentCamera"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26313,6 +29542,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageColor3"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26321,6 +29553,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("ImageTransparency"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -26437,9 +29672,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("ZIndex"), RbxValue::Float32 { value: 1.0 });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26456,6 +29688,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AdditionalLuaState"),
                             value_type: RbxPropertyType::Data(RbxValueType::String),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -26476,9 +29711,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26500,9 +29732,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26524,9 +29753,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26701,9 +29927,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26737,9 +29960,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26756,6 +29976,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Active"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26764,6 +29987,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Enabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26772,6 +29998,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Part0"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26780,6 +30009,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Part1"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -26798,9 +30030,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map.insert(
@@ -26817,6 +30046,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AllowThirdPartySales"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26825,6 +30057,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("AutoJointsMode"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("AutoJointsMode")),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26833,6 +30068,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("CurrentCamera"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26841,6 +30079,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("DistributedGameTime"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float64),
                             tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26849,6 +30090,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FallenPartsDestroyHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26857,6 +30101,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("FilteringEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26865,6 +30112,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Gravity"),
                             value_type: RbxPropertyType::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26873,6 +30123,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StreamingEnabled"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26881,6 +30134,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StreamingMinRadius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26889,6 +30145,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("StreamingTargetRadius"),
                             value_type: RbxPropertyType::Data(RbxValueType::Int32),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26897,6 +30156,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("TemporaryLegacyPhysicsSolverOverride"),
                             value_type: RbxPropertyType::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map.insert(
@@ -26905,6 +30167,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("Terrain"),
                             value_type: RbxPropertyType::Data(RbxValueType::Ref),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
                         },
                     );
                     map
@@ -26945,9 +30210,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map
                 },
-                is_canonical: true,
-                canonical_name: None,
-                serialized_name: None,
             },
         );
         map
