@@ -5,7 +5,7 @@ use std::{
 
 use serde_derive::Deserialize;
 
-use crate::reflection_types::RbxPropertyType;
+use crate::reflection_types::{RbxPropertyType, RbxPropertyScriptability};
 
 lazy_static::lazy_static! {
     static ref PROPERTY_PATCHES: PropertyPatches = {
@@ -25,7 +25,7 @@ pub struct PropertyPatches {
 pub struct PropertyChange {
     pub serialized_name: Option<Cow<'static, str>>,
     pub canonical_name: Option<Cow<'static, str>>,
-    pub scriptability: Option<Scriptability>,
+    pub scriptability: Option<RbxPropertyScriptability>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -34,18 +34,9 @@ pub struct PropertyAdd {
     pub property_type: RbxPropertyType,
     pub serialized_name: Option<Cow<'static, str>>,
     pub canonical_name: Option<Cow<'static, str>>,
-    pub scriptability: Scriptability,
+    pub scriptability: RbxPropertyScriptability,
 }
 
 pub fn get_property_patches() -> &'static PropertyPatches {
     &PROPERTY_PATCHES
-}
-
-#[derive(Debug, Deserialize)]
-pub enum Scriptability {
-    None,
-    ReadWrite,
-    Read,
-    Write,
-    Custom,
 }

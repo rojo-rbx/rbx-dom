@@ -22,6 +22,7 @@ pub struct RbxInstanceProperty {
     pub value_type: RbxPropertyType,
     pub tags: RbxPropertyTags,
 
+    pub scriptability: RbxPropertyScriptability,
     pub is_canonical: bool,
     pub canonical_name: Option<Cow<'static, str>>,
     pub serialized_name: Option<Cow<'static, str>>,
@@ -39,6 +40,15 @@ pub enum RbxPropertyType {
     Enum(Cow<'static, str>),
 
     UnimplementedType(Cow<'static, str>),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+pub enum RbxPropertyScriptability {
+    None,
+    ReadWrite,
+    Read,
+    Write,
+    Custom,
 }
 
 /// The bitflags crate doesn't support iterating over the bits that are set in

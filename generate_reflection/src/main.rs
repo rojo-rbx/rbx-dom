@@ -27,7 +27,14 @@ use crate::{
     api_dump::{Dump, DumpClassMember},
     database::ReflectionDatabase,
     property_patches::get_property_patches,
-    reflection_types::{RbxInstanceClass, RbxInstanceProperty, RbxPropertyTags, RbxInstanceTags},
+    reflection_types::{
+        RbxInstanceClass,
+        RbxInstanceProperty,
+        RbxInstanceTags,
+        RbxPropertyScriptability,
+        RbxPropertyTags,
+        RbxPropertyType,
+    },
 };
 
 static PLUGIN_MAIN: &str = include_str!("../plugin/main.lua");
@@ -64,8 +71,21 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         for member in &dump_class.members {
             match member {
-                DumpClassMember::Property(property) => {
-                    properties.insert(Cow::Owned(property.name.clone()), property.into());
+                DumpClassMember::Property(dump_property) => {
+                    let scriptability = RbxPropertyScriptability::ReadWrite;
+
+                    let property = RbxInstanceProperty {
+                        name: Cow::Owned(dump_property.name.clone()),
+                        value_type: RbxPropertyType::from(&dump_property.value_type),
+                        tags: RbxPropertyTags::from_dump_tags(&dump_property.tags),
+
+                        is_canonical: true,
+                        canonical_name: None,
+                        serialized_name: None,
+                        scriptability,
+                    };
+
+                    properties.insert(Cow::Owned(dump_property.name.clone()), property);
                 }
                 _ => {}
             }
@@ -122,6 +142,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let is_canonical = property_add.canonical_name.is_none();
             let canonical_name = property_add.canonical_name.clone();
             let serialized_name = property_add.serialized_name.clone();
+            let scriptability = property_add.scriptability;
 
             let property = RbxInstanceProperty {
                 name,
@@ -129,6 +150,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 is_canonical,
                 canonical_name,
                 serialized_name,
+                scriptability,
 
                 tags: RbxPropertyTags::empty(),
             };
@@ -158,6 +180,10 @@ fn main() -> Result<(), Box<dyn Error>> {
                     None => panic!("Property {}.{} refers to serialized property ({}) that does not exist.",
                         class_name, property_name, serialized_name)
                 };
+            }
+
+            if property_name.chars().next().unwrap().is_lowercase() && property.is_canonical {
+                println!("Property {}.{} doesn't look canonical", class_name, property_name);
             }
         }
     }

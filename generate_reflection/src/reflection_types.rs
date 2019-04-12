@@ -3,7 +3,7 @@ use std::borrow::Cow;
 use log::warn;
 use rbx_dom_weak::RbxValueType;
 
-use crate::api_dump::{ValueType, ValueCategory, DumpClassProperty};
+use crate::api_dump::{ValueType, ValueCategory};
 
 #[path = "../../rbx_reflection/src/reflection_types.rs"]
 mod inner;
@@ -58,20 +58,6 @@ impl RbxPropertyTags {
         }
 
         tags
-    }
-}
-
-impl<'a> From<&'a DumpClassProperty> for RbxInstanceProperty {
-    fn from(dump_property: &'a DumpClassProperty) -> RbxInstanceProperty {
-        RbxInstanceProperty {
-            name: Cow::Owned(dump_property.name.clone()),
-            value_type: RbxPropertyType::from(&dump_property.value_type),
-            tags: RbxPropertyTags::from_dump_tags(&dump_property.tags),
-
-            is_canonical: true,
-            canonical_name: None,
-            serialized_name: None,
-        }
     }
 }
 

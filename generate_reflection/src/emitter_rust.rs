@@ -15,8 +15,9 @@ use crate::{
         RbxInstanceClass,
         RbxInstanceProperty,
         RbxInstanceTags,
-        RbxPropertyType,
+        RbxPropertyScriptability,
         RbxPropertyTags,
+        RbxPropertyType,
     },
     database::ReflectionDatabase,
 };
@@ -133,6 +134,7 @@ impl AsRust for RbxInstanceProperty {
         let is_canonical = self.is_canonical.as_rust();
         let canonical_name = self.canonical_name.as_rust();
         let serialized_name = self.serialized_name.as_rust();
+        let scriptability = self.scriptability.as_rust();
 
         quote!(RbxInstanceProperty {
             name: #member_name,
@@ -141,7 +143,15 @@ impl AsRust for RbxInstanceProperty {
             is_canonical: #is_canonical,
             canonical_name: #canonical_name,
             serialized_name: #serialized_name,
+            scriptability: #scriptability,
         })
+    }
+}
+
+impl AsRust for RbxPropertyScriptability {
+    fn as_rust(&self) -> TokenStream {
+        let name = Ident::new(&format!("{:?}", self), Span::call_site());
+        quote!(RbxPropertyScriptability::#name)
     }
 }
 
