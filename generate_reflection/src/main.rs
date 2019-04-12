@@ -48,7 +48,6 @@ enum PluginMessage {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let (dump_source, dump) = Dump::read_with_source()?;
-    let property_patches = get_property_patches();
 
     let mut classes: HashMap<Cow<'static, str>, RbxInstanceClass> = HashMap::new();
 
@@ -85,6 +84,24 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
 
         classes.insert(Cow::Owned(dump_class.name.clone()), class);
+    }
+
+    let property_patches = get_property_patches();
+
+    for (class_name, class_patches) in property_patches {
+        let class = classes.get_mut(class_name.as_str())
+            .unwrap_or_else(|| panic!("Property {} defined in patch file wasn't present", class_name));
+
+        for (property_name, property_patch) in class_patches {
+            match class.properties.get_mut(property_name.as_str()) {
+                Some(existing_property) => {
+                    println!("Modified property: {}.{}", class_name, property_name);
+                }
+                None => {
+                    println!("New property: {}.{}", class_name, property_name);
+                }
+            }
+        }
     }
 
     let plugin = {
