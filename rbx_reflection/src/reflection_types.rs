@@ -14,6 +14,9 @@ pub struct RbxInstanceClass {
     pub tags: RbxInstanceTags,
     pub properties: HashMap<Cow<'static, str>, RbxInstanceProperty>,
     pub default_properties: HashMap<Cow<'static, str>, RbxValue>,
+
+    #[doc(hidden)]
+    pub(crate) __non_exhaustive: (),
 }
 
 #[derive(Debug, PartialEq)]
@@ -26,12 +29,18 @@ pub struct RbxInstanceProperty {
     pub is_canonical: bool,
     pub canonical_name: Option<Cow<'static, str>>,
     pub serialized_name: Option<Cow<'static, str>>,
+
+    #[doc(hidden)]
+    pub(crate) __non_exhaustive: (),
 }
 
 #[derive(Debug, PartialEq)]
 pub struct RbxEnum {
     pub name: Cow<'static, str>,
     pub items: HashMap<Cow<'static, str>, u32>,
+
+    #[doc(hidden)]
+    pub(crate) __non_exhaustive: (),
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

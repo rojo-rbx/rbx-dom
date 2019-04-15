@@ -91,6 +91,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                         canonical_name: None,
                         serialized_name: None,
                         scriptability,
+
+                        __non_exhaustive: (),
                     };
 
                     properties.insert(Cow::Owned(dump_property.name.clone()), property);
@@ -105,6 +107,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             tags,
             properties,
             default_properties: HashMap::new(),
+
+            __non_exhaustive: (),
         };
 
         classes.insert(Cow::Owned(dump_class.name.clone()), class);
@@ -161,6 +165,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 scriptability,
 
                 tags: RbxPropertyTags::empty(),
+
+                __non_exhaustive: (),
             };
 
             class.properties.insert(Cow::Owned(property_name.clone()), property);
