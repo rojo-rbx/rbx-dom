@@ -72,12 +72,20 @@ fn main() -> Result<(), Box<dyn Error>> {
         for member in &dump_class.members {
             match member {
                 DumpClassMember::Property(dump_property) => {
-                    let scriptability = RbxPropertyScriptability::ReadWrite;
+                    let tags = RbxPropertyTags::from_dump_tags(&dump_property.tags);
+
+                    let scriptability = if tags.contains(RbxPropertyTags::NOT_SCRIPTABLE) {
+                        RbxPropertyScriptability::None
+                    } else if tags.contains(RbxPropertyTags::READ_ONLY) {
+                        RbxPropertyScriptability::Read
+                    } else {
+                        RbxPropertyScriptability::ReadWrite
+                    };
 
                     let property = RbxInstanceProperty {
                         name: Cow::Owned(dump_property.name.clone()),
                         value_type: RbxPropertyType::from(&dump_property.value_type),
-                        tags: RbxPropertyTags::from_dump_tags(&dump_property.tags),
+                        tags,
 
                         is_canonical: true,
                         canonical_name: None,
