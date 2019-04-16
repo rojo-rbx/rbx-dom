@@ -9,13 +9,13 @@ macro_rules! make_brick_color {
 		}
 
 		impl BrickColor {
-			pub fn from_palette(value: u8) -> Result<BrickColor, ()> {
+			pub fn from_palette(value: u8) -> Option<BrickColor> {
 				match value.into() {
 					$(
-						$value => Ok(BrickColor::$enum),
+						$value => Some(BrickColor::$enum),
 					)+
 
-					_ => Err(()),
+					_ => None,
 				}
 			}
 		}
