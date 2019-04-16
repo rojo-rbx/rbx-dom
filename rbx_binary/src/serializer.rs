@@ -125,9 +125,8 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
             .map(|id| *referents.get(id).unwrap());
 
         let parent_ids = relevant_instances
-            .keys()
-            .map(|id| {
-                let instance = relevant_instances.get(id).unwrap();
+            .values()
+            .map(|instance| {
                 match instance.get_parent_id() {
                     Some(parent_id) => *referents.get(&parent_id).unwrap_or(&-1),
                     None => -1,
