@@ -5,28 +5,17 @@ macro_rules! make_brick_color {
 	({$([$enum:ident, $name:tt, $value:tt],)+}) => {
 		#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 		pub enum BrickColor {
-			$($enum,)+
+			$($enum = $value,)+
 		}
 
 		impl BrickColor {
-			pub fn from_palette<T: Into<u8>>(value: T) -> Result<BrickColor, ()> {
+			pub fn from_palette(value: u8) -> Result<BrickColor, ()> {
 				match value.into() {
 					$(
 						$value => Ok(BrickColor::$enum),
 					)+
 
 					_ => Err(()),
-				}
-			}
-		}
-
-		// TODO: These should work for all numeric types
-		impl Into<u8> for BrickColor {
-			fn into(self) -> u8 {
-				match self {
-					$(
-						BrickColor::$enum => $value,
-					)+
 				}
 			}
 		}
