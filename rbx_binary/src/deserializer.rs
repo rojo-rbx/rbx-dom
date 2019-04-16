@@ -12,15 +12,15 @@ use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxId, RbxValue};
 
 use crate::{
     core::{
+        BinaryType,
         FILE_MAGIC_HEADER,
         FILE_SIGNATURE,
         FILE_VERSION,
     },
     types::{
-        decode_string,
-        decode_string_array,
+        BoolType,
+        StringType,
         decode_referent_array,
-        decode_bool_array,
     },
 };
 
@@ -239,8 +239,8 @@ fn decode_meta_chunk<R: Read>(source: &mut R, output: &mut HashMap<String, Strin
     let len = source.read_u32::<LittleEndian>()?;
 
     for _ in 0..len {
-        let key = decode_string(source)?;
-        let value = decode_string(source)?;
+        let key = StringType::read_binary(source)?;
+        let value = StringType::read_binary(source)?;
 
         output.insert(key, value);
     }
@@ -257,7 +257,7 @@ struct InstanceType {
 
 fn decode_inst_chunk<R: Read>(source: &mut R, instance_types: &mut HashMap<u32, InstanceType>) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
-    let type_name = decode_string(source)?;
+    let type_name = StringType::read_binary(source)?;
     let _additional_data = source.read_u8()?;
     let number_instances = source.read_u32::<LittleEndian>()?;
 
@@ -289,7 +289,7 @@ fn decode_prop_chunk<R: Read>(
     instance_props: &mut HashMap<i32, InstanceProps>,
 ) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
-    let prop_name = decode_string(&mut source)?;
+    let prop_name = StringType::read_binary(&mut source)?;
     let data_type = source.read_u8()?;
 
     trace!("Set prop (type {}) {}.{}", data_type, type_id, prop_name);
@@ -300,9 +300,9 @@ fn decode_prop_chunk<R: Read>(
 
     match data_type {
         0x01 => {
-            let values = decode_string_array(&mut source, instance_type.referents.len())?;
+            let values = StringType::read_array(&mut source, instance_type.referents.len())?;
 
-            for (index, value) in values.iter().enumerate() {
+            for (index, value) in values.into_iter().enumerate() {
                 let referent = instance_type.referents[index];
                 let prop_data = instance_props
                     .entry(referent)
@@ -312,13 +312,13 @@ fn decode_prop_chunk<R: Read>(
                         properties: HashMap::new(),
                     });
 
-                prop_data.properties.insert(prop_name.clone(), RbxValue::String { value: value.clone() });
+                prop_data.properties.insert(prop_name.clone(), value);
             }
         },
         0x02 => {
-            let values = decode_bool_array(&mut source, instance_type.referents.len())?;
+            let values = BoolType::read_array(&mut source, instance_type.referents.len())?;
 
-            for (index, &value) in values.iter().enumerate() {
+            for (index, value) in values.into_iter().enumerate() {
                 let referent = instance_type.referents[index];
                 let prop_data = instance_props
                     .entry(referent)
@@ -328,7 +328,7 @@ fn decode_prop_chunk<R: Read>(
                         properties: HashMap::new(),
                     });
 
-                prop_data.properties.insert(prop_name.clone(), RbxValue::Bool { value });
+                prop_data.properties.insert(prop_name.clone(), value);
             }
         },
         0x03 => { /* i32 */ },
