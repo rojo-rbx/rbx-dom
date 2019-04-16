@@ -2,6 +2,7 @@ use std::{
     borrow::Cow,
     fmt,
     io::{self, Write},
+    str,
 };
 
 use heck::CamelCase;
@@ -217,7 +218,7 @@ impl AsLua for RbxValue {
 
 impl<'a, T> AsLua for &'a T where T: AsLua + 'a {
     fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()> {
-        (*self).as_lua(output)
+        (**self).as_lua(output)
     }
 }
 
@@ -253,6 +254,10 @@ struct Lua<T>(T);
 
 impl<T: AsLua> fmt::Display for Lua<T> {
     fn fmt(&self, output: &mut fmt::Formatter) -> fmt::Result {
-        write!(output, "{}", self)
+        // TODO: Revisit this -- this feels like a GIGANTIC hack. I must not
+        // fully understand io::Write vs fmt::Write.
+        let mut buffer = Vec::new();
+        self.0.as_lua(&mut buffer).unwrap();
+        write!(output, "{}", str::from_utf8(&buffer).unwrap())
     }
 }
