@@ -11,15 +11,15 @@ mod bool;
 pub use self::string::*;
 pub use self::bool::*;
 
-pub fn encode_i32(value: i32) -> i32 {
+fn encode_i32(value: i32) -> i32 {
     (value << 1) ^ (value >> 31)
 }
 
-pub fn decode_i32(value: i32) -> i32 {
+fn decode_i32(value: i32) -> i32 {
     ((value as u32) >> 1) as i32 ^ -(value & 1)
 }
 
-pub fn encode_interleaved_transformed_i32_array<W: Write, I>(
+fn encode_interleaved_transformed_i32_array<W: Write, I>(
     output: &mut W,
     values: I,
 ) -> io::Result<()>
@@ -35,7 +35,7 @@ where
     Ok(())
 }
 
-pub fn decode_interleaved_transformed_i32_array<R: Read>(
+fn decode_interleaved_transformed_i32_array<R: Read>(
     source: &mut R,
     output: &mut [i32],
 ) -> io::Result<()> {
@@ -58,15 +58,15 @@ pub fn encode_referent_array<W: Write, I>(output: &mut W, values: I) -> io::Resu
 where
     I: Iterator<Item = i32> + Clone,
 {
-    let mut delta_encoded = Vec::new();
     let mut last_value = 0;
+    let delta_encoded = values
+        .map(move |value| {
+            let encoded = value - last_value;
+            last_value = value;
+            encoded
+        });
 
-    for value in values {
-        delta_encoded.push(value - last_value);
-        last_value = value;
-    }
-
-    encode_interleaved_transformed_i32_array(output, delta_encoded.iter().cloned())
+    encode_interleaved_transformed_i32_array(output, delta_encoded)
 }
 
 pub fn decode_referent_array<R: Read>(source: &mut R, output: &mut [i32]) -> io::Result<()> {
