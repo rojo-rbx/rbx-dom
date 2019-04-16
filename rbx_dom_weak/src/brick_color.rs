@@ -10,7 +10,7 @@ macro_rules! make_brick_color {
 
 		impl BrickColor {
 			pub fn from_palette(value: u8) -> Option<BrickColor> {
-				match value.into() {
+				match value {
 					$(
 						$value => Some(BrickColor::$enum),
 					)+
