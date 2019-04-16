@@ -20,7 +20,6 @@ use crate::{
     types::{
         BoolType,
         StringType,
-        decode_string,
         decode_referent_array,
     },
 };
@@ -240,8 +239,8 @@ fn decode_meta_chunk<R: Read>(source: &mut R, output: &mut HashMap<String, Strin
     let len = source.read_u32::<LittleEndian>()?;
 
     for _ in 0..len {
-        let key = decode_string(source)?;
-        let value = decode_string(source)?;
+        let key = StringType::read_binary(source)?;
+        let value = StringType::read_binary(source)?;
 
         output.insert(key, value);
     }
@@ -258,7 +257,7 @@ struct InstanceType {
 
 fn decode_inst_chunk<R: Read>(source: &mut R, instance_types: &mut HashMap<u32, InstanceType>) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
-    let type_name = decode_string(source)?;
+    let type_name = StringType::read_binary(source)?;
     let _additional_data = source.read_u8()?;
     let number_instances = source.read_u32::<LittleEndian>()?;
 
@@ -290,7 +289,7 @@ fn decode_prop_chunk<R: Read>(
     instance_props: &mut HashMap<i32, InstanceProps>,
 ) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
-    let prop_name = decode_string(&mut source)?;
+    let prop_name = StringType::read_binary(&mut source)?;
     let data_type = source.read_u8()?;
 
     trace!("Set prop (type {}) {}.{}", data_type, type_id, prop_name);

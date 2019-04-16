@@ -3,7 +3,7 @@ use std::{
     mem,
 };
 
-use byteorder::{ReadBytesExt, WriteBytesExt, LittleEndian};
+use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use rbx_dom_weak::RbxValue;
 
 use crate::core::BinaryType;
@@ -11,41 +11,81 @@ use crate::core::BinaryType;
 pub struct BoolType;
 
 impl BinaryType<bool> for BoolType {
-    fn read_binary<R: Read>(source: &mut R) -> io::Result<RbxValue> {
+    fn read_array<R: Read>(source: &mut R, count: usize) -> io::Result<Vec<RbxValue>> {
+        let mut result = Vec::with_capacity(count);
+
+        for _ in 0..count {
+            result.push(BoolType::read_binary(source)?);
+        }
+
+        Ok(result)
+    }
+
+    fn write_array<'write, I, W: Write>(output: &mut W, values: I) -> io::Result<()>
+    where
+        I: Iterator<Item = &'write bool>
+    {
+        for value in values {
+            BoolType::write_binary(output, *value)?;
+        }
+
+        Ok(())
+    }
+}
+
+impl BoolType {
+    pub fn read_binary<R: Read>(source: &mut R) -> io::Result<RbxValue> {
         Ok(RbxValue::Bool {
             value: source.read_u8()? != 0,
         })
     }
 
-    fn write_binary<W: Write>(output: &mut W, value: &bool) -> io::Result<()> {
-        if *value {
-            output.write_u8(1)
-        } else {
-            output.write_u8(0)
-        }
+    pub fn write_binary<W: Write>(output: &mut W, value: bool) -> io::Result<()> {
+        output.write_u8(value as u8)
     }
 }
 
 pub struct StringType;
 
 impl BinaryType<str> for StringType {
-    fn read_binary<R: Read>(source: &mut R) -> io::Result<RbxValue> {
-        Ok(RbxValue::String { value: decode_string(source)? })
+    fn read_array<R: Read>(source: &mut R, count: usize) -> io::Result<Vec<RbxValue>> {
+        let mut result = Vec::with_capacity(count);
+
+        for _ in 0..count {
+            result.push(RbxValue::String {
+                value: StringType::read_binary(source)?,
+            });
+        }
+
+        Ok(result)
     }
 
-    fn write_binary<W: Write>(output: &mut W, value: &str) -> io::Result<()> {
-        output.write_u32::<LittleEndian>(value.len() as u32)?;
-        write!(output, "{}", value)
+    fn write_array<'write, I, W: Write>(output: &mut W, values: I) -> io::Result<()>
+    where
+        I: Iterator<Item = &'write str>
+    {
+        for value in values {
+            StringType::write_binary(output, value)?;
+        }
+
+        Ok(())
     }
 }
 
-pub fn decode_string<R: Read>(source: &mut R) -> io::Result<String> {
-    let length = source.read_u32::<LittleEndian>()?;
+impl StringType {
+    pub fn read_binary<R: Read>(source: &mut R) -> io::Result<String> {
+        let length = source.read_u32::<LittleEndian>()?;
 
-    let mut value = String::new();
-    source.take(length as u64).read_to_string(&mut value)?;
+        let mut value = String::new();
+        source.take(length as u64).read_to_string(&mut value)?;
 
-    Ok(value)
+        Ok(value)
+    }
+
+    pub fn write_binary<W: Write>(output: &mut W, value: &str) -> io::Result<()> {
+        output.write_u32::<LittleEndian>(value.len() as u32)?;
+        write!(output, "{}", value)
+    }
 }
 
 pub fn encode_i32(value: i32) -> i32 {
@@ -56,8 +96,12 @@ pub fn decode_i32(value: i32) -> i32 {
     ((value as u32) >> 1) as i32 ^ -(value & 1)
 }
 
-pub fn encode_interleaved_transformed_i32_array<W: Write, I>(output: &mut W, values: I) -> io::Result<()>
-    where I: Iterator<Item = i32> + Clone
+pub fn encode_interleaved_transformed_i32_array<W: Write, I>(
+    output: &mut W,
+    values: I,
+) -> io::Result<()>
+where
+    I: Iterator<Item = i32> + Clone,
 {
     for shift in &[24, 16, 8, 0] {
         for value in values.clone() {
@@ -68,7 +112,10 @@ pub fn encode_interleaved_transformed_i32_array<W: Write, I>(output: &mut W, val
     Ok(())
 }
 
-pub fn decode_interleaved_transformed_i32_array<R: Read>(source: &mut R, output: &mut [i32]) -> io::Result<()> {
+pub fn decode_interleaved_transformed_i32_array<R: Read>(
+    source: &mut R,
+    output: &mut [i32],
+) -> io::Result<()> {
     let mut buffer = vec![0; output.len() * mem::size_of::<i32>()];
     source.read_exact(&mut buffer)?;
 
@@ -85,7 +132,8 @@ pub fn decode_interleaved_transformed_i32_array<R: Read>(source: &mut R, output:
 }
 
 pub fn encode_referent_array<W: Write, I>(output: &mut W, values: I) -> io::Result<()>
-    where I: Iterator<Item = i32> + Clone
+where
+    I: Iterator<Item = i32> + Clone,
 {
     let mut delta_encoded = Vec::new();
     let mut last_value = 0;

@@ -10,7 +10,6 @@ use rbx_dom_weak::{RbxTree, RbxInstance, RbxId, RbxValue};
 
 use crate::{
     core::{
-        BinaryType,
         FILE_MAGIC_HEADER,
         FILE_SIGNATURE,
         FILE_VERSION,
@@ -106,7 +105,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
 
                     match value.borrow() {
                         RbxValue::String { value } => StringType::write_binary(&mut output, value)?,
-                        RbxValue::Bool { value } => BoolType::write_binary(&mut output, value)?,
+                        RbxValue::Bool { value } => BoolType::write_binary(&mut output, *value)?,
                         _ => unimplemented!(),
                     }
                 }
