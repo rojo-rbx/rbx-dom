@@ -1,5 +1,5 @@
 use serde_derive::{Serialize, Deserialize};
-use std::{convert::TryFrom, fmt};
+use std::fmt;
 
 macro_rules! make_brick_color {
 	({$([$enum:ident, $name:tt, $value:tt],)+}) => {
@@ -8,12 +8,9 @@ macro_rules! make_brick_color {
 			$($enum,)+
 		}
 
-		// TODO: These should work for all numeric types, but making a macro was too difficult
-		impl TryFrom<u8> for BrickColor {
-			type Error = ();
-
-			fn try_from(value: u8) -> Result<Self, Self::Error> {
-				match value {
+		impl BrickColor {
+			pub fn from_palette<T: Into<u8>>(value: T) -> Result<BrickColor, ()> {
+				match value.into() {
 					$(
 						$value => Ok(BrickColor::$enum),
 					)+
@@ -23,6 +20,7 @@ macro_rules! make_brick_color {
 			}
 		}
 
+		// TODO: These should work for all numeric types
 		impl Into<u8> for BrickColor {
 			fn into(self) -> u8 {
 				match self {
