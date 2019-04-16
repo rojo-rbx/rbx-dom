@@ -12,15 +12,16 @@ use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxId, RbxValue};
 
 use crate::{
     core::{
+        BinaryType,
         FILE_MAGIC_HEADER,
         FILE_SIGNATURE,
         FILE_VERSION,
     },
     types::{
+        BoolType,
+        StringType,
         decode_string,
-        decode_string_array,
         decode_referent_array,
-        decode_bool_array,
     },
 };
 
@@ -300,9 +301,9 @@ fn decode_prop_chunk<R: Read>(
 
     match data_type {
         0x01 => {
-            let values = decode_string_array(&mut source, instance_type.referents.len())?;
+            let values = StringType::read_array(&mut source, instance_type.referents.len())?;
 
-            for (index, value) in values.iter().enumerate() {
+            for (index, value) in values.into_iter().enumerate() {
                 let referent = instance_type.referents[index];
                 let prop_data = instance_props
                     .entry(referent)
@@ -312,13 +313,13 @@ fn decode_prop_chunk<R: Read>(
                         properties: HashMap::new(),
                     });
 
-                prop_data.properties.insert(prop_name.clone(), RbxValue::String { value: value.clone() });
+                prop_data.properties.insert(prop_name.clone(), value);
             }
         },
         0x02 => {
-            let values = decode_bool_array(&mut source, instance_type.referents.len())?;
+            let values = BoolType::read_array(&mut source, instance_type.referents.len())?;
 
-            for (index, &value) in values.iter().enumerate() {
+            for (index, value) in values.into_iter().enumerate() {
                 let referent = instance_type.referents[index];
                 let prop_data = instance_props
                     .entry(referent)
@@ -328,7 +329,7 @@ fn decode_prop_chunk<R: Read>(
                         properties: HashMap::new(),
                     });
 
-                prop_data.properties.insert(prop_name.clone(), RbxValue::Bool { value });
+                prop_data.properties.insert(prop_name.clone(), value);
             }
         },
         0x03 => { /* i32 */ },

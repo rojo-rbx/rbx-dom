@@ -10,14 +10,15 @@ use rbx_dom_weak::{RbxTree, RbxInstance, RbxId, RbxValue};
 
 use crate::{
     core::{
+        BinaryType,
         FILE_MAGIC_HEADER,
         FILE_SIGNATURE,
         FILE_VERSION,
     },
     types::{
+        BoolType,
+        StringType,
         encode_referent_array,
-        encode_string,
-        encode_bool,
     },
 };
 
@@ -53,7 +54,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
     for (type_name, type_info) in &type_infos {
         encode_chunk(&mut output, b"INST", Compression::Compressed, |mut output| {
             output.write_u32::<LittleEndian>(type_info.id)?;
-            encode_string(&mut output, type_name)?;
+            StringType::write_binary(&mut output, type_name)?;
 
             // TODO: Set this flag for services?
             output.write_u8(0)?; // Flag that no additional data is attached
@@ -76,7 +77,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
         for prop_info in &type_info.properties {
             encode_chunk(&mut output, b"PROP", Compression::Compressed, |mut output| {
                 output.write_u32::<LittleEndian>(type_info.id)?;
-                encode_string(&mut output, &prop_info.name)?;
+                StringType::write_binary(&mut output, &prop_info.name)?;
                 output.write_u8(prop_info.kind.id())?;
 
                 for instance_id in &type_info.object_ids {
@@ -104,8 +105,8 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
                     assert_eq!(PropKind::from_value(&value), prop_info.kind);
 
                     match value.borrow() {
-                        RbxValue::String { value } => encode_string(&mut output, value)?,
-                        RbxValue::Bool { value } => encode_bool(&mut output, *value)?,
+                        RbxValue::String { value } => StringType::write_binary(&mut output, value)?,
+                        RbxValue::Bool { value } => BoolType::write_binary(&mut output, value)?,
                         _ => unimplemented!(),
                     }
                 }

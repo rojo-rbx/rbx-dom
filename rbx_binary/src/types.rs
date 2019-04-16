@@ -4,54 +4,39 @@ use std::{
 };
 
 use byteorder::{ReadBytesExt, WriteBytesExt, LittleEndian};
+use rbx_dom_weak::RbxValue;
 
-pub fn encode_bool<W: Write>(output: &mut W, value: bool) -> io::Result<()> {
-    if value {
-        output.write_u8(1)
-    } else {
-        output.write_u8(0)
+use crate::core::BinaryType;
+
+pub struct BoolType;
+
+impl BinaryType<bool> for BoolType {
+    fn read_binary<R: Read>(source: &mut R) -> io::Result<RbxValue> {
+        Ok(RbxValue::Bool {
+            value: source.read_u8()? != 0,
+        })
+    }
+
+    fn write_binary<W: Write>(output: &mut W, value: &bool) -> io::Result<()> {
+        if *value {
+            output.write_u8(1)
+        } else {
+            output.write_u8(0)
+        }
     }
 }
 
-pub fn decode_bool<R: Read>(source: &mut R) -> io::Result<bool> {
-    let input = source.read_u8()?;
+pub struct StringType;
 
-    if input == 0 {
-        Ok(false)
-    } else {
-        Ok(true)
-    }
-}
-
-pub fn encode_bool_array<W: Write>(output: &mut W, values: &[bool]) -> io::Result<()> {
-    for &value in values {
-        encode_bool(output, value)?;
+impl BinaryType<str> for StringType {
+    fn read_binary<R: Read>(source: &mut R) -> io::Result<RbxValue> {
+        Ok(RbxValue::String { value: decode_string(source)? })
     }
 
-    Ok(())
-}
-
-pub fn decode_bool_array<R: Read>(source: &mut R, count: usize) -> io::Result<Vec<bool>> {
-    let mut result = Vec::new();
-
-    for _ in 0..count {
-        result.push(decode_bool(source)?);
+    fn write_binary<W: Write>(output: &mut W, value: &str) -> io::Result<()> {
+        output.write_u32::<LittleEndian>(value.len() as u32)?;
+        write!(output, "{}", value)
     }
-
-    Ok(result)
-}
-
-pub fn encode_i32(value: i32) -> i32 {
-    (value << 1) ^ (value >> 31)
-}
-
-pub fn decode_i32(value: i32) -> i32 {
-    ((value as u32) >> 1) as i32 ^ -(value & 1)
-}
-
-pub fn encode_string<W: Write>(output: &mut W, value: &str) -> io::Result<()> {
-    output.write_u32::<LittleEndian>(value.len() as u32)?;
-    write!(output, "{}", value)
 }
 
 pub fn decode_string<R: Read>(source: &mut R) -> io::Result<String> {
@@ -63,22 +48,12 @@ pub fn decode_string<R: Read>(source: &mut R) -> io::Result<String> {
     Ok(value)
 }
 
-pub fn encode_string_array<W: Write>(output: &mut W, values: &[&str]) -> io::Result<()> {
-    for value in values {
-        encode_string(output, value)?;
-    }
-
-    Ok(())
+pub fn encode_i32(value: i32) -> i32 {
+    (value << 1) ^ (value >> 31)
 }
 
-pub fn decode_string_array<R: Read>(source: &mut R, count: usize) -> io::Result<Vec<String>> {
-    let mut result = Vec::new();
-
-    for _ in 0..count {
-        result.push(decode_string(source)?);
-    }
-
-    Ok(result)
+pub fn decode_i32(value: i32) -> i32 {
+    ((value as u32) >> 1) as i32 ^ -(value & 1)
 }
 
 pub fn encode_interleaved_transformed_i32_array<W: Write, I>(output: &mut W, values: I) -> io::Result<()>
