@@ -16,27 +16,27 @@ pub trait BinaryType<T: ?Sized> {
         value: &T,
     ) -> io::Result<()>;
 
-	fn read_array<R: Read>(
-		source: &mut R,
-		count: usize,
-	) -> io::Result<Vec<RbxValue>> {
-		let mut result = Vec::new();
+    fn read_array<R: Read>(
+        source: &mut R,
+        count: usize,
+    ) -> io::Result<Vec<RbxValue>> {
+        let mut result = Vec::new();
 
-		for _ in 0..count {
-			result.push(Self::read_binary(source)?);
-		}
+        for _ in 0..count {
+            result.push(Self::read_binary(source)?);
+        }
 
-		Ok(result)
-	}
+        Ok(result)
+    }
 
-	fn write_array<W: Write>(
-		output: &mut W,
-		values: &[&T]
-	) -> io::Result<()> {
-		for value in values {
-			Self::write_binary(output, value)?;
-		}
+    fn write_array<W: Write>(
+        output: &mut W,
+        values: &[&T]
+    ) -> io::Result<()> {
+        for value in values {
+            Self::write_binary(output, value)?;
+        }
 
-		Ok(())
-	}
+        Ok(())
+    }
 }
