@@ -7,13 +7,7 @@ use serde_derive::Deserialize;
 
 use crate::reflection_types::{RbxPropertyType, RbxPropertyScriptability};
 
-lazy_static::lazy_static! {
-    static ref PROPERTY_PATCHES: PropertyPatches = {
-        let source = include_str!("../property-patches.toml");
-        toml::from_str(source)
-            .expect("Couldn't parse property-patches.toml")
-    };
-}
+static PATCH_SOURCE: &str = include_str!("../property-patches.toml");
 
 #[derive(Debug, Deserialize)]
 pub struct PropertyPatches {
@@ -37,6 +31,7 @@ pub struct PropertyAdd {
     pub scriptability: RbxPropertyScriptability,
 }
 
-pub fn get_property_patches() -> &'static PropertyPatches {
-    &PROPERTY_PATCHES
+pub fn load_property_patches() -> PropertyPatches {
+    toml::from_str(PATCH_SOURCE)
+        .expect("Couldn't parse property-patches.toml")
 }

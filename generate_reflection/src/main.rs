@@ -26,7 +26,7 @@ use crate::{
     run_in_roblox::{inject_plugin_main, run_in_roblox},
     api_dump::{Dump, DumpClassMember},
     database::ReflectionDatabase,
-    property_patches::get_property_patches,
+    property_patches::load_property_patches,
     reflection_types::{
         RbxInstanceClass,
         RbxInstanceProperty,
@@ -114,7 +114,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         classes.insert(Cow::Owned(dump_class.name.clone()), class);
     }
 
-    let property_patches = get_property_patches();
+    let property_patches = load_property_patches();
 
     for (class_name, class_changes) in &property_patches.change {
         let class = classes.get_mut(class_name.as_str())
