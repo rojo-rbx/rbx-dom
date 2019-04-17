@@ -1,4 +1,7 @@
-use crate::id::RbxId;
+use crate::{
+    brick_color::BrickColor,
+    id::RbxId,
+};
 use serde_derive::{Serialize, Deserialize};
 
 /// An enum that can hold any of the types that [`RbxValue`] can.
@@ -7,6 +10,7 @@ use serde_derive::{Serialize, Deserialize};
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub enum RbxValueType {
     BinaryString,
+    BrickColor,
     Bool,
     CFrame,
     Color3,
@@ -42,6 +46,9 @@ pub enum RbxValueType {
 pub enum RbxValue {
     #[serde(rename_all = "PascalCase")]
     BinaryString { value: Vec<u8> },
+
+    #[serde(rename_all = "PascalCase")]
+    BrickColor { value: BrickColor },
 
     #[serde(rename_all = "PascalCase")]
     Bool { value: bool },
@@ -126,6 +133,7 @@ impl RbxValue {
     pub fn get_type(&self) -> RbxValueType {
         match self {
             RbxValue::BinaryString { .. } => RbxValueType::BinaryString,
+            RbxValue::BrickColor { .. } => RbxValueType::BrickColor,
             RbxValue::Bool { .. } => RbxValueType::Bool,
             RbxValue::CFrame { .. } => RbxValueType::CFrame,
             RbxValue::Color3 { .. } => RbxValueType::Color3,
