@@ -3,4 +3,4 @@ rust: [1.31.0, stable]
 cache: cargo
 
 script:
-  - cargo test --verbose --all
+  - cargo test --verbose --all --exclude generate_reflection
