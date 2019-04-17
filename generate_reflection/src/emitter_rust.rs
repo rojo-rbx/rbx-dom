@@ -30,15 +30,18 @@ use crate::{
 
 pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
     let classes = generate_classes(&database.classes);
+    writeln!(output, "// This file is automatically @generated.")?;
     write!(output, "{}", classes)
 }
 
 pub fn emit_enums<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
     let enums = generate_enums(&database.dump);
+    writeln!(output, "// This file is automatically @generated.")?;
     write!(output, "{}", enums)
 }
 
 pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
+    writeln!(output, "// This file is automatically @generated.")?;
     writeln!(output, "pub const VERSION_MAJOR: u32 = {};", database.studio_version[0])?;
     writeln!(output, "pub const VERSION_MINOR: u32 = {};", database.studio_version[1])?;
     writeln!(output, "pub const VERSION_PATCH: u32 = {};", database.studio_version[2])?;

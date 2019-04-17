@@ -1,7 +1,8 @@
+// This file is automatically @generated.
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
-    let mut output = HashMap::with_capacity(190);
+    let mut output = HashMap::with_capacity(191);
     output.insert(
         Cow::Borrowed("ActionType"),
         RbxEnum {
@@ -1855,6 +1856,20 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
             items: {
                 let mut items = HashMap::with_capacity(1);
                 items.insert(Cow::Borrowed("Default"), 0);
+                items
+            },
+            __non_exhaustive: (),
+        },
+    );
+    output.insert(
+        Cow::Borrowed("LanguagePreference"),
+        RbxEnum {
+            name: Cow::Borrowed("LanguagePreference"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("SystemDefault"), 0);
+                items.insert(Cow::Borrowed("English"), 1);
+                items.insert(Cow::Borrowed("SimplifiedChinese"), 2);
                 items
             },
             __non_exhaustive: (),

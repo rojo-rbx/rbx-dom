@@ -1,9 +1,10 @@
+// This file is automatically @generated.
 use crate::reflection_types::*;
 use rbx_dom_weak::{RbxValue, RbxValueType};
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
     {
-        let mut map = HashMap::with_capacity(403);
+        let mut map = HashMap::with_capacity(404);
         map.insert(
             Cow::Borrowed("ABTestService"),
             RbxInstanceClass {
@@ -14544,23 +14545,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             Cow::Borrowed("MeshPart"),
             RbxInstanceClass {
                 name: Cow::Borrowed("MeshPart"),
-                superclass: Some(Cow::Borrowed("BasePart")),
+                superclass: Some(Cow::Borrowed("TriangleMeshPart")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
                     let mut map = HashMap::with_capacity(4);
-                    map.insert(
-                        Cow::Borrowed("CollisionFidelity"),
-                        RbxInstanceProperty {
-                            name: Cow::Borrowed("CollisionFidelity"),
-                            value_type: RbxPropertyType::Enum(Cow::Borrowed("CollisionFidelity")),
-                            tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
-                            is_canonical: true,
-                            canonical_name: None,
-                            serialized_name: None,
-                            scriptability: RbxPropertyScriptability::None,
-                            __non_exhaustive: (),
-                        },
-                    );
                     map.insert(
                         Cow::Borrowed("MeshID"),
                         RbxInstanceProperty {
@@ -14588,6 +14576,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("RenderFidelity"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("RenderFidelity"),
+                            value_type: RbxPropertyType::Enum(Cow::Borrowed("RenderFidelity")),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            __non_exhaustive: (),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("TextureID"),
                         RbxInstanceProperty {
                             name: Cow::Borrowed("TextureID"),
@@ -14603,7 +14604,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(48);
+                    let mut map = HashMap::with_capacity(49);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -14715,6 +14716,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         Cow::Borrowed("Reflectance"),
                         RbxValue::Float32 { value: 0.0 },
                     );
+                    map.insert(Cow::Borrowed("RenderFidelity"), RbxValue::Enum { value: 1 });
                     map.insert(
                         Cow::Borrowed("RightParamA"),
                         RbxValue::Float32 { value: -0.5 },
@@ -16777,23 +16779,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
             Cow::Borrowed("PartOperation"),
             RbxInstanceClass {
                 name: Cow::Borrowed("PartOperation"),
-                superclass: Some(Cow::Borrowed("BasePart")),
+                superclass: Some(Cow::Borrowed("TriangleMeshPart")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(4);
-                    map.insert(
-                        Cow::Borrowed("CollisionFidelity"),
-                        RbxInstanceProperty {
-                            name: Cow::Borrowed("CollisionFidelity"),
-                            value_type: RbxPropertyType::Enum(Cow::Borrowed("CollisionFidelity")),
-                            tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
-                            is_canonical: true,
-                            canonical_name: None,
-                            serialized_name: None,
-                            scriptability: RbxPropertyScriptability::None,
-                            __non_exhaustive: (),
-                        },
-                    );
+                    let mut map = HashMap::with_capacity(3);
                     map.insert(
                         Cow::Borrowed("RenderFidelity"),
                         RbxInstanceProperty {
@@ -25224,9 +25213,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsAvatarType"),
+                        Cow::Borrowed("GameSettingsAvatar"),
                         RbxInstanceProperty {
-                            name: Cow::Borrowed("GameSettingsAvatarType"),
+                            name: Cow::Borrowed("GameSettingsAvatar"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("GameAvatarType")),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
@@ -25237,9 +25226,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsR15CollisionType"),
+                        Cow::Borrowed("GameSettingsR15Collision"),
                         RbxInstanceProperty {
-                            name: Cow::Borrowed("GameSettingsR15CollisionType"),
+                            name: Cow::Borrowed("GameSettingsR15Collision"),
                             value_type: RbxPropertyType::Enum(Cow::Borrowed("R15CollisionType")),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
@@ -25250,9 +25239,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsScaleBodyType"),
+                        Cow::Borrowed("GameSettingsScaleRangeBodyType"),
                         RbxInstanceProperty {
-                            name: Cow::Borrowed("GameSettingsScaleBodyType"),
+                            name: Cow::Borrowed("GameSettingsScaleRangeBodyType"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
@@ -25263,9 +25252,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsScaleHead"),
+                        Cow::Borrowed("GameSettingsScaleRangeHead"),
                         RbxInstanceProperty {
-                            name: Cow::Borrowed("GameSettingsScaleHead"),
+                            name: Cow::Borrowed("GameSettingsScaleRangeHead"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
@@ -25276,9 +25265,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsScaleHeight"),
+                        Cow::Borrowed("GameSettingsScaleRangeHeight"),
                         RbxInstanceProperty {
-                            name: Cow::Borrowed("GameSettingsScaleHeight"),
+                            name: Cow::Borrowed("GameSettingsScaleRangeHeight"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
@@ -25289,9 +25278,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsScaleProportion"),
+                        Cow::Borrowed("GameSettingsScaleRangeProportion"),
                         RbxInstanceProperty {
-                            name: Cow::Borrowed("GameSettingsScaleProportion"),
+                            name: Cow::Borrowed("GameSettingsScaleRangeProportion"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
@@ -25302,9 +25291,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsScaleWidth"),
+                        Cow::Borrowed("GameSettingsScaleRangeWidth"),
                         RbxInstanceProperty {
-                            name: Cow::Borrowed("GameSettingsScaleWidth"),
+                            name: Cow::Borrowed("GameSettingsScaleRangeWidth"),
                             value_type: RbxPropertyType::Data(RbxValueType::NumberRange),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
@@ -25459,11 +25448,11 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsAvatarType"),
-                        RbxValue::Enum { value: 2 },
+                        Cow::Borrowed("GameSettingsAvatar"),
+                        RbxValue::Enum { value: 1 },
                     );
                     map.insert(
-                        Cow::Borrowed("GameSettingsR15CollisionType"),
+                        Cow::Borrowed("GameSettingsR15Collision"),
                         RbxValue::Enum { value: 0 },
                     );
                     map.insert(
@@ -25746,7 +25735,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::NOT_REPLICATED | RbxInstanceTags::SERVICE,
                 properties: {
-                    let mut map = HashMap::with_capacity(74);
+                    let mut map = HashMap::with_capacity(75);
                     map.insert(
                         Cow::Borrowed("Always Save Script Changes"),
                         RbxInstanceProperty {
@@ -26183,6 +26172,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         RbxInstanceProperty {
                             name: Cow::Borrowed("Keyword Color"),
                             value_type: RbxPropertyType::Data(RbxValueType::Color3),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            __non_exhaustive: (),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Language"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("Language"),
+                            value_type: RbxPropertyType::Enum(Cow::Borrowed("LanguagePreference")),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -29894,6 +29896,33 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(Cow::Borrowed("Priority"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
+                __non_exhaustive: (),
+            },
+        );
+        map.insert(
+            Cow::Borrowed("TriangleMeshPart"),
+            RbxInstanceClass {
+                name: Cow::Borrowed("TriangleMeshPart"),
+                superclass: Some(Cow::Borrowed("BasePart")),
+                tags: RbxInstanceTags::NOT_CREATABLE,
+                properties: {
+                    let mut map = HashMap::with_capacity(1);
+                    map.insert(
+                        Cow::Borrowed("CollisionFidelity"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("CollisionFidelity"),
+                            value_type: RbxPropertyType::Enum(Cow::Borrowed("CollisionFidelity")),
+                            tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::None,
+                            __non_exhaustive: (),
+                        },
+                    );
+                    map
+                },
+                default_properties: HashMap::new(),
                 __non_exhaustive: (),
             },
         );
