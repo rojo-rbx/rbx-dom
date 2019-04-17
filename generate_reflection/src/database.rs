@@ -11,6 +11,5 @@ use crate::{
 pub struct ReflectionDatabase {
     pub dump: Dump,
     pub studio_version: [u32; 4],
-
     pub classes: HashMap<Cow<'static, str>, RbxInstanceClass>,
 }
