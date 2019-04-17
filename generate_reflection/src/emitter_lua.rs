@@ -12,7 +12,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     database::ReflectionDatabase,
-    reflection_types::{RbxPropertyType, RbxInstanceClass, RbxPropertyTags},
+    reflection_types::{RbxPropertyType, RbxInstanceClass, RbxPropertyTags, RbxPropertyScriptability},
 };
 
 lazy_static! {
@@ -37,7 +37,7 @@ pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
 fn emit_class<W: Write>(output: &mut W, class: &RbxInstanceClass) -> io::Result<()> {
     writeln!(output, "\t{} = {{", class.name)?;
 
-    writeln!(output, "\t\tsuperclass = {}", Lua(&class.superclass))?;
+    writeln!(output, "\t\tsuperclass = {},", Lua(&class.superclass))?;
 
     let mut keys: Vec<_> = class.properties.keys().collect();
     keys.sort();
@@ -57,6 +57,7 @@ fn emit_class<W: Write>(output: &mut W, class: &RbxInstanceClass) -> io::Result<
         writeln!(output, "\t\t\t\tisCanonical = {},", Lua(&property.is_canonical))?;
         writeln!(output, "\t\t\t\tcanonicalName = {},", Lua(&property.canonical_name))?;
         writeln!(output, "\t\t\t\tserializedName = {},", Lua(&property.serialized_name))?;
+        writeln!(output, "\t\t\t\tscriptability = {},", Lua(property.scriptability))?;
 
         writeln!(output, "\t\t\t}},")?;
     }
@@ -125,6 +126,12 @@ impl AsLua for RbxPropertyTags {
         }
 
         write!(output, "}}")
+    }
+}
+
+impl AsLua for RbxPropertyScriptability {
+    fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()>  {
+        format!("{:?}", self).as_lua(output)
     }
 }
 
