@@ -80,7 +80,7 @@ fn emit_defaults<W: Write>(output: &mut W, class: &RbxInstanceClass) -> io::Resu
 
         let default_value = class.default_properties.get(property_name).unwrap();
 
-        write!(output, "\t\t\t{} = {},", property_name, Lua(default_value))?;
+        writeln!(output, "\t\t\t{} = {},", property_name, Lua(default_value))?;
     }
     writeln!(output, "\t\t}},")?;
 
