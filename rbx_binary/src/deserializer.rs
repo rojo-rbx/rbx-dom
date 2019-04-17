@@ -1,8 +1,6 @@
 use std::{
     io::{self, Cursor, Read},
     collections::HashMap,
-    borrow::Cow,
-    fmt,
     str,
 };
 
@@ -11,6 +9,7 @@ use byteorder::{ReadBytesExt, LittleEndian};
 use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxId, RbxValue};
 
 use crate::{
+    chunks::decode_chunk,
     core::{
         BinaryType,
         FILE_MAGIC_HEADER,
@@ -176,63 +175,6 @@ fn decode_file_header<R: Read>(source: &mut R) -> Result<FileHeader, DecodeError
         num_instance_types,
         num_instances,
     })
-}
-
-#[derive(Debug)]
-struct ChunkHeader {
-    pub name: [u8; 4],
-    pub compressed_len: u32,
-    pub len: u32,
-    pub reserved: u32,
-}
-
-impl fmt::Display for ChunkHeader {
-    fn fmt(&self, output: &mut fmt::Formatter) -> fmt::Result {
-        let name = if let Ok(name) = str::from_utf8(&self.name) {
-            Cow::Borrowed(name)
-        } else {
-            Cow::Owned(format!("{:?}", self.name))
-        };
-
-        write!(output, "Chunk \"{}\" (compressed: {}, len: {}, reserved: {})",
-            name, self.compressed_len, self.len, self.reserved)
-    }
-}
-
-fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
-    let mut name = [0; 4];
-    source.read_exact(&mut name)?;
-
-    let compressed_len = source.read_u32::<LittleEndian>()?;
-    let len = source.read_u32::<LittleEndian>()?;
-    let reserved = source.read_u32::<LittleEndian>()?;
-
-    Ok(ChunkHeader {
-        name,
-        compressed_len,
-        len,
-        reserved,
-    })
-}
-
-fn decode_chunk<R: Read>(source: &mut R, output: &mut Vec<u8>) -> io::Result<ChunkHeader> {
-    let header = decode_chunk_header(source)?;
-
-    trace!("{}", header);
-
-    if header.compressed_len == 0 {
-        source.take(header.len as u64).read_to_end(output)?;
-    } else {
-        let mut compressed_data = Vec::new();
-        source.take(header.compressed_len as u64).read_to_end(&mut compressed_data)?;
-
-        let data = lz4::block::decompress(&compressed_data, Some(header.len as i32))?;
-        output.extend_from_slice(&data);
-    }
-
-    assert_eq!(output.len(), header.len as usize);
-
-    Ok(header)
 }
 
 fn decode_meta_chunk<R: Read>(source: &mut R, output: &mut HashMap<String, String>) -> io::Result<()> {

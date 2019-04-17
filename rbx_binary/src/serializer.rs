@@ -1,5 +1,5 @@
 use std::{
-    io::{self, Cursor, Write},
+    io::{self, Write},
     collections::HashMap,
     borrow::{Borrow, Cow},
     u32,
@@ -9,6 +9,7 @@ use byteorder::{WriteBytesExt, LittleEndian};
 use rbx_dom_weak::{RbxTree, RbxInstance, RbxId, RbxValue};
 
 use crate::{
+    chunks::{encode_chunk, ChunkCompression},
     core::{
         BinaryType,
         FILE_MAGIC_HEADER,
@@ -52,7 +53,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
 
     // Type data
     for (type_name, type_info) in &type_infos {
-        encode_chunk(&mut output, b"INST", Compression::Compressed, |mut output| {
+        encode_chunk(&mut output, b"INST", ChunkCompression::Compressed, |mut output| {
             output.write_u32::<LittleEndian>(type_info.id)?;
             StringType::write_one(&mut output, type_name)?;
 
@@ -75,7 +76,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
     // individual encode methods to properly support interleaved data.
     for (_type_name, type_info) in &type_infos {
         for prop_info in &type_info.properties {
-            encode_chunk(&mut output, b"PROP", Compression::Compressed, |mut output| {
+            encode_chunk(&mut output, b"PROP", ChunkCompression::Compressed, |mut output| {
                 output.write_u32::<LittleEndian>(type_info.id)?;
                 StringType::write_one(&mut output, &prop_info.name)?;
                 output.write_u8(prop_info.kind.id())?;
@@ -116,7 +117,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
         }
     }
 
-    encode_chunk(&mut output, b"PRNT", Compression::Compressed, |mut output| {
+    encode_chunk(&mut output, b"PRNT", ChunkCompression::Compressed, |mut output| {
         output.write_u8(0)?; // Parent chunk data, version 0
         output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
 
@@ -139,7 +140,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
         Ok(())
     })?;
 
-    encode_chunk(&mut output, b"END\0", Compression::Uncompressed, |mut output| {
+    encode_chunk(&mut output, b"END\0", ChunkCompression::Uncompressed, |mut output| {
         output.write_all(FILE_FOOTER)
     })?;
 
@@ -262,46 +263,14 @@ fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a 
     output
 }
 
-enum Compression {
-    Compressed,
-    Uncompressed,
-}
-
-fn encode_chunk<W: Write, F>(output: &mut W, chunk_name: &[u8], compression: Compression, body: F) -> io::Result<()>
-    where F: Fn(Cursor<&mut Vec<u8>>) -> io::Result<()>
-{
-    output.write_all(chunk_name)?;
-
-    let mut buffer = Vec::new();
-    body(Cursor::new(&mut buffer))?;
-
-    match compression {
-        Compression::Compressed => {
-            let compressed = lz4::block::compress(&buffer, None, false)?;
-
-            output.write_u32::<LittleEndian>(compressed.len() as u32)?;
-            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
-            output.write_u32::<LittleEndian>(0)?;
-
-            output.write_all(&compressed)?;
-        },
-        Compression::Uncompressed => {
-            output.write_u32::<LittleEndian>(0)?;
-            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
-            output.write_u32::<LittleEndian>(0)?;
-
-            output.write_all(&buffer)?;
-        },
-    }
-
-    Ok(())
-}
-
 #[cfg(test)]
 mod test {
     use super::*;
 
-    use std::collections::HashMap;
+    use std::{
+        collections::HashMap,
+        io::Cursor,
+    };
     use rbx_dom_weak::RbxInstanceProperties;
 
     fn new_test_tree() -> RbxTree {

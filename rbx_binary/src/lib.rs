@@ -10,6 +10,7 @@ mod core;
 mod types;
 mod serializer;
 mod deserializer;
+mod chunks;
 
 pub use crate::{
     serializer::{encode, EncodeError},
