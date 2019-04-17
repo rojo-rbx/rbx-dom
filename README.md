@@ -71,5 +71,16 @@ Roblox reflection information for working with Instances in external tooling.
 
 1. ProtectedString is deserialized as String, which is technically lossy but does not change semantics in practice
 
+## Outcome
+This project has unveiled a handful of interesting bugs and quirks in Roblox!
+
+- `GuiMain.DisplayOrder` is uninitialized, so its default value isn't stable
+- `MaxPlayersInternal` and `PreferredPlayersInternal` on `Players` are scriptable and accessible by the command bar
+- Instantiating a `NetworkClient` will turn your edit session into a game client and stop you from sending HTTP requests
+- `ContentProvider.RequestQueueSize` is mistakenly marked as serializable
+- Trying to invoke `game:GetService("Studio")` causes a unique error: `singleton Studio already exists`
+- `Color3` properties not serialized as `Color3uint8` would have their colors mistakenly clamped in the XML place format. This was bad for properties on `Lighting`.
+- `ColorSequence`'s XML serialization contains an extra value per keypoint that was intended to be used as an envelope value, but was never implemented.
+
 ## License
 rbx-dom is available under the MIT license. See [LICENSE.txt](LICENSE.txt) for details.

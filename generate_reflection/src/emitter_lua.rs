@@ -1,3 +1,5 @@
+//! Generates the rbx_dom_lua library's reflection database.
+
 use std::{
     borrow::Cow,
     fmt,
@@ -88,7 +90,8 @@ fn emit_defaults<W: Write>(output: &mut W, class: &RbxInstanceClass) -> io::Resu
     Ok(())
 }
 
-/// Trait that describes how to turn a type in Lua source code.
+/// Trait that describes how to turn a type in Lua source code. It isn't aware
+/// of indentation so it's only useful for things that end up on single lines.
 trait AsLua {
     fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()>;
 }

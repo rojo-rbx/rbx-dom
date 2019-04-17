@@ -1,3 +1,6 @@
+//! Interface for dealing with Roblox Studio's JSON API Dump. Isn't specific to
+//! this crate and could probably turn into a separate crate.
+
 use std::{
     io,
     fs,

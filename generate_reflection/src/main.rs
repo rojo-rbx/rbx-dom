@@ -1,3 +1,4 @@
+// Our use of quote! hits the recursion limit, oops.
 #![recursion_limit="128"]
 
 mod api_dump;

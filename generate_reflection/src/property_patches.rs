@@ -1,3 +1,8 @@
+//! Defines changes and additions to the reflection dump that add and fix up
+//! information.
+//!
+//! See `property-patches.toml` for the input.
+
 use std::{
     borrow::Cow,
     collections::HashMap,

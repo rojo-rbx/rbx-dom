@@ -1,3 +1,9 @@
+//! Generates the rbx_reflection crate's reflection database.
+//!
+//! It uses quote to emit quasiquoted TokenStream objects. When turned into
+//! strings, TokenStream objects look terrible, so we need to run rustfmt on
+//! the generated code. See the `gen-reflection` script in the root for that.
+
 use std::{
     borrow::Cow,
     collections::HashMap,

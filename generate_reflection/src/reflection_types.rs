@@ -1,3 +1,6 @@
+//! Wraps the reflection_types module from rbx_reflection and implements extra
+//! methods its types.
+
 use std::borrow::Cow;
 
 use log::warn;
@@ -5,6 +8,12 @@ use rbx_dom_weak::RbxValueType;
 
 use crate::api_dump::{ValueType, ValueCategory};
 
+// The types this module exposes are defined in the rbx_reflection crate itself
+// since they're supposed to line up 1:1 and we don't want them to get out of
+// date.
+//
+// Normally, we'd want to use &'static str for strings in the generated code and
+// String in our generator. We compromise and use Cow<'static, str> instead!
 #[path = "../../rbx_reflection/src/reflection_types.rs"]
 mod inner;
 
