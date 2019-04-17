@@ -11,6 +11,10 @@ rbx-dom is a collection of crates to help represent, serialize, and deserialize 
 
 Weakly-typed Roblox DOM implementation. Defines types for representing instances and properties on them.
 
+## [rbx_dom_lua](rbx_dom_lua)
+
+Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside Roblox. Uses a data format that's compatible with rbx\_dom\_weak to facilitate communication with applications outside Roblox about instances.
+
 ## [rbx_xml](rbx_xml)
 [![rbx_xml on crates.io](https://img.shields.io/crates/v/rbx_xml.svg)](https://crates.io/crates/rbx_xml)
 [![rbx_xml docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_xml)
@@ -31,41 +35,41 @@ Roblox reflection information for working with Instances in external tooling.
 
 ## Property Type Coverage
 
-| Property Type      | Example Property                | rbx\_dom\_weak | rbx\_xml | rbx\_binary |
-|:------------------ |:------------------------------- |:---------:|:--------:|:-----------:|
-| Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ |
-| BinaryString       | `Terrain.MaterialColors`        | ✔ | ✔ | ❌ |
-| Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ |
-| BrickColor         | `Part.BrickColor`               | ❌ | ❌ | ❌ |
-| CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ❌ |
-| Color3             | `Lighting.Ambient`              | ✔ | ✔ | ❌ |
-| Color3uint8        | `N/A`                           | ✔ | ✔ | ❌ |
-| ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ❌ |
-| Content            | `Decal.Texture`                 | ✔ | ✔ | ❌ |
-| Enum               | `Part.Shape`                    | ✔ | ✔ | ❌ |
-| Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ |
-| Float32            | `Players.RespawnTime`           | ✔ | ✔ | ❌ |
-| Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ❌ |
-| Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ❌ |
-| Int64              | `Player.UserId`                 | ✔ | ✔ | ❌ |
-| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ❌ |
-| NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ❌ |
-| PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ❌ |
-| ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔¹ | ❌ |
-| QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ |
-| QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ |
-| Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ |
-| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ❌ |
-| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ❌ |
-| Region3            | `N/A`                           | ❌ | ❌ | ❌ |
-| Region3int16       | `Terrain.MaxExtents`            | ❌ | ❌ | ❌ |
-| String             | `Instance.Name`                 | ✔ | ✔ | ✔ |
-| UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ❌ |
-| UDim2              | `Frame.Size`                    | ✔ | ✔ | ❌ |
-| Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ❌ |
-| Vector2int16       | `N/A`                           | ✔ | ✔ | ❌ |
-| Vector3            | `Part.Size`                     | ✔ | ✔ | ❌ |
-| Vector3int16       | `N/A`                           | ✔ | ✔ | ❌ |
+| Property Type      | Example Property                | rbx\_dom\_weak | rbx\_dom\_lua | rbx\_xml | rbx\_binary
+|:------------------ |:------------------------------- |:--:|:--:|:--:|:--:|
+| Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ | ❌ |
+| BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ❌ |
+| Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
+| BrickColor         | `Part.BrickColor`               | ❌ | ❌ | ❌ | ❌ |
+| CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ❌ |
+| Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ❌ |
+| Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
+| Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ❌ |
+| Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ❌ |
+| Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ | ❌ |
+| Float32            | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ❌ |
+| Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ❌ |
+| Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ❌ |
+| Int64              | `Player.UserId`                 | ✔ | ✔ | ✔ | ❌ |
+| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ❌ |
+| NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ❌ |
+| PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ❌ |
+| ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔ | ✔¹ | ❌ |
+| Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ | ❌ |
+| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
+| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
+| Region3            | `N/A`                           | ❌ | ✔ | ❌ | ❌ |
+| Region3int16       | `Terrain.MaxExtents`            | ❌ | ✔ | ❌ | ❌ |
+| String             | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
+| UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ❌ |
+| UDim2              | `Frame.Size`                    | ✔ | ✔ | ✔ | ❌ |
+| Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ❌ |
+| Vector2int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| Vector3            | `Part.Size`                     | ✔ | ✔ | ✔ | ❌ |
+| Vector3int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ | ⛔ |
+| QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ | ⛔ |
 
 ✔ Implemented | ❌ Unimplemented | ➖ Partially Implemented | ⛔ Never
 
