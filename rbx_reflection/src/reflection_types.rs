@@ -29,6 +29,7 @@ pub struct RbxInstanceProperty {
     pub is_canonical: bool,
     pub canonical_name: Option<Cow<'static, str>>,
     pub serialized_name: Option<Cow<'static, str>>,
+    pub serializes: bool,
 
     #[doc(hidden)]
     pub(crate) __non_exhaustive: (),

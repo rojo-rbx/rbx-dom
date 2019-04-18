@@ -83,6 +83,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                         RbxPropertyScriptability::ReadWrite
                     };
 
+                    let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
+                        && dump_property.serialization.can_save;
+
                     let property = RbxInstanceProperty {
                         name: Cow::Owned(dump_property.name.clone()),
                         value_type: RbxPropertyType::from(&dump_property.value_type),
@@ -92,6 +95,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                         canonical_name: None,
                         serialized_name: None,
                         scriptability,
+                        serializes,
 
                         __non_exhaustive: (),
                     };
@@ -131,10 +135,12 @@ fn main() -> Result<(), Box<dyn Error>> {
 
             if let Some(canonical_name) = &property_change.canonical_name {
                 existing_property.canonical_name = Some(canonical_name.clone());
+                existing_property.serializes = false;
             }
 
             if let Some(serialized_name) = &property_change.serialized_name {
                 existing_property.serialized_name = Some(serialized_name.clone());
+                existing_property.serializes = true;
             }
         }
     }
@@ -156,6 +162,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let canonical_name = property_add.canonical_name.clone();
             let serialized_name = property_add.serialized_name.clone();
             let scriptability = property_add.scriptability;
+            let serializes = property_add.serializes;
 
             let property = RbxInstanceProperty {
                 name,
@@ -164,6 +171,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 canonical_name,
                 serialized_name,
                 scriptability,
+                serializes,
 
                 tags: RbxPropertyTags::empty(),
 

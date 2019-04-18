@@ -147,6 +147,7 @@ impl AsRust for RbxInstanceProperty {
         let canonical_name = self.canonical_name.as_rust();
         let serialized_name = self.serialized_name.as_rust();
         let scriptability = self.scriptability.as_rust();
+        let serializes = self.serializes.as_rust();
 
         quote!(RbxInstanceProperty {
             name: #member_name,
@@ -156,6 +157,7 @@ impl AsRust for RbxInstanceProperty {
             canonical_name: #canonical_name,
             serialized_name: #serialized_name,
             scriptability: #scriptability,
+            serializes: #serializes,
 
             __non_exhaustive: (),
         })

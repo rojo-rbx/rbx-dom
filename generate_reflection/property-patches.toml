@@ -12,12 +12,14 @@ canonical_name = "Archivable"
 [add.Instance.Tags]
 type = { Data = "BinaryString" }
 scriptability = "Custom"
+serializes = true
 
 # 'Contents' is the name of the field in the Roblox file formats, so it makes
 # sense to use it as the canonical name of this property.
 [add.LocalizationTable.Contents]
 type = { Data = "String" }
 scriptability = "Custom"
+serializes = true
 
 # Parts
 
@@ -27,10 +29,18 @@ scriptability = "Custom"
 canonical_name = "Color"
 [change.BasePart.BrickColor]
 canonical_name = "Color"
+[change.BasePart.Color]
+serialized_name = "Color3uint8"
+[add.BasePart.Color3uint8]
+type = { Data = "Color3uint8" }
+scriptability = "None"
+canonical_name = "Color"
+serializes = false
 
 [add.BasePart.CollisionGroups]
 type = { Data = "String" }
 scriptability = "Custom"
+serializes = true
 
 # size is an alias of Size and also the serialized form.
 [change.BasePart.Size]
@@ -39,6 +49,7 @@ serialized_name = "size"
 type = { Data = "Vector3" }
 canonical_name = "Size"
 scriptability = "None"
+serializes = false
 
 # shape an alias of Shape and also the serialized form.
 [change.Part.Shape]
@@ -47,6 +58,7 @@ serialized_name = "shape"
 type = { Enum = "PartType" }
 canonical_name = "Shape"
 scriptability = "None"
+serializes = false
 
 # formFactorRaw is the serialized form of FormFactor, and formFactor is a
 # deprecated alias.
@@ -58,6 +70,7 @@ canonical_name = "FormFactor"
 type = { Enum = "FormFactor" }
 canonical_name = "FormFactor"
 scriptability = "None"
+serializes = false
 
 # Players Service
 
@@ -86,6 +99,7 @@ canonical_name = "Size"
 type = { Data = "Float32" }
 canonical_name = "Size"
 scriptability = "None"
+serializes = false
 
 # Fire.Heat is serialized as heat_xm'. Unlikely Fire.Size, it doesn't have a
 # deprecated camelCase variant for some reason.
@@ -95,6 +109,7 @@ serialized_name = "heat_xml"
 type = { Data = "Float32" }
 canonical_name = "Heat"
 scriptability = "None"
+serializes = false
 
 # Smoke.Opacity is serialized as opacity_xml.
 [change.Smoke.Opacity]
@@ -103,6 +118,7 @@ serialized_name = "opacity_xml"
 type = { Data = "Float32" }
 canonical_name = "Opacity"
 scriptability = "None"
+serializes = false
 
 # Smoke.Size is serialized as size_xml
 [change.Smoke.Size]
@@ -111,6 +127,7 @@ serialized_name = "size_xml"
 type = { Data = "Float32" }
 canonical_name = "Size"
 scriptability = "None"
+serializes = false
 
 # Smoke.RiseVelocity is serialized as riseVelocity_xml.
 [change.Smoke.RiseVelocity]
@@ -119,3 +136,4 @@ serialized_name = "riseVelocity_xml"
 type = { Data = "Float32" }
 canonical_name = "RiseVelocity"
 scriptability = "None"
+serializes = false

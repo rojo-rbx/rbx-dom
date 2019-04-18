@@ -34,6 +34,7 @@ pub struct PropertyAdd {
     pub serialized_name: Option<Cow<'static, str>>,
     pub canonical_name: Option<Cow<'static, str>>,
     pub scriptability: RbxPropertyScriptability,
+    pub serializes: bool,
 }
 
 pub fn load_property_patches() -> PropertyPatches {
