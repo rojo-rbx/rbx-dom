@@ -31,6 +31,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			AttachmentPoint = {
 				type = {type = "Data", name = "CFrame"},
@@ -39,6 +40,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AttachmentPos = {
 				type = {type = "Data", name = "Vector3"},
@@ -47,6 +49,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			AttachmentRight = {
 				type = {type = "Data", name = "Vector3"},
@@ -55,6 +58,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			AttachmentUp = {
 				type = {type = "Data", name = "Vector3"},
@@ -63,6 +67,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -100,6 +105,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxAngularVelocity = {
 				type = {type = "Data", name = "Float32"},
@@ -108,6 +114,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxTorque = {
 				type = {type = "Data", name = "Float32"},
@@ -116,6 +123,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrimaryAxisOnly = {
 				type = {type = "Data", name = "Bool"},
@@ -124,6 +132,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ReactionTorqueEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -132,6 +141,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Responsiveness = {
 				type = {type = "Data", name = "Float32"},
@@ -140,6 +150,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RigidityEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -148,6 +159,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -175,6 +187,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxForce = {
 				type = {type = "Data", name = "Float32"},
@@ -183,6 +196,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxVelocity = {
 				type = {type = "Data", name = "Float32"},
@@ -191,6 +205,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ReactionForceEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -199,6 +214,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Responsiveness = {
 				type = {type = "Data", name = "Float32"},
@@ -207,6 +223,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RigidityEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -215,6 +232,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -256,6 +274,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxTorque = {
 				type = {type = "Data", name = "Float32"},
@@ -264,6 +283,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RelativeTo = {
 				type = {type = "Enum", name = "ActuatorRelativeTo"},
@@ -272,6 +292,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -295,6 +316,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -320,6 +342,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsPlaying = {
 				type = {type = "Data", name = "Bool"},
@@ -328,6 +351,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Length = {
 				type = {type = "Data", name = "Float32"},
@@ -336,6 +360,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Looped = {
 				type = {type = "Data", name = "Bool"},
@@ -344,6 +369,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Priority = {
 				type = {type = "Enum", name = "AnimationPriority"},
@@ -352,6 +378,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Speed = {
 				type = {type = "Data", name = "Float32"},
@@ -360,6 +387,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TimePosition = {
 				type = {type = "Data", name = "Float32"},
@@ -368,6 +396,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			WeightCurrent = {
 				type = {type = "Data", name = "Float32"},
@@ -376,6 +405,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			WeightTarget = {
 				type = {type = "Data", name = "Float32"},
@@ -384,6 +414,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -414,6 +445,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -442,6 +474,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			CFrame = {
 				type = {type = "Data", name = "CFrame"},
@@ -450,6 +483,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Orientation = {
 				type = {type = "Data", name = "Vector3"},
@@ -458,6 +492,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Position = {
 				type = {type = "Data", name = "Vector3"},
@@ -466,6 +501,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Rotation = {
 				type = {type = "Data", name = "Vector3"},
@@ -474,6 +510,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			SecondaryAxis = {
 				type = {type = "Data", name = "Vector3"},
@@ -482,6 +519,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Visible = {
 				type = {type = "Data", name = "Bool"},
@@ -490,6 +528,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WorldAxis = {
 				type = {type = "Data", name = "Vector3"},
@@ -498,6 +537,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			WorldCFrame = {
 				type = {type = "Data", name = "CFrame"},
@@ -506,6 +546,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			WorldOrientation = {
 				type = {type = "Data", name = "Vector3"},
@@ -514,6 +555,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			WorldPosition = {
 				type = {type = "Data", name = "Vector3"},
@@ -522,6 +564,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			WorldRotation = {
 				type = {type = "Data", name = "Vector3"},
@@ -530,6 +573,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			WorldSecondaryAxis = {
 				type = {type = "Data", name = "Vector3"},
@@ -538,6 +582,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -573,6 +618,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -596,6 +642,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Radius = {
 				type = {type = "Data", name = "Float32"},
@@ -604,6 +651,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Restitution = {
 				type = {type = "Data", name = "Float32"},
@@ -612,6 +660,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TwistLimitsEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -620,6 +669,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TwistLowerAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -628,6 +678,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TwistUpperAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -636,6 +687,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UpperAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -644,6 +696,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -671,6 +724,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BackParamA = {
 				type = {type = "Data", name = "Float32"},
@@ -679,6 +733,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BackParamB = {
 				type = {type = "Data", name = "Float32"},
@@ -687,6 +742,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BackSurface = {
 				type = {type = "Enum", name = "SurfaceType"},
@@ -695,6 +751,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BackSurfaceInput = {
 				type = {type = "Enum", name = "InputType"},
@@ -703,6 +760,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BottomParamA = {
 				type = {type = "Data", name = "Float32"},
@@ -711,6 +769,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BottomParamB = {
 				type = {type = "Data", name = "Float32"},
@@ -719,6 +778,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BottomSurface = {
 				type = {type = "Enum", name = "SurfaceType"},
@@ -727,6 +787,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BottomSurfaceInput = {
 				type = {type = "Enum", name = "InputType"},
@@ -735,14 +796,16 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BrickColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {NotReplicated = true},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Color",
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			CFrame = {
 				type = {type = "Data", name = "CFrame"},
@@ -751,6 +814,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CanCollide = {
 				type = {type = "Data", name = "Bool"},
@@ -759,6 +823,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CastShadow = {
 				type = {type = "Data", name = "Bool"},
@@ -767,6 +832,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CenterOfMass = {
 				type = {type = "Data", name = "Vector3"},
@@ -775,6 +841,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			CollisionGroupId = {
 				type = {type = "Data", name = "Int32"},
@@ -783,6 +850,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CollisionGroups = {
 				type = {type = "Data", name = "String"},
@@ -791,14 +859,25 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Custom",
+				serializes = true,
 			},
 			Color = {
 				type = {type = "Data", name = "Color3"},
 				tags = {NotReplicated = true},
 				isCanonical = true,
 				canonicalName = nil,
-				serializedName = nil,
+				serializedName = "Color3uint8",
 				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Color3uint8 = {
+				type = {type = "Data", name = "Color3uint8"},
+				tags = {},
+				isCanonical = false,
+				canonicalName = "Color",
+				serializedName = nil,
+				scriptability = "None",
+				serializes = false,
 			},
 			CustomPhysicalProperties = {
 				type = {type = "Data", name = "PhysicalProperties"},
@@ -807,6 +886,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Elasticity = {
 				type = {type = "Data", name = "Float32"},
@@ -815,6 +895,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Friction = {
 				type = {type = "Data", name = "Float32"},
@@ -823,6 +904,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			FrontParamA = {
 				type = {type = "Data", name = "Float32"},
@@ -831,6 +913,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FrontParamB = {
 				type = {type = "Data", name = "Float32"},
@@ -839,6 +922,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FrontSurface = {
 				type = {type = "Enum", name = "SurfaceType"},
@@ -847,6 +931,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FrontSurfaceInput = {
 				type = {type = "Enum", name = "InputType"},
@@ -855,6 +940,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftParamA = {
 				type = {type = "Data", name = "Float32"},
@@ -863,6 +949,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftParamB = {
 				type = {type = "Data", name = "Float32"},
@@ -871,6 +958,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftSurface = {
 				type = {type = "Enum", name = "SurfaceType"},
@@ -879,6 +967,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftSurfaceInput = {
 				type = {type = "Enum", name = "InputType"},
@@ -887,6 +976,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LocalTransparencyModifier = {
 				type = {type = "Data", name = "Float32"},
@@ -895,6 +985,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Locked = {
 				type = {type = "Data", name = "Bool"},
@@ -903,6 +994,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Massless = {
 				type = {type = "Data", name = "Bool"},
@@ -911,6 +1003,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Material = {
 				type = {type = "Enum", name = "Material"},
@@ -919,6 +1012,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Orientation = {
 				type = {type = "Data", name = "Vector3"},
@@ -927,6 +1021,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Position = {
 				type = {type = "Data", name = "Vector3"},
@@ -935,6 +1030,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ReceiveAge = {
 				type = {type = "Data", name = "Float32"},
@@ -943,6 +1039,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Reflectance = {
 				type = {type = "Data", name = "Float32"},
@@ -951,6 +1048,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ResizeIncrement = {
 				type = {type = "Data", name = "Int32"},
@@ -959,6 +1057,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ResizeableFaces = {
 				type = {type = "Unimplemented", name = "Faces"},
@@ -967,6 +1066,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			RightParamA = {
 				type = {type = "Data", name = "Float32"},
@@ -975,6 +1075,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightParamB = {
 				type = {type = "Data", name = "Float32"},
@@ -983,6 +1084,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightSurface = {
 				type = {type = "Enum", name = "SurfaceType"},
@@ -991,6 +1093,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightSurfaceInput = {
 				type = {type = "Enum", name = "InputType"},
@@ -999,6 +1102,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RootPriority = {
 				type = {type = "Data", name = "Int32"},
@@ -1007,6 +1111,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RotVelocity = {
 				type = {type = "Data", name = "Vector3"},
@@ -1015,6 +1120,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Rotation = {
 				type = {type = "Data", name = "Vector3"},
@@ -1023,6 +1129,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Size = {
 				type = {type = "Data", name = "Vector3"},
@@ -1031,6 +1138,7 @@ return {
 				canonicalName = nil,
 				serializedName = "size",
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SpecificGravity = {
 				type = {type = "Data", name = "Float32"},
@@ -1039,6 +1147,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TopParamA = {
 				type = {type = "Data", name = "Float32"},
@@ -1047,6 +1156,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TopParamB = {
 				type = {type = "Data", name = "Float32"},
@@ -1055,6 +1165,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TopSurface = {
 				type = {type = "Enum", name = "SurfaceType"},
@@ -1063,6 +1174,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TopSurfaceInput = {
 				type = {type = "Enum", name = "InputType"},
@@ -1071,6 +1183,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Transparency = {
 				type = {type = "Data", name = "Float32"},
@@ -1079,6 +1192,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Velocity = {
 				type = {type = "Data", name = "Vector3"},
@@ -1087,14 +1201,16 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			brickColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
 				tags = {Deprecated = true, NotReplicated = true},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Color",
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			size = {
 				type = {type = "Data", name = "Vector3"},
@@ -1103,6 +1219,7 @@ return {
 				canonicalName = "Size",
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -1125,6 +1242,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LinkedSource = {
 				type = {type = "Data", name = "Content"},
@@ -1133,6 +1251,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -1148,6 +1267,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Attachment1 = {
 				type = {type = "Data", name = "Ref"},
@@ -1156,6 +1276,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Color = {
 				type = {type = "Data", name = "ColorSequence"},
@@ -1164,6 +1285,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CurveSize0 = {
 				type = {type = "Data", name = "Float32"},
@@ -1172,6 +1294,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CurveSize1 = {
 				type = {type = "Data", name = "Float32"},
@@ -1180,6 +1303,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -1188,6 +1312,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FaceCamera = {
 				type = {type = "Data", name = "Bool"},
@@ -1196,6 +1321,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LightEmission = {
 				type = {type = "Data", name = "Float32"},
@@ -1204,6 +1330,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LightInfluence = {
 				type = {type = "Data", name = "Float32"},
@@ -1212,6 +1339,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Segments = {
 				type = {type = "Data", name = "Int32"},
@@ -1220,6 +1348,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Texture = {
 				type = {type = "Data", name = "Content"},
@@ -1228,6 +1357,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextureLength = {
 				type = {type = "Data", name = "Float32"},
@@ -1236,6 +1366,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextureMode = {
 				type = {type = "Enum", name = "TextureMode"},
@@ -1244,6 +1375,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextureSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -1252,6 +1384,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Transparency = {
 				type = {type = "Data", name = "NumberSequence"},
@@ -1260,6 +1393,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Width0 = {
 				type = {type = "Data", name = "Float32"},
@@ -1268,6 +1402,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Width1 = {
 				type = {type = "Data", name = "Float32"},
@@ -1276,6 +1411,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ZOffset = {
 				type = {type = "Data", name = "Float32"},
@@ -1284,6 +1420,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -1323,6 +1460,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Adornee = {
 				type = {type = "Data", name = "Ref"},
@@ -1331,6 +1469,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AlwaysOnTop = {
 				type = {type = "Data", name = "Bool"},
@@ -1339,6 +1478,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClipsDescendants = {
 				type = {type = "Data", name = "Bool"},
@@ -1347,6 +1487,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ExtentsOffset = {
 				type = {type = "Data", name = "Vector3"},
@@ -1355,6 +1496,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ExtentsOffsetWorldSpace = {
 				type = {type = "Data", name = "Vector3"},
@@ -1363,6 +1505,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LightInfluence = {
 				type = {type = "Data", name = "Float32"},
@@ -1371,6 +1514,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -1379,6 +1523,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PlayerToHideFrom = {
 				type = {type = "Data", name = "Ref"},
@@ -1387,6 +1532,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Size = {
 				type = {type = "Data", name = "UDim2"},
@@ -1395,6 +1541,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SizeOffset = {
 				type = {type = "Data", name = "Vector2"},
@@ -1403,6 +1550,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StudsOffset = {
 				type = {type = "Data", name = "Vector3"},
@@ -1411,6 +1559,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StudsOffsetWorldSpace = {
 				type = {type = "Data", name = "Vector3"},
@@ -1419,6 +1568,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -1490,6 +1640,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Size = {
 				type = {type = "Data", name = "Float32"},
@@ -1498,6 +1649,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Threshold = {
 				type = {type = "Data", name = "Float32"},
@@ -1506,6 +1658,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -1526,6 +1679,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -1544,6 +1698,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxTorque = {
 				type = {type = "Data", name = "Vector3"},
@@ -1552,6 +1707,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			P = {
 				type = {type = "Data", name = "Float32"},
@@ -1560,6 +1716,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			angularvelocity = {
 				type = {type = "Data", name = "Vector3"},
@@ -1568,6 +1725,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			maxTorque = {
 				type = {type = "Data", name = "Vector3"},
@@ -1576,6 +1734,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -1597,6 +1756,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			HeadColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -1605,6 +1765,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftArmColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -1613,6 +1774,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			LeftArmColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -1621,6 +1783,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftLegColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -1629,6 +1792,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			LeftLegColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -1637,6 +1801,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightArmColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -1645,6 +1810,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RightArmColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -1653,6 +1819,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightLegColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -1661,6 +1828,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RightLegColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -1669,6 +1837,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TorsoColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -1677,6 +1846,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TorsoColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -1685,6 +1855,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -1707,6 +1878,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			force = {
 				type = {type = "Data", name = "Vector3"},
@@ -1715,6 +1887,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -1733,6 +1906,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			D = {
 				type = {type = "Data", name = "Float32"},
@@ -1741,6 +1915,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxTorque = {
 				type = {type = "Data", name = "Vector3"},
@@ -1749,6 +1924,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			P = {
 				type = {type = "Data", name = "Float32"},
@@ -1757,6 +1933,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			cframe = {
 				type = {type = "Data", name = "CFrame"},
@@ -1765,6 +1942,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			maxTorque = {
 				type = {type = "Data", name = "Vector3"},
@@ -1773,6 +1951,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -1801,6 +1980,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxForce = {
 				type = {type = "Data", name = "Vector3"},
@@ -1809,6 +1989,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			P = {
 				type = {type = "Data", name = "Float32"},
@@ -1817,6 +1998,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Position = {
 				type = {type = "Data", name = "Vector3"},
@@ -1825,6 +2007,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			maxForce = {
 				type = {type = "Data", name = "Vector3"},
@@ -1833,6 +2016,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			position = {
 				type = {type = "Data", name = "Vector3"},
@@ -1841,6 +2025,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -1863,6 +2048,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Location = {
 				type = {type = "Data", name = "Vector3"},
@@ -1871,6 +2057,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			force = {
 				type = {type = "Data", name = "Vector3"},
@@ -1879,6 +2066,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			location = {
 				type = {type = "Data", name = "Vector3"},
@@ -1887,6 +2075,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -1907,6 +2096,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			P = {
 				type = {type = "Data", name = "Float32"},
@@ -1915,6 +2105,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Velocity = {
 				type = {type = "Data", name = "Vector3"},
@@ -1923,6 +2114,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			maxForce = {
 				type = {type = "Data", name = "Vector3"},
@@ -1931,6 +2123,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			velocity = {
 				type = {type = "Data", name = "Vector3"},
@@ -1939,6 +2132,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -1960,6 +2154,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -1977,6 +2172,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2002,6 +2198,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2025,6 +2222,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2056,6 +2254,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraSubject = {
 				type = {type = "Data", name = "Ref"},
@@ -2064,6 +2263,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraType = {
 				type = {type = "Enum", name = "CameraType"},
@@ -2072,6 +2272,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CoordinateFrame = {
 				type = {type = "Data", name = "CFrame"},
@@ -2080,6 +2281,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			FieldOfView = {
 				type = {type = "Data", name = "Float32"},
@@ -2088,6 +2290,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Focus = {
 				type = {type = "Data", name = "CFrame"},
@@ -2096,6 +2299,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HeadLocked = {
 				type = {type = "Data", name = "Bool"},
@@ -2104,6 +2308,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HeadScale = {
 				type = {type = "Data", name = "Float32"},
@@ -2112,6 +2317,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NearPlaneZ = {
 				type = {type = "Data", name = "Float32"},
@@ -2120,6 +2326,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ViewportSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -2128,6 +2335,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			focus = {
 				type = {type = "Data", name = "CFrame"},
@@ -2136,6 +2344,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -2176,6 +2385,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BodyPart = {
 				type = {type = "Enum", name = "BodyPart"},
@@ -2184,6 +2394,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MeshId = {
 				type = {type = "Data", name = "Int32"},
@@ -2192,6 +2403,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OverlayTextureId = {
 				type = {type = "Data", name = "Int32"},
@@ -2200,6 +2412,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2220,6 +2433,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LoadDefaultChat = {
 				type = {type = "Data", name = "Bool"},
@@ -2228,6 +2442,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2246,6 +2461,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Mix = {
 				type = {type = "Data", name = "Float32"},
@@ -2254,6 +2470,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Rate = {
 				type = {type = "Data", name = "Float32"},
@@ -2262,6 +2479,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2283,6 +2501,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxActivationDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -2291,6 +2510,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2316,6 +2536,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2346,6 +2567,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2363,6 +2585,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Contrast = {
 				type = {type = "Data", name = "Float32"},
@@ -2371,6 +2594,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Saturation = {
 				type = {type = "Data", name = "Float32"},
@@ -2379,6 +2603,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TintColor = {
 				type = {type = "Data", name = "Color3"},
@@ -2387,6 +2612,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2408,6 +2634,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GainMakeup = {
 				type = {type = "Data", name = "Float32"},
@@ -2416,6 +2643,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Ratio = {
 				type = {type = "Data", name = "Float32"},
@@ -2424,6 +2652,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Release = {
 				type = {type = "Data", name = "Float32"},
@@ -2432,6 +2661,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SideChain = {
 				type = {type = "Data", name = "Ref"},
@@ -2440,6 +2670,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Threshold = {
 				type = {type = "Data", name = "Float32"},
@@ -2448,6 +2679,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2472,6 +2704,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Radius = {
 				type = {type = "Data", name = "Float32"},
@@ -2480,6 +2713,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2514,6 +2748,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Attachment0 = {
 				type = {type = "Data", name = "Ref"},
@@ -2522,6 +2757,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Attachment1 = {
 				type = {type = "Data", name = "Ref"},
@@ -2530,6 +2766,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Color = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -2538,6 +2775,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -2546,6 +2784,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Visible = {
 				type = {type = "Data", name = "Bool"},
@@ -2554,6 +2793,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2569,6 +2809,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			RequestQueueSize = {
 				type = {type = "Data", name = "Int32"},
@@ -2577,6 +2818,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -2625,6 +2867,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Version = {
 				type = {type = "Data", name = "Int32"},
@@ -2633,6 +2876,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -2734,6 +2978,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2751,6 +2996,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Radius = {
 				type = {type = "Data", name = "Float32"},
@@ -2759,6 +3005,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -2796,6 +3043,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AngularLimitsEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -2804,6 +3052,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AngularRestitution = {
 				type = {type = "Data", name = "Float32"},
@@ -2812,6 +3061,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AngularSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -2820,6 +3070,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AngularVelocity = {
 				type = {type = "Data", name = "Float32"},
@@ -2828,6 +3079,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CurrentAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -2836,6 +3088,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			InclinationAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -2844,6 +3097,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LowerAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -2852,6 +3106,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MotorMaxAngularAcceleration = {
 				type = {type = "Data", name = "Float32"},
@@ -2860,6 +3115,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MotorMaxTorque = {
 				type = {type = "Data", name = "Float32"},
@@ -2868,6 +3124,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RotationAxisVisible = {
 				type = {type = "Data", name = "Bool"},
@@ -2876,6 +3133,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ServoMaxTorque = {
 				type = {type = "Data", name = "Float32"},
@@ -2884,6 +3142,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TargetAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -2892,6 +3151,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UpperAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -2900,6 +3160,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WorldRotationAxis = {
 				type = {type = "Data", name = "Vector3"},
@@ -2908,6 +3169,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -2956,6 +3218,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			CreatorType = {
 				type = {type = "Enum", name = "CreatorType"},
@@ -2964,6 +3227,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			GameId = {
 				type = {type = "Data", name = "Int32"},
@@ -2972,6 +3236,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			GearGenreSetting = {
 				type = {type = "Enum", name = "GearGenreSetting"},
@@ -2980,6 +3245,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Genre = {
 				type = {type = "Enum", name = "Genre"},
@@ -2988,6 +3254,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsSFFlagsLoaded = {
 				type = {type = "Data", name = "Bool"},
@@ -2996,6 +3263,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			JobId = {
 				type = {type = "Data", name = "String"},
@@ -3004,6 +3272,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PlaceId = {
 				type = {type = "Data", name = "Int32"},
@@ -3012,6 +3281,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PlaceVersion = {
 				type = {type = "Data", name = "Int32"},
@@ -3020,6 +3290,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PrivateServerId = {
 				type = {type = "Data", name = "String"},
@@ -3028,6 +3299,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PrivateServerOwnerId = {
 				type = {type = "Data", name = "Int32"},
@@ -3036,6 +3308,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			VIPServerId = {
 				type = {type = "Data", name = "String"},
@@ -3044,6 +3317,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			VIPServerOwnerId = {
 				type = {type = "Data", name = "Int32"},
@@ -3052,6 +3326,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Workspace = {
 				type = {type = "Data", name = "Ref"},
@@ -3060,6 +3335,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			lighting = {
 				type = {type = "Data", name = "Ref"},
@@ -3068,6 +3344,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			workspace = {
 				type = {type = "Data", name = "Ref"},
@@ -3076,6 +3353,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -3091,6 +3369,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Scale = {
 				type = {type = "Data", name = "Vector3"},
@@ -3099,6 +3378,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VertexColor = {
 				type = {type = "Data", name = "Vector3"},
@@ -3107,6 +3387,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3129,6 +3410,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LegacyNamingScheme = {
 				type = {type = "Data", name = "Bool"},
@@ -3137,6 +3419,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3153,6 +3436,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3170,6 +3454,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ErrorReporting = {
 				type = {type = "Enum", name = "ErrorReporting"},
@@ -3178,6 +3463,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GfxCard = {
 				type = {type = "Data", name = "String"},
@@ -3186,6 +3472,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			InstanceCount = {
 				type = {type = "Data", name = "Int32"},
@@ -3194,6 +3481,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsFmodProfilingEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -3202,6 +3490,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsScriptStackTracingEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -3210,6 +3499,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			JobCount = {
 				type = {type = "Data", name = "Int32"},
@@ -3218,6 +3508,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			LuaRamLimit = {
 				type = {type = "Data", name = "Int32"},
@@ -3226,6 +3517,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OsIs64Bit = {
 				type = {type = "Data", name = "Bool"},
@@ -3234,6 +3526,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OsPlatform = {
 				type = {type = "Data", name = "String"},
@@ -3242,6 +3535,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OsPlatformId = {
 				type = {type = "Data", name = "Int32"},
@@ -3250,6 +3544,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OsVer = {
 				type = {type = "Data", name = "String"},
@@ -3258,6 +3553,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PlayerCount = {
 				type = {type = "Data", name = "Int32"},
@@ -3266,6 +3562,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ReportSoundWarnings = {
 				type = {type = "Data", name = "Bool"},
@@ -3274,6 +3571,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RobloxProductName = {
 				type = {type = "Data", name = "String"},
@@ -3282,6 +3580,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			RobloxVersion = {
 				type = {type = "Data", name = "String"},
@@ -3290,6 +3589,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			SIMD = {
 				type = {type = "Data", name = "String"},
@@ -3298,6 +3598,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			SystemProductName = {
 				type = {type = "Data", name = "String"},
@@ -3306,6 +3607,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TickCountPreciseOverride = {
 				type = {type = "Enum", name = "TickCountSampleMethod"},
@@ -3314,6 +3616,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VideoMemory = {
 				type = {type = "Data", name = "Int32"},
@@ -3322,6 +3625,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -3337,6 +3641,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -3345,6 +3650,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Line = {
 				type = {type = "Data", name = "Int32"},
@@ -3353,6 +3659,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -3368,6 +3675,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -3383,6 +3691,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3398,6 +3707,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LocalTransparencyModifier = {
 				type = {type = "Data", name = "Float32"},
@@ -3406,6 +3716,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Shiny = {
 				type = {type = "Data", name = "Float32"},
@@ -3414,6 +3725,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Specular = {
 				type = {type = "Data", name = "Float32"},
@@ -3422,6 +3734,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Texture = {
 				type = {type = "Data", name = "Content"},
@@ -3430,6 +3743,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Transparency = {
 				type = {type = "Data", name = "Float32"},
@@ -3438,6 +3752,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3460,6 +3775,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ConversationDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -3468,6 +3784,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GoodbyeChoiceActive = {
 				type = {type = "Data", name = "Bool"},
@@ -3476,6 +3793,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GoodbyeDialog = {
 				type = {type = "Data", name = "String"},
@@ -3484,6 +3802,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			InUse = {
 				type = {type = "Data", name = "Bool"},
@@ -3492,6 +3811,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			InitialPrompt = {
 				type = {type = "Data", name = "String"},
@@ -3500,6 +3820,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Purpose = {
 				type = {type = "Enum", name = "DialogPurpose"},
@@ -3508,6 +3829,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Tone = {
 				type = {type = "Enum", name = "DialogTone"},
@@ -3516,6 +3838,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TriggerDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -3524,6 +3847,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TriggerOffset = {
 				type = {type = "Data", name = "Vector3"},
@@ -3532,6 +3856,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3557,6 +3882,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GoodbyeDialog = {
 				type = {type = "Data", name = "String"},
@@ -3565,6 +3891,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ResponseDialog = {
 				type = {type = "Data", name = "String"},
@@ -3573,6 +3900,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UserDialog = {
 				type = {type = "Data", name = "String"},
@@ -3581,6 +3909,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3601,6 +3930,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3620,6 +3950,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -3635,6 +3966,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			MaxValue = {
 				type = {type = "Data", name = "Float64"},
@@ -3643,6 +3975,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MinValue = {
 				type = {type = "Data", name = "Float64"},
@@ -3651,6 +3984,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Value = {
 				type = {type = "Data", name = "Float64"},
@@ -3659,6 +3993,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -3687,6 +4022,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3702,6 +4038,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DryLevel = {
 				type = {type = "Data", name = "Float32"},
@@ -3710,6 +4047,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Feedback = {
 				type = {type = "Data", name = "Float32"},
@@ -3718,6 +4056,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WetLevel = {
 				type = {type = "Data", name = "Float32"},
@@ -3726,6 +4065,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3748,6 +4088,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LowGain = {
 				type = {type = "Data", name = "Float32"},
@@ -3756,6 +4097,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MidGain = {
 				type = {type = "Data", name = "Float32"},
@@ -3764,6 +4106,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3785,6 +4128,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BlastRadius = {
 				type = {type = "Data", name = "Float32"},
@@ -3793,6 +4137,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DestroyJointRadiusPercent = {
 				type = {type = "Data", name = "Float32"},
@@ -3801,6 +4146,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ExplosionType = {
 				type = {type = "Enum", name = "ExplosionType"},
@@ -3809,6 +4155,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Position = {
 				type = {type = "Data", name = "Vector3"},
@@ -3817,6 +4164,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Visible = {
 				type = {type = "Data", name = "Bool"},
@@ -3825,6 +4173,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3847,6 +4196,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3862,6 +4212,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			InOut = {
 				type = {type = "Enum", name = "InOut"},
@@ -3870,6 +4221,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftRight = {
 				type = {type = "Enum", name = "LeftRight"},
@@ -3878,6 +4230,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TopBottom = {
 				type = {type = "Enum", name = "TopBottom"},
@@ -3886,6 +4239,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3901,6 +4255,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			FileSize = {
 				type = {type = "Data", name = "Int32"},
@@ -3909,6 +4264,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Size = {
 				type = {type = "Data", name = "Int32"},
@@ -3917,6 +4273,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -3932,6 +4289,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextureId = {
 				type = {type = "Data", name = "Content"},
@@ -3940,6 +4298,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -3961,6 +4320,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -3969,6 +4329,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Heat = {
 				type = {type = "Data", name = "Float32"},
@@ -3977,6 +4338,7 @@ return {
 				canonicalName = nil,
 				serializedName = "heat_xml",
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SecondaryColor = {
 				type = {type = "Data", name = "Color3"},
@@ -3985,6 +4347,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Size = {
 				type = {type = "Data", name = "Float32"},
@@ -3993,6 +4356,7 @@ return {
 				canonicalName = nil,
 				serializedName = "size_xml",
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			heat_xml = {
 				type = {type = "Data", name = "Float32"},
@@ -4001,6 +4365,7 @@ return {
 				canonicalName = "Heat",
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 			size = {
 				type = {type = "Data", name = "Float32"},
@@ -4009,6 +4374,7 @@ return {
 				canonicalName = "Size",
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			size_xml = {
 				type = {type = "Data", name = "Float32"},
@@ -4017,6 +4383,7 @@ return {
 				canonicalName = "Size",
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -4039,6 +4406,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4066,6 +4434,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4136,6 +4505,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Mix = {
 				type = {type = "Data", name = "Float32"},
@@ -4144,6 +4514,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Rate = {
 				type = {type = "Data", name = "Float32"},
@@ -4152,6 +4523,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4173,6 +4545,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			From = {
 				type = {type = "Data", name = "Ref"},
@@ -4181,6 +4554,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StudsBetweenTextures = {
 				type = {type = "Data", name = "Float32"},
@@ -4189,6 +4563,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Texture = {
 				type = {type = "Data", name = "Content"},
@@ -4197,6 +4572,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextureSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -4205,6 +4581,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			To = {
 				type = {type = "Data", name = "Ref"},
@@ -4213,6 +4590,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Velocity = {
 				type = {type = "Data", name = "Float32"},
@@ -4221,6 +4599,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WireRadius = {
 				type = {type = "Data", name = "Float32"},
@@ -4229,6 +4608,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4271,6 +4651,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4288,14 +4669,16 @@ return {
 				canonicalName = nil,
 				serializedName = "formFactorRaw",
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			formFactor = {
 				type = {type = "Enum", name = "FormFactor"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "FormFactor",
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			formFactorRaw = {
 				type = {type = "Enum", name = "FormFactor"},
@@ -4304,6 +4687,7 @@ return {
 				canonicalName = "FormFactor",
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -4319,6 +4703,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4377,6 +4762,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4402,6 +4788,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BubbleChatLifetime = {
 				type = {type = "Data", name = "Float32"},
@@ -4410,6 +4797,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BubbleChatMaxBubbles = {
 				type = {type = "Data", name = "Int32"},
@@ -4418,6 +4806,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ChatHistory = {
 				type = {type = "Data", name = "Int32"},
@@ -4426,6 +4815,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ChatScrollLength = {
 				type = {type = "Data", name = "Int32"},
@@ -4434,6 +4824,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CollisionSoundEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -4442,6 +4833,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			CollisionSoundVolume = {
 				type = {type = "Data", name = "Float32"},
@@ -4450,6 +4842,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			HardwareMouse = {
 				type = {type = "Data", name = "Bool"},
@@ -4458,6 +4851,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxCollisionSounds = {
 				type = {type = "Data", name = "Int32"},
@@ -4466,6 +4860,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			OverrideStarterScript = {
 				type = {type = "Data", name = "String"},
@@ -4474,6 +4869,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ReportAbuseChatHistory = {
 				type = {type = "Data", name = "Int32"},
@@ -4482,6 +4878,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SoftwareSound = {
 				type = {type = "Data", name = "Bool"},
@@ -4490,6 +4887,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VideoCaptureEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -4498,6 +4896,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VideoQuality = {
 				type = {type = "Enum", name = "VideoQualitySettings"},
@@ -4506,6 +4905,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4558,6 +4958,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			F1 = {
 				type = {type = "Data", name = "Vector3"},
@@ -4566,6 +4967,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			F2 = {
 				type = {type = "Data", name = "Vector3"},
@@ -4574,6 +4976,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			F3 = {
 				type = {type = "Data", name = "Vector3"},
@@ -4582,6 +4985,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4628,6 +5032,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			AbsoluteRotation = {
 				type = {type = "Data", name = "Float32"},
@@ -4636,6 +5041,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			AbsoluteSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -4644,6 +5050,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			AutoLocalize = {
 				type = {type = "Data", name = "Bool"},
@@ -4652,6 +5059,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Localize = {
 				type = {type = "Data", name = "Bool"},
@@ -4660,6 +5068,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RootLocalizationTable = {
 				type = {type = "Data", name = "Ref"},
@@ -4668,6 +5077,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4683,6 +5093,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Color3 = {
 				type = {type = "Data", name = "Color3"},
@@ -4691,6 +5102,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Transparency = {
 				type = {type = "Data", name = "Float32"},
@@ -4699,6 +5111,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Visible = {
 				type = {type = "Data", name = "Bool"},
@@ -4707,6 +5120,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4722,6 +5136,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Modal = {
 				type = {type = "Data", name = "Bool"},
@@ -4730,6 +5145,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Selected = {
 				type = {type = "Data", name = "Bool"},
@@ -4738,6 +5154,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Style = {
 				type = {type = "Enum", name = "ButtonStyle"},
@@ -4746,6 +5163,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4785,6 +5203,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AnchorPoint = {
 				type = {type = "Data", name = "Vector2"},
@@ -4793,6 +5212,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BackgroundColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -4801,6 +5221,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			BackgroundColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -4809,6 +5230,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BackgroundTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -4817,6 +5239,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BorderColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -4825,6 +5248,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			BorderColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -4833,6 +5257,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BorderSizePixel = {
 				type = {type = "Data", name = "Int32"},
@@ -4841,6 +5266,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClipsDescendants = {
 				type = {type = "Data", name = "Bool"},
@@ -4849,6 +5275,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Draggable = {
 				type = {type = "Data", name = "Bool"},
@@ -4857,6 +5284,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LayoutOrder = {
 				type = {type = "Data", name = "Int32"},
@@ -4865,6 +5293,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NextSelectionDown = {
 				type = {type = "Data", name = "Ref"},
@@ -4873,6 +5302,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NextSelectionLeft = {
 				type = {type = "Data", name = "Ref"},
@@ -4881,6 +5311,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NextSelectionRight = {
 				type = {type = "Data", name = "Ref"},
@@ -4889,6 +5320,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NextSelectionUp = {
 				type = {type = "Data", name = "Ref"},
@@ -4897,6 +5329,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Position = {
 				type = {type = "Data", name = "UDim2"},
@@ -4905,6 +5338,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Rotation = {
 				type = {type = "Data", name = "Float32"},
@@ -4913,6 +5347,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Selectable = {
 				type = {type = "Data", name = "Bool"},
@@ -4921,6 +5356,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SelectionImageObject = {
 				type = {type = "Data", name = "Ref"},
@@ -4929,6 +5365,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Size = {
 				type = {type = "Data", name = "UDim2"},
@@ -4937,6 +5374,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SizeConstraint = {
 				type = {type = "Enum", name = "SizeConstraint"},
@@ -4945,6 +5383,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Transparency = {
 				type = {type = "Data", name = "Float32"},
@@ -4953,6 +5392,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Visible = {
 				type = {type = "Data", name = "Bool"},
@@ -4961,6 +5401,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ZIndex = {
 				type = {type = "Data", name = "Int32"},
@@ -4969,6 +5410,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -4984,6 +5426,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CoreEffectFolder = {
 				type = {type = "Data", name = "Ref"},
@@ -4992,6 +5435,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			CoreGuiFolder = {
 				type = {type = "Data", name = "Ref"},
@@ -5000,6 +5444,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			CoreGuiNavigationEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -5008,6 +5453,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GuiNavigationEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -5016,6 +5462,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsModalDialog = {
 				type = {type = "Data", name = "Bool"},
@@ -5024,6 +5471,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsWindows = {
 				type = {type = "Data", name = "Bool"},
@@ -5032,6 +5480,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MenuIsOpen = {
 				type = {type = "Data", name = "Bool"},
@@ -5040,6 +5489,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			SelectedCoreObject = {
 				type = {type = "Data", name = "Ref"},
@@ -5048,6 +5498,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			SelectedObject = {
 				type = {type = "Data", name = "Ref"},
@@ -5056,6 +5507,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -5085,6 +5537,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CFrame = {
 				type = {type = "Data", name = "CFrame"},
@@ -5093,6 +5546,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SizeRelativeOffset = {
 				type = {type = "Data", name = "Vector3"},
@@ -5101,6 +5555,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ZIndex = {
 				type = {type = "Data", name = "Int32"},
@@ -5109,6 +5564,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -5124,6 +5580,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Style = {
 				type = {type = "Enum", name = "HandlesStyle"},
@@ -5132,6 +5589,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -5181,6 +5639,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AngularSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -5189,6 +5648,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AngularVelocity = {
 				type = {type = "Data", name = "Float32"},
@@ -5197,6 +5657,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CurrentAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -5205,6 +5666,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			LimitsEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -5213,6 +5675,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LowerAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -5221,6 +5684,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MotorMaxAcceleration = {
 				type = {type = "Data", name = "Float32"},
@@ -5229,6 +5693,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MotorMaxTorque = {
 				type = {type = "Data", name = "Float32"},
@@ -5237,6 +5702,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Radius = {
 				type = {type = "Data", name = "Float32"},
@@ -5245,6 +5711,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Restitution = {
 				type = {type = "Data", name = "Float32"},
@@ -5253,6 +5720,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ServoMaxTorque = {
 				type = {type = "Data", name = "Float32"},
@@ -5261,6 +5729,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TargetAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -5269,6 +5738,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UpperAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -5277,6 +5747,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -5338,6 +5809,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BinType = {
 				type = {type = "Enum", name = "BinType"},
@@ -5346,6 +5818,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -5380,6 +5853,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -5396,6 +5870,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AutoRotate = {
 				type = {type = "Data", name = "Bool"},
@@ -5404,6 +5879,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AutomaticScalingEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -5412,6 +5888,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BreakJointsOnDeath = {
 				type = {type = "Data", name = "Bool"},
@@ -5420,6 +5897,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraOffset = {
 				type = {type = "Data", name = "Vector3"},
@@ -5428,6 +5906,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			CollisionType = {
 				type = {type = "Enum", name = "HumanoidCollisionType"},
@@ -5436,6 +5915,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DisplayDistanceType = {
 				type = {type = "Enum", name = "HumanoidDisplayDistanceType"},
@@ -5444,6 +5924,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FloorMaterial = {
 				type = {type = "Enum", name = "Material"},
@@ -5452,6 +5933,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Health = {
 				type = {type = "Data", name = "Float32"},
@@ -5460,6 +5942,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			HealthDisplayDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -5468,6 +5951,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HealthDisplayType = {
 				type = {type = "Enum", name = "HumanoidHealthDisplayType"},
@@ -5476,6 +5960,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HipHeight = {
 				type = {type = "Data", name = "Float32"},
@@ -5484,6 +5969,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Jump = {
 				type = {type = "Data", name = "Bool"},
@@ -5492,6 +5978,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			JumpHeight = {
 				type = {type = "Data", name = "Float32"},
@@ -5500,6 +5987,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			JumpPower = {
 				type = {type = "Data", name = "Float32"},
@@ -5508,6 +5996,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftLeg = {
 				type = {type = "Data", name = "Ref"},
@@ -5516,6 +6005,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			MaxHealth = {
 				type = {type = "Data", name = "Float32"},
@@ -5524,6 +6014,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxSlopeAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -5532,6 +6023,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MoveDirection = {
 				type = {type = "Data", name = "Vector3"},
@@ -5540,6 +6032,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			NameDisplayDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -5548,6 +6041,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NameOcclusion = {
 				type = {type = "Enum", name = "NameOcclusion"},
@@ -5556,6 +6050,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PlatformStand = {
 				type = {type = "Data", name = "Bool"},
@@ -5564,6 +6059,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RigType = {
 				type = {type = "Enum", name = "HumanoidRigType"},
@@ -5572,6 +6068,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightLeg = {
 				type = {type = "Data", name = "Ref"},
@@ -5580,6 +6077,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RootPart = {
 				type = {type = "Data", name = "Ref"},
@@ -5588,6 +6086,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			SeatPart = {
 				type = {type = "Data", name = "Ref"},
@@ -5596,6 +6095,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Sit = {
 				type = {type = "Data", name = "Bool"},
@@ -5604,6 +6104,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TargetPoint = {
 				type = {type = "Data", name = "Vector3"},
@@ -5612,6 +6113,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Torso = {
 				type = {type = "Data", name = "Ref"},
@@ -5620,6 +6122,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			UseJumpPower = {
 				type = {type = "Data", name = "Bool"},
@@ -5628,6 +6131,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WalkSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -5636,6 +6140,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WalkToPart = {
 				type = {type = "Data", name = "Ref"},
@@ -5644,6 +6149,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			WalkToPoint = {
 				type = {type = "Data", name = "Vector3"},
@@ -5652,6 +6158,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			maxHealth = {
 				type = {type = "Data", name = "Float32"},
@@ -5660,6 +6167,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -5709,6 +6217,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			BodyTypeScale = {
 				type = {type = "Data", name = "Float32"},
@@ -5717,6 +6226,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClimbAnimation = {
 				type = {type = "Data", name = "Int32"},
@@ -5725,6 +6235,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DepthScale = {
 				type = {type = "Data", name = "Float32"},
@@ -5733,6 +6244,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Face = {
 				type = {type = "Data", name = "Int32"},
@@ -5741,6 +6253,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FaceAccessory = {
 				type = {type = "Data", name = "String"},
@@ -5749,6 +6262,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FallAnimation = {
 				type = {type = "Data", name = "Int32"},
@@ -5757,6 +6271,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FrontAccessory = {
 				type = {type = "Data", name = "String"},
@@ -5765,6 +6280,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GraphicTShirt = {
 				type = {type = "Data", name = "Int32"},
@@ -5773,6 +6289,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HairAccessory = {
 				type = {type = "Data", name = "String"},
@@ -5781,6 +6298,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HatAccessory = {
 				type = {type = "Data", name = "String"},
@@ -5789,6 +6307,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Head = {
 				type = {type = "Data", name = "Int32"},
@@ -5797,6 +6316,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HeadColor = {
 				type = {type = "Data", name = "Color3"},
@@ -5805,6 +6325,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HeadScale = {
 				type = {type = "Data", name = "Float32"},
@@ -5813,6 +6334,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HeightScale = {
 				type = {type = "Data", name = "Float32"},
@@ -5821,6 +6343,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IdleAnimation = {
 				type = {type = "Data", name = "Int32"},
@@ -5829,6 +6352,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			JumpAnimation = {
 				type = {type = "Data", name = "Int32"},
@@ -5837,6 +6361,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftArm = {
 				type = {type = "Data", name = "Int32"},
@@ -5845,6 +6370,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftArmColor = {
 				type = {type = "Data", name = "Color3"},
@@ -5853,6 +6379,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftLeg = {
 				type = {type = "Data", name = "Int32"},
@@ -5861,6 +6388,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LeftLegColor = {
 				type = {type = "Data", name = "Color3"},
@@ -5869,6 +6397,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NeckAccessory = {
 				type = {type = "Data", name = "String"},
@@ -5877,6 +6406,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Pants = {
 				type = {type = "Data", name = "Int32"},
@@ -5885,6 +6415,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ProportionScale = {
 				type = {type = "Data", name = "Float32"},
@@ -5893,6 +6424,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightArm = {
 				type = {type = "Data", name = "Int32"},
@@ -5901,6 +6433,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightArmColor = {
 				type = {type = "Data", name = "Color3"},
@@ -5909,6 +6442,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightLeg = {
 				type = {type = "Data", name = "Int32"},
@@ -5917,6 +6451,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RightLegColor = {
 				type = {type = "Data", name = "Color3"},
@@ -5925,6 +6460,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RunAnimation = {
 				type = {type = "Data", name = "Int32"},
@@ -5933,6 +6469,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Shirt = {
 				type = {type = "Data", name = "Int32"},
@@ -5941,6 +6478,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ShouldersAccessory = {
 				type = {type = "Data", name = "String"},
@@ -5949,6 +6487,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SwimAnimation = {
 				type = {type = "Data", name = "Int32"},
@@ -5957,6 +6496,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Torso = {
 				type = {type = "Data", name = "Int32"},
@@ -5965,6 +6505,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TorsoColor = {
 				type = {type = "Data", name = "Color3"},
@@ -5973,6 +6514,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WaistAccessory = {
 				type = {type = "Data", name = "String"},
@@ -5981,6 +6523,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WalkAnimation = {
 				type = {type = "Data", name = "Int32"},
@@ -5989,6 +6532,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WidthScale = {
 				type = {type = "Data", name = "Float32"},
@@ -5997,6 +6541,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6050,6 +6595,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Image = {
 				type = {type = "Data", name = "Content"},
@@ -6058,6 +6604,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -6066,6 +6613,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageRectOffset = {
 				type = {type = "Data", name = "Vector2"},
@@ -6074,6 +6622,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageRectSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -6082,6 +6631,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -6090,6 +6640,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsLoaded = {
 				type = {type = "Data", name = "Bool"},
@@ -6098,6 +6649,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PressedImage = {
 				type = {type = "Data", name = "Content"},
@@ -6106,6 +6658,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScaleType = {
 				type = {type = "Enum", name = "ScaleType"},
@@ -6114,6 +6667,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SliceCenter = {
 				type = {type = "Unimplemented", name = "Rect"},
@@ -6122,6 +6676,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SliceScale = {
 				type = {type = "Data", name = "Float32"},
@@ -6130,6 +6685,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TileSize = {
 				type = {type = "Data", name = "UDim2"},
@@ -6138,6 +6694,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6194,6 +6751,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Size = {
 				type = {type = "Data", name = "Vector2"},
@@ -6202,6 +6760,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6228,6 +6787,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -6236,6 +6796,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageRectOffset = {
 				type = {type = "Data", name = "Vector2"},
@@ -6244,6 +6805,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageRectSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -6252,6 +6814,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -6260,6 +6823,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsLoaded = {
 				type = {type = "Data", name = "Bool"},
@@ -6268,6 +6832,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ScaleType = {
 				type = {type = "Enum", name = "ScaleType"},
@@ -6276,6 +6841,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SliceCenter = {
 				type = {type = "Unimplemented", name = "Rect"},
@@ -6284,6 +6850,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SliceScale = {
 				type = {type = "Data", name = "Float32"},
@@ -6292,6 +6859,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TileSize = {
 				type = {type = "Data", name = "UDim2"},
@@ -6300,6 +6868,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6350,6 +6919,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			KeyCode = {
 				type = {type = "Enum", name = "KeyCode"},
@@ -6358,6 +6928,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Position = {
 				type = {type = "Data", name = "Vector3"},
@@ -6366,6 +6937,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			UserInputState = {
 				type = {type = "Enum", name = "UserInputState"},
@@ -6374,6 +6946,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			UserInputType = {
 				type = {type = "Enum", name = "UserInputType"},
@@ -6382,6 +6955,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -6397,6 +6971,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			AllowInsertFreeModels = {
 				type = {type = "Data", name = "Bool"},
@@ -6405,6 +6980,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6422,6 +6998,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ClassName = {
 				type = {type = "Data", name = "String"},
@@ -6430,6 +7007,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			DataCost = {
 				type = {type = "Data", name = "Int32"},
@@ -6438,6 +7016,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Name = {
 				type = {type = "Data", name = "String"},
@@ -6446,6 +7025,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Parent = {
 				type = {type = "Data", name = "Ref"},
@@ -6454,6 +7034,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RobloxLocked = {
 				type = {type = "Data", name = "Bool"},
@@ -6462,6 +7043,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Tags = {
 				type = {type = "Data", name = "BinaryString"},
@@ -6470,22 +7052,25 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Custom",
+				serializes = true,
 			},
 			archivable = {
 				type = {type = "Data", name = "Bool"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Archivable",
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			className = {
 				type = {type = "Data", name = "String"},
 				tags = {Deprecated = true, NotReplicated = true, ReadOnly = true},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "ClassName",
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -6501,6 +7086,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			MaxValue = {
 				type = {type = "Data", name = "Int32"},
@@ -6509,6 +7095,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MinValue = {
 				type = {type = "Data", name = "Int32"},
@@ -6517,6 +7104,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Value = {
 				type = {type = "Data", name = "Int32"},
@@ -6525,6 +7113,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -6545,6 +7134,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6569,6 +7159,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			C0 = {
 				type = {type = "Data", name = "CFrame"},
@@ -6577,6 +7168,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			C1 = {
 				type = {type = "Data", name = "CFrame"},
@@ -6585,6 +7177,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Part0 = {
 				type = {type = "Data", name = "Ref"},
@@ -6593,6 +7186,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Part1 = {
 				type = {type = "Data", name = "Ref"},
@@ -6601,6 +7195,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			part1 = {
 				type = {type = "Data", name = "Ref"},
@@ -6609,6 +7204,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -6640,6 +7236,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6657,6 +7254,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6674,6 +7272,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Loop = {
 				type = {type = "Data", name = "Bool"},
@@ -6682,6 +7281,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Priority = {
 				type = {type = "Enum", name = "AnimationPriority"},
@@ -6690,6 +7290,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6717,6 +7318,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ResetOnSpawn = {
 				type = {type = "Data", name = "Bool"},
@@ -6725,6 +7327,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ZIndexBehavior = {
 				type = {type = "Enum", name = "ZIndexBehavior"},
@@ -6733,6 +7336,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6748,6 +7352,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Color = {
 				type = {type = "Data", name = "Color3"},
@@ -6756,6 +7361,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -6764,6 +7370,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Shadows = {
 				type = {type = "Data", name = "Bool"},
@@ -6772,6 +7379,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6787,6 +7395,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Brightness = {
 				type = {type = "Data", name = "Float32"},
@@ -6795,6 +7404,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClockTime = {
 				type = {type = "Data", name = "Float32"},
@@ -6803,6 +7413,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ColorShift_Bottom = {
 				type = {type = "Data", name = "Color3"},
@@ -6811,6 +7422,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ColorShift_Top = {
 				type = {type = "Data", name = "Color3"},
@@ -6819,6 +7431,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ExposureCompensation = {
 				type = {type = "Data", name = "Float32"},
@@ -6827,6 +7440,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FogColor = {
 				type = {type = "Data", name = "Color3"},
@@ -6835,6 +7449,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FogEnd = {
 				type = {type = "Data", name = "Float32"},
@@ -6843,6 +7458,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FogStart = {
 				type = {type = "Data", name = "Float32"},
@@ -6851,6 +7467,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GeographicLatitude = {
 				type = {type = "Data", name = "Float32"},
@@ -6859,6 +7476,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GlobalShadows = {
 				type = {type = "Data", name = "Bool"},
@@ -6867,6 +7485,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OutdoorAmbient = {
 				type = {type = "Data", name = "Color3"},
@@ -6875,6 +7494,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Outlines = {
 				type = {type = "Data", name = "Bool"},
@@ -6883,6 +7503,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ShadowColor = {
 				type = {type = "Data", name = "Color3"},
@@ -6891,6 +7512,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ShadowSoftness = {
 				type = {type = "Data", name = "Float32"},
@@ -6899,6 +7521,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Technology = {
 				type = {type = "Enum", name = "Technology"},
@@ -6907,6 +7530,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			TimeOfDay = {
 				type = {type = "Data", name = "String"},
@@ -6915,6 +7539,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -6947,6 +7572,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			InverseSquareLaw = {
 				type = {type = "Data", name = "Bool"},
@@ -6955,6 +7581,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Magnitude = {
 				type = {type = "Data", name = "Float32"},
@@ -6963,6 +7590,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxForce = {
 				type = {type = "Data", name = "Float32"},
@@ -6971,6 +7599,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ReactionForceEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -6979,6 +7608,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7004,6 +7634,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Thickness = {
 				type = {type = "Data", name = "Float32"},
@@ -7012,6 +7643,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7056,6 +7688,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ForcePlayModeRobloxLocaleId = {
 				type = {type = "Data", name = "String"},
@@ -7064,6 +7697,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			IsTextScraperRunning = {
 				type = {type = "Data", name = "Bool"},
@@ -7072,6 +7706,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RobloxForcePlayModeGameLocaleId = {
 				type = {type = "Data", name = "String"},
@@ -7080,6 +7715,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RobloxForcePlayModeRobloxLocaleId = {
 				type = {type = "Data", name = "String"},
@@ -7088,6 +7724,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RobloxLocaleId = {
 				type = {type = "Data", name = "String"},
@@ -7096,6 +7733,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			SystemLocaleId = {
 				type = {type = "Data", name = "String"},
@@ -7104,6 +7742,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -7122,6 +7761,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Custom",
+				serializes = true,
 			},
 			DevelopmentLanguage = {
 				type = {type = "Data", name = "String"},
@@ -7130,6 +7770,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Root = {
 				type = {type = "Data", name = "Ref"},
@@ -7138,6 +7779,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			SourceLocaleId = {
 				type = {type = "Data", name = "String"},
@@ -7146,6 +7788,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7179,6 +7822,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DefaultWaitTime = {
 				type = {type = "Data", name = "Float64"},
@@ -7187,6 +7831,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GcFrequency = {
 				type = {type = "Data", name = "Int32"},
@@ -7195,6 +7840,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GcLimit = {
 				type = {type = "Data", name = "Int32"},
@@ -7203,6 +7849,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GcPause = {
 				type = {type = "Data", name = "Int32"},
@@ -7211,6 +7858,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GcStepMul = {
 				type = {type = "Data", name = "Int32"},
@@ -7219,6 +7867,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WaitingThreadsBudget = {
 				type = {type = "Data", name = "Float32"},
@@ -7227,6 +7876,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7242,6 +7892,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -7312,6 +7963,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			MeshId = {
 				type = {type = "Data", name = "Content"},
@@ -7320,6 +7972,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RenderFidelity = {
 				type = {type = "Enum", name = "RenderFidelity"},
@@ -7328,6 +7981,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextureID = {
 				type = {type = "Data", name = "Content"},
@@ -7336,6 +7990,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7400,6 +8055,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7425,6 +8081,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7442,6 +8099,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Source = {
 				type = {type = "Data", name = "String"},
@@ -7450,6 +8108,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7468,6 +8127,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			DesiredAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -7476,6 +8136,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxVelocity = {
 				type = {type = "Data", name = "Float32"},
@@ -7484,6 +8145,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7507,6 +8169,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -7542,6 +8205,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Icon = {
 				type = {type = "Data", name = "Content"},
@@ -7550,6 +8214,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Origin = {
 				type = {type = "Data", name = "CFrame"},
@@ -7558,6 +8223,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Target = {
 				type = {type = "Data", name = "Ref"},
@@ -7566,6 +8232,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TargetFilter = {
 				type = {type = "Data", name = "Ref"},
@@ -7574,6 +8241,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TargetSurface = {
 				type = {type = "Enum", name = "NormalId"},
@@ -7582,6 +8250,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			UnitRay = {
 				type = {type = "Unimplemented", name = "Ray"},
@@ -7590,6 +8259,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ViewSizeX = {
 				type = {type = "Data", name = "Int32"},
@@ -7598,6 +8268,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ViewSizeY = {
 				type = {type = "Data", name = "Int32"},
@@ -7606,6 +8277,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			X = {
 				type = {type = "Data", name = "Int32"},
@@ -7614,6 +8286,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Y = {
 				type = {type = "Data", name = "Int32"},
@@ -7622,6 +8295,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			hit = {
 				type = {type = "Data", name = "CFrame"},
@@ -7630,6 +8304,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			target = {
 				type = {type = "Data", name = "Ref"},
@@ -7638,6 +8313,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -7717,6 +8393,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -7753,6 +8430,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -7768,6 +8446,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClientPhysicsSendRate = {
 				type = {type = "Data", name = "Float32"},
@@ -7776,6 +8455,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DataGCRate = {
 				type = {type = "Data", name = "Float32"},
@@ -7784,6 +8464,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DataMtuAdjust = {
 				type = {type = "Data", name = "Int32"},
@@ -7792,6 +8473,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DataSendPriority = {
 				type = {type = "Enum", name = "PacketPriority"},
@@ -7800,6 +8482,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			DataSendRate = {
 				type = {type = "Data", name = "Float32"},
@@ -7808,6 +8491,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ExtraMemoryUsed = {
 				type = {type = "Data", name = "Int32"},
@@ -7816,6 +8500,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			FreeMemoryMBytes = {
 				type = {type = "Data", name = "Float32"},
@@ -7824,6 +8509,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IncommingReplicationLag = {
 				type = {type = "Data", name = "Float64"},
@@ -7832,6 +8518,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsQueueErrorComputed = {
 				type = {type = "Data", name = "Bool"},
@@ -7840,6 +8527,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NetworkOwnerRate = {
 				type = {type = "Data", name = "Float32"},
@@ -7848,6 +8536,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PhysicsMtuAdjust = {
 				type = {type = "Data", name = "Int32"},
@@ -7856,6 +8545,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PhysicsSendPriority = {
 				type = {type = "Enum", name = "PacketPriority"},
@@ -7864,6 +8554,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			PhysicsSendRate = {
 				type = {type = "Data", name = "Float32"},
@@ -7872,6 +8563,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PreferredClientPort = {
 				type = {type = "Data", name = "Int32"},
@@ -7880,6 +8572,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintBits = {
 				type = {type = "Data", name = "Bool"},
@@ -7888,6 +8581,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintEvents = {
 				type = {type = "Data", name = "Bool"},
@@ -7896,6 +8590,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintFilters = {
 				type = {type = "Data", name = "Bool"},
@@ -7904,6 +8599,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintInstances = {
 				type = {type = "Data", name = "Bool"},
@@ -7912,6 +8608,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintPhysicsErrors = {
 				type = {type = "Data", name = "Bool"},
@@ -7920,6 +8617,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintProperties = {
 				type = {type = "Data", name = "Bool"},
@@ -7928,6 +8626,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintSplitMessage = {
 				type = {type = "Data", name = "Bool"},
@@ -7936,6 +8635,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintStreamInstanceQuota = {
 				type = {type = "Data", name = "Bool"},
@@ -7944,6 +8644,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PrintTouches = {
 				type = {type = "Data", name = "Bool"},
@@ -7952,6 +8653,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ProxyEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -7960,6 +8662,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ProxyURL = {
 				type = {type = "Data", name = "String"},
@@ -7968,6 +8671,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ReceiveRate = {
 				type = {type = "Data", name = "Float64"},
@@ -7976,6 +8680,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RenderStreamedRegions = {
 				type = {type = "Data", name = "Bool"},
@@ -7984,6 +8689,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ShowActiveAnimationAsset = {
 				type = {type = "Data", name = "Bool"},
@@ -7992,6 +8698,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TouchSendRate = {
 				type = {type = "Data", name = "Float32"},
@@ -8000,6 +8707,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TrackDataTypes = {
 				type = {type = "Data", name = "Bool"},
@@ -8008,6 +8716,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TrackPhysicsDetails = {
 				type = {type = "Data", name = "Bool"},
@@ -8016,6 +8725,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UsePhysicsPacketCache = {
 				type = {type = "Data", name = "Bool"},
@@ -8024,6 +8734,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8046,6 +8757,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsLuaChatEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -8054,6 +8766,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsLuaGameDetailsEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -8062,6 +8775,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsLuaGamesPageEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -8070,6 +8784,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsLuaHomePageEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -8078,6 +8793,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			SelectedTheme = {
 				type = {type = "Data", name = "String"},
@@ -8086,6 +8802,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -8103,6 +8820,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8120,6 +8838,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8144,6 +8863,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8166,6 +8886,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			PackageId = {
 				type = {type = "Data", name = "Content"},
@@ -8174,6 +8895,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Status = {
 				type = {type = "Data", name = "String"},
@@ -8182,6 +8904,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			VersionNumber = {
 				type = {type = "Data", name = "Int32"},
@@ -8190,6 +8913,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -8212,6 +8936,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -8227,6 +8952,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8245,6 +8971,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			B = {
 				type = {type = "Data", name = "Float32"},
@@ -8253,6 +8980,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			C = {
 				type = {type = "Data", name = "Float32"},
@@ -8261,6 +8989,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Range = {
 				type = {type = "Data", name = "Float32"},
@@ -8269,6 +8998,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Thickness = {
 				type = {type = "Data", name = "Float32"},
@@ -8277,6 +9007,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -8297,6 +9028,7 @@ return {
 				canonicalName = nil,
 				serializedName = "shape",
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			shape = {
 				type = {type = "Enum", name = "PartType"},
@@ -8305,6 +9037,7 @@ return {
 				canonicalName = "Shape",
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -8368,6 +9101,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8383,6 +9117,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TriangleCount = {
 				type = {type = "Data", name = "Int32"},
@@ -8391,6 +9126,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			UsePartColor = {
 				type = {type = "Data", name = "Bool"},
@@ -8399,6 +9135,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8471,6 +9208,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Color = {
 				type = {type = "Data", name = "ColorSequence"},
@@ -8479,6 +9217,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Drag = {
 				type = {type = "Data", name = "Float32"},
@@ -8487,6 +9226,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EmissionDirection = {
 				type = {type = "Enum", name = "NormalId"},
@@ -8495,6 +9235,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -8503,6 +9244,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Lifetime = {
 				type = {type = "Data", name = "NumberRange"},
@@ -8511,6 +9253,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LightEmission = {
 				type = {type = "Data", name = "Float32"},
@@ -8519,6 +9262,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LightInfluence = {
 				type = {type = "Data", name = "Float32"},
@@ -8527,6 +9271,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LockedToPart = {
 				type = {type = "Data", name = "Bool"},
@@ -8535,6 +9280,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Rate = {
 				type = {type = "Data", name = "Float32"},
@@ -8543,6 +9289,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RotSpeed = {
 				type = {type = "Data", name = "NumberRange"},
@@ -8551,6 +9298,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Rotation = {
 				type = {type = "Data", name = "NumberRange"},
@@ -8559,6 +9307,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Size = {
 				type = {type = "Data", name = "NumberSequence"},
@@ -8567,6 +9316,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Speed = {
 				type = {type = "Data", name = "NumberRange"},
@@ -8575,6 +9325,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SpreadAngle = {
 				type = {type = "Data", name = "Vector2"},
@@ -8583,6 +9334,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Texture = {
 				type = {type = "Data", name = "Content"},
@@ -8591,6 +9343,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Transparency = {
 				type = {type = "Data", name = "NumberSequence"},
@@ -8599,6 +9352,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VelocityInheritance = {
 				type = {type = "Data", name = "Float32"},
@@ -8607,6 +9361,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VelocitySpread = {
 				type = {type = "Data", name = "Float32"},
@@ -8615,6 +9370,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ZOffset = {
 				type = {type = "Data", name = "Float32"},
@@ -8623,6 +9379,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8652,6 +9409,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -8667,6 +9425,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -8699,6 +9458,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreAnchorsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8707,6 +9467,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreAssembliesShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8715,6 +9476,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreAwakePartsHighlighted = {
 				type = {type = "Data", name = "Bool"},
@@ -8723,6 +9485,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreBodyTypesShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8731,6 +9494,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreContactIslandsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8739,6 +9503,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreContactPointsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8747,6 +9512,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreJointCoordinatesShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8755,6 +9521,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreMechanismsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8763,6 +9530,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreModelCoordsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8771,6 +9539,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreOwnersShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8779,6 +9548,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ArePartCoordsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8787,6 +9557,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreRegionsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8795,6 +9566,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreUnalignedPartsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8803,6 +9575,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AreWorldCoordsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8811,6 +9584,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DisableCSGv2 = {
 				type = {type = "Data", name = "Bool"},
@@ -8819,6 +9593,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsReceiveAgeShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8827,6 +9602,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsTreeShown = {
 				type = {type = "Data", name = "Bool"},
@@ -8835,6 +9611,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PhysicsEnvironmentalThrottle = {
 				type = {type = "Enum", name = "EnviromentalPhysicsThrottle"},
@@ -8843,6 +9620,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ShowDecompositionGeometry = {
 				type = {type = "Data", name = "Bool"},
@@ -8851,6 +9629,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ThrottleAdjustTime = {
 				type = {type = "Data", name = "Float64"},
@@ -8859,6 +9638,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UseCSGv2 = {
 				type = {type = "Data", name = "Bool"},
@@ -8867,6 +9647,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8882,6 +9663,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -8908,6 +9690,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			AppearanceDidLoad = {
 				type = {type = "Data", name = "Bool"},
@@ -8916,6 +9699,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			AutoJumpEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -8924,6 +9708,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraMaxZoomDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -8932,6 +9717,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraMinZoomDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -8940,6 +9726,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraMode = {
 				type = {type = "Enum", name = "CameraMode"},
@@ -8948,6 +9735,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CanLoadCharacterAppearance = {
 				type = {type = "Data", name = "Bool"},
@@ -8956,6 +9744,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Character = {
 				type = {type = "Data", name = "Ref"},
@@ -8964,6 +9753,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CharacterAppearance = {
 				type = {type = "Data", name = "String"},
@@ -8972,6 +9762,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CharacterAppearanceId = {
 				type = {type = "Data", name = "Int32"},
@@ -8980,6 +9771,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ChatMode = {
 				type = {type = "Enum", name = "ChatMode"},
@@ -8988,6 +9780,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			DataComplexity = {
 				type = {type = "Data", name = "Int32"},
@@ -8996,6 +9789,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			DataComplexityLimit = {
 				type = {type = "Data", name = "Int32"},
@@ -9004,6 +9798,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			DataReady = {
 				type = {type = "Data", name = "Bool"},
@@ -9012,6 +9807,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			DevCameraOcclusionMode = {
 				type = {type = "Enum", name = "DevCameraOcclusionMode"},
@@ -9020,6 +9816,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevComputerCameraMode = {
 				type = {type = "Enum", name = "DevComputerCameraMovementMode"},
@@ -9028,6 +9825,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevComputerMovementMode = {
 				type = {type = "Enum", name = "DevComputerMovementMode"},
@@ -9036,6 +9834,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevEnableMouseLock = {
 				type = {type = "Data", name = "Bool"},
@@ -9044,6 +9843,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevTouchCameraMode = {
 				type = {type = "Enum", name = "DevTouchCameraMovementMode"},
@@ -9052,6 +9852,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevTouchMovementMode = {
 				type = {type = "Enum", name = "DevTouchMovementMode"},
@@ -9060,6 +9861,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DisplayName = {
 				type = {type = "Data", name = "String"},
@@ -9068,6 +9870,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			FollowUserId = {
 				type = {type = "Data", name = "Int32"},
@@ -9076,6 +9879,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Guest = {
 				type = {type = "Data", name = "Bool"},
@@ -9084,6 +9888,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			HealthDisplayDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -9092,6 +9897,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LocaleId = {
 				type = {type = "Data", name = "String"},
@@ -9100,6 +9906,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MaximumSimulationRadius = {
 				type = {type = "Data", name = "Float32"},
@@ -9108,6 +9915,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			MembershipType = {
 				type = {type = "Enum", name = "MembershipType"},
@@ -9116,6 +9924,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			NameDisplayDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -9124,6 +9933,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Neutral = {
 				type = {type = "Data", name = "Bool"},
@@ -9132,6 +9942,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OsPlatform = {
 				type = {type = "Data", name = "String"},
@@ -9140,6 +9951,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ReplicationFocus = {
 				type = {type = "Data", name = "Ref"},
@@ -9148,6 +9960,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RespawnLocation = {
 				type = {type = "Data", name = "Ref"},
@@ -9156,6 +9969,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SimulationRadius = {
 				type = {type = "Data", name = "Float32"},
@@ -9164,6 +9978,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Team = {
 				type = {type = "Data", name = "Ref"},
@@ -9172,6 +9987,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TeamColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -9180,6 +9996,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Teleported = {
 				type = {type = "Data", name = "Bool"},
@@ -9188,6 +10005,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TeleportedIn = {
 				type = {type = "Data", name = "Bool"},
@@ -9196,6 +10014,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UserId = {
 				type = {type = "Data", name = "Int32"},
@@ -9204,6 +10023,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			VRDevice = {
 				type = {type = "Data", name = "String"},
@@ -9212,6 +10032,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			userId = {
 				type = {type = "Data", name = "Int32"},
@@ -9220,6 +10041,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -9235,6 +10057,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ScreenOrientation = {
 				type = {type = "Enum", name = "ScreenOrientation"},
@@ -9243,6 +10066,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SelectionImageObject = {
 				type = {type = "Data", name = "Ref"},
@@ -9251,6 +10075,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -9280,6 +10105,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			CharacterAutoLoads = {
 				type = {type = "Data", name = "Bool"},
@@ -9288,6 +10114,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClassicChat = {
 				type = {type = "Data", name = "Bool"},
@@ -9296,6 +10123,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			LocalPlayer = {
 				type = {type = "Data", name = "Ref"},
@@ -9304,6 +10132,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MaxPlayers = {
 				type = {type = "Data", name = "Int32"},
@@ -9312,6 +10141,7 @@ return {
 				canonicalName = nil,
 				serializedName = "MaxPlayersInternal",
 				scriptability = "Read",
+				serializes = true,
 			},
 			MaxPlayersInternal = {
 				type = {type = "Data", name = "Int32"},
@@ -9320,6 +10150,7 @@ return {
 				canonicalName = "MaxPlayers",
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			NumPlayers = {
 				type = {type = "Data", name = "Int32"},
@@ -9328,6 +10159,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PreferredPlayers = {
 				type = {type = "Data", name = "Int32"},
@@ -9336,6 +10168,7 @@ return {
 				canonicalName = nil,
 				serializedName = "PreferredPlayersInternal",
 				scriptability = "Read",
+				serializes = true,
 			},
 			PreferredPlayersInternal = {
 				type = {type = "Data", name = "Int32"},
@@ -9344,6 +10177,7 @@ return {
 				canonicalName = "PreferredPlayers",
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RespawnTime = {
 				type = {type = "Data", name = "Float32"},
@@ -9352,6 +10186,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			localPlayer = {
 				type = {type = "Data", name = "Ref"},
@@ -9360,6 +10195,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			numPlayers = {
 				type = {type = "Data", name = "Int32"},
@@ -9368,6 +10204,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -9386,6 +10223,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			GridSize = {
 				type = {type = "Data", name = "Float32"},
@@ -9394,6 +10232,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			UsesAssetInsertionDrag = {
 				type = {type = "Data", name = "Bool"},
@@ -9402,6 +10241,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -9417,6 +10257,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			AllowBinding = {
 				type = {type = "Data", name = "Bool"},
@@ -9425,6 +10266,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			StatusTip = {
 				type = {type = "Data", name = "String"},
@@ -9433,6 +10275,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Text = {
 				type = {type = "Data", name = "String"},
@@ -9441,6 +10284,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -9457,6 +10301,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MimeType = {
 				type = {type = "Data", name = "String"},
@@ -9465,6 +10310,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Position = {
 				type = {type = "Data", name = "Vector2"},
@@ -9473,6 +10319,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Sender = {
 				type = {type = "Data", name = "String"},
@@ -9481,6 +10328,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -9496,6 +10344,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -9526,6 +10375,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Title = {
 				type = {type = "Data", name = "String"},
@@ -9534,6 +10384,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -9563,6 +10414,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -9571,6 +10423,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Icon = {
 				type = {type = "Data", name = "Content"},
@@ -9579,6 +10432,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -9594,6 +10448,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -9623,6 +10478,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EasingDirection = {
 				type = {type = "Enum", name = "PoseEasingDirection"},
@@ -9631,6 +10487,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EasingStyle = {
 				type = {type = "Enum", name = "PoseEasingStyle"},
@@ -9639,6 +10496,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaskWeight = {
 				type = {type = "Data", name = "Float32"},
@@ -9647,6 +10505,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Weight = {
 				type = {type = "Data", name = "Float32"},
@@ -9655,6 +10514,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -9676,6 +10536,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -9723,6 +10584,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -9755,6 +10617,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ExplorerOrder = {
 				type = {type = "Data", name = "Int32"},
@@ -9763,6 +10626,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Insertable = {
 				type = {type = "Data", name = "Bool"},
@@ -9771,6 +10635,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PreferredParent = {
 				type = {type = "Data", name = "String"},
@@ -9779,6 +10644,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PreferredParents = {
 				type = {type = "Data", name = "String"},
@@ -9787,6 +10653,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -9895,6 +10762,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClassCategory = {
 				type = {type = "Data", name = "String"},
@@ -9903,6 +10771,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClientOnly = {
 				type = {type = "Data", name = "Bool"},
@@ -9911,6 +10780,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Constraint = {
 				type = {type = "Data", name = "String"},
@@ -9919,6 +10789,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Deprecated = {
 				type = {type = "Data", name = "Bool"},
@@ -9927,6 +10798,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EditingDisabled = {
 				type = {type = "Data", name = "Bool"},
@@ -9935,6 +10807,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsBackend = {
 				type = {type = "Data", name = "Bool"},
@@ -9943,6 +10816,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScriptContext = {
 				type = {type = "Data", name = "String"},
@@ -9951,6 +10825,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ServerOnly = {
 				type = {type = "Data", name = "Bool"},
@@ -9959,6 +10834,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UIMaximum = {
 				type = {type = "Data", name = "Float64"},
@@ -9967,6 +10843,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UIMinimum = {
 				type = {type = "Data", name = "Float64"},
@@ -9975,6 +10852,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UINumTicks = {
 				type = {type = "Data", name = "Float64"},
@@ -9983,6 +10861,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			summary = {
 				type = {type = "Data", name = "String"},
@@ -9991,6 +10870,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10059,6 +10939,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EagerBulkExecution = {
 				type = {type = "Data", name = "Bool"},
@@ -10067,6 +10948,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EditQualityLevel = {
 				type = {type = "Enum", name = "QualityLevel"},
@@ -10075,6 +10957,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EnableFRM = {
 				type = {type = "Data", name = "Bool"},
@@ -10083,6 +10966,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ExportMergeByMaterial = {
 				type = {type = "Data", name = "Bool"},
@@ -10091,6 +10975,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FrameRateManager = {
 				type = {type = "Enum", name = "FramerateManagerMode"},
@@ -10099,6 +10984,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GraphicsMode = {
 				type = {type = "Enum", name = "GraphicsMode"},
@@ -10107,6 +10993,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MeshCacheSize = {
 				type = {type = "Data", name = "Int32"},
@@ -10115,6 +11002,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			QualityLevel = {
 				type = {type = "Enum", name = "QualityLevel"},
@@ -10123,6 +11011,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ReloadAssets = {
 				type = {type = "Data", name = "Bool"},
@@ -10131,6 +11020,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RenderCSGTrianglesDebug = {
 				type = {type = "Data", name = "Bool"},
@@ -10139,6 +11029,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ShowBoundingBoxes = {
 				type = {type = "Data", name = "Bool"},
@@ -10147,6 +11038,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10162,6 +11054,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ComparisonDiffThreshold = {
 				type = {type = "Data", name = "Int32"},
@@ -10170,6 +11063,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ComparisonMethod = {
 				type = {type = "Enum", name = "RenderingTestComparisonMethod"},
@@ -10178,6 +11072,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ComparisonPsnrThreshold = {
 				type = {type = "Data", name = "Float32"},
@@ -10186,6 +11081,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Description = {
 				type = {type = "Data", name = "String"},
@@ -10194,6 +11090,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FieldOfView = {
 				type = {type = "Data", name = "Float32"},
@@ -10202,6 +11099,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Orientation = {
 				type = {type = "Data", name = "Vector3"},
@@ -10210,6 +11108,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Position = {
 				type = {type = "Data", name = "Vector3"},
@@ -10218,6 +11117,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			QualityLevel = {
 				type = {type = "Data", name = "Int32"},
@@ -10226,6 +11126,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ShouldSkip = {
 				type = {type = "Data", name = "Bool"},
@@ -10234,6 +11135,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Ticket = {
 				type = {type = "Data", name = "String"},
@@ -10242,6 +11144,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10285,6 +11188,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Density = {
 				type = {type = "Data", name = "Float32"},
@@ -10293,6 +11197,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Diffusion = {
 				type = {type = "Data", name = "Float32"},
@@ -10301,6 +11206,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DryLevel = {
 				type = {type = "Data", name = "Float32"},
@@ -10309,6 +11215,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WetLevel = {
 				type = {type = "Data", name = "Float32"},
@@ -10317,6 +11224,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10348,6 +11256,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -10356,6 +11265,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxThrust = {
 				type = {type = "Data", name = "Float32"},
@@ -10364,6 +11274,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxTorque = {
 				type = {type = "Data", name = "Vector3"},
@@ -10372,6 +11283,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Target = {
 				type = {type = "Data", name = "Ref"},
@@ -10380,6 +11292,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TargetOffset = {
 				type = {type = "Data", name = "Vector3"},
@@ -10388,6 +11301,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TargetRadius = {
 				type = {type = "Data", name = "Float32"},
@@ -10396,6 +11310,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ThrustD = {
 				type = {type = "Data", name = "Float32"},
@@ -10404,6 +11319,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ThrustP = {
 				type = {type = "Data", name = "Float32"},
@@ -10412,6 +11328,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TurnD = {
 				type = {type = "Data", name = "Float32"},
@@ -10420,6 +11337,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TurnP = {
 				type = {type = "Data", name = "Float32"},
@@ -10428,6 +11346,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10455,6 +11374,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Length = {
 				type = {type = "Data", name = "Float32"},
@@ -10463,6 +11383,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Thickness = {
 				type = {type = "Data", name = "Float32"},
@@ -10471,6 +11392,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10494,6 +11416,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Length = {
 				type = {type = "Data", name = "Float32"},
@@ -10502,6 +11425,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Restitution = {
 				type = {type = "Data", name = "Float32"},
@@ -10510,6 +11434,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Thickness = {
 				type = {type = "Data", name = "Float32"},
@@ -10518,6 +11443,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10617,6 +11543,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IgnoreGuiInset = {
 				type = {type = "Data", name = "Bool"},
@@ -10625,6 +11552,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OnTopOfCoreBlur = {
 				type = {type = "Data", name = "Bool"},
@@ -10633,6 +11561,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -10658,6 +11587,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10677,6 +11607,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -10693,6 +11624,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsDebugging = {
 				type = {type = "Data", name = "Bool"},
@@ -10701,6 +11633,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsPaused = {
 				type = {type = "Data", name = "Bool"},
@@ -10709,6 +11642,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Script = {
 				type = {type = "Data", name = "Ref"},
@@ -10717,6 +11651,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -10740,6 +11675,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			BottomImage = {
 				type = {type = "Data", name = "Content"},
@@ -10748,6 +11684,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CanvasPosition = {
 				type = {type = "Data", name = "Vector2"},
@@ -10756,6 +11693,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CanvasSize = {
 				type = {type = "Data", name = "UDim2"},
@@ -10764,6 +11702,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ElasticBehavior = {
 				type = {type = "Enum", name = "ElasticBehavior"},
@@ -10772,6 +11711,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HorizontalScrollBarInset = {
 				type = {type = "Enum", name = "ScrollBarInset"},
@@ -10780,6 +11720,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MidImage = {
 				type = {type = "Data", name = "Content"},
@@ -10788,6 +11729,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScrollBarImageColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -10796,6 +11738,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScrollBarImageTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -10804,6 +11747,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScrollBarThickness = {
 				type = {type = "Data", name = "Int32"},
@@ -10812,6 +11756,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScrollingDirection = {
 				type = {type = "Enum", name = "ScrollingDirection"},
@@ -10820,6 +11765,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScrollingEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -10828,6 +11774,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TopImage = {
 				type = {type = "Data", name = "Content"},
@@ -10836,6 +11783,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VerticalScrollBarInset = {
 				type = {type = "Enum", name = "ScrollBarInset"},
@@ -10844,6 +11792,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VerticalScrollBarPosition = {
 				type = {type = "Enum", name = "VerticalScrollBarPosition"},
@@ -10852,6 +11801,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -10909,6 +11859,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Occupant = {
 				type = {type = "Data", name = "Ref"},
@@ -10917,6 +11868,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -10989,6 +11941,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SurfaceColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -10997,6 +11950,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			SurfaceColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -11005,6 +11959,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SurfaceTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -11013,6 +11968,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11036,6 +11992,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11051,6 +12008,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11072,6 +12030,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11093,6 +12052,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			SurfaceColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -11101,6 +12061,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SurfaceTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -11109,6 +12070,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11138,6 +12100,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11169,6 +12132,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11187,6 +12151,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Graphic = {
 				type = {type = "Data", name = "Content"},
@@ -11195,6 +12160,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11213,6 +12179,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Throttle = {
 				type = {type = "Data", name = "Float32"},
@@ -11221,6 +12188,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -11237,6 +12205,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ControllingHumanoid = {
 				type = {type = "Data", name = "Ref"},
@@ -11245,6 +12214,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Steer = {
 				type = {type = "Data", name = "Int32"},
@@ -11253,6 +12223,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StickyWheels = {
 				type = {type = "Data", name = "Bool"},
@@ -11261,6 +12232,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Throttle = {
 				type = {type = "Data", name = "Int32"},
@@ -11269,6 +12241,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11335,6 +12308,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11351,6 +12325,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MoonAngularSize = {
 				type = {type = "Data", name = "Float32"},
@@ -11359,6 +12334,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MoonTextureId = {
 				type = {type = "Data", name = "Content"},
@@ -11367,6 +12343,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SkyboxBk = {
 				type = {type = "Data", name = "Content"},
@@ -11375,6 +12352,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SkyboxDn = {
 				type = {type = "Data", name = "Content"},
@@ -11383,6 +12361,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SkyboxFt = {
 				type = {type = "Data", name = "Content"},
@@ -11391,6 +12370,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SkyboxLf = {
 				type = {type = "Data", name = "Content"},
@@ -11399,6 +12379,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SkyboxRt = {
 				type = {type = "Data", name = "Content"},
@@ -11407,6 +12388,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SkyboxUp = {
 				type = {type = "Data", name = "Content"},
@@ -11415,6 +12397,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StarCount = {
 				type = {type = "Data", name = "Int32"},
@@ -11423,6 +12406,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SunAngularSize = {
 				type = {type = "Data", name = "Float32"},
@@ -11431,6 +12415,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SunTextureId = {
 				type = {type = "Data", name = "Content"},
@@ -11439,6 +12424,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11467,6 +12453,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CurrentPosition = {
 				type = {type = "Data", name = "Float32"},
@@ -11475,6 +12462,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			LimitsEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -11483,6 +12471,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LowerLimit = {
 				type = {type = "Data", name = "Float32"},
@@ -11491,6 +12480,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MotorMaxAcceleration = {
 				type = {type = "Data", name = "Float32"},
@@ -11499,6 +12489,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MotorMaxForce = {
 				type = {type = "Data", name = "Float32"},
@@ -11507,6 +12498,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Restitution = {
 				type = {type = "Data", name = "Float32"},
@@ -11515,6 +12507,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ServoMaxForce = {
 				type = {type = "Data", name = "Float32"},
@@ -11523,6 +12516,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Size = {
 				type = {type = "Data", name = "Float32"},
@@ -11531,6 +12525,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Speed = {
 				type = {type = "Data", name = "Float32"},
@@ -11539,6 +12534,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TargetPosition = {
 				type = {type = "Data", name = "Float32"},
@@ -11547,6 +12543,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UpperLimit = {
 				type = {type = "Data", name = "Float32"},
@@ -11555,6 +12552,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Velocity = {
 				type = {type = "Data", name = "Float32"},
@@ -11563,6 +12561,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11578,6 +12577,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -11586,6 +12586,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Opacity = {
 				type = {type = "Data", name = "Float32"},
@@ -11594,6 +12595,7 @@ return {
 				canonicalName = nil,
 				serializedName = "opacity_xml",
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RiseVelocity = {
 				type = {type = "Data", name = "Float32"},
@@ -11602,6 +12604,7 @@ return {
 				canonicalName = nil,
 				serializedName = "riseVelocity_xml",
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Size = {
 				type = {type = "Data", name = "Float32"},
@@ -11610,6 +12613,7 @@ return {
 				canonicalName = nil,
 				serializedName = "size_xml",
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			opacity_xml = {
 				type = {type = "Data", name = "Float32"},
@@ -11618,6 +12622,7 @@ return {
 				canonicalName = "Opacity",
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 			riseVelocity_xml = {
 				type = {type = "Data", name = "Float32"},
@@ -11626,6 +12631,7 @@ return {
 				canonicalName = "RiseVelocity",
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 			size_xml = {
 				type = {type = "Data", name = "Float32"},
@@ -11634,6 +12640,7 @@ return {
 				canonicalName = "Size",
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -11683,6 +12690,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsLoaded = {
 				type = {type = "Data", name = "Bool"},
@@ -11691,6 +12699,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsPaused = {
 				type = {type = "Data", name = "Bool"},
@@ -11699,6 +12708,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsPlaying = {
 				type = {type = "Data", name = "Bool"},
@@ -11707,6 +12717,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Looped = {
 				type = {type = "Data", name = "Bool"},
@@ -11715,6 +12726,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -11723,6 +12735,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			MinDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -11731,6 +12744,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Pitch = {
 				type = {type = "Data", name = "Float32"},
@@ -11739,6 +12753,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			PlayOnRemove = {
 				type = {type = "Data", name = "Bool"},
@@ -11747,6 +12762,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PlaybackLoudness = {
 				type = {type = "Data", name = "Float64"},
@@ -11755,6 +12771,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PlaybackSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -11763,6 +12780,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Playing = {
 				type = {type = "Data", name = "Bool"},
@@ -11771,6 +12789,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RollOffMode = {
 				type = {type = "Enum", name = "RollOffMode"},
@@ -11779,6 +12798,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SoundGroup = {
 				type = {type = "Data", name = "Ref"},
@@ -11787,6 +12807,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SoundId = {
 				type = {type = "Data", name = "Content"},
@@ -11795,6 +12816,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TimeLength = {
 				type = {type = "Data", name = "Float64"},
@@ -11803,6 +12825,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TimePosition = {
 				type = {type = "Data", name = "Float64"},
@@ -11811,6 +12834,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Volume = {
 				type = {type = "Data", name = "Float32"},
@@ -11819,6 +12843,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			isPlaying = {
 				type = {type = "Data", name = "Bool"},
@@ -11827,6 +12852,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -11855,6 +12881,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Priority = {
 				type = {type = "Data", name = "Int32"},
@@ -11863,6 +12890,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11878,6 +12906,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11895,6 +12924,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DistanceFactor = {
 				type = {type = "Data", name = "Float32"},
@@ -11903,6 +12933,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DopplerScale = {
 				type = {type = "Data", name = "Float32"},
@@ -11911,6 +12942,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RespectFilteringEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -11919,6 +12951,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RolloffScale = {
 				type = {type = "Data", name = "Float32"},
@@ -11927,6 +12960,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11948,6 +12982,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -11956,6 +12991,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SparkleColor = {
 				type = {type = "Data", name = "Color3"},
@@ -11964,6 +13000,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -11983,6 +13020,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Duration = {
 				type = {type = "Data", name = "Int32"},
@@ -11991,6 +13029,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -11999,6 +13038,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Neutral = {
 				type = {type = "Data", name = "Bool"},
@@ -12007,6 +13047,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TeamColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -12015,6 +13056,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12089,6 +13131,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12111,6 +13154,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12136,6 +13180,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Face = {
 				type = {type = "Enum", name = "NormalId"},
@@ -12144,6 +13189,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Range = {
 				type = {type = "Data", name = "Float32"},
@@ -12152,6 +13198,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12175,6 +13222,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CurrentLength = {
 				type = {type = "Data", name = "Float32"},
@@ -12183,6 +13231,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Damping = {
 				type = {type = "Data", name = "Float32"},
@@ -12191,6 +13240,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FreeLength = {
 				type = {type = "Data", name = "Float32"},
@@ -12199,6 +13249,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LimitsEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -12207,6 +13258,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxForce = {
 				type = {type = "Data", name = "Float32"},
@@ -12215,6 +13267,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxLength = {
 				type = {type = "Data", name = "Float32"},
@@ -12223,6 +13276,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MinLength = {
 				type = {type = "Data", name = "Float32"},
@@ -12231,6 +13285,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Radius = {
 				type = {type = "Data", name = "Float32"},
@@ -12239,6 +13294,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Stiffness = {
 				type = {type = "Data", name = "Float32"},
@@ -12247,6 +13303,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Thickness = {
 				type = {type = "Data", name = "Float32"},
@@ -12255,6 +13312,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12309,6 +13367,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ResetPlayerGuiOnSpawn = {
 				type = {type = "Data", name = "Bool"},
@@ -12317,6 +13376,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScreenOrientation = {
 				type = {type = "Enum", name = "ScreenOrientation"},
@@ -12325,6 +13385,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ShowDevelopmentGui = {
 				type = {type = "Data", name = "Bool"},
@@ -12333,6 +13394,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12360,6 +13422,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AutoJumpEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -12368,6 +13431,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraMaxZoomDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -12376,6 +13440,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraMinZoomDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -12384,6 +13449,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraMode = {
 				type = {type = "Enum", name = "CameraMode"},
@@ -12392,6 +13458,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CharacterJumpHeight = {
 				type = {type = "Data", name = "Float32"},
@@ -12400,6 +13467,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CharacterJumpPower = {
 				type = {type = "Data", name = "Float32"},
@@ -12408,6 +13476,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CharacterMaxSlopeAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -12416,6 +13485,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CharacterUseJumpPower = {
 				type = {type = "Data", name = "Bool"},
@@ -12424,6 +13494,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CharacterWalkSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -12432,6 +13503,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevCameraOcclusionMode = {
 				type = {type = "Enum", name = "DevCameraOcclusionMode"},
@@ -12440,6 +13512,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevComputerCameraMovementMode = {
 				type = {type = "Enum", name = "DevComputerCameraMovementMode"},
@@ -12448,6 +13521,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevComputerMovementMode = {
 				type = {type = "Enum", name = "DevComputerMovementMode"},
@@ -12456,6 +13530,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevTouchCameraMovementMode = {
 				type = {type = "Enum", name = "DevTouchCameraMovementMode"},
@@ -12464,6 +13539,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DevTouchMovementMode = {
 				type = {type = "Enum", name = "DevTouchMovementMode"},
@@ -12472,6 +13548,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EnableMouseLockOption = {
 				type = {type = "Data", name = "Bool"},
@@ -12480,6 +13557,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDFace = {
 				type = {type = "Data", name = "Int32"},
@@ -12488,6 +13566,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDHead = {
 				type = {type = "Data", name = "Int32"},
@@ -12496,6 +13575,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDLeftArm = {
 				type = {type = "Data", name = "Int32"},
@@ -12504,6 +13584,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDLeftLeg = {
 				type = {type = "Data", name = "Int32"},
@@ -12512,6 +13593,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDPants = {
 				type = {type = "Data", name = "Int32"},
@@ -12520,6 +13602,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDRightArm = {
 				type = {type = "Data", name = "Int32"},
@@ -12528,6 +13611,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDRightLeg = {
 				type = {type = "Data", name = "Int32"},
@@ -12536,6 +13620,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDShirt = {
 				type = {type = "Data", name = "Int32"},
@@ -12544,6 +13629,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDTeeShirt = {
 				type = {type = "Data", name = "Int32"},
@@ -12552,6 +13638,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAssetIDTorso = {
 				type = {type = "Data", name = "Int32"},
@@ -12560,6 +13647,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsAvatar = {
 				type = {type = "Enum", name = "GameAvatarType"},
@@ -12568,6 +13656,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsR15Collision = {
 				type = {type = "Enum", name = "R15CollisionType"},
@@ -12576,6 +13665,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsScaleRangeBodyType = {
 				type = {type = "Data", name = "NumberRange"},
@@ -12584,6 +13674,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsScaleRangeHead = {
 				type = {type = "Data", name = "NumberRange"},
@@ -12592,6 +13683,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsScaleRangeHeight = {
 				type = {type = "Data", name = "NumberRange"},
@@ -12600,6 +13692,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsScaleRangeProportion = {
 				type = {type = "Data", name = "NumberRange"},
@@ -12608,6 +13701,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GameSettingsScaleRangeWidth = {
 				type = {type = "Data", name = "NumberRange"},
@@ -12616,6 +13710,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HealthDisplayDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -12624,6 +13719,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LoadCharacterAppearance = {
 				type = {type = "Data", name = "Bool"},
@@ -12632,6 +13728,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NameDisplayDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -12640,6 +13737,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12695,6 +13793,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			DataReceiveKbps = {
 				type = {type = "Data", name = "Float32"},
@@ -12703,6 +13802,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			DataSendKbps = {
 				type = {type = "Data", name = "Float32"},
@@ -12711,6 +13811,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			HeartbeatTimeMs = {
 				type = {type = "Data", name = "Float32"},
@@ -12719,6 +13820,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			InstanceCount = {
 				type = {type = "Data", name = "Int32"},
@@ -12727,6 +13829,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MovingPrimitivesCount = {
 				type = {type = "Data", name = "Int32"},
@@ -12735,6 +13838,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PhysicsReceiveKbps = {
 				type = {type = "Data", name = "Float32"},
@@ -12743,6 +13847,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PhysicsSendKbps = {
 				type = {type = "Data", name = "Float32"},
@@ -12751,6 +13856,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PhysicsStepTimeMs = {
 				type = {type = "Data", name = "Float32"},
@@ -12759,6 +13865,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			PrimitivesCount = {
 				type = {type = "Data", name = "Int32"},
@@ -12767,6 +13874,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -12804,6 +13912,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12821,6 +13930,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DeprecatedObjectsShown = {
 				type = {type = "Data", name = "Bool"},
@@ -12829,6 +13939,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Font = {
 				type = {type = "Unimplemented", name = "QFont"},
@@ -12837,6 +13948,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Language = {
 				type = {type = "Enum", name = "LanguagePreference"},
@@ -12845,6 +13957,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LuaDebuggerEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -12853,6 +13966,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LuaDebuggerEnabledAtStartup = {
 				type = {type = "Data", name = "Bool"},
@@ -12861,6 +13975,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OverrideCoreScripts = {
 				type = {type = "Data", name = "Bool"},
@@ -12869,6 +13984,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OverrideCoreScriptsDir = {
 				type = {type = "Unimplemented", name = "QDir"},
@@ -12877,6 +13993,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PermissionLevelShown = {
 				type = {type = "Enum", name = "PermissionLevelShown"},
@@ -12885,6 +14002,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PluginsDir = {
 				type = {type = "Unimplemented", name = "QDir"},
@@ -12893,6 +14011,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RecentSavesDir = {
 				type = {type = "Unimplemented", name = "QDir"},
@@ -12901,6 +14020,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RuntimeUndoBehavior = {
 				type = {type = "Enum", name = "RuntimeUndoBehavior"},
@@ -12909,6 +14029,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScriptTimeoutLength = {
 				type = {type = "Data", name = "Int32"},
@@ -12917,6 +14038,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Theme = {
 				type = {type = "Data", name = "Ref"},
@@ -12925,6 +14047,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -12940,6 +14063,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -12963,6 +14087,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Spread = {
 				type = {type = "Data", name = "Float32"},
@@ -12971,6 +14096,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -12990,6 +14116,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Adornee = {
 				type = {type = "Data", name = "Ref"},
@@ -12998,6 +14125,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AlwaysOnTop = {
 				type = {type = "Data", name = "Bool"},
@@ -13006,6 +14134,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CanvasSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -13014,6 +14143,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ClipsDescendants = {
 				type = {type = "Data", name = "Bool"},
@@ -13022,6 +14152,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Face = {
 				type = {type = "Enum", name = "NormalId"},
@@ -13030,6 +14161,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LightInfluence = {
 				type = {type = "Data", name = "Float32"},
@@ -13038,6 +14170,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ToolPunchThroughDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -13046,6 +14179,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ZOffset = {
 				type = {type = "Data", name = "Float32"},
@@ -13054,6 +14188,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -13086,6 +14221,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Face = {
 				type = {type = "Enum", name = "NormalId"},
@@ -13094,6 +14230,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Range = {
 				type = {type = "Data", name = "Float32"},
@@ -13102,6 +14239,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -13125,6 +14263,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -13146,6 +14285,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			SchedulerRate = {
 				type = {type = "Data", name = "Float64"},
@@ -13154,6 +14294,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ThreadPoolConfig = {
 				type = {type = "Enum", name = "ThreadPoolConfig"},
@@ -13162,6 +14303,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ThreadPoolSize = {
 				type = {type = "Data", name = "Int32"},
@@ -13170,6 +14312,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -13185,6 +14328,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AutoColorCharacters = {
 				type = {type = "Data", name = "Bool"},
@@ -13193,6 +14337,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Score = {
 				type = {type = "Data", name = "Int32"},
@@ -13201,6 +14346,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TeamColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -13209,6 +14355,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -13236,6 +14383,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -13253,6 +14401,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MaterialColors = {
 				type = {type = "Data", name = "BinaryString"},
@@ -13261,6 +14410,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			MaxExtents = {
 				type = {type = "Unimplemented", name = "Region3int16"},
@@ -13269,6 +14419,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			WaterColor = {
 				type = {type = "Data", name = "Color3"},
@@ -13277,6 +14428,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WaterReflectance = {
 				type = {type = "Data", name = "Float32"},
@@ -13285,6 +14437,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WaterTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -13293,6 +14446,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WaterWaveSize = {
 				type = {type = "Data", name = "Float32"},
@@ -13301,6 +14455,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WaterWaveSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -13309,6 +14464,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -13324,6 +14480,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			SizeInCells = {
 				type = {type = "Data", name = "Vector3"},
@@ -13332,6 +14489,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -13348,6 +14506,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Description = {
 				type = {type = "Data", name = "String"},
@@ -13356,6 +14515,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ErrorCount = {
 				type = {type = "Data", name = "Int32"},
@@ -13364,6 +14524,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			ExecuteWithStudioRun = {
 				type = {type = "Data", name = "Bool"},
@@ -13372,6 +14533,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Is30FpsThrottleEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -13380,6 +14542,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsPhysicsEnvironmentalThrottled = {
 				type = {type = "Data", name = "Bool"},
@@ -13388,6 +14551,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsSleepAllowed = {
 				type = {type = "Data", name = "Bool"},
@@ -13396,6 +14560,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NumberOfPlayers = {
 				type = {type = "Data", name = "Int32"},
@@ -13404,6 +14569,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SimulateSecondsLag = {
 				type = {type = "Data", name = "Float64"},
@@ -13412,6 +14578,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TestCount = {
 				type = {type = "Data", name = "Int32"},
@@ -13420,6 +14587,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Timeout = {
 				type = {type = "Data", name = "Float64"},
@@ -13428,6 +14596,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WarnCount = {
 				type = {type = "Data", name = "Int32"},
@@ -13436,6 +14605,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -13464,6 +14634,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CursorPosition = {
 				type = {type = "Data", name = "Int32"},
@@ -13472,6 +14643,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Font = {
 				type = {type = "Enum", name = "Font"},
@@ -13480,6 +14652,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FontSize = {
 				type = {type = "Enum", name = "FontSize"},
@@ -13488,6 +14661,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			IsPassword = {
 				type = {type = "Data", name = "Bool"},
@@ -13496,6 +14670,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			LineHeight = {
 				type = {type = "Data", name = "Float32"},
@@ -13504,6 +14679,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ManualFocusRelease = {
 				type = {type = "Data", name = "Bool"},
@@ -13512,6 +14688,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			MultiLine = {
 				type = {type = "Data", name = "Bool"},
@@ -13520,6 +14697,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OverlayNativeInput = {
 				type = {type = "Data", name = "Bool"},
@@ -13528,6 +14706,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			PlaceholderColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -13536,6 +14715,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PlaceholderText = {
 				type = {type = "Data", name = "String"},
@@ -13544,6 +14724,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ShowNativeInput = {
 				type = {type = "Data", name = "Bool"},
@@ -13552,6 +14733,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Text = {
 				type = {type = "Data", name = "String"},
@@ -13560,6 +14742,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextBounds = {
 				type = {type = "Data", name = "Vector2"},
@@ -13568,6 +14751,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TextColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -13576,6 +14760,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TextColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -13584,6 +14769,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextFits = {
 				type = {type = "Data", name = "Bool"},
@@ -13592,6 +14778,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TextScaled = {
 				type = {type = "Data", name = "Bool"},
@@ -13600,6 +14787,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextSize = {
 				type = {type = "Data", name = "Float32"},
@@ -13608,6 +14796,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextStrokeColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -13616,6 +14805,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextStrokeTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -13624,6 +14814,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -13632,6 +14823,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextTruncate = {
 				type = {type = "Enum", name = "TextTruncate"},
@@ -13640,6 +14832,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextWrap = {
 				type = {type = "Data", name = "Bool"},
@@ -13648,6 +14841,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TextWrapped = {
 				type = {type = "Data", name = "Bool"},
@@ -13656,6 +14850,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextXAlignment = {
 				type = {type = "Enum", name = "TextXAlignment"},
@@ -13664,6 +14859,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextYAlignment = {
 				type = {type = "Enum", name = "TextYAlignment"},
@@ -13672,6 +14868,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -13737,6 +14934,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FontSize = {
 				type = {type = "Enum", name = "FontSize"},
@@ -13745,6 +14943,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			LineHeight = {
 				type = {type = "Data", name = "Float32"},
@@ -13753,6 +14952,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LocalizedText = {
 				type = {type = "Data", name = "String"},
@@ -13761,6 +14961,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Text = {
 				type = {type = "Data", name = "String"},
@@ -13769,6 +14970,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextBounds = {
 				type = {type = "Data", name = "Vector2"},
@@ -13777,6 +14979,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TextColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -13785,6 +14988,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TextColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -13793,6 +14997,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextFits = {
 				type = {type = "Data", name = "Bool"},
@@ -13801,6 +15006,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TextScaled = {
 				type = {type = "Data", name = "Bool"},
@@ -13809,6 +15015,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextSize = {
 				type = {type = "Data", name = "Float32"},
@@ -13817,6 +15024,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextStrokeColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -13825,6 +15033,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextStrokeTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -13833,6 +15042,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -13841,6 +15051,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextTruncate = {
 				type = {type = "Enum", name = "TextTruncate"},
@@ -13849,6 +15060,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextWrap = {
 				type = {type = "Data", name = "Bool"},
@@ -13857,6 +15069,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TextWrapped = {
 				type = {type = "Data", name = "Bool"},
@@ -13865,6 +15078,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextXAlignment = {
 				type = {type = "Enum", name = "TextXAlignment"},
@@ -13873,6 +15087,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextYAlignment = {
 				type = {type = "Enum", name = "TextYAlignment"},
@@ -13881,6 +15096,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -13950,6 +15166,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FontSize = {
 				type = {type = "Enum", name = "FontSize"},
@@ -13958,6 +15175,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			LineHeight = {
 				type = {type = "Data", name = "Float32"},
@@ -13966,6 +15184,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LocalizedText = {
 				type = {type = "Data", name = "String"},
@@ -13974,6 +15193,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Text = {
 				type = {type = "Data", name = "String"},
@@ -13982,6 +15202,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextBounds = {
 				type = {type = "Data", name = "Vector2"},
@@ -13990,6 +15211,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TextColor = {
 				type = {type = "Unimplemented", name = "BrickColor"},
@@ -13998,6 +15220,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TextColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -14006,6 +15229,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextFits = {
 				type = {type = "Data", name = "Bool"},
@@ -14014,6 +15238,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TextScaled = {
 				type = {type = "Data", name = "Bool"},
@@ -14022,6 +15247,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextSize = {
 				type = {type = "Data", name = "Float32"},
@@ -14030,6 +15256,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextStrokeColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -14038,6 +15265,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextStrokeTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -14046,6 +15274,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -14054,6 +15283,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextTruncate = {
 				type = {type = "Enum", name = "TextTruncate"},
@@ -14062,6 +15292,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextWrap = {
 				type = {type = "Data", name = "Bool"},
@@ -14070,6 +15301,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			TextWrapped = {
 				type = {type = "Data", name = "Bool"},
@@ -14078,6 +15310,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextXAlignment = {
 				type = {type = "Enum", name = "TextXAlignment"},
@@ -14086,6 +15319,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextYAlignment = {
 				type = {type = "Enum", name = "TextYAlignment"},
@@ -14094,6 +15328,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14160,6 +15395,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StudsPerTileV = {
 				type = {type = "Data", name = "Float32"},
@@ -14168,6 +15404,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14207,6 +15444,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -14215,6 +15453,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Grip = {
 				type = {type = "Data", name = "CFrame"},
@@ -14223,6 +15462,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GripForward = {
 				type = {type = "Data", name = "Vector3"},
@@ -14231,6 +15471,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			GripPos = {
 				type = {type = "Data", name = "Vector3"},
@@ -14239,6 +15480,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			GripRight = {
 				type = {type = "Data", name = "Vector3"},
@@ -14247,6 +15489,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			GripUp = {
 				type = {type = "Data", name = "Vector3"},
@@ -14255,6 +15498,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ManualActivationOnly = {
 				type = {type = "Data", name = "Bool"},
@@ -14263,6 +15507,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RequiresHandle = {
 				type = {type = "Data", name = "Bool"},
@@ -14271,6 +15516,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ToolTip = {
 				type = {type = "Data", name = "String"},
@@ -14279,6 +15525,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14306,6 +15553,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Torque = {
 				type = {type = "Data", name = "Vector3"},
@@ -14314,6 +15562,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14358,6 +15607,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Attachment1 = {
 				type = {type = "Data", name = "Ref"},
@@ -14366,6 +15616,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Color = {
 				type = {type = "Data", name = "ColorSequence"},
@@ -14374,6 +15625,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -14382,6 +15634,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FaceCamera = {
 				type = {type = "Data", name = "Bool"},
@@ -14390,6 +15643,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Lifetime = {
 				type = {type = "Data", name = "Float32"},
@@ -14398,6 +15652,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LightEmission = {
 				type = {type = "Data", name = "Float32"},
@@ -14406,6 +15661,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			LightInfluence = {
 				type = {type = "Data", name = "Float32"},
@@ -14414,6 +15670,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxLength = {
 				type = {type = "Data", name = "Float32"},
@@ -14422,6 +15679,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MinLength = {
 				type = {type = "Data", name = "Float32"},
@@ -14430,6 +15688,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Texture = {
 				type = {type = "Data", name = "Content"},
@@ -14438,6 +15697,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextureLength = {
 				type = {type = "Data", name = "Float32"},
@@ -14446,6 +15706,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TextureMode = {
 				type = {type = "Enum", name = "TextureMode"},
@@ -14454,6 +15715,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Transparency = {
 				type = {type = "Data", name = "NumberSequence"},
@@ -14462,6 +15724,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			WidthScale = {
 				type = {type = "Data", name = "NumberSequence"},
@@ -14470,6 +15733,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14498,6 +15762,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -14513,6 +15778,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Duty = {
 				type = {type = "Data", name = "Float32"},
@@ -14521,6 +15787,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Frequency = {
 				type = {type = "Data", name = "Float32"},
@@ -14529,6 +15796,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14550,6 +15818,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -14565,6 +15834,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -14627,6 +15897,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TweenInfo = {
 				type = {type = "Unimplemented", name = "TweenInfo"},
@@ -14635,6 +15906,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -14652,6 +15924,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -14675,6 +15948,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AspectType = {
 				type = {type = "Enum", name = "AspectType"},
@@ -14683,6 +15957,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DominantAxis = {
 				type = {type = "Enum", name = "DominantAxis"},
@@ -14691,6 +15966,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14731,6 +16007,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CellSize = {
 				type = {type = "Data", name = "UDim2"},
@@ -14739,6 +16016,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FillDirectionMaxCells = {
 				type = {type = "Data", name = "Int32"},
@@ -14747,6 +16025,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StartCorner = {
 				type = {type = "Enum", name = "StartCorner"},
@@ -14755,6 +16034,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14780,6 +16060,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			FillDirection = {
 				type = {type = "Enum", name = "FillDirection"},
@@ -14788,6 +16069,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HorizontalAlignment = {
 				type = {type = "Enum", name = "HorizontalAlignment"},
@@ -14796,6 +16078,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SortOrder = {
 				type = {type = "Enum", name = "SortOrder"},
@@ -14804,6 +16087,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VerticalAlignment = {
 				type = {type = "Enum", name = "VerticalAlignment"},
@@ -14812,6 +16096,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14834,6 +16119,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14856,6 +16142,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PaddingLeft = {
 				type = {type = "Data", name = "UDim"},
@@ -14864,6 +16151,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PaddingRight = {
 				type = {type = "Data", name = "UDim"},
@@ -14872,6 +16160,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			PaddingTop = {
 				type = {type = "Data", name = "UDim"},
@@ -14880,6 +16169,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -14900,6 +16190,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Circular = {
 				type = {type = "Data", name = "Bool"},
@@ -14908,6 +16199,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CurrentPage = {
 				type = {type = "Data", name = "Ref"},
@@ -14916,6 +16208,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			EasingDirection = {
 				type = {type = "Enum", name = "EasingDirection"},
@@ -14924,6 +16217,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			EasingStyle = {
 				type = {type = "Enum", name = "EasingStyle"},
@@ -14932,6 +16226,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GamepadInputEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -14940,6 +16235,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Padding = {
 				type = {type = "Data", name = "UDim"},
@@ -14948,6 +16244,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ScrollWheelInputEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -14956,6 +16253,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TouchInputEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -14964,6 +16262,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TweenTime = {
 				type = {type = "Data", name = "Float32"},
@@ -14972,6 +16271,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15003,6 +16303,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15020,6 +16321,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MinSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -15028,6 +16330,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15046,6 +16349,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FillEmptySpaceRows = {
 				type = {type = "Data", name = "Bool"},
@@ -15054,6 +16358,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MajorAxis = {
 				type = {type = "Enum", name = "TableMajorAxis"},
@@ -15062,6 +16367,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Padding = {
 				type = {type = "Data", name = "UDim2"},
@@ -15070,6 +16376,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15095,6 +16402,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MinTextSize = {
 				type = {type = "Data", name = "Int32"},
@@ -15103,6 +16411,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15177,6 +16486,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraMode = {
 				type = {type = "Enum", name = "CustomCameraMode"},
@@ -15185,6 +16495,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			CameraYInverted = {
 				type = {type = "Data", name = "Bool"},
@@ -15193,6 +16504,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ChatVisible = {
 				type = {type = "Data", name = "Bool"},
@@ -15201,6 +16513,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ComputerCameraMovementMode = {
 				type = {type = "Enum", name = "ComputerCameraMovementMode"},
@@ -15209,6 +16522,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ComputerMovementMode = {
 				type = {type = "Enum", name = "ComputerMovementMode"},
@@ -15217,6 +16531,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ControlMode = {
 				type = {type = "Enum", name = "ControlMode"},
@@ -15225,6 +16540,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Fullscreen = {
 				type = {type = "Data", name = "Bool"},
@@ -15233,6 +16549,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			GamepadCameraSensitivity = {
 				type = {type = "Data", name = "Float32"},
@@ -15241,6 +16558,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HasEverUsedVR = {
 				type = {type = "Data", name = "Bool"},
@@ -15249,6 +16567,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			IsUsingCameraYInverted = {
 				type = {type = "Data", name = "Bool"},
@@ -15257,6 +16576,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			IsUsingGamepadCameraSensitivity = {
 				type = {type = "Data", name = "Bool"},
@@ -15265,6 +16585,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MasterVolume = {
 				type = {type = "Data", name = "Float32"},
@@ -15273,6 +16594,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MicroProfilerWebServerEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15281,6 +16603,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MicroProfilerWebServerIP = {
 				type = {type = "Data", name = "String"},
@@ -15289,6 +16612,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MicroProfilerWebServerPort = {
 				type = {type = "Data", name = "Int32"},
@@ -15297,6 +16621,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MouseSensitivity = {
 				type = {type = "Data", name = "Float32"},
@@ -15305,6 +16630,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MouseSensitivityFirstPerson = {
 				type = {type = "Data", name = "Vector2"},
@@ -15313,6 +16639,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MouseSensitivityThirdPerson = {
 				type = {type = "Data", name = "Vector2"},
@@ -15321,6 +16648,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OnScreenProfilerEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15329,6 +16657,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			OnboardingsCompleted = {
 				type = {type = "Data", name = "String"},
@@ -15337,6 +16666,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			PerformanceStatsVisible = {
 				type = {type = "Data", name = "Bool"},
@@ -15345,6 +16675,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RCCProfilerRecordFrameRate = {
 				type = {type = "Data", name = "Int32"},
@@ -15353,6 +16684,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RCCProfilerRecordTimeFrame = {
 				type = {type = "Data", name = "Int32"},
@@ -15361,6 +16693,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RotationType = {
 				type = {type = "Enum", name = "RotationType"},
@@ -15369,6 +16702,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			SavedQualityLevel = {
 				type = {type = "Enum", name = "SavedQualitySetting"},
@@ -15377,6 +16711,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StartMaximized = {
 				type = {type = "Data", name = "Bool"},
@@ -15385,6 +16720,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			StartScreenPosition = {
 				type = {type = "Data", name = "Vector2"},
@@ -15393,6 +16729,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			StartScreenSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -15401,6 +16738,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			TouchCameraMovementMode = {
 				type = {type = "Enum", name = "TouchCameraMovementMode"},
@@ -15409,6 +16747,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TouchMovementMode = {
 				type = {type = "Enum", name = "TouchMovementMode"},
@@ -15417,6 +16756,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UsedCoreGuiIsVisibleToggle = {
 				type = {type = "Data", name = "Bool"},
@@ -15425,6 +16765,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UsedCustomGuiIsVisibleToggle = {
 				type = {type = "Data", name = "Bool"},
@@ -15433,6 +16774,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			UsedHideHudShortcut = {
 				type = {type = "Data", name = "Bool"},
@@ -15441,6 +16783,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VREnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15449,6 +16792,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			VRRotationIntensity = {
 				type = {type = "Data", name = "Int32"},
@@ -15457,6 +16801,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15472,6 +16817,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			BottomBarSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -15480,6 +16826,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			GamepadEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15488,6 +16835,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			GazeSelectionEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15496,6 +16844,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			GyroscopeEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15504,6 +16853,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			KeyboardEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15512,6 +16862,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			LegacyInputEventsEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15520,6 +16871,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ModalEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15528,6 +16880,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			MouseBehavior = {
 				type = {type = "Enum", name = "MouseBehavior"},
@@ -15536,6 +16889,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MouseDeltaSensitivity = {
 				type = {type = "Data", name = "Float32"},
@@ -15544,6 +16898,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			MouseEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15552,6 +16907,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			MouseIconEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15560,6 +16916,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			NavBarSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -15568,6 +16925,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OnScreenKeyboardAnimationDuration = {
 				type = {type = "Data", name = "Float64"},
@@ -15576,6 +16934,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OnScreenKeyboardPosition = {
 				type = {type = "Data", name = "Vector2"},
@@ -15584,6 +16943,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OnScreenKeyboardSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -15592,6 +16952,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OnScreenKeyboardVisible = {
 				type = {type = "Data", name = "Bool"},
@@ -15600,6 +16961,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			OverrideMouseIconBehavior = {
 				type = {type = "Enum", name = "OverrideMouseIconBehavior"},
@@ -15608,6 +16970,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			RightBarSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -15616,6 +16979,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			StatusBarSize = {
 				type = {type = "Data", name = "Vector2"},
@@ -15624,6 +16988,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			TouchEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15632,6 +16997,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			UserHeadCFrame = {
 				type = {type = "Data", name = "CFrame"},
@@ -15640,6 +17006,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			VREnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15648,6 +17015,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -15689,6 +17057,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			VRDeviceName = {
 				type = {type = "Data", name = "String"},
@@ -15697,6 +17066,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			VREnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15705,6 +17075,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -15729,6 +17100,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15746,6 +17118,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Force = {
 				type = {type = "Data", name = "Vector3"},
@@ -15754,6 +17127,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RelativeTo = {
 				type = {type = "Enum", name = "ActuatorRelativeTo"},
@@ -15762,6 +17136,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15793,6 +17168,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Disabled = {
 				type = {type = "Data", name = "Bool"},
@@ -15801,6 +17177,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			HeadsUpDisplay = {
 				type = {type = "Data", name = "Bool"},
@@ -15809,6 +17186,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -15817,6 +17195,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Occupant = {
 				type = {type = "Data", name = "Ref"},
@@ -15825,6 +17204,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Steer = {
 				type = {type = "Data", name = "Int32"},
@@ -15833,6 +17213,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			SteerFloat = {
 				type = {type = "Data", name = "Float32"},
@@ -15841,6 +17222,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Throttle = {
 				type = {type = "Data", name = "Int32"},
@@ -15849,6 +17231,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ThrottleFloat = {
 				type = {type = "Data", name = "Float32"},
@@ -15857,6 +17240,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Torque = {
 				type = {type = "Data", name = "Float32"},
@@ -15865,6 +17249,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			TurnSpeed = {
 				type = {type = "Data", name = "Float32"},
@@ -15873,6 +17258,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15943,6 +17329,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DesiredAngle = {
 				type = {type = "Data", name = "Float32"},
@@ -15951,6 +17338,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Hole = {
 				type = {type = "Data", name = "Ref"},
@@ -15959,6 +17347,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			MaxVelocity = {
 				type = {type = "Data", name = "Float32"},
@@ -15967,6 +17356,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -15991,6 +17381,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			ImageColor3 = {
 				type = {type = "Data", name = "Color3"},
@@ -15999,6 +17390,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			ImageTransparency = {
 				type = {type = "Data", name = "Float32"},
@@ -16007,6 +17399,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 		},
 		defaults = {
@@ -16052,6 +17445,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -16151,6 +17545,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 			Enabled = {
 				type = {type = "Data", name = "Bool"},
@@ -16159,6 +17554,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Part0 = {
 				type = {type = "Data", name = "Ref"},
@@ -16167,6 +17563,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 			Part1 = {
 				type = {type = "Data", name = "Ref"},
@@ -16175,6 +17572,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = false,
 			},
 		},
 		defaults = {
@@ -16195,6 +17593,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			AutoJointsMode = {
 				type = {type = "Enum", name = "AutoJointsMode"},
@@ -16203,6 +17602,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			CurrentCamera = {
 				type = {type = "Data", name = "Ref"},
@@ -16211,6 +17611,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			DistributedGameTime = {
 				type = {type = "Data", name = "Float64"},
@@ -16219,6 +17620,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FallenPartsDestroyHeight = {
 				type = {type = "Data", name = "Float32"},
@@ -16227,6 +17629,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			FilteringEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -16235,6 +17638,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Gravity = {
 				type = {type = "Data", name = "Float32"},
@@ -16243,6 +17647,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StreamingEnabled = {
 				type = {type = "Data", name = "Bool"},
@@ -16251,6 +17656,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			StreamingMinRadius = {
 				type = {type = "Data", name = "Int32"},
@@ -16259,6 +17665,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			StreamingTargetRadius = {
 				type = {type = "Data", name = "Int32"},
@@ -16267,6 +17674,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = true,
 			},
 			TemporaryLegacyPhysicsSolverOverride = {
 				type = {type = "Data", name = "Bool"},
@@ -16275,6 +17683,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
+				serializes = false,
 			},
 			Terrain = {
 				type = {type = "Data", name = "Ref"},
@@ -16283,6 +17692,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
 			},
 		},
 		defaults = {

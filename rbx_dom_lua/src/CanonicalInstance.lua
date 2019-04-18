@@ -1,23 +1,6 @@
 local ReflectionDatabase = require(script.Parent.ReflectionDatabase)
 local CanonicalProperty = require(script.Parent.CanonicalProperty)
 
-local patches = {
-	Part = {
-		Size = {
-			type = {type = "data", name = "Vector3"},
-			tags = {},
-			canSave = true,
-			canLoad = true,
-		},
-		Color = {
-			type = {type = "data", name = "Color3"},
-			tags = {},
-			canSave = true,
-			canLoad = true,
-		},
-	},
-}
-
 local PropertySelection = {
 	All = {
 		ignoreDefaults = false,
@@ -58,45 +41,32 @@ local function readInstance(instance, selectionMode)
 
 	local className = instance.ClassName
 	local reflectionEntry = ReflectionDatabase.classes[className]
+	local initialReflectionEntry = reflectionEntry
 	local output = {}
 
 	while reflectionEntry ~= nil do
 		for key, propertyDetails in pairs(reflectionEntry.properties) do
-			local patchedInstance = patches[className]
-			if patchedInstance ~= nil then
-				local patchedProperty = patchedInstance[key]
+			if propertyDetails.isCanonical then
+				local success, value = CanonicalProperty.read(instance, key)
 
-				if patchedProperty ~= nil then
-					propertyDetails = patchedProperty
-				end
-			end
+				if success then
+					local skip = false
 
-			local success, value = CanonicalProperty.read(instance, key)
-
-			if success then
-				local skip = false
-
-				if ignoreUnserializable then
-					if propertyDetails.tags.ReadOnly or not propertyDetails.canSave then
-						skip = true
+					if ignoreUnserializable then
+						skip = not propertyDetails.serializes
 					end
-				end
 
-				if not skip and ignoreDefaults then
-					local defaultInstance = ReflectionDatabase.defaults[className]
-					if defaultInstance ~= nil then
-						local defaultValue = defaultInstance[key]
-						if equalish(value, defaultValue) then
+					if not skip and ignoreDefaults then
+						local defaultValue = initialReflectionEntry.defaults[key]
+						if defaultValue ~= nil and equalish(value, defaultValue) then
 							skip = true
 						end
 					end
-				end
 
-				if not skip then
-					output[key] = value
+					if not skip then
+						output[key] = value
+					end
 				end
-			else
-				-- warn("Couldn't read:", value)
 			end
 		end
 

@@ -6,7 +6,7 @@ local function identity(...)
 	return ...
 end
 
-local canonicalProperties = {
+local propertyAccessors = {
 	-- TODO: Terrain
 	Instance = {
 		Tags = {
@@ -41,7 +41,7 @@ local canonicalProperties = {
 
 local function findCanonicalGetterSetter(className, propertyName)
 	repeat
-		local instanceProperties = canonicalProperties[className]
+		local instanceProperties = propertyAccessors[className]
 
 		if instanceProperties ~= nil then
 			local property = instanceProperties[propertyName]
@@ -76,7 +76,7 @@ function CanonicalProperty.isScriptable(className, propertyName)
 		return true
 	end
 
-	return not property.tags.NotScriptable
+	return property.scriptability ~= "None"
 end
 
 function CanonicalProperty.read(instance, propertyName)

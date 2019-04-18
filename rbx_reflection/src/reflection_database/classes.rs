@@ -95,6 +95,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -108,6 +109,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -121,6 +123,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -134,6 +137,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -147,6 +151,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -253,6 +258,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -266,6 +272,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -279,6 +286,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -292,6 +300,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -305,6 +314,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -318,6 +328,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -331,6 +342,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -398,6 +410,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -411,6 +424,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -424,6 +438,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -437,6 +452,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -450,6 +466,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -463,6 +480,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -560,6 +578,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -573,6 +592,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -586,6 +606,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -634,6 +655,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -696,6 +718,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -709,6 +732,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -722,6 +746,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -735,6 +760,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -748,6 +774,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -761,6 +788,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -774,6 +802,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -787,6 +816,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -800,6 +830,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -860,6 +891,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -928,6 +960,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -941,6 +974,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -954,6 +988,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -967,6 +1002,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -982,6 +1018,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -995,6 +1032,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1008,6 +1046,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1021,6 +1060,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1034,6 +1074,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1047,6 +1088,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1060,6 +1102,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1076,6 +1119,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1089,6 +1133,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1206,6 +1251,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1253,6 +1299,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1266,6 +1313,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1279,6 +1327,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1292,6 +1341,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1305,6 +1355,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1318,6 +1369,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1331,6 +1383,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1385,7 +1438,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 superclass: Some(Cow::Borrowed("PVInstance")),
                 tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::NOT_CREATABLE,
                 properties: {
-                    let mut map = HashMap::with_capacity(55);
+                    let mut map = HashMap::with_capacity(56);
                     map.insert(
                         Cow::Borrowed("Anchored"),
                         RbxInstanceProperty {
@@ -1396,6 +1449,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1409,6 +1463,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1422,6 +1477,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1435,6 +1491,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1448,6 +1505,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1461,6 +1519,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1474,6 +1533,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1487,6 +1547,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1500,6 +1561,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1511,10 +1573,11 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::NOT_REPLICATED,
-                            is_canonical: true,
-                            canonical_name: None,
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Color")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1528,6 +1591,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1541,6 +1605,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1554,6 +1619,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1567,6 +1633,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1580,6 +1647,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1593,6 +1661,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Custom,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1604,8 +1673,23 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
                             canonical_name: None,
-                            serialized_name: None,
+                            serialized_name: Some(Cow::Borrowed("Color3uint8")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                            __non_exhaustive: (),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Color3uint8"),
+                        RbxInstanceProperty {
+                            name: Cow::Borrowed("Color3uint8"),
+                            value_type: RbxPropertyType::Data(RbxValueType::Color3uint8),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Color")),
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1619,6 +1703,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1634,6 +1719,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1649,6 +1735,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1662,6 +1749,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1675,6 +1763,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1688,6 +1777,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1701,6 +1791,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1714,6 +1805,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1727,6 +1819,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1740,6 +1833,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1753,6 +1847,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1766,6 +1861,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1779,6 +1875,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1792,6 +1889,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1805,6 +1903,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1818,6 +1917,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1831,6 +1931,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1846,6 +1947,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1859,6 +1961,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1872,6 +1975,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1885,6 +1989,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1898,6 +2003,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1911,6 +2017,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1924,6 +2031,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1937,6 +2045,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1950,6 +2059,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1963,6 +2073,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -1976,6 +2087,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -1989,6 +2101,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("size")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2004,6 +2117,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -2017,6 +2131,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2030,6 +2145,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2043,6 +2159,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2056,6 +2173,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2069,6 +2187,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2082,6 +2201,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2093,10 +2213,11 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                                 "BrickColor",
                             )),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
-                            is_canonical: true,
-                            canonical_name: None,
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Color")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -2110,6 +2231,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("Size")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -2148,6 +2270,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2161,6 +2284,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2188,6 +2312,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2201,6 +2326,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2214,6 +2340,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2227,6 +2354,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2240,6 +2368,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2253,6 +2382,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2266,6 +2396,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2279,6 +2410,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2292,6 +2424,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2305,6 +2438,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2318,6 +2452,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2331,6 +2466,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2344,6 +2480,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2357,6 +2494,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2370,6 +2508,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2383,6 +2522,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2396,6 +2536,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2409,6 +2550,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2497,6 +2639,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2510,6 +2653,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2523,6 +2667,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2536,6 +2681,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2549,6 +2695,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2562,6 +2709,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2575,6 +2723,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2588,6 +2737,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2601,6 +2751,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2614,6 +2765,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2627,6 +2779,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2640,6 +2793,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2653,6 +2807,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2864,6 +3019,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2877,6 +3033,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2890,6 +3047,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2933,6 +3091,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2971,6 +3130,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2984,6 +3144,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -2997,6 +3158,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3010,6 +3172,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3023,6 +3186,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3086,6 +3250,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3099,6 +3264,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3114,6 +3280,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3127,6 +3294,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3142,6 +3310,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3155,6 +3324,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3170,6 +3340,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3183,6 +3354,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3198,6 +3370,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3211,6 +3384,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3226,6 +3400,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3239,6 +3414,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3311,6 +3487,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3324,6 +3501,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3372,6 +3550,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3385,6 +3564,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3398,6 +3578,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3411,6 +3592,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3424,6 +3606,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3437,6 +3620,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3504,6 +3688,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3517,6 +3702,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3530,6 +3716,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3543,6 +3730,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3556,6 +3744,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3569,6 +3758,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3631,6 +3821,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3644,6 +3835,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3657,6 +3849,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3670,6 +3863,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3730,6 +3924,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3743,6 +3938,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3756,6 +3952,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3769,6 +3966,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3782,6 +3980,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -3843,6 +4042,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3880,6 +4080,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -3953,6 +4154,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4002,6 +4204,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4068,6 +4271,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4081,6 +4285,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4094,6 +4299,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4109,6 +4315,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -4122,6 +4329,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4135,6 +4343,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4148,6 +4357,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4161,6 +4371,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4174,6 +4385,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -4187,6 +4399,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -4200,6 +4413,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -4301,6 +4515,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4314,6 +4529,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4327,6 +4543,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4340,6 +4557,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4388,6 +4606,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4401,6 +4620,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4445,6 +4665,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4458,6 +4679,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4471,6 +4693,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4512,6 +4735,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4525,6 +4749,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4582,6 +4807,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4642,6 +4868,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4684,6 +4911,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4697,6 +4925,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4710,6 +4939,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4723,6 +4953,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4775,6 +5006,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4788,6 +5020,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4801,6 +5034,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4814,6 +5048,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4827,6 +5062,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4840,6 +5076,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4890,6 +5127,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4903,6 +5141,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -4990,6 +5229,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -5003,6 +5243,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5016,6 +5257,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5031,6 +5273,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5044,6 +5287,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5057,6 +5301,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5086,6 +5331,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -5099,6 +5345,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -5216,6 +5463,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5229,6 +5477,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -5510,6 +5759,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5547,6 +5797,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5560,6 +5811,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5665,6 +5917,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5678,6 +5931,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5691,6 +5945,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5704,6 +5959,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5717,6 +5973,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5730,6 +5987,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -5743,6 +6001,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5756,6 +6015,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5769,6 +6029,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5782,6 +6043,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5795,6 +6057,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5808,6 +6071,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5821,6 +6085,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5834,6 +6099,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -5847,6 +6113,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -5993,6 +6260,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6006,6 +6274,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6019,6 +6288,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6032,6 +6302,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6045,6 +6316,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6058,6 +6330,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6071,6 +6344,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6084,6 +6358,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6097,6 +6372,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6110,6 +6386,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6123,6 +6400,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6139,6 +6417,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6155,6 +6434,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6168,6 +6448,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6183,6 +6464,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6198,6 +6480,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6225,6 +6508,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6238,6 +6522,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6251,6 +6536,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6291,6 +6577,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6304,6 +6591,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6340,6 +6628,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6380,6 +6669,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6393,6 +6683,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6406,6 +6697,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6419,6 +6711,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6432,6 +6725,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6445,6 +6739,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6458,6 +6753,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6471,6 +6767,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6484,6 +6781,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6497,6 +6795,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6510,6 +6809,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6523,6 +6823,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6536,6 +6837,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6549,6 +6851,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6562,6 +6865,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6575,6 +6879,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6588,6 +6893,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6601,6 +6907,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6616,6 +6923,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6629,6 +6937,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6656,6 +6965,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6669,6 +6979,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6682,6 +6993,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6709,6 +7021,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6736,6 +7049,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6763,6 +7077,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6776,6 +7091,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6789,6 +7105,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6802,6 +7119,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6815,6 +7133,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6828,6 +7147,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6883,6 +7203,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6896,6 +7217,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6909,6 +7231,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6922,6 +7245,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6935,6 +7259,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -6948,6 +7273,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6961,6 +7287,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6974,6 +7301,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -6987,6 +7315,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7000,6 +7329,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7069,6 +7399,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7082,6 +7413,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7095,6 +7427,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7108,6 +7441,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7166,6 +7500,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7205,6 +7540,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -7232,6 +7568,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -7245,6 +7582,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7258,6 +7596,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7271,6 +7610,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -7334,6 +7674,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7361,6 +7702,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7374,6 +7716,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7387,6 +7730,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7400,6 +7744,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7442,6 +7787,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7455,6 +7801,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7468,6 +7815,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7509,6 +7857,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7522,6 +7871,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7535,6 +7885,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7548,6 +7899,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7561,6 +7913,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7574,6 +7927,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7630,6 +7984,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7657,6 +8012,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7670,6 +8026,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7683,6 +8040,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7696,6 +8054,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7726,6 +8085,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -7742,6 +8102,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -7757,6 +8118,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -7784,6 +8146,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7797,6 +8160,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7863,6 +8227,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7876,6 +8241,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7889,6 +8255,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("heat_xml")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7902,6 +8269,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7915,6 +8283,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("size_xml")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -7928,6 +8297,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("Heat")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -7941,6 +8311,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("Size")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -7954,6 +8325,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("Size")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -8008,6 +8380,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8101,6 +8474,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8304,6 +8678,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8317,6 +8692,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8330,6 +8706,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8371,6 +8748,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8384,6 +8762,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8397,6 +8776,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8410,6 +8790,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8423,6 +8804,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8436,6 +8818,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8449,6 +8832,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8462,6 +8846,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8565,6 +8950,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8602,6 +8988,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("formFactorRaw")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8613,10 +9000,11 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
-                            is_canonical: true,
-                            canonical_name: None,
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("FormFactor")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -8630,6 +9018,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("FormFactor")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -8657,6 +9046,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8813,6 +9203,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8875,6 +9266,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8888,6 +9280,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8901,6 +9294,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8914,6 +9308,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8927,6 +9322,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8940,6 +9336,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -8953,6 +9350,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -8966,6 +9364,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -8979,6 +9378,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -8992,6 +9392,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9005,6 +9406,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9018,6 +9420,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9031,6 +9434,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9046,6 +9450,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9146,6 +9551,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9159,6 +9565,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9172,6 +9579,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9185,6 +9593,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9303,6 +9712,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9316,6 +9726,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9329,6 +9740,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9342,6 +9754,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9357,6 +9770,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9370,6 +9784,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9401,6 +9816,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9414,6 +9830,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9427,6 +9844,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9440,6 +9858,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9467,6 +9886,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9480,6 +9900,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9493,6 +9914,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9506,6 +9928,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9591,6 +10014,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9604,6 +10028,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9621,6 +10046,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9634,6 +10060,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9647,6 +10074,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9664,6 +10092,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9677,6 +10106,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9690,6 +10120,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9703,6 +10134,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9716,6 +10148,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9729,6 +10162,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9742,6 +10176,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9755,6 +10190,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9768,6 +10204,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9781,6 +10218,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9794,6 +10232,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9807,6 +10246,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9820,6 +10260,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9833,6 +10274,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9846,6 +10288,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9859,6 +10302,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9872,6 +10316,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9885,6 +10330,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9898,6 +10344,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9927,6 +10374,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9940,6 +10388,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9953,6 +10402,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -9966,6 +10416,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9979,6 +10430,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -9994,6 +10446,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10009,6 +10462,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10022,6 +10476,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10035,6 +10490,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10048,6 +10504,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10116,6 +10573,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10129,6 +10587,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10142,6 +10601,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10155,6 +10615,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10182,6 +10643,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10195,6 +10657,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10327,6 +10790,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10340,6 +10804,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10353,6 +10818,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10366,6 +10832,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10379,6 +10846,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10392,6 +10860,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10405,6 +10874,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10418,6 +10888,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10431,6 +10902,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10444,6 +10916,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10457,6 +10930,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10470,6 +10944,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10483,6 +10958,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10634,6 +11110,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10647,6 +11124,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10722,6 +11200,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10758,6 +11237,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10771,6 +11251,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10784,6 +11265,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10797,6 +11279,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10810,6 +11293,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10825,6 +11309,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10840,6 +11325,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10853,6 +11339,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10866,6 +11353,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10879,6 +11367,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10894,6 +11383,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10907,6 +11397,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10920,6 +11411,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10933,6 +11425,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10946,6 +11439,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10961,6 +11455,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -10974,6 +11469,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -10987,6 +11483,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11000,6 +11497,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11013,6 +11511,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11026,6 +11525,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11039,6 +11539,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11052,6 +11553,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11067,6 +11569,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11080,6 +11583,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11093,6 +11597,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11106,6 +11611,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11119,6 +11625,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11134,6 +11641,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11147,6 +11655,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11160,6 +11669,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11173,6 +11683,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11186,6 +11697,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11199,6 +11711,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -11322,6 +11835,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11335,6 +11849,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11348,6 +11863,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11361,6 +11877,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11374,6 +11891,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11387,6 +11905,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11400,6 +11919,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11413,6 +11933,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11426,6 +11947,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11439,6 +11961,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11452,6 +11975,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11465,6 +11989,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11478,6 +12003,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11491,6 +12017,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11504,6 +12031,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11517,6 +12045,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11530,6 +12059,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11543,6 +12073,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11556,6 +12087,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11569,6 +12101,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11582,6 +12115,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11595,6 +12129,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11608,6 +12143,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11621,6 +12157,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11634,6 +12171,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11647,6 +12185,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11660,6 +12199,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11673,6 +12213,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11686,6 +12227,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11699,6 +12241,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11712,6 +12255,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11725,6 +12269,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11738,6 +12283,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11751,6 +12297,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11764,6 +12311,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11777,6 +12325,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11790,6 +12339,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11972,6 +12522,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11985,6 +12536,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -11998,6 +12550,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12011,6 +12564,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12024,6 +12578,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12037,6 +12592,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12050,6 +12606,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12063,6 +12620,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12076,6 +12634,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12089,6 +12648,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12102,6 +12662,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12115,6 +12676,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12293,6 +12855,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12306,6 +12869,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12381,6 +12945,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12394,6 +12959,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12407,6 +12973,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12420,6 +12987,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12433,6 +13001,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12446,6 +13015,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12459,6 +13029,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12472,6 +13043,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12485,6 +13057,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12498,6 +13071,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12657,6 +13231,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12670,6 +13245,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12683,6 +13259,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12696,6 +13273,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12709,6 +13287,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12736,6 +13315,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12751,6 +13331,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12791,6 +13372,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12804,6 +13386,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12817,6 +13400,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12830,6 +13414,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12843,6 +13428,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12856,6 +13442,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12869,6 +13456,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Custom,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12880,10 +13468,11 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
-                            is_canonical: true,
-                            canonical_name: None,
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Archivable")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12895,10 +13484,11 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::NOT_REPLICATED
                                 | RbxPropertyTags::READ_ONLY,
-                            is_canonical: true,
-                            canonical_name: None,
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("ClassName")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12926,6 +13516,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -12939,6 +13530,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12952,6 +13544,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -12965,6 +13558,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -13008,6 +13602,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13056,6 +13651,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -13069,6 +13665,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13082,6 +13679,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13095,6 +13693,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13108,6 +13707,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13123,6 +13723,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -13192,6 +13793,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13229,6 +13831,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13271,6 +13874,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13284,6 +13888,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13297,6 +13902,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13361,6 +13967,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13374,6 +13981,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13387,6 +13995,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13414,6 +14023,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13427,6 +14037,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13440,6 +14051,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13453,6 +14065,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13480,6 +14093,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13493,6 +14107,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13506,6 +14121,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -13519,6 +14135,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13532,6 +14149,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13545,6 +14163,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13558,6 +14177,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13571,6 +14191,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13584,6 +14205,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13597,6 +14219,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13610,6 +14233,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13623,6 +14247,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13636,6 +14261,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13649,6 +14275,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -13662,6 +14289,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13675,6 +14303,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13688,6 +14317,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13796,6 +14426,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13809,6 +14440,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13822,6 +14454,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13835,6 +14468,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13848,6 +14482,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13910,6 +14545,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -13923,6 +14559,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14038,6 +14675,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14051,6 +14689,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14064,6 +14703,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14077,6 +14717,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14090,6 +14731,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14103,6 +14745,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14116,6 +14759,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14164,6 +14808,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Custom,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14179,6 +14824,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14194,6 +14840,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14207,6 +14854,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14286,6 +14934,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14299,6 +14948,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14312,6 +14962,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14325,6 +14976,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14338,6 +14990,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14351,6 +15004,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14364,6 +15018,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14391,6 +15046,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14559,6 +15215,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14572,6 +15229,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14585,6 +15243,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14598,6 +15257,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14801,6 +15461,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14865,6 +15526,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14902,6 +15564,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14915,6 +15578,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14963,6 +15627,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -14976,6 +15641,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -14989,6 +15655,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15051,6 +15718,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15137,6 +15805,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15150,6 +15819,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15163,6 +15833,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15176,6 +15847,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15189,6 +15861,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15202,6 +15875,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15215,6 +15889,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15228,6 +15903,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15241,6 +15917,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15254,6 +15931,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15267,6 +15945,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15283,6 +15962,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15298,6 +15978,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15532,6 +16213,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15594,6 +16276,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15621,6 +16304,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15634,6 +16318,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15647,6 +16332,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15660,6 +16346,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15673,6 +16360,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15686,6 +16374,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15699,6 +16388,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15714,6 +16404,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15727,6 +16418,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15740,6 +16432,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15753,6 +16446,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15766,6 +16460,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15779,6 +16474,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -15792,6 +16488,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15805,6 +16502,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15818,6 +16516,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15831,6 +16530,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15844,6 +16544,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15857,6 +16558,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15870,6 +16572,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15883,6 +16586,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15896,6 +16600,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15909,6 +16614,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15922,6 +16628,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15935,6 +16642,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15948,6 +16656,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15961,6 +16670,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15974,6 +16684,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -15987,6 +16698,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16000,6 +16712,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16013,6 +16726,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16026,6 +16740,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16039,6 +16754,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16077,6 +16793,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16090,6 +16807,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16103,6 +16821,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16116,6 +16835,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16129,6 +16849,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16142,6 +16863,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16184,6 +16906,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16221,6 +16944,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16269,6 +16993,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16307,6 +17032,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16320,6 +17046,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16333,6 +17060,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16346,6 +17074,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16386,6 +17115,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16413,6 +17143,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16461,6 +17192,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16474,6 +17206,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16487,6 +17220,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16500,6 +17234,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16513,6 +17248,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16561,6 +17297,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("shape")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16574,6 +17311,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("Shape")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16766,6 +17504,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16793,6 +17532,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -16806,6 +17546,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -16819,6 +17560,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17038,6 +17780,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17051,6 +17794,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17064,6 +17808,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17077,6 +17822,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17090,6 +17836,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17103,6 +17850,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17116,6 +17864,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17129,6 +17878,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17142,6 +17892,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17155,6 +17906,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17168,6 +17920,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17181,6 +17934,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17194,6 +17948,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17207,6 +17962,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17220,6 +17976,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17233,6 +17990,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17246,6 +18004,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17259,6 +18018,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17272,6 +18032,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17285,6 +18046,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17365,6 +18127,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17394,6 +18157,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17467,6 +18231,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17480,6 +18245,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17493,6 +18259,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17506,6 +18273,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17519,6 +18287,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17532,6 +18301,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17545,6 +18315,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17558,6 +18329,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17571,6 +18343,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17584,6 +18357,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17597,6 +18371,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17610,6 +18385,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17623,6 +18399,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17636,6 +18413,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17649,6 +18427,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17662,6 +18441,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17675,6 +18455,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17688,6 +18469,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17703,6 +18485,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17716,6 +18499,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17729,6 +18513,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17742,6 +18527,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17769,6 +18555,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17819,6 +18606,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17834,6 +18622,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17847,6 +18636,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17860,6 +18650,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17873,6 +18664,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17886,6 +18678,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17899,6 +18692,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17912,6 +18706,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17925,6 +18720,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17938,6 +18734,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -17951,6 +18748,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17966,6 +18764,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17979,6 +18778,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -17994,6 +18794,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18009,6 +18810,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18024,6 +18826,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18039,6 +18842,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18052,6 +18856,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18067,6 +18872,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18082,6 +18888,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18095,6 +18902,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18108,6 +18916,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18121,6 +18930,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18134,6 +18944,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18149,6 +18960,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18162,6 +18974,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18175,6 +18988,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18188,6 +19002,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18201,6 +19016,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18214,6 +19030,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18227,6 +19044,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18240,6 +19058,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18253,6 +19072,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18266,6 +19086,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18281,6 +19102,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18296,6 +19118,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18309,6 +19132,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18322,6 +19146,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18335,6 +19160,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18348,6 +19174,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18375,6 +19202,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18388,6 +19216,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18401,6 +19230,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18450,6 +19280,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18463,6 +19294,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18476,6 +19308,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18489,6 +19322,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18502,6 +19336,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("MaxPlayersInternal")),
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18515,6 +19350,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("MaxPlayers")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18530,6 +19366,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18543,6 +19380,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("PreferredPlayersInternal")),
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18556,6 +19394,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("PreferredPlayers")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18569,6 +19408,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18585,6 +19425,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18601,6 +19442,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18645,6 +19487,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18658,6 +19501,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18671,6 +19515,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18698,6 +19543,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18711,6 +19557,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18724,6 +19571,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18737,6 +19585,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18773,6 +19622,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18786,6 +19636,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18799,6 +19650,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18812,6 +19664,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18839,6 +19692,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -18899,6 +19753,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18912,6 +19767,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18961,6 +19817,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18974,6 +19831,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -18987,6 +19845,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -19014,6 +19873,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19085,6 +19945,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19098,6 +19959,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19111,6 +19973,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19124,6 +19987,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -19137,6 +20001,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19189,6 +20054,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19293,6 +20159,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19369,6 +20236,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19382,6 +20250,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19395,6 +20264,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19408,6 +20278,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19421,6 +20292,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19717,6 +20589,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19730,6 +20603,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19743,6 +20617,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19756,6 +20631,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19769,6 +20645,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19782,6 +20659,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19795,6 +20673,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19808,6 +20687,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19821,6 +20701,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19834,6 +20715,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19847,6 +20729,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19860,6 +20743,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -19873,6 +20757,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20039,6 +20924,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20052,6 +20938,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20065,6 +20952,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20078,6 +20966,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -20091,6 +20980,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20106,6 +20996,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20119,6 +21010,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20132,6 +21024,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20145,6 +21038,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20158,6 +21052,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20171,6 +21066,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20184,6 +21080,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20211,6 +21108,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20224,6 +21122,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20239,6 +21138,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20252,6 +21152,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20265,6 +21166,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20278,6 +21180,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20291,6 +21194,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -20304,6 +21208,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -20317,6 +21222,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20330,6 +21236,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20343,6 +21250,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20470,6 +21378,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20483,6 +21392,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20496,6 +21406,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20509,6 +21420,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20522,6 +21434,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20587,6 +21500,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20600,6 +21514,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20613,6 +21528,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20626,6 +21542,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20639,6 +21556,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20652,6 +21570,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20665,6 +21584,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20678,6 +21598,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20691,6 +21612,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20704,6 +21626,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20717,6 +21640,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20783,6 +21707,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -20796,6 +21721,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20809,6 +21735,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20855,6 +21782,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -20868,6 +21796,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20881,6 +21810,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -20894,6 +21824,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21125,6 +22056,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21138,6 +22070,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21151,6 +22084,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -21214,6 +22148,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21265,6 +22200,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -21301,6 +22237,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -21314,6 +22251,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -21327,6 +22265,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -21340,6 +22279,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -21387,6 +22327,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -21400,6 +22341,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21413,6 +22355,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21426,6 +22369,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21439,6 +22383,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21452,6 +22397,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21465,6 +22411,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21478,6 +22425,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21491,6 +22439,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21504,6 +22453,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21517,6 +22467,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21530,6 +22481,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21543,6 +22495,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21556,6 +22509,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21571,6 +22525,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21765,6 +22720,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -21778,6 +22734,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -21991,6 +22948,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22008,6 +22966,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -22021,6 +22980,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22034,6 +22994,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22096,6 +23057,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22123,6 +23085,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22172,6 +23135,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22230,6 +23194,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -22243,6 +23208,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22256,6 +23222,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22327,6 +23294,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22396,6 +23364,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22444,6 +23413,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22457,6 +23427,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22505,6 +23476,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -22518,6 +23490,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -22554,6 +23527,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -22567,6 +23541,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -22580,6 +23555,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22593,6 +23569,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22606,6 +23583,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22806,6 +23784,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22842,6 +23821,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22855,6 +23835,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22868,6 +23849,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22881,6 +23863,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22894,6 +23877,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22907,6 +23891,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22920,6 +23905,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22933,6 +23919,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22946,6 +23933,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22959,6 +23947,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22972,6 +23961,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -22985,6 +23975,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23085,6 +24076,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23098,6 +24090,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23111,6 +24104,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23124,6 +24118,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23137,6 +24132,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23150,6 +24146,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23163,6 +24160,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23176,6 +24174,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23189,6 +24188,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23202,6 +24202,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23215,6 +24216,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23228,6 +24230,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23241,6 +24244,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23268,6 +24272,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23281,6 +24286,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23294,6 +24300,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("opacity_xml")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23307,6 +24314,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("riseVelocity_xml")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23320,6 +24328,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: Some(Cow::Borrowed("size_xml")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23333,6 +24342,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("Opacity")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23346,6 +24356,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("RiseVelocity")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23359,6 +24370,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: Some(Cow::Borrowed("Size")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23486,6 +24498,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23499,6 +24512,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23512,6 +24526,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23525,6 +24540,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23538,6 +24554,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23551,6 +24568,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23564,6 +24582,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23577,6 +24596,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23590,6 +24610,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23603,6 +24624,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23616,6 +24638,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23629,6 +24652,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23642,6 +24666,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23655,6 +24680,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23668,6 +24694,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23681,6 +24708,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23694,6 +24722,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23707,6 +24736,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23722,6 +24752,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23790,6 +24821,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23803,6 +24835,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23830,6 +24863,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23867,6 +24901,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23880,6 +24915,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23893,6 +24929,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23906,6 +24943,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23919,6 +24957,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23972,6 +25011,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -23985,6 +25025,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -23998,6 +25039,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24047,6 +25089,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24060,6 +25103,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24073,6 +25117,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24086,6 +25131,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24101,6 +25147,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24311,6 +25358,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24378,6 +25426,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24444,6 +25493,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24457,6 +25507,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24470,6 +25521,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24521,6 +25573,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24534,6 +25587,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -24547,6 +25601,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24560,6 +25615,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24573,6 +25629,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24586,6 +25643,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24599,6 +25657,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24612,6 +25671,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24625,6 +25685,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24638,6 +25699,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24651,6 +25713,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24767,6 +25830,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -24780,6 +25844,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24793,6 +25858,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24806,6 +25872,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24874,6 +25941,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24887,6 +25955,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24900,6 +25969,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24913,6 +25983,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24926,6 +25997,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24939,6 +26011,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24952,6 +26025,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24965,6 +26039,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24978,6 +26053,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -24991,6 +26067,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25006,6 +26083,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25021,6 +26099,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25036,6 +26115,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25051,6 +26131,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25066,6 +26147,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25079,6 +26161,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25092,6 +26175,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25105,6 +26189,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25118,6 +26203,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25131,6 +26217,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25144,6 +26231,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25157,6 +26245,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25170,6 +26259,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25183,6 +26273,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25196,6 +26287,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25209,6 +26301,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25222,6 +26315,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25235,6 +26329,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25248,6 +26343,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25261,6 +26357,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25274,6 +26371,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25287,6 +26385,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25300,6 +26399,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25313,6 +26413,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25326,6 +26427,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25339,6 +26441,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25516,6 +26619,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25529,6 +26633,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25542,6 +26647,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25555,6 +26661,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25568,6 +26675,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25581,6 +26689,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25594,6 +26703,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25607,6 +26717,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25620,6 +26731,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25633,6 +26745,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -25704,6 +26817,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25746,6 +26860,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25759,6 +26874,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25774,6 +26890,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25787,6 +26904,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25800,6 +26918,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25813,6 +26932,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25826,6 +26946,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25839,6 +26960,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25852,6 +26974,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25865,6 +26988,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25878,6 +27002,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25891,6 +27016,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25904,6 +27030,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25917,6 +27044,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25930,6 +27058,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25943,6 +27072,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25956,6 +27086,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25969,6 +27100,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25982,6 +27114,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -25995,6 +27128,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26008,6 +27142,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26021,6 +27156,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26034,6 +27170,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26047,6 +27184,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26060,6 +27198,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26073,6 +27212,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26086,6 +27226,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -26099,6 +27240,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26112,6 +27254,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26125,6 +27268,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26138,6 +27282,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26151,6 +27296,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26164,6 +27310,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26177,6 +27324,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26190,6 +27338,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26203,6 +27352,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26216,6 +27366,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26231,6 +27382,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -26244,6 +27396,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26257,6 +27410,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26270,6 +27424,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26283,6 +27438,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26296,6 +27452,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26309,6 +27466,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26322,6 +27480,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26335,6 +27494,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26348,6 +27508,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26363,6 +27524,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26376,6 +27538,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26389,6 +27552,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26402,6 +27566,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26415,6 +27580,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26428,6 +27594,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26441,6 +27608,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26454,6 +27622,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26467,6 +27636,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26480,6 +27650,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26493,6 +27664,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26506,6 +27678,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26519,6 +27692,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26532,6 +27706,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26545,6 +27720,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26558,6 +27734,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26571,6 +27748,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26584,6 +27762,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26597,6 +27776,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26610,6 +27790,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26623,6 +27804,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26636,6 +27818,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26649,6 +27832,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26662,6 +27846,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26675,6 +27860,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26688,6 +27874,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -26701,6 +27888,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -26714,6 +27902,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26743,6 +27932,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -26790,6 +27980,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26803,6 +27994,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26845,6 +28037,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26858,6 +28051,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26871,6 +28065,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26884,6 +28079,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26897,6 +28093,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26910,6 +28107,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26923,6 +28121,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26936,6 +28135,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -26949,6 +28149,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27030,6 +28231,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27043,6 +28245,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27056,6 +28259,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27107,6 +28311,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27156,6 +28361,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27169,6 +28375,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27182,6 +28389,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27195,6 +28403,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27222,6 +28431,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27235,6 +28445,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27248,6 +28459,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27263,6 +28475,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27328,6 +28541,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27370,6 +28584,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27383,6 +28598,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27398,6 +28614,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27411,6 +28628,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27424,6 +28642,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27437,6 +28656,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27450,6 +28670,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27463,6 +28684,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27492,6 +28714,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27505,6 +28728,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27541,6 +28765,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27554,6 +28779,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27567,6 +28793,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27580,6 +28807,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27593,6 +28821,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27606,6 +28835,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27619,6 +28849,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27632,6 +28863,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27645,6 +28877,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27658,6 +28891,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27671,6 +28905,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27684,6 +28919,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27758,6 +28994,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27771,6 +29008,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27784,6 +29022,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27797,6 +29036,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27810,6 +29050,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27823,6 +29064,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27836,6 +29078,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27849,6 +29092,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27862,6 +29106,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27875,6 +29120,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27888,6 +29134,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27901,6 +29148,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27914,6 +29162,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27927,6 +29176,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27944,6 +29194,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27957,6 +29208,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27970,6 +29222,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -27983,6 +29236,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -27996,6 +29250,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28009,6 +29264,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28022,6 +29278,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28035,6 +29292,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28048,6 +29306,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28061,6 +29320,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28074,6 +29334,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28087,6 +29348,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28100,6 +29362,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28296,6 +29559,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28309,6 +29573,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28322,6 +29587,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28337,6 +29603,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28350,6 +29617,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28363,6 +29631,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28380,6 +29649,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28393,6 +29663,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28406,6 +29677,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28419,6 +29691,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28432,6 +29705,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28445,6 +29719,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28458,6 +29733,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28471,6 +29747,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28484,6 +29761,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28497,6 +29775,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28510,6 +29789,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28523,6 +29803,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28536,6 +29817,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28726,6 +30008,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28739,6 +30022,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28752,6 +30036,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28767,6 +30052,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28780,6 +30066,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28793,6 +30080,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28810,6 +30098,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28823,6 +30112,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28836,6 +30126,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28849,6 +30140,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28862,6 +30154,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28875,6 +30168,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28888,6 +30182,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28901,6 +30196,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28914,6 +30210,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28927,6 +30224,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -28940,6 +30238,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28953,6 +30252,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -28966,6 +30266,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29160,6 +30461,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29173,6 +30475,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29269,6 +30572,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29282,6 +30586,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29295,6 +30600,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29308,6 +30614,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -29321,6 +30628,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -29334,6 +30642,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -29347,6 +30656,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -29360,6 +30670,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29373,6 +30684,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29386,6 +30698,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29477,6 +30790,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29490,6 +30804,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29579,6 +30894,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29592,6 +30908,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29605,6 +30922,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29618,6 +30936,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29631,6 +30950,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29644,6 +30964,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29657,6 +30978,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29670,6 +30992,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29683,6 +31006,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29696,6 +31020,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29709,6 +31034,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29722,6 +31048,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29735,6 +31062,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29748,6 +31076,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29761,6 +31090,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29823,6 +31153,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -29850,6 +31181,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29863,6 +31195,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29876,6 +31209,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -29917,6 +31251,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -29944,6 +31279,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -30135,6 +31471,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -30150,6 +31487,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -30187,6 +31525,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -30234,6 +31573,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30247,6 +31587,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30260,6 +31601,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30335,6 +31677,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30348,6 +31691,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30361,6 +31705,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30374,6 +31719,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30441,6 +31787,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -30454,6 +31801,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30467,6 +31815,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30480,6 +31829,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30493,6 +31843,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30531,6 +31882,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30582,6 +31934,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30595,6 +31948,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30608,6 +31962,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30621,6 +31976,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30673,6 +32029,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30686,6 +32043,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30699,6 +32057,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -30712,6 +32071,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30725,6 +32085,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30738,6 +32099,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30751,6 +32113,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30764,6 +32127,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30777,6 +32141,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30790,6 +32155,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30862,6 +32228,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30899,6 +32266,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30912,6 +32280,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30958,6 +32327,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30971,6 +32341,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30984,6 +32355,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -30997,6 +32369,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31062,6 +32435,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31075,6 +32449,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31302,6 +32677,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31315,6 +32691,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31328,6 +32705,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31341,6 +32719,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31356,6 +32735,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31371,6 +32751,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31384,6 +32765,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31397,6 +32779,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31410,6 +32793,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31423,6 +32807,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31438,6 +32823,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31453,6 +32839,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31466,6 +32853,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31479,6 +32867,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31494,6 +32883,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31509,6 +32899,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31522,6 +32913,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31535,6 +32927,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31548,6 +32941,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31561,6 +32955,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31574,6 +32969,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31587,6 +32983,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31600,6 +32997,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31613,6 +33011,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31626,6 +33025,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31639,6 +33039,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31652,6 +33053,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31665,6 +33067,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31678,6 +33081,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31693,6 +33097,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31706,6 +33111,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31719,6 +33125,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31732,6 +33139,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31745,6 +33153,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31758,6 +33167,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31771,6 +33181,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31800,6 +33211,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31813,6 +33225,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31826,6 +33239,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31839,6 +33253,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31852,6 +33267,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31865,6 +33281,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31878,6 +33295,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31891,6 +33309,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31904,6 +33323,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31917,6 +33337,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31930,6 +33351,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31943,6 +33365,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -31956,6 +33379,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31969,6 +33393,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31982,6 +33407,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -31995,6 +33421,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32008,6 +33435,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32023,6 +33451,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32036,6 +33465,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32049,6 +33479,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32062,6 +33493,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32077,6 +33509,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32090,6 +33523,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32188,6 +33622,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32201,6 +33636,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32214,6 +33650,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32262,6 +33699,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32304,6 +33742,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32317,6 +33756,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32330,6 +33770,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32401,6 +33842,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32414,6 +33856,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32427,6 +33870,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32440,6 +33884,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32453,6 +33898,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32466,6 +33912,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32479,6 +33926,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32492,6 +33940,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32505,6 +33954,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32518,6 +33968,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32531,6 +33982,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32739,6 +34191,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32752,6 +34205,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32765,6 +34219,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32778,6 +34233,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32841,6 +34297,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -32854,6 +34311,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -32867,6 +34325,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33005,6 +34464,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -33300,6 +34760,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -33313,6 +34774,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33326,6 +34788,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -33339,6 +34802,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -33379,6 +34843,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33392,6 +34857,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33405,6 +34871,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33418,6 +34885,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33431,6 +34899,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33444,6 +34913,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33457,6 +34927,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33470,6 +34941,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33483,6 +34955,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33496,6 +34969,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
                             __non_exhaustive: (),
                         },
                     );
@@ -33509,6 +34983,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::None,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
@@ -33522,6 +34997,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
                             __non_exhaustive: (),
                         },
                     );
