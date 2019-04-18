@@ -1,89 +1,120 @@
+# General stuff
+
+# className is a deprecated alias for ClassName.
+[change.Instance.className]
+canonical_name = "ClassName"
+
+# archivable is a deprecated alias for Archivable
+[change.Instance.archivable]
+canonical_name = "Archivable"
+
+# Tags serialize as a \0-delimited BinaryString of the tags on the instance.
 [add.Instance.Tags]
 type = { Data = "BinaryString" }
 scriptability = "Custom"
 
+# 'Contents' is the name of the field in the Roblox file formats, so it makes
+# sense to use it as the canonical name of this property.
 [add.LocalizationTable.Contents]
 type = { Data = "String" }
 scriptability = "Custom"
+
+# Parts
+
+# BasePart.BrickColor now defers to the Color3 properties in every case, so we
+# can basically pretend that BrickColor and brickColor never existed.
+[change.BasePart.brickColor]
+canonical_name = "Color"
+[change.BasePart.BrickColor]
+canonical_name = "Color"
 
 [add.BasePart.CollisionGroups]
 type = { Data = "String" }
 scriptability = "Custom"
 
+# size is an alias of Size and also the serialized form.
 [change.BasePart.Size]
 serialized_name = "size"
-
 [add.BasePart.size]
 type = { Data = "Vector3" }
 canonical_name = "Size"
 scriptability = "None"
 
+# shape an alias of Shape and also the serialized form.
 [change.Part.Shape]
 serialized_name = "shape"
-
 [add.Part.shape]
 type = { Enum = "PartType" }
 canonical_name = "Shape"
 scriptability = "None"
 
+# formFactorRaw is the serialized form of FormFactor, and formFactor is a
+# deprecated alias.
 [change.FormFactorPart.FormFactor]
 serialized_name = "formFactorRaw"
-
+[change.FormFactorPart.formFactor]
+canonical_name = "FormFactor"
 [add.FormFactorPart.formFactorRaw]
 type = { Enum = "FormFactor" }
 canonical_name = "FormFactor"
 scriptability = "None"
 
+# Players Service
+
+# MaxPlayersInternal is the serialized form of MaxPlayers.
+# It's also reflected to Lua with a high enough security level.
 [change.Players.MaxPlayers]
 serialized_name = "MaxPlayersInternal"
-
 [change.Players.MaxPlayersInternal]
 canonical_name = "MaxPlayers"
 
+# PreferredPlayersInternal is the serialized form of PreferredPlayers.
+# It's also reflected to Lua with a high enough security level.
 [change.Players.PreferredPlayers]
 serialized_name = "PreferredPlayersInternal"
-
 [change.Players.PreferredPlayersInternal]
 canonical_name = "PreferredPlayers"
 
+# Effects
+
+# Fire.Size is serialized as size_xml, and also has the deprecated alias size.
 [change.Fire.Size]
 serialized_name = "size_xml"
-
 [change.Fire.size]
 canonical_name = "Size"
-
 [add.Fire.size_xml]
 type = { Data = "Float32" }
 canonical_name = "Size"
 scriptability = "None"
 
+# Fire.Heat is serialized as heat_xm'. Unlikely Fire.Size, it doesn't have a
+# deprecated camelCase variant for some reason.
 [change.Fire.Heat]
 serialized_name = "heat_xml"
-
 [add.Fire.heat_xml]
 type = { Data = "Float32" }
 canonical_name = "Heat"
 scriptability = "None"
 
+# Smoke.Opacity is serialized as opacity_xml.
 [change.Smoke.Opacity]
 serialized_name = "opacity_xml"
-
 [add.Smoke.opacity_xml]
 type = { Data = "Float32" }
 canonical_name = "Opacity"
 scriptability = "None"
 
+# Smoke.Size is serialized as size_xml
 [change.Smoke.Size]
 serialized_name = "size_xml"
-
 [add.Smoke.size_xml]
 type = { Data = "Float32" }
 canonical_name = "Size"
 scriptability = "None"
 
+# Smoke.RiseVelocity is serialized as riseVelocity_xml.
 [change.Smoke.RiseVelocity]
 serialized_name = "riseVelocity_xml"
-
 [add.Smoke.riseVelocity_xml]
 type = { Data = "Float32" }
 canonical_name = "RiseVelocity"
