@@ -48,6 +48,10 @@ local function shouldMeasureProperty(propertyName, property)
 		return false
 	end
 
+	if property.tags.ReadOnly then
+		return false
+	end
+
 	return property.isCanonical
 end
 
