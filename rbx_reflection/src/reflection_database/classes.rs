@@ -4311,8 +4311,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
-                            is_canonical: true,
-                            canonical_name: None,
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("CFrame")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
                             serializes: false,
@@ -4409,8 +4409,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             name: Cow::Borrowed("focus"),
                             value_type: RbxPropertyType::Data(RbxValueType::CFrame),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
-                            is_canonical: true,
-                            canonical_name: None,
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Focus")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
                             serializes: false,

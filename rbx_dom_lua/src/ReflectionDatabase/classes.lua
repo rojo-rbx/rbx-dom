@@ -2277,8 +2277,8 @@ return {
 			CoordinateFrame = {
 				type = {type = "Data", name = "CFrame"},
 				tags = {Deprecated = true, Hidden = true, NotReplicated = true},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "CFrame",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
@@ -2340,8 +2340,8 @@ return {
 			focus = {
 				type = {type = "Data", name = "CFrame"},
 				tags = {Deprecated = true, NotReplicated = true},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Focus",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,

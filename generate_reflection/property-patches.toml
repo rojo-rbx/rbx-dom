@@ -137,3 +137,11 @@ type = { Data = "Float32" }
 canonical_name = "RiseVelocity"
 scriptability = "None"
 serializes = false
+
+# Camera.CoordinateFrame is a deprecated alias for CFrame
+[change.Camera.CoordinateFrame]
+canonical_name = "CFrame"
+
+# Camera.focus is a deprecated alias for Focus
+[change.Camera.focus]
+canonical_name = "Focus"
