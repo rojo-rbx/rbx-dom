@@ -1,3 +1,3 @@
 return {
-	dump = require(script.dump)
+	classes = require(script.classes)
 }

@@ -1,3 +1,7 @@
+//! Helps locate the user's install of Roblox Studio.
+//!
+//! This would make sense to turn into a crate eventually, since it's useful.
+
 use std::{
     env,
     io,

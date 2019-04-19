@@ -1,3 +1,25 @@
+//! Crazy hack to run some code inside Roblox Studio.
+//!
+//! This module generates a plugin containing the code we want to run with an
+//! HTTP message passing interface. It also generates a place file with a
+//! special marker instance that, when opened, activates the plugin and
+//! kickstarts our execution.
+//!
+//! The plugin is injected into Roblox Studio's built-in plugins folder, which
+//! helps ensure that its existence is bounded (an update will kill it) and also
+//! makes sure we run at the highest security level we're able to.
+//!
+//! If this approach is made unworkable by a future Roblox Studio update, the
+//! next best options are (in no particular order):
+//!
+//! - Mutate Roblox Studio's settings to enable a core script override pointing
+//!   at the code want to run. This keeps our core script permission level, but
+//!   is kind of sketchy.
+//! - Run the code as a regular plugin by injecting into the user plugins
+//!   folder. This lowers our permission level to regular plugin security and
+//!   makes our plugin potentially live forever in the user's install if things
+//!   go wrong, but will more or less always be supported.
+
 use std::{
     collections::HashMap,
     fs::{self, File},
@@ -30,7 +52,7 @@ type HyperResponse = Box<Future<Item = Response<Body>, Error = hyper::Error> + S
 
 const PORT: u16 = 54023;
 
-static PLUGIN_TEMPLATE: &'static str = include_str!("roblox_plugin_template.lua");
+static PLUGIN_TEMPLATE: &'static str = include_str!("../plugin/entry-template.lua");
 
 #[derive(Debug, Clone)]
 enum Message {

@@ -7,7 +7,7 @@ use serde_derive::{Serialize, Deserialize};
 /// An enum that can hold any of the types that [`RbxValue`] can.
 ///
 /// [`RbxValue`]: enum.RbxValue.html
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub enum RbxValueType {
     BinaryString,
     BrickColor,

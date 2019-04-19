@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased
+* `RbxValueType` now derives `Serialize` and `Deserialize`
 * Added support for `BrickColor`
 
 ## 1.4.0 (2019-03-27)

@@ -1,3 +1,6 @@
+//! Interface for dealing with Roblox Studio's JSON API Dump. Isn't specific to
+//! this crate and could probably turn into a separate crate.
+
 use std::{
     io,
     fs,
@@ -23,33 +26,8 @@ pub struct DumpClass {
     pub superclass: String,
 
     #[serde(default)]
-    pub tags: Vec<DumpClassTag>,
+    pub tags: Vec<String>,
     pub members: Vec<DumpClassMember>,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Deserialize)]
-pub enum DumpClassTag {
-    Deprecated,
-    NotBrowsable,
-    NotCreatable,
-    NotReplicated,
-    PlayerReplicated,
-    Service,
-    Settings,
-}
-
-impl DumpClassTag {
-    pub fn name(&self) -> &'static str {
-        match self {
-            DumpClassTag::Deprecated => "Deprecated",
-            DumpClassTag::NotBrowsable => "NotBrowsable",
-            DumpClassTag::NotCreatable => "NotCreatable",
-            DumpClassTag::NotReplicated => "NotReplicated",
-            DumpClassTag::PlayerReplicated => "PlayerReplicated",
-            DumpClassTag::Service => "Service",
-            DumpClassTag::Settings => "Settings",
-        }
-    }
 }
 
 #[derive(Debug, Deserialize)]
