@@ -1140,7 +1140,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(12);
+                    let mut map = HashMap::with_capacity(13);
                     map.insert(
                         Cow::Borrowed("Axis"),
                         RbxValue::Vector3 {
@@ -1167,6 +1167,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map.insert(
                         Cow::Borrowed("Position"),
+                        RbxValue::Vector3 {
+                            value: [0.0, 0.0, 0.0],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Rotation"),
                         RbxValue::Vector3 {
                             value: [0.0, 0.0, 0.0],
                         },
@@ -2814,11 +2820,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(21);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
+                    let mut map = HashMap::with_capacity(20);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
@@ -3627,7 +3629,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(6);
+                    let mut map = HashMap::with_capacity(7);
                     map.insert(
                         Cow::Borrowed("CFrame"),
                         RbxValue::CFrame {
@@ -3648,6 +3650,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(Cow::Borrowed("P"), RbxValue::Float32 { value: 3000.0 });
+                    map.insert(
+                        Cow::Borrowed("cframe"),
+                        RbxValue::CFrame {
+                            value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("maxTorque"),
                         RbxValue::Vector3 {
@@ -4420,7 +4428,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(
                         Cow::Borrowed("CFrame"),
                         RbxValue::CFrame {
@@ -4452,14 +4460,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         RbxValue::String {
                             value: String::from("Camera"),
                         },
-                    );
-                    map.insert(
-                        Cow::Borrowed("NearPlaneZ"),
-                        RbxValue::Float32 { value: -0.5 },
-                    );
-                    map.insert(
-                        Cow::Borrowed("ViewportSize"),
-                        RbxValue::Vector2 { value: [1.0, 1.0] },
                     );
                     map
                 },
@@ -5352,13 +5352,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(2);
-                    map.insert(
-                        Cow::Borrowed("BaseUrl"),
-                        RbxValue::String {
-                            value: String::from("https://www.roblox.com/"),
-                        },
-                    );
+                    let mut map = HashMap::with_capacity(1);
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
@@ -5484,7 +5478,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(3);
+                    let mut map = HashMap::with_capacity(2);
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
@@ -5495,7 +5489,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         Cow::Borrowed("SelectionImageObject"),
                         RbxValue::Ref { value: None },
                     );
-                    map.insert(Cow::Borrowed("Version"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
                 __non_exhaustive: (),
@@ -5555,7 +5548,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::empty(),
                 properties: HashMap::new(),
                 default_properties: {
-                    let mut map = HashMap::with_capacity(46);
+                    let mut map = HashMap::with_capacity(47);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -5635,6 +5628,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -6120,7 +6117,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(33);
+                    let mut map = HashMap::with_capacity(30);
                     map.insert(Cow::Borrowed("ActuatorType"), RbxValue::Enum { value: 0 });
                     map.insert(
                         Cow::Borrowed("AngularActuatorType"),
@@ -6144,14 +6141,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
-                    map.insert(
-                        Cow::Borrowed("CurrentAngle"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
-                    map.insert(
-                        Cow::Borrowed("CurrentPosition"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("InclinationAngle"),
@@ -6231,12 +6220,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map.insert(Cow::Borrowed("Velocity"), RbxValue::Float32 { value: 0.0 });
                     map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: false });
-                    map.insert(
-                        Cow::Borrowed("WorldRotationAxis"),
-                        RbxValue::Vector3 {
-                            value: [1.0, 0.0, 0.0],
-                        },
-                    );
                     map
                 },
                 __non_exhaustive: (),
@@ -7154,7 +7137,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(7);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -7162,6 +7145,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(Cow::Borrowed("Face"), RbxValue::Enum { value: 5 });
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
+                    );
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
@@ -7336,7 +7323,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
+                    let mut map = HashMap::with_capacity(11);
                     map.insert(Cow::Borrowed("BehaviorType"), RbxValue::Enum { value: 0 });
                     map.insert(
                         Cow::Borrowed("ConversationDistance"),
@@ -7352,6 +7339,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             value: String::from(""),
                         },
                     );
+                    map.insert(Cow::Borrowed("InUse"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("InitialPrompt"),
                         RbxValue::String {
@@ -8332,7 +8320,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(7);
+                    let mut map = HashMap::with_capacity(6);
                     map.insert(
                         Cow::Borrowed("Color"),
                         RbxValue::Color3 {
@@ -8354,7 +8342,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(Cow::Borrowed("Size"), RbxValue::Float32 { value: 5.0 });
-                    map.insert(Cow::Borrowed("size"), RbxValue::Float32 { value: 5.0 });
                     map
                 },
                 __non_exhaustive: (),
@@ -8481,7 +8468,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(48);
+                    let mut map = HashMap::with_capacity(49);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -8562,6 +8549,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -9053,11 +9044,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(28);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
+                    let mut map = HashMap::with_capacity(27);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -9959,10 +9946,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 default_properties: {
                     let mut map = HashMap::with_capacity(10);
                     map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
-                    map.insert(
                         Cow::Borrowed("AutoLocalize"),
                         RbxValue::Bool { value: true },
                     );
@@ -9981,6 +9964,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         RbxValue::String {
                             value: String::from("GuiMain"),
                         },
+                    );
+                    map.insert(
+                        Cow::Borrowed("OnTopOfCoreBlur"),
+                        RbxValue::Bool { value: false },
                     );
                     map.insert(
                         Cow::Borrowed("ResetOnSpawn"),
@@ -10511,10 +10498,18 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(7);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(
                         Cow::Borrowed("AutoSelectGuiEnabled"),
                         RbxValue::Bool { value: true },
+                    );
+                    map.insert(
+                        Cow::Borrowed("CoreEffectFolder"),
+                        RbxValue::Ref { value: None },
+                    );
+                    map.insert(
+                        Cow::Borrowed("CoreGuiFolder"),
+                        RbxValue::Ref { value: None },
                     );
                     map.insert(
                         Cow::Borrowed("CoreGuiNavigationEnabled"),
@@ -10524,7 +10519,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         Cow::Borrowed("GuiNavigationEnabled"),
                         RbxValue::Bool { value: true },
                     );
-                    map.insert(Cow::Borrowed("MenuIsOpen"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
@@ -10965,7 +10959,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(18);
+                    let mut map = HashMap::with_capacity(17);
                     map.insert(Cow::Borrowed("ActuatorType"), RbxValue::Enum { value: 0 });
                     map.insert(
                         Cow::Borrowed("AngularSpeed"),
@@ -10977,10 +10971,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
-                    map.insert(
-                        Cow::Borrowed("CurrentAngle"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("LimitsEnabled"),
@@ -11718,7 +11708,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(26);
+                    let mut map = HashMap::with_capacity(31);
                     map.insert(
                         Cow::Borrowed("AutoJumpEnabled"),
                         RbxValue::Bool { value: true },
@@ -11731,6 +11721,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("BreakJointsOnDeath"),
                         RbxValue::Bool { value: true },
+                    );
+                    map.insert(
+                        Cow::Borrowed("CameraOffset"),
+                        RbxValue::Vector3 {
+                            value: [0.0, 0.0, 0.0],
+                        },
                     );
                     map.insert(Cow::Borrowed("CollisionType"), RbxValue::Enum { value: 0 });
                     map.insert(
@@ -11776,9 +11772,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         RbxValue::Float32 { value: 100.0 },
                     );
                     map.insert(Cow::Borrowed("NameOcclusion"), RbxValue::Enum { value: 2 });
+                    map.insert(
+                        Cow::Borrowed("PlatformStand"),
+                        RbxValue::Bool { value: false },
+                    );
                     map.insert(Cow::Borrowed("RigType"), RbxValue::Enum { value: 0 });
                     map.insert(Cow::Borrowed("RightLeg"), RbxValue::Ref { value: None });
-                    map.insert(Cow::Borrowed("RootPart"), RbxValue::Ref { value: None });
+                    map.insert(Cow::Borrowed("Sit"), RbxValue::Bool { value: false });
+                    map.insert(
+                        Cow::Borrowed("TargetPoint"),
+                        RbxValue::Vector3 {
+                            value: [0.0, 0.0, 0.0],
+                        },
+                    );
                     map.insert(Cow::Borrowed("Torso"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("UseJumpPower"),
@@ -11787,6 +11793,13 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("WalkSpeed"),
                         RbxValue::Float32 { value: 16.0 },
+                    );
+                    map.insert(Cow::Borrowed("WalkToPart"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("WalkToPoint"),
+                        RbxValue::Vector3 {
+                            value: [0.0, 0.0, 0.0],
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("maxHealth"),
@@ -12683,11 +12696,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(41);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
+                    let mut map = HashMap::with_capacity(40);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -13078,11 +13087,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(35);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
+                    let mut map = HashMap::with_capacity(34);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -13719,8 +13724,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
-                            is_canonical: true,
-                            canonical_name: None,
+                            is_canonical: false,
+                            canonical_name: Some(Cow::Borrowed("Part1")),
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::ReadWrite,
                             serializes: false,
@@ -14766,7 +14771,11 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(3);
+                    let mut map = HashMap::with_capacity(4);
+                    map.insert(
+                        Cow::Borrowed("IsTextScraperRunning"),
+                        RbxValue::Bool { value: false },
+                    );
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
@@ -14861,7 +14870,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(3);
+                    let mut map = HashMap::with_capacity(4);
                     map.insert(
                         Cow::Borrowed("DevelopmentLanguage"),
                         RbxValue::String {
@@ -14874,6 +14883,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             value: String::from("LocalizationTable"),
                         },
                     );
+                    map.insert(Cow::Borrowed("Root"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("SourceLocaleId"),
                         RbxValue::String {
@@ -15264,7 +15274,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(49);
+                    let mut map = HashMap::with_capacity(50);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -15344,6 +15354,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -15725,7 +15739,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(8);
+                    let mut map = HashMap::with_capacity(9);
                     map.insert(
                         Cow::Borrowed("C0"),
                         RbxValue::CFrame {
@@ -15758,6 +15772,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map.insert(Cow::Borrowed("Part0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Part1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Transform"),
+                        RbxValue::CFrame {
+                            value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                        },
+                    );
                     map
                 },
                 __non_exhaustive: (),
@@ -16099,6 +16119,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
                     );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
+                    );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Material"), RbxValue::Enum { value: 256 });
@@ -16173,10 +16197,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("Transparency"),
                         RbxValue::Float32 { value: 0.1 },
-                    );
-                    map.insert(
-                        Cow::Borrowed("TriangleCount"),
-                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(
                         Cow::Borrowed("UsePartColor"),
@@ -17255,8 +17275,11 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(5);
+                    let mut map = HashMap::with_capacity(10);
+                    map.insert(Cow::Borrowed("A"), RbxValue::Float32 { value: 1.0 });
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
+                    map.insert(Cow::Borrowed("B"), RbxValue::Float32 { value: 0.0 });
+                    map.insert(Cow::Borrowed("C"), RbxValue::Float32 { value: 0.0 });
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -17269,6 +17292,8 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                             value: String::from("ParabolaAdornment"),
                         },
                     );
+                    map.insert(Cow::Borrowed("Range"), RbxValue::Float32 { value: 1.0 });
+                    map.insert(Cow::Borrowed("Thickness"), RbxValue::Float32 { value: 1.0 });
                     map.insert(
                         Cow::Borrowed("Transparency"),
                         RbxValue::Float32 { value: 0.0 },
@@ -17318,7 +17343,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(48);
+                    let mut map = HashMap::with_capacity(49);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -17399,6 +17424,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -17648,6 +17677,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
                     );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
+                    );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Material"), RbxValue::Enum { value: 256 });
@@ -17721,10 +17754,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map.insert(
                         Cow::Borrowed("Transparency"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
-                    map.insert(
-                        Cow::Borrowed("TriangleCount"),
                         RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(
@@ -20072,14 +20101,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::empty(),
                 properties: HashMap::new(),
                 default_properties: {
-                    let mut map = HashMap::with_capacity(18);
+                    let mut map = HashMap::with_capacity(17);
                     map.insert(Cow::Borrowed("ActuatorType"), RbxValue::Enum { value: 0 });
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
-                    map.insert(
-                        Cow::Borrowed("CurrentPosition"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("LimitsEnabled"),
@@ -21742,13 +21767,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(8);
+                    let mut map = HashMap::with_capacity(7);
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
-                    map.insert(
-                        Cow::Borrowed("CurrentDistance"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(Cow::Borrowed("Length"), RbxValue::Float32 { value: 5.0 });
                     map.insert(
@@ -21831,13 +21852,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(9);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
-                    map.insert(
-                        Cow::Borrowed("CurrentDistance"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(Cow::Borrowed("Length"), RbxValue::Float32 { value: 5.0 });
                     map.insert(
@@ -22093,10 +22110,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 default_properties: {
                     let mut map = HashMap::with_capacity(10);
                     map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
-                    map.insert(
                         Cow::Borrowed("AutoLocalize"),
                         RbxValue::Bool { value: true },
                     );
@@ -22115,6 +22128,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         RbxValue::String {
                             value: String::from("ScreenGui"),
                         },
+                    );
+                    map.insert(
+                        Cow::Borrowed("OnTopOfCoreBlur"),
+                        RbxValue::Bool { value: false },
                     );
                     map.insert(
                         Cow::Borrowed("ResetOnSpawn"),
@@ -22532,15 +22549,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(42);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
-                    map.insert(
-                        Cow::Borrowed("AbsoluteWindowSize"),
-                        RbxValue::Vector2 { value: [0.0, 0.0] },
-                    );
+                    let mut map = HashMap::with_capacity(40);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -22741,7 +22750,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(49);
+                    let mut map = HashMap::with_capacity(50);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -22823,6 +22832,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -23590,7 +23603,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(51);
+                    let mut map = HashMap::with_capacity(52);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -23671,6 +23684,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -24759,12 +24776,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(13);
+                    let mut map = HashMap::with_capacity(14);
                     map.insert(
                         Cow::Borrowed("EmitterSize"),
                         RbxValue::Float32 { value: 10.0 },
                     );
                     map.insert(Cow::Borrowed("Looped"), RbxValue::Bool { value: false });
+                    map.insert(
+                        Cow::Borrowed("MaxDistance"),
+                        RbxValue::Float32 { value: 10000.0 },
+                    );
                     map.insert(
                         Cow::Borrowed("MinDistance"),
                         RbxValue::Float32 { value: 10.0 },
@@ -25154,7 +25175,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(52);
+                    let mut map = HashMap::with_capacity(53);
                     map.insert(
                         Cow::Borrowed("AllowTeamChangeOnTouch"),
                         RbxValue::Bool { value: false },
@@ -25241,6 +25262,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -25720,14 +25745,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(16);
+                    let mut map = HashMap::with_capacity(15);
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Coils"), RbxValue::Float32 { value: 3.0 });
-                    map.insert(
-                        Cow::Borrowed("CurrentLength"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
                     map.insert(Cow::Borrowed("Damping"), RbxValue::Float32 { value: 0.0 });
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
@@ -25879,12 +25900,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(4);
+                    let mut map = HashMap::with_capacity(5);
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
                             value: String::from("StarterGui"),
                         },
+                    );
+                    map.insert(
+                        Cow::Borrowed("ProcessUserInput"),
+                        RbxValue::Bool { value: true },
                     );
                     map.insert(
                         Cow::Borrowed("ResetPlayerGuiOnSpawn"),
@@ -28156,11 +28181,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(17);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
+                    let mut map = HashMap::with_capacity(16);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
@@ -28926,17 +28947,13 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(13);
+                    let mut map = HashMap::with_capacity(10);
                     map.insert(Cow::Borrowed("AutoRuns"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("Description"),
                         RbxValue::String {
                             value: String::from(""),
                         },
-                    );
-                    map.insert(
-                        Cow::Borrowed("ErrorCount"),
-                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(
                         Cow::Borrowed("ExecuteWithStudioRun"),
@@ -28968,9 +28985,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         Cow::Borrowed("SimulateSecondsLag"),
                         RbxValue::Float32 { value: 0.0 },
                     );
-                    map.insert(Cow::Borrowed("TestCount"), RbxValue::Float32 { value: 0.0 });
                     map.insert(Cow::Borrowed("Timeout"), RbxValue::Float32 { value: 10.0 });
-                    map.insert(Cow::Borrowed("WarnCount"), RbxValue::Float32 { value: 0.0 });
                     map
                 },
                 __non_exhaustive: (),
@@ -29370,10 +29385,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 },
                 default_properties: {
                     let mut map = HashMap::with_capacity(50);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -29410,6 +29421,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("ClipsDescendants"),
                         RbxValue::Bool { value: false },
+                    );
+                    map.insert(
+                        Cow::Borrowed("CursorPosition"),
+                        RbxValue::Float32 { value: 1.0 },
                     );
                     map.insert(Cow::Borrowed("Draggable"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Font"), RbxValue::Enum { value: 0 });
@@ -29824,11 +29839,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(47);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
+                    let mut map = HashMap::with_capacity(45);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -29878,12 +29889,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         RbxValue::Float32 { value: 1.0 },
                     );
                     map.insert(Cow::Borrowed("Localize"), RbxValue::Bool { value: true });
-                    map.insert(
-                        Cow::Borrowed("LocalizedText"),
-                        RbxValue::String {
-                            value: String::from("Button"),
-                        },
-                    );
                     map.insert(Cow::Borrowed("Modal"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("Name"),
@@ -30273,11 +30278,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(43);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
+                    let mut map = HashMap::with_capacity(41);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -30323,12 +30324,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         RbxValue::Float32 { value: 1.0 },
                     );
                     map.insert(Cow::Borrowed("Localize"), RbxValue::Bool { value: true });
-                    map.insert(
-                        Cow::Borrowed("LocalizedText"),
-                        RbxValue::String {
-                            value: String::from("Label"),
-                        },
-                    );
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
@@ -30482,7 +30477,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(9);
+                    let mut map = HashMap::with_capacity(10);
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -30490,6 +30485,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(Cow::Borrowed("Face"), RbxValue::Enum { value: 5 });
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
+                    );
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
@@ -31286,7 +31285,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(47);
+                    let mut map = HashMap::with_capacity(48);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -31366,6 +31365,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -31494,14 +31497,13 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(2);
+                    let mut map = HashMap::with_capacity(1);
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
                             value: String::from("Tween"),
                         },
                     );
-                    map.insert(Cow::Borrowed("PlaybackState"), RbxValue::Enum { value: 0 });
                     map
                 },
                 __non_exhaustive: (),
@@ -31726,11 +31728,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteContentSize"),
-                        RbxValue::Vector2 { value: [0.0, 0.0] },
-                    );
+                    let mut map = HashMap::with_capacity(9);
                     map.insert(
                         Cow::Borrowed("CellPadding"),
                         RbxValue::UDim2 {
@@ -31889,11 +31887,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(7);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteContentSize"),
-                        RbxValue::Vector2 { value: [0.0, 0.0] },
-                    );
+                    let mut map = HashMap::with_capacity(6);
                     map.insert(Cow::Borrowed("FillDirection"), RbxValue::Enum { value: 1 });
                     map.insert(
                         Cow::Borrowed("HorizontalAlignment"),
@@ -32162,14 +32156,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(16);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteContentSize"),
-                        RbxValue::Vector2 { value: [0.0, 0.0] },
-                    );
+                    let mut map = HashMap::with_capacity(14);
                     map.insert(Cow::Borrowed("Animated"), RbxValue::Bool { value: true });
                     map.insert(Cow::Borrowed("Circular"), RbxValue::Bool { value: false });
-                    map.insert(Cow::Borrowed("CurrentPage"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("EasingDirection"),
                         RbxValue::Enum { value: 1 },
@@ -32376,11 +32365,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteContentSize"),
-                        RbxValue::Vector2 { value: [0.0, 0.0] },
-                    );
+                    let mut map = HashMap::with_capacity(9);
                     map.insert(Cow::Borrowed("FillDirection"), RbxValue::Enum { value: 1 });
                     map.insert(
                         Cow::Borrowed("FillEmptySpaceColumns"),
@@ -32565,6 +32550,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
                     );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
+                    );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Material"), RbxValue::Enum { value: 256 });
@@ -32638,10 +32627,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     );
                     map.insert(
                         Cow::Borrowed("Transparency"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
-                    map.insert(
-                        Cow::Borrowed("TriangleCount"),
                         RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(
@@ -33530,35 +33515,23 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(12);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(
-                        Cow::Borrowed("AccelerometerEnabled"),
-                        RbxValue::Bool { value: false },
-                    );
-                    map.insert(
-                        Cow::Borrowed("GamepadEnabled"),
-                        RbxValue::Bool { value: false },
-                    );
-                    map.insert(
-                        Cow::Borrowed("GyroscopeEnabled"),
-                        RbxValue::Bool { value: false },
-                    );
-                    map.insert(
-                        Cow::Borrowed("KeyboardEnabled"),
+                        Cow::Borrowed("GazeSelectionEnabled"),
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
                         Cow::Borrowed("LegacyInputEventsEnabled"),
                         RbxValue::Bool { value: true },
                     );
+                    map.insert(
+                        Cow::Borrowed("ModalEnabled"),
+                        RbxValue::Bool { value: false },
+                    );
                     map.insert(Cow::Borrowed("MouseBehavior"), RbxValue::Enum { value: 0 });
                     map.insert(
                         Cow::Borrowed("MouseDeltaSensitivity"),
                         RbxValue::Float32 { value: 1.0 },
-                    );
-                    map.insert(
-                        Cow::Borrowed("MouseEnabled"),
-                        RbxValue::Bool { value: true },
                     );
                     map.insert(
                         Cow::Borrowed("MouseIconEnabled"),
@@ -33571,10 +33544,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                         },
                     );
                     map.insert(
-                        Cow::Borrowed("TouchEnabled"),
-                        RbxValue::Bool { value: false },
+                        Cow::Borrowed("OverrideMouseIconBehavior"),
+                        RbxValue::Enum { value: 0 },
                     );
-                    map.insert(Cow::Borrowed("VREnabled"), RbxValue::Bool { value: false });
                     map
                 },
                 __non_exhaustive: (),
@@ -33659,12 +33631,15 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 default_properties: {
                     let mut map = HashMap::with_capacity(2);
                     map.insert(
+                        Cow::Borrowed("GuiInputUserCFrame"),
+                        RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
                             value: String::from("VRService"),
                         },
                     );
-                    map.insert(Cow::Borrowed("VREnabled"), RbxValue::Bool { value: false });
                     map
                 },
                 __non_exhaustive: (),
@@ -33989,7 +33964,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(55);
+                    let mut map = HashMap::with_capacity(56);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -34074,6 +34049,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -34332,11 +34311,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(30);
-                    map.insert(
-                        Cow::Borrowed("AbsoluteRotation"),
-                        RbxValue::Float32 { value: 0.0 },
-                    );
+                    let mut map = HashMap::with_capacity(29);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -34541,7 +34516,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                 tags: RbxInstanceTags::empty(),
                 properties: HashMap::new(),
                 default_properties: {
-                    let mut map = HashMap::with_capacity(47);
+                    let mut map = HashMap::with_capacity(48);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -34622,6 +34597,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map.insert(
                         Cow::Borrowed("LeftSurfaceInput"),
                         RbxValue::Enum { value: 0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LocalTransparencyModifier"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Locked"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Massless"), RbxValue::Bool { value: false });
@@ -34809,8 +34788,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(5);
-                    map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
+                    let mut map = HashMap::with_capacity(4);
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("Name"),
