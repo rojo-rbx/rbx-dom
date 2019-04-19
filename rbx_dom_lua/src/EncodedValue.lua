@@ -1,12 +1,13 @@
 local primitiveTypes = {
+	BinaryString = true,
 	Bool = true,
+	Content = true,
 	Enum = true,
 	Float32 = true,
 	Float64 = true,
 	Int32 = true,
 	Int64 = true,
 	String = true,
-	Content = true,
 }
 
 local function identity(...)
