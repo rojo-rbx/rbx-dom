@@ -55,7 +55,7 @@ enum PluginMessage {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let (dump_source, dump) = Dump::read_with_source()?;
+    let dump = Dump::read()?;
 
     let mut classes: HashMap<Cow<'static, str>, RbxInstanceClass> = HashMap::new();
 
@@ -223,6 +223,12 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 
+    let mut database = ReflectionDatabase {
+        dump,
+        studio_version: [0, 0, 0, 0],
+        classes,
+    };
+
     let plugin = {
         let mut plugin = RbxTree::new(RbxInstanceProperties {
             name: String::from("generate_reflection plugin"),
@@ -246,14 +252,12 @@ fn main() -> Result<(), Box<dyn Error>> {
         plugin.insert_instance(main, root_id);
 
         inject_plugin_main(&mut plugin);
-        inject_api_dump(&mut plugin, dump_source);
+        inject_reflection_classes(&mut plugin, &database);
 
         plugin
     };
 
     let messages = run_in_roblox(&plugin);
-
-    let mut studio_version = [0, 0, 0, 0];
 
     for message in &messages {
         let deserialized = serde_json::from_slice(&message)
@@ -261,21 +265,15 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         match deserialized {
             PluginMessage::Version { version } => {
-                studio_version = version;
+                database.studio_version = version;
             }
             PluginMessage::DefaultProperties { class_name, properties } => {
-                if let Some(class) = classes.get_mut(class_name.as_str()) {
+                if let Some(class) = database.classes.get_mut(class_name.as_str()) {
                     mem::replace(&mut class.default_properties, properties);
                 }
             }
         }
     }
-
-    let database = ReflectionDatabase {
-        dump,
-        studio_version,
-        classes,
-    };
 
     let rust_output_dir = {
         let mut rust_output_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
@@ -325,23 +323,30 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-fn inject_api_dump(plugin: &mut RbxTree, source: String) {
+fn inject_reflection_classes(plugin: &mut RbxTree, database: &ReflectionDatabase) {
     let root_id = plugin.get_root_id();
 
-    let dump_node = RbxInstanceProperties {
-        class_name: String::from("StringValue"),
-        name: String::from("ApiDump"),
+    let mut classes_buffer = Vec::new();
+    emitter_lua::emit_classes(&mut classes_buffer, database)
+        .expect("Couldn't emit Lua class database");
+
+    let classes_source = String::from_utf8(classes_buffer)
+        .expect("Lua class database wasn't valid UTF-8");
+
+    let module = RbxInstanceProperties {
+        class_name: String::from("ModuleScript"),
+        name: String::from("ReflectionClasses"),
         properties: {
             let mut properties = HashMap::new();
 
             properties.insert(
-                String::from("Value"),
-                RbxValue::String { value: source },
+                String::from("Source"),
+                RbxValue::String { value: classes_source },
             );
 
             properties
         },
     };
 
-    plugin.insert_instance(dump_node, root_id);
+    plugin.insert_instance(module, root_id);
 }

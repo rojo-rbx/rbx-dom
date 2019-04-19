@@ -104,7 +104,7 @@ pub struct DumpEnumItem {
 }
 
 impl Dump {
-    pub fn read_with_source() -> io::Result<(String, Dump)> {
+    pub fn read() -> io::Result<Dump> {
         let studio_install = RobloxStudio::locate()?;
 
         let dir = tempdir()?;
@@ -116,12 +116,9 @@ impl Dump {
             .status()?;
 
         let contents = fs::read_to_string(&dump_path)?;
-        let mut dump: Dump = serde_json::from_str(&contents)
+        let dump: Dump = serde_json::from_str(&contents)
             .expect("Roblox Studio produced an invalid dump");
 
-        dump.classes.sort_by_key(|class| class.name.clone());
-        dump.enums.sort_by_key(|rbx_enum| rbx_enum.name.clone());
-
-        Ok((contents, dump))
+        Ok(dump)
     }
 }
