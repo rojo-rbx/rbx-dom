@@ -145,3 +145,7 @@ canonical_name = "CFrame"
 # Camera.focus is a deprecated alias for Focus
 [change.Camera.focus]
 canonical_name = "Focus"
+
+# JointInstance.part1 is a deprecated alias for Part1
+[change.JointInstance.part1]
+canonical_name = "Part1"
