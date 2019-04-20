@@ -513,7 +513,12 @@ fn deserialize_properties<R: Read>(
         assert_eq!(name.local_name, "Properties");
     });
 
-    loop {
+    let class_name = &state.tree.get_instance(instance_id).unwrap().class_name;
+    let reflection_classes = rbx_reflection::get_classes();
+    let class_descriptor = reflection_classes.get(class_name.as_str())
+        .unwrap_or_else(|| panic!("Couldn't find class descriptor for {}", class_name));
+
+    'property_loop: loop {
         let (property_type, xml_property_name) = loop {
             match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
                 Ok(XmlReadEvent::StartElement { name, attributes, .. }) => {
@@ -544,19 +549,39 @@ fn deserialize_properties<R: Read>(
             };
         };
 
-        let canonical_name = XML_TO_CANONICAL_NAME
-            .get(xml_property_name.as_str())
-            .map(|value| value.to_string())
-            .unwrap_or(xml_property_name);
+        let property_descriptor = {
+            let mut current_class_descriptor = class_descriptor;
+
+            loop {
+                log::warn!("Trying class descriptor {:?}", current_class_descriptor);
+
+                if let Some(property_descriptor) = current_class_descriptor.properties.get(xml_property_name.as_str()) {
+                    if property_descriptor.is_canonical {
+                        break property_descriptor;
+                    }
+
+                    match &property_descriptor.canonical_name {
+                        Some(canonical_name) => break current_class_descriptor.properties.get(canonical_name).unwrap(),
+                        None => continue 'property_loop
+                    }
+                }
+
+                match &current_class_descriptor.superclass {
+                    Some(superclass_name) => current_class_descriptor = reflection_classes.get(superclass_name)
+                        .expect("Superclass in rbx_reflection didn't exist"),
+                    None => continue 'property_loop
+                }
+            }
+        };
 
         // Refs need lots of additional state that we don't want to pass to
         // other property types unnecessarily, so we special-case it here.
         let value = match property_type.as_str() {
-            "Ref" => read_ref(reader, instance_id, &canonical_name, state)?,
+            "Ref" => read_ref(reader, instance_id, &property_descriptor.name, state)?,
             _ => read_value_xml(reader, &property_type)?
         };
 
-        props.insert(canonical_name, value);
+        props.insert(property_descriptor.name.to_string(), value);
     }
 }
 
@@ -818,34 +843,6 @@ mod test {
         assert_eq!(descendant.name, "Test");
         assert_eq!(descendant.class_name, "Color3Value");
         assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3uint8 { value: [ 255, 128, 64 ] }));
-    }
-
-    #[test]
-    fn with_vector2() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Vector2Value" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <Vector2 name="Value">
-                            <X>0</X>
-                            <Y>0.5</Y>
-                        </Vector2>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).expect("should work D:");
-
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Test");
-        assert_eq!(descendant.class_name, "Vector2Value");
-        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector2 { value: [ 0.0, 0.5 ] }));
     }
 
     #[test]

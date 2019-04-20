@@ -19,5 +19,7 @@ paste = "0.1.5"
 rbx_dom_weak = { version = "1.4.0", path = "../rbx_dom_weak" }
 xml-rs = "0.8"
 
+rbx_reflection = { version = "3.0.0", path = "../rbx_reflection" }
+
 [dev-dependencies]
 env_logger = "0.6.0"
