@@ -450,7 +450,7 @@ fn deserialize_instance<R: Read>(
     trace!("Class {} with referent {:?}", class_name, referent);
 
     let instance_props = RbxInstanceProperties {
-        class_name: String::new(),
+        class_name,
         name: String::new(),
         properties: HashMap::new(),
     };
@@ -488,17 +488,16 @@ fn deserialize_instance<R: Read>(
         }
     }
 
-    let instance_name = match properties.remove("Name") {
+    let instance = state.tree.get_instance_mut(instance_id).unwrap();
+
+    instance.name = match properties.remove("Name") {
         Some(value) => match value {
             RbxValue::String { value } => value,
             _ => return Err(DecodeError::Message("Name must be a string")),
         },
-        None => class_name.clone(),
+        None => instance.class_name.clone(),
     };
 
-    let instance = state.tree.get_instance_mut(instance_id).unwrap();
-    instance.class_name = class_name;
-    instance.name = instance_name;
     instance.properties = properties;
 
     Ok(())
