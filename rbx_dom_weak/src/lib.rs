@@ -74,6 +74,7 @@ mod id;
 mod instance;
 mod tree;
 mod value;
+mod value_conversion;
 
 pub use crate::{
     unresolved_value::{AmbiguousRbxValue, UnresolvedRbxValue},
