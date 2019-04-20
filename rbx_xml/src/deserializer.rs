@@ -10,7 +10,6 @@ use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
-    reflection::XML_TO_CANONICAL_NAME,
     types::{read_value_xml, read_ref},
 };
 
@@ -549,6 +548,13 @@ fn deserialize_properties<R: Read>(
             };
         };
 
+        // Refs need lots of additional state that we don't want to pass to
+        // other property types unnecessarily, so we special-case it here.
+        let value = match property_type.as_str() {
+            "Ref" => read_ref(reader, instance_id, &xml_property_name /* todo: wrong */, state)?,
+            _ => read_value_xml(reader, &property_type)?
+        };
+
         let property_descriptor = {
             let mut current_class_descriptor = class_descriptor;
 
@@ -572,13 +578,6 @@ fn deserialize_properties<R: Read>(
                     None => continue 'property_loop
                 }
             }
-        };
-
-        // Refs need lots of additional state that we don't want to pass to
-        // other property types unnecessarily, so we special-case it here.
-        let value = match property_type.as_str() {
-            "Ref" => read_ref(reader, instance_id, &property_descriptor.name, state)?,
-            _ => read_value_xml(reader, &property_type)?
         };
 
         props.insert(property_descriptor.name.to_string(), value);
