@@ -4,7 +4,9 @@
 [change.Instance.className]
 canonical_name = "ClassName"
 
-# archivable is a deprecated alias for Archivable
+# archivable is a deprecated alias for Archivable and its serialized name
+[change.Instance.Archivable]
+serialized_name = "archivable"
 [change.Instance.archivable]
 canonical_name = "Archivable"
 
