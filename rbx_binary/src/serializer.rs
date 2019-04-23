@@ -6,7 +6,7 @@ use std::{
 };
 
 use byteorder::{WriteBytesExt, LittleEndian};
-use rbx_dom_weak::{RbxTree, RbxInstance, RbxId, RbxValue};
+use rbx_dom_weak::{RbxTree, RbxInstance, RbxId, RbxValue, ExtractOwned, ExtractBorrowed};
 
 use crate::{
     chunks::{encode_chunk, ChunkCompression},
@@ -81,6 +81,15 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
                 StringType::write_one(&mut output, &prop_info.name)?;
                 output.write_u8(prop_info.kind.id())?;
 
+                match prop_info.kind {
+                    PropKind::String => {
+                        let values = collect_values::<String>(&relevant_instances, prop_info, &type_info.object_ids);
+                    },
+                    PropKind::Bool => {
+                        let values = collect_values_owned::<bool>(&relevant_instances, prop_info, &type_info.object_ids);
+                    },
+                }
+
                 for instance_id in &type_info.object_ids {
                     let instance = relevant_instances.get(instance_id).unwrap();
                     let value = match prop_info.name.as_str() {
@@ -92,7 +101,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
                             // to fall back to the correct default value.
                             let value = instance.properties.get(&prop_info.name)
                                 .map(Cow::Borrowed)
-                                .unwrap_or_else(|| Cow::Owned(prop_info.kind.default_value()));
+                                .unwrap_or_else(|| Cow::Borrowed(prop_info.kind.default_value()));
 
                             // For now, we ensure that every instance of a given
                             // type pinky-promises to have the correct type.
@@ -147,6 +156,59 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
     Ok(())
 }
 
+fn collect_values<'a, T>(
+    relevant_instances: &'a HashMap<RbxId, &RbxInstance>,
+    prop_info: &PropInfo,
+    object_ids: &[RbxId],
+) -> Vec<&'a T>
+where
+    RbxValue: ExtractBorrowed<T>,
+{
+    let mut output = Vec::with_capacity(object_ids.len());
+
+    for instance_id in object_ids {
+        let instance = relevant_instances.get(instance_id).unwrap();
+
+        // TODO: This is way wrong; we need type information
+        // to fall back to the correct default value.
+        let value = instance.properties.get(&prop_info.name)
+            .unwrap_or_else(|| prop_info.kind.default_value());
+
+        assert_eq!(PropKind::from_value(&value), prop_info.kind);
+
+        output.push(RbxValue::extract_borrowed(value).unwrap());
+    }
+
+    output
+}
+
+fn collect_values_owned<T>(
+    relevant_instances: &HashMap<RbxId, &RbxInstance>,
+    prop_info: &PropInfo,
+    object_ids: &[RbxId],
+) -> Vec<T>
+where
+    RbxValue: ExtractOwned<T>,
+    T: Clone,
+{
+    let mut output = Vec::with_capacity(object_ids.len());
+
+    for instance_id in object_ids {
+        let instance = relevant_instances.get(instance_id).unwrap();
+
+        // TODO: This is way wrong; we need type information
+        // to fall back to the correct default value.
+        let value = instance.properties.get(&prop_info.name)
+            .unwrap_or_else(|| prop_info.kind.default_value());
+
+        assert_eq!(PropKind::from_value(&value), prop_info.kind);
+
+        output.push(RbxValue::extract_owned(value).unwrap());
+    }
+
+    output
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum PropKind {
     String,
@@ -163,14 +225,20 @@ impl PropKind {
     }
 
     // This function requires type information to implement correctly!
-    fn default_value(&self) -> RbxValue {
-        match self {
-            PropKind::String => RbxValue::String {
+    fn default_value(&self) -> &'static RbxValue {
+        lazy_static::lazy_static! {
+            static ref DEFAULT_STRING: RbxValue = RbxValue::String {
                 value: String::new(),
-            },
-            PropKind::Bool => RbxValue::Bool {
+            };
+
+            static ref DEFAULT_BOOL: RbxValue = RbxValue::Bool {
                 value: false,
-            },
+            };
+        }
+
+        match self {
+            PropKind::String => &DEFAULT_STRING,
+            PropKind::Bool => &DEFAULT_BOOL,
         }
     }
 

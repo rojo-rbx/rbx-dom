@@ -163,6 +163,53 @@ impl RbxValue {
     }
 }
 
+pub trait ExtractBorrowed<T> {
+    fn extract_borrowed<'a>(&'a self) -> Option<&'a T>;
+}
+
+pub trait ExtractOwned<T> {
+    fn extract_owned(&self) -> Option<T> where T: Sized + Clone;
+}
+
+impl<T> ExtractOwned<T> for T where T: ExtractBorrowed<T> + Clone {
+    fn extract_owned(&self) -> Option<T>
+        where T: Sized + Clone
+    {
+        self.extract_borrowed().cloned()
+    }
+}
+
+impl ExtractBorrowed<String> for RbxValue {
+    fn extract_borrowed(&self) -> Option<&String> {
+        match self {
+            RbxValue::String { value } => Some(value),
+            RbxValue::Content { value } => Some(value),
+            _ => None,
+        }
+    }
+}
+
+impl ExtractOwned<bool> for RbxValue {
+    fn extract_owned(&self) -> Option<bool> {
+        match self {
+            RbxValue::Bool { value } => Some(*value),
+            _ => None,
+        }
+    }
+}
+
+impl ExtractOwned<f64> for RbxValue {
+    fn extract_owned(&self) -> Option<f64> {
+        match self {
+            RbxValue::Int32 { value } => Some(*value as f64),
+            RbxValue::Int64 { value } => Some(*value as f64),
+            RbxValue::Float32 { value } => Some(*value as f64),
+            RbxValue::Float64 { value } => Some(*value),
+            _ => None,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ColorSequence {
