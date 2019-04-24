@@ -10,7 +10,6 @@ use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
     core::find_canonical_property_descriptor,
-    reflection::CANONICAL_TO_XML_NAME,
     types::{write_value_xml, write_ref},
 };
 
@@ -174,13 +173,9 @@ impl EmitState {
 fn serialize_value<W: Write>(
     writer: &mut XmlEventWriter<W>,
     state: &mut EmitState,
-    canonical_name: &str,
+    xml_name: &str,
     value: &RbxValue,
 ) -> Result<(), EncodeError> {
-    let xml_name = CANONICAL_TO_XML_NAME
-        .get(canonical_name)
-        .unwrap_or(&canonical_name);
-
     // Refs need additional state that we don't want to thread through
     // `write_value_xml`, so we handle it here.
     match value {
