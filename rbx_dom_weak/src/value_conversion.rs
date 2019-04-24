@@ -45,7 +45,7 @@ impl IntoRbxValue for String {
 }
 
 impl RbxValue {
-    fn try_convert(self, target_type: RbxValueType) -> Result<RbxValue, RbxValue> {
+    pub fn try_convert(self, target_type: RbxValueType) -> Result<RbxValue, RbxValue> {
         if self.get_type() == target_type {
             return Ok(self)
         }

@@ -6,7 +6,8 @@ use std::{
 
 use failure::Fail;
 use log::trace;
-use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
+use rbx_reflection::RbxPropertyType;
+use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
@@ -556,7 +557,22 @@ fn deserialize_properties<R: Read>(
 
                     read_ref(reader, instance_id, &descriptor.name, state)?
                 }
-                _ => read_value_xml(reader, &property_type)?
+                _ => {
+                    let xml_value = read_value_xml(reader, &property_type)?;
+
+                    let value_type = match &descriptor.value_type {
+                        RbxPropertyType::Data(property_type) => *property_type,
+                        RbxPropertyType::Enum(_enum_name) => RbxValueType::Enum,
+                        RbxPropertyType::UnimplementedType(_) => xml_value.get_type(),
+                    };
+
+                    let value = match xml_value.try_convert(value_type) {
+                        Ok(value) => value,
+                        Err(value) => value,
+                    };
+
+                    value
+                }
             };
 
             props.insert(descriptor.name.to_string(), value);
