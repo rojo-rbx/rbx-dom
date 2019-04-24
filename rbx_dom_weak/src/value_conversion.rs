@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+
 use crate::value::{RbxValue, RbxValueType};
 
 trait IntoRbxValue {
@@ -45,6 +47,11 @@ impl IntoRbxValue for String {
 }
 
 impl RbxValue {
+    /// Attempts to convert the `RbxValue` into a new value with the given type.
+    ///
+    /// Is a no-op if the value is already of the correct type.
+    ///
+    /// If the conversion fails, the value will be given back in the `Err` case.
     pub fn try_convert(self, target_type: RbxValueType) -> Result<RbxValue, RbxValue> {
         if self.get_type() == target_type {
             return Ok(self)
@@ -58,6 +65,31 @@ impl RbxValue {
             (RbxValue::Int64 { value }, RbxValueType::Int32) => Ok(RbxValue::Int32 { value: value as i32 }),
 
             (this, _) => Err(this)
+        }
+    }
+
+    /// Attempts to convert a reference to an `RbxValue` to a new value with the
+    /// given type.
+    ///
+    /// Is a no-op (by returning `Some(Cow::Borrowed(_))`) if the value is
+    /// already the right type.
+    ///
+    /// If the conversion wasn't successful, returns `None`.
+    pub fn try_convert_ref<'a>(&'a self, target_type: RbxValueType) -> Option<Cow<'a, RbxValue>> {
+        if self.get_type() == target_type {
+            return Some(Cow::Borrowed(self))
+        }
+
+        // TODO: Reduce duplication with try_convert
+
+        match (self, target_type) {
+            (RbxValue::Float32 { value }, RbxValueType::Float64) => Some(Cow::Owned(RbxValue::Float64 { value: *value as f64 })),
+            (RbxValue::Float64 { value }, RbxValueType::Float32) => Some(Cow::Owned(RbxValue::Float32 { value: *value as f32 })),
+
+            (RbxValue::Int32 { value }, RbxValueType::Int64) => Some(Cow::Owned(RbxValue::Int64 { value: *value as i64 })),
+            (RbxValue::Int64 { value }, RbxValueType::Int32) => Some(Cow::Owned(RbxValue::Int32 { value: *value as i32 })),
+
+            (_this, _) => None
         }
     }
 }
