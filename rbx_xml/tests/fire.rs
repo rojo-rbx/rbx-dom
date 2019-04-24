@@ -12,8 +12,7 @@ fn new_test_tree() -> RbxTree {
     RbxTree::new(root)
 }
 
-// TODO: https://github.com/LPGhatguy/rbx-dom/issues/14
-// #[test]
+#[test]
 fn fire_weird_properties() {
     let _ = env_logger::try_init();
 
