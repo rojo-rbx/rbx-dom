@@ -9,6 +9,7 @@ use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
 
 use crate::{
+    core::find_canonical_property_descriptor,
     reflection::CANONICAL_TO_XML_NAME,
     types::{write_value_xml, write_ref},
 };
@@ -207,34 +208,13 @@ fn serialize_instance<W: Write>(
         value: instance.name.clone(),
     })?;
 
-    let reflection_classes = rbx_reflection::get_classes();
-    let exact_class = reflection_classes.get(instance.class_name.as_str())
-        .expect("NYI: Class not in reflection database");
-    let mut reflection_class = exact_class;
+    for (property_name, value) in &instance.properties {
+        if let Some(descriptor) = find_canonical_property_descriptor(&instance.class_name, property_name) {
+            let serialized_name = descriptor.serialized_name.as_ref()
+                .map(AsRef::as_ref)
+                .unwrap_or(&property_name);
 
-    loop {
-        for (property_name, property) in &reflection_class.properties {
-            if !property.is_canonical {
-                continue;
-            }
-
-            if let Some(value) = instance.properties.get(property_name.as_ref()) {
-                if let Some(default_value) = exact_class.default_properties.get(property_name.as_ref()) {
-                    if value == default_value {
-                        continue;
-                    }
-                }
-
-                serialize_value(writer, state, property_name, value)?;
-            }
-        }
-
-        match &reflection_class.superclass {
-            Some(superclass_name) => {
-                reflection_class = reflection_classes.get(superclass_name)
-                    .expect("Instance in rbx_reflection referred to superclass that didn't exist");
-            }
-            None => break
+            serialize_value(writer, state, &serialized_name, value)?;
         }
     }
 
