@@ -1,4 +1,5 @@
 use std::{
+    borrow::Cow,
     collections::HashMap,
     fmt::Write as FmtWrite,
     io::{self, Write},
@@ -6,7 +7,8 @@ use std::{
 
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
-use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
+use rbx_reflection::RbxPropertyType;
+use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId};
 
 use crate::{
     core::find_canonical_property_descriptor,
@@ -209,7 +211,16 @@ fn serialize_instance<W: Write>(
                 .map(AsRef::as_ref)
                 .unwrap_or(&property_name);
 
-            serialize_value(writer, state, &serialized_name, value)?;
+            let value_type = match &descriptor.value_type {
+                RbxPropertyType::Data(property_type) => *property_type,
+                RbxPropertyType::Enum(_enum_name) => RbxValueType::Enum,
+                RbxPropertyType::UnimplementedType(_) => value.get_type(),
+            };
+
+            let converted_value = value.try_convert_ref(value_type)
+                .unwrap_or(Cow::Borrowed(value));
+
+            serialize_value(writer, state, &serialized_name, &converted_value)?;
         }
     }
 
