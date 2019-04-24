@@ -13,7 +13,7 @@ fn new_test_tree() -> RbxTree {
 }
 
 #[test]
-fn fire_weird_properties() {
+fn f32_to_f64() {
     let _ = env_logger::try_init();
 
     let mut tree = new_test_tree();
