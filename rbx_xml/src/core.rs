@@ -27,8 +27,7 @@ pub fn find_canonical_property_descriptor(
     property_name: &str,
 ) -> Option<&'static RbxInstanceProperty> {
     let reflection_classes = rbx_reflection::get_classes();
-    let class_descriptor = reflection_classes.get(class_name)
-        .unwrap_or_else(|| panic!("Couldn't find class descriptor for {}", class_name));
+    let class_descriptor = reflection_classes.get(class_name)?;
 
     let mut current_class_descriptor = class_descriptor;
 
