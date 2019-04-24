@@ -548,39 +548,73 @@ fn deserialize_properties<R: Read>(
             };
         };
 
-        // Refs need lots of additional state that we don't want to pass to
-        // other property types unnecessarily, so we special-case it here.
-        let value = match property_type.as_str() {
-            "Ref" => read_ref(reader, instance_id, &xml_property_name /* todo: wrong */, state)?,
-            _ => read_value_xml(reader, &property_type)?
-        };
-
-        let property_descriptor = {
+        let maybe_property_descriptor = {
             let mut current_class_descriptor = class_descriptor;
 
+            // We need to find the canonical property descriptor associated with
+            // the property we're trying to deserialize.
+            //
+            // At each step of the loop, we're checking a new class descriptor
+            // to see if it has an entry for the property name from the file,
+            // given by xml_property_name.
             loop {
-                log::warn!("Trying class descriptor {:?}", current_class_descriptor);
+                let maybe_property_descriptor = current_class_descriptor.properties.get(xml_property_name.as_str());
 
-                if let Some(property_descriptor) = current_class_descriptor.properties.get(xml_property_name.as_str()) {
+                // If this class descriptor knows about this property name,
+                // we're pretty much done!
+                if let Some(property_descriptor) = maybe_property_descriptor {
                     if property_descriptor.is_canonical {
-                        break property_descriptor;
+                        // The property name in the XML was the canonical name
+                        // and also the serialized name, hooray!
+
+                        break Some(property_descriptor);
                     }
 
-                    match &property_descriptor.canonical_name {
-                        Some(canonical_name) => break current_class_descriptor.properties.get(canonical_name).unwrap(),
-                        None => continue 'property_loop
+                    if let Some(canonical_name) = &property_descriptor.canonical_name {
+                        // This property has a canonical form that we'll map
+                        // from the XML name.
+
+                        break current_class_descriptor.properties.get(canonical_name);
+                    } else {
+                        // This property doesn't have a canonical form, we we'll
+                        // skip serializing it by declaring there isn't a
+                        // canonical property descriptor for it.
+
+                        break None;
                     }
                 }
 
-                match &current_class_descriptor.superclass {
-                    Some(superclass_name) => current_class_descriptor = reflection_classes.get(superclass_name)
-                        .expect("Superclass in rbx_reflection didn't exist"),
-                    None => continue 'property_loop
+                if let Some(superclass_name) = &current_class_descriptor.superclass {
+                    // If a property descriptor isn't found in our class, check
+                    // our superclass.
+
+                    current_class_descriptor = reflection_classes.get(superclass_name)
+                        .expect("Superclass in rbx_reflection didn't exist");
+                } else {
+                    // This property isn't known by any class in the reflection
+                    // database.
+
+                    break None;
                 }
             }
         };
 
-        props.insert(property_descriptor.name.to_string(), value);
+        if let Some(property_descriptor) = maybe_property_descriptor {
+            let value = match property_type.as_str() {
+                "Ref" => {
+                    // Refs need lots of additional state that we don't want to pass to
+                    // other property types unnecessarily, so we special-case it here.
+
+                    read_ref(reader, instance_id, &property_descriptor.name, state)?
+                }
+                _ => read_value_xml(reader, &property_type)?
+            };
+
+            props.insert(property_descriptor.name.to_string(), value);
+        } else {
+            // We don't care about this property, read it into the void.
+            read_value_xml(reader, &property_type)?;
+        }
     }
 }
 
