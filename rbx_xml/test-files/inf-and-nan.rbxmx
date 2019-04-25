@@ -1,0 +1,32 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Folder" referent="RBX095609039D4D4EAFB860433FE21AA5B9">
+		<Properties>
+			<string name="Name">Folder</string>
+			<BinaryString name="Tags"></BinaryString>
+		</Properties>
+		<Item class="NumberValue" referent="RBX3B3D9D3DB43D4E6793B190B081E0A886">
+			<Properties>
+				<string name="Name">+Infinity</string>
+				<BinaryString name="Tags"></BinaryString>
+				<double name="Value">INF</double>
+			</Properties>
+		</Item>
+		<Item class="NumberValue" referent="RBX4A6BDC580E494175B7BC775AB388A05E">
+			<Properties>
+				<string name="Name">-Infinity</string>
+				<BinaryString name="Tags"></BinaryString>
+				<double name="Value">-INF</double>
+			</Properties>
+		</Item>
+		<Item class="NumberValue" referent="RBXF1D43EDCE6ED4124B84A8FEE90E7A495">
+			<Properties>
+				<string name="Name">NaN</string>
+				<BinaryString name="Tags"></BinaryString>
+				<double name="Value">NAN</double>
+			</Properties>
+		</Item>
+	</Item>
+</roblox>
