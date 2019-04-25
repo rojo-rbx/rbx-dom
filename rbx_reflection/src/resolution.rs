@@ -2,17 +2,15 @@ use failure::Fail;
 use rbx_dom_weak::{AmbiguousRbxValue, RbxValue, RbxValueType, UnresolvedRbxValue};
 
 use crate::{
-    reflection_database::{get_classes, get_enums},
+    reflection_database::{get_class_descriptor, get_enum_descriptor},
     reflection_types::RbxPropertyType,
 };
 
 fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static RbxPropertyType> {
-    let classes = get_classes();
-
     let mut current_class = class_name;
 
     loop {
-        let class = classes.get(current_class)?;
+        let class = get_class_descriptor(current_class)?;
 
         match class.properties.get(property_name) {
             Some(property) => return Some(&property.value_type),
@@ -58,8 +56,7 @@ fn try_resolve_string(
             value: value.to_owned(),
         }),
         RbxPropertyType::Enum(enum_name) => {
-            let enums = get_enums();
-            let roblox_enum = match enums.get(enum_name) {
+            let roblox_enum = match get_enum_descriptor(enum_name) {
                 Some(roblox_enum) => roblox_enum,
                 None => {
                     panic!(

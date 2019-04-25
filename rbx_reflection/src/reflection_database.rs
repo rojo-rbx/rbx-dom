@@ -21,14 +21,17 @@ pub fn get_class_descriptor(name: &str) -> Option<&'static RbxInstanceClass> {
     CLASSES.get(name)
 }
 
-/// Retrieves reflection information for all known classes indexed by name.
 #[inline]
-pub fn get_classes() -> &'static HashMap<Cow<'static, str>, RbxInstanceClass> {
-    &CLASSES
+pub fn iter_class_descriptors() -> impl Iterator<Item = (&'static str, &'static RbxInstanceClass)> {
+    CLASSES.iter().map(|(key, value)| (key.as_ref(), value))
 }
 
-/// Retrieves reflection information for all known enum values indexed by name.
 #[inline]
-pub fn get_enums() -> &'static HashMap<Cow<'static, str>, RbxEnum> {
-    &ENUMS
+pub fn get_enum_descriptor(name: &str) -> Option<&'static RbxEnum> {
+    ENUMS.get(name)
+}
+
+#[inline]
+pub fn iter_enum_descriptors() -> impl Iterator<Item = (&'static str, &'static RbxEnum)> {
+    ENUMS.iter().map(|(key, value)| (key.as_ref(), value))
 }
