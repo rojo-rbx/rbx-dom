@@ -6,11 +6,12 @@ use std::{
 
 use failure::Fail;
 use log::trace;
-use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue};
+use rbx_reflection::RbxPropertyType;
+use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
-    reflection::XML_TO_CANONICAL_NAME,
+    core::find_canonical_property_descriptor,
     types::{read_value_xml, read_ref},
 };
 
@@ -513,7 +514,11 @@ fn deserialize_properties<R: Read>(
         assert_eq!(name.local_name, "Properties");
     });
 
-    loop {
+    let class_name = state.tree.get_instance(instance_id)
+        .expect("Couldn't find instance to deserialize properties into")
+        .class_name.clone();
+
+    'property_loop: loop {
         let (property_type, xml_property_name) = loop {
             match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
                 Ok(XmlReadEvent::StartElement { name, attributes, .. }) => {
@@ -544,417 +549,36 @@ fn deserialize_properties<R: Read>(
             };
         };
 
-        let canonical_name = XML_TO_CANONICAL_NAME
-            .get(xml_property_name.as_str())
-            .map(|value| value.to_string())
-            .unwrap_or(xml_property_name);
+        if let Some(descriptor) = find_canonical_property_descriptor(&class_name, &xml_property_name) {
+            let value = match property_type.as_str() {
+                "Ref" => {
+                    // Refs need lots of additional state that we don't want to pass to
+                    // other property types unnecessarily, so we special-case it here.
 
-        // Refs need lots of additional state that we don't want to pass to
-        // other property types unnecessarily, so we special-case it here.
-        let value = match property_type.as_str() {
-            "Ref" => read_ref(reader, instance_id, &canonical_name, state)?,
-            _ => read_value_xml(reader, &property_type)?
-        };
-
-        props.insert(canonical_name, value);
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use std::collections::HashMap;
-    use rbx_dom_weak::RbxInstanceProperties;
-
-    use super::*;
-
-    fn new_data_model() -> RbxTree {
-        let root = RbxInstanceProperties {
-            name: "DataModel".to_string(),
-            class_name: "DataModel".to_string(),
-            properties: HashMap::new(),
-        };
-
-        RbxTree::new(root)
-    }
-
-    fn floats_approx_equal(left: f32, right: f32, epsilon: f32) -> bool {
-        (left - right).abs() <= epsilon
-    }
-
-    #[test]
-    fn empty_document() {
-        let _ = env_logger::try_init();
-        let document = r#"<roblox version="4"></roblox>"#;
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).unwrap();
-    }
-
-    #[test]
-    fn mostly_empty() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <!-- hello there! -->
-                <Meta name="Trash">true</Meta>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).unwrap();
-    }
-
-    #[test]
-    fn top_level_garbage() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <ack />
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        assert!(decode_str(&mut tree, root_id, document).is_err());
-    }
-
-    #[test]
-    fn empty_instance() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Folder" referent="hello">
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).unwrap();
-
-        let root = tree.get_instance(root_id).unwrap();
-        assert_eq!(root.get_children_ids().len(), 1);
-    }
-
-    #[test]
-    fn children() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Folder" referent="hello">
-                    <Properties>
-                        <string name="Name">Outer</string>
-                    </Properties>
-                    <Item class="Folder" referent="child">
-                        <Properties>
-                            <string name="Name">Inner</string>
-                        </Properties>
-                    </Item>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).unwrap();
-        let root = tree.get_instance(root_id).unwrap();
-        let first_folder = tree.get_instance(root.get_children_ids()[0]).expect("expected a child");
-        let inner_folder = tree.get_instance(first_folder.get_children_ids()[0]).expect("expected a subchild");
-        assert_eq!(first_folder.name, "Outer");
-        assert_eq!(inner_folder.name, "Inner");
-    }
-
-    #[test]
-    fn canonicalized_names() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Part" referent="hello">
-                    <Properties>
-                        <Vector3 name="size">
-                            <X>123.0</X>
-                            <Y>456.0</Y>
-                            <Z>789.0</Z>
-                        </Vector3>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).expect("should work D:");
-
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Part");
-        assert_eq!(descendant.class_name, "Part");
-        assert_eq!(descendant.properties.get("Size"), Some(&RbxValue::Vector3 { value: [123.0, 456.0, 789.0] }));
-    }
-
-    #[test]
-    fn with_bool() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="BoolValue" referent="hello">
-                    <Properties>
-                        <bool name="Value">true</bool>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).expect("should work D:");
-
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "BoolValue");
-        assert_eq!(descendant.class_name, "BoolValue");
-        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Bool { value: true }));
-    }
-
-    #[test]
-    fn with_vector3() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Vector3Value" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <Vector3 name="Value">
-                            <X>0</X>
-                            <Y>0.25</Y>
-                            <Z>-123.23</Z>
-                        </Vector3>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).expect("should work D:");
-
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Test");
-        assert_eq!(descendant.class_name, "Vector3Value");
-        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector3 { value: [ 0.0, 0.25, -123.23 ] }));
-    }
-
-    #[test]
-    fn with_color3() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Color3Value" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <Color3 name="Value">
-                            <R>0</R>
-                            <G>0.25</G>
-                            <B>0.75</B>
-                        </Color3>
-                    </Properties>
-                </Item>
-                <Item class="Color3Value" referent="hello">
-                    <Properties>
-                        <string name="Name">Test2</string>
-                        <Color3 name="Value">4294934592</Color3>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).expect("should work D:");
-
-        for descendant in tree.descendants(root_id) {
-            if descendant.name == "Test" {
-                assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3 { value: [ 0.0, 0.25, 0.75 ] }));
-            } else if descendant.name == "Test2" {
-                if let Some(&RbxValue::Color3 { value }) = descendant.properties.get("Value") {
-                    assert!(floats_approx_equal(value[0], 1.0, 0.001));
-                    assert!(floats_approx_equal(value[1], 0.501961, 0.001));
-                    assert!(floats_approx_equal(value[2], 0.250980, 0.001));
-                } else {
-                    panic!("value was not a Color3 or did not deserialize properly");
+                    read_ref(reader, instance_id, &descriptor.name, state)?
                 }
-            }
-        }
-    }
+                _ => {
+                    let xml_value = read_value_xml(reader, &property_type)?;
 
-    #[test]
-    fn with_color3uint8() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Color3Value" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <Color3uint8 name="Value">4294934592</Color3uint8>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
+                    let value_type = match &descriptor.value_type {
+                        RbxPropertyType::Data(property_type) => *property_type,
+                        RbxPropertyType::Enum(_enum_name) => RbxValueType::Enum,
+                        RbxPropertyType::UnimplementedType(_) => xml_value.get_type(),
+                    };
 
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
+                    let value = match xml_value.try_convert(value_type) {
+                        Ok(value) => value,
+                        Err(value) => value,
+                    };
 
-        decode_str(&mut tree, root_id, document).expect("should work D:");
+                    value
+                }
+            };
 
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Test");
-        assert_eq!(descendant.class_name, "Color3Value");
-        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3uint8 { value: [ 255, 128, 64 ] }));
-    }
-
-    #[test]
-    fn with_vector2() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Vector2Value" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <Vector2 name="Value">
-                            <X>0</X>
-                            <Y>0.5</Y>
-                        </Vector2>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).expect("should work D:");
-
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Test");
-        assert_eq!(descendant.class_name, "Vector2Value");
-        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector2 { value: [ 0.0, 0.5 ] }));
-    }
-
-    #[test]
-    fn with_cframe() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="CFrameValue" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <CoordinateFrame name="Value">
-                            <X>0</X>
-                            <Y>0.5</Y>
-                            <Z>0</Z>
-                            <R00>1</R00>
-                            <R01>0</R01>
-                            <R02>0</R02>
-                            <R10>0</R10>
-                            <R11>1</R11>
-                            <R12>0</R12>
-                            <R20>0</R20>
-                            <R21>0</R21>
-                            <R22>1</R22>
-                        </CoordinateFrame>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).expect("should work D:");
-
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Test");
-        assert_eq!(descendant.class_name, "CFrameValue");
-        assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::CFrame {
-            value: [
-                0.0, 0.5, 0.0,
-                1.0, 0.0, 0.0,
-                0.0, 1.0, 0.0,
-                0.0, 0.0, 1.0,
-            ],
-        }));
-    }
-
-    #[test]
-    fn with_ref_some() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="Folder" referent="RBX1B9CDD1FD0884F76BFE6091C1731E1FB">
-                </Item>
-
-                <Item class="ObjectValue" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <Ref name="Value">RBX1B9CDD1FD0884F76BFE6091C1731E1FB</Ref>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).unwrap();
-
-        let root_instance = tree.get_instance(root_id).unwrap();
-        let target_instance_id = root_instance.get_children_ids()[0];
-        let source_instance_id = root_instance.get_children_ids()[1];
-
-        let source_instance = tree.get_instance(source_instance_id).unwrap();
-        assert_eq!(source_instance.name, "Test");
-        assert_eq!(source_instance.class_name, "ObjectValue");
-
-        let value = source_instance.properties.get("Value").unwrap();
-        if let RbxValue::Ref { value } = value {
-            assert_eq!(value.unwrap(), target_instance_id);
+            props.insert(descriptor.name.to_string(), value);
         } else {
-            panic!("RBXValue was not Ref, but instead {:?}", value);
+            // We don't care about this property, read it into the void.
+            read_value_xml(reader, &property_type)?;
         }
-    }
-
-    #[test]
-    fn with_ref_none() {
-        let _ = env_logger::try_init();
-        let document = r#"
-            <roblox version="4">
-                <Item class="ObjectValue" referent="hello">
-                    <Properties>
-                        <string name="Name">Test</string>
-                        <Ref name="Value">null</Ref>
-                    </Properties>
-                </Item>
-            </roblox>
-        "#;
-
-        let mut tree = new_data_model();
-        let root_id = tree.get_root_id();
-
-        decode_str(&mut tree, root_id, document).expect("should work D:");
-
-        let descendant = tree.descendants(root_id).nth(1).unwrap();
-        assert_eq!(descendant.name, "Test");
-        assert_eq!(descendant.class_name, "ObjectValue");
-
-        let value = descendant.properties.get("Value").expect("no value property");
-        assert_eq!(value, &RbxValue::Ref { value: None });
     }
 }

@@ -1,15 +1,17 @@
 use std::{
+    borrow::Cow,
     collections::HashMap,
-    io::{self, Write},
     fmt::Write as FmtWrite,
+    io::{self, Write},
 };
 
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
-use rbx_dom_weak::{RbxTree, RbxValue, RbxId};
+use rbx_reflection::RbxPropertyType;
+use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId};
 
 use crate::{
-    reflection::CANONICAL_TO_XML_NAME,
+    core::find_canonical_property_descriptor,
     types::{write_value_xml, write_ref},
 };
 
@@ -173,13 +175,9 @@ impl EmitState {
 fn serialize_value<W: Write>(
     writer: &mut XmlEventWriter<W>,
     state: &mut EmitState,
-    canonical_name: &str,
+    xml_name: &str,
     value: &RbxValue,
 ) -> Result<(), EncodeError> {
-    let xml_name = CANONICAL_TO_XML_NAME
-        .get(canonical_name)
-        .unwrap_or(&canonical_name);
-
     // Refs need additional state that we don't want to thread through
     // `write_value_xml`, so we handle it here.
     match value {
@@ -207,9 +205,25 @@ fn serialize_instance<W: Write>(
         value: instance.name.clone(),
     })?;
 
-    for (name, value) in &instance.properties {
-        serialize_value(writer, state, name, value)?;
+    for (property_name, value) in &instance.properties {
+        if let Some(descriptor) = find_canonical_property_descriptor(&instance.class_name, property_name) {
+            let serialized_name = descriptor.serialized_name.as_ref()
+                .map(AsRef::as_ref)
+                .unwrap_or(&property_name);
+
+            let value_type = match &descriptor.value_type {
+                RbxPropertyType::Data(property_type) => *property_type,
+                RbxPropertyType::Enum(_enum_name) => RbxValueType::Enum,
+                RbxPropertyType::UnimplementedType(_) => value.get_type(),
+            };
+
+            let converted_value = value.try_convert_ref(value_type)
+                .unwrap_or(Cow::Borrowed(value));
+
+            serialize_value(writer, state, &serialized_name, &converted_value)?;
+        }
     }
+
     writer.write(XmlWriteEvent::end_element())?;
 
     for child_id in instance.get_children_ids() {
