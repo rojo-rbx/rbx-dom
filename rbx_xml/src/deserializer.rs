@@ -555,13 +555,13 @@ fn deserialize_properties<R: Read>(
                     // Refs need lots of additional state that we don't want to pass to
                     // other property types unnecessarily, so we special-case it here.
 
-                    read_ref(reader, instance_id, &descriptor.name, state)?
+                    read_ref(reader, instance_id, descriptor.name(), state)?
                 }
                 _ => {
                     let xml_value = read_value_xml(reader, &property_type)?;
 
-                    let value_type = match &descriptor.value_type {
-                        RbxPropertyType::Data(property_type) => *property_type,
+                    let value_type = match descriptor.property_type() {
+                        RbxPropertyType::Data(value_type) => *value_type,
                         RbxPropertyType::Enum(_enum_name) => RbxValueType::Enum,
                         RbxPropertyType::UnimplementedType(_) => xml_value.get_type(),
                     };
@@ -575,7 +575,7 @@ fn deserialize_properties<R: Read>(
                 }
             };
 
-            props.insert(descriptor.name.to_string(), value);
+            props.insert(descriptor.name().to_string(), value);
         } else {
             // We don't care about this property, read it into the void.
             read_value_xml(reader, &property_type)?;

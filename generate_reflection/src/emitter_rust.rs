@@ -107,7 +107,6 @@ fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
                 #(#items)*
                 items
             },
-            __non_exhaustive: (),
         });
     }
 }
@@ -132,8 +131,6 @@ impl AsRust for RbxInstanceClass {
             tags: #tags,
             properties: #properties,
             default_properties: #defaults,
-
-            __non_exhaustive: (),
         })
     }
 }
@@ -158,8 +155,6 @@ impl AsRust for RbxInstanceProperty {
             serialized_name: #serialized_name,
             scriptability: #scriptability,
             serializes: #serializes,
-
-            __non_exhaustive: (),
         })
     }
 }

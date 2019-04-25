@@ -26,8 +26,7 @@ pub fn find_canonical_property_descriptor(
     class_name: &str,
     property_name: &str,
 ) -> Option<&'static RbxInstanceProperty> {
-    let reflection_classes = rbx_reflection::get_classes();
-    let class_descriptor = reflection_classes.get(class_name)?;
+    let class_descriptor = rbx_reflection::get_class_descriptor(class_name)?;
 
     let mut current_class_descriptor = class_descriptor;
 
@@ -39,19 +38,19 @@ pub fn find_canonical_property_descriptor(
     loop {
         // If this class descriptor knows about this property name,
         // we're pretty much done!
-        if let Some(property_descriptor) = current_class_descriptor.properties.get(property_name) {
-            if property_descriptor.is_canonical {
+        if let Some(property_descriptor) = current_class_descriptor.get_property_descriptor(property_name) {
+            if property_descriptor.is_canonical() {
                 // The property name in the XML was the canonical name
                 // and also the serialized name, hooray!
 
                 return Some(property_descriptor);
             }
 
-            if let Some(canonical_name) = &property_descriptor.canonical_name {
+            if let Some(canonical_name) = property_descriptor.canonical_name() {
                 // This property has a canonical form that we'll map
                 // from the XML name.
 
-                return current_class_descriptor.properties.get(canonical_name);
+                return current_class_descriptor.get_property_descriptor(canonical_name);
             } else {
                 // This property doesn't have a canonical form, we we'll
                 // skip serializing it by declaring there isn't a
@@ -61,11 +60,11 @@ pub fn find_canonical_property_descriptor(
             }
         }
 
-        if let Some(superclass_name) = &current_class_descriptor.superclass {
+        if let Some(superclass_name) = current_class_descriptor.superclass() {
             // If a property descriptor isn't found in our class, check
             // our superclass.
 
-            current_class_descriptor = reflection_classes.get(superclass_name)
+            current_class_descriptor = rbx_reflection::get_class_descriptor(superclass_name)
                 .expect("Superclass in rbx_reflection didn't exist");
         } else {
             // This property isn't known by any class in the reflection

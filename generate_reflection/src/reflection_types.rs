@@ -15,6 +15,7 @@ use crate::api_dump::{ValueType, ValueCategory};
 // Normally, we'd want to use &'static str for strings in the generated code and
 // String in our generator. We compromise and use Cow<'static, str> instead!
 #[path = "../../rbx_reflection/src/reflection_types.rs"]
+#[allow(unused)]
 mod inner;
 
 pub use inner::*;

@@ -16,6 +16,11 @@ lazy_static! {
     static ref ENUMS: HashMap<Cow<'static, str>, RbxEnum> = self::enums::generate_enums();
 }
 
+#[inline]
+pub fn get_class_descriptor(name: &str) -> Option<&'static RbxInstanceClass> {
+    CLASSES.get(name)
+}
+
 /// Retrieves reflection information for all known classes indexed by name.
 #[inline]
 pub fn get_classes() -> &'static HashMap<Cow<'static, str>, RbxInstanceClass> {

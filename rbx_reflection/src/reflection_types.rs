@@ -9,39 +9,78 @@ use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq)]
 pub struct RbxInstanceClass {
-    pub name: Cow<'static, str>,
-    pub superclass: Option<Cow<'static, str>>,
-    pub tags: RbxInstanceTags,
-    pub properties: HashMap<Cow<'static, str>, RbxInstanceProperty>,
-    pub default_properties: HashMap<Cow<'static, str>, RbxValue>,
+    pub(crate) name: Cow<'static, str>,
+    pub(crate) superclass: Option<Cow<'static, str>>,
+    pub(crate) tags: RbxInstanceTags,
+    pub(crate) properties: HashMap<Cow<'static, str>, RbxInstanceProperty>,
+    pub(crate) default_properties: HashMap<Cow<'static, str>, RbxValue>,
+}
 
-    #[doc(hidden)]
-    pub(crate) __non_exhaustive: (),
+impl RbxInstanceClass {
+    pub fn name(&self) -> & str {
+        &self.name
+    }
+
+    pub fn superclass(&self) -> Option<&str> {
+        self.superclass.as_ref().map(|v| v.as_ref())
+    }
+
+    pub fn get_property_descriptor<'a>(&'a self, property_name: &str) -> Option<&'a RbxInstanceProperty> {
+        self.properties.get(property_name)
+    }
+
+    pub fn get_default_value<'a>(&'a self, property_name: &str) -> Option<&'a RbxValue> {
+        self.default_properties.get(property_name)
+    }
 }
 
 #[derive(Debug, PartialEq)]
 pub struct RbxInstanceProperty {
-    pub name: Cow<'static, str>,
-    pub value_type: RbxPropertyType,
-    pub tags: RbxPropertyTags,
+    pub(crate) name: Cow<'static, str>,
+    pub(crate) value_type: RbxPropertyType,
+    pub(crate) tags: RbxPropertyTags,
 
-    pub scriptability: RbxPropertyScriptability,
-    pub is_canonical: bool,
-    pub canonical_name: Option<Cow<'static, str>>,
-    pub serialized_name: Option<Cow<'static, str>>,
-    pub serializes: bool,
+    pub(crate) scriptability: RbxPropertyScriptability,
+    pub(crate) is_canonical: bool,
+    pub(crate) canonical_name: Option<Cow<'static, str>>,
+    pub(crate) serialized_name: Option<Cow<'static, str>>,
+    pub(crate) serializes: bool,
+}
 
-    #[doc(hidden)]
-    pub(crate) __non_exhaustive: (),
+impl RbxInstanceProperty {
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn property_type(&self) -> &RbxPropertyType {
+        &self.value_type
+    }
+
+    pub fn scriptability(&self) -> RbxPropertyScriptability {
+        self.scriptability
+    }
+
+    pub fn is_canonical(&self) -> bool {
+        self.is_canonical
+    }
+
+    pub fn canonical_name(&self) -> Option<&str> {
+        self.canonical_name.as_ref().map(|v| v.as_ref())
+    }
+
+    pub fn serialized_name(&self) -> Option<&str> {
+        self.serialized_name.as_ref().map(|v| v.as_ref())
+    }
+
+    pub fn serializes(&self) -> bool {
+        self.serializes
+    }
 }
 
 #[derive(Debug, PartialEq)]
 pub struct RbxEnum {
-    pub name: Cow<'static, str>,
-    pub items: HashMap<Cow<'static, str>, u32>,
-
-    #[doc(hidden)]
-    pub(crate) __non_exhaustive: (),
+    pub(crate) name: Cow<'static, str>,
+    pub(crate) items: HashMap<Cow<'static, str>, u32>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
