@@ -29,12 +29,12 @@ use crate::{
     database::ReflectionDatabase,
     property_patches::load_property_patches,
     reflection_types::{
-        RbxInstanceClass,
-        RbxInstanceProperty,
+        RbxClassDescriptor,
+        RbxPropertyDescriptor,
         RbxInstanceTags,
         RbxPropertyScriptability,
         RbxPropertyTags,
-        RbxPropertyType,
+        RbxPropertyTypeDescriptor,
     },
 };
 
@@ -57,7 +57,7 @@ enum PluginMessage {
 fn main() -> Result<(), Box<dyn Error>> {
     let dump = Dump::read()?;
 
-    let mut classes: HashMap<Cow<'static, str>, RbxInstanceClass> = HashMap::new();
+    let mut classes: HashMap<Cow<'static, str>, RbxClassDescriptor> = HashMap::new();
 
     for dump_class in &dump.classes {
         let superclass = if dump_class.superclass == "<<<ROOT>>>" {
@@ -86,9 +86,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                     let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
                         && dump_property.serialization.can_save;
 
-                    let property = RbxInstanceProperty {
+                    let property = RbxPropertyDescriptor {
                         name: Cow::Owned(dump_property.name.clone()),
-                        value_type: RbxPropertyType::from(&dump_property.value_type),
+                        value_type: RbxPropertyTypeDescriptor::from(&dump_property.value_type),
                         tags,
 
                         is_canonical: true,
@@ -104,7 +104,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
         }
 
-        let class = RbxInstanceClass {
+        let class = RbxClassDescriptor {
             name: Cow::Owned(dump_class.name.clone()),
             superclass,
             tags,
@@ -160,7 +160,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let scriptability = property_add.scriptability;
             let serializes = property_add.serializes;
 
-            let property = RbxInstanceProperty {
+            let property = RbxPropertyDescriptor {
                 name,
                 value_type,
                 is_canonical,

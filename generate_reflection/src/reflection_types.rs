@@ -71,8 +71,8 @@ impl RbxPropertyTags {
     }
 }
 
-impl<'a> From<&'a ValueType> for RbxPropertyType {
-    fn from(value_type: &'a ValueType) -> RbxPropertyType {
+impl<'a> From<&'a ValueType> for RbxPropertyTypeDescriptor {
+    fn from(value_type: &'a ValueType) -> RbxPropertyTypeDescriptor {
         match value_type.category {
             ValueCategory::Primitive => {
                 let data_kind = match value_type.name.as_str() {
@@ -86,11 +86,11 @@ impl<'a> From<&'a ValueType> for RbxPropertyType {
                     unknown => {
                         println!("Can't emit primitives of type {}", unknown);
 
-                        return RbxPropertyType::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
+                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
                     },
                 };
 
-                RbxPropertyType::Data(data_kind)
+                RbxPropertyTypeDescriptor::Data(data_kind)
             }
             ValueCategory::DataType => {
                 let data_kind = match value_type.name.as_str() {
@@ -110,20 +110,20 @@ impl<'a> From<&'a ValueType> for RbxPropertyType {
 
                     "QDir" | "QFont" => {
                         // We're never going to support these types.
-                        return RbxPropertyType::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
+                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
                     },
 
                     unknown => {
                         println!("Can't emit data of type {}", unknown);
 
-                        return RbxPropertyType::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
+                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
                     },
                 };
 
-                RbxPropertyType::Data(data_kind)
+                RbxPropertyTypeDescriptor::Data(data_kind)
             }
-            ValueCategory::Enum => RbxPropertyType::Enum(Cow::Owned(value_type.name.to_owned())),
-            ValueCategory::Class => RbxPropertyType::Data(RbxValueType::Ref),
+            ValueCategory::Enum => RbxPropertyTypeDescriptor::Enum(Cow::Owned(value_type.name.to_owned())),
+            ValueCategory::Class => RbxPropertyTypeDescriptor::Data(RbxValueType::Ref),
         }
     }
 }

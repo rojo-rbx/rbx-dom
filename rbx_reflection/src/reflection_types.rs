@@ -8,15 +8,15 @@ use rbx_dom_weak::{RbxValue, RbxValueType};
 use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq)]
-pub struct RbxInstanceClass {
+pub struct RbxClassDescriptor {
     pub(crate) name: Cow<'static, str>,
     pub(crate) superclass: Option<Cow<'static, str>>,
     pub(crate) tags: RbxInstanceTags,
-    pub(crate) properties: HashMap<Cow<'static, str>, RbxInstanceProperty>,
+    pub(crate) properties: HashMap<Cow<'static, str>, RbxPropertyDescriptor>,
     pub(crate) default_properties: HashMap<Cow<'static, str>, RbxValue>,
 }
 
-impl RbxInstanceClass {
+impl RbxClassDescriptor {
     pub fn name(&self) -> & str {
         &self.name
     }
@@ -25,7 +25,7 @@ impl RbxInstanceClass {
         self.superclass.as_ref().map(|v| v.as_ref())
     }
 
-    pub fn get_property_descriptor<'a>(&'a self, property_name: &str) -> Option<&'a RbxInstanceProperty> {
+    pub fn get_property_descriptor<'a>(&'a self, property_name: &str) -> Option<&'a RbxPropertyDescriptor> {
         self.properties.get(property_name)
     }
 
@@ -35,9 +35,9 @@ impl RbxInstanceClass {
 }
 
 #[derive(Debug, PartialEq)]
-pub struct RbxInstanceProperty {
+pub struct RbxPropertyDescriptor {
     pub(crate) name: Cow<'static, str>,
-    pub(crate) value_type: RbxPropertyType,
+    pub(crate) value_type: RbxPropertyTypeDescriptor,
     pub(crate) tags: RbxPropertyTags,
 
     pub(crate) scriptability: RbxPropertyScriptability,
@@ -47,12 +47,12 @@ pub struct RbxInstanceProperty {
     pub(crate) serializes: bool,
 }
 
-impl RbxInstanceProperty {
+impl RbxPropertyDescriptor {
     pub fn name(&self) -> &str {
         &self.name
     }
 
-    pub fn property_type(&self) -> &RbxPropertyType {
+    pub fn property_type(&self) -> &RbxPropertyTypeDescriptor {
         &self.value_type
     }
 
@@ -78,13 +78,13 @@ impl RbxInstanceProperty {
 }
 
 #[derive(Debug, PartialEq)]
-pub struct RbxEnum {
+pub struct RbxEnumDescriptor {
     pub(crate) name: Cow<'static, str>,
     pub(crate) items: HashMap<Cow<'static, str>, u32>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub enum RbxPropertyType {
+pub enum RbxPropertyTypeDescriptor {
     Data(RbxValueType),
     Enum(Cow<'static, str>),
 

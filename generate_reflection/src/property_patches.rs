@@ -10,7 +10,7 @@ use std::{
 
 use serde_derive::Deserialize;
 
-use crate::reflection_types::{RbxPropertyType, RbxPropertyScriptability};
+use crate::reflection_types::{RbxPropertyTypeDescriptor, RbxPropertyScriptability};
 
 static PATCH_SOURCE: &str = include_str!("../property-patches.toml");
 
@@ -30,7 +30,7 @@ pub struct PropertyChange {
 #[derive(Debug, Deserialize)]
 pub struct PropertyAdd {
     #[serde(rename = "type")]
-    pub property_type: RbxPropertyType,
+    pub property_type: RbxPropertyTypeDescriptor,
     pub serialized_name: Option<Cow<'static, str>>,
     pub canonical_name: Option<Cow<'static, str>>,
     pub scriptability: RbxPropertyScriptability,

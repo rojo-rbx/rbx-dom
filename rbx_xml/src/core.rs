@@ -1,7 +1,7 @@
 use std::io::{Read, Write};
 
 use rbx_dom_weak::RbxValue;
-use rbx_reflection::RbxInstanceProperty;
+use rbx_reflection::RbxPropertyDescriptor;
 
 use crate::{
     deserializer::{DecodeError, XmlEventReader},
@@ -25,7 +25,7 @@ pub trait XmlType<T: ?Sized> {
 pub fn find_canonical_property_descriptor(
     class_name: &str,
     property_name: &str,
-) -> Option<&'static RbxInstanceProperty> {
+) -> Option<&'static RbxPropertyDescriptor> {
     let class_descriptor = rbx_reflection::get_class_descriptor(class_name)?;
 
     let mut current_class_descriptor = class_descriptor;
