@@ -98,7 +98,11 @@ int_type!(Int64, Int64Type, i64, "int64");
 mod test {
     use super::*;
 
-    use crate::test_util;
+    use crate::{
+        core::XmlType,
+        deserializer::XmlEventReader,
+        test_util,
+    };
 
     #[test]
     fn round_trip_f32() {
@@ -141,7 +145,31 @@ mod test {
     }
 
     #[test]
-    fn test_inf_and_nan() {
+    fn test_inf_and_nan_deserialize() {
+        test_util::test_xml_deserialize::<Float32Type, _>(
+            r#"<float name="foo">INF</float>"#,
+            RbxValue::Float32 { value: std::f32::INFINITY },
+        );
+
+        test_util::test_xml_deserialize::<Float32Type, _>(
+            r#"<float name="foo">-INF</float>"#,
+            RbxValue::Float32 { value: std::f32::NEG_INFINITY },
+        );
+
+        // Can't just use test_util::test_xml_deserialize, because NaN != NaN!
+        let mut reader = XmlEventReader::from_source(
+            r#"<float name="foo">NAN</float>"#.as_bytes()
+        );
+        reader.next().unwrap().unwrap(); // Eat StartDocument event
+        let value = Float32Type::read_xml(&mut reader).unwrap();
+        match value {
+            RbxValue::Float32 { value } => assert!(value.is_nan()),
+            _ => panic!("Did not get a float32 from NaN test"),
+        };
+    }
+
+    #[test]
+    fn test_inf_and_nan_serialize() {
         test_util::test_xml_serialize::<Float32Type, _>(
             r#"<float name="foo">INF</float>"#,
             &std::f32::INFINITY,
