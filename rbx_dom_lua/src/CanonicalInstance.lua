@@ -87,8 +87,15 @@ local function writeInstance(instance, properties)
 	end
 end
 
+local function writeInstanceOne(instance, propertyName, propertyValue)
+	writeInstance(instance, {
+		[propertyName] = propertyValue,
+	})
+end
+
 return {
 	PropertySelection = PropertySelection,
 	readInstance = readInstance,
 	writeInstance = writeInstance,
+	writeInstanceOne = writeInstanceOne,
 }
