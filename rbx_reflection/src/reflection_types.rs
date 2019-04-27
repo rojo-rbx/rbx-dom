@@ -110,12 +110,12 @@ pub enum RbxPropertyScriptability {
 macro_rules! bitterflag {
     ($struct_name: ident + $iter_name: ident : $width: ident { $(const $const_name: ident = $const_value: expr;)* }) => {
         bitflags! {
-            pub struct $struct_name: $width {
+            pub(crate) struct $struct_name: $width {
                 $(const $const_name = $const_value;)*
             }
         }
 
-        pub struct $iter_name {
+        pub(crate) struct $iter_name {
             inner: Box<dyn Iterator<Item = $struct_name>>,
         }
 
