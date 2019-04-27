@@ -14,7 +14,7 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     database::ReflectionDatabase,
-    reflection_types::{RbxPropertyType, RbxInstanceClass, RbxPropertyTags, RbxPropertyScriptability},
+    reflection_types::{RbxPropertyTypeDescriptor, RbxClassDescriptor, RbxPropertyTags, RbxPropertyScriptability},
 };
 
 lazy_static! {
@@ -36,7 +36,7 @@ pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
     Ok(())
 }
 
-fn emit_class<W: Write>(output: &mut W, class: &RbxInstanceClass) -> io::Result<()> {
+fn emit_class<W: Write>(output: &mut W, class: &RbxClassDescriptor) -> io::Result<()> {
     writeln!(output, "\t{} = {{", class.name)?;
 
     writeln!(output, "\t\tsuperclass = {},", Lua(&class.superclass))?;
@@ -72,7 +72,7 @@ fn emit_class<W: Write>(output: &mut W, class: &RbxInstanceClass) -> io::Result<
     Ok(())
 }
 
-fn emit_defaults<W: Write>(output: &mut W, class: &RbxInstanceClass) -> io::Result<()> {
+fn emit_defaults<W: Write>(output: &mut W, class: &RbxClassDescriptor) -> io::Result<()> {
     let mut keys: Vec<_> = class.default_properties.keys().collect();
     keys.sort();
 
@@ -97,16 +97,16 @@ trait AsLua {
     fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()>;
 }
 
-impl AsLua for RbxPropertyType {
+impl AsLua for RbxPropertyTypeDescriptor {
     fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()> {
         match self {
-            RbxPropertyType::Data(name) => {
+            RbxPropertyTypeDescriptor::Data(name) => {
                 write!(output, "{{type = \"Data\", name = \"{:?}\"}}", name)
             }
-            RbxPropertyType::Enum(enum_name) => {
+            RbxPropertyTypeDescriptor::Enum(enum_name) => {
                 write!(output, "{{type = \"Enum\", name = {}}}", Lua(enum_name))
             }
-            RbxPropertyType::UnimplementedType(type_name) => {
+            RbxPropertyTypeDescriptor::UnimplementedType(type_name) => {
                 write!(output, "{{type = \"Unimplemented\", name = {}}}", Lua(type_name))
             }
         }

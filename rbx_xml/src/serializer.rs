@@ -7,7 +7,7 @@ use std::{
 
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
-use rbx_reflection::RbxPropertyType;
+use rbx_reflection::RbxPropertyTypeDescriptor;
 use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId};
 
 use crate::{
@@ -207,14 +207,13 @@ fn serialize_instance<W: Write>(
 
     for (property_name, value) in &instance.properties {
         if let Some(descriptor) = find_canonical_property_descriptor(&instance.class_name, property_name) {
-            let serialized_name = descriptor.serialized_name.as_ref()
-                .map(AsRef::as_ref)
+            let serialized_name = descriptor.serialized_name()
                 .unwrap_or(&property_name);
 
-            let value_type = match &descriptor.value_type {
-                RbxPropertyType::Data(property_type) => *property_type,
-                RbxPropertyType::Enum(_enum_name) => RbxValueType::Enum,
-                RbxPropertyType::UnimplementedType(_) => value.get_type(),
+            let value_type = match descriptor.property_type() {
+                RbxPropertyTypeDescriptor::Data(value_type) => *value_type,
+                RbxPropertyTypeDescriptor::Enum(_enum_name) => RbxValueType::Enum,
+                RbxPropertyTypeDescriptor::UnimplementedType(_) => value.get_type(),
             };
 
             let converted_value = value.try_convert_ref(value_type)

@@ -1,11 +1,11 @@
 // This file is automatically @generated.
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
-pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
+pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
     let mut output = HashMap::with_capacity(191);
     output.insert(
         Cow::Borrowed("ActionType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ActionType"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -16,12 +16,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Win"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ActuatorRelativeTo"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ActuatorRelativeTo"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -30,12 +29,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("World"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ActuatorType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ActuatorType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -44,12 +42,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Servo"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("AlignType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("AlignType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -57,12 +54,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Perpendicular"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("AnimationPriority"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("AnimationPriority"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -72,12 +68,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Core"), 1000);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("AppShellActionType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("AppShellActionType"),
             items: {
                 let mut items = HashMap::with_capacity(11);
@@ -94,12 +89,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("AvatarEditorPageLoaded"), 10);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("AspectType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("AspectType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -107,12 +101,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ScaleWithParentSize"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("AssetType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("AssetType"),
             items: {
                 let mut items = HashMap::with_capacity(43);
@@ -161,12 +154,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("EyeAccessory"), 58);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("AutoJointsMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("AutoJointsMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -175,12 +167,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("LegacyImplicit"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("AvatarContextMenuOption"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("AvatarContextMenuOption"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -189,12 +180,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Emote"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("AvatarJointPositionType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("AvatarJointPositionType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -202,12 +192,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ArtistIntent"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Axis"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Axis"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -216,12 +205,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Z"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("BinType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("BinType"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -232,12 +220,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Hammer"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("BodyPart"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("BodyPart"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -249,12 +236,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("RightLeg"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("BodyPartR15"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("BodyPartR15"),
             items: {
                 let mut items = HashMap::with_capacity(17);
@@ -277,12 +263,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Unknown"), 17);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Button"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Button"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -290,12 +275,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Dismount"), 8);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ButtonStyle"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ButtonStyle"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -307,12 +291,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("RobloxRoundDropdownButton"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CameraMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CameraMode"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -320,12 +303,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("LockFirstPerson"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CameraPanMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CameraPanMode"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -333,12 +315,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("EdgeBump"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CameraType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CameraType"),
             items: {
                 let mut items = HashMap::with_capacity(8);
@@ -352,12 +333,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Orbital"), 7);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CellBlock"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CellBlock"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -368,12 +348,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("HorizontalWedge"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CellMaterial"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CellMaterial"),
             items: {
                 let mut items = HashMap::with_capacity(18);
@@ -397,12 +376,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Water"), 17);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CellOrientation"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CellOrientation"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -412,12 +390,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("NegX"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CenterDialogType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CenterDialogType"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -427,12 +404,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("QuitDialog"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ChatCallbackType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ChatCallbackType"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -442,12 +418,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("OnServerReceivingMessage"), 17);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ChatColor"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ChatColor"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -457,12 +432,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("White"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ChatMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ChatMode"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -470,12 +444,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("TextAndMenu"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ChatPrivacyMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ChatPrivacyMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -484,12 +457,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Friends"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ChatStyle"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ChatStyle"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -498,12 +470,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ClassicAndBubble"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CollisionFidelity"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CollisionFidelity"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -512,12 +483,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Box"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ComputerCameraMovementMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ComputerCameraMovementMode"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -527,12 +497,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Orbital"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ComputerMovementMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ComputerMovementMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -541,12 +510,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ClickToMove"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ConnectionError"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ConnectionError"),
             items: {
                 let mut items = HashMap::with_capacity(49);
@@ -601,12 +569,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("TeleportIsTeleporting"), 775);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ConnectionState"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ConnectionState"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -614,12 +581,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Disconnected"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ContextActionPriority"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ContextActionPriority"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -629,12 +595,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("High"), 3000);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ContextActionResult"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ContextActionResult"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -642,12 +607,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Sink"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ControlMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ControlMode"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -655,12 +619,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Classic"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CoreGuiType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CoreGuiType"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -672,12 +635,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("EmotesMenu"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CreatorType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CreatorType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -685,12 +647,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Group"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CurrencyType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CurrencyType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -699,12 +660,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Tix"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("CustomCameraMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("CustomCameraMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -713,12 +673,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Classic"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DEPRECATED_DebuggerDataModelPreference"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DEPRECATED_DebuggerDataModelPreference"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -726,12 +685,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Client"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DataStoreRequestType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DataStoreRequestType"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -743,12 +701,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("OnUpdate"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DevCameraOcclusionMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DevCameraOcclusionMode"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -756,12 +713,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Invisicam"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DevComputerCameraMovementMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DevComputerCameraMovementMode"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -771,12 +727,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Orbital"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DevComputerMovementMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DevComputerMovementMode"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -786,12 +741,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Scriptable"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DevTouchCameraMovementMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DevTouchCameraMovementMode"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -801,12 +755,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Orbital"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DevTouchMovementMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DevTouchMovementMode"),
             items: {
                 let mut items = HashMap::with_capacity(7);
@@ -819,12 +772,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("DynamicThumbstick"), 6);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DeveloperMemoryTag"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DeveloperMemoryTag"),
             items: {
                 let mut items = HashMap::with_capacity(22);
@@ -852,12 +804,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Navigation"), 22);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DeviceType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DeviceType"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -867,12 +818,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Phone"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DialogBehaviorType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DialogBehaviorType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -880,12 +830,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("MultiplePlayers"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DialogPurpose"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DialogPurpose"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -894,12 +843,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Shop"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DialogTone"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DialogTone"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -908,12 +856,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Enemy"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("DominantAxis"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("DominantAxis"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -921,12 +868,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Height"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("EasingDirection"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("EasingDirection"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -935,12 +881,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("InOut"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("EasingStyle"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("EasingStyle"),
             items: {
                 let mut items = HashMap::with_capacity(8);
@@ -954,12 +899,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Elastic"), 7);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ElasticBehavior"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ElasticBehavior"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -968,12 +912,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Never"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("EnviromentalPhysicsThrottle"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("EnviromentalPhysicsThrottle"),
             items: {
                 let mut items = HashMap::with_capacity(7);
@@ -986,12 +929,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Skip16"), 6);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ErrorReporting"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ErrorReporting"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1000,12 +942,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Report"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ExplosionType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ExplosionType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1014,12 +955,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("CratersAndDebris"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FillDirection"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FillDirection"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -1027,12 +967,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Vertical"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FilterResult"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FilterResult"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -1040,12 +979,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Accepted"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Font"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Font"),
             items: {
                 let mut items = HashMap::with_capacity(21);
@@ -1072,12 +1010,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("GothamBlack"), 20);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FontSize"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FontSize"),
             items: {
                 let mut items = HashMap::with_capacity(15);
@@ -1098,12 +1035,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Size96"), 14);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FormFactor"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FormFactor"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -1113,12 +1049,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Custom"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FrameStyle"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FrameStyle"),
             items: {
                 let mut items = HashMap::with_capacity(7);
@@ -1131,12 +1066,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("DropShadow"), 6);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FramerateManagerMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FramerateManagerMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1145,12 +1079,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Off"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FriendRequestEvent"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FriendRequestEvent"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -1160,12 +1093,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Deny"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FriendStatus"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FriendStatus"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -1176,12 +1108,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("FriendRequestReceived"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("FunctionalTestResult"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("FunctionalTestResult"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1190,12 +1121,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Error"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("GameAvatarType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("GameAvatarType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1204,12 +1134,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("PlayerChoice"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("GearGenreSetting"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("GearGenreSetting"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -1217,12 +1146,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("MatchingGenreOnly"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("GearType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("GearType"),
             items: {
                 let mut items = HashMap::with_capacity(9);
@@ -1237,12 +1165,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Transport"), 8);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Genre"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Genre"),
             items: {
                 let mut items = HashMap::with_capacity(14);
@@ -1262,12 +1189,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Tutorial"), 13);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("GraphicsMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("GraphicsMode"),
             items: {
                 let mut items = HashMap::with_capacity(7);
@@ -1280,12 +1206,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("NoGraphics"), 7);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HandlesStyle"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HandlesStyle"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -1293,12 +1218,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Movement"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HorizontalAlignment"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HorizontalAlignment"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1307,12 +1231,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Right"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HoverAnimateSpeed"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HoverAnimateSpeed"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -1323,12 +1246,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("VeryFast"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HttpCachePolicy"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HttpCachePolicy"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -1339,12 +1261,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("InternalRedirectRefresh"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HttpContentType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HttpContentType"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -1355,12 +1276,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("TextXml"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HttpError"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HttpError"),
             items: {
                 let mut items = HashMap::with_capacity(12);
@@ -1378,12 +1298,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Unknown"), 11);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HttpRequestType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HttpRequestType"),
             items: {
                 let mut items = HashMap::with_capacity(7);
@@ -1396,12 +1315,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Localization"), 24);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HumanoidCollisionType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HumanoidCollisionType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -1409,12 +1327,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("InnerBox"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HumanoidDisplayDistanceType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HumanoidDisplayDistanceType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1423,12 +1340,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HumanoidHealthDisplayType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HumanoidHealthDisplayType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1437,12 +1353,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("AlwaysOff"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HumanoidRigType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HumanoidRigType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -1450,12 +1365,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("R15"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("HumanoidStateType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("HumanoidStateType"),
             items: {
                 let mut items = HashMap::with_capacity(17);
@@ -1478,12 +1392,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 18);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("InOut"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("InOut"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1492,12 +1405,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Center"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("InfoType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("InfoType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1506,12 +1418,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("GamePass"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("InitialDockState"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("InitialDockState"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -1522,12 +1433,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Float"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("InputType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("InputType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1536,12 +1446,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Sin"), 13);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("JointCreationMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("JointCreationMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1550,12 +1459,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("JointType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("JointType"),
             items: {
                 let mut items = HashMap::with_capacity(7);
@@ -1568,12 +1476,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Snap"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("KeyCode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("KeyCode"),
             items: {
                 let mut items = HashMap::with_capacity(254);
@@ -1833,12 +1740,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Thumbstick2"), 1017);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("KeywordFilterType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("KeywordFilterType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -1846,24 +1752,22 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Exclude"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Language"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Language"),
             items: {
                 let mut items = HashMap::with_capacity(1);
                 items.insert(Cow::Borrowed("Default"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("LanguagePreference"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("LanguagePreference"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1872,12 +1776,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("SimplifiedChinese"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("LeftRight"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("LeftRight"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1886,12 +1789,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Right"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("LevelOfDetailSetting"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("LevelOfDetailSetting"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -1900,12 +1802,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Low"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Limb"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Limb"),
             items: {
                 let mut items = HashMap::with_capacity(7);
@@ -1918,12 +1819,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Unknown"), 6);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ListDisplayMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ListDisplayMode"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -1931,12 +1831,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Vertical"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ListenerType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ListenerType"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -1946,12 +1845,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ObjectCFrame"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Material"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Material"),
             items: {
                 let mut items = HashMap::with_capacity(37);
@@ -1994,12 +1892,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ForceField"), 1584);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("MembershipType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("MembershipType"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -2009,12 +1906,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("OutrageousBuildersClub"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("MeshType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("MeshType"),
             items: {
                 let mut items = HashMap::with_capacity(12);
@@ -2032,12 +1928,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("FileMesh"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("MessageType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("MessageType"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -2047,12 +1942,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("MessageError"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("MouseBehavior"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("MouseBehavior"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2061,12 +1955,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("LockCurrentPosition"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("MoveState"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("MoveState"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2077,12 +1970,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("AirFree"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("NameOcclusion"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("NameOcclusion"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2091,12 +1983,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("NoOcclusion"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("NetworkOwnership"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("NetworkOwnership"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2105,12 +1996,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("OnContact"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("NormalId"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("NormalId"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -2122,12 +2012,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Left"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("OutputLayoutMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("OutputLayoutMode"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2135,12 +2024,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Vertical"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("OverrideMouseIconBehavior"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("OverrideMouseIconBehavior"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2149,12 +2037,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ForceHide"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PacketPriority"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PacketPriority"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -2164,12 +2051,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("LOW_PRIORITY"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PartType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PartType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2178,12 +2064,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Cylinder"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PathStatus"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PathStatus"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -2195,12 +2080,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("NoPath"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PathWaypointAction"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PathWaypointAction"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2208,12 +2092,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Jump"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PermissionLevelShown"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PermissionLevelShown"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2224,12 +2107,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Roblox"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Platform"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Platform"),
             items: {
                 let mut items = HashMap::with_capacity(20);
@@ -2255,12 +2137,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 19);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PlaybackState"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PlaybackState"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -2272,12 +2153,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Cancelled"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PlayerActions"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PlayerActions"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2288,12 +2168,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("CharacterJump"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PlayerChatType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PlayerChatType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2302,12 +2181,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Whisper"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PoseEasingDirection"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PoseEasingDirection"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2316,12 +2194,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("In"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PoseEasingStyle"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PoseEasingStyle"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2332,12 +2209,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Bounce"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("PrivilegeType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("PrivilegeType"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2348,12 +2224,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Banned"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ProductPurchaseDecision"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ProductPurchaseDecision"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2361,12 +2236,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("PurchaseGranted"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("QualityLevel"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("QualityLevel"),
             items: {
                 let mut items = HashMap::with_capacity(22);
@@ -2394,12 +2268,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Level21"), 21);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("R15CollisionType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("R15CollisionType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2407,12 +2280,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("InnerBox"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("RenderFidelity"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("RenderFidelity"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2420,12 +2292,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Precise"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("RenderPriority"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("RenderPriority"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2436,12 +2307,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Last"), 2000);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("RenderingTestComparisonMethod"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("RenderingTestComparisonMethod"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2449,12 +2319,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("diff"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ReverbType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ReverbType"),
             items: {
                 let mut items = HashMap::with_capacity(24);
@@ -2484,12 +2353,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("UnderWater"), 23);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("RibbonTool"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("RibbonTool"),
             items: {
                 let mut items = HashMap::with_capacity(10);
@@ -2505,12 +2373,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 9);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("RollOffMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("RollOffMode"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -2520,12 +2387,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("LinearSquare"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("RotationType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("RotationType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2533,12 +2399,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("CameraRelative"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("RuntimeUndoBehavior"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("RuntimeUndoBehavior"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2547,12 +2412,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Hybrid"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SaveFilter"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SaveFilter"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2561,12 +2425,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("SaveGame"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SavedQualitySetting"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SavedQualitySetting"),
             items: {
                 let mut items = HashMap::with_capacity(11);
@@ -2583,12 +2446,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("QualityLevel10"), 10);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ScaleType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ScaleType"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2599,12 +2461,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Crop"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ScreenOrientation"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ScreenOrientation"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2615,12 +2476,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Sensor"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ScrollBarInset"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ScrollBarInset"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2629,12 +2489,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Always"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ScrollingDirection"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ScrollingDirection"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2643,12 +2502,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("XY"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ServerAudioBehavior"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ServerAudioBehavior"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2657,12 +2515,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("OnlineGame"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SizeConstraint"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SizeConstraint"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2671,12 +2528,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("RelativeYY"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SortOrder"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SortOrder"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2685,12 +2541,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Custom"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SoundType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SoundType"),
             items: {
                 let mut items = HashMap::with_capacity(15);
@@ -2711,12 +2566,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Victory"), 14);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SpecialKey"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SpecialKey"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -2728,12 +2582,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ChatHotkey"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("StartCorner"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("StartCorner"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -2743,12 +2596,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("BottomRight"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Status"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Status"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2756,12 +2608,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Confusion"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("StudioStyleGuideColor"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("StudioStyleGuideColor"),
             items: {
                 let mut items = HashMap::with_capacity(89);
@@ -2856,12 +2707,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("DialogMainButtonText"), 88);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("StudioStyleGuideModifier"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("StudioStyleGuideModifier"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2872,12 +2722,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Hover"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Style"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Style"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -2886,12 +2735,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("NoSupports"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SurfaceConstraint"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SurfaceConstraint"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -2901,12 +2749,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Motor"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SurfaceType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SurfaceType"),
             items: {
                 let mut items = HashMap::with_capacity(10);
@@ -2922,12 +2769,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("SmoothNoOutlines"), 10);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("SwipeDirection"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("SwipeDirection"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -2938,12 +2784,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TableMajorAxis"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TableMajorAxis"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -2951,12 +2796,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ColumnMajor"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("Technology"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("Technology"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -2966,12 +2810,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ShadowMap"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TeleportResult"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TeleportResult"),
             items: {
                 let mut items = HashMap::with_capacity(8);
@@ -2985,12 +2828,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("IsTeleporting"), 7);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TeleportState"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TeleportState"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -3001,12 +2843,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("InProgress"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TeleportType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TeleportType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3015,12 +2856,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ToReservedServer"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TextFilterContext"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TextFilterContext"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -3028,12 +2868,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("PrivateChat"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TextTruncate"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TextTruncate"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -3041,12 +2880,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("AtEnd"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TextXAlignment"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TextXAlignment"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3055,12 +2893,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Right"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TextYAlignment"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TextYAlignment"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3069,12 +2906,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Bottom"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TextureMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TextureMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3083,12 +2919,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Static"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TextureQueryType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TextureQueryType"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -3098,12 +2933,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("HumanoidOrphaned"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ThreadPoolConfig"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ThreadPoolConfig"),
             items: {
                 let mut items = HashMap::with_capacity(11);
@@ -3120,12 +2954,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Threads16"), 16);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ThrottlingPriority"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ThrottlingPriority"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3134,12 +2967,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Default"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ThumbnailSize"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ThumbnailSize"),
             items: {
                 let mut items = HashMap::with_capacity(7);
@@ -3152,12 +2984,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Size352x352"), 6);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ThumbnailType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ThumbnailType"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3166,12 +2997,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("AvatarThumbnail"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TickCountSampleMethod"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TickCountSampleMethod"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3180,12 +3010,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Precise"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TopBottom"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TopBottom"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3194,12 +3023,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Bottom"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TouchCameraMovementMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TouchCameraMovementMode"),
             items: {
                 let mut items = HashMap::with_capacity(4);
@@ -3209,12 +3037,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Orbital"), 3);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TouchMovementMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TouchMovementMode"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -3226,12 +3053,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("DynamicThumbstick"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("TweenStatus"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("TweenStatus"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -3239,12 +3065,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Completed"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("UITheme"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("UITheme"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -3252,12 +3077,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Dark"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("UiMessageType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("UiMessageType"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -3265,12 +3089,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("UiMessageInfo"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("UploadSetting"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("UploadSetting"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3279,12 +3102,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Always"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("UserCFrame"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("UserCFrame"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3293,12 +3115,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("RightHand"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("UserInputState"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("UserInputState"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -3309,12 +3130,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("UserInputType"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("UserInputType"),
             items: {
                 let mut items = HashMap::with_capacity(21);
@@ -3341,12 +3161,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 22);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("VRTouchpad"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("VRTouchpad"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -3354,12 +3173,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Right"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("VRTouchpadMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("VRTouchpadMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3368,12 +3186,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("ABXY"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("VerticalAlignment"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("VerticalAlignment"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3382,12 +3199,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Bottom"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("VerticalScrollBarPosition"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("VerticalScrollBarPosition"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -3395,12 +3211,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Right"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("VibrationMotor"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("VibrationMotor"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -3412,12 +3227,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("RightHand"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("VideoQualitySettings"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("VideoQualitySettings"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3426,12 +3240,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("HighResolution"), 2);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("VirtualInputMode"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("VirtualInputMode"),
             items: {
                 let mut items = HashMap::with_capacity(3);
@@ -3440,12 +3253,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("None"), 0);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("WaterDirection"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("WaterDirection"),
             items: {
                 let mut items = HashMap::with_capacity(6);
@@ -3457,12 +3269,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Z"), 5);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("WaterForce"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("WaterForce"),
             items: {
                 let mut items = HashMap::with_capacity(5);
@@ -3473,12 +3284,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Max"), 4);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output.insert(
         Cow::Borrowed("ZIndexBehavior"),
-        RbxEnum {
+        RbxEnumDescriptor {
             name: Cow::Borrowed("ZIndexBehavior"),
             items: {
                 let mut items = HashMap::with_capacity(2);
@@ -3486,7 +3296,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
                 items.insert(Cow::Borrowed("Sibling"), 1);
                 items
             },
-            __non_exhaustive: (),
         },
     );
     output

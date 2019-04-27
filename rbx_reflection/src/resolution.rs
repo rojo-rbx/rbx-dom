@@ -2,17 +2,15 @@ use failure::Fail;
 use rbx_dom_weak::{AmbiguousRbxValue, RbxValue, RbxValueType, UnresolvedRbxValue};
 
 use crate::{
-    reflection_database::{get_classes, get_enums},
-    reflection_types::RbxPropertyType,
+    reflection_database::{get_class_descriptor, get_enum_descriptor},
+    reflection_types::RbxPropertyTypeDescriptor,
 };
 
-fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static RbxPropertyType> {
-    let classes = get_classes();
-
+fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static RbxPropertyTypeDescriptor> {
     let mut current_class = class_name;
 
     loop {
-        let class = classes.get(current_class)?;
+        let class = get_class_descriptor(current_class)?;
 
         match class.properties.get(property_name) {
             Some(property) => return Some(&property.value_type),
@@ -50,16 +48,15 @@ pub enum ValueResolveError {
 fn try_resolve_string(
     class_name: &str,
     property_name: &str,
-    property_type: &RbxPropertyType,
+    property_type: &RbxPropertyTypeDescriptor,
     value: &str,
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
-        RbxPropertyType::Data(RbxValueType::String) => Ok(RbxValue::String {
+        RbxPropertyTypeDescriptor::Data(RbxValueType::String) => Ok(RbxValue::String {
             value: value.to_owned(),
         }),
-        RbxPropertyType::Enum(enum_name) => {
-            let enums = get_enums();
-            let roblox_enum = match enums.get(enum_name) {
+        RbxPropertyTypeDescriptor::Enum(enum_name) => {
+            let roblox_enum = match get_enum_descriptor(enum_name) {
                 Some(roblox_enum) => roblox_enum,
                 None => {
                     panic!(
@@ -89,28 +86,28 @@ fn try_resolve_string(
 /// Note that because every number is held as a Float64, we might run into
 /// precision issues for values outside a 64-bit float's integer precision.
 fn try_resolve_one_float(
-    property_type: &RbxPropertyType,
+    property_type: &RbxPropertyTypeDescriptor,
     x: f64,
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
-        RbxPropertyType::Data(RbxValueType::Float32) => Ok(RbxValue::Float32 { value: x as f32 }),
-        RbxPropertyType::Data(RbxValueType::Float64) => Ok(RbxValue::Float64 { value: x as f64 }),
-        RbxPropertyType::Data(RbxValueType::Int32) => Ok(RbxValue::Int32 { value: x as i32 }),
-        RbxPropertyType::Data(RbxValueType::Int64) => Ok(RbxValue::Int64 { value: x as i64 }),
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Float32) => Ok(RbxValue::Float32 { value: x as f32 }),
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Float64) => Ok(RbxValue::Float64 { value: x as f64 }),
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Int32) => Ok(RbxValue::Int32 { value: x as i32 }),
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Int64) => Ok(RbxValue::Int64 { value: x as i64 }),
         _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
     }
 }
 
 /// Two floats can result in a Vector2 or Vector2int16.
 fn try_resolve_two_floats(
-    property_type: &RbxPropertyType,
+    property_type: &RbxPropertyTypeDescriptor,
     (x, y): (f64, f64),
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
-        RbxPropertyType::Data(RbxValueType::Vector2) => Ok(RbxValue::Vector2 {
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Vector2) => Ok(RbxValue::Vector2 {
             value: [x as f32, y as f32],
         }),
-        RbxPropertyType::Data(RbxValueType::Vector2int16) => Ok(RbxValue::Vector2int16 {
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Vector2int16) => Ok(RbxValue::Vector2int16 {
             value: [x as i16, y as i16],
         }),
         _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
@@ -122,17 +119,17 @@ fn try_resolve_two_floats(
 /// Color3uint8 is another value to handle here, but shouldn't come up in the
 /// resolution case since no user-reflected values have that has a type.
 fn try_resolve_three_floats(
-    property_type: &RbxPropertyType,
+    property_type: &RbxPropertyTypeDescriptor,
     (x, y, z): (f64, f64, f64),
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
-        RbxPropertyType::Data(RbxValueType::Vector3) => Ok(RbxValue::Vector3 {
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Vector3) => Ok(RbxValue::Vector3 {
             value: [x as f32, y as f32, z as f32],
         }),
-        RbxPropertyType::Data(RbxValueType::Vector3int16) => Ok(RbxValue::Vector3int16 {
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Vector3int16) => Ok(RbxValue::Vector3int16 {
             value: [x as i16, y as i16, z as i16],
         }),
-        RbxPropertyType::Data(RbxValueType::Color3) => Ok(RbxValue::Color3 {
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Color3) => Ok(RbxValue::Color3 {
             value: [x as f32, y as f32, z as f32],
         }),
         _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
@@ -186,7 +183,7 @@ mod tests {
     fn find_inherited_property_types() {
         assert_eq!(
             find_property_type("Instance", "Name"),
-            Some(&RbxPropertyType::Data(RbxValueType::String))
+            Some(&RbxPropertyTypeDescriptor::Data(RbxValueType::String))
         );
         assert_eq!(
             find_property_type("Part", "Name"),
@@ -194,7 +191,7 @@ mod tests {
         );
         assert_eq!(
             find_property_type("Part", "Position"),
-            Some(&RbxPropertyType::Data(RbxValueType::Vector3))
+            Some(&RbxPropertyTypeDescriptor::Data(RbxValueType::Vector3))
         );
     }
 

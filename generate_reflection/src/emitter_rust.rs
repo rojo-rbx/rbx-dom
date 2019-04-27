@@ -18,12 +18,12 @@ use rbx_dom_weak::RbxValue;
 use crate::{
     api_dump::{Dump, DumpEnum},
     reflection_types::{
-        RbxInstanceClass,
-        RbxInstanceProperty,
+        RbxClassDescriptor,
+        RbxPropertyDescriptor,
         RbxInstanceTags,
         RbxPropertyScriptability,
         RbxPropertyTags,
-        RbxPropertyType,
+        RbxPropertyTypeDescriptor,
     },
     database::ReflectionDatabase,
 };
@@ -50,7 +50,7 @@ pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
     Ok(())
 }
 
-fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxInstanceClass>) -> TokenStream {
+fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) -> TokenStream {
     let classes_literal = classes.as_rust();
 
     quote! {
@@ -61,7 +61,7 @@ fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxInstanceClass>) -> T
         use rbx_dom_weak::{RbxValue, RbxValueType};
         use crate::reflection_types::*;
 
-        pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxInstanceClass> {
+        pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
             #classes_literal
         }
     }
@@ -107,7 +107,6 @@ fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
                 #(#items)*
                 items
             },
-            __non_exhaustive: (),
         });
     }
 }
@@ -118,7 +117,7 @@ trait AsRust {
     fn as_rust(&self) -> TokenStream;
 }
 
-impl AsRust for RbxInstanceClass {
+impl AsRust for RbxClassDescriptor {
     fn as_rust(&self) -> TokenStream {
         let class_name = self.name.as_rust();
         let superclass = self.superclass.as_rust();
@@ -126,19 +125,17 @@ impl AsRust for RbxInstanceClass {
         let properties = self.properties.as_rust();
         let defaults = self.default_properties.as_rust();
 
-        quote!(RbxInstanceClass {
+        quote!(RbxClassDescriptor {
             name: #class_name,
             superclass: #superclass,
             tags: #tags,
             properties: #properties,
             default_properties: #defaults,
-
-            __non_exhaustive: (),
         })
     }
 }
 
-impl AsRust for RbxInstanceProperty {
+impl AsRust for RbxPropertyDescriptor {
     fn as_rust(&self) -> TokenStream {
         let member_name = self.name.as_rust();
         let resolved_type = self.value_type.as_rust();
@@ -149,7 +146,7 @@ impl AsRust for RbxInstanceProperty {
         let scriptability = self.scriptability.as_rust();
         let serializes = self.serializes.as_rust();
 
-        quote!(RbxInstanceProperty {
+        quote!(RbxPropertyDescriptor {
             name: #member_name,
             value_type: #resolved_type,
             tags: #tags,
@@ -158,8 +155,6 @@ impl AsRust for RbxInstanceProperty {
             serialized_name: #serialized_name,
             scriptability: #scriptability,
             serializes: #serializes,
-
-            __non_exhaustive: (),
         })
     }
 }
@@ -376,21 +371,21 @@ impl<K, V> AsRust for HashMap<K, V>
     }
 }
 
-impl AsRust for RbxPropertyType {
+impl AsRust for RbxPropertyTypeDescriptor {
     fn as_rust(&self) -> TokenStream {
         match self {
-            RbxPropertyType::Data(kind) => {
+            RbxPropertyTypeDescriptor::Data(kind) => {
                 let type_name = format!("{:?}", kind);
                 let type_literal = Ident::new(&type_name, Span::call_site());
-                quote!(RbxPropertyType::Data(RbxValueType::#type_literal))
+                quote!(RbxPropertyTypeDescriptor::Data(RbxValueType::#type_literal))
             }
-            RbxPropertyType::Enum(enum_name) => {
+            RbxPropertyTypeDescriptor::Enum(enum_name) => {
                 let enum_literal = enum_name.as_rust();
-                quote!(RbxPropertyType::Enum(#enum_literal))
+                quote!(RbxPropertyTypeDescriptor::Enum(#enum_literal))
             }
-            RbxPropertyType::UnimplementedType(type_name) => {
+            RbxPropertyTypeDescriptor::UnimplementedType(type_name) => {
                 let type_literal = type_name.as_rust();
-                quote!(RbxPropertyType::UnimplementedType(#type_literal))
+                quote!(RbxPropertyTypeDescriptor::UnimplementedType(#type_literal))
             }
         }
     }
