@@ -170,7 +170,7 @@ impl RbxValue {
     /// Is a no-op if the value is already of the correct type.
     ///
     /// If the conversion fails, the value will be given back in the `Err` case.
-    pub fn try_convert(self, target_type: RbxValueType) -> Result<RbxValue, RbxValue> {
+    fn try_convert(self, target_type: RbxValueType) -> Result<RbxValue, RbxValue> {
         if self.get_type() == target_type {
             return Ok(self)
         }

@@ -566,9 +566,9 @@ fn deserialize_properties<R: Read>(
                         RbxPropertyTypeDescriptor::UnimplementedType(_) => xml_value.get_type(),
                     };
 
-                    let value = match xml_value.try_convert(value_type) {
-                        Ok(value) => value,
-                        Err(value) => value,
+                    let value = match xml_value.try_convert_ref(value_type) {
+                        Some(value) => value.into_owned(),
+                        None => xml_value,
                     };
 
                     value
