@@ -193,23 +193,29 @@ impl RbxValue {
     /// already the right type.
     ///
     /// If the conversion wasn't successful, returns `None`.
-    pub fn try_convert_ref<'a>(&'a self, target_type: RbxValueType) -> Option<Cow<'a, RbxValue>> {
+    pub fn try_convert_ref<'a>(&'a self, target_type: RbxValueType) -> RbxValueConversion {
         if self.get_type() == target_type {
-            return Some(Cow::Borrowed(self))
+            return RbxValueConversion::Unnecessary;
         }
 
         // TODO: Reduce duplication with try_convert
 
         match (self, target_type) {
-            (RbxValue::Float32 { value }, RbxValueType::Float64) => Some(Cow::Owned(RbxValue::Float64 { value: *value as f64 })),
-            (RbxValue::Float64 { value }, RbxValueType::Float32) => Some(Cow::Owned(RbxValue::Float32 { value: *value as f32 })),
+            (RbxValue::Float32 { value }, RbxValueType::Float64) => RbxValueConversion::Converted(RbxValue::Float64 { value: *value as f64 }),
+            (RbxValue::Float64 { value }, RbxValueType::Float32) => RbxValueConversion::Converted(RbxValue::Float32 { value: *value as f32 }),
 
-            (RbxValue::Int32 { value }, RbxValueType::Int64) => Some(Cow::Owned(RbxValue::Int64 { value: *value as i64 })),
-            (RbxValue::Int64 { value }, RbxValueType::Int32) => Some(Cow::Owned(RbxValue::Int32 { value: *value as i32 })),
+            (RbxValue::Int32 { value }, RbxValueType::Int64) => RbxValueConversion::Converted(RbxValue::Int64 { value: *value as i64 }),
+            (RbxValue::Int64 { value }, RbxValueType::Int32) => RbxValueConversion::Converted(RbxValue::Int32 { value: *value as i32 }),
 
-            (_this, _) => None
+            (_this, _) => RbxValueConversion::Failed
         }
     }
+}
+
+pub enum RbxValueConversion {
+    Converted(RbxValue),
+    Unnecessary,
+    Failed,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

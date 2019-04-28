@@ -8,7 +8,7 @@ use std::{
 use failure::Fail;
 use xml::writer::{self, EventWriter, EmitterConfig};
 use rbx_reflection::RbxPropertyTypeDescriptor;
-use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId};
+use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId, RbxValueConversion};
 
 use crate::{
     core::find_canonical_property_descriptor,
@@ -216,8 +216,10 @@ fn serialize_instance<W: Write>(
                 RbxPropertyTypeDescriptor::UnimplementedType(_) => value.get_type(),
             };
 
-            let converted_value = value.try_convert_ref(value_type)
-                .unwrap_or(Cow::Borrowed(value));
+            let converted_value = match value.try_convert_ref(value_type) {
+                RbxValueConversion::Converted(converted) => Cow::Owned(converted),
+                RbxValueConversion::Unnecessary | RbxValueConversion::Failed => Cow::Borrowed(value),
+            };
 
             serialize_value(writer, state, &serialized_name, &converted_value)?;
         }
