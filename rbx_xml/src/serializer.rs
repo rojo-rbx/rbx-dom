@@ -24,6 +24,9 @@ pub enum EncodeError {
 
     #[fail(display = "XML error: {}", _0)]
     XmlError(#[fail(cause)] writer::Error),
+
+    #[fail(display = "{}", _0)]
+    Message(&'static str),
 }
 
 impl From<xml::writer::Error> for EncodeError {

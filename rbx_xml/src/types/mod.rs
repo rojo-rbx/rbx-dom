@@ -74,7 +74,7 @@ macro_rules! declare_rbx_types {
 
                 unknown => {
                     warn!("Property value {:?} cannot be serialized yet", unknown);
-                    unimplemented!();
+                    Err(EncodeError::Message("Can't encode properties of this type yet"))
                 },
             }
         }
