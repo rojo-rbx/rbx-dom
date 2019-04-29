@@ -38,6 +38,10 @@ pub enum DecodeError {
 
     #[fail(display = "Malformed document")]
     MalformedDocument,
+
+    #[doc(hidden)]
+    #[fail(display = "<this variant should never exist>")]
+    __Nonexhaustive,
 }
 
 impl From<reader::Error> for DecodeError {

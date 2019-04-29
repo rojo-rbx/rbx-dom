@@ -27,6 +27,10 @@ pub enum EncodeError {
 
     #[fail(display = "{}", _0)]
     Message(&'static str),
+
+    #[doc(hidden)]
+    #[fail(display = "<this variant should never exist>")]
+    __Nonexhaustive,
 }
 
 impl From<xml::writer::Error> for EncodeError {
