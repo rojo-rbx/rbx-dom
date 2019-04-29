@@ -7,7 +7,7 @@ use std::{
 use failure::Fail;
 use log::trace;
 use rbx_reflection::RbxPropertyTypeDescriptor;
-use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType};
+use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType, RbxValueConversion};
 use xml::reader::{self, ParserConfig};
 
 use crate::{
@@ -566,9 +566,9 @@ fn deserialize_properties<R: Read>(
                         RbxPropertyTypeDescriptor::UnimplementedType(_) => xml_value.get_type(),
                     };
 
-                    let value = match xml_value.try_convert(value_type) {
-                        Ok(value) => value,
-                        Err(value) => value,
+                    let value = match xml_value.try_convert_ref(value_type) {
+                        RbxValueConversion::Converted(value) => value,
+                        RbxValueConversion::Unnecessary | RbxValueConversion::Failed => xml_value,
                     };
 
                     value
