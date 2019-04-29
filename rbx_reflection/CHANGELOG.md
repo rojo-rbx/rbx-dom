@@ -1,6 +1,7 @@
 # rbx_reflection Changelog
 
 ## [Unreleased]
+* `Content` values can now be inferred from string literals
 
 ## 2.0.377 (2019-03-20)
 * Updated reflection database to client 0.377.1.289039

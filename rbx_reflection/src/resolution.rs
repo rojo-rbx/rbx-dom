@@ -44,7 +44,10 @@ pub enum ValueResolveError {
     IncorrectAmbiguousProperty,
 }
 
-/// A string value can represent either a string or an enum item name.
+/// A string value can represent:
+/// - String
+/// - Content
+/// - Enum
 fn try_resolve_string(
     class_name: &str,
     property_name: &str,
@@ -53,6 +56,9 @@ fn try_resolve_string(
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
         RbxPropertyTypeDescriptor::Data(RbxValueType::String) => Ok(RbxValue::String {
+            value: value.to_owned(),
+        }),
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Content) => Ok(RbxValue::Content {
             value: value.to_owned(),
         }),
         RbxPropertyTypeDescriptor::Enum(enum_name) => {
@@ -278,6 +284,21 @@ mod tests {
 
         assert_eq!(
             try_resolve_value("UIListLayout", "SortOrder", &untagged_value),
+            Ok(concrete_value)
+        );
+    }
+
+    #[test]
+    fn resolve_inferred_content() {
+        let concrete_value = RbxValue::Content {
+            value: String::from("Hello!"),
+        };
+
+        let untagged_value =
+            UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::String(String::from("Hello!")));
+
+        assert_eq!(
+            try_resolve_value("Decal", "Texture", &untagged_value),
             Ok(concrete_value)
         );
     }
