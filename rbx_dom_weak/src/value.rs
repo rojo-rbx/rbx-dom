@@ -172,7 +172,7 @@ impl RbxValue {
     /// If the conversion wasn't successful, returns
     /// `RbxValueConversion::Failed`.
     pub fn try_convert_ref<'a>(&'a self, target_type: RbxValueType) -> RbxValueConversion {
-        use RbxValueConversion::*;
+        use self::RbxValueConversion::*;
 
         if self.get_type() == target_type {
             return Unnecessary;
