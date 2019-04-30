@@ -11,6 +11,7 @@ static TEST_MODELS: &[&str] = &[
     include_str!("../test-files/decals.rbxmx"),
     include_str!("../test-files/effects.rbxmx"),
     include_str!("../test-files/gui.rbxmx"),
+    include_str!("../test-files/inf-and-nan.rbxmx"),
     include_str!("../test-files/numbers.rbxmx"),
     include_str!("../test-files/part-referent.rbxmx"),
     include_str!("../test-files/parts.rbxmx"),
