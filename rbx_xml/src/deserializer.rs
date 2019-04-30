@@ -1,6 +1,5 @@
 use std::{
     io::Read,
-    iter::{Filter, Peekable},
     collections::HashMap,
 };
 
@@ -15,7 +14,9 @@ use crate::{
     types::{read_value_xml, read_ref},
 };
 
-pub use xml::reader::XmlEvent as XmlReadEvent;
+pub(crate) use xml::reader::XmlEvent as XmlReadEvent;
+pub(crate) use xml::reader::Error as XmlReadError;
+pub(crate) type XmlReadResult = Result<XmlReadEvent, XmlReadError>;
 
 /// Indicates an error trying to parse an rbxmx or rbxlx document
 #[derive(Debug, Fail, Clone, PartialEq)]
@@ -88,26 +89,53 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Resul
     Ok(())
 }
 
-/// Since this function type needs to be mentioned a couple times, we keep this
-/// type alias around.
-type EventFilterFn = fn(&Result<XmlReadEvent, xml::reader::Error>) -> bool;
-
-fn filter_whitespace_events(event: &Result<XmlReadEvent, xml::reader::Error>) -> bool {
-    match event {
-        Ok(XmlReadEvent::Whitespace(_)) => false,
-        _ => true,
-    }
-}
-
 /// A wrapper around an XML event iterator created by xml-rs.
 pub struct XmlEventReader<R: Read> {
-    inner: Peekable<Filter<reader::Events<R>, EventFilterFn>>,
+    reader: xml::EventReader<R>,
+    peeked: Option<Result<XmlReadEvent, xml::reader::Error>>,
+    finished: bool,
+}
+
+impl<R: Read> Iterator for XmlEventReader<R> {
+    type Item = XmlReadResult;
+
+    fn next(&mut self) -> Option<XmlReadResult> {
+        if let Some(value) = self.peeked.take() {
+            return Some(value);
+        }
+
+        if self.finished {
+            return None;
+        }
+
+        loop {
+            match self.reader.next() {
+                Ok(item) => match item {
+                    XmlReadEvent::Whitespace(_) => continue,
+                    XmlReadEvent::EndDocument => {
+                        self.finished = true;
+                        return Some(Ok(item))
+                    },
+                    _ => return Some(Ok(item))
+                },
+                Err(err) => {
+                    self.finished = true;
+                    return Some(Err(err))
+                }
+            }
+        }
+    }
 }
 
 impl<R: Read> XmlEventReader<R> {
     /// Borrows the next element from the event stream without consuming it.
-    pub fn peek(&mut self) -> Option<&<Self as Iterator>::Item> {
-        self.inner.peek()
+    pub fn peek(&mut self) -> Option<&XmlReadResult> {
+        if self.peeked.is_some() {
+            return self.peeked.as_ref();
+        }
+
+        self.peeked = self.next();
+        self.peeked.as_ref()
     }
 
     /// Constructs a new `XmlEventReader` from a source that implements `Read`.
@@ -117,7 +145,9 @@ impl<R: Read> XmlEventReader<R> {
             .create_reader(source);
 
         XmlEventReader {
-            inner: reader.into_iter().filter(filter_whitespace_events as EventFilterFn).peekable(),
+            reader,
+            peeked: None,
+            finished: false,
         }
     }
 
@@ -265,14 +295,6 @@ impl<R: Read> XmlEventReader<R> {
         }
 
         Ok(())
-    }
-}
-
-impl<R: Read> Iterator for XmlEventReader<R> {
-    type Item = reader::Result<XmlReadEvent>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.inner.next()
     }
 }
 
