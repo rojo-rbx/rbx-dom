@@ -215,7 +215,7 @@ impl<R: Read> XmlEventReader<R> {
     ///
     /// This is the inner kernel of `read_characters`, which is the public
     /// version of a similar idea.
-    fn read_one_characters_event(&mut self) -> Result<Option<String>, DecodeError> {
+    fn read_one_characters_event(&mut self) -> Result<Option<String>, NewDecodeError> {
         // This pattern (peek + next) is pretty gnarly but is useful for looking
         // ahead without touching the stream.
 
@@ -236,7 +236,10 @@ impl<R: Read> XmlEventReader<R> {
 
             // Since we can't use `?` (we have a `&Result` instead of a `Result`)
             // we have to do something similar to what it would do.
-            Some(Err(_)) => Err(self.next().unwrap().unwrap_err().into()),
+            Some(Err(_)) => {
+                let kind = self.next().unwrap().unwrap_err();
+                Err(self.error(kind))
+            }
 
             None | Some(Ok(_)) => Ok(None),
         }
@@ -259,7 +262,7 @@ impl<R: Read> XmlEventReader<R> {
     /// For complexity, performance, and correctness reasons, we switched from
     /// #1 to #2. However, this means we need to coalesce `Characters` and
     /// `CData` events ourselves.
-    pub fn read_characters(&mut self) -> Result<String, DecodeError> {
+    pub fn read_characters(&mut self) -> Result<String, NewDecodeError> {
         let mut buffer = match self.read_one_characters_event()? {
             Some(buffer) => buffer,
             None => return Ok(String::new()),
@@ -285,28 +288,22 @@ impl<R: Read> XmlEventReader<R> {
     ///     <Y>0</Y>
     ///     <Z>0</Z>
     /// </Vector3>
-    pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, DecodeError> {
-        read_event!(self, XmlReadEvent::StartElement { name, .. } => {
-            if name.local_name != expected_name {
-                return Err(DecodeError::Message("Got wrong tag name"));
-            }
-        });
-
+    pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, NewDecodeError> {
+        self.expect_start_with_name(expected_name)?;
         let contents = self.read_characters()?;
-
-        read_event!(self, XmlReadEvent::EndElement { .. } => {});
+        self.expect_end_with_name(expected_name)?;
 
         Ok(contents)
     }
 
     /// Consume events from the iterator until we reach the end of the next tag.
-    pub fn eat_unknown_tag(&mut self) -> Result<(), DecodeError> {
+    pub fn eat_unknown_tag(&mut self) -> Result<(), NewDecodeError> {
         let mut depth = 0;
 
         trace!("Starting unknown block");
 
         loop {
-            match self.next().ok_or(DecodeError::Message("Unexpected EOF"))?? {
+            match self.expect_event()? {
                 XmlReadEvent::StartElement { name, .. } => {
                     trace!("Eat unknown start: {:?}", name);
                     depth += 1;
