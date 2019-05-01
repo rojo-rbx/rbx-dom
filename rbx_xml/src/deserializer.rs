@@ -165,7 +165,7 @@ impl<R: Read> XmlEventReader<R> {
         NewDecodeError::new_from_reader(kind.into(), &self.reader)
     }
 
-    pub fn expect_event(&mut self) -> Result<XmlReadEvent, NewDecodeError> {
+    pub fn expect_next(&mut self) -> Result<XmlReadEvent, NewDecodeError> {
         match self.next() {
             Some(Ok(event)) => Ok(event),
             Some(Err(err)) => Err(self.error(err)),
@@ -173,10 +173,33 @@ impl<R: Read> XmlEventReader<R> {
         }
     }
 
+    pub fn expect_peek(&mut self) -> Result<&XmlReadEvent, NewDecodeError> {
+        // This weird transmute is here because NLL in current Rust (1.34)
+        // extends borrows to the entire function when returning borrowed
+        // values.
+        //
+        // This code without the transmute compiles with -Zpolonius as of
+        // 2019-04-30. I don't believe it to be a soundness hole, but I also
+        // don't fully understand why this transmute tricks Rust into thinking
+        // the code is correct.
+        let peeked_value = unsafe {
+            std::mem::transmute::<
+                Option<&Result<XmlReadEvent, XmlReadError>>,
+                Option<&Result<XmlReadEvent, XmlReadError>>,
+            >(self.peek())
+        };
+
+        match peeked_value {
+            Some(Ok(event)) => Ok(event),
+            Some(Err(err)) => Err(self.expect_next().unwrap_err()),
+            None => Err(self.error(DecodeErrorKind::UnexpectedEof)),
+        }
+    }
+
     /// Consumes the next event and returns `Ok(())` if it was an opening tag
     /// with the given name, otherwise returns an error.
     pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<(), NewDecodeError> {
-        let event = self.expect_event()?;
+        let event = self.expect_next()?;
 
         match &event {
             XmlReadEvent::StartElement { name, .. } => {
@@ -193,7 +216,7 @@ impl<R: Read> XmlEventReader<R> {
     /// Consumes the next event and returns `Ok(())` if it was a closing tag
     /// with the given name, otherwise returns an error.
     pub fn expect_end_with_name(&mut self, expected_name: &str) -> Result<(), NewDecodeError> {
-        let event = self.expect_event()?;
+        let event = self.expect_next()?;
 
         match &event {
             XmlReadEvent::EndElement { name, .. } => {
@@ -303,7 +326,7 @@ impl<R: Read> XmlEventReader<R> {
         trace!("Starting unknown block");
 
         loop {
-            match self.expect_event()? {
+            match self.expect_next()? {
                 XmlReadEvent::StartElement { name, .. } => {
                     trace!("Eat unknown start: {:?}", name);
                     depth += 1;
