@@ -10,6 +10,7 @@ mod macros;
 
 mod core;
 mod deserializer;
+mod error;
 mod serializer;
 mod types;
 

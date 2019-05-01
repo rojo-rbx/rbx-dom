@@ -12,6 +12,7 @@ use xml::reader::{self, ParserConfig};
 use crate::{
     core::find_canonical_property_descriptor,
     types::{read_value_xml, read_ref},
+    error::{DecodeError as NewDecodeError, DecodeErrorKind},
 };
 
 pub(crate) use xml::reader::XmlEvent as XmlReadEvent;
@@ -40,6 +41,9 @@ pub enum DecodeError {
     #[fail(display = "Malformed document")]
     MalformedDocument,
 
+    #[fail(display = "{}", _0)]
+    New(#[fail(cause)] NewDecodeError),
+
     #[doc(hidden)]
     #[fail(display = "<this variant should never exist>")]
     __Nonexhaustive,
@@ -66,6 +70,12 @@ impl From<std::num::ParseIntError> for DecodeError {
 impl From<base64::DecodeError> for DecodeError {
     fn from(error: base64::DecodeError) -> DecodeError {
         DecodeError::DecodeBase64Error(error)
+    }
+}
+
+impl From<NewDecodeError> for DecodeError {
+    fn from(error: NewDecodeError) -> DecodeError {
+        DecodeError::New(error)
     }
 }
 
@@ -128,16 +138,6 @@ impl<R: Read> Iterator for XmlEventReader<R> {
 }
 
 impl<R: Read> XmlEventReader<R> {
-    /// Borrows the next element from the event stream without consuming it.
-    pub fn peek(&mut self) -> Option<&XmlReadResult> {
-        if self.peeked.is_some() {
-            return self.peeked.as_ref();
-        }
-
-        self.peeked = self.next();
-        self.peeked.as_ref()
-    }
-
     /// Constructs a new `XmlEventReader` from a source that implements `Read`.
     pub fn from_source(source: R) -> XmlEventReader<R> {
         let reader = ParserConfig::new()
@@ -151,28 +151,60 @@ impl<R: Read> XmlEventReader<R> {
         }
     }
 
+    /// Borrows the next element from the event stream without consuming it.
+    pub fn peek(&mut self) -> Option<&XmlReadResult> {
+        if self.peeked.is_some() {
+            return self.peeked.as_ref();
+        }
+
+        self.peeked = self.next();
+        self.peeked.as_ref()
+    }
+
+    pub(crate) fn error<T: Into<DecodeErrorKind>>(&self, kind: T) -> NewDecodeError {
+        NewDecodeError::new_from_reader(kind.into(), &self.reader)
+    }
+
+    pub fn expect_event(&mut self) -> Result<XmlReadEvent, NewDecodeError> {
+        match self.next() {
+            Some(Ok(event)) => Ok(event),
+            Some(Err(err)) => Err(self.error(err)),
+            None => Err(self.error(DecodeErrorKind::UnexpectedEof)),
+        }
+    }
+
     /// Consumes the next event and returns `Ok(())` if it was an opening tag
     /// with the given name, otherwise returns an error.
-    pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
-        read_event!(self, XmlReadEvent::StartElement { name, .. } => {
-            if name.local_name != expected_name {
-                return Err(DecodeError::Message("Wrong opening tag"));
-            }
-        });
+    pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<(), NewDecodeError> {
+        let event = self.expect_event()?;
 
-        Ok(())
+        match &event {
+            XmlReadEvent::StartElement { name, .. } => {
+                if name.local_name != expected_name {
+                    return Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                }
+
+                Ok(())
+            }
+            _ => Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)))
+        }
     }
 
     /// Consumes the next event and returns `Ok(())` if it was a closing tag
     /// with the given name, otherwise returns an error.
-    pub fn expect_end_with_name(&mut self, expected_name: &str) -> Result<(), DecodeError> {
-        read_event!(self, XmlReadEvent::EndElement { name } => {
-            if name.local_name != expected_name {
-                return Err(DecodeError::Message("Wrong closing tag"));
-            }
-        });
+    pub fn expect_end_with_name(&mut self, expected_name: &str) -> Result<(), NewDecodeError> {
+        let event = self.expect_event()?;
 
-        Ok(())
+        match &event {
+            XmlReadEvent::EndElement { name, .. } => {
+                if name.local_name != expected_name {
+                    return Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                }
+
+                Ok(())
+            }
+            _ => Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)))
+        }
     }
 
     /// Reads one `Characters` or `CData` event if the next event is a
