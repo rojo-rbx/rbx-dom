@@ -21,7 +21,7 @@ macro_rules! make_brick_color {
 		}
 
 		impl fmt::Display for BrickColor {
-			fn fmt(&self, writer: &mut fmt::Formatter) -> fmt::Result {
+			fn fmt(&self, writer: &mut fmt::Formatter<'_>) -> fmt::Result {
 				match self {
 					$(
 						BrickColor::$enum => write!(writer, $name),

@@ -71,7 +71,7 @@ impl<'de> Deserialize<'de> for UnresolvedRbxValue {
         impl<'de> Visitor<'de> for ValueVisitor {
             type Value = UnresolvedRbxValue;
 
-            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+            fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
                 formatter.write_str("Roblox value")
             }
 
@@ -115,11 +115,11 @@ impl<'de> Deserialize<'de> for UnresolvedRbxValue {
                 S: SeqAccess<'de>,
             {
                 let first: f64 = visitor.next_element()?.ok_or_else(||
-                    de::Error::invalid_length(0, &"sequence of length 2, 3, or 12")
+                    de::Error::invalid_length(0, &"sequence of length 2, 3, 4, or 12")
                 )?;
 
                 let second: f64 = visitor.next_element()?.ok_or_else(||
-                    de::Error::invalid_length(1, &"sequence of length 2, 3, or 12")
+                    de::Error::invalid_length(1, &"sequence of length 2, 3, 4, or 12")
                 )?;
 
                 // The value is either a Float2, a Float3, a UDim, or a CFrame here
@@ -164,7 +164,7 @@ impl<'de> Deserialize<'de> for UnresolvedRbxValue {
 
                 for i in 5..12 {
                     value[i] = visitor.next_element()?.ok_or_else(||
-                        de::Error::invalid_length(i, &"sequence of length 2, 3, or 12")
+                        de::Error::invalid_length(i, &"sequence of length 2, 3, 4, or 12")
                     )?;
                 }
 
