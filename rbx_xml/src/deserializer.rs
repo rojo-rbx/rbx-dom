@@ -7,7 +7,10 @@ use failure::Fail;
 use log::trace;
 use rbx_reflection::RbxPropertyTypeDescriptor;
 use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType, RbxValueConversion};
-use xml::reader::{self, ParserConfig};
+use xml::{
+    attribute::OwnedAttribute,
+    reader::{self, ParserConfig},
+};
 
 use crate::{
     core::find_canonical_property_descriptor,
@@ -191,25 +194,24 @@ impl<R: Read> XmlEventReader<R> {
 
         match peeked_value {
             Some(Ok(event)) => Ok(event),
-            Some(Err(err)) => Err(self.expect_next().unwrap_err()),
+            Some(Err(_)) => Err(self.expect_next().unwrap_err()),
             None => Err(self.error(DecodeErrorKind::UnexpectedEof)),
         }
     }
 
     /// Consumes the next event and returns `Ok(())` if it was an opening tag
     /// with the given name, otherwise returns an error.
-    pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<(), NewDecodeError> {
-        let event = self.expect_next()?;
-
-        match &event {
-            XmlReadEvent::StartElement { name, .. } => {
+    pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<Vec<OwnedAttribute>, NewDecodeError> {
+        match self.expect_next()? {
+            XmlReadEvent::StartElement { name, attributes, namespace } => {
                 if name.local_name != expected_name {
+                    let event = XmlReadEvent::StartElement { name, attributes, namespace };
                     return Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
                 }
 
-                Ok(())
+                Ok(attributes)
             }
-            _ => Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)))
+            event => Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)))
         }
     }
 
@@ -470,33 +472,24 @@ fn deserialize_root<R: Read>(
     Ok(())
 }
 
-fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), DecodeError> {
-    // TODO: Strongly type metadata instead?
-
-    let name = read_event!(reader, XmlReadEvent::StartElement { name, mut attributes, .. } => {
-        assert_eq!(name.local_name, "Meta");
+fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), NewDecodeError> {
+    let name = {
+        let attributes = reader.expect_start_with_name("Meta")?;
 
         let mut name = None;
 
-        for attribute in attributes.drain(..) {
+        for attribute in attributes.into_iter() {
             match attribute.name.local_name.as_str() {
                 "name" => name = Some(attribute.value),
-                _ => {},
+                _ => {}
             }
         }
 
-        name.ok_or(DecodeError::Message("Meta missing 'name' field"))?
-    });
+        name.ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("name")))?
+    };
 
-    let value = read_event!(reader, XmlReadEvent::Characters(value) => value);
-
-    read_event!(reader, XmlReadEvent::EndElement { name, .. } => {
-        if name.local_name != "Meta" {
-            return Err(DecodeError::Message("Incorrect closing tag, expected 'Meta'"));
-        }
-    });
-
-    trace!("Metadata: {} = {}", name, value);
+    let value = reader.read_characters()?;
+    reader.expect_end_with_name("Meta")?;
 
     state.metadata.insert(name, value);
     Ok(())

@@ -45,6 +45,7 @@ pub(crate) enum DecodeErrorKind {
 
     UnexpectedEof,
     UnexpectedXmlEvent(xml::reader::XmlEvent),
+    MissingAttribute(&'static str),
 }
 
 impl fmt::Display for DecodeErrorKind {
@@ -59,6 +60,7 @@ impl fmt::Display for DecodeErrorKind {
 
             UnexpectedEof => write!(output, "Unexpected end-of-file"),
             UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {:?}", event),
+            MissingAttribute(attribute_name) => write!(output, "Missing attribute '{}'", attribute_name),
         }
     }
 }
@@ -73,7 +75,7 @@ impl std::error::Error for DecodeErrorKind {
             ParseInt(err) => Some(err),
             DecodeBase64(err) => Some(err),
 
-            UnexpectedEof | UnexpectedXmlEvent(_) => None,
+            UnexpectedEof | UnexpectedXmlEvent(_) | MissingAttribute(_) => None,
         }
     }
 }
