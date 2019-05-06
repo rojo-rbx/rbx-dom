@@ -125,7 +125,7 @@ make_brick_color!({
 	[Salmon, "Salmon", 90],
 	[Tawny, "Tawny", 91],
 	[Rust, "Rust", 92],
-	[CGABrown, "CGA brown", 93],
+	[CgaBrown, "CGA brown", 93],
 	[BrightYellowishOrange, "Br. yellowish orange", 94],
 	[Cashmere, "Cashmere", 95],
 	[Khaki, "Khaki", 96],
