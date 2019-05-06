@@ -192,9 +192,17 @@ impl RbxValue {
     }
 }
 
+/// Contains the result of trying to convert an `RbxValue` to another type using
+/// `RbxValue::try_convert_ref`.
 pub enum RbxValueConversion {
+    /// The value was converted successfully, the value is attached.
     Converted(RbxValue),
+
+    /// The value was already of the right type, so a conversion is unnecessary.
     Unnecessary,
+
+    /// The value and target type were incompatible and a conversion could not
+    /// occur.
     Failed,
 }
 

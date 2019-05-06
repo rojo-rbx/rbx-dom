@@ -24,7 +24,7 @@ impl RbxId {
 }
 
 impl fmt::Display for RbxId {
-    fn fmt(&self, writer: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, writer: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(writer, "{}", self.0)
     }
 }

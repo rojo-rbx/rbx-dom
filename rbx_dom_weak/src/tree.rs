@@ -153,7 +153,7 @@ impl RbxTree {
 
     /// Returns an iterator over all of the descendants of the given instance by
     /// ID.
-    pub fn descendants(&self, id: RbxId) -> Descendants {
+    pub fn descendants(&self, id: RbxId) -> Descendants<'_> {
         Descendants {
             tree: self,
             ids_to_visit: vec![id],

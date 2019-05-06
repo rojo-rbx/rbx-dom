@@ -1,8 +1,12 @@
 # rbx\_dom\_weak Changelog
 
-## Unreleased
-* `RbxValueType` now derives `Serialize` and `Deserialize`
-* Added support for `BrickColor`
+## Unreleased Changes
+
+## 1.5.0 (2019-05-06)
+* Added support for `BrickColor` ([#29](https://github.com/LPGhatguy/rbx-dom/pull/29))
+* Added `RbxValue::try_convert_ref`, which can be used to try to coerce values. ([#42](https://github.com/LPGhatguy/rbx-dom/pull/42))
+* `Content` values can now be inferred from string literals.
+* `RbxValueType` now derives Serde's `Serialize` and `Deserialize` traits
 
 ## 1.4.0 (2019-03-27)
 * Added support for new types:
