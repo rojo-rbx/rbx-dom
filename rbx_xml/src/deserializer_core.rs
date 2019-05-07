@@ -16,7 +16,7 @@ pub(crate) use xml::reader::Error as XmlReadError;
 pub(crate) type XmlReadResult = Result<XmlReadEvent, XmlReadError>;
 
 /// Indicates an error trying to parse an rbxmx or rbxlx document
-#[derive(Debug, Fail, Clone, PartialEq)]
+#[derive(Debug, Fail)]
 pub enum DecodeError {
     #[fail(display = "XML read error: {}", _0)]
     XmlError(#[fail(cause)] reader::Error),

@@ -8,6 +8,8 @@ use xml::writer::{self, EventWriter, EmitterConfig};
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
 
+use crate::error::{EncodeError as NewEncodeError, EncodeErrorKind};
+
 #[derive(Debug, Fail)]
 pub enum EncodeError {
     #[fail(display = "IO Error: {}", _0)]
@@ -53,6 +55,10 @@ impl<W: Write> XmlEventWriter<W> {
             inner,
             character_buffer: String::new(),
         }
+    }
+
+    pub(crate) fn error<T: Into<EncodeErrorKind>>(&self, kind: T) -> NewEncodeError {
+        NewEncodeError::new_from_writer(kind.into(), &self.inner)
     }
 
     /// Writes a single XML event to the output stream.

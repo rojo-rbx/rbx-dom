@@ -17,7 +17,7 @@ use crate::{
 pub use crate::deserializer_core::*;
 
 /// A utility method to decode an XML-format model from a string.
-pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), DecodeError> {
+pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), NewDecodeError> {
     decode(tree, parent_id, source.as_bytes())
 }
 
@@ -26,7 +26,7 @@ pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<
 /// Roblox model files can contain multiple instances at the top level. This
 /// happens in the case of places as well as Studio users choosing multiple
 /// objects when saving a model file.
-pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), DecodeError> {
+pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), NewDecodeError> {
     let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(tree);
 

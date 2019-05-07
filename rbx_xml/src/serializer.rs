@@ -10,23 +10,26 @@ use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId, RbxValueConversion};
 use crate::{
     core::find_canonical_property_descriptor,
     types::{write_value_xml, write_ref},
+    error::EncodeError as NewEncodeError,
 };
 
 pub use crate::serializer_core::*;
 
 /// Serialize the instances denoted by `ids` from `tree` as an XML-format model,
 /// writing to `output`.
-pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), EncodeError> {
+pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
     let mut state = EmitState::new();
 
-    writer.write(XmlWriteEvent::start_element("roblox").attr("version", "4"))?;
+    writer.write(XmlWriteEvent::start_element("roblox").attr("version", "4"))
+        .map_err(|e| writer.error(e))?;
 
     for id in ids {
         serialize_instance(&mut writer, &mut state, tree, *id)?;
     }
 
-    writer.write(XmlWriteEvent::end_element())?;
+    writer.write(XmlWriteEvent::end_element())
+        .map_err(|e| writer.error(e))?;
 
     Ok(())
 }

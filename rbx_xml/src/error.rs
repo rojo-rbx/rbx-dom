@@ -1,11 +1,12 @@
 use std::{
     fmt,
-    io::Read,
+    io::{self, Read, Write},
 };
 
 use crate::deserializer_core::DecodeError as OldDecodeError;
+use crate::serializer_core::EncodeError as OldEncodeError;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub struct DecodeError {
     kind: DecodeErrorKind,
     line: u64,
@@ -49,7 +50,7 @@ impl From<OldDecodeError> for DecodeError {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug)]
 pub(crate) enum DecodeErrorKind {
     // Errors from other crates
     Xml(xml::reader::Error),
@@ -123,5 +124,83 @@ impl From<std::num::ParseIntError> for DecodeErrorKind {
 impl From<base64::DecodeError> for DecodeErrorKind {
     fn from(error: base64::DecodeError) -> DecodeErrorKind {
         DecodeErrorKind::DecodeBase64(error)
+    }
+}
+
+#[derive(Debug)]
+pub struct EncodeError {
+    kind: EncodeErrorKind,
+}
+
+impl EncodeError {
+    pub(crate) fn new_from_writer<W: Write>(kind: EncodeErrorKind, _writer: &xml::EventWriter<W>) -> EncodeError {
+        EncodeError { kind }
+    }
+}
+
+impl fmt::Display for EncodeError {
+    fn fmt(&self, output: &mut fmt::Formatter) -> fmt::Result {
+        write!(output, "{}", self.kind)
+    }
+}
+
+impl std::error::Error for EncodeError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        self.kind.source()
+    }
+}
+
+// FIXME: This is temporarily while we transition error types
+impl From<OldEncodeError> for EncodeError {
+    fn from(error: OldEncodeError) -> EncodeError {
+        EncodeError {
+            kind: EncodeErrorKind::Old(error)
+        }
+    }
+}
+
+#[derive(Debug)]
+pub(crate) enum EncodeErrorKind {
+    Io(io::Error),
+    Xml(xml::writer::Error),
+
+    Old(OldEncodeError),
+}
+
+impl fmt::Display for EncodeErrorKind {
+    fn fmt(&self, output: &mut fmt::Formatter) -> fmt::Result {
+        use self::EncodeErrorKind::*;
+
+        match self {
+            Io(err) => write!(output, "{}", err),
+            Xml(err) => write!(output, "{}", err),
+
+            Old(old_error) => write!(output, "{}", old_error),
+        }
+    }
+}
+
+impl std::error::Error for EncodeErrorKind {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        use self::EncodeErrorKind::*;
+
+        match self {
+            Io(err) => Some(err),
+            Xml(err) => Some(err),
+
+            Old(_) => None,
+        }
+    }
+}
+
+impl From<xml::writer::Error> for EncodeErrorKind {
+    fn from(error: xml::writer::Error) -> EncodeErrorKind {
+        EncodeErrorKind::Xml(error)
+    }
+}
+
+impl From<io::Error> for EncodeErrorKind {
+    fn from(error: io::Error) -> EncodeErrorKind {
+        EncodeErrorKind::Io(error)
     }
 }
