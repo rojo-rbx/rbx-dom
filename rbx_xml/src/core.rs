@@ -5,11 +5,12 @@ use rbx_reflection::RbxPropertyDescriptor;
 
 use crate::{
     deserializer::{DecodeError as OldDecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlEventWriter},
-    error::DecodeError,
+    serializer::{EncodeError as OldEncodeError, XmlEventWriter},
+    error::{DecodeError, EncodeError},
 };
 
-pub trait XmlType<T: ?Sized> {
+// FIXME: Rename this type to XmlType when XmlType is removed
+pub trait NewXmlType<T: ?Sized> {
     const XML_TAG_NAME: &'static str;
 
     fn write_xml<W: Write>(
@@ -18,19 +19,45 @@ pub trait XmlType<T: ?Sized> {
         value: &T,
     ) -> Result<(), EncodeError>;
 
-    // Transitionary function that will be renamed to read_xml at the end of this
-    // refactor
-    fn read_xml_new<R: Read>(
+    fn read_xml<R: Read>(
         reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
-        Self::read_xml(reader).map_err(Into::into)
+    ) -> Result<RbxValue, DecodeError>;
+}
+
+// FIXME: Remove this blanket impl alongside XmlType
+impl<Output, Old> NewXmlType<Output> for Old where Old: XmlType<Output> {
+    const XML_TAG_NAME: &'static str = <Old as XmlType<Output>>::XML_TAG_NAME;
+
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &Output,
+    ) -> Result<(), EncodeError> {
+        <Self as XmlType<Output>>::write_xml(writer, name, value)
+            .map_err(Into::into)
     }
 
     fn read_xml<R: Read>(
         reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, OldDecodeError> {
-        Self::read_xml_new(reader).map_err(Into::into)
+    ) -> Result<RbxValue, DecodeError> {
+        <Self as XmlType<Output>>::read_xml(reader)
+            .map_err(Into::into)
     }
+}
+
+// FIXME: Remove this trait when NewXmlType is implemented everywhere
+pub trait XmlType<T: ?Sized> {
+    const XML_TAG_NAME: &'static str;
+
+    fn write_xml<W: Write>(
+        writer: &mut XmlEventWriter<W>,
+        name: &str,
+        value: &T,
+    ) -> Result<(), OldEncodeError>;
+
+    fn read_xml<R: Read>(
+        reader: &mut XmlEventReader<R>,
+    ) -> Result<RbxValue, OldDecodeError>;
 }
 
 pub fn find_canonical_property_descriptor(
