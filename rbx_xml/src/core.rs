@@ -25,7 +25,11 @@ pub trait NewXmlType<T: ?Sized> {
 }
 
 // FIXME: Remove this blanket impl alongside XmlType
-impl<Output, Old> NewXmlType<Output> for Old where Old: XmlType<Output> {
+impl<Output, Old> NewXmlType<Output> for Old
+where
+    Old: XmlType<Output>,
+    Output: ?Sized,
+{
     const XML_TAG_NAME: &'static str = <Old as XmlType<Output>>::XML_TAG_NAME;
 
     fn write_xml<W: Write>(
