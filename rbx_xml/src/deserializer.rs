@@ -581,9 +581,7 @@ fn deserialize_properties<R: Read>(
     instance_id: RbxId,
     props: &mut HashMap<String, RbxValue>,
 ) -> Result<(), DecodeError> {
-    read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
-        assert_eq!(name.local_name, "Properties");
-    });
+    reader.expect_start_with_name("Properties")?;
 
     let class_name = state.tree.get_instance(instance_id)
         .expect("Couldn't find instance to deserialize properties into")
@@ -591,8 +589,8 @@ fn deserialize_properties<R: Read>(
 
     'property_loop: loop {
         let (property_type, xml_property_name) = loop {
-            match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
-                Ok(XmlReadEvent::StartElement { name, attributes, .. }) => {
+            match reader.expect_peek()? {
+                XmlReadEvent::StartElement { name, attributes, .. } => {
                     let mut xml_property_name = None;
 
                     for attribute in attributes {
@@ -602,21 +600,26 @@ fn deserialize_properties<R: Read>(
                         }
                     }
 
-                    let xml_property_name = xml_property_name
-                        .ok_or(DecodeError::Message("Missing 'name' for property tag"))?;
+                    let xml_property_name = match xml_property_name {
+                        Some(value) => value,
+                        None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name")).into())
+                    };
 
                     break (name.local_name.to_owned(), xml_property_name)
                 },
-                Ok(XmlReadEvent::EndElement { name }) => {
+                XmlReadEvent::EndElement { name } => {
                     if name.local_name == "Properties" {
-                        reader.next().unwrap()?;
+                        reader.expect_next()?;
                         return Ok(())
                     } else {
-                        trace!("Unexpected end element {:?}, expected Properties", name);
-                        return Err(DecodeError::Message("Unexpected end element, expected Properties"))
+                        let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
+                        return Err(reader.error(err).into());
                     }
                 },
-                Ok(_) | Err(_) => return Err(DecodeError::Message("Unexpected thing in Properties section")),
+                _ => {
+                    let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
+                    return Err(reader.error(err).into());
+                }
             };
         };
 
