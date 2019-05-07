@@ -10,6 +10,7 @@ mod macros;
 
 mod core;
 mod deserializer;
+mod deserializer_core;
 mod error;
 mod serializer;
 mod types;
@@ -19,5 +20,6 @@ mod test_util;
 
 pub use crate::{
     serializer::{encode, EncodeError},
-    deserializer::{decode, decode_str, DecodeError},
+    deserializer::{decode, decode_str},
+    error::DecodeError,
 };
