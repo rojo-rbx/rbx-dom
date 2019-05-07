@@ -3,6 +3,8 @@ use std::{
     io::Read,
 };
 
+use crate::deserializer_core::DecodeError as OldDecodeError;
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct DecodeError {
     kind: DecodeErrorKind,
@@ -36,16 +38,32 @@ impl std::error::Error for DecodeError {
     }
 }
 
+// FIXME: This is temporarily while we transition error types
+impl From<OldDecodeError> for DecodeError {
+    fn from(value: OldDecodeError) -> DecodeError {
+        DecodeError {
+            kind: DecodeErrorKind::Old(Box::new(value)),
+            line: 1,
+            column: 1,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum DecodeErrorKind {
+    // Errors from other crates
     Xml(xml::reader::Error),
     ParseFloat(std::num::ParseFloatError),
     ParseInt(std::num::ParseIntError),
     DecodeBase64(base64::DecodeError),
 
+    // Errors specific to rbx_xml
     UnexpectedEof,
     UnexpectedXmlEvent(xml::reader::XmlEvent),
     MissingAttribute(&'static str),
+
+    // FIXME: Temporary variant while we have two error types
+    Old(Box<OldDecodeError>),
 }
 
 impl fmt::Display for DecodeErrorKind {
@@ -61,6 +79,8 @@ impl fmt::Display for DecodeErrorKind {
             UnexpectedEof => write!(output, "Unexpected end-of-file"),
             UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {:?}", event),
             MissingAttribute(attribute_name) => write!(output, "Missing attribute '{}'", attribute_name),
+
+            Old(old_error) => write!(output, "{}", old_error),
         }
     }
 }
@@ -76,6 +96,8 @@ impl std::error::Error for DecodeErrorKind {
             DecodeBase64(err) => Some(err),
 
             UnexpectedEof | UnexpectedXmlEvent(_) | MissingAttribute(_) => None,
+
+            Old(_) => None,
         }
     }
 }

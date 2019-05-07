@@ -4,8 +4,9 @@ use rbx_dom_weak::RbxValue;
 use rbx_reflection::RbxPropertyDescriptor;
 
 use crate::{
-    deserializer::{DecodeError, XmlEventReader},
+    deserializer::{DecodeError as OldDecodeError, XmlEventReader},
     serializer::{EncodeError, XmlEventWriter},
+    error::DecodeError,
 };
 
 pub trait XmlType<T: ?Sized> {
@@ -17,9 +18,19 @@ pub trait XmlType<T: ?Sized> {
         value: &T,
     ) -> Result<(), EncodeError>;
 
+    // Transitionary function that will be renamed to read_xml at the end of this
+    // refactor
+    fn read_xml_new<R: Read>(
+        reader: &mut XmlEventReader<R>,
+    ) -> Result<RbxValue, DecodeError> {
+        Self::read_xml(reader).map_err(Into::into)
+    }
+
     fn read_xml<R: Read>(
         reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError>;
+    ) -> Result<RbxValue, OldDecodeError> {
+        Self::read_xml_new(reader).map_err(Into::into)
+    }
 }
 
 pub fn find_canonical_property_descriptor(
