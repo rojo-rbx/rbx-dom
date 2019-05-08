@@ -45,7 +45,7 @@ impl std::error::Error for DecodeError {
 impl From<OldDecodeError> for DecodeError {
     fn from(value: OldDecodeError) -> DecodeError {
         DecodeError {
-            kind: DecodeErrorKind::Old(Box::new(value)),
+            kind: DecodeErrorKind::Old(value),
             line: 1,
             column: 1,
         }
@@ -67,7 +67,7 @@ pub(crate) enum DecodeErrorKind {
     UnknownPropertyType(String),
 
     // FIXME: Temporary variant while we have two error types
-    Old(Box<OldDecodeError>),
+    Old(OldDecodeError),
 }
 
 impl fmt::Display for DecodeErrorKind {

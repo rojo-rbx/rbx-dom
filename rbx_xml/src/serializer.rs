@@ -21,15 +21,13 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), 
     let mut writer = XmlEventWriter::from_output(output);
     let mut state = EmitState::new();
 
-    writer.write(XmlWriteEvent::start_element("roblox").attr("version", "4"))
-        .map_err(|e| writer.error(e))?;
+    writer.write(XmlWriteEvent::start_element("roblox").attr("version", "4"))?;
 
     for id in ids {
         serialize_instance(&mut writer, &mut state, tree, *id)?;
     }
 
-    writer.write(XmlWriteEvent::end_element())
-        .map_err(|e| writer.error(e))?;
+    writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
 }
@@ -85,11 +83,9 @@ fn serialize_instance<W: Write>(
 
     writer.write(XmlWriteEvent::start_element("Item")
         .attr("class", &instance.class_name)
-        .attr("referent", &mapped_id.to_string()))
-        .map_err(|e| writer.error(e))?;
+        .attr("referent", &mapped_id.to_string()))?;
 
-    writer.write(XmlWriteEvent::start_element("Properties"))
-        .map_err(|e| writer.error(e))?;
+    writer.write(XmlWriteEvent::start_element("Properties"))?;
 
     serialize_value(writer, state, "Name", &RbxValue::String {
         value: instance.name.clone(),
@@ -115,15 +111,13 @@ fn serialize_instance<W: Write>(
         }
     }
 
-    writer.write(XmlWriteEvent::end_element())
-        .map_err(|e| writer.error(e))?;
+    writer.write(XmlWriteEvent::end_element())?;
 
     for child_id in instance.get_children_ids() {
         serialize_instance(writer, state, tree, *child_id)?;
     }
 
-    writer.write(XmlWriteEvent::end_element())
-        .map_err(|e| writer.error(e))?;
+    writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
 }

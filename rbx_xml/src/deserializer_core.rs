@@ -38,7 +38,7 @@ pub enum DecodeError {
     MalformedDocument,
 
     #[fail(display = "{}", _0)]
-    New(#[fail(cause)] NewDecodeError),
+    New(Box<NewDecodeError>),
 
     #[doc(hidden)]
     #[fail(display = "<this variant should never exist>")]
@@ -71,7 +71,7 @@ impl From<base64::DecodeError> for DecodeError {
 
 impl From<NewDecodeError> for DecodeError {
     fn from(error: NewDecodeError) -> DecodeError {
-        DecodeError::New(error)
+        DecodeError::New(Box::new(error))
     }
 }
 

@@ -22,6 +22,9 @@ pub enum EncodeError {
     #[fail(display = "{}", _0)]
     Message(&'static str),
 
+    #[fail(display = "{}", _0)]
+    New(Box<NewEncodeError>),
+
     #[doc(hidden)]
     #[fail(display = "<this variant should never exist>")]
     __Nonexhaustive,
@@ -33,6 +36,12 @@ impl From<xml::writer::Error> for EncodeError {
             xml::writer::Error::Io(inner) => EncodeError::IoError(inner),
             _ => EncodeError::XmlError(error),
         }
+    }
+}
+
+impl From<NewEncodeError> for EncodeError {
+    fn from(error: NewEncodeError) -> EncodeError {
+        EncodeError::New(Box::new(error))
     }
 }
 
@@ -62,21 +71,27 @@ impl<W: Write> XmlEventWriter<W> {
         NewEncodeError::new_from_writer(kind.into(), &self.inner)
     }
 
+    pub fn end_element(&mut self) -> Result<(), NewEncodeError> {
+        self.inner.write(XmlWriteEvent::end_element())
+            .map_err(|e| self.error(e))
+    }
+
     /// Writes a single XML event to the output stream.
-    pub fn write<'a, E>(&mut self, event: E) -> Result<(), writer::Error>
+    pub fn write<'a, E>(&mut self, event: E) -> Result<(), NewEncodeError>
         where E: Into<XmlWriteEvent<'a>>
     {
         self.inner.write(event)
+            .map_err(|e| self.error(e))
     }
 
     /// Writes a string slice to the output stream as characters or CDATA.
-    pub fn write_string(&mut self, value: &str) -> Result<(), writer::Error> {
+    pub fn write_string(&mut self, value: &str) -> Result<(), NewEncodeError> {
         write_characters_or_cdata(&mut self.inner, value)
     }
 
     /// Writes a value that implements `Display` as characters or CDATA. Resuses
     /// an internal buffer to avoid unnecessary allocations.
-    pub fn write_characters<T: std::fmt::Display>(&mut self, value: T) -> Result<(), writer::Error> {
+    pub fn write_characters<T: std::fmt::Display>(&mut self, value: T) -> Result<(), NewEncodeError> {
         write!(self.character_buffer, "{}", value).unwrap();
         write_characters_or_cdata(&mut self.inner, &self.character_buffer)?;
         self.character_buffer.clear();
@@ -86,7 +101,7 @@ impl<W: Write> XmlEventWriter<W> {
 
     /// The same as `write_characters`, but wraps the characters in a tag with
     /// the given name and no attributes.
-    pub fn write_tag_characters<T: std::fmt::Display>(&mut self, tag: &str, value: T) -> Result<(), writer::Error> {
+    pub fn write_tag_characters<T: std::fmt::Display>(&mut self, tag: &str, value: T) -> Result<(), NewEncodeError> {
         self.write(XmlWriteEvent::start_element(tag))?;
         self.write_characters(value)?;
         self.write(XmlWriteEvent::end_element())
@@ -95,7 +110,7 @@ impl<W: Write> XmlEventWriter<W> {
     /// Writes a list of values that implement `Display`, with each wrapped in
     /// an associated tag. This method uses the same optimization as
     /// `write_characters` to avoid extra allocations.
-    pub fn write_tag_array<T: std::fmt::Display>(&mut self, values: &[T], tags: &[&str]) -> Result<(), writer::Error> {
+    pub fn write_tag_array<T: std::fmt::Display>(&mut self, values: &[T], tags: &[&str]) -> Result<(), NewEncodeError> {
         assert_eq!(values.len(), tags.len());
 
         for (index, component) in values.iter().enumerate() {
@@ -112,7 +127,7 @@ impl<W: Write> XmlEventWriter<W> {
 ///
 /// This method is extracted so that it can be used inside both `write_string`
 /// and `write_characters` without borrowing issues.
-fn write_characters_or_cdata<W: Write>(writer: &mut EventWriter<W>, value: &str) -> Result<(), writer::Error> {
+fn write_characters_or_cdata<W: Write>(writer: &mut EventWriter<W>, value: &str) -> Result<(), NewEncodeError> {
     let first_char = value.chars().next();
     let last_char = value.chars().next_back();
 
@@ -126,9 +141,11 @@ fn write_characters_or_cdata<W: Write>(writer: &mut EventWriter<W>, value: &str)
     };
 
     if has_outer_whitespace {
-        writer.write(XmlWriteEvent::cdata(value))?;
+        writer.write(XmlWriteEvent::cdata(value))
+            .map_err(|e| NewEncodeError::new_from_writer(e.into(), &writer))?;
     } else {
-        writer.write(XmlWriteEvent::characters(value))?;
+        writer.write(XmlWriteEvent::characters(value))
+            .map_err(|e| NewEncodeError::new_from_writer(e.into(), &writer))?;
     }
 
     Ok(())
