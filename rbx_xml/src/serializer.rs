@@ -13,7 +13,7 @@ use crate::{
     error::EncodeError as NewEncodeError,
 };
 
-pub use crate::serializer_core::*;
+use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
 
 /// Serialize the instances denoted by `ids` from `tree` as an XML-format model,
 /// writing to `output`.

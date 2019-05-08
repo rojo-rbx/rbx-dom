@@ -31,8 +31,8 @@ use rbx_dom_weak::RbxValue;
 use crate::{
     core::NewXmlType,
     error::{EncodeError, EncodeErrorKind, DecodeError, DecodeErrorKind},
-    deserializer::{XmlEventReader},
-    serializer::{XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    serializer_core::XmlEventWriter,
 };
 
 pub use self::referent::{read_ref, write_ref};

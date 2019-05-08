@@ -13,8 +13,7 @@ use crate::{
     error::{DecodeError as NewDecodeError, DecodeErrorKind},
 };
 
-// TODO: remove
-pub use crate::deserializer_core::*;
+use crate::deserializer_core::{XmlEventReader, XmlReadEvent, DecodeError};
 
 /// A utility method to decode an XML-format model from a string.
 pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), NewDecodeError> {

@@ -4,8 +4,8 @@ use rbx_dom_weak::RbxValue;
 use rbx_reflection::RbxPropertyDescriptor;
 
 use crate::{
-    deserializer::{DecodeError as OldDecodeError, XmlEventReader},
-    serializer::{EncodeError as OldEncodeError, XmlEventWriter},
+    deserializer_core::{DecodeError as OldDecodeError, XmlEventReader},
+    serializer_core::{EncodeError as OldEncodeError, XmlEventWriter},
     error::{DecodeError, EncodeError},
 };
 
