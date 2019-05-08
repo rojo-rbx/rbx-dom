@@ -66,6 +66,7 @@ pub(crate) enum DecodeErrorKind {
     MissingAttribute(&'static str),
     UnknownPropertyType(String),
     InvalidContent(&'static str),
+    NameMustBeString(RbxValueType),
 
     // FIXME: Temporary variant while we have two error types
     Old(OldDecodeError),
@@ -86,6 +87,7 @@ impl fmt::Display for DecodeErrorKind {
             MissingAttribute(attribute_name) => write!(output, "Missing attribute '{}'", attribute_name),
             UnknownPropertyType(prop_name) => write!(output, "Unknown property type '{}'", prop_name),
             InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
+            NameMustBeString(ty) => write!(output, "The 'Name' property must be of type String, but it was {:?}", ty),
 
             Old(old_error) => write!(output, "{}", old_error),
         }
@@ -106,7 +108,8 @@ impl std::error::Error for DecodeErrorKind {
             | UnexpectedXmlEvent(_)
             | MissingAttribute(_)
             | UnknownPropertyType(_)
-            | InvalidContent(_) => None,
+            | InvalidContent(_)
+            | NameMustBeString(_) => None,
 
             Old(_) => None,
         }

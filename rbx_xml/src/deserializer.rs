@@ -182,14 +182,14 @@ fn deserialize_instance<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId,
-) -> Result<(), DecodeError> {
-    let (class_name, referent) = read_event!(reader, XmlReadEvent::StartElement { name, mut attributes, .. } => {
-        assert_eq!(name.local_name, "Item");
+) -> Result<(), NewDecodeError> {
+    let (class_name, referent) = {
+        let attributes = reader.expect_start_with_name("Item")?;
 
         let mut class = None;
         let mut referent = None;
 
-        for attribute in attributes.drain(..) {
+        for attribute in attributes.into_iter() {
             match attribute.name.local_name.as_str() {
                 "class" => class = Some(attribute.value),
                 "referent" => referent = Some(attribute.value),
@@ -197,10 +197,11 @@ fn deserialize_instance<R: Read>(
             }
         }
 
-        let class = class.ok_or(DecodeError::Message("Missing 'class'"))?;
+        let class = class
+            .ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("class")))?;
 
         (class, referent)
-    });
+    };
 
     trace!("Class {} with referent {:?}", class_name, referent);
 
@@ -221,25 +222,33 @@ fn deserialize_instance<R: Read>(
     let mut properties: HashMap<String, RbxValue> = HashMap::new();
 
     loop {
-        match reader.peek().ok_or(DecodeError::Message("Unexpected EOF"))? {
-            Ok(XmlReadEvent::StartElement { name, .. }) => match name.local_name.as_str() {
+        match reader.expect_peek()? {
+            XmlReadEvent::StartElement { name, .. } => match name.local_name.as_str() {
                 "Properties" => {
                     deserialize_properties(reader, state, instance_id, &mut properties)?;
-                },
+                }
                 "Item" => {
                     deserialize_instance(reader, state, instance_id)?;
                 }
-                _ => return Err(DecodeError::Message("Unexpected tag inside instance")),
-            },
-            Ok(XmlReadEvent::EndElement { name }) => {
+                _ => {
+                    let event = reader.expect_next().unwrap();
+                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                }
+            }
+            XmlReadEvent::EndElement { name } => {
                 if name.local_name != "Item" {
-                    return Err(DecodeError::Message("Unexpected closing tag, expected Item"));
+                    let event = reader.expect_next().unwrap();
+                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
                 }
 
-                reader.next();
+                reader.expect_next().unwrap();
+
                 break;
-            },
-            unexpected => panic!("Unexpected XmlReadEvent {:?}", unexpected),
+            }
+            _ => {
+                let event = reader.expect_next().unwrap();
+                return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+            }
         }
     }
 
@@ -248,7 +257,7 @@ fn deserialize_instance<R: Read>(
     instance.name = match properties.remove("Name") {
         Some(value) => match value {
             RbxValue::String { value } => value,
-            _ => return Err(DecodeError::Message("Name must be a string")),
+            _ => return Err(reader.error(DecodeErrorKind::NameMustBeString(value.get_type()))),
         },
         None => instance.class_name.clone(),
     };
@@ -263,7 +272,7 @@ fn deserialize_properties<R: Read>(
     state: &mut ParseState,
     instance_id: RbxId,
     props: &mut HashMap<String, RbxValue>,
-) -> Result<(), DecodeError> {
+) -> Result<(), NewDecodeError> {
     reader.expect_start_with_name("Properties")?;
 
     let class_name = state.tree.get_instance(instance_id)
