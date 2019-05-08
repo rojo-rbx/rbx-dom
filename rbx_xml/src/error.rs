@@ -61,6 +61,7 @@ pub(crate) enum DecodeErrorKind {
     DecodeBase64(base64::DecodeError),
 
     // Errors specific to rbx_xml
+    WrongDocVersion(String),
     UnexpectedEof,
     UnexpectedXmlEvent(xml::reader::XmlEvent),
     MissingAttribute(&'static str),
@@ -82,6 +83,7 @@ impl fmt::Display for DecodeErrorKind {
             ParseInt(err) => write!(output, "{}", err),
             DecodeBase64(err) => write!(output, "{}", err),
 
+            WrongDocVersion(version) => write!(output, "Invalid version '{}', expected version 4", version),
             UnexpectedEof => write!(output, "Unexpected end-of-file"),
             UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {:?}", event),
             MissingAttribute(attribute_name) => write!(output, "Missing attribute '{}'", attribute_name),
@@ -104,7 +106,8 @@ impl std::error::Error for DecodeErrorKind {
             ParseInt(err) => Some(err),
             DecodeBase64(err) => Some(err),
 
-            UnexpectedEof
+            WrongDocVersion(_)
+            | UnexpectedEof
             | UnexpectedXmlEvent(_)
             | MissingAttribute(_)
             | UnknownPropertyType(_)

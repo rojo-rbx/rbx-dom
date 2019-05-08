@@ -104,8 +104,8 @@ mod test {
     use super::*;
 
     use crate::{
-        core::XmlType,
-        deserializer::XmlEventReader,
+        core::NewXmlType as XmlType,
+        deserializer_core::XmlEventReader,
         test_util,
     };
 

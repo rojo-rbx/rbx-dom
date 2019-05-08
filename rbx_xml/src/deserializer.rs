@@ -93,31 +93,29 @@ fn deserialize_root<R: Read>(
     state: &mut ParseState,
     parent_id: RbxId
 ) -> Result<(), DecodeError> {
-    match reader.next().ok_or(DecodeError::MalformedDocument)?? {
+    match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {},
-        _ => return Err(DecodeError::MalformedDocument),
+        _ => unreachable!(),
     }
 
-    read_event!(reader, XmlReadEvent::StartElement { name, attributes, .. } => {
-        if name.local_name != "roblox" {
-            return Err(DecodeError::Message("Missing <roblox>"));
-        }
+    {
+        let attributes = reader.expect_start_with_name("roblox")?;
 
         let mut found_version = false;
-        for attribute in &attributes {
+        for attribute in attributes.into_iter() {
             if attribute.name.local_name == "version" {
                 found_version = true;
 
                 if attribute.value != "4" {
-                    return Err(DecodeError::Message("Not version 4"));
+                    return Err(reader.error(DecodeErrorKind::WrongDocVersion(attribute.value)).into());
                 }
             }
         }
 
         if !found_version {
-            return Err(DecodeError::Message("No version field"));
+            return Err(reader.error(DecodeErrorKind::MissingAttribute("version")).into());
         }
-    });
+    }
 
     loop {
         match reader.peek().ok_or(DecodeError::MalformedDocument)? {

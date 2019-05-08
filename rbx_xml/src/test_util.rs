@@ -2,8 +2,8 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::NewXmlType as XmlType,
-    deserializer::XmlEventReader,
-    serializer::XmlEventWriter,
+    deserializer_core::XmlEventReader,
+    serializer_core::XmlEventWriter,
 };
 
 pub fn test_xml_round_trip<Xml, InnerType>(test_value: &InnerType, wrapped_value: RbxValue)
