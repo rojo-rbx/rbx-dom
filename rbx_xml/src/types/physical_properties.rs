@@ -49,11 +49,11 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
 
         let value = match has_custom_physics.as_str() {
             "true" => {
-                let density = reader.read_tag_contents_f32("Density")?;
-                let friction = reader.read_tag_contents_f32("Friction")?;
-                let elasticity = reader.read_tag_contents_f32("Elasticity")?;
-                let friction_weight = reader.read_tag_contents_f32("FrictionWeight")?;
-                let elasticity_weight = reader.read_tag_contents_f32("ElasticityWeight")?;
+                let density: f32 = reader.read_tag_contents_parse("Density")?;
+                let friction: f32 = reader.read_tag_contents_parse("Friction")?;
+                let elasticity: f32 = reader.read_tag_contents_parse("Elasticity")?;
+                let friction_weight: f32 = reader.read_tag_contents_parse("FrictionWeight")?;
+                let elasticity_weight: f32 = reader.read_tag_contents_parse("ElasticityWeight")?;
 
                 Some(PhysicalProperties {
                     density,

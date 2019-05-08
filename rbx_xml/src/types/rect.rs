@@ -42,13 +42,13 @@ impl XmlType<Rect> for RectType {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         reader.expect_start_with_name("min")?;
-        let x_min = reader.read_tag_contents_f32("X")?;
-        let y_min = reader.read_tag_contents_f32("Y")?;
+        let x_min: f32 = reader.read_tag_contents_parse("X")?;
+        let y_min: f32 = reader.read_tag_contents_parse("Y")?;
         reader.expect_end_with_name("min")?;
 
         reader.expect_start_with_name("max")?;
-        let x_max = reader.read_tag_contents_f32("X")?;
-        let y_max = reader.read_tag_contents_f32("Y")?;
+        let x_max: f32 = reader.read_tag_contents_parse("X")?;
+        let y_max: f32 = reader.read_tag_contents_parse("Y")?;
         reader.expect_end_with_name("max")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
