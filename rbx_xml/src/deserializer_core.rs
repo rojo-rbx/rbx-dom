@@ -1,4 +1,7 @@
-use std::io::Read;
+use std::{
+    io::Read,
+    str::FromStr,
+};
 
 use failure::Fail;
 use log::trace;
@@ -292,6 +295,16 @@ impl<R: Read> XmlEventReader<R> {
         self.expect_end_with_name(expected_name)?;
 
         Ok(contents)
+    }
+
+    // FIXME: Move this type to pub once this whole type is pub(crate)
+    pub(crate) fn read_tag_contents_parse<T>(&mut self, expected_name: &str) -> Result<T, NewDecodeError>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: Into<DecodeErrorKind>
+    {
+        let contents = self.read_tag_contents(expected_name)?;
+        contents.parse().map_err(|e| self.error(e))
     }
 
     pub fn read_tag_contents_f32(&mut self, expected_name: &str) -> Result<f32, NewDecodeError> {
