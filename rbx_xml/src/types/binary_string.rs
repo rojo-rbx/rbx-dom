@@ -3,7 +3,7 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    core::NewXmlType,
+    core::NewXmlType as XmlType,
     error::{EncodeError, DecodeError},
     deserializer_core::{XmlEventReader},
     serializer_core::{XmlWriteEvent, XmlEventWriter},
@@ -11,7 +11,7 @@ use crate::{
 
 pub struct BinaryStringType;
 
-impl NewXmlType<[u8]> for BinaryStringType {
+impl XmlType<[u8]> for BinaryStringType {
     const XML_TAG_NAME: &'static str = "BinaryString";
 
     fn write_xml<W: Write>(

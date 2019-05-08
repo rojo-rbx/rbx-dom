@@ -65,6 +65,7 @@ pub(crate) enum DecodeErrorKind {
     UnexpectedXmlEvent(xml::reader::XmlEvent),
     MissingAttribute(&'static str),
     UnknownPropertyType(String),
+    InvalidContent(&'static str),
 
     // FIXME: Temporary variant while we have two error types
     Old(OldDecodeError),
@@ -84,6 +85,7 @@ impl fmt::Display for DecodeErrorKind {
             UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {:?}", event),
             MissingAttribute(attribute_name) => write!(output, "Missing attribute '{}'", attribute_name),
             UnknownPropertyType(prop_name) => write!(output, "Unknown property type '{}'", prop_name),
+            InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
 
             Old(old_error) => write!(output, "{}", old_error),
         }
@@ -103,7 +105,8 @@ impl std::error::Error for DecodeErrorKind {
             UnexpectedEof
             | UnexpectedXmlEvent(_)
             | MissingAttribute(_)
-            | UnknownPropertyType(_) => None,
+            | UnknownPropertyType(_)
+            | InvalidContent(_) => None,
 
             Old(_) => None,
         }
