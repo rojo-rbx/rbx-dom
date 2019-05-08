@@ -65,11 +65,11 @@ fn serialize_value<W: Write>(
     state: &mut EmitState,
     xml_name: &str,
     value: &RbxValue,
-) -> Result<(), EncodeError> {
+) -> Result<(), NewEncodeError> {
     // Refs need additional state that we don't want to thread through
     // `write_value_xml`, so we handle it here.
     match value {
-        RbxValue::Ref { value: id } => write_ref(writer, xml_name, id, state),
+        RbxValue::Ref { value: id } => write_ref(writer, xml_name, id, state).map_err(Into::into),
         _ => write_value_xml(writer, xml_name, value)
     }
 }
@@ -79,15 +79,17 @@ fn serialize_instance<W: Write>(
     state: &mut EmitState,
     tree: &RbxTree,
     id: RbxId,
-) -> Result<(), EncodeError> {
+) -> Result<(), NewEncodeError> {
     let instance = tree.get_instance(id).unwrap();
     let mapped_id = state.map_id(id);
 
     writer.write(XmlWriteEvent::start_element("Item")
         .attr("class", &instance.class_name)
-        .attr("referent", &mapped_id.to_string()))?;
+        .attr("referent", &mapped_id.to_string()))
+        .map_err(|e| writer.error(e))?;
 
-    writer.write(XmlWriteEvent::start_element("Properties"))?;
+    writer.write(XmlWriteEvent::start_element("Properties"))
+        .map_err(|e| writer.error(e))?;
 
     serialize_value(writer, state, "Name", &RbxValue::String {
         value: instance.name.clone(),
@@ -113,13 +115,15 @@ fn serialize_instance<W: Write>(
         }
     }
 
-    writer.write(XmlWriteEvent::end_element())?;
+    writer.write(XmlWriteEvent::end_element())
+        .map_err(|e| writer.error(e))?;
 
     for child_id in instance.get_children_ids() {
         serialize_instance(writer, state, tree, *child_id)?;
     }
 
-    writer.write(XmlWriteEvent::end_element())?;
+    writer.write(XmlWriteEvent::end_element())
+        .map_err(|e| writer.error(e))?;
 
     Ok(())
 }

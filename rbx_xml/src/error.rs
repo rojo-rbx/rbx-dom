@@ -3,6 +3,8 @@ use std::{
     io::{self, Read, Write},
 };
 
+use rbx_dom_weak::RbxValueType;
+
 use crate::deserializer_core::DecodeError as OldDecodeError;
 use crate::serializer_core::EncodeError as OldEncodeError;
 
@@ -62,6 +64,7 @@ pub(crate) enum DecodeErrorKind {
     UnexpectedEof,
     UnexpectedXmlEvent(xml::reader::XmlEvent),
     MissingAttribute(&'static str),
+    UnknownPropertyType(String),
 
     // FIXME: Temporary variant while we have two error types
     Old(Box<OldDecodeError>),
@@ -80,6 +83,7 @@ impl fmt::Display for DecodeErrorKind {
             UnexpectedEof => write!(output, "Unexpected end-of-file"),
             UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {:?}", event),
             MissingAttribute(attribute_name) => write!(output, "Missing attribute '{}'", attribute_name),
+            UnknownPropertyType(prop_name) => write!(output, "Unknown property type '{}'", prop_name),
 
             Old(old_error) => write!(output, "{}", old_error),
         }
@@ -96,7 +100,10 @@ impl std::error::Error for DecodeErrorKind {
             ParseInt(err) => Some(err),
             DecodeBase64(err) => Some(err),
 
-            UnexpectedEof | UnexpectedXmlEvent(_) | MissingAttribute(_) => None,
+            UnexpectedEof
+            | UnexpectedXmlEvent(_)
+            | MissingAttribute(_)
+            | UnknownPropertyType(_) => None,
 
             Old(_) => None,
         }
@@ -164,6 +171,8 @@ pub(crate) enum EncodeErrorKind {
     Io(io::Error),
     Xml(xml::writer::Error),
 
+    UnsupportedPropertyType(RbxValueType),
+
     Old(OldEncodeError),
 }
 
@@ -174,6 +183,8 @@ impl fmt::Display for EncodeErrorKind {
         match self {
             Io(err) => write!(output, "{}", err),
             Xml(err) => write!(output, "{}", err),
+
+            UnsupportedPropertyType(ty) => write!(output, "Properties of type {:?} cannot be encoded yet", ty),
 
             Old(old_error) => write!(output, "{}", old_error),
         }
@@ -187,6 +198,8 @@ impl std::error::Error for EncodeErrorKind {
         match self {
             Io(err) => Some(err),
             Xml(err) => Some(err),
+
+            UnsupportedPropertyType(_) => None,
 
             Old(_) => None,
         }
