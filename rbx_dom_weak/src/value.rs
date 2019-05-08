@@ -187,6 +187,8 @@ impl RbxValue {
 
             (RbxValue::String { value }, RbxValueType::Content) => Converted(RbxValue::Content { value: value.clone() }),
 
+            (RbxValue::BrickColor { value }, RbxValueType::Color3) => Converted(RbxValue::Color3 { value: value.as_rgb() }),
+
             (_this, _) => Failed
         }
     }
