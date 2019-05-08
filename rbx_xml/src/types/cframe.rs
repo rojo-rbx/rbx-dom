@@ -3,9 +3,10 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    core::NewXmlType as XmlType,
+    error::{EncodeError, DecodeError},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 static TAG_NAMES: [&str; 12] = ["X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22"];
@@ -23,7 +24,7 @@ impl XmlType<CFrameValue> for CFrameType {
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write_tag_array(value, &TAG_NAMES)?;
-        writer.write(XmlWriteEvent::end_element())?;
+        writer.end_element()?;
 
         Ok(())
     }
@@ -37,7 +38,8 @@ impl XmlType<CFrameValue> for CFrameType {
 
         for index in 0..12 {
             let tag_name = TAG_NAMES[index];
-            components[index] = reader.read_tag_contents(tag_name)?.parse()?;
+            components[index] = reader.read_tag_contents(tag_name)?
+                .parse().map_err(|e| reader.error(e))?;
         }
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;

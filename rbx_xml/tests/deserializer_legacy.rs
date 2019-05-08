@@ -217,7 +217,7 @@ fn with_color3() {
     let mut tree = new_data_model();
     let root_id = tree.get_root_id();
 
-    decode_str(&mut tree, root_id, document).expect("should work D:");
+    decode_str(&mut tree, root_id, document).unwrap();
 
     for descendant in tree.descendants(root_id) {
         if descendant.name == "Test" {
