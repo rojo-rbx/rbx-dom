@@ -13,7 +13,7 @@ use crate::{
     error::{DecodeError as NewDecodeError, DecodeErrorKind},
 };
 
-use crate::deserializer_core::{XmlEventReader, XmlReadEvent, DecodeError};
+use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
 /// A utility method to decode an XML-format model from a string.
 pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), NewDecodeError> {
@@ -92,7 +92,7 @@ fn deserialize_root<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId
-) -> Result<(), DecodeError> {
+) -> Result<(), NewDecodeError> {
     match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {},
         _ => unreachable!(),
@@ -107,46 +107,51 @@ fn deserialize_root<R: Read>(
                 found_version = true;
 
                 if attribute.value != "4" {
-                    return Err(reader.error(DecodeErrorKind::WrongDocVersion(attribute.value)).into());
+                    return Err(reader.error(DecodeErrorKind::WrongDocVersion(attribute.value)));
                 }
             }
         }
 
         if !found_version {
-            return Err(reader.error(DecodeErrorKind::MissingAttribute("version")).into());
+            return Err(reader.error(DecodeErrorKind::MissingAttribute("version")));
         }
     }
 
     loop {
-        match reader.peek().ok_or(DecodeError::MalformedDocument)? {
-            Ok(XmlReadEvent::StartElement { name, .. }) => {
+        match reader.expect_peek()? {
+            XmlReadEvent::StartElement { name, .. } => {
                 match name.local_name.as_str() {
                     "Item" => {
                         deserialize_instance(reader, state, parent_id)?;
-                    },
+                    }
                     "External" => {
                         // This tag is always meaningless, there's nothing to do
                         // here except skip it.
                         reader.eat_unknown_tag()?;
-                    },
+                    }
                     "Meta" => {
                         deserialize_metadata(reader, state)?;
-                    },
-                    _ => return Err(DecodeError::Message("Unexpected top-level start tag")),
+                    }
+                    _ => {
+                        let event = reader.expect_next().unwrap();
+                        return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                    }
                 }
-            },
-            Ok(XmlReadEvent::EndElement { name, .. }) => {
+            }
+            XmlReadEvent::EndElement { name } => {
                 if name.local_name == "roblox" {
+                    reader.expect_next().unwrap();
                     break;
                 } else {
-                    return Err(DecodeError::Message("Unexpected closing tag"));
+                    let event = reader.expect_next().unwrap();
+                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
                 }
-            },
-            Ok(XmlReadEvent::EndDocument) => break,
-            Ok(_) => return Err(DecodeError::Message("Unexpected top-level stuff")),
-            Err(_) => {
-                reader.next().unwrap()?;
-            },
+            }
+            XmlReadEvent::EndDocument => break,
+            _ => {
+                let event = reader.expect_next().unwrap();
+                return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+            }
         }
     }
 
