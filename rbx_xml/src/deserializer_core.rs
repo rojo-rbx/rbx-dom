@@ -294,6 +294,11 @@ impl<R: Read> XmlEventReader<R> {
         Ok(contents)
     }
 
+    pub fn read_tag_contents_f32(&mut self, expected_name: &str) -> Result<f32, NewDecodeError> {
+        let contents = self.read_tag_contents(expected_name)?;
+        contents.parse().map_err(|e| self.error(e))
+    }
+
     /// Consume events from the iterator until we reach the end of the next tag.
     pub fn eat_unknown_tag(&mut self) -> Result<(), NewDecodeError> {
         let mut depth = 0;

@@ -38,8 +38,7 @@ impl XmlType<CFrameValue> for CFrameType {
 
         for index in 0..12 {
             let tag_name = TAG_NAMES[index];
-            components[index] = reader.read_tag_contents(tag_name)?
-                .parse().map_err(|e| reader.error(e))?;
+            components[index] = reader.read_tag_contents_f32(tag_name)?;
         }
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
