@@ -3,11 +3,10 @@ use std::{
     str::FromStr,
 };
 
-use failure::Fail;
 use log::trace;
 use xml::{
     attribute::OwnedAttribute,
-    reader::{self, ParserConfig},
+    reader::ParserConfig,
 };
 
 use crate::{
@@ -17,66 +16,6 @@ use crate::{
 pub(crate) use xml::reader::XmlEvent as XmlReadEvent;
 pub(crate) use xml::reader::Error as XmlReadError;
 pub(crate) type XmlReadResult = Result<XmlReadEvent, XmlReadError>;
-
-// FIXME: Remove when NewXmlType refactor is finished
-#[derive(Debug, Fail)]
-pub enum DecodeError {
-    #[fail(display = "XML read error: {}", _0)]
-    XmlError(#[fail(cause)] reader::Error),
-
-    #[fail(display = "Float parse error: {}", _0)]
-    ParseFloatError(#[fail(cause)] std::num::ParseFloatError),
-
-    #[fail(display = "Int parse error: {}", _0)]
-    ParseIntError(#[fail(cause)] std::num::ParseIntError),
-
-    #[fail(display = "Base64 decode error: {}", _0)]
-    DecodeBase64Error(#[fail(cause)] base64::DecodeError),
-
-    // TODO: Switch to Cow<'static, str>?
-    #[fail(display = "{}", _0)]
-    Message(&'static str),
-
-    #[fail(display = "Malformed document")]
-    MalformedDocument,
-
-    #[fail(display = "{}", _0)]
-    New(Box<NewDecodeError>),
-
-    #[doc(hidden)]
-    #[fail(display = "<this variant should never exist>")]
-    __Nonexhaustive,
-}
-
-impl From<reader::Error> for DecodeError {
-    fn from(error: reader::Error) -> DecodeError {
-        DecodeError::XmlError(error)
-    }
-}
-
-impl From<std::num::ParseFloatError> for DecodeError {
-    fn from(error: std::num::ParseFloatError) -> DecodeError {
-        DecodeError::ParseFloatError(error)
-    }
-}
-
-impl From<std::num::ParseIntError> for DecodeError {
-    fn from(error: std::num::ParseIntError) -> DecodeError {
-        DecodeError::ParseIntError(error)
-    }
-}
-
-impl From<base64::DecodeError> for DecodeError {
-    fn from(error: base64::DecodeError) -> DecodeError {
-        DecodeError::DecodeBase64Error(error)
-    }
-}
-
-impl From<NewDecodeError> for DecodeError {
-    fn from(error: NewDecodeError) -> DecodeError {
-        DecodeError::New(Box::new(error))
-    }
-}
 
 /// A wrapper around an XML event iterator created by xml-rs.
 pub struct XmlEventReader<R: Read> {

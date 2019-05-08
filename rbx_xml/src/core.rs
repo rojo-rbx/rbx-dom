@@ -4,8 +4,8 @@ use rbx_dom_weak::RbxValue;
 use rbx_reflection::RbxPropertyDescriptor;
 
 use crate::{
-    deserializer_core::{DecodeError as OldDecodeError, XmlEventReader},
-    serializer_core::{EncodeError as OldEncodeError, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    serializer_core::XmlEventWriter,
     error::{DecodeError, EncodeError},
 };
 
@@ -22,46 +22,6 @@ pub trait NewXmlType<T: ?Sized> {
     fn read_xml<R: Read>(
         reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError>;
-}
-
-// FIXME: Remove this blanket impl alongside XmlType
-impl<Output, Old> NewXmlType<Output> for Old
-where
-    Old: XmlType<Output>,
-    Output: ?Sized,
-{
-    const XML_TAG_NAME: &'static str = <Old as XmlType<Output>>::XML_TAG_NAME;
-
-    fn write_xml<W: Write>(
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-        value: &Output,
-    ) -> Result<(), EncodeError> {
-        <Self as XmlType<Output>>::write_xml(writer, name, value)
-            .map_err(Into::into)
-    }
-
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
-        <Self as XmlType<Output>>::read_xml(reader)
-            .map_err(Into::into)
-    }
-}
-
-// FIXME: Remove this trait when NewXmlType is implemented everywhere
-pub trait XmlType<T: ?Sized> {
-    const XML_TAG_NAME: &'static str;
-
-    fn write_xml<W: Write>(
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-        value: &T,
-    ) -> Result<(), OldEncodeError>;
-
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, OldDecodeError>;
 }
 
 pub fn find_canonical_property_descriptor(

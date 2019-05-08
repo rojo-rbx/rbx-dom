@@ -5,9 +5,6 @@ use std::{
 
 use rbx_dom_weak::RbxValueType;
 
-use crate::deserializer_core::DecodeError as OldDecodeError;
-use crate::serializer_core::EncodeError as OldEncodeError;
-
 #[derive(Debug)]
 pub struct DecodeError {
     kind: DecodeErrorKind,
@@ -41,17 +38,6 @@ impl std::error::Error for DecodeError {
     }
 }
 
-// FIXME: This is temporarily while we transition error types
-impl From<OldDecodeError> for DecodeError {
-    fn from(value: OldDecodeError) -> DecodeError {
-        DecodeError {
-            kind: DecodeErrorKind::Old(value),
-            line: 1,
-            column: 1,
-        }
-    }
-}
-
 #[derive(Debug)]
 pub(crate) enum DecodeErrorKind {
     // Errors from other crates
@@ -68,9 +54,6 @@ pub(crate) enum DecodeErrorKind {
     UnknownPropertyType(String),
     InvalidContent(&'static str),
     NameMustBeString(RbxValueType),
-
-    // FIXME: Temporary variant while we have two error types
-    Old(OldDecodeError),
 }
 
 impl fmt::Display for DecodeErrorKind {
@@ -90,8 +73,6 @@ impl fmt::Display for DecodeErrorKind {
             UnknownPropertyType(prop_name) => write!(output, "Unknown property type '{}'", prop_name),
             InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
             NameMustBeString(ty) => write!(output, "The 'Name' property must be of type String, but it was {:?}", ty),
-
-            Old(old_error) => write!(output, "{}", old_error),
         }
     }
 }
@@ -113,8 +94,6 @@ impl std::error::Error for DecodeErrorKind {
             | UnknownPropertyType(_)
             | InvalidContent(_)
             | NameMustBeString(_) => None,
-
-            Old(_) => None,
         }
     }
 }
@@ -166,23 +145,12 @@ impl std::error::Error for EncodeError {
     }
 }
 
-// FIXME: This is temporarily while we transition error types
-impl From<OldEncodeError> for EncodeError {
-    fn from(error: OldEncodeError) -> EncodeError {
-        EncodeError {
-            kind: EncodeErrorKind::Old(error)
-        }
-    }
-}
-
 #[derive(Debug)]
 pub(crate) enum EncodeErrorKind {
     Io(io::Error),
     Xml(xml::writer::Error),
 
     UnsupportedPropertyType(RbxValueType),
-
-    Old(OldEncodeError),
 }
 
 impl fmt::Display for EncodeErrorKind {
@@ -194,8 +162,6 @@ impl fmt::Display for EncodeErrorKind {
             Xml(err) => write!(output, "{}", err),
 
             UnsupportedPropertyType(ty) => write!(output, "Properties of type {:?} cannot be encoded yet", ty),
-
-            Old(old_error) => write!(output, "{}", old_error),
         }
     }
 }
@@ -209,8 +175,6 @@ impl std::error::Error for EncodeErrorKind {
             Xml(err) => Some(err),
 
             UnsupportedPropertyType(_) => None,
-
-            Old(_) => None,
         }
     }
 }

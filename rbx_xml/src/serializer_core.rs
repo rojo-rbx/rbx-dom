@@ -1,49 +1,13 @@
 use std::{
     fmt::Write as FmtWrite,
-    io::{self, Write},
+    io::Write,
 };
 
-use failure::Fail;
-use xml::writer::{self, EventWriter, EmitterConfig};
+use xml::writer::{EventWriter, EmitterConfig};
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
 
 use crate::error::{EncodeError as NewEncodeError, EncodeErrorKind};
-
-// FIXME: Remove when NewXmlType refactor is finished
-#[derive(Debug, Fail)]
-pub enum EncodeError {
-    #[fail(display = "IO Error: {}", _0)]
-    IoError(#[fail(cause)] io::Error),
-
-    #[fail(display = "XML error: {}", _0)]
-    XmlError(#[fail(cause)] writer::Error),
-
-    #[fail(display = "{}", _0)]
-    Message(&'static str),
-
-    #[fail(display = "{}", _0)]
-    New(Box<NewEncodeError>),
-
-    #[doc(hidden)]
-    #[fail(display = "<this variant should never exist>")]
-    __Nonexhaustive,
-}
-
-impl From<xml::writer::Error> for EncodeError {
-    fn from(error: xml::writer::Error) -> EncodeError {
-        match error {
-            xml::writer::Error::Io(inner) => EncodeError::IoError(inner),
-            _ => EncodeError::XmlError(error),
-        }
-    }
-}
-
-impl From<NewEncodeError> for EncodeError {
-    fn from(error: NewEncodeError) -> EncodeError {
-        EncodeError::New(Box::new(error))
-    }
-}
 
 /// A wrapper around an xml-rs `EventWriter` as well as other state kept around
 /// for performantly emitting XML.
