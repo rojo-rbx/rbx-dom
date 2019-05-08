@@ -3,9 +3,10 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{RbxValue, NumberSequence, NumberSequenceKeypoint};
 
 use crate::{
-    core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    core::NewXmlType as XmlType,
+    error::{DecodeError, DecodeErrorKind, EncodeError},
+    deserializer_core::XmlEventReader,
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct NumberSequenceType;
@@ -40,28 +41,31 @@ impl XmlType<NumberSequence> for NumberSequenceType {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let contents = reader.read_characters()?;
-        let mut pieces = contents.split(" ").filter(|slice| !slice.is_empty());
+        let mut pieces = contents
+            .split(" ")
+            .filter(|slice| !slice.is_empty())
+            .map(|piece| {
+                piece.parse::<f32>()
+                    .map_err(|e| reader.error(e))
+            });
         let mut keypoints = Vec::new();
 
+        let wrong_length = || reader.error(DecodeErrorKind::InvalidContent("incorrect number of values"));
+
         loop {
-            let time: f32 = match pieces.next() {
-                Some(value) => value.parse()?,
+            let time = match pieces.next() {
+                Some(value) => value?,
                 None => break,
             };
 
-            let value: f32 = pieces.next()
-                .ok_or(DecodeError::Message("Malformed NumberSequence: wrong number of values"))?
-                .parse()?;
-
-            let envelope: f32 = pieces.next()
-                .ok_or(DecodeError::Message("Malformed NumberSequence: wrong number of values"))?
-                .parse()?;
+            let value = pieces.next().ok_or_else(wrong_length)??;
+            let envelope = pieces.next().ok_or_else(wrong_length)??;
 
             keypoints.push(NumberSequenceKeypoint { time, value, envelope });
         }
 
         if keypoints.len() < 2 {
-            return Err(DecodeError::Message("Malformed NumberSequence: must have two or more keypoints"));
+            return Err(reader.error(DecodeErrorKind::InvalidContent("expected two or more keypoints")));
         }
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;

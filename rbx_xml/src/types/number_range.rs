@@ -3,9 +3,10 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    core::NewXmlType as XmlType,
+    error::{DecodeError, DecodeErrorKind, EncodeError},
+    deserializer_core::XmlEventReader,
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct NumberRangeType;
@@ -36,19 +37,23 @@ impl XmlType<(f32, f32)> for NumberRangeType {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let contents = reader.read_characters()?;
-        let mut pieces = contents.split(" ").filter(|slice| !slice.is_empty());
+        let mut pieces = contents
+            .split(" ")
+            .filter(|slice| !slice.is_empty())
+            .map(|piece| {
+                piece.parse::<f32>()
+                    .map_err(|e| reader.error(e))
+            });
 
-        let min: f32 = pieces.next()
-            .ok_or(DecodeError::Message("Malformed NumberRange: missing min value"))?
-            .parse()?;
+        let min = pieces.next()
+            .ok_or_else(|| reader.error(DecodeErrorKind::InvalidContent("missing min value")))??;
 
-        let max: f32 = pieces.next()
-            .ok_or(DecodeError::Message("Malformed NumberRange: missing max value"))?
-            .parse()?;
+        let max = pieces.next()
+            .ok_or_else(|| reader.error(DecodeErrorKind::InvalidContent("missing max value")))??;
 
         match pieces.next() {
             None => {}
-            Some(_) => return Err(DecodeError::Message("Malformed NumberRange: too many values")),
+            Some(_) => return Err(reader.error(DecodeErrorKind::InvalidContent("too many values"))),
         }
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;

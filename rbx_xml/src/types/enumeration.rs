@@ -3,9 +3,10 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    core::NewXmlType as XmlType,
+    error::{DecodeError, EncodeError},
+    deserializer_core::XmlEventReader,
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct EnumType;
@@ -28,7 +29,8 @@ impl XmlType<u32> for EnumType {
     fn read_xml<R: Read>(
         reader: &mut XmlEventReader<R>,
     ) -> Result<RbxValue, DecodeError> {
-        let value: u32 = reader.read_tag_contents(Self::XML_TAG_NAME)?.parse()?;
+        let value: u32 = reader.read_tag_contents(Self::XML_TAG_NAME)?
+            .parse().map_err(|e| reader.error(e))?;
 
         Ok(RbxValue::Enum {
             value,
