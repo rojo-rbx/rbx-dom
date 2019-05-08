@@ -10,6 +10,7 @@ pub use xml::writer::XmlEvent as XmlWriteEvent;
 
 use crate::error::{EncodeError as NewEncodeError, EncodeErrorKind};
 
+// FIXME: Remove when NewXmlType refactor is finished
 #[derive(Debug, Fail)]
 pub enum EncodeError {
     #[fail(display = "IO Error: {}", _0)]
