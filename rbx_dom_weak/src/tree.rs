@@ -56,10 +56,10 @@ impl RbxTree {
         self.instances.get_mut(&id)
     }
 
-    // TODO: Make this method pub again after working on the API a little bit.
+    // TODO: Make this method public once it's ironed out
     #[allow(unused)]
-    fn transplant(&mut self, source_tree: &mut RbxTree, source_id: RbxId, new_parent_id: RbxId) {
-        let mut to_visit = vec![(source_id, new_parent_id)];
+    fn move_instance(source_tree: &mut RbxTree, source_id: RbxId, dest_tree: &mut RbxTree, dest_parent_id: RbxId) {
+        let mut to_visit = vec![(source_id, dest_parent_id)];
 
         loop {
             let (id, parent_id) = match to_visit.pop() {
@@ -75,7 +75,7 @@ impl RbxTree {
                 to_visit.push((*child, id));
             }
 
-            self.insert_instance_internal(instance);
+            dest_tree.insert_instance_internal(instance);
         }
     }
 
