@@ -4,8 +4,9 @@ use rbx_dom_weak::{RbxValue, Rect};
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{EncodeError, DecodeError},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct RectType;
@@ -41,13 +42,13 @@ impl XmlType<Rect> for RectType {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         reader.expect_start_with_name("min")?;
-        let x_min: f32 = reader.read_tag_contents("X")?.parse()?;
-        let y_min: f32 = reader.read_tag_contents("Y")?.parse()?;
+        let x_min: f32 = reader.read_tag_contents_parse("X")?;
+        let y_min: f32 = reader.read_tag_contents_parse("Y")?;
         reader.expect_end_with_name("min")?;
 
         reader.expect_start_with_name("max")?;
-        let x_max: f32 = reader.read_tag_contents("X")?.parse()?;
-        let y_max: f32 = reader.read_tag_contents("Y")?.parse()?;
+        let x_max: f32 = reader.read_tag_contents_parse("X")?;
+        let y_max: f32 = reader.read_tag_contents_parse("Y")?;
         reader.expect_end_with_name("max")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;

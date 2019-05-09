@@ -4,8 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{EncodeError, DecodeError},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct StringType;

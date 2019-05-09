@@ -4,8 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{EncodeError, DecodeError},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 static VECTOR2_TAGS: [&str; 2] = ["X", "Y"];
@@ -33,8 +34,8 @@ impl XmlType<[f32; 2]> for Vector2Type {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let x: f32 = reader.read_tag_contents("X")?.parse()?;
-        let y: f32 = reader.read_tag_contents("Y")?.parse()?;
+        let x: f32 = reader.read_tag_contents_parse("X")?;
+        let y: f32 = reader.read_tag_contents_parse("Y")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
@@ -66,8 +67,8 @@ impl XmlType<[i16; 2]> for Vector2int16Type {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let x: i16 = reader.read_tag_contents("X")?.parse()?;
-        let y: i16 = reader.read_tag_contents("Y")?.parse()?;
+        let x: i16 = reader.read_tag_contents_parse("X")?;
+        let y: i16 = reader.read_tag_contents_parse("Y")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
@@ -99,9 +100,9 @@ impl XmlType<[f32; 3]> for Vector3Type {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let x: f32 = reader.read_tag_contents("X")?.parse()?;
-        let y: f32 = reader.read_tag_contents("Y")?.parse()?;
-        let z: f32 = reader.read_tag_contents("Z")?.parse()?;
+        let x: f32 = reader.read_tag_contents_parse("X")?;
+        let y: f32 = reader.read_tag_contents_parse("Y")?;
+        let z: f32 = reader.read_tag_contents_parse("Z")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
@@ -133,9 +134,9 @@ impl XmlType<[i16; 3]> for Vector3int16Type {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let x: i16 = reader.read_tag_contents("X")?.parse()?;
-        let y: i16 = reader.read_tag_contents("Y")?.parse()?;
-        let z: i16 = reader.read_tag_contents("Z")?.parse()?;
+        let x: i16 = reader.read_tag_contents_parse("X")?;
+        let y: i16 = reader.read_tag_contents_parse("Y")?;
+        let z: i16 = reader.read_tag_contents_parse("Z")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 

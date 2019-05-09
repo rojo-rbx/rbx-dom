@@ -4,8 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{EncodeError, DecodeError},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct BinaryStringType;
@@ -20,7 +21,7 @@ impl XmlType<[u8]> for BinaryStringType {
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write(XmlWriteEvent::cdata(&base64::encode(value)))?;
-        writer.write(XmlWriteEvent::end_element())?;
+        writer.end_element()?;
 
         Ok(())
     }
@@ -34,7 +35,8 @@ impl XmlType<[u8]> for BinaryStringType {
         // crate doesn't like that very much.
         let contents = contents.replace("\n", "");
 
-        let value = base64::decode(&contents)?;
+        let value = base64::decode(&contents)
+            .map_err(|e| reader.error(e))?;
 
         Ok(RbxValue::BinaryString {
             value,

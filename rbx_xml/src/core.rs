@@ -4,8 +4,9 @@ use rbx_dom_weak::RbxValue;
 use rbx_reflection::RbxPropertyDescriptor;
 
 use crate::{
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    serializer_core::XmlEventWriter,
+    error::{DecodeError, EncodeError},
 };
 
 pub trait XmlType<T: ?Sized> {

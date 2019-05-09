@@ -27,12 +27,12 @@ mod vectors;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::RbxValue;
-use log::warn;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlEventWriter},
+    error::{EncodeError, EncodeErrorKind, DecodeError, DecodeErrorKind},
+    deserializer_core::XmlEventReader,
+    serializer_core::XmlEventWriter,
 };
 
 pub use self::referent::{read_ref, write_ref};
@@ -55,9 +55,8 @@ macro_rules! declare_rbx_types {
                 // Protected strings are only read, never written
                 self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
 
-                unknown => {
-                    warn!("Properties of type {:?} cannot be deserialized yet", unknown);
-                    Err(DecodeError::Message("Can't decode properties of this type yet"))
+                _ => {
+                    Err(reader.error(DecodeErrorKind::UnknownPropertyType(xml_type_name.to_owned())))
                 },
             }
         }
@@ -73,8 +72,7 @@ macro_rules! declare_rbx_types {
                 $(RbxValue::$rbx_type { value } => <$typedef>::write_xml(writer, xml_property_name, value),)*
 
                 unknown => {
-                    warn!("Property value {:?} cannot be serialized yet", unknown);
-                    Err(EncodeError::Message("Can't encode properties of this type yet"))
+                    Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.get_type())))
                 },
             }
         }

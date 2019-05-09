@@ -11,11 +11,7 @@ edition = "2018"
 
 [dependencies]
 base64 = "0.10.0"
-failure = "0.1.5"
-lazy_static = "1.2.0"
 log = "0.4.6"
-maplit = "1.0.1"
-paste = "0.1.5"
 rbx_dom_weak = { version = "1.4.0", path = "../rbx_dom_weak" }
 xml-rs = "0.8"
 

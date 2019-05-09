@@ -4,8 +4,9 @@ use rbx_dom_weak::{PhysicalProperties, RbxValue};
 
 use crate::{
     core::XmlType,
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
-    deserializer::{DecodeError, XmlEventReader},
+    error::{EncodeError, DecodeError, DecodeErrorKind},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct PhysicalPropertiesType;
@@ -48,11 +49,11 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
 
         let value = match has_custom_physics.as_str() {
             "true" => {
-                let density = reader.read_tag_contents("Density")?.parse()?;
-                let friction = reader.read_tag_contents("Friction")?.parse()?;
-                let elasticity = reader.read_tag_contents("Elasticity")?.parse()?;
-                let friction_weight = reader.read_tag_contents("FrictionWeight")?.parse()?;
-                let elasticity_weight = reader.read_tag_contents("ElasticityWeight")?.parse()?;
+                let density: f32 = reader.read_tag_contents_parse("Density")?;
+                let friction: f32 = reader.read_tag_contents_parse("Friction")?;
+                let elasticity: f32 = reader.read_tag_contents_parse("Elasticity")?;
+                let friction_weight: f32 = reader.read_tag_contents_parse("FrictionWeight")?;
+                let elasticity_weight: f32 = reader.read_tag_contents_parse("ElasticityWeight")?;
 
                 Some(PhysicalProperties {
                     density,
@@ -64,7 +65,7 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
             }
             "false" => None,
             _ => {
-                return Err(DecodeError::Message("Malformed PhysicalProperties: expected CustomPhysics to be true or false"));
+                return Err(reader.error(DecodeErrorKind::InvalidContent("expected CustomPhysics to be true or false")));
             }
         };
 

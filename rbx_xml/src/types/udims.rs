@@ -4,8 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{EncodeError, DecodeError},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct UDimType;
@@ -34,8 +35,8 @@ impl XmlType<UDimValue> for UDimType {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let scale: f32 = reader.read_tag_contents("S")?.parse()?;
-        let offset: i32 = reader.read_tag_contents("O")?.parse()?;
+        let scale: f32 = reader.read_tag_contents_parse("S")?;
+        let offset: i32 = reader.read_tag_contents_parse("O")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
@@ -73,10 +74,10 @@ impl XmlType<UDim2Value> for UDim2Type {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let x_scale: f32 = reader.read_tag_contents("XS")?.parse()?;
-        let x_offset: i32 = reader.read_tag_contents("XO")?.parse()?;
-        let y_scale: f32 = reader.read_tag_contents("YS")?.parse()?;
-        let y_offset: i32 = reader.read_tag_contents("YO")?.parse()?;
+        let x_scale: f32 = reader.read_tag_contents_parse("XS")?;
+        let x_offset: i32 = reader.read_tag_contents_parse("XO")?;
+        let y_scale: f32 = reader.read_tag_contents_parse("YS")?;
+        let y_offset: i32 = reader.read_tag_contents_parse("YO")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 

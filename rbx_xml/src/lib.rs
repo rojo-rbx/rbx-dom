@@ -5,18 +5,19 @@
 //! values, but the deserializer currently does not finish constructing
 //! instances.
 
-#[macro_use]
-mod macros;
-
 mod core;
 mod deserializer;
+mod deserializer_core;
+mod error;
 mod serializer;
+mod serializer_core;
 mod types;
 
 #[cfg(test)]
 mod test_util;
 
 pub use crate::{
-    serializer::{encode, EncodeError},
-    deserializer::{decode, decode_str, DecodeError},
+    serializer::encode,
+    deserializer::{decode, decode_str},
+    error::{EncodeError, DecodeError},
 };
