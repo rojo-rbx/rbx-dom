@@ -58,7 +58,7 @@ impl RbxTree {
 
     // TODO: Make this method public once it's ironed out
     #[allow(unused)]
-    fn move_instance(source_tree: &mut RbxTree, source_id: RbxId, dest_tree: &mut RbxTree, dest_parent_id: RbxId) {
+    fn move_instance(&mut self, source_id: RbxId, dest_tree: &mut RbxTree, dest_parent_id: RbxId) {
         let mut to_visit = vec![(source_id, dest_parent_id)];
 
         loop {
@@ -67,7 +67,7 @@ impl RbxTree {
                 None => break,
             };
 
-            let mut instance = source_tree.instances.remove(&id).unwrap();
+            let mut instance = self.instances.remove(&id).unwrap();
             instance.parent = Some(parent_id);
             instance.children.clear();
 
