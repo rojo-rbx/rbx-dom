@@ -1,4 +1,7 @@
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+    mem::size_of,
+};
 
 use rbx_dom_weak::{RbxTree, RbxInstanceProperties};
 
@@ -10,6 +13,12 @@ fn new_data_model() -> RbxTree {
     };
 
     RbxTree::new(root)
+}
+
+#[test]
+fn errors_are_small() {
+    assert!(size_of::<rbx_xml::DecodeError>() <= 8);
+    assert!(size_of::<rbx_xml::EncodeError>() <= 8);
 }
 
 #[test]

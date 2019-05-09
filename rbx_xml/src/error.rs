@@ -7,9 +7,10 @@ use rbx_dom_weak::RbxValueType;
 
 #[derive(Debug)]
 pub struct DecodeError {
-    kind: DecodeErrorKind,
-    line: usize,
-    column: usize,
+    // This indirection drops the size of the error type substantially (~150
+    // bytes to 8 on 64-bit), which is important since it's passed around every
+    // function!
+    inner: Box<DecodeErrorImpl>,
 }
 
 impl DecodeError {
@@ -19,31 +20,40 @@ impl DecodeError {
         let pos = reader.position();
 
         DecodeError {
-            kind,
-            line: (pos.row + 1) as usize,
-            column: pos.column as usize,
+            inner: Box::new(DecodeErrorImpl {
+                kind,
+                line: (pos.row + 1) as usize,
+                column: pos.column as usize,
+            }),
         }
     }
 
     pub fn line(&self) -> usize {
-        self.line
+        self.inner.line
     }
 
     pub fn column(&self) -> usize {
-        self.column
+        self.inner.column
     }
 }
 
 impl fmt::Display for DecodeError {
     fn fmt(&self, output: &mut fmt::Formatter) -> fmt::Result {
-        write!(output, "line {}, column {}: {}", self.line, self.column, self.kind)
+        write!(output, "line {}, column {}: {}", self.inner.line, self.inner.column, self.inner.kind)
     }
 }
 
 impl std::error::Error for DecodeError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        self.kind.source()
+        self.inner.kind.source()
     }
+}
+
+#[derive(Debug)]
+struct DecodeErrorImpl {
+    kind: DecodeErrorKind,
+    line: usize,
+    column: usize,
 }
 
 #[derive(Debug)]
@@ -132,12 +142,13 @@ impl From<base64::DecodeError> for DecodeErrorKind {
 
 #[derive(Debug)]
 pub struct EncodeError {
-    kind: EncodeErrorKind,
+    // This Box helps reduce the size of EncodeError a lot, which is important.
+    kind: Box<EncodeErrorKind>,
 }
 
 impl EncodeError {
     pub(crate) fn new_from_writer<W: Write>(kind: EncodeErrorKind, _writer: &xml::EventWriter<W>) -> EncodeError {
-        EncodeError { kind }
+        EncodeError { kind: Box::new(kind) }
     }
 }
 
