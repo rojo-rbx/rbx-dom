@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+* Fixed `RbxTree::descendants` to no longer return the instance of the ID you give it. This may break code relying on this (broken) assumption, but was definitely a bug.
 
 ## 1.5.0 (2019-05-06)
 * Added support for `BrickColor` ([#29](https://github.com/LPGhatguy/rbx-dom/pull/29))
