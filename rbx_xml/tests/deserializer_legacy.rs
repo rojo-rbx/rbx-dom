@@ -131,7 +131,9 @@ fn canonicalized_names() {
 
     decode_str(&mut tree, root_id, document).expect("should work D:");
 
-    let descendant = tree.descendants(root_id).nth(1).unwrap();
+    let root_instance = tree.get_instance(root_id).unwrap();
+    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+
     assert_eq!(descendant.name, "Part");
     assert_eq!(descendant.class_name, "Part");
     assert_eq!(descendant.properties.get("Size"), Some(&RbxValue::Vector3 { value: [123.0, 456.0, 789.0] }));
@@ -155,7 +157,9 @@ fn with_bool() {
 
     decode_str(&mut tree, root_id, document).expect("should work D:");
 
-    let descendant = tree.descendants(root_id).nth(1).unwrap();
+    let root_instance = tree.get_instance(root_id).unwrap();
+    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+
     assert_eq!(descendant.name, "BoolValue");
     assert_eq!(descendant.class_name, "BoolValue");
     assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Bool { value: true }));
@@ -184,7 +188,9 @@ fn with_vector3() {
 
     decode_str(&mut tree, root_id, document).expect("should work D:");
 
-    let descendant = tree.descendants(root_id).nth(1).unwrap();
+    let root_instance = tree.get_instance(root_id).unwrap();
+    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "Vector3Value");
     assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector3 { value: [ 0.0, 0.25, -123.23 ] }));
@@ -251,9 +257,11 @@ fn with_color3uint8() {
     let mut tree = new_data_model();
     let root_id = tree.get_root_id();
 
-    decode_str(&mut tree, root_id, document).expect("should work D:");
+    decode_str(&mut tree, root_id, document).unwrap();
 
-    let descendant = tree.descendants(root_id).nth(1).unwrap();
+    let root_instance = tree.get_instance(root_id).unwrap();
+    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "Color3Value");
     assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3uint8 { value: [ 255, 128, 64 ] }));
@@ -291,7 +299,9 @@ fn with_cframe() {
 
     decode_str(&mut tree, root_id, document).expect("should work D:");
 
-    let descendant = tree.descendants(root_id).nth(1).unwrap();
+    let root_instance = tree.get_instance(root_id).unwrap();
+    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "CFrameValue");
     assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::CFrame {
@@ -361,7 +371,9 @@ fn with_ref_none() {
 
     decode_str(&mut tree, root_id, document).expect("should work D:");
 
-    let descendant = tree.descendants(root_id).nth(1).unwrap();
+    let root_instance = tree.get_instance(root_id).unwrap();
+    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "ObjectValue");
 

@@ -153,10 +153,16 @@ impl RbxTree {
 
     /// Returns an iterator over all of the descendants of the given instance by
     /// ID.
+    ///
+    /// ## Panics
+    /// Panics if the given ID is not present in the tree.
     pub fn descendants(&self, id: RbxId) -> Descendants<'_> {
+        let instance = self.get_instance(id)
+            .expect("Cannot enumerate descendants of an instance not in the tree");
+
         Descendants {
             tree: self,
-            ids_to_visit: vec![id],
+            ids_to_visit: instance.get_children_ids().to_vec(),
         }
     }
 }
@@ -194,5 +200,52 @@ impl<'a> Iterator for Descendants<'a> {
         }
 
         None
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    use std::collections::HashSet;
+
+    #[test]
+    fn descendants() {
+        let mut tree = RbxTree::new(RbxInstanceProperties {
+            name: "Place 1".to_owned(),
+            class_name: "DataModel".to_owned(),
+            properties: HashMap::new(),
+        });
+
+        let root_id = tree.get_root_id();
+
+        let a_id = tree.insert_instance(RbxInstanceProperties {
+            name: "A".to_owned(),
+            class_name: "Folder".to_owned(),
+            properties: HashMap::new(),
+        }, root_id);
+
+        let b_id = tree.insert_instance(RbxInstanceProperties {
+            name: "B".to_owned(),
+            class_name: "Folder".to_owned(),
+            properties: HashMap::new(),
+        }, root_id);
+
+        let c_id = tree.insert_instance(RbxInstanceProperties {
+            name: "C".to_owned(),
+            class_name: "Folder".to_owned(),
+            properties: HashMap::new(),
+        }, b_id);
+
+        let mut seen_ids = HashSet::new();
+
+        for instance in tree.descendants(root_id) {
+            assert!(seen_ids.insert(instance.get_id()));
+        }
+
+        assert_eq!(seen_ids.len(), 3);
+        assert!(seen_ids.contains(&a_id));
+        assert!(seen_ids.contains(&b_id));
+        assert!(seen_ids.contains(&c_id));
     }
 }
