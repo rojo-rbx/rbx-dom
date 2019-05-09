@@ -9,8 +9,7 @@ use crate::{
     error::{DecodeError, EncodeError},
 };
 
-// FIXME: Rename this type to XmlType when XmlType is removed
-pub trait NewXmlType<T: ?Sized> {
+pub trait XmlType<T: ?Sized> {
     const XML_TAG_NAME: &'static str;
 
     fn write_xml<W: Write>(

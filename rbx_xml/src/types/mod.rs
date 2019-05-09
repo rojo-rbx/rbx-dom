@@ -29,7 +29,7 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    core::NewXmlType,
+    core::XmlType,
     error::{EncodeError, EncodeErrorKind, DecodeError, DecodeErrorKind},
     deserializer_core::XmlEventReader,
     serializer_core::XmlEventWriter,

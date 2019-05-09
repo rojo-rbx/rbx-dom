@@ -1,7 +1,7 @@
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    core::NewXmlType as XmlType,
+    core::XmlType,
     deserializer_core::XmlEventReader,
     serializer_core::XmlEventWriter,
 };

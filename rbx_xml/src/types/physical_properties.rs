@@ -3,7 +3,7 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{PhysicalProperties, RbxValue};
 
 use crate::{
-    core::NewXmlType as XmlType,
+    core::XmlType,
     error::{EncodeError, DecodeError, DecodeErrorKind},
     deserializer_core::{XmlEventReader},
     serializer_core::{XmlWriteEvent, XmlEventWriter},

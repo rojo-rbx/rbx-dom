@@ -3,7 +3,7 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{RbxValue, ColorSequence, ColorSequenceKeypoint};
 
 use crate::{
-    core::NewXmlType as XmlType,
+    core::XmlType,
     error::{DecodeError, DecodeErrorKind, EncodeError},
     deserializer_core::{XmlEventReader},
     serializer_core::{XmlWriteEvent, XmlEventWriter},

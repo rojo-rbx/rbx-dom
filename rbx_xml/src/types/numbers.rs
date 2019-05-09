@@ -3,7 +3,7 @@ use std::io::{Read, Write};
 use rbx_dom_weak::RbxValue;
 
 use crate::{
-    core::NewXmlType as XmlType,
+    core::XmlType,
     error::{EncodeError, DecodeError},
     deserializer_core::{XmlEventReader},
     serializer_core::{XmlWriteEvent, XmlEventWriter},
@@ -104,7 +104,7 @@ mod test {
     use super::*;
 
     use crate::{
-        core::NewXmlType as XmlType,
+        core::XmlType,
         deserializer_core::XmlEventReader,
         test_util,
     };
