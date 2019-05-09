@@ -8,8 +8,8 @@ use rbx_dom_weak::RbxValueType;
 #[derive(Debug)]
 pub struct DecodeError {
     kind: DecodeErrorKind,
-    line: u64,
-    column: u64,
+    line: usize,
+    column: usize,
 }
 
 impl DecodeError {
@@ -20,9 +20,17 @@ impl DecodeError {
 
         DecodeError {
             kind,
-            line: pos.row + 1,
-            column: pos.column,
+            line: (pos.row + 1) as usize,
+            column: pos.column as usize,
         }
+    }
+
+    pub fn line(&self) -> usize {
+        self.line
+    }
+
+    pub fn column(&self) -> usize {
+        self.column
     }
 }
 
