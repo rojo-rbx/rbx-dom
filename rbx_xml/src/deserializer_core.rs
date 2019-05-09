@@ -13,9 +13,9 @@ use crate::{
     error::{DecodeError as NewDecodeError, DecodeErrorKind},
 };
 
-pub(crate) use xml::reader::XmlEvent as XmlReadEvent;
-pub(crate) use xml::reader::Error as XmlReadError;
-pub(crate) type XmlReadResult = Result<XmlReadEvent, XmlReadError>;
+pub use xml::reader::XmlEvent as XmlReadEvent;
+pub use xml::reader::Error as XmlReadError;
+pub type XmlReadResult = Result<XmlReadEvent, XmlReadError>;
 
 /// A wrapper around an XML event iterator created by xml-rs.
 pub struct XmlEventReader<R: Read> {
@@ -236,7 +236,6 @@ impl<R: Read> XmlEventReader<R> {
         Ok(contents)
     }
 
-    // FIXME: Move this type to pub once this whole type is pub(crate)
     pub(crate) fn read_tag_contents_parse<T>(&mut self, expected_name: &str) -> Result<T, NewDecodeError>
     where
         T: FromStr,

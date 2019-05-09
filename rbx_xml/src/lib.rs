@@ -5,9 +5,6 @@
 //! values, but the deserializer currently does not finish constructing
 //! instances.
 
-#[macro_use]
-mod macros;
-
 mod core;
 mod deserializer;
 mod deserializer_core;
