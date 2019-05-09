@@ -1,9 +1,8 @@
-//! Super early, unstable XML format (rbxmx and rbxlx) serializer and
-//! deserializer for rbx-dom.
+//! XML format (rbxmx and rbxlx) serializer and deserializer for rbx-dom.
 //!
-//! The serializer is functional and can write instances with string or bool
-//! values, but the deserializer currently does not finish constructing
-//! instances.
+//! Implements most types, and is driven by an up-to-date reflection database.
+
+#![deny(missing_docs)]
 
 mod core;
 mod deserializer;
