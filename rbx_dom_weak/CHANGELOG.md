@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+* Added `RbxTree::move_instance` API to move instances from one tree to another.
 * Fixed `RbxTree::descendants` to no longer return the instance of the ID you give it. This may break code relying on this (broken) assumption, but was definitely a bug.
 
 ## 1.5.0 (2019-05-06)
