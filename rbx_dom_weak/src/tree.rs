@@ -70,7 +70,8 @@ impl RbxTree {
 
         // Remove the instance we're trying to move and manually rewrite its
         // parent.
-        let mut root_instance = self.instances.remove(&source_id).unwrap();
+        let mut root_instance = self.instances.remove(&source_id)
+            .expect("Cannot move an instance that does not exist in the tree");
         root_instance.parent = Some(dest_parent_id);
 
         let mut to_visit = root_instance.children.clone();
