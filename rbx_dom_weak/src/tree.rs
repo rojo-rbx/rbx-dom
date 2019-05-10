@@ -7,11 +7,14 @@ use crate::{
     instance::{RbxInstance, RbxInstanceProperties},
 };
 
-/// Represents a tree containing rooted instances.
+/// Represents a tree containing Roblox instances.
 ///
-/// Rooted instances are described by
-/// [RbxInstance](struct.RbxInstance.html) and have an ID, children,
-/// and a parent.
+/// Instances are described by [RbxInstance](struct.RbxInstance.html) objects
+/// and have an ID, children, and a parent.
+///
+/// When constructing instances, you'll want to create
+/// [RbxInstanceProperties](struct.RbxInstanceProperties.html) objects and
+/// insert them into the tree.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct RbxTree {
     instances: HashMap<RbxId, RbxInstance>,
@@ -58,62 +61,35 @@ impl RbxTree {
 
     /// Move the instance with the given ID from this tree to a new tree,
     /// underneath the given parent instance ID.
-    // TODO: Make this method public once it's ironed out
-    #[allow(unused)]
-    fn move_instance(&mut self, source_id: RbxId, dest_tree: &mut RbxTree, dest_parent_id: RbxId) {
+    ///
+    /// ## Panics
+    /// Panics if the instance `source_id` doesn't exist in the source tree or
+    /// if the instance `dest_parent_id` doesn't exist in the destination tree.
+    pub fn move_instance(&mut self, source_id: RbxId, dest_tree: &mut RbxTree, dest_parent_id: RbxId) {
         self.orphan_instance(source_id);
 
+        // Remove the instance we're trying to move and manually rewrite its
+        // parent.
         let mut root_instance = self.instances.remove(&source_id).unwrap();
         root_instance.parent = Some(dest_parent_id);
 
         let mut to_visit = root_instance.children.clone();
 
-        dest_tree.insert_instance_internal(root_instance);
+        dest_tree.insert_internal_and_unorphan(root_instance);
 
+        // We can move children in whatever order since we aren't touching their
+        // children tables
         loop {
             let id = match to_visit.pop() {
                 Some(id) => id,
                 None => break,
             };
 
-            let mut instance = self.instances.remove(&id).unwrap();
+            let instance = self.instances.remove(&id).unwrap();
             to_visit.extend_from_slice(&instance.children);
 
             dest_tree.instances.insert(instance.get_id(), instance);
         }
-    }
-
-    /// Unlinks the parent->child link for the given ID, effectively making it
-    /// an orphan in the tree.
-    ///
-    /// The instance will still refer to its parent by ID, so any method calling
-    /// orphan_instance will need to make additional changes to preserve
-    /// RbxTree's invariants.
-    ///
-    /// Will return silently if the given ID is not in the tree.
-    fn orphan_instance(&mut self, orphan_id: RbxId) {
-        let parent_id = match self.instances.get(&orphan_id) {
-            Some(instance) => instance.get_parent_id(),
-            None => return,
-        };
-
-        if let Some(parent_id) = parent_id {
-            let parent = self.get_instance_mut(parent_id).unwrap();
-            parent.children.retain(|&id| id != orphan_id);
-        }
-    }
-
-    fn insert_instance_internal(&mut self, instance: RbxInstance) {
-        let parent_id = instance.parent
-            .expect("Can not use insert_instance_internal on instances with no parent");
-
-        {
-            let parent = self.instances.get_mut(&parent_id)
-                .expect("Cannot insert_instance_internal into an instance not in this tree");
-            parent.children.push(instance.get_id());
-        }
-
-        self.instances.insert(instance.get_id(), instance);
     }
 
     /// Inserts a new instance with the given properties into the tree, putting it
@@ -127,7 +103,7 @@ impl RbxTree {
 
         let id = tree_instance.get_id();
 
-        self.insert_instance_internal(tree_instance);
+        self.insert_internal_and_unorphan(tree_instance);
 
         id
     }
@@ -178,6 +154,48 @@ impl RbxTree {
             tree: self,
             ids_to_visit: instance.get_children_ids().to_vec(),
         }
+    }
+
+    /// Unlinks the parent->child link for the given ID, effectively making it
+    /// an orphan in the tree.
+    ///
+    /// The instance will still refer to its parent by ID, so any method calling
+    /// orphan_instance will need to make additional changes to preserve
+    /// RbxTree's invariants.
+    ///
+    /// # Panics
+    /// Panics if the given instance does not exist, does not have a parent, or
+    /// if any RbxTree variants were violated.
+    fn orphan_instance(&mut self, orphan_id: RbxId) {
+        let parent_id = self.instances.get(&orphan_id)
+            .expect("Cannot orphan an instance that does not exist in the tree")
+            .get_parent_id()
+            .expect("Cannot orphan an instance without a parent, like the root instance");
+
+        let parent = self.get_instance_mut(parent_id)
+            .expect("Instance referred to an ID that does not exist");
+
+        parent.children.retain(|&id| id != orphan_id);
+    }
+
+    /// Inserts a fully-constructed instance into this tree's instance table and
+    /// links it to the parent given by its parent ID field.
+    ///
+    /// # Panics
+    /// Panics if the instance has a None parent or if the parent it refers to
+    /// does not exist in this tree.
+    fn insert_internal_and_unorphan(&mut self, instance: RbxInstance) {
+        let parent_id = instance.parent
+            .expect("Cannot use insert_internal_and_unorphan on instances with no parent");
+
+        {
+            let parent = self.instances.get_mut(&parent_id)
+                .expect("Cannot insert_internal_and_unorphan into an instance not in this tree");
+
+            parent.children.push(instance.get_id());
+        }
+
+        self.instances.insert(instance.get_id(), instance);
     }
 }
 
