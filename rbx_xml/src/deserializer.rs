@@ -15,6 +15,20 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
+pub fn from_reader<R: Read>(source: R) -> Result<RbxTree, NewDecodeError> {
+    let mut tree = RbxTree::new(RbxInstanceProperties {
+        class_name: "DataModel".to_owned(),
+        name: "DataModel".to_owned(),
+        properties: HashMap::new(),
+    });
+
+    let root_id = tree.get_root_id();
+
+    decode(&mut tree, root_id, source)?;
+
+    Ok(tree)
+}
+
 /// A utility method to decode an XML-format model from a string.
 pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), NewDecodeError> {
     decode(tree, parent_id, source.as_bytes())
