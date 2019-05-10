@@ -16,7 +16,7 @@ mod types;
 mod test_util;
 
 pub use crate::{
-    serializer::encode,
-    deserializer::{decode, decode_str},
+    serializer::to_writer,
+    deserializer::{from_reader, from_str},
     error::{EncodeError, DecodeError},
 };

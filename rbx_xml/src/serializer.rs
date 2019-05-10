@@ -15,9 +15,13 @@ use crate::{
 
 use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
 
-/// Serialize the instances denoted by `ids` from `tree` as an XML-format model,
-/// writing to `output`.
-pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), NewEncodeError> {
+/// Serializes a subset of the given tree to an XML format model or place,
+/// writing to something that implements the `std::io::Write` trait.
+pub fn to_writer<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), NewEncodeError> {
+    encode_internal(tree, ids, output)
+}
+
+fn encode_internal<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
     let mut state = EmitState::new();
 

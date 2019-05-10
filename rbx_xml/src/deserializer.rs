@@ -15,6 +15,13 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
+/// Decodes an XML-format model or place from a string.
+pub fn from_str<S: AsRef<str>>(source: S) -> Result<RbxTree, NewDecodeError> {
+    from_reader(source.as_ref().as_bytes())
+}
+
+/// Decodes an XML-format model or place from anything that implements the
+/// `std::io::Read` trait.
 pub fn from_reader<R: Read>(source: R) -> Result<RbxTree, NewDecodeError> {
     let mut tree = RbxTree::new(RbxInstanceProperties {
         class_name: "DataModel".to_owned(),
@@ -24,22 +31,12 @@ pub fn from_reader<R: Read>(source: R) -> Result<RbxTree, NewDecodeError> {
 
     let root_id = tree.get_root_id();
 
-    decode(&mut tree, root_id, source)?;
+    decode_internal(&mut tree, root_id, source)?;
 
     Ok(tree)
 }
 
-/// A utility method to decode an XML-format model from a string.
-pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), NewDecodeError> {
-    decode(tree, parent_id, source.as_bytes())
-}
-
-/// Decodes source from the given buffer into the instance in the given tree.
-///
-/// Roblox model files can contain multiple instances at the top level. This
-/// happens in the case of places as well as Studio users choosing multiple
-/// objects when saving a model file.
-pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), NewDecodeError> {
+fn decode_internal<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), NewDecodeError> {
     let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(tree);
 

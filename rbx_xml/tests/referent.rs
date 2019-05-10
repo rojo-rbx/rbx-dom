@@ -4,16 +4,6 @@ use rbx_dom_weak::{RbxInstanceProperties, RbxValue, RbxTree};
 
 static TEST_FILE: &[u8] = include_bytes!("../test-files/part-referent.rbxmx");
 
-fn new_test_tree() -> RbxTree {
-    let root = RbxInstanceProperties {
-        name: "Folder".to_string(),
-        class_name: "Folder".to_string(),
-        properties: Default::default(),
-    };
-
-    RbxTree::new(root)
-}
-
 fn assert_referents_sound(tree: &RbxTree) {
     let root_id = tree.get_root_id();
 
@@ -36,10 +26,8 @@ fn assert_referents_sound(tree: &RbxTree) {
 fn referents_work() {
     let _ = env_logger::try_init();
 
-    let mut first_tree = new_test_tree();
+    let first_tree = rbx_xml::from_reader(TEST_FILE).unwrap();
     let root_id = first_tree.get_root_id();
-
-    rbx_xml::decode(&mut first_tree, root_id, TEST_FILE).unwrap();
 
     assert_referents_sound(&first_tree);
 
@@ -47,12 +35,10 @@ fn referents_work() {
     let model_id = root_instance.get_children_ids()[0];
 
     let mut buffer = Vec::new();
-    rbx_xml::encode(&first_tree, &[model_id], Cursor::new(&mut buffer)).unwrap();
+    rbx_xml::to_writer(&first_tree, &[model_id], Cursor::new(&mut buffer)).unwrap();
 
-    let mut second_tree = new_test_tree();
+    let second_tree = rbx_xml::from_reader(buffer.as_slice()).unwrap();
     let new_root_id = second_tree.get_root_id();
-
-    rbx_xml::decode(&mut second_tree, new_root_id, buffer.as_slice()).unwrap();
 
     assert_referents_sound(&second_tree);
 }
