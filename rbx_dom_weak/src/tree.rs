@@ -56,26 +56,50 @@ impl RbxTree {
         self.instances.get_mut(&id)
     }
 
+    /// Move the instance with the given ID from this tree to a new tree,
+    /// underneath the given parent instance ID.
     // TODO: Make this method public once it's ironed out
     #[allow(unused)]
     fn move_instance(&mut self, source_id: RbxId, dest_tree: &mut RbxTree, dest_parent_id: RbxId) {
-        let mut to_visit = vec![(source_id, dest_parent_id)];
+        self.orphan_instance(source_id);
+
+        let mut root_instance = self.instances.remove(&source_id).unwrap();
+        root_instance.parent = Some(dest_parent_id);
+
+        let mut to_visit = root_instance.children.clone();
+
+        dest_tree.insert_instance_internal(root_instance);
 
         loop {
-            let (id, parent_id) = match to_visit.pop() {
+            let id = match to_visit.pop() {
                 Some(id) => id,
                 None => break,
             };
 
             let mut instance = self.instances.remove(&id).unwrap();
-            instance.parent = Some(parent_id);
-            instance.children.clear();
+            to_visit.extend_from_slice(&instance.children);
 
-            for child in &instance.children {
-                to_visit.push((*child, id));
-            }
+            dest_tree.instances.insert(instance.get_id(), instance);
+        }
+    }
 
-            dest_tree.insert_instance_internal(instance);
+    /// Unlinks the parent->child link for the given ID, effectively making it
+    /// an orphan in the tree.
+    ///
+    /// The instance will still refer to its parent by ID, so any method calling
+    /// orphan_instance will need to make additional changes to preserve
+    /// RbxTree's invariants.
+    ///
+    /// Will return silently if the given ID is not in the tree.
+    fn orphan_instance(&mut self, orphan_id: RbxId) {
+        let parent_id = match self.instances.get(&orphan_id) {
+            Some(instance) => instance.get_parent_id(),
+            None => return,
+        };
+
+        if let Some(parent_id) = parent_id {
+            let parent = self.get_instance_mut(parent_id).unwrap();
+            parent.children.retain(|&id| id != orphan_id);
         }
     }
 
@@ -115,20 +139,10 @@ impl RbxTree {
             panic!("Cannot remove root ID from tree!");
         }
 
+        self.orphan_instance(root_id);
+
         let mut ids_to_visit = vec![root_id];
         let mut new_tree_instances = HashMap::new();
-
-        let parent_id = match self.instances.get(&root_id) {
-            Some(instance) => instance.parent,
-            None => return None,
-        };
-
-        if let Some(parent_id) = parent_id {
-            let parent = self.get_instance_mut(parent_id).unwrap();
-            let index = parent.children.iter().position(|&id| id == root_id).unwrap();
-
-            parent.children.remove(index);
-        }
 
         loop {
             let id = match ids_to_visit.pop() {
