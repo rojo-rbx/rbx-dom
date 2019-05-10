@@ -280,4 +280,54 @@ mod test {
         assert!(seen_ids.contains(&b_id));
         assert!(seen_ids.contains(&c_id));
     }
+
+    #[test]
+    fn move_instances() {
+        let mut source_tree = RbxTree::new(RbxInstanceProperties {
+            name: "Place 1".to_owned(),
+            class_name: "DataModel".to_owned(),
+            properties: HashMap::new(),
+        });
+
+        let source_root_id = source_tree.get_root_id();
+
+        let a_id = source_tree.insert_instance(RbxInstanceProperties {
+            name: "A".to_owned(),
+            class_name: "Folder".to_owned(),
+            properties: HashMap::new(),
+        }, source_root_id);
+
+        let b_id = source_tree.insert_instance(RbxInstanceProperties {
+            name: "B".to_owned(),
+            class_name: "Folder".to_owned(),
+            properties: HashMap::new(),
+        }, a_id);
+
+        let c_id = source_tree.insert_instance(RbxInstanceProperties {
+            name: "C".to_owned(),
+            class_name: "Folder".to_owned(),
+            properties: HashMap::new(),
+        }, a_id);
+
+        let mut dest_tree = RbxTree::new(RbxInstanceProperties {
+            name: "Place 2".to_owned(),
+            class_name: "DataModel".to_owned(),
+            properties: HashMap::new(),
+        });
+
+        let dest_root_id = dest_tree.get_root_id();
+
+        source_tree.move_instance(a_id, &mut dest_tree, dest_root_id);
+
+        assert!(source_tree.get_instance(a_id).is_none());
+        assert!(source_tree.get_instance(b_id).is_none());
+        assert!(source_tree.get_instance(c_id).is_none());
+        assert_eq!(source_tree.get_instance(source_root_id).unwrap().get_children_ids().len(), 0);
+
+        assert!(dest_tree.get_instance(a_id).is_some());
+        assert!(dest_tree.get_instance(b_id).is_some());
+        assert!(dest_tree.get_instance(c_id).is_some());
+        assert_eq!(dest_tree.get_instance(dest_root_id).unwrap().get_children_ids().len(), 1);
+        assert_eq!(dest_tree.get_instance(a_id).unwrap().get_children_ids(), &[b_id, c_id]);
+    }
 }
