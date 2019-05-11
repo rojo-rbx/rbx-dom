@@ -1,19 +1,4 @@
-use std::{
-    collections::HashMap,
-    mem::size_of,
-};
-
-use rbx_dom_weak::{RbxTree, RbxInstanceProperties};
-
-fn new_data_model() -> RbxTree {
-    let root = RbxInstanceProperties {
-        name: "DataModel".to_string(),
-        class_name: "DataModel".to_string(),
-        properties: HashMap::new(),
-    };
-
-    RbxTree::new(root)
-}
+use std::mem::size_of;
 
 #[test]
 fn errors_are_small() {
@@ -25,10 +10,7 @@ fn errors_are_small() {
 fn first_line_bad_xml() {
     let doc = "hi";
 
-    let mut tree = new_data_model();
-    let root_id = tree.get_root_id();
-
-    let err = rbx_xml::decode_str(&mut tree, root_id, doc).unwrap_err();
+    let err = rbx_xml::from_str_default(doc).unwrap_err();
 
     assert_eq!(err.line(), 1);
     assert_eq!(err.column(), 0);
@@ -38,10 +20,7 @@ fn first_line_bad_xml() {
 fn bad_version() {
     let doc = r#"<roblox version="3"></roblox>"#;
 
-    let mut tree = new_data_model();
-    let root_id = tree.get_root_id();
-
-    let err = rbx_xml::decode_str(&mut tree, root_id, doc).unwrap_err();
+    let err = rbx_xml::from_str_default(doc).unwrap_err();
 
     assert_eq!(err.line(), 1);
     assert_eq!(err.column(), 0);
@@ -53,10 +32,7 @@ fn second_line_gunk() {
         <asfk />
     </roblox>"#;
 
-    let mut tree = new_data_model();
-    let root_id = tree.get_root_id();
-
-    let err = rbx_xml::decode_str(&mut tree, root_id, doc).unwrap_err();
+    let err = rbx_xml::from_str_default(doc).unwrap_err();
 
     assert_eq!(err.line(), 2);
     assert_eq!(err.column(), 8);

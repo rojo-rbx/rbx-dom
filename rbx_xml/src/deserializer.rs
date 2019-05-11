@@ -15,24 +15,61 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
-/// A utility method to decode an XML-format model from a string.
-pub fn decode_str(tree: &mut RbxTree, parent_id: RbxId, source: &str) -> Result<(), NewDecodeError> {
-    decode(tree, parent_id, source.as_bytes())
-}
+pub fn decode_internal<R: Read>(source: R, _options: DecodeOptions) -> Result<RbxTree, NewDecodeError> {
+    let mut tree = RbxTree::new(RbxInstanceProperties {
+        class_name: "DataModel".to_owned(),
+        name: "DataModel".to_owned(),
+        properties: HashMap::new(),
+    });
 
-/// Decodes source from the given buffer into the instance in the given tree.
-///
-/// Roblox model files can contain multiple instances at the top level. This
-/// happens in the case of places as well as Studio users choosing multiple
-/// objects when saving a model file.
-pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), NewDecodeError> {
+    let root_id = tree.get_root_id();
+
     let mut iterator = XmlEventReader::from_source(source);
-    let mut state = ParseState::new(tree);
+    let mut state = ParseState::new(&mut tree);
 
-    deserialize_root(&mut iterator, &mut state, parent_id)?;
+    deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_id_rewrites(&mut state);
 
-    Ok(())
+    Ok(tree)
+}
+
+/// Options available for deserializing an XML-format model or place.
+#[derive(Debug, Clone)]
+pub struct DecodeOptions {
+    use_reflection: bool,
+}
+
+impl DecodeOptions {
+    /// Constructs a `DecodeOptions` with all values set to their defaults.
+    pub fn new() -> DecodeOptions {
+        DecodeOptions {
+            use_reflection: true,
+        }
+    }
+
+    /// Enabled by default.
+    ///
+    /// Sets whether to use the reflection database to canonicalize fields and
+    /// value types.
+    ///
+    /// If disabled, the deserialized tree will have exactly the properties and
+    /// types present in the model/place file instead of ones modified for
+    /// consumption. This leaks details of the format, but can be useful for
+    /// debugging.
+    // TODO: Make this public once this setting actually does anything.
+    #[allow(unused)]
+    fn use_reflection(self, use_reflection: bool) -> DecodeOptions {
+        DecodeOptions {
+            use_reflection,
+            ..self
+        }
+    }
+}
+
+impl Default for DecodeOptions {
+    fn default() -> DecodeOptions {
+        DecodeOptions::new()
+    }
 }
 
 struct IdPropertyRewrite {

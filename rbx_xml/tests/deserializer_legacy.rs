@@ -1,20 +1,7 @@
 //! This file has tests ported out of the deserializer that should be broken
 //! apart and refactored eventually.
 
-use std::collections::HashMap;
-
-use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxValue};
-use rbx_xml::decode_str;
-
-fn new_data_model() -> RbxTree {
-    let root = RbxInstanceProperties {
-        name: "DataModel".to_string(),
-        class_name: "DataModel".to_string(),
-        properties: HashMap::new(),
-    };
-
-    RbxTree::new(root)
-}
+use rbx_dom_weak::RbxValue;
 
 fn floats_approx_equal(left: f32, right: f32, epsilon: f32) -> bool {
     (left - right).abs() <= epsilon
@@ -24,10 +11,8 @@ fn floats_approx_equal(left: f32, right: f32, epsilon: f32) -> bool {
 fn empty_document() {
     let _ = env_logger::try_init();
     let document = r#"<roblox version="4"></roblox>"#;
-    let mut tree = new_data_model();
-    let root_id = tree.get_root_id();
 
-    decode_str(&mut tree, root_id, document).unwrap();
+    rbx_xml::from_str_default(document).unwrap();
 }
 
 #[test]
@@ -40,10 +25,7 @@ fn mostly_empty() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
-    let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).unwrap();
+    rbx_xml::from_str_default(document).unwrap();
 }
 
 #[test]
@@ -55,10 +37,7 @@ fn top_level_garbage() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
-    let root_id = tree.get_root_id();
-
-    assert!(decode_str(&mut tree, root_id, document).is_err());
+    assert!(rbx_xml::from_str_default(document).is_err());
 }
 
 #[test]
@@ -71,12 +50,9 @@ fn empty_instance() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
-    let root_id = tree.get_root_id();
+    let tree = rbx_xml::from_str_default(document).unwrap();
 
-    decode_str(&mut tree, root_id, document).unwrap();
-
-    let root = tree.get_instance(root_id).unwrap();
+    let root = tree.get_instance(tree.get_root_id()).unwrap();
     assert_eq!(root.get_children_ids().len(), 1);
 }
 
@@ -98,10 +74,8 @@ fn children() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).unwrap();
     let root = tree.get_instance(root_id).unwrap();
     let first_folder = tree.get_instance(root.get_children_ids()[0]).expect("expected a child");
     let inner_folder = tree.get_instance(first_folder.get_children_ids()[0]).expect("expected a subchild");
@@ -126,10 +100,8 @@ fn canonicalized_names() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).expect("should work D:");
 
     let root_instance = tree.get_instance(root_id).unwrap();
     let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
@@ -152,10 +124,8 @@ fn with_bool() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).expect("should work D:");
 
     let root_instance = tree.get_instance(root_id).unwrap();
     let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
@@ -183,10 +153,8 @@ fn with_vector3() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).expect("should work D:");
 
     let root_instance = tree.get_instance(root_id).unwrap();
     let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
@@ -220,10 +188,8 @@ fn with_color3() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).unwrap();
 
     for descendant in tree.descendants(root_id) {
         if descendant.name == "Test" {
@@ -254,10 +220,8 @@ fn with_color3uint8() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).unwrap();
 
     let root_instance = tree.get_instance(root_id).unwrap();
     let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
@@ -294,10 +258,8 @@ fn with_cframe() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).expect("should work D:");
 
     let root_instance = tree.get_instance(root_id).unwrap();
     let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
@@ -331,10 +293,8 @@ fn with_ref_some() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).unwrap();
 
     let root_instance = tree.get_instance(root_id).unwrap();
     let target_instance_id = root_instance.get_children_ids()[0];
@@ -366,10 +326,8 @@ fn with_ref_none() {
         </roblox>
     "#;
 
-    let mut tree = new_data_model();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
-
-    decode_str(&mut tree, root_id, document).expect("should work D:");
 
     let root_instance = tree.get_instance(root_id).unwrap();
     let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();

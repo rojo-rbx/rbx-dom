@@ -5,8 +5,7 @@ use std::{
 
 use rbx_dom_weak::RbxValueType;
 
-/// Describes an error that can occur when deserializing an XML-format model or
-/// place.
+/// An error that can occur when deserializing an XML-format model or place.
 #[derive(Debug)]
 pub struct DecodeError {
     // This indirection drops the size of the error type substantially (~150
@@ -144,8 +143,7 @@ impl From<base64::DecodeError> for DecodeErrorKind {
     }
 }
 
-/// Describes an error that can occur when serializing an XML-format model or
-/// place.
+/// An error that can occur when serializing an XML-format model or place.
 #[derive(Debug)]
 pub struct EncodeError {
     // This Box helps reduce the size of EncodeError a lot, which is important.
