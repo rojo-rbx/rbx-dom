@@ -15,6 +15,24 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
+pub fn decode_internal<R: Read>(source: R, _options: DecodeOptions) -> Result<RbxTree, NewDecodeError> {
+    let mut tree = RbxTree::new(RbxInstanceProperties {
+        class_name: "DataModel".to_owned(),
+        name: "DataModel".to_owned(),
+        properties: HashMap::new(),
+    });
+
+    let root_id = tree.get_root_id();
+
+    let mut iterator = XmlEventReader::from_source(source);
+    let mut state = ParseState::new(&mut tree);
+
+    deserialize_root(&mut iterator, &mut state, root_id)?;
+    apply_id_rewrites(&mut state);
+
+    Ok(tree)
+}
+
 /// Options available for deserializing an XML-format model or place.
 #[derive(Debug, Clone)]
 pub struct DecodeOptions {
@@ -52,24 +70,6 @@ impl Default for DecodeOptions {
     fn default() -> DecodeOptions {
         DecodeOptions::new()
     }
-}
-
-pub fn decode_internal<R: Read>(source: R, _options: DecodeOptions) -> Result<RbxTree, NewDecodeError> {
-    let mut tree = RbxTree::new(RbxInstanceProperties {
-        class_name: "DataModel".to_owned(),
-        name: "DataModel".to_owned(),
-        properties: HashMap::new(),
-    });
-
-    let root_id = tree.get_root_id();
-
-    let mut iterator = XmlEventReader::from_source(source);
-    let mut state = ParseState::new(&mut tree);
-
-    deserialize_root(&mut iterator, &mut state, root_id)?;
-    apply_id_rewrites(&mut state);
-
-    Ok(tree)
 }
 
 struct IdPropertyRewrite {
