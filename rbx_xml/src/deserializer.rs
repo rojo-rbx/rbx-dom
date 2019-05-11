@@ -38,6 +38,8 @@ impl DecodeOptions {
     /// types present in the model/place file instead of ones modified for
     /// consumption. This leaks details of the format, but can be useful for
     /// debugging.
+    // TODO: Make this public once this setting actually does anything.
+    #[allow(unused)]
     fn use_reflection(self, use_reflection: bool) -> DecodeOptions {
         DecodeOptions {
             use_reflection,
