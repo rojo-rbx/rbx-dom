@@ -15,8 +15,7 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
-/// Describes the options available to tweak how to deserialize an XML-format
-/// model or place.
+/// Options available for deserializing an XML-format model or place.
 #[derive(Debug, Clone)]
 pub struct DecodeOptions {
     use_reflection: bool,

@@ -30,8 +30,7 @@ pub fn encode_internal<W: Write>(output: W, tree: &RbxTree, ids: &[RbxId], _opti
     Ok(())
 }
 
-/// Describes the options available to tweak how to serialize an XML-format
-/// model or place.
+/// Options available for serializing an XML-format model or place.
 #[derive(Debug, Clone)]
 pub struct EncodeOptions {
     use_reflection: bool,
