@@ -1,9 +1,7 @@
 //! This file has tests ported out of the deserializer that should be broken
 //! apart and refactored eventually.
 
-use std::collections::HashMap;
-
-use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxValue};
+use rbx_dom_weak::RbxValue;
 
 fn floats_approx_equal(left: f32, right: f32, epsilon: f32) -> bool {
     (left - right).abs() <= epsilon
@@ -14,7 +12,7 @@ fn empty_document() {
     let _ = env_logger::try_init();
     let document = r#"<roblox version="4"></roblox>"#;
 
-    rbx_xml::from_str(document).unwrap();
+    rbx_xml::from_str_default(document).unwrap();
 }
 
 #[test]
@@ -27,7 +25,7 @@ fn mostly_empty() {
         </roblox>
     "#;
 
-    rbx_xml::from_str(document).unwrap();
+    rbx_xml::from_str_default(document).unwrap();
 }
 
 #[test]
@@ -39,7 +37,7 @@ fn top_level_garbage() {
         </roblox>
     "#;
 
-    assert!(rbx_xml::from_str(document).is_err());
+    assert!(rbx_xml::from_str_default(document).is_err());
 }
 
 #[test]
@@ -52,7 +50,7 @@ fn empty_instance() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
 
     let root = tree.get_instance(tree.get_root_id()).unwrap();
     assert_eq!(root.get_children_ids().len(), 1);
@@ -76,7 +74,7 @@ fn children() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
     let root = tree.get_instance(root_id).unwrap();
     let first_folder = tree.get_instance(root.get_children_ids()[0]).expect("expected a child");
@@ -102,7 +100,7 @@ fn canonicalized_names() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
@@ -126,7 +124,7 @@ fn with_bool() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
@@ -155,7 +153,7 @@ fn with_vector3() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
@@ -190,7 +188,7 @@ fn with_color3() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
 
     for descendant in tree.descendants(root_id) {
@@ -222,7 +220,7 @@ fn with_color3uint8() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
@@ -260,7 +258,7 @@ fn with_cframe() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
@@ -295,7 +293,7 @@ fn with_ref_some() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
@@ -328,7 +326,7 @@ fn with_ref_none() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();

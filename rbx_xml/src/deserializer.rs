@@ -15,14 +15,45 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
-/// Decodes an XML-format model or place from a string.
-pub fn from_str<S: AsRef<str>>(source: S) -> Result<RbxTree, NewDecodeError> {
-    from_reader(source.as_ref().as_bytes())
+/// Describes the options available to tweak how to deserialize an XML-format
+/// model or place.
+#[derive(Debug, Clone)]
+pub struct DecodeOptions {
+    use_reflection: bool,
 }
 
-/// Decodes an XML-format model or place from anything that implements the
-/// `std::io::Read` trait.
-pub fn from_reader<R: Read>(source: R) -> Result<RbxTree, NewDecodeError> {
+impl DecodeOptions {
+    /// Constructs a `DecodeOptions` with all values set to their defaults.
+    pub fn new() -> DecodeOptions {
+        DecodeOptions {
+            use_reflection: true,
+        }
+    }
+
+    /// Enabled by default.
+    ///
+    /// Sets whether to use the reflection database to canonicalize fields and
+    /// value types.
+    ///
+    /// If disabled, the deserialized tree will have exactly the properties and
+    /// types present in the model/place file instead of ones modified for
+    /// consumption. This leaks details of the format, but can be useful for
+    /// debugging.
+    fn use_reflection(self, use_reflection: bool) -> DecodeOptions {
+        DecodeOptions {
+            use_reflection,
+            ..self
+        }
+    }
+}
+
+impl Default for DecodeOptions {
+    fn default() -> DecodeOptions {
+        DecodeOptions::new()
+    }
+}
+
+pub fn decode_internal<R: Read>(source: R, _options: DecodeOptions) -> Result<RbxTree, NewDecodeError> {
     let mut tree = RbxTree::new(RbxInstanceProperties {
         class_name: "DataModel".to_owned(),
         name: "DataModel".to_owned(),
@@ -31,19 +62,13 @@ pub fn from_reader<R: Read>(source: R) -> Result<RbxTree, NewDecodeError> {
 
     let root_id = tree.get_root_id();
 
-    decode_internal(&mut tree, root_id, source)?;
-
-    Ok(tree)
-}
-
-fn decode_internal<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> Result<(), NewDecodeError> {
     let mut iterator = XmlEventReader::from_source(source);
-    let mut state = ParseState::new(tree);
+    let mut state = ParseState::new(&mut tree);
 
-    deserialize_root(&mut iterator, &mut state, parent_id)?;
+    deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_id_rewrites(&mut state);
 
-    Ok(())
+    Ok(tree)
 }
 
 struct IdPropertyRewrite {

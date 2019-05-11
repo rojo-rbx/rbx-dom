@@ -1,6 +1,6 @@
 use std::io::Cursor;
 
-use rbx_dom_weak::{RbxInstanceProperties, RbxValue, RbxTree};
+use rbx_dom_weak::{RbxValue, RbxTree};
 
 static TEST_FILE: &[u8] = include_bytes!("../test-files/part-referent.rbxmx");
 
@@ -26,7 +26,7 @@ fn assert_referents_sound(tree: &RbxTree) {
 fn referents_work() {
     let _ = env_logger::try_init();
 
-    let first_tree = rbx_xml::from_reader(TEST_FILE).unwrap();
+    let first_tree = rbx_xml::from_reader_default(TEST_FILE).unwrap();
     let root_id = first_tree.get_root_id();
 
     assert_referents_sound(&first_tree);
@@ -35,10 +35,9 @@ fn referents_work() {
     let model_id = root_instance.get_children_ids()[0];
 
     let mut buffer = Vec::new();
-    rbx_xml::to_writer(&first_tree, &[model_id], Cursor::new(&mut buffer)).unwrap();
+    rbx_xml::to_writer_default(Cursor::new(&mut buffer), &first_tree, &[model_id]).unwrap();
 
-    let second_tree = rbx_xml::from_reader(buffer.as_slice()).unwrap();
-    let new_root_id = second_tree.get_root_id();
+    let second_tree = rbx_xml::from_reader_default(buffer.as_slice()).unwrap();
 
     assert_referents_sound(&second_tree);
 }

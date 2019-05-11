@@ -6,7 +6,7 @@ static TEST_FILE: &[u8] = include_bytes!("../test-files/fire.rbxmx");
 fn fire_weird_properties() {
     let _ = env_logger::try_init();
 
-    let tree = rbx_xml::from_reader(TEST_FILE).unwrap();
+    let tree = rbx_xml::from_reader_default(TEST_FILE).unwrap();
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();

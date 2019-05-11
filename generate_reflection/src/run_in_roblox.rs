@@ -146,7 +146,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         let root_id = place.get_root_id();
         let top_level_ids = place.get_instance(root_id).unwrap().get_children_ids();
 
-        rbx_xml::to_writer(&place, top_level_ids, &mut place_file)
+        rbx_xml::to_writer_default(&mut place_file, &place, top_level_ids)
             .expect("Could not serialize temporary place file to disk");
     }
 
@@ -156,7 +156,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
 
         let root_id = plugin.get_root_id();
 
-        rbx_xml::to_writer(&plugin, &[root_id], &mut plugin_file)
+        rbx_xml::to_writer_default(&mut plugin_file, &plugin, &[root_id])
             .expect("Could not serialize plugin file to disk");
     }
 

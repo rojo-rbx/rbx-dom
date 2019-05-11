@@ -15,13 +15,7 @@ use crate::{
 
 use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
 
-/// Serializes a subset of the given tree to an XML format model or place,
-/// writing to something that implements the `std::io::Write` trait.
-pub fn to_writer<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), NewEncodeError> {
-    encode_internal(tree, ids, output)
-}
-
-fn encode_internal<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), NewEncodeError> {
+pub fn encode_internal<W: Write>(output: W, tree: &RbxTree, ids: &[RbxId], _options: EncodeOptions) -> Result<(), NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
     let mut state = EmitState::new();
 
@@ -34,6 +28,43 @@ fn encode_internal<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
+}
+
+/// Describes the options available to tweak how to serialize an XML-format
+/// model or place.
+#[derive(Debug, Clone)]
+pub struct EncodeOptions {
+    use_reflection: bool,
+}
+
+impl EncodeOptions {
+    /// Constructs a `EncodeOptions` with all values set to their defaults.
+    pub fn new() -> EncodeOptions {
+        EncodeOptions {
+            use_reflection: true,
+        }
+    }
+
+    /// Enabled by default.
+    ///
+    /// Sets whether to use the reflection database to canonicalize fields and
+    /// value types.
+    ///
+    /// If disabled, properties will be written as-is to the disk. Files
+    /// produced this way will probably not be compatible with Roblox unless
+    /// they were read with the same option in `DecodeOptions`.
+    fn use_reflection(self, use_reflection: bool) -> EncodeOptions {
+        EncodeOptions {
+            use_reflection,
+            ..self
+        }
+    }
+}
+
+impl Default for EncodeOptions {
+    fn default() -> EncodeOptions {
+        EncodeOptions::new()
+    }
 }
 
 pub struct EmitState {
