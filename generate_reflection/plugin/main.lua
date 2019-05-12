@@ -48,7 +48,7 @@ local function shouldMeasureProperty(propertyName, property)
 		return false
 	end
 
-	if property.tags.ReadOnly then
+	if property.scriptability ~= "ReadWrite" then
 		return false
 	end
 
