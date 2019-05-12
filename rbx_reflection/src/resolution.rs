@@ -7,6 +7,10 @@ use crate::{
     reflection_types::RbxPropertyTypeDescriptor,
 };
 
+/// An error than can occur when trying to resolve an `UnresolvedRbxValue` to a
+/// concrete `RbxValue` using [`try_resolve_value`][try_resolve_value].
+///
+/// [try_resolve_value]: fn.try_resolve_value.html
 #[derive(Debug, Clone)]
 pub struct ValueResolveError {
     kind: Box<ValueResolveErrorKind>,
