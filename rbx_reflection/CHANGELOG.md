@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 * `Content` values can now be inferred from string literals
+* Rewrote reflection database to have a much more conservative public API
+* Introduced the concept of canonical properties and serialization-only properties, which makes handling serialized files much easier.
 
 ## 2.0.377 (2019-03-20)
 * Updated reflection database to client 0.377.1.289039
