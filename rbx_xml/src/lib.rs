@@ -6,16 +6,18 @@
 //! This crate implements most of the format and is driven by an up-to-date
 //! reflection database.
 //!
-//! To decode a place, use a method like `from_reader` if you're reading from a
-//! file, or `from_str` if you already have a string. These methods also have
-//! variants that pass in default configuration.
+//! ## Deserialization
+//! To decode a place or model, use a method like
+//! [`from_reader_default`][from_reader_default] if you're reading from a file,
+//! or [`from_str_default`][from_str_default] if you already have a string.
+//! These methods also have variants like [`from_str`][from_str] that let you
+//! pass in custom options.
 //!
 //! ```rust
 //! # // FIXME: This test overflows its stack only as a doctest on Windows. :/
 //! # // see: https://github.com/rust-lang/rust/issues/60753
-//!
+//! #
 //! # std::thread::spawn(|| {
-//!
 //! use rbx_dom_weak::RbxValue;
 //!
 //! let model_file = r#"
@@ -29,23 +31,92 @@
 //! </roblox>
 //! "#;
 //!
-//! let tree = rbx_xml::from_str_default(model_file)
+//! let model = rbx_xml::from_str_default(model_file)
 //!     .expect("Couldn't decode model file");
 //!
-//! let data_model = tree.get_instance(tree.get_root_id()).unwrap();
+//! let data_model = model.get_instance(model.get_root_id()).unwrap();
 //! let number_value_id = data_model.get_children_ids()[0];
 //!
-//! let number_value = tree.get_instance(number_value_id).unwrap();
+//! let number_value = model.get_instance(number_value_id).unwrap();
 //!
 //! assert_eq!(
 //!     number_value.properties.get("Value"),
 //!     Some(&RbxValue::Float64 { value: 12345.0 }),
 //! );
-//!
+//! #
 //! # });
 //! ```
 //!
+//! If you're decoding from a file, you'll want to do your own I/O buffering,
+//! like with [`BufReader`][BufReader]:
+//!
+//! ```rust,no_run
+//! # fn main() -> Result<(), Box<std::error::Error>> {
+//! use std::{
+//!     io::BufReader,
+//!     fs::File,
+//! };
+//!
+//! let file = BufReader::new(File::open("place.rbxlx")?);
+//! let place = rbx_xml::from_reader_default(file)?;
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! Note that the `RbxTree` instance returned by the rbx_xml decode methods will
+//! have a root instance with the class name `DataModel`. This is great for
+//! deserializing a place, but kind of strange for deserializing a model.
+//!
+//! Because models can have multiple instances at the top level, rbx_xml can't
+//! just return an `RbxTree` with your single instance at the top. Instead, the
+//! crate instead always creates a top-level `DataModel` instance which is
+//! pretty close to free.
+//!
+//! ## Serialization
+//! To serialize an existing `RbxTree` instance, use methods like
+//! [`to_writer_default`][to_writer_default] or [`to_writer`][to_writer].
+//!
+//! For example, to re-save the place file we loaded above:
+//!
+//! ```rust,no_run
+//! # fn main() -> Result<(), Box<std::error::Error>> {
+//! use std::{
+//!     io::BufWriter,
+//!     fs::File,
+//! };
+//! # use rbx_dom_weak::{RbxTree, RbxInstanceProperties};
+//!
+//! # let place = RbxTree::new(RbxInstanceProperties {
+//! #   class_name: "DataModel".to_owned(),
+//! #   name: "DataModel".to_owned(),
+//! #   properties: Default::default(),
+//! # });
+//! // A Roblox place file contains all of its top-level instances.
+//! let data_model = place.get_instance(place.get_root_id()).unwrap();
+//! let top_level_ids = data_model.get_children_ids();
+//!
+//! // Just like when reading a place file, we should buffer our I/O.
+//! let file = BufWriter::new(File::create("place-2.rbxlx")?);
+//!
+//! rbx_xml::to_writer_default(file, &place, top_level_ids)?;
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! ## Configuration
+//! rbx_xml exposes no useful configuration yet, but there are methods that
+//! accept [`DecodeOptions`][DecodeOptions] and
+//! [`EncodeOptions`][EncodeOptions] that will be useful when it does.
+//!
+//! [DecodeOptions]: struct.DecodeOptions.html
+//! [EncodeOptions]: struct.EncodeOptions.html
+//! [from_str]: fn.from_str.html
+//! [from_reader_default]: fn.from_reader_default.html
+//! [from_str_default]: fn.from_str_default.html
+//! [to_writer]: fn.to_writer.html
+//! [to_writer_default]: fn.to_writer_default.html
 //! [rbx_dom_weak]: https://crates.io/crates/rbx_dom_weak
+//! [BufReader]: https://doc.rust-lang.org/std/io/struct.BufReader.html
 
 #![deny(missing_docs)]
 
