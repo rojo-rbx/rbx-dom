@@ -1,4 +1,5 @@
-use failure::Fail;
+use std::fmt;
+
 use rbx_dom_weak::{AmbiguousRbxValue, RbxValue, RbxValueType, UnresolvedRbxValue};
 
 use crate::{
@@ -6,42 +7,91 @@ use crate::{
     reflection_types::RbxPropertyTypeDescriptor,
 };
 
-fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static RbxPropertyTypeDescriptor> {
-    let mut current_class = class_name;
+#[derive(Debug, Clone)]
+pub struct ValueResolveError {
+    kind: Box<ValueResolveErrorKind>,
+}
 
-    loop {
-        let class = get_class_descriptor(current_class)?;
+impl std::error::Error for ValueResolveError {}
 
-        match class.properties.get(property_name) {
-            Some(property) => return Some(&property.value_type),
-            None => match &class.superclass {
-                Some(superclass) => current_class = &superclass,
-                None => return None,
-            },
+impl fmt::Display for ValueResolveError {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        self.kind.fmt(formatter)
+    }
+}
+
+impl From<ValueResolveErrorKind> for ValueResolveError {
+    fn from(kind: ValueResolveErrorKind) -> ValueResolveError {
+        ValueResolveError { kind: Box::new(kind) }
+    }
+}
+
+#[derive(Debug, Clone)]
+enum ValueResolveErrorKind {
+    UnknownProperty {
+        class_name: String,
+        property_name: String,
+    },
+    UnknownEnumItem {
+        enum_name: String,
+        item_name: String,
+    },
+    IncorrectAmbiguousProperty,
+}
+
+impl fmt::Display for ValueResolveErrorKind {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        use self::ValueResolveErrorKind::*;
+
+        match self {
+            UnknownProperty { class_name, property_name } =>
+                write!(formatter, "Unknown property {}.{}", class_name, property_name),
+            UnknownEnumItem { enum_name, item_name } =>
+                write!(formatter, "Unknown enum item {}.{}", enum_name, item_name),
+            IncorrectAmbiguousProperty =>
+                write!(formatter, "Property type couldn't be inferred because the input did not match the property's type"),
         }
     }
 }
 
-#[derive(Debug, PartialEq, Fail)]
-pub enum ValueResolveError {
-    #[fail(
-        display = "The property {} is unknown and cannot have its type inferred",
-        _0
-    )]
-    UnknownProperty(String),
+/// Attempts to transform an `UnresolvedRbxValue` property on the given class into
+/// a concrete value using reflection information.
+pub fn try_resolve_value(
+    class_name: &str,
+    property_name: &str,
+    value: &UnresolvedRbxValue,
+) -> Result<RbxValue, ValueResolveError> {
+    match value {
+        UnresolvedRbxValue::Concrete(concrete_value) => {
+            // For now, we assume that concretely-specified values are of the
+            // right type. Extra validation might be more appropriate for
+            // another pass.
 
-    #[fail(
-        display = "The enum {} does not have a member named {}",
-        enum_name, item_name
-    )]
-    InvalidEnumItem {
-        enum_name: String,
-        item_name: String,
-    },
+            Ok(concrete_value.clone())
+        }
+        UnresolvedRbxValue::Ambiguous(inferable_value) => {
+            // If we don't have reflection information for this value, we'll
+            // only accept a fully-qualified property.
 
-    // FIXME: Need a more useful error message here.
-    #[fail(display = "Property tried to be inferred but the input was wrong")]
-    IncorrectAmbiguousProperty,
+            let property_type = find_property_type(class_name, property_name).ok_or_else(|| {
+                ValueResolveErrorKind::UnknownProperty {
+                    class_name: class_name.to_owned(),
+                    property_name: property_name.to_owned(),
+                }
+            })?;
+
+            match inferable_value {
+                AmbiguousRbxValue::String(string_value) => {
+                    try_resolve_string(class_name, property_name, property_type, string_value)
+                }
+                AmbiguousRbxValue::Float1(x) => try_resolve_one_float(property_type, *x),
+                AmbiguousRbxValue::Float2(x, y) => try_resolve_two_floats(property_type, (*x, *y)),
+                AmbiguousRbxValue::Float3(x, y, z) => {
+                    try_resolve_three_floats(property_type, (*x, *y, *z))
+                }
+            }
+        }
+    }
 }
 
 /// A string value can represent:
@@ -76,14 +126,14 @@ fn try_resolve_string(
                 roblox_enum
                     .items
                     .get(value)
-                    .ok_or_else(|| ValueResolveError::InvalidEnumItem {
+                    .ok_or_else(|| ValueResolveErrorKind::UnknownEnumItem {
                         enum_name: enum_name.to_string(),
                         item_name: value.to_owned(),
                     })?;
 
             Ok(RbxValue::Enum { value: *enum_value })
         }
-        _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
+        _ => Err(ValueResolveErrorKind::IncorrectAmbiguousProperty.into()),
     }
 }
 
@@ -100,7 +150,7 @@ fn try_resolve_one_float(
         RbxPropertyTypeDescriptor::Data(RbxValueType::Float64) => Ok(RbxValue::Float64 { value: x as f64 }),
         RbxPropertyTypeDescriptor::Data(RbxValueType::Int32) => Ok(RbxValue::Int32 { value: x as i32 }),
         RbxPropertyTypeDescriptor::Data(RbxValueType::Int64) => Ok(RbxValue::Int64 { value: x as i64 }),
-        _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
+        _ => Err(ValueResolveErrorKind::IncorrectAmbiguousProperty.into()),
     }
 }
 
@@ -116,7 +166,7 @@ fn try_resolve_two_floats(
         RbxPropertyTypeDescriptor::Data(RbxValueType::Vector2int16) => Ok(RbxValue::Vector2int16 {
             value: [x as i16, y as i16],
         }),
-        _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
+        _ => Err(ValueResolveErrorKind::IncorrectAmbiguousProperty.into()),
     }
 }
 
@@ -138,45 +188,22 @@ fn try_resolve_three_floats(
         RbxPropertyTypeDescriptor::Data(RbxValueType::Color3) => Ok(RbxValue::Color3 {
             value: [x as f32, y as f32, z as f32],
         }),
-        _ => Err(ValueResolveError::IncorrectAmbiguousProperty),
+        _ => Err(ValueResolveErrorKind::IncorrectAmbiguousProperty.into()),
     }
 }
 
-/// Attempts to transform an `UnresolvedRbxValue` property on the given class into
-/// a concrete value using reflection information.
-pub fn try_resolve_value(
-    class_name: &str,
-    property_name: &str,
-    value: &UnresolvedRbxValue,
-) -> Result<RbxValue, ValueResolveError> {
-    match value {
-        UnresolvedRbxValue::Concrete(concrete_value) => {
-            // For now, we assume that concretely-specified values are of the
-            // right type. Extra validation might be more appropriate for
-            // another pass.
+fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static RbxPropertyTypeDescriptor> {
+    let mut current_class = class_name;
 
-            Ok(concrete_value.clone())
-        }
-        UnresolvedRbxValue::Ambiguous(inferable_value) => {
-            // If we don't have reflection information for this value, we'll
-            // only accept a fully-qualified property.
+    loop {
+        let class = get_class_descriptor(current_class)?;
 
-            let property_type = find_property_type(class_name, property_name).ok_or_else(|| {
-                let fully_qualified_name = format!("{}.{}", class_name, property_name);
-
-                ValueResolveError::UnknownProperty(fully_qualified_name)
-            })?;
-
-            match inferable_value {
-                AmbiguousRbxValue::String(string_value) => {
-                    try_resolve_string(class_name, property_name, property_type, string_value)
-                }
-                AmbiguousRbxValue::Float1(x) => try_resolve_one_float(property_type, *x),
-                AmbiguousRbxValue::Float2(x, y) => try_resolve_two_floats(property_type, (*x, *y)),
-                AmbiguousRbxValue::Float3(x, y, z) => {
-                    try_resolve_three_floats(property_type, (*x, *y, *z))
-                }
-            }
+        match class.properties.get(property_name) {
+            Some(property) => return Some(&property.value_type),
+            None => match &class.superclass {
+                Some(superclass) => current_class = &superclass,
+                None => return None,
+            },
         }
     }
 }
@@ -210,8 +237,8 @@ mod tests {
         let untagged_value = UnresolvedRbxValue::Concrete(concrete_value.clone());
 
         assert_eq!(
-            try_resolve_value("Instance", "Name", &untagged_value),
-            Ok(concrete_value)
+            try_resolve_value("Instance", "Name", &untagged_value).unwrap(),
+            concrete_value
         );
     }
 
@@ -227,8 +254,8 @@ mod tests {
         let untagged_value = UnresolvedRbxValue::Concrete(concrete_value.clone());
 
         assert_eq!(
-            try_resolve_value("Bogus Instance Name", "Blah", &untagged_value),
-            Ok(concrete_value)
+            try_resolve_value("Bogus Instance Name", "Blah", &untagged_value).unwrap(),
+            concrete_value
         );
     }
 
@@ -244,8 +271,8 @@ mod tests {
         let untagged_value = UnresolvedRbxValue::Concrete(concrete_value.clone());
 
         assert_eq!(
-            try_resolve_value("Instance", "Bogus Property Name", &untagged_value),
-            Ok(concrete_value)
+            try_resolve_value("Instance", "Bogus Property Name", &untagged_value).unwrap(),
+            concrete_value
         );
     }
 
@@ -268,8 +295,8 @@ mod tests {
             UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::Float3(1.0, 0.5, 0.0));
 
         assert_eq!(
-            try_resolve_value("Color3Value", "Value", &untagged_value),
-            Ok(concrete_value)
+            try_resolve_value("Color3Value", "Value", &untagged_value).unwrap(),
+            concrete_value
         );
     }
 
@@ -283,8 +310,8 @@ mod tests {
             UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::String(String::from("LayoutOrder")));
 
         assert_eq!(
-            try_resolve_value("UIListLayout", "SortOrder", &untagged_value),
-            Ok(concrete_value)
+            try_resolve_value("UIListLayout", "SortOrder", &untagged_value).unwrap(),
+            concrete_value
         );
     }
 
@@ -298,8 +325,8 @@ mod tests {
             UnresolvedRbxValue::Ambiguous(AmbiguousRbxValue::String(String::from("Hello!")));
 
         assert_eq!(
-            try_resolve_value("Decal", "Texture", &untagged_value),
-            Ok(concrete_value)
+            try_resolve_value("Decal", "Texture", &untagged_value).unwrap(),
+            concrete_value
         );
     }
 }

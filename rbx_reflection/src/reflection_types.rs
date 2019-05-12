@@ -5,7 +5,7 @@ use std::{borrow::Cow, collections::HashMap};
 
 use bitflags::bitflags;
 use rbx_dom_weak::{RbxValue, RbxValueType};
-use serde_derive::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 /// Describes a class of Roblox instance. Classes relate to eachother via
 /// inheritance and have properties attached to them.
