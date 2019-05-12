@@ -1490,6 +1490,42 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			CurrentDistance = {
+				type = {type = "Data", name = "Float32"},
+				tags = {NotReplicated = true, ReadOnly = true},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			DistanceLowerLimit = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			DistanceStep = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			DistanceUpperLimit = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			ExtentsOffset = {
 				type = {type = "Data", name = "Vector3"},
 				tags = {},
@@ -1578,6 +1614,9 @@ return {
 			AlwaysOnTop = false,
 			AutoLocalize = true,
 			ClipsDescendants = false,
+			DistanceLowerLimit = -1,
+			DistanceStep = 0,
+			DistanceUpperLimit = -1,
 			Enabled = true,
 			ExtentsOffset = Vector3.new(0, 0, 0),
 			ExtentsOffsetWorldSpace = Vector3.new(0, 0, 0),
@@ -4073,6 +4112,13 @@ return {
 			Name = "EchoSoundEffect",
 			Priority = 0,
 			WetLevel = 0,
+		},
+	},
+	EmotesPages = {
+		superclass = "InventoryPages",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 	EqualizerSoundEffect = {
@@ -6995,9 +7041,9 @@ return {
 				tags = {},
 				isCanonical = true,
 				canonicalName = nil,
-				serializedName = nil,
+				serializedName = "archivable",
 				scriptability = "ReadWrite",
-				serializes = false,
+				serializes = true,
 			},
 			ClassName = {
 				type = {type = "Data", name = "String"},
@@ -8927,6 +8973,7 @@ return {
 		properties = {
 		},
 		defaults = {
+			Name = "Instance",
 		},
 	},
 	Pages = {
@@ -9883,6 +9930,15 @@ return {
 			},
 			FollowUserId = {
 				type = {type = "Data", name = "Int32"},
+				tags = {NotReplicated = true, ReadOnly = true},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			GameplayPaused = {
+				type = {type = "Data", name = "Bool"},
 				tags = {NotReplicated = true, ReadOnly = true},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13747,6 +13803,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			UserEmotesEnabled = {
+				type = {type = "Data", name = "Bool"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 		},
 		defaults = {
 			AllowCustomAnimations = true,
@@ -13781,6 +13846,7 @@ return {
 			LoadCharacterAppearance = true,
 			Name = "StarterPlayer",
 			NameDisplayDistance = 100,
+			UserEmotesEnabled = true,
 		},
 	},
 	StarterPlayerScripts = {
@@ -14061,6 +14127,31 @@ return {
 		defaults = {
 		},
 	},
+	StudioData = {
+		superclass = "Instance",
+		properties = {
+			SrcPlaceId = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Hidden = true, NotReplicated = true},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			SrcUniverseId = {
+				type = {type = "Data", name = "Int32"},
+				tags = {Hidden = true, NotReplicated = true},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+		},
+	},
 	StudioService = {
 		superclass = "Instance",
 		properties = {
@@ -14180,6 +14271,24 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			PixelsPerStud = {
+				type = {type = "Data", name = "Float32"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			SizingMode = {
+				type = {type = "Enum", name = "SurfaceGuiSizingMode"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			ToolPunchThroughDistance = {
 				type = {type = "Data", name = "Float32"},
 				tags = {},
@@ -14211,8 +14320,10 @@ return {
 			LightInfluence = 0,
 			Localize = true,
 			Name = "SurfaceGui",
+			PixelsPerStud = 50,
 			ResetOnSpawn = true,
 			RootLocalizationTable = nil,
+			SizingMode = 0,
 			ToolPunchThroughDistance = 0,
 			ZIndexBehavior = 0,
 			ZOffset = 0,
@@ -17367,6 +17478,15 @@ return {
 	ViewportFrame = {
 		superclass = "GuiObject",
 		properties = {
+			Ambient = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			CurrentCamera = {
 				type = {type = "Data", name = "Ref"},
 				tags = {NotReplicated = true},
@@ -17394,9 +17514,28 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			LightColor = {
+				type = {type = "Data", name = "Color3"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			LightDirection = {
+				type = {type = "Data", name = "Vector3"},
+				tags = {},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 		},
 		defaults = {
 			Active = false,
+			Ambient = Color3.new(0.78431374, 0.78431374, 0.78431374),
 			AnchorPoint = Vector2.new(0, 0),
 			AutoLocalize = true,
 			BackgroundColor3 = Color3.new(0.6392157, 0.63529414, 0.64705884),
@@ -17409,6 +17548,8 @@ return {
 			ImageColor3 = Color3.new(1, 1, 1),
 			ImageTransparency = 0,
 			LayoutOrder = 0,
+			LightColor = Color3.new(0.54901963, 0.54901963, 0.54901963),
+			LightDirection = Vector3.new(-1, -1, -1),
 			Localize = true,
 			Name = "ViewportFrame",
 			NextSelectionDown = nil,
@@ -17652,6 +17793,15 @@ return {
 			},
 			StreamingMinRadius = {
 				type = {type = "Data", name = "Int32"},
+				tags = {NotScriptable = true},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
+			StreamingPauseMode = {
+				type = {type = "Enum", name = "StreamingPauseMode"},
 				tags = {NotScriptable = true},
 				isCanonical = true,
 				canonicalName = nil,

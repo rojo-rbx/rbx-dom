@@ -26,7 +26,9 @@ impl fmt::Display for ValueResolveError {
 
 impl From<ValueResolveErrorKind> for ValueResolveError {
     fn from(kind: ValueResolveErrorKind) -> ValueResolveError {
-        ValueResolveError { kind: Box::new(kind) }
+        ValueResolveError {
+            kind: Box::new(kind),
+        }
     }
 }
 
@@ -126,14 +128,12 @@ fn try_resolve_string(
                 }
             };
 
-            let enum_value =
-                roblox_enum
-                    .items
-                    .get(value)
-                    .ok_or_else(|| ValueResolveErrorKind::UnknownEnumItem {
-                        enum_name: enum_name.to_string(),
-                        item_name: value.to_owned(),
-                    })?;
+            let enum_value = roblox_enum.items.get(value).ok_or_else(|| {
+                ValueResolveErrorKind::UnknownEnumItem {
+                    enum_name: enum_name.to_string(),
+                    item_name: value.to_owned(),
+                }
+            })?;
 
             Ok(RbxValue::Enum { value: *enum_value })
         }
@@ -150,10 +150,18 @@ fn try_resolve_one_float(
     x: f64,
 ) -> Result<RbxValue, ValueResolveError> {
     match property_type {
-        RbxPropertyTypeDescriptor::Data(RbxValueType::Float32) => Ok(RbxValue::Float32 { value: x as f32 }),
-        RbxPropertyTypeDescriptor::Data(RbxValueType::Float64) => Ok(RbxValue::Float64 { value: x as f64 }),
-        RbxPropertyTypeDescriptor::Data(RbxValueType::Int32) => Ok(RbxValue::Int32 { value: x as i32 }),
-        RbxPropertyTypeDescriptor::Data(RbxValueType::Int64) => Ok(RbxValue::Int64 { value: x as i64 }),
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Float32) => {
+            Ok(RbxValue::Float32 { value: x as f32 })
+        }
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Float64) => {
+            Ok(RbxValue::Float64 { value: x as f64 })
+        }
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Int32) => {
+            Ok(RbxValue::Int32 { value: x as i32 })
+        }
+        RbxPropertyTypeDescriptor::Data(RbxValueType::Int64) => {
+            Ok(RbxValue::Int64 { value: x as i64 })
+        }
         _ => Err(ValueResolveErrorKind::IncorrectAmbiguousProperty.into()),
     }
 }
@@ -196,7 +204,10 @@ fn try_resolve_three_floats(
     }
 }
 
-fn find_property_type(class_name: &str, property_name: &str) -> Option<&'static RbxPropertyTypeDescriptor> {
+fn find_property_type(
+    class_name: &str,
+    property_name: &str,
+) -> Option<&'static RbxPropertyTypeDescriptor> {
     let mut current_class = class_name;
 
     loop {

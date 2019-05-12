@@ -4,7 +4,7 @@ use rbx_dom_weak::{RbxValue, RbxValueType};
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
     {
-        let mut map = HashMap::with_capacity(404);
+        let mut map = HashMap::with_capacity(406);
         map.insert(
             Cow::Borrowed("ABTestService"),
             RbxClassDescriptor {
@@ -571,7 +571,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RelativeTo"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RelativeTo"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ActuatorRelativeTo")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ActuatorRelativeTo",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -730,7 +732,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Priority"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Priority"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("AnimationPriority")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "AnimationPriority",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -839,7 +843,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Axes"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Axes"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("Axes")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("Axes"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -1413,7 +1419,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("BackSurface"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("BackSurface"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("SurfaceType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SurfaceType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -1465,7 +1473,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("BottomSurface"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("BottomSurface"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("SurfaceType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SurfaceType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -1491,9 +1501,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("BrickColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("BrickColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: false,
                             canonical_name: Some(Cow::Borrowed("Color")),
@@ -1610,7 +1620,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CustomPhysicalProperties"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("CustomPhysicalProperties"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::PhysicalProperties),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::PhysicalProperties,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -1679,7 +1691,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("FrontSurface"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("FrontSurface"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("SurfaceType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SurfaceType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -1731,7 +1745,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("LeftSurface"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("LeftSurface"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("SurfaceType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SurfaceType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -1876,7 +1892,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ResizeableFaces"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ResizeableFaces"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("Faces")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("Faces"),
+                            ),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -1915,7 +1933,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RightSurface"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RightSurface"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("SurfaceType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SurfaceType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -2034,7 +2054,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TopSurface"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TopSurface"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("SurfaceType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SurfaceType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -2086,9 +2108,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("brickColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("brickColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: false,
                             canonical_name: Some(Cow::Borrowed("Color")),
@@ -2202,7 +2224,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Color"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Color"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::ColorSequence),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::ColorSequence,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -2332,7 +2356,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextureMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextureMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextureMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextureMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -2358,7 +2384,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Transparency"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Transparency"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::NumberSequence),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::NumberSequence,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -2478,7 +2506,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("LayerCollector")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(13);
+                    let mut map = HashMap::with_capacity(17);
                     map.insert(
                         Cow::Borrowed("Active"),
                         RbxPropertyDescriptor {
@@ -2523,6 +2551,58 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ClipsDescendants"),
                             value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("CurrentDistance"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("CurrentDistance"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("DistanceLowerLimit"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("DistanceLowerLimit"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("DistanceStep"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("DistanceStep"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("DistanceUpperLimit"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("DistanceUpperLimit"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -2651,7 +2731,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(20);
+                    let mut map = HashMap::with_capacity(23);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
@@ -2665,6 +2745,18 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("ClipsDescendants"),
                         RbxValue::Bool { value: false },
+                    );
+                    map.insert(
+                        Cow::Borrowed("DistanceLowerLimit"),
+                        RbxValue::Float32 { value: -1.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("DistanceStep"),
+                        RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("DistanceUpperLimit"),
+                        RbxValue::Float32 { value: -1.0 },
                     );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
@@ -3058,9 +3150,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("HeadColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("HeadColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -3086,9 +3178,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("LeftArmColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("LeftArmColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -3114,9 +3206,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("LeftLegColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("LeftLegColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -3142,9 +3234,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RightArmColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RightArmColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -3170,9 +3262,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RightLegColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RightLegColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -3198,9 +3290,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TorsoColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TorsoColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -3922,9 +4014,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Value"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Value"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -4060,7 +4152,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CameraType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("CameraType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("CameraType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "CameraType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -4971,9 +5065,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Color"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Color"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -5589,7 +5683,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("AngularActuatorType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("AngularActuatorType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ActuatorType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ActuatorType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -5915,7 +6011,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CreatorType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("CreatorType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("CreatorType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "CreatorType",
+                            )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -5941,7 +6039,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("GearGenreSetting"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("GearGenreSetting"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("GearGenreSetting")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "GearGenreSetting",
+                            )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -6297,7 +6397,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ErrorReporting"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ErrorReporting"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ErrorReporting")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ErrorReporting",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -6786,7 +6888,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("BehaviorType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("BehaviorType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("DialogBehaviorType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "DialogBehaviorType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -6864,7 +6968,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Purpose"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Purpose"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("DialogPurpose")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "DialogPurpose",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -6877,7 +6983,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Tone"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Tone"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("DialogTone")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "DialogTone",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -7327,6 +7435,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
             },
         );
         map.insert(
+            Cow::Borrowed("EmotesPages"),
+            RbxClassDescriptor {
+                name: Cow::Borrowed("EmotesPages"),
+                superclass: Some(Cow::Borrowed("InventoryPages")),
+                tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::NOT_REPLICATED,
+                properties: HashMap::new(),
+                default_properties: HashMap::new(),
+            },
+        );
+        map.insert(
             Cow::Borrowed("EqualizerSoundEffect"),
             RbxClassDescriptor {
                 name: Cow::Borrowed("EqualizerSoundEffect"),
@@ -7443,7 +7561,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ExplosionType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ExplosionType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ExplosionType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ExplosionType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -7894,9 +8014,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TeamColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TeamColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -7986,9 +8106,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TeamColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TeamColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -8486,7 +8606,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("FormFactor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("FormFactor"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("FormFactor")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "FormFactor",
+                            )),
                             tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
                             canonical_name: None,
@@ -8499,7 +8621,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("formFactor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("formFactor"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("FormFactor")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "FormFactor",
+                            )),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -8514,7 +8638,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("formFactorRaw"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("formFactorRaw"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("FormFactor")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "FormFactor",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: false,
                             canonical_name: Some(Cow::Borrowed("FormFactor")),
@@ -8540,7 +8666,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Style"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Style"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("FrameStyle")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "FrameStyle",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -9260,9 +9388,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Color"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Color"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -9368,7 +9496,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Style"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Style"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ButtonStyle")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ButtonStyle",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -9476,9 +9606,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("BackgroundColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("BackgroundColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -9519,9 +9649,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("BorderColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("BorderColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -9718,7 +9848,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("SizeConstraint"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("SizeConstraint"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("SizeConstraint")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SizeConstraint",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -10044,7 +10176,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Faces"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Faces"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("Faces")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("Faces"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -10057,7 +10191,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Style"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Style"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("HandlesStyle")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "HandlesStyle",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -10185,7 +10321,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ActuatorType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ActuatorType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ActuatorType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ActuatorType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -10872,7 +11010,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("NameOcclusion"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("NameOcclusion"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("NameOcclusion")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "NameOcclusion",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -10898,7 +11038,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RigType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RigType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("HumanoidRigType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "HumanoidRigType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -11955,7 +12097,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("SliceCenter"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("SliceCenter"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("Rect")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("Rect"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -12332,7 +12476,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("SliceCenter"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("SliceCenter"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("Rect")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("Rect"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -12551,7 +12697,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("UserInputState"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("UserInputState"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("UserInputState")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "UserInputState",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -12564,7 +12712,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("UserInputType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("UserInputType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("UserInputType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "UserInputType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -12648,9 +12798,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
-                            serialized_name: None,
+                            serialized_name: Some(Cow::Borrowed("archivable")),
                             scriptability: RbxPropertyScriptability::ReadWrite,
-                            serializes: false,
+                            serializes: true,
                         },
                     );
                     map.insert(
@@ -13141,7 +13291,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Priority"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Priority"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("AnimationPriority")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "AnimationPriority",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -13229,7 +13381,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ZIndexBehavior"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ZIndexBehavior"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ZIndexBehavior")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ZIndexBehavior",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -13515,7 +13669,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Technology"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Technology"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("Technology")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "Technology",
+                            )),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
                             is_canonical: true,
                             canonical_name: None,
@@ -14413,7 +14569,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RenderFidelity"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RenderFidelity"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("RenderFidelity")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "RenderFidelity",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -15045,7 +15203,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("UnitRay"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("UnitRay"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("Ray")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("Ray"),
+                            ),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -15495,7 +15655,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("DataSendPriority"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("DataSendPriority"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("PacketPriority")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "PacketPriority",
+                            )),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
                             canonical_name: None,
@@ -15601,7 +15763,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("PhysicsSendPriority"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("PhysicsSendPriority"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("PacketPriority")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "PacketPriority",
+                            )),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
                             canonical_name: None,
@@ -16183,7 +16347,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     | RbxInstanceTags::NOT_REPLICATED
                     | RbxInstanceTags::SERVICE,
                 properties: HashMap::new(),
-                default_properties: HashMap::new(),
+                default_properties: {
+                    let mut map = HashMap::with_capacity(1);
+                    map.insert(
+                        Cow::Borrowed("Name"),
+                        RbxValue::String {
+                            value: String::from("Instance"),
+                        },
+                    );
+                    map
+                },
             },
         );
         map.insert(
@@ -16609,7 +16782,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RenderFidelity"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RenderFidelity"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("RenderFidelity")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "RenderFidelity",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -16865,7 +17040,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Color"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Color"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::ColorSequence),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::ColorSequence,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -17008,7 +17185,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Size"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Size"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::NumberSequence),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::NumberSequence,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -17060,7 +17239,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Transparency"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Transparency"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::NumberSequence),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::NumberSequence,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -17178,7 +17359,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Status"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Status"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("PathStatus")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "PathStatus",
+                            )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -17620,7 +17803,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(40);
+                    let mut map = HashMap::with_capacity(41);
                     map.insert(
                         Cow::Borrowed("AccountAge"),
                         RbxPropertyDescriptor {
@@ -17692,7 +17875,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CameraMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("CameraMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("CameraMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "CameraMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -17924,6 +18109,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("GameplayPaused"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("GameplayPaused"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                            tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("Guest"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Guest"),
@@ -17981,7 +18179,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("MembershipType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("MembershipType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("MembershipType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "MembershipType",
+                            )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -18085,9 +18285,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TeamColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TeamColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -18180,7 +18380,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CurrentScreenOrientation"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("CurrentScreenOrientation"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ScreenOrientation")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ScreenOrientation",
+                            )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -18193,7 +18395,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ScreenOrientation"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ScreenOrientation"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ScreenOrientation")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ScreenOrientation",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -18887,7 +19091,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("EasingDirection"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("EasingDirection"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("PoseEasingDirection")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "PoseEasingDirection",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -18900,7 +19106,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("EasingStyle"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("EasingStyle"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("PoseEasingStyle")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "PoseEasingStyle",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -19074,7 +19282,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Value"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Value"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("Ray")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("Ray"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -19830,7 +20040,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("EditQualityLevel"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("EditQualityLevel"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("QualityLevel")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "QualityLevel",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -19884,7 +20096,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("GraphicsMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("GraphicsMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("GraphicsMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "GraphicsMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -19910,7 +20124,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("QualityLevel"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("QualityLevel"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("QualityLevel")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "QualityLevel",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -21174,7 +21390,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ElasticBehavior"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ElasticBehavior"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ElasticBehavior")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ElasticBehavior",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -21187,7 +21405,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("HorizontalScrollBarInset"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("HorizontalScrollBarInset"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ScrollBarInset")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ScrollBarInset",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -21252,7 +21472,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ScrollingDirection"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ScrollingDirection"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ScrollingDirection")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ScrollingDirection",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -21291,7 +21513,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("VerticalScrollBarInset"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("VerticalScrollBarInset"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ScrollBarInset")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ScrollBarInset",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -21732,9 +21956,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("SurfaceColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("SurfaceColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -21950,9 +22174,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("SurfaceColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("SurfaceColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -22523,9 +22747,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("SkinColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("SkinColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -22802,7 +23026,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ActuatorType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ActuatorType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ActuatorType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ActuatorType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -23354,7 +23580,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RollOffMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RollOffMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("RollOffMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "RollOffMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -23580,7 +23808,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("AmbientReverb"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("AmbientReverb"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ReverbType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ReverbType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -23810,9 +24040,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TeamColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TeamColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -24495,7 +24725,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ScreenOrientation"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ScreenOrientation"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ScreenOrientation")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ScreenOrientation",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -24573,7 +24805,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
                 properties: {
-                    let mut map = HashMap::with_capacity(36);
+                    let mut map = HashMap::with_capacity(37);
                     map.insert(
                         Cow::Borrowed("AllowCustomAnimations"),
                         RbxPropertyDescriptor {
@@ -24630,7 +24862,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CameraMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("CameraMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("CameraMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "CameraMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -24926,7 +25160,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("GameSettingsAvatar"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("GameSettingsAvatar"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("GameAvatarType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "GameAvatarType",
+                            )),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
                             canonical_name: None,
@@ -24939,7 +25175,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("GameSettingsR15Collision"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("GameSettingsR15Collision"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("R15CollisionType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "R15CollisionType",
+                            )),
                             tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
                             is_canonical: true,
                             canonical_name: None,
@@ -25052,10 +25290,23 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                             serializes: true,
                         },
                     );
+                    map.insert(
+                        Cow::Borrowed("UserEmotesEnabled"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("UserEmotesEnabled"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(32);
+                    let mut map = HashMap::with_capacity(33);
                     map.insert(
                         Cow::Borrowed("AllowCustomAnimations"),
                         RbxValue::Bool { value: true },
@@ -25182,6 +25433,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("NameDisplayDistance"),
                         RbxValue::Float32 { value: 100.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("UserEmotesEnabled"),
+                        RbxValue::Bool { value: true },
                     );
                     map
                 },
@@ -25438,7 +25693,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::NOT_REPLICATED | RbxInstanceTags::SERVICE,
                 properties: {
-                    let mut map = HashMap::with_capacity(75);
+                    let mut map = HashMap::with_capacity(71);
                     map.insert(
                         Cow::Borrowed("Always Save Script Changes"),
                         RbxPropertyDescriptor {
@@ -25523,46 +25778,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Auto-Recovery Path"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Auto-Recovery Path"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("QDir")),
-                            tags: RbxPropertyTags::empty(),
-                            is_canonical: true,
-                            canonical_name: None,
-                            serialized_name: None,
-                            scriptability: RbxPropertyScriptability::ReadWrite,
-                            serializes: true,
-                        },
-                    );
-                    map.insert(
-                        Cow::Borrowed("Auto-Save Enabled"),
-                        RbxPropertyDescriptor {
-                            name: Cow::Borrowed("Auto-Save Enabled"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
-                            tags: RbxPropertyTags::empty(),
-                            is_canonical: true,
-                            canonical_name: None,
-                            serialized_name: None,
-                            scriptability: RbxPropertyScriptability::ReadWrite,
-                            serializes: true,
-                        },
-                    );
-                    map.insert(
-                        Cow::Borrowed("Auto-Save Interval (Minutes)"),
-                        RbxPropertyDescriptor {
-                            name: Cow::Borrowed("Auto-Save Interval (Minutes)"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Int32),
-                            tags: RbxPropertyTags::empty(),
-                            is_canonical: true,
-                            canonical_name: None,
-                            serialized_name: None,
-                            scriptability: RbxPropertyScriptability::ReadWrite,
-                            serializes: true,
-                        },
-                    );
-                    map.insert(
-                        Cow::Borrowed("Auto-Save Path"),
-                        RbxPropertyDescriptor {
-                            name: Cow::Borrowed("Auto-Save Path"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("QDir")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("QDir"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -25588,7 +25806,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Basic Objects Display Mode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Basic Objects Display Mode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ListDisplayMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ListDisplayMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -25692,7 +25912,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("DefaultScriptFileDir"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("DefaultScriptFileDir"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("QDir")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("QDir"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -25822,7 +26044,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Font"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Font"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("QFont")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("QFont"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -25835,7 +26059,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Hover Animate Speed"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Hover Animate Speed"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("HoverAnimateSpeed")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "HoverAnimateSpeed",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -25849,19 +26075,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Hover Over Color"),
                             value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Color3),
-                            tags: RbxPropertyTags::empty(),
-                            is_canonical: true,
-                            canonical_name: None,
-                            serialized_name: None,
-                            scriptability: RbxPropertyScriptability::ReadWrite,
-                            serializes: true,
-                        },
-                    );
-                    map.insert(
-                        Cow::Borrowed("Import mesh files as single mesh"),
-                        RbxPropertyDescriptor {
-                            name: Cow::Borrowed("Import mesh files as single mesh"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -25887,7 +26100,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Language"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Language"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("LanguagePreference")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "LanguagePreference",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26006,7 +26221,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Output Font"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Output Font"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("QFont")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("QFont"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26019,7 +26236,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Output Layout Mode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Output Layout Mode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("OutputLayoutMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "OutputLayoutMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26045,7 +26264,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("OverrideCoreScriptsDir"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("OverrideCoreScriptsDir"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("QDir")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("QDir"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26073,7 +26294,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("PluginsDir"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("PluginsDir"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("QDir")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("QDir"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26099,7 +26322,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RecentSavesDir"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RecentSavesDir"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed("QDir")),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("QDir"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26138,7 +26363,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RuntimeUndoBehavior"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RuntimeUndoBehavior"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("RuntimeUndoBehavior")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "RuntimeUndoBehavior",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26216,7 +26443,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Server Audio Behavior"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Server Audio Behavior"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ServerAudioBehavior")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ServerAudioBehavior",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26426,6 +26655,47 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
             },
         );
         map.insert(
+            Cow::Borrowed("StudioData"),
+            RbxClassDescriptor {
+                name: Cow::Borrowed("StudioData"),
+                superclass: Some(Cow::Borrowed("Instance")),
+                tags: RbxInstanceTags::NOT_CREATABLE
+                    | RbxInstanceTags::NOT_REPLICATED
+                    | RbxInstanceTags::SERVICE,
+                properties: {
+                    let mut map = HashMap::with_capacity(2);
+                    map.insert(
+                        Cow::Borrowed("SrcPlaceId"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("SrcPlaceId"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Int32),
+                            tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("SrcUniverseId"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("SrcUniverseId"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Int32),
+                            tags: RbxPropertyTags::HIDDEN | RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map
+                },
+                default_properties: HashMap::new(),
+            },
+        );
+        map.insert(
             Cow::Borrowed("StudioService"),
             RbxClassDescriptor {
                 name: Cow::Borrowed("StudioService"),
@@ -26533,7 +26803,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("LayerCollector")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(9);
+                    let mut map = HashMap::with_capacity(11);
                     map.insert(
                         Cow::Borrowed("Active"),
                         RbxPropertyDescriptor {
@@ -26626,6 +26896,34 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("PixelsPerStud"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("PixelsPerStud"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("SizingMode"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("SizingMode"),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SurfaceGuiSizingMode",
+                            )),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("ToolPunchThroughDistance"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ToolPunchThroughDistance"),
@@ -26654,7 +26952,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(16);
+                    let mut map = HashMap::with_capacity(18);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
@@ -26689,6 +26987,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("PixelsPerStud"),
+                        RbxValue::Float32 { value: 50.0 },
+                    );
+                    map.insert(
                         Cow::Borrowed("ResetOnSpawn"),
                         RbxValue::Bool { value: true },
                     );
@@ -26696,6 +26998,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RootLocalizationTable"),
                         RbxValue::Ref { value: None },
                     );
+                    map.insert(Cow::Borrowed("SizingMode"), RbxValue::Enum { value: 0 });
                     map.insert(
                         Cow::Borrowed("ToolPunchThroughDistance"),
                         RbxValue::Float32 { value: 0.0 },
@@ -26868,7 +27171,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ThreadPoolConfig"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ThreadPoolConfig"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ThreadPoolConfig")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ThreadPoolConfig",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -26946,9 +27251,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TeamColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TeamColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -27078,9 +27383,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("MaxExtents"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("MaxExtents"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "Region3int16",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("Region3int16"),
+                            ),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -27613,9 +27918,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -27721,7 +28026,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextTruncate"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextTruncate"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextTruncate")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextTruncate",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -27760,7 +28067,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextXAlignment"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextXAlignment"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextXAlignment")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextXAlignment",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -27773,7 +28082,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextYAlignment"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextYAlignment"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextYAlignment")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextYAlignment",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -28048,9 +28359,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -28156,7 +28467,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextTruncate"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextTruncate"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextTruncate")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextTruncate",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -28195,7 +28508,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextXAlignment"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextXAlignment"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextXAlignment")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextXAlignment",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -28208,7 +28523,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextYAlignment"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextYAlignment"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextYAlignment")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextYAlignment",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -28466,9 +28783,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextColor"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextColor"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "BrickColor",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("BrickColor"),
+                            ),
                             tags: RbxPropertyTags::DEPRECATED
                                 | RbxPropertyTags::HIDDEN
                                 | RbxPropertyTags::NOT_REPLICATED,
@@ -28574,7 +28891,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextTruncate"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextTruncate"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextTruncate")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextTruncate",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -28613,7 +28932,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextXAlignment"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextXAlignment"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextXAlignment")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextXAlignment",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -28626,7 +28947,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextYAlignment"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextYAlignment"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextYAlignment")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextYAlignment",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -29125,7 +29448,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RelativeTo"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RelativeTo"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ActuatorRelativeTo")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ActuatorRelativeTo",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -29249,7 +29574,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Color"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Color"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::ColorSequence),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::ColorSequence,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -29379,7 +29706,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TextureMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextureMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TextureMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TextureMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -29392,7 +29721,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Transparency"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Transparency"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::NumberSequence),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::NumberSequence,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -29405,7 +29736,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("WidthScale"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("WidthScale"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::NumberSequence),
+                            value_type: RbxPropertyTypeDescriptor::Data(
+                                RbxValueType::NumberSequence,
+                            ),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -29558,7 +29891,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CollisionFidelity"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("CollisionFidelity"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("CollisionFidelity")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "CollisionFidelity",
+                            )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::NOT_SCRIPTABLE,
                             is_canonical: true,
                             canonical_name: None,
@@ -29791,9 +30126,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TweenInfo"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TweenInfo"),
-                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(Cow::Borrowed(
-                                "TweenInfo",
-                            )),
+                            value_type: RbxPropertyTypeDescriptor::UnimplementedType(
+                                Cow::Borrowed("TweenInfo"),
+                            ),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -29828,7 +30163,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("PlaybackState"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("PlaybackState"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("PlaybackState")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "PlaybackState",
+                            )),
                             tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                             is_canonical: true,
                             canonical_name: None,
@@ -29886,7 +30223,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("AspectType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("AspectType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("AspectType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "AspectType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -29899,7 +30238,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("DominantAxis"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("DominantAxis"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("DominantAxis")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "DominantAxis",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30009,7 +30350,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("StartCorner"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("StartCorner"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("StartCorner")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "StartCorner",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30084,7 +30427,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("FillDirection"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("FillDirection"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("FillDirection")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "FillDirection",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30097,7 +30442,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("HorizontalAlignment"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("HorizontalAlignment"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("HorizontalAlignment")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "HorizontalAlignment",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30123,7 +30470,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("VerticalAlignment"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("VerticalAlignment"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("VerticalAlignment")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "VerticalAlignment",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30334,7 +30683,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("EasingDirection"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("EasingDirection"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("EasingDirection")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "EasingDirection",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30347,7 +30698,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("EasingStyle"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("EasingStyle"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("EasingStyle")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "EasingStyle",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30598,7 +30951,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("MajorAxis"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("MajorAxis"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TableMajorAxis")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TableMajorAxis",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30922,7 +31277,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CameraMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("CameraMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("CustomCameraMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "CustomCameraMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -30991,7 +31348,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("ControlMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ControlMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ControlMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ControlMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -31233,7 +31592,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RotationType"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RotationType"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("RotationType")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "RotationType",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -31246,7 +31607,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("SavedQualityLevel"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("SavedQualityLevel"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("SavedQualitySetting")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "SavedQualitySetting",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -31313,7 +31676,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("TouchMovementMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TouchMovementMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("TouchMovementMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "TouchMovementMode",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -31510,7 +31875,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("MouseBehavior"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("MouseBehavior"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("MouseBehavior")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "MouseBehavior",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -31778,7 +32145,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("GuiInputUserCFrame"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("GuiInputUserCFrame"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("UserCFrame")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "UserCFrame",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -31920,7 +32289,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("RelativeTo"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("RelativeTo"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ActuatorRelativeTo")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "ActuatorRelativeTo",
+                            )),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -32426,7 +32797,20 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("GuiObject")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(3);
+                    let mut map = HashMap::with_capacity(6);
+                    map.insert(
+                        Cow::Borrowed("Ambient"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("Ambient"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Color3),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("CurrentCamera"),
                         RbxPropertyDescriptor {
@@ -32466,11 +32850,43 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                             serializes: true,
                         },
                     );
+                    map.insert(
+                        Cow::Borrowed("LightColor"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("LightColor"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Color3),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LightDirection"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("LightDirection"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Vector3),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(29);
+                    let mut map = HashMap::with_capacity(32);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
+                    map.insert(
+                        Cow::Borrowed("Ambient"),
+                        RbxValue::Color3 {
+                            value: [0.78431374, 0.78431374, 0.78431374],
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
                         RbxValue::Vector2 { value: [0.0, 0.0] },
@@ -32521,6 +32937,18 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("LayoutOrder"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LightColor"),
+                        RbxValue::Color3 {
+                            value: [0.54901963, 0.54901963, 0.54901963],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LightDirection"),
+                        RbxValue::Vector3 {
+                            value: [-1.0, -1.0, -1.0],
+                        },
                     );
                     map.insert(Cow::Borrowed("Localize"), RbxValue::Bool { value: true });
                     map.insert(
@@ -32956,7 +33384,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("Model")),
                 tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
                 properties: {
-                    let mut map = HashMap::with_capacity(12);
+                    let mut map = HashMap::with_capacity(13);
                     map.insert(
                         Cow::Borrowed("AllowThirdPartySales"),
                         RbxPropertyDescriptor {
@@ -32974,7 +33402,9 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("AutoJointsMode"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("AutoJointsMode"),
-                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("AutoJointsMode")),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "AutoJointsMode",
+                            )),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
                             is_canonical: true,
                             canonical_name: None,
@@ -33066,6 +33496,21 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("StreamingMinRadius"),
                             value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Int32),
+                            tags: RbxPropertyTags::NOT_SCRIPTABLE,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::None,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("StreamingPauseMode"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("StreamingPauseMode"),
+                            value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
+                                "StreamingPauseMode",
+                            )),
                             tags: RbxPropertyTags::NOT_SCRIPTABLE,
                             is_canonical: true,
                             canonical_name: None,

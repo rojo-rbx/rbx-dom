@@ -78,7 +78,7 @@ fn generate_enums(dump: &Dump) -> TokenStream {
         };
         use crate::reflection_types::*;
 
-        pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnum> {
+        pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
             let mut output = HashMap::with_capacity(#enum_len_literal);
             #(#enums)*
             output
@@ -100,7 +100,7 @@ fn emit_enum(rbx_enum: &DumpEnum) -> TokenStream {
     });
 
     quote! {
-        output.insert(Cow::Borrowed(#name_literal), RbxEnum {
+        output.insert(Cow::Borrowed(#name_literal), RbxEnumDescriptor {
             name: Cow::Borrowed(#name_literal),
             items: {
                 let mut items = HashMap::with_capacity(#item_count_literal);

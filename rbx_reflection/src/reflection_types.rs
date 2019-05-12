@@ -22,7 +22,7 @@ pub struct RbxClassDescriptor {
 
 impl RbxClassDescriptor {
     /// The name of the class as defined by Roblox.
-    pub fn name(&self) -> & str {
+    pub fn name(&self) -> &str {
         &self.name
     }
 
@@ -39,7 +39,10 @@ impl RbxClassDescriptor {
     /// present here. If you want a complete view of all property descriptors
     /// for a class, you'll need to traverse up the inheritance chain and check
     /// _their_ property descriptor tables too.
-    pub fn get_property_descriptor<'a>(&'a self, property_name: &str) -> Option<&'a RbxPropertyDescriptor> {
+    pub fn get_property_descriptor<'a>(
+        &'a self,
+        property_name: &str,
+    ) -> Option<&'a RbxPropertyDescriptor> {
         self.properties.get(property_name)
     }
 
@@ -47,8 +50,12 @@ impl RbxClassDescriptor {
     /// this class.
     ///
     /// See the note on `get_property_descriptor` for caveats from inheritance.
-    pub fn iter_property_descriptors(&self) -> impl Iterator<Item = (&str, &RbxPropertyDescriptor)> {
-        self.properties.iter().map(|(key, value)| (key.as_ref(), value))
+    pub fn iter_property_descriptors(
+        &self,
+    ) -> impl Iterator<Item = (&str, &RbxPropertyDescriptor)> {
+        self.properties
+            .iter()
+            .map(|(key, value)| (key.as_ref(), value))
     }
 
     /// Returns the default value of the property with the given name, if one
@@ -67,7 +74,9 @@ impl RbxClassDescriptor {
     ///
     /// See notes on `get_default_value` for inheritance interactions.
     pub fn iter_default_values(&self) -> impl Iterator<Item = (&str, &RbxValue)> {
-        self.default_properties.iter().map(|(key, value)| (key.as_ref(), value))
+        self.default_properties
+            .iter()
+            .map(|(key, value)| (key.as_ref(), value))
     }
 }
 
