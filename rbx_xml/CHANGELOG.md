@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Breaking: changed API dramatically to make deserializing instances easier
+* Breaking: changed serialization to be reflection-driven, which improves content compatibility
 * Fixed serializing empty `Content` properties ([#146](https://github.com/LPGhatguy/rojo/issues/146))
 
 ## 0.6.0 (2019-03-27)
