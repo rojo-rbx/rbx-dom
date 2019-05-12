@@ -194,6 +194,7 @@ impl RbxValue {
 
 /// Contains the result of trying to convert an `RbxValue` to another type using
 /// `RbxValue::try_convert_ref`.
+#[derive(Debug, Clone)]
 pub enum RbxValueConversion {
     /// The value was converted successfully, the value is attached.
     Converted(RbxValue),
