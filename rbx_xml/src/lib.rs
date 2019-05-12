@@ -10,8 +10,11 @@
 //! file, or `from_str` if you already have a string. These methods also have
 //! variants that pass in default configuration.
 //!
-//! ```rust,no_run
-//! # // FIXME: This test overflows its stack only as a doctest. :/
+//! ```rust
+//! # // FIXME: This test overflows its stack only as a doctest on Windows. :/
+//! # // see: https://github.com/rust-lang/rust/issues/60753
+//!
+//! # std::thread::spawn(|| {
 //!
 //! use rbx_dom_weak::RbxValue;
 //!
@@ -38,6 +41,8 @@
 //!     number_value.properties.get("Value"),
 //!     Some(&RbxValue::Float64 { value: 12345.0 }),
 //! );
+//!
+//! # });
 //! ```
 //!
 //! [rbx_dom_weak]: https://crates.io/crates/rbx_dom_weak
