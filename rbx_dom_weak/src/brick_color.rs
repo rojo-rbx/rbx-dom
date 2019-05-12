@@ -19,7 +19,7 @@ macro_rules! make_brick_color {
 				}
 			}
 
-			pub fn as_rgb(self) -> [u8; 3] {
+			pub(crate) fn as_rgb(self) -> [u8; 3] {
 				match self {
 					$(
 						BrickColor::$enum => [$color3_r, $color3_g, $color3_b],
@@ -27,7 +27,7 @@ macro_rules! make_brick_color {
 				}
 			}
 
-			pub fn as_rgb_f32(self) -> [f32; 3] {
+			pub(crate) fn as_rgb_f32(self) -> [f32; 3] {
 				match self {
 					$(
 						BrickColor::$enum => [
