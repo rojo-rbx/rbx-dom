@@ -5,6 +5,7 @@
 * Rewrote reflection database to have a much more conservative public API
 * Introduced the concept of canonical properties and serialization-only properties, which makes handling serialized files much easier.
 * Changed the `ValueResolveError` type to be a struct, which makes it more opaque and less prone to breakage.
+* Renamed version constants to have an `RBX_` prefix.
 
 ## 2.0.377 (2019-03-20)
 * Updated reflection database to client 0.377.1.289039

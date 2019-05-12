@@ -42,10 +42,10 @@ pub fn emit_enums<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io
 
 pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
     writeln!(output, "// This file is automatically @generated.")?;
-    writeln!(output, "pub const VERSION_MAJOR: u32 = {};", database.studio_version[0])?;
-    writeln!(output, "pub const VERSION_MINOR: u32 = {};", database.studio_version[1])?;
-    writeln!(output, "pub const VERSION_PATCH: u32 = {};", database.studio_version[2])?;
-    writeln!(output, "pub const VERSION_BUILD: u32 = {};", database.studio_version[3])?;
+    writeln!(output, "pub const RBX_VERSION_MAJOR: u32 = {};", database.studio_version[0])?;
+    writeln!(output, "pub const RBX_VERSION_MINOR: u32 = {};", database.studio_version[1])?;
+    writeln!(output, "pub const RBX_VERSION_PATCH: u32 = {};", database.studio_version[2])?;
+    writeln!(output, "pub const RBX_VERSION_BUILD: u32 = {};", database.studio_version[3])?;
 
     Ok(())
 }
