@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+* Added conversions from `BrickColor` to `Color3` and `Color3uint8` ([#46](https://github.com/LPGhatguy/rbx-dom/pull/46))
 
 ## 1.6.0 (2019-05-12)
 * Added `RbxTree::move_instance` API to move instances from one tree to another.
