@@ -1,6 +1,8 @@
 # rbx_reflection Changelog
 
-## [Unreleased]
+## Unreleased Changes
+
+## 3.1.384 (2019-05-12)
 * Changed getters on descriptor objects to be now marked `#[inline]`
 * Added `RbxClassDescriptor::is_service`
 
