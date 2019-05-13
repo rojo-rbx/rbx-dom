@@ -4,8 +4,9 @@ use rbx_dom_weak::{RbxValue, ColorSequence, ColorSequenceKeypoint};
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{DecodeError, DecodeErrorKind, EncodeError},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct ColorSequenceType;
@@ -36,7 +37,7 @@ impl XmlType<ColorSequence> for ColorSequenceType {
             writer.write(XmlWriteEvent::characters(" "))?;
         }
 
-        writer.write(XmlWriteEvent::end_element())?;
+        writer.end_element()?;
 
         Ok(())
     }
@@ -47,38 +48,36 @@ impl XmlType<ColorSequence> for ColorSequenceType {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let contents = reader.read_characters()?;
-        let mut pieces = contents.split(" ").filter(|slice| !slice.is_empty());
+        let mut pieces = contents
+            .split(" ")
+            .filter(|slice| !slice.is_empty())
+            .map(|piece| {
+                piece.parse::<f32>()
+                    .map_err(|e| reader.error(e))
+            });
         let mut keypoints = Vec::new();
 
+        let wrong_length = || reader.error(DecodeErrorKind::InvalidContent("incorrect number of values"));
+
         loop {
-            let time: f32 = match pieces.next() {
-                Some(value) => value.parse()?,
+            let time = match pieces.next() {
+                Some(value) => value?,
                 None => break,
             };
 
-            let r: f32 = pieces.next()
-                .ok_or(DecodeError::Message("Malformed ColorSequence: wrong number of values"))?
-                .parse()?;
-
-            let g: f32 = pieces.next()
-                .ok_or(DecodeError::Message("Malformed ColorSequence: wrong number of values"))?
-                .parse()?;
-
-            let b: f32 = pieces.next()
-                .ok_or(DecodeError::Message("Malformed ColorSequence: wrong number of values"))?
-                .parse()?;
+            let r = pieces.next().ok_or_else(wrong_length)??;
+            let g = pieces.next().ok_or_else(wrong_length)??;
+            let b = pieces.next().ok_or_else(wrong_length)??;
 
             // This value is always zero, isn't developer-exposed, and doesn't
             // have a corresponding field in rbx_dom_weak's type.
-            let _envelope: f32 = pieces.next()
-                .ok_or(DecodeError::Message("Malformed ColorSequence: wrong number of values"))?
-                .parse()?;
+            let _envelope = pieces.next().ok_or_else(wrong_length)??;
 
             keypoints.push(ColorSequenceKeypoint { time, color: [r, g, b] });
         }
 
         if keypoints.len() < 2 {
-            return Err(DecodeError::Message("Malformed ColorSequence: must have two or more keypoints"));
+            return Err(reader.error(DecodeErrorKind::InvalidContent("expected two or more keypoints")));
         }
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;

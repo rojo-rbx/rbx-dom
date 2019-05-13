@@ -14,8 +14,11 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{RbxId, RbxValue};
 
 use crate::{
-    deserializer::{DecodeError, XmlEventReader, ParseState},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter, EmitState},
+    error::{EncodeError, DecodeError},
+    deserializer_core::XmlEventReader,
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    deserializer::ParseState,
+    serializer::EmitState,
 };
 
 pub const XML_TAG_NAME: &'static str = "Ref";

@@ -4,8 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{EncodeError, DecodeError},
+    deserializer_core::{XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 macro_rules! float_type {
@@ -21,6 +22,7 @@ macro_rules! float_type {
                 value: &$rust_type,
             ) -> Result<(), EncodeError> {
                 writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
+
                 let value = *value;
                 if value == 1.0 / 0.0 {
                     writer.write_characters("INF")?;
@@ -31,6 +33,7 @@ macro_rules! float_type {
                 } else {
                     writer.write_characters(value)?;
                 }
+
                 writer.write(XmlWriteEvent::end_element())?;
 
                 Ok(())
@@ -45,7 +48,8 @@ macro_rules! float_type {
                     "INF" => 1.0 / 0.0,
                     "-INF" => -1.0 / 0.0,
                     "NAN" => 0.0 / 0.0,
-                    number => number.parse()?,
+                    number => number.parse()
+                        .map_err(|e| reader.error(e))?,
                 };
 
                 Ok(RbxValue::$rbx_type {
@@ -79,7 +83,8 @@ macro_rules! int_type {
             fn read_xml<R: Read>(
                 reader: &mut XmlEventReader<R>,
             ) -> Result<RbxValue, DecodeError> {
-                let value: $rust_type = reader.read_tag_contents(Self::XML_TAG_NAME)?.parse()?;
+                let value: $rust_type = reader.read_tag_contents(Self::XML_TAG_NAME)?
+                    .parse().map_err(|e| reader.error(e))?;
 
                 Ok(RbxValue::$rbx_type {
                     value,
@@ -100,7 +105,7 @@ mod test {
 
     use crate::{
         core::XmlType,
-        deserializer::XmlEventReader,
+        deserializer_core::XmlEventReader,
         test_util,
     };
 

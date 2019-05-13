@@ -1,6 +1,14 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.7.0 (2019-05-12)
+* Breaking: changed API dramatically to make deserializing instances easier
+	* Renamed deserialization APIs to be named like `from_reader`
+	* Renamed serialization APIs to be named like `to_writer`
+	* Added options to APIs
+	* Made error types opaque
+* Breaking: changed serialization to be reflection-driven, which improves content compatibility
 * Fixed serializing empty `Content` properties ([#146](https://github.com/LPGhatguy/rojo/issues/146))
 
 ## 0.6.0 (2019-03-27)

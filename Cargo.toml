@@ -6,3 +6,7 @@ members = [
 	"rbx_reflection",
 	"rbx_xml",
 ]
+
+[profile.dev]
+# Without this set, using rbx_reflection will cause a stack overflow on Windows.
+opt-level = 1

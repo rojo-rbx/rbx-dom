@@ -4,8 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlReadEvent, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{EncodeError, DecodeError, DecodeErrorKind},
+    deserializer_core::XmlEventReader,
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct BoolType;
@@ -27,7 +28,7 @@ impl XmlType<bool> for BoolType {
         };
 
         writer.write(XmlWriteEvent::characters(value_as_str))?;
-        writer.write(XmlWriteEvent::end_element())?;
+        writer.end_element()?;
 
         Ok(())
     }
@@ -37,13 +38,13 @@ impl XmlType<bool> for BoolType {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let value = read_event!(reader, XmlReadEvent::Characters(content) => {
-            match content.as_str() {
-                "true" => true,
-                "false" => false,
-                _ => return Err(DecodeError::Message("invalid boolean value, expected true or false")),
-            }
-        });
+        let content = reader.read_characters()?;
+
+        let value = match content.as_str() {
+            "true" => true,
+            "false" => false,
+            _ => return Err(reader.error(DecodeErrorKind::InvalidContent("expected true or false")))
+        };
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 

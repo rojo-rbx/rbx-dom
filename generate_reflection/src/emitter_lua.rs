@@ -55,7 +55,6 @@ fn emit_class<W: Write>(output: &mut W, class: &RbxClassDescriptor) -> io::Resul
         writeln!(output, "\t\t\t{} = {{", property.name)?;
 
         writeln!(output, "\t\t\t\ttype = {},", Lua(&property.value_type))?;
-        writeln!(output, "\t\t\t\ttags = {},", Lua(&property.tags))?;
         writeln!(output, "\t\t\t\tisCanonical = {},", Lua(property.is_canonical))?;
         writeln!(output, "\t\t\t\tcanonicalName = {},", Lua(&property.canonical_name))?;
         writeln!(output, "\t\t\t\tserializedName = {},", Lua(&property.serialized_name))?;

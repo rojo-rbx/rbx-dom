@@ -5,7 +5,7 @@ use std::{borrow::Cow, collections::HashMap};
 
 use bitflags::bitflags;
 use rbx_dom_weak::{RbxValue, RbxValueType};
-use serde_derive::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 /// Describes a class of Roblox instance. Classes relate to eachother via
 /// inheritance and have properties attached to them.
@@ -22,12 +22,14 @@ pub struct RbxClassDescriptor {
 
 impl RbxClassDescriptor {
     /// The name of the class as defined by Roblox.
-    pub fn name(&self) -> & str {
+    #[inline]
+    pub fn name(&self) -> &str {
         &self.name
     }
 
     /// The name of the class that this class inherits from, if it has one. The
     /// only instance without a superclass is `Instance`.
+    #[inline]
     pub fn superclass(&self) -> Option<&str> {
         self.superclass.as_ref().map(|v| v.as_ref())
     }
@@ -39,7 +41,11 @@ impl RbxClassDescriptor {
     /// present here. If you want a complete view of all property descriptors
     /// for a class, you'll need to traverse up the inheritance chain and check
     /// _their_ property descriptor tables too.
-    pub fn get_property_descriptor<'a>(&'a self, property_name: &str) -> Option<&'a RbxPropertyDescriptor> {
+    #[inline]
+    pub fn get_property_descriptor<'a>(
+        &'a self,
+        property_name: &str,
+    ) -> Option<&'a RbxPropertyDescriptor> {
         self.properties.get(property_name)
     }
 
@@ -47,8 +53,13 @@ impl RbxClassDescriptor {
     /// this class.
     ///
     /// See the note on `get_property_descriptor` for caveats from inheritance.
-    pub fn iter_property_descriptors(&self) -> impl Iterator<Item = (&str, &RbxPropertyDescriptor)> {
-        self.properties.iter().map(|(key, value)| (key.as_ref(), value))
+    #[inline]
+    pub fn iter_property_descriptors(
+        &self,
+    ) -> impl Iterator<Item = (&str, &RbxPropertyDescriptor)> {
+        self.properties
+            .iter()
+            .map(|(key, value)| (key.as_ref(), value))
     }
 
     /// Returns the default value of the property with the given name, if one
@@ -59,6 +70,7 @@ impl RbxClassDescriptor {
     ///
     /// Not all properties will have default values due to the limitations of
     /// how rbx_reflection measures defaults.
+    #[inline]
     pub fn get_default_value<'a>(&'a self, property_name: &str) -> Option<&'a RbxValue> {
         self.default_properties.get(property_name)
     }
@@ -66,8 +78,20 @@ impl RbxClassDescriptor {
     /// Returns an iterator over all default values on the class.
     ///
     /// See notes on `get_default_value` for inheritance interactions.
+    #[inline]
     pub fn iter_default_values(&self) -> impl Iterator<Item = (&str, &RbxValue)> {
-        self.default_properties.iter().map(|(key, value)| (key.as_ref(), value))
+        self.default_properties
+            .iter()
+            .map(|(key, value)| (key.as_ref(), value))
+    }
+
+    /// Whether this instance is a service or not.
+    ///
+    /// Services can be loaded from `ServiceProvider` instances like `DataModel`
+    /// using `GetService` from Lua.
+    #[inline]
+    pub fn is_service(&self) -> bool {
+        self.tags.contains(RbxInstanceTags::SERVICE)
     }
 }
 
@@ -103,6 +127,7 @@ pub struct RbxPropertyDescriptor {
 
 impl RbxPropertyDescriptor {
     /// The name of the property, as defined by Roblox.
+    #[inline]
     pub fn name(&self) -> &str {
         &self.name
     }
@@ -112,17 +137,20 @@ impl RbxPropertyDescriptor {
     /// `RbxPropertyTypeDescriptor` is more detailed than `RbxValueType`: it
     /// contains extra information for enums and can also hold types that aren't
     /// yet implemented by rbx_dom_weak.
+    #[inline]
     pub fn property_type(&self) -> &RbxPropertyTypeDescriptor {
         &self.value_type
     }
 
     /// Tells what kind of access there is to the property from Lua inside
     /// Roblox.
+    #[inline]
     pub fn scriptability(&self) -> RbxPropertyScriptability {
         self.scriptability
     }
 
     /// Whether the property is considered _canonical_ by rbx_reflection.
+    #[inline]
     pub fn is_canonical(&self) -> bool {
         self.is_canonical
     }
@@ -130,18 +158,21 @@ impl RbxPropertyDescriptor {
     /// Whether this property will serialize. Non-canonical properties are never
     /// marked as serializable. Instead, their canonical variant (given by
     /// `canonical_name()`) will be marked as serializable.
+    #[inline]
     pub fn serializes(&self) -> bool {
         self.serializes
     }
 
     /// If this property is not canonical, gives the name of the canonical
     /// variant.
+    #[inline]
     pub fn canonical_name(&self) -> Option<&str> {
         self.canonical_name.as_ref().map(|v| v.as_ref())
     }
 
     /// If this property is serializable and its serialized name is different
     /// than the name given by `name()`, it will be given by `serialized_name`.
+    #[inline]
     pub fn serialized_name(&self) -> Option<&str> {
         self.serialized_name.as_ref().map(|v| v.as_ref())
     }

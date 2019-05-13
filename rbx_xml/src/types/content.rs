@@ -4,12 +4,16 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    deserializer::{DecodeError, XmlReadEvent, XmlEventReader},
-    serializer::{EncodeError, XmlWriteEvent, XmlEventWriter},
+    error::{DecodeError, DecodeErrorKind, EncodeError},
+    deserializer_core::{XmlReadEvent, XmlEventReader},
+    serializer_core::{XmlWriteEvent, XmlEventWriter},
 };
 
 pub struct ContentType;
 
+// A Content type is serialized as either:
+// <null></null>, which indicates an empty content value
+// <url>something</url>, where 'something' is a URL to use for content.
 impl XmlType<str> for ContentType {
     const XML_TAG_NAME: &'static str = "Content";
 
@@ -40,22 +44,28 @@ impl XmlType<str> for ContentType {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let value = read_event!(reader, XmlReadEvent::StartElement { name, .. } => {
-            match name.local_name.as_str() {
-                "null" => {
-                    reader.expect_end_with_name("null")?;
+        let value = match reader.expect_next()? {
+            XmlReadEvent::StartElement { name, attributes, namespace } => {
+                match name.local_name.as_str() {
+                    "null" => {
+                        reader.expect_end_with_name("null")?;
 
-                    String::new()
-                },
-                "url" => {
-                    let value = read_event!(reader, XmlReadEvent::Characters(value) => value);
-                    reader.expect_end_with_name("url")?;
+                        String::new()
+                    }
+                    "url" => {
+                        let value = reader.read_characters()?;
+                        reader.expect_end_with_name("url")?;
 
-                    value.to_owned()
-                },
-                _ => return Err(DecodeError::Message("Unexpected tag inside Content")),
+                        value.to_owned()
+                    }
+                    _ => {
+                        let event = XmlReadEvent::StartElement { name, attributes, namespace };
+                        return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                    }
+                }
             }
-        });
+            unexpected => return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(unexpected)))
+        };
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 

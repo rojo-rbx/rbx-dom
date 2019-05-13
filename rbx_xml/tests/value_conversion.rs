@@ -1,25 +1,13 @@
-use rbx_dom_weak::{RbxInstanceProperties, RbxValue, RbxTree};
+use rbx_dom_weak::RbxValue;
 
 static TEST_FILE: &[u8] = include_bytes!("../test-files/number-value-int32.rbxmx");
-
-fn new_test_tree() -> RbxTree {
-    let root = RbxInstanceProperties {
-        name: "Folder".to_string(),
-        class_name: "Folder".to_string(),
-        properties: Default::default(),
-    };
-
-    RbxTree::new(root)
-}
 
 #[test]
 fn f32_to_f64() {
     let _ = env_logger::try_init();
 
-    let mut tree = new_test_tree();
+    let tree = rbx_xml::from_reader_default(TEST_FILE).unwrap();
     let root_id = tree.get_root_id();
-
-    rbx_xml::decode(&mut tree, root_id, TEST_FILE).unwrap();
 
     let root_instance = tree.get_instance(root_id).unwrap();
     let value_id = root_instance.get_children_ids()[0];

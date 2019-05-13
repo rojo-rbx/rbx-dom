@@ -5,14 +5,12 @@ license = "MIT"
 documentation = "https://docs.rs/rbx_reflection"
 homepage = "https://github.com/LPGhatguy/rbx-dom"
 repository = "https://github.com/LPGhatguy/rbx-dom.git"
-version = "3.0.381"
+version = "3.1.384"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
 bitflags = "1.0.4"
 lazy_static = "1.2.0"
-failure = "0.1.5"
 rbx_dom_weak = { version = "1.0.0", path = "../rbx_dom_weak" }
-serde = "1"
-serde_derive = "1"
+serde = { version = "1.0", features = ["derive"] }
