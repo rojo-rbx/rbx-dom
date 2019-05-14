@@ -10,6 +10,7 @@ authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
+base64 = "0.10.1"
 serde = "1.0"
 serde_derive = "1.0"
 uuid = { version = "0.7", features = ["v4", "serde"] }

@@ -46,7 +46,10 @@ pub enum RbxValueType {
 #[serde(tag = "Type")]
 pub enum RbxValue {
     #[serde(rename_all = "PascalCase")]
-    BinaryString { value: Vec<u8> },
+    BinaryString {
+        #[serde(with = "base64_encoding")]
+        value: Vec<u8>,
+    },
 
     #[serde(rename_all = "PascalCase")]
     BrickColor { value: BrickColor },
@@ -260,4 +263,31 @@ pub struct PhysicalProperties {
     pub elasticity: f32,
     pub friction_weight: f32,
     pub elasticity_weight: f32,
+}
+
+/// Methods to help encode BinaryString values to base64 when used with
+/// human-readable formats like JSON.
+mod base64_encoding {
+    use serde::{Serializer, de, Deserialize, Deserializer};
+
+    pub fn serialize<S>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error>
+        where S: Serializer
+    {
+        if serializer.is_human_readable() {
+            serializer.collect_str(&base64::display::Base64Display::with_config(bytes, base64::STANDARD))
+        } else {
+            serializer.serialize_bytes(bytes)
+        }
+    }
+
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
+        where D: Deserializer<'de>
+    {
+        if deserializer.is_human_readable() {
+            let s = <&str>::deserialize(deserializer)?;
+            base64::decode(s).map_err(de::Error::custom)
+        } else {
+            <Vec<u8>>::deserialize(deserializer)
+        }
+    }
 }
