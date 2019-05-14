@@ -1,28 +1,23 @@
-local primitiveTypes = {
-	BinaryString = true,
-	Bool = true,
-	Content = true,
-	Enum = true,
-	Float32 = true,
-	Float64 = true,
-	Int32 = true,
-	Int64 = true,
-	String = true,
-}
-
 local function identity(...)
 	return ...
 end
 
+local function unpackDecoder(f)
+	return function(value)
+		return f(unpack(value))
+	end
+end
+
 local encoders = {
+	BinaryString = identity,
 	Bool = identity,
+	Content = identity,
 	Float32 = identity,
 	Float64 = identity,
 	Int32 = identity,
 	Int64 = identity,
 	String = identity,
-	BinaryString = identity,
-	Content = identity,
+
 	CFrame = function(value)
 		return {value:GetComponents()}
 	end,
@@ -55,33 +50,53 @@ local encoders = {
 	end,
 }
 
-local directDecoders = {
-	CFrame = CFrame.new,
-	Color3 = Color3.new,
-	Color3uint8 = Color3.fromRGB,
-	NumberRange = NumberRange.new,
-	Rect = Rect.new,
-	UDim = UDim.new,
-	UDim2 = UDim2.new,
-	Vector2 = Vector2.new,
-	Vector2int16 = Vector2int16.new,
-	Vector3 = Vector3.new,
-	Vector3int16 = Vector3int16.new,
+local decoders = {
+	BinaryString = identity,
+	Bool = identity,
+	Content = identity,
+	Enum = identity,
+	Float32 = identity,
+	Float64 = identity,
+	Int32 = identity,
+	Int64 = identity,
+	String = identity,
+
+	CFrame = unpackDecoder(CFrame.new),
+	Color3 = unpackDecoder(Color3.new),
+	Color3uint8 = unpackDecoder(Color3.fromRGB),
+	NumberRange = unpackDecoder(NumberRange.new),
+	Rect = unpackDecoder(Rect.new),
+	UDim = unpackDecoder(UDim.new),
+	UDim2 = unpackDecoder(UDim2.new),
+	Vector2 = unpackDecoder(Vector2.new),
+	Vector2int16 = unpackDecoder(Vector2int16.new),
+	Vector3 = unpackDecoder(Vector3.new),
+	Vector3int16 = unpackDecoder(Vector3int16.new),
+
+	PhysicalProperties = function(properties)
+		if properties == nil then
+			return nil
+		else
+			return PhysicalProperties.new(
+				properties.density,
+				properties.friction,
+				properties.elasticity,
+				properties.frictionWeight,
+				properties.elasticityWeight
+			)
+		end
+	end,
 }
 
 local EncodedValue = {}
 
 function EncodedValue.decode(encodedValue)
-	if primitiveTypes[encodedValue.Type] then
-		return true, encodedValue.Value
+	local decoder = decoders[encodedValue.Type]
+	if decoder ~= nil then
+		return true, decoder(encodedValue.Value)
 	end
 
-	local constructor = directDecoders[encodedValue.Type]
-	if constructor ~= nil then
-		return true, constructor(unpack(encodedValue.Value))
-	end
-
-	return false
+	return false, "Couldn't decode value " .. tostring(encodedValue.Type)
 end
 
 function EncodedValue.encode(rbxValue, reflectionType)
@@ -103,7 +118,7 @@ function EncodedValue.encode(rbxValue, reflectionType)
 		end
 	end
 
-	return false
+	return false, "Couldn't encode value"
 end
 
 return EncodedValue
