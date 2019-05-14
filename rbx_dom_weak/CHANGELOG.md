@@ -1,8 +1,10 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
-* Added conversions from `BrickColor` to `Color3` and `Color3uint8` ([#46](https://github.com/LPGhatguy/rbx-dom/pull/46))
+* Added conversions from `BrickColor` to `Color3` and `Color3uint8`. ([#46](https://github.com/LPGhatguy/rbx-dom/pull/46))
+* Added conversions from `Color3` to `Color3uint8` and vice-versa.
 * Changed the human readable serialization of `BinaryString` values to be base64-encoded. This makes JSON-encoded values much smaller. This changes the details of the unspecified serialization of rbx_dom_weak.
+* `RbxValueConversion` now derives `PartialEq`.
 
 ## 1.6.0 (2019-05-12)
 * Added `RbxTree::move_instance` API to move instances from one tree to another.

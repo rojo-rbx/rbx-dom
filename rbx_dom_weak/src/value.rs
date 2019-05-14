@@ -190,6 +190,24 @@ impl RbxValue {
 
             (RbxValue::String { value }, RbxValueType::Content) => Converted(RbxValue::Content { value: value.clone() }),
 
+            (RbxValue::Color3 { value }, RbxValueType::Color3uint8) => {
+                Converted(RbxValue::Color3uint8 {
+                    value: [
+                        (value[0] * 255.0) as u8,
+                        (value[1] * 255.0) as u8,
+                        (value[2] * 255.0) as u8,
+                    ],
+                })
+            }
+            (RbxValue::Color3uint8 { value }, RbxValueType::Color3) => {
+                Converted(RbxValue::Color3 {
+                    value: [
+                        value[0] as f32 / 255.0,
+                        value[1] as f32 / 255.0,
+                        value[2] as f32 / 255.0,
+                    ],
+                })
+            }
             (RbxValue::BrickColor { value }, RbxValueType::Color3) => Converted(RbxValue::Color3 { value: value.as_rgb_f32() }),
             (RbxValue::BrickColor { value }, RbxValueType::Color3uint8) => Converted(RbxValue::Color3uint8 { value: value.as_rgb() }),
 
@@ -200,7 +218,7 @@ impl RbxValue {
 
 /// Contains the result of trying to convert an `RbxValue` to another type using
 /// `RbxValue::try_convert_ref`.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum RbxValueConversion {
     /// The value was converted successfully, the value is attached.
     Converted(RbxValue),

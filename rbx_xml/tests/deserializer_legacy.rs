@@ -228,7 +228,23 @@ fn with_color3uint8() {
 
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "Color3Value");
-    assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3uint8 { value: [ 255, 128, 64 ] }));
+
+    // With reflection-based serialization and property value conversion, the
+    // Color3uint8 value will be converted to Color3 on deserialization!
+
+    let value = descendant.properties.get("Value")
+        .expect("Missing 'Value' property");
+
+    match value {
+        RbxValue::Color3 { value } => {
+            let epsilon = 1.0 / 255.0;
+
+            floats_approx_equal(value[0], 1.0, epsilon);
+            floats_approx_equal(value[1], 0.5, epsilon);
+            floats_approx_equal(value[2], 0.25, epsilon);
+        }
+        _ => panic!("Expected Color3, got {:?}", value)
+    }
 }
 
 #[test]
