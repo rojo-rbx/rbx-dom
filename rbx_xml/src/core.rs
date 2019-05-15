@@ -27,6 +27,24 @@ pub fn find_canonical_property_descriptor(
     class_name: &str,
     property_name: &str,
 ) -> Option<&'static RbxPropertyDescriptor> {
+    find_property_descriptors(class_name, property_name)
+        .map(|(canonical, _serialized)| canonical)
+}
+
+pub fn find_serialized_property_descriptor(
+    class_name: &str,
+    property_name: &str,
+) -> Option<&'static RbxPropertyDescriptor> {
+    find_property_descriptors(class_name, property_name)
+        .map(|(_canonical, serialized)| serialized)
+}
+
+/// Find both the canonical and serialized property descriptors for a given
+/// class and property name pair. These might be the same descriptor!
+fn find_property_descriptors(
+    class_name: &str,
+    property_name: &str,
+) -> Option<(&'static RbxPropertyDescriptor, &'static RbxPropertyDescriptor)> {
     let class_descriptor = rbx_reflection::get_class_descriptor(class_name)?;
 
     let mut current_class_descriptor = class_descriptor;
@@ -44,14 +62,25 @@ pub fn find_canonical_property_descriptor(
                 // The property name in the XML was the canonical name
                 // and also the serialized name, hooray!
 
-                return Some(property_descriptor);
+                let serialized_descriptor = property_descriptor.serialized_name()
+                    .map(|name| current_class_descriptor.get_property_descriptor(name).unwrap())
+                    .unwrap_or(property_descriptor);
+
+                return Some((property_descriptor, serialized_descriptor));
             }
 
             if let Some(canonical_name) = property_descriptor.canonical_name() {
                 // This property has a canonical form that we'll map
                 // from the XML name.
 
-                return current_class_descriptor.get_property_descriptor(canonical_name);
+                let canonical_descriptor = current_class_descriptor.get_property_descriptor(canonical_name)
+                    .unwrap();
+
+                let serialized_descriptor = canonical_descriptor.serialized_name()
+                    .map(|name| current_class_descriptor.get_property_descriptor(name).unwrap())
+                    .unwrap_or(canonical_descriptor);
+
+                return Some((canonical_descriptor, serialized_descriptor));
             } else {
                 // This property doesn't have a canonical form, we we'll
                 // skip serializing it by declaring there isn't a
