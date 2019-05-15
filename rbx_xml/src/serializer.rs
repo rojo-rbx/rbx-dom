@@ -8,7 +8,7 @@ use rbx_reflection::RbxPropertyTypeDescriptor;
 use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId, RbxValueConversion};
 
 use crate::{
-    core::find_canonical_property_descriptor,
+    core::find_serialized_property_descriptor,
     types::{write_value_xml, write_ref},
     error::EncodeError as NewEncodeError,
 };
@@ -128,11 +128,8 @@ fn serialize_instance<W: Write>(
     })?;
 
     for (property_name, value) in &instance.properties {
-        if let Some(descriptor) = find_canonical_property_descriptor(&instance.class_name, property_name) {
-            let serialized_name = descriptor.serialized_name()
-                .unwrap_or(&property_name);
-
-            let value_type = match descriptor.property_type() {
+        if let Some(serialized_descriptor) = find_serialized_property_descriptor(&instance.class_name, property_name) {
+            let value_type = match serialized_descriptor.property_type() {
                 RbxPropertyTypeDescriptor::Data(value_type) => *value_type,
                 RbxPropertyTypeDescriptor::Enum(_enum_name) => RbxValueType::Enum,
                 RbxPropertyTypeDescriptor::UnimplementedType(_) => value.get_type(),
@@ -143,7 +140,7 @@ fn serialize_instance<W: Write>(
                 RbxValueConversion::Unnecessary | RbxValueConversion::Failed => Cow::Borrowed(value),
             };
 
-            serialize_value(writer, state, &serialized_name, &converted_value)?;
+            serialize_value(writer, state, &serialized_descriptor.name(), &converted_value)?;
         }
     }
 
