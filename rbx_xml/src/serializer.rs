@@ -10,7 +10,7 @@ use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId, RbxValueConversion};
 use crate::{
     core::find_serialized_property_descriptor,
     types::{write_value_xml, write_ref},
-    error::EncodeError as NewEncodeError,
+    error::{EncodeError as NewEncodeError, EncodeErrorKind},
 };
 
 use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
@@ -137,7 +137,13 @@ fn serialize_instance<W: Write>(
 
             let converted_value = match value.try_convert_ref(value_type) {
                 RbxValueConversion::Converted(converted) => Cow::Owned(converted),
-                RbxValueConversion::Unnecessary | RbxValueConversion::Failed => Cow::Borrowed(value),
+                RbxValueConversion::Unnecessary => Cow::Borrowed(value),
+                RbxValueConversion::Failed => return Err(writer.error(EncodeErrorKind::UnsupportedPropertyConversion {
+                    class_name: instance.class_name.clone(),
+                    property_name: property_name.to_string(),
+                    expected_type: value_type,
+                    actual_type: value.get_type(),
+                })),
             };
 
             serialize_value(writer, state, &serialized_descriptor.name(), &converted_value)?;

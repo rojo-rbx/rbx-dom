@@ -75,6 +75,12 @@ pub(crate) enum DecodeErrorKind {
     UnknownPropertyType(String),
     InvalidContent(&'static str),
     NameMustBeString(RbxValueType),
+    UnsupportedPropertyConversion {
+        class_name: String,
+        property_name: String,
+        expected_type: RbxValueType,
+        actual_type: RbxValueType,
+    },
 }
 
 impl fmt::Display for DecodeErrorKind {
@@ -94,6 +100,9 @@ impl fmt::Display for DecodeErrorKind {
             UnknownPropertyType(prop_name) => write!(output, "Unknown property type '{}'", prop_name),
             InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
             NameMustBeString(ty) => write!(output, "The 'Name' property must be of type String, but it was {:?}", ty),
+            UnsupportedPropertyConversion { class_name, property_name, expected_type, actual_type } =>
+                write!(output, "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
+                    class_name, property_name, expected_type, actual_type)
         }
     }
 }
@@ -114,7 +123,8 @@ impl std::error::Error for DecodeErrorKind {
             | MissingAttribute(_)
             | UnknownPropertyType(_)
             | InvalidContent(_)
-            | NameMustBeString(_) => None,
+            | NameMustBeString(_)
+            | UnsupportedPropertyConversion { .. } => None,
         }
     }
 }
@@ -174,6 +184,12 @@ pub(crate) enum EncodeErrorKind {
     Xml(xml::writer::Error),
 
     UnsupportedPropertyType(RbxValueType),
+    UnsupportedPropertyConversion {
+        class_name: String,
+        property_name: String,
+        expected_type: RbxValueType,
+        actual_type: RbxValueType,
+    },
 }
 
 impl fmt::Display for EncodeErrorKind {
@@ -185,6 +201,9 @@ impl fmt::Display for EncodeErrorKind {
             Xml(err) => write!(output, "{}", err),
 
             UnsupportedPropertyType(ty) => write!(output, "Properties of type {:?} cannot be encoded yet", ty),
+            UnsupportedPropertyConversion { class_name, property_name, expected_type, actual_type } =>
+                write!(output, "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
+                    class_name, property_name, expected_type, actual_type)
         }
     }
 }
@@ -197,7 +216,7 @@ impl std::error::Error for EncodeErrorKind {
             Io(err) => Some(err),
             Xml(err) => Some(err),
 
-            UnsupportedPropertyType(_) => None,
+            UnsupportedPropertyType(_) | UnsupportedPropertyConversion { .. } => None,
         }
     }
 }

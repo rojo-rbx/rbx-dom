@@ -374,7 +374,13 @@ fn deserialize_properties<R: Read>(
 
                     let value = match xml_value.try_convert_ref(value_type) {
                         RbxValueConversion::Converted(value) => value,
-                        RbxValueConversion::Unnecessary | RbxValueConversion::Failed => xml_value,
+                        RbxValueConversion::Unnecessary => xml_value,
+                        RbxValueConversion::Failed => return Err(reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
+                            class_name: class_name.clone(),
+                            property_name: descriptor.name().to_string(),
+                            expected_type: value_type,
+                            actual_type: xml_value.get_type(),
+                        })),
                     };
 
                     value
