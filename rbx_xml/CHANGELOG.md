@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.8.0 (2019-05-14)
 * Fixed type conversion when serializing properties whose serialized type differs from its canonical type ([#56](https://github.com/LPGhatguy/rbx-dom/pull/56))
 * Changed type conversion failures when serializing to elevate to serialization errors ([#58](https://github.com/LPGhatguy/rbx-dom/pull/58))
 
