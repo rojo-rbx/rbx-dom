@@ -15,9 +15,9 @@ use crate::{
 
 use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
 
-pub fn encode_internal<W: Write>(output: W, tree: &RbxTree, ids: &[RbxId], _options: EncodeOptions) -> Result<(), NewEncodeError> {
+pub fn encode_internal<W: Write>(output: W, tree: &RbxTree, ids: &[RbxId], options: EncodeOptions) -> Result<(), NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
-    let mut state = EmitState::new();
+    let mut state = EmitState::new(options);
 
     writer.write(XmlWriteEvent::start_element("roblox").attr("version", "4"))?;
 
@@ -30,35 +30,65 @@ pub fn encode_internal<W: Write>(output: W, tree: &RbxTree, ids: &[RbxId], _opti
     Ok(())
 }
 
+/// Describes the strategy that rbx_xml should use when serializing properties.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum EncodePropertyBehavior {
+    /// Ignores properties that aren't known by rbx_xml.
+    ///
+    /// This is the default.
+    IgnoreUnknown,
+
+    /// Write unrecognized properties.
+    ///
+    /// With this option set, properties that are newer than rbx_xml's
+    /// reflection database will show up. It may be problematic to depend on
+    /// these properties, since rbx_xml may start supporting them with
+    /// non-reflection specific names at a future date.
+    WriteUnknown,
+
+    /// Returns an error if any properties are found that aren't known by
+    /// rbx_xml.
+    ErrorOnUnknown,
+
+    /// Completely turns off rbx_xml's reflection database. Property names and
+    /// types will appear exactly as they are in the tree.
+    ///
+    /// This setting is useful for debugging the model format. It leaves the
+    /// user to deal with oddities like how `Part.FormFactor` is actually
+    /// serialized as `Part.formFactorRaw`.
+    NoReflection,
+
+    #[doc(hidden)]
+    __Nonexhaustive,
+}
+
 /// Options available for serializing an XML-format model or place.
 #[derive(Debug, Clone)]
 pub struct EncodeOptions {
-    use_reflection: bool,
+    property_behavior: EncodePropertyBehavior,
 }
 
 impl EncodeOptions {
     /// Constructs a `EncodeOptions` with all values set to their defaults.
-    pub fn new() -> EncodeOptions {
+    #[inline]
+    pub fn new() -> Self {
         EncodeOptions {
-            use_reflection: true,
+            property_behavior: EncodePropertyBehavior::IgnoreUnknown,
         }
     }
 
-    /// Enabled by default.
-    ///
-    /// Sets whether to use the reflection database to canonicalize fields and
-    /// value types.
-    ///
-    /// If disabled, properties will be written as-is to the disk. Files
-    /// produced this way will probably not be compatible with Roblox unless
-    /// they were read with the same option in `DecodeOptions`.
-    // TODO: Make this public once this setting actually does anything.
-    #[allow(unused)]
-    fn use_reflection(self, use_reflection: bool) -> EncodeOptions {
+    /// Determines how rbx_xml will serialize properties, especially unknown
+    /// ones.
+    #[inline]
+    pub fn property_behavior(self, property_behavior: EncodePropertyBehavior) -> Self {
         EncodeOptions {
-            use_reflection,
+            property_behavior,
             ..self
         }
+    }
+
+    pub(crate) fn use_reflection(&self) -> bool {
+        self.property_behavior != EncodePropertyBehavior::NoReflection
     }
 }
 
@@ -71,13 +101,15 @@ impl Default for EncodeOptions {
 pub struct EmitState {
     referent_map: HashMap<RbxId, u32>,
     next_referent: u32,
+    options: EncodeOptions,
 }
 
 impl EmitState {
-    pub fn new() -> EmitState {
+    pub fn new(options: EncodeOptions) -> EmitState {
         EmitState {
             referent_map: HashMap::new(),
             next_referent: 0,
+            options,
         }
     }
 
@@ -128,11 +160,40 @@ fn serialize_instance<W: Write>(
     })?;
 
     for (property_name, value) in &instance.properties {
-        if let Some(serialized_descriptor) = find_serialized_property_descriptor(&instance.class_name, property_name) {
+        let maybe_serialized_descriptor = if state.options.use_reflection() {
+            find_serialized_property_descriptor(&instance.class_name, property_name)
+        } else {
+            None
+        };
+
+        if let Some(serialized_descriptor) = maybe_serialized_descriptor {
             let value_type = match serialized_descriptor.property_type() {
                 RbxPropertyTypeDescriptor::Data(value_type) => *value_type,
                 RbxPropertyTypeDescriptor::Enum(_enum_name) => RbxValueType::Enum,
-                RbxPropertyTypeDescriptor::UnimplementedType(_) => value.get_type(),
+                RbxPropertyTypeDescriptor::UnimplementedType(_) => {
+                    // Properties with types that aren't implemented yet are
+                    // effectively unknown properties, so we handle them
+                    // similarly.
+                    match state.options.property_behavior {
+                        EncodePropertyBehavior::IgnoreUnknown => {
+                            continue;
+                        }
+                        EncodePropertyBehavior::WriteUnknown => {
+                            // This conversion will be returned into a no-op by
+                            // try_convert_ref
+                            value.get_type()
+                        }
+                        EncodePropertyBehavior::ErrorOnUnknown => {
+                            return Err(writer.error(EncodeErrorKind::UnknownProperty {
+                                class_name: instance.class_name.clone(),
+                                property_name: property_name.clone(),
+                            }));
+                        }
+                        EncodePropertyBehavior::NoReflection | EncodePropertyBehavior::__Nonexhaustive => {
+                            unreachable!();
+                        }
+                    }
+                }
             };
 
             let converted_value = match value.try_convert_ref(value_type) {
@@ -147,6 +208,23 @@ fn serialize_instance<W: Write>(
             };
 
             serialize_value(writer, state, &serialized_descriptor.name(), &converted_value)?;
+        } else {
+            match state.options.property_behavior {
+                EncodePropertyBehavior::IgnoreUnknown => {}
+                EncodePropertyBehavior::WriteUnknown | EncodePropertyBehavior::NoReflection => {
+                    // We'll take this value as-is with no conversions on
+                    // either the name or value.
+
+                    serialize_value(writer, state, property_name, value)?;
+                }
+                EncodePropertyBehavior::ErrorOnUnknown => {
+                    return Err(writer.error(EncodeErrorKind::UnknownProperty {
+                        class_name: instance.class_name.clone(),
+                        property_name: property_name.clone(),
+                    }));
+                }
+                EncodePropertyBehavior::__Nonexhaustive => unreachable!()
+            }
         }
     }
 

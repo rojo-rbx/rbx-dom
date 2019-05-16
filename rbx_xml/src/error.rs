@@ -190,6 +190,10 @@ pub(crate) enum EncodeErrorKind {
     Io(io::Error),
     Xml(xml::writer::Error),
 
+    UnknownProperty {
+        class_name: String,
+        property_name: String,
+    },
     UnsupportedPropertyType(RbxValueType),
     UnsupportedPropertyConversion {
         class_name: String,
@@ -207,6 +211,8 @@ impl fmt::Display for EncodeErrorKind {
             Io(err) => write!(output, "{}", err),
             Xml(err) => write!(output, "{}", err),
 
+            UnknownProperty { class_name, property_name } =>
+                write!(output, "Property {}.{} is unknown", class_name, property_name),
             UnsupportedPropertyType(ty) => write!(output, "Properties of type {:?} cannot be encoded yet", ty),
             UnsupportedPropertyConversion { class_name, property_name, expected_type, actual_type } =>
                 write!(output, "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
@@ -223,7 +229,9 @@ impl std::error::Error for EncodeErrorKind {
             Io(err) => Some(err),
             Xml(err) => Some(err),
 
-            UnsupportedPropertyType(_) | UnsupportedPropertyConversion { .. } => None,
+            UnknownProperty { .. }
+            | UnsupportedPropertyType(_)
+            | UnsupportedPropertyConversion { .. } => None,
         }
     }
 }
