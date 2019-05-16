@@ -72,6 +72,10 @@ pub(crate) enum DecodeErrorKind {
     UnexpectedEof,
     UnexpectedXmlEvent(xml::reader::XmlEvent),
     MissingAttribute(&'static str),
+    UnknownProperty {
+        class_name: String,
+        property_name: String,
+    },
     UnknownPropertyType(String),
     InvalidContent(&'static str),
     NameMustBeString(RbxValueType),
@@ -97,6 +101,8 @@ impl fmt::Display for DecodeErrorKind {
             UnexpectedEof => write!(output, "Unexpected end-of-file"),
             UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {:?}", event),
             MissingAttribute(attribute_name) => write!(output, "Missing attribute '{}'", attribute_name),
+            UnknownProperty { class_name, property_name } =>
+                write!(output, "Property {}.{} is unknown", class_name, property_name),
             UnknownPropertyType(prop_name) => write!(output, "Unknown property type '{}'", prop_name),
             InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
             NameMustBeString(ty) => write!(output, "The 'Name' property must be of type String, but it was {:?}", ty),
@@ -121,6 +127,7 @@ impl std::error::Error for DecodeErrorKind {
             | UnexpectedEof
             | UnexpectedXmlEvent(_)
             | MissingAttribute(_)
+            | UnknownProperty { .. }
             | UnknownPropertyType(_)
             | InvalidContent(_)
             | NameMustBeString(_)

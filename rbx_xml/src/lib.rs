@@ -142,7 +142,7 @@ use crate::{
 
 pub use crate::{
     error::{EncodeError, DecodeError},
-    deserializer::DecodeOptions,
+    deserializer::{DecodeOptions, DecodePropertyBehavior},
     serializer::EncodeOptions,
 };
 
