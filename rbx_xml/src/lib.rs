@@ -143,7 +143,7 @@ use crate::{
 pub use crate::{
     error::{EncodeError, DecodeError},
     deserializer::{DecodeOptions, DecodePropertyBehavior},
-    serializer::EncodeOptions,
+    serializer::{EncodeOptions, EncodePropertyBehavior},
 };
 
 /// Decodes an XML-format model or place from something that implements the
