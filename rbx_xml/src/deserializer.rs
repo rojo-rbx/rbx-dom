@@ -15,7 +15,7 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
-pub fn decode_internal<R: Read>(source: R, _options: DecodeOptions) -> Result<RbxTree, NewDecodeError> {
+pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<RbxTree, NewDecodeError> {
     let mut tree = RbxTree::new(RbxInstanceProperties {
         class_name: "DataModel".to_owned(),
         name: "DataModel".to_owned(),
@@ -25,7 +25,7 @@ pub fn decode_internal<R: Read>(source: R, _options: DecodeOptions) -> Result<Rb
     let root_id = tree.get_root_id();
 
     let mut iterator = XmlEventReader::from_source(source);
-    let mut state = ParseState::new(&mut tree);
+    let mut state = ParseState::new(&mut tree, options);
 
     deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_id_rewrites(&mut state);
@@ -33,36 +33,68 @@ pub fn decode_internal<R: Read>(source: R, _options: DecodeOptions) -> Result<Rb
     Ok(tree)
 }
 
+/// Describes the strategy that rbx_xml should use when deserializing
+/// properties.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum DecodePropertyBehavior {
+    /// Ignores properties that aren't known by rbx_xml.
+    ///
+    /// The default and safest option. With this set, properties that are newer
+    /// than the reflection database rbx_xml uses won't show up when
+    /// deserializing files.
+    IgnoreUnknown,
+
+    /// Read properties that aren't known by rbx_xml.
+    ///
+    /// With this option set, properties that are newer than rbx_xml's
+    /// reflection database will show up. It may be problematic to depend on
+    /// these properties, since rbx_xml may start supporting them with
+    /// non-reflection specific names at a future date.
+    ReadUnknown,
+
+    /// Returns an error if any properties are found that aren't known by
+    /// rbx_xml.
+    ErrorOnUnknown,
+
+    /// Completely turns off rbx_xml's reflection database. Property names and
+    /// types will appear exactly as they are in XML.
+    ///
+    /// This setting is useful for debugging the model format. It leaves the
+    /// user to deal with oddities like how `Part.FormFactor` is actually
+    /// serialized as `Part.formFactorRaw`.
+    NoReflection,
+
+    #[doc(hidden)]
+    __Nonexhaustive,
+}
+
 /// Options available for deserializing an XML-format model or place.
 #[derive(Debug, Clone)]
 pub struct DecodeOptions {
-    use_reflection: bool,
+    property_behavior: DecodePropertyBehavior,
 }
 
 impl DecodeOptions {
     /// Constructs a `DecodeOptions` with all values set to their defaults.
-    pub fn new() -> DecodeOptions {
+    #[inline]
+    pub fn new() -> Self {
         DecodeOptions {
-            use_reflection: true,
+            property_behavior: DecodePropertyBehavior::IgnoreUnknown,
         }
     }
 
-    /// Enabled by default.
-    ///
-    /// Sets whether to use the reflection database to canonicalize fields and
-    /// value types.
-    ///
-    /// If disabled, the deserialized tree will have exactly the properties and
-    /// types present in the model/place file instead of ones modified for
-    /// consumption. This leaks details of the format, but can be useful for
-    /// debugging.
-    // TODO: Make this public once this setting actually does anything.
-    #[allow(unused)]
-    fn use_reflection(self, use_reflection: bool) -> DecodeOptions {
+    /// Determines how rbx_xml will deserialize properties, especially unknown
+    /// ones.
+    #[inline]
+    pub fn property_behavior(self, property_behavior: DecodePropertyBehavior) -> Self {
         DecodeOptions {
-            use_reflection,
+            property_behavior,
             ..self
         }
+    }
+
+    pub(crate) fn use_reflection(&self) -> bool {
+        self.property_behavior != DecodePropertyBehavior::NoReflection
     }
 }
 
@@ -80,6 +112,7 @@ struct IdPropertyRewrite {
 
 /// The state needed to deserialize an XML model into an `RbxTree`.
 pub struct ParseState<'a> {
+    options: DecodeOptions,
     referents: HashMap<String, RbxId>,
     metadata: HashMap<String, String>,
     rewrite_ids: Vec<IdPropertyRewrite>,
@@ -87,8 +120,9 @@ pub struct ParseState<'a> {
 }
 
 impl<'a> ParseState<'a> {
-    fn new(tree: &mut RbxTree) -> ParseState {
+    fn new(tree: &mut RbxTree, options: DecodeOptions) -> ParseState {
         ParseState {
+            options,
             referents: HashMap::new(),
             metadata: HashMap::new(),
             rewrite_ids: Vec::new(),
@@ -319,8 +353,8 @@ fn deserialize_properties<R: Read>(
         .expect("Couldn't find instance to deserialize properties into")
         .class_name.clone();
 
-    'property_loop: loop {
-        let (property_type, xml_property_name) = loop {
+    loop {
+        let (xml_type_name, xml_property_name) = {
             match reader.expect_peek()? {
                 XmlReadEvent::StartElement { name, attributes, .. } => {
                     let mut xml_property_name = None;
@@ -334,10 +368,10 @@ fn deserialize_properties<R: Read>(
 
                     let xml_property_name = match xml_property_name {
                         Some(value) => value,
-                        None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name")).into())
+                        None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name")))
                     };
 
-                    break (name.local_name.to_owned(), xml_property_name)
+                    (name.local_name.to_owned(), xml_property_name)
                 },
                 XmlReadEvent::EndElement { name } => {
                     if name.local_name == "Properties" {
@@ -345,52 +379,119 @@ fn deserialize_properties<R: Read>(
                         return Ok(())
                     } else {
                         let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
-                        return Err(reader.error(err).into());
+                        return Err(reader.error(err));
                     }
                 },
                 _ => {
                     let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
-                    return Err(reader.error(err).into());
+                    return Err(reader.error(err));
                 }
-            };
+            }
         };
 
-        if let Some(descriptor) = find_canonical_property_descriptor(&class_name, &xml_property_name) {
-            let value = match property_type.as_str() {
-                "Ref" => {
-                    // Refs need lots of additional state that we don't want to pass to
-                    // other property types unnecessarily, so we special-case it here.
+        let maybe_descriptor = if state.options.use_reflection() {
+            find_canonical_property_descriptor(&class_name, &xml_property_name)
+        } else {
+            None
+        };
 
-                    read_ref(reader, instance_id, descriptor.name(), state)?
-                }
-                _ => {
-                    let xml_value = read_value_xml(reader, &property_type)?;
+        if let Some(descriptor) = maybe_descriptor {
+            let xml_value = if xml_type_name.as_str() == "Ref" {
+                // Refs need additional state that we don't want to pass to
+                // other property types unnecessarily, so we special-case it
+                // here.
 
-                    let value_type = match descriptor.property_type() {
-                        RbxPropertyTypeDescriptor::Data(value_type) => *value_type,
-                        RbxPropertyTypeDescriptor::Enum(_enum_name) => RbxValueType::Enum,
-                        RbxPropertyTypeDescriptor::UnimplementedType(_) => xml_value.get_type(),
-                    };
+                read_ref(reader, instance_id, descriptor.name(), state)?
+            } else {
+                read_value_xml(reader, &xml_type_name)?
+            };
 
-                    let value = match xml_value.try_convert_ref(value_type) {
-                        RbxValueConversion::Converted(value) => value,
-                        RbxValueConversion::Unnecessary => xml_value,
-                        RbxValueConversion::Failed => return Err(reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
-                            class_name: class_name.clone(),
-                            property_name: descriptor.name().to_string(),
-                            expected_type: value_type,
-                            actual_type: xml_value.get_type(),
-                        })),
-                    };
+            // The property descriptor might specify a different type than the
+            // one we saw in the XML.
+            //
+            // This happens when property types are upgraded or if the
+            // serialized data type is different than the canonical one.
+            //
+            // For example:
+            // - Int/Float widening from 32-bit to 64-bit
+            // - BrickColor properties turning into Color3
+            let expected_type = match descriptor.property_type() {
+                RbxPropertyTypeDescriptor::Data(value_type) => *value_type,
+                RbxPropertyTypeDescriptor::Enum(_enum_name) => RbxValueType::Enum,
+                RbxPropertyTypeDescriptor::UnimplementedType(_) => {
+                    // Properties with types that aren't implemented yet are
+                    // effectively unknown properties, so we handle them
+                    // similarly.
+                    match state.options.property_behavior {
+                        DecodePropertyBehavior::IgnoreUnknown => {
+                            // We've already read the value, we can just skip
+                            // over it.
+                            continue;
+                        }
+                        DecodePropertyBehavior::ReadUnknown => {
+                            // This conversion will be returned into a no-op by
+                            // try_convert_ref
+                            xml_value.get_type()
+                        }
+                        DecodePropertyBehavior::ErrorOnUnknown => {
+                            return Err(reader.error(DecodeErrorKind::UnknownProperty {
+                                class_name,
+                                property_name: xml_property_name,
+                            }));
+                        }
+                        DecodePropertyBehavior::NoReflection | DecodePropertyBehavior::__Nonexhaustive => {
+                            unreachable!();
+                        }
+                    }
+                },
+            };
 
-                    value
+            let value = match xml_value.try_convert_ref(expected_type) {
+                // In this case, the property descriptor disagreed with the type
+                // in the file, but there was a conversion available.
+                RbxValueConversion::Converted(value) => value,
+
+                // The property descriptor agreed with the type from the file,
+                // or the type in the descriptor was unknown and the
+                // deserializer is configured to ignore those issues
+                RbxValueConversion::Unnecessary => xml_value,
+
+                // The property descriptor disagreed, and there was no
+                // conversion available. This is always an error.
+                RbxValueConversion::Failed => {
+                    return Err(reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
+                        class_name: class_name.clone(),
+                        property_name: descriptor.name().to_string(),
+                        expected_type,
+                        actual_type: xml_value.get_type(),
+                    }));
                 }
             };
 
             props.insert(descriptor.name().to_string(), value);
         } else {
-            // We don't care about this property, read it into the void.
-            read_value_xml(reader, &property_type)?;
+            match state.options.property_behavior {
+                DecodePropertyBehavior::IgnoreUnknown => {
+                    // We don't care about this property, so we can read it and
+                    // throw it into the void.
+
+                    read_value_xml(reader, &xml_type_name)?;
+                }
+                DecodePropertyBehavior::ReadUnknown | DecodePropertyBehavior::NoReflection => {
+                    // We'll take this value as-is with no conversions on either
+                    // the name or value.
+
+                    let value = read_value_xml(reader, &xml_type_name)?;
+                    props.insert(xml_property_name, value);
+                }
+                DecodePropertyBehavior::ErrorOnUnknown => {
+                    return Err(reader.error(DecodeErrorKind::UnknownProperty {
+                        class_name,
+                        property_name: xml_property_name,
+                    }));
+                }
+                DecodePropertyBehavior::__Nonexhaustive => unreachable!()
+            }
         }
     }
 }
