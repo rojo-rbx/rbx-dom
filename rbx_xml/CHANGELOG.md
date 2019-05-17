@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 0.9.0 (2019-05-16)
+* Added real configuration to serialization and deserialization routines
+	* Users can now ignore, read/write, or error when encountering unknown properties
+	* It's also possible to disable the reflection database entirely, akin to version 0.6.0
+
 ## 0.8.0 (2019-05-14)
 * Fixed type conversion when serializing properties whose serialized type differs from its canonical type ([#56](https://github.com/LPGhatguy/rbx-dom/pull/56))
 * Changed type conversion failures when serializing to elevate to serialization errors ([#58](https://github.com/LPGhatguy/rbx-dom/pull/58))
