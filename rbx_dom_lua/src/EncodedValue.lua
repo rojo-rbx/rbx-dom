@@ -1,3 +1,5 @@
+local base64 = require(script.Parent.base64)
+
 local function identity(...)
 	return ...
 end
@@ -9,7 +11,6 @@ local function unpackDecoder(f)
 end
 
 local encoders = {
-	BinaryString = identity,
 	Bool = identity,
 	Content = identity,
 	Float32 = identity,
@@ -17,6 +18,8 @@ local encoders = {
 	Int32 = identity,
 	Int64 = identity,
 	String = identity,
+
+	BinaryString = base64.encode,
 
 	CFrame = function(value)
 		return {value:GetComponents()}
@@ -51,7 +54,6 @@ local encoders = {
 }
 
 local decoders = {
-	BinaryString = identity,
 	Bool = identity,
 	Content = identity,
 	Enum = identity,
@@ -60,6 +62,8 @@ local decoders = {
 	Int32 = identity,
 	Int64 = identity,
 	String = identity,
+
+	BinaryString = base64.decode,
 
 	CFrame = unpackDecoder(CFrame.new),
 	Color3 = unpackDecoder(Color3.new),
