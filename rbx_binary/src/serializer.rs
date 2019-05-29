@@ -254,6 +254,10 @@ fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a 
     let mut output = HashMap::new();
 
     for id in ids {
+        let instance = tree.get_instance(*id)
+            .expect("Given ID didn't exist in the tree");
+        output.insert(*id, instance);
+
         for descendant in tree.descendants(*id) {
             output.insert(descendant.get_id(), descendant);
         }
