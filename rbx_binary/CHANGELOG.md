@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.4.1 (2019-05-29)
 * Fixed bad interaction with rbx_dom_weak 1.6.0 causing instances to go missing.
 
 ## 0.4.0 (2019-03-01)
