@@ -1,6 +1,7 @@
 local CollectionService = game:GetService("CollectionService")
 
 local ReflectionDatabase = require(script.ReflectionDatabase)
+local Error = require(script.Error)
 
 local customProperties = {
 	Instance = {
@@ -83,11 +84,19 @@ local function readProperty(instance, propertyName)
 		findCanonicalPropertyDescriptor(instance.ClassName, propertyName)
 
 	if descriptor == nil then
-		return false, "Couldn't find descriptor for this property"
+		local fullName = ("%s.%s"):format(instance.className, propertyName)
+
+		return false, Error.new(Error.Kind.UnknownProperty, fullName)
 	end
 
 	if descriptor.scriptability == "ReadWrite" or descriptor.scriptability == "Read" then
-		return xpcall(get, debug.traceback, instance, propertyName)
+		local success, value = xpcall(get, debug.traceback, instance, propertyName)
+
+		if success then
+			return success, value
+		else
+			return false, Error.new(Error.Kind.Roblox, value)
+		end
 	end
 
 	if descriptor.scriptability == "Custom" then
@@ -97,7 +106,9 @@ local function readProperty(instance, propertyName)
 	end
 
 	if descriptor.scriptability == "None" or descriptor.scriptability == "Write" then
-		return false, ("%s.%s cannot be read."):format(instance.ClassName, propertyName)
+		local fullName = ("%s.%s"):format(instance.className, propertyName)
+
+		return false, Error.new(Error.Kind.PropertyNotReadable, fullName)
 	end
 end
 
@@ -106,11 +117,19 @@ local function writeProperty(instance, propertyName, propertyValue)
 		findCanonicalPropertyDescriptor(instance.ClassName, propertyName)
 
 	if descriptor == nil then
-		return false, "Couldn't find descriptor for this property"
+		local fullName = ("%s.%s"):format(instance.className, propertyName)
+
+		return false, Error.new(Error.Kind.UnknownProperty, fullName)
 	end
 
 	if descriptor.scriptability == "ReadWrite" or descriptor.scriptability == "Write" then
-		return xpcall(set, debug.traceback, instance, propertyName, propertyValue)
+		local success, value = xpcall(set, debug.traceback, instance, propertyName, propertyValue)
+
+		if success then
+			return success
+		else
+			return false, Error.new(Error.Kind.Roblox, value)
+		end
 	end
 
 	if descriptor.scriptability == "Custom" then
@@ -120,12 +139,15 @@ local function writeProperty(instance, propertyName, propertyValue)
 	end
 
 	if descriptor.scriptability == "None" or descriptor.scriptability == "Read" then
-		return false, ("%s.%s cannot be written."):format(instance.ClassName, propertyName)
+		local fullName = ("%s.%s"):format(instance.className, propertyName)
+
+		return false, Error.new(Error.Kind.PropertyNotWritable, fullName)
 	end
 end
 
 return {
 	readProperty = readProperty,
 	writeProperty = writeProperty,
+	Error = Error,
 	EncodedValue = require(script.EncodedValue),
 }
