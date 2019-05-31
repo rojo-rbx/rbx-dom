@@ -1,4 +1,13 @@
+# Cargo stuff
 /target
 **/*.rs.bk
 Cargo.lock
+
+# It's useful to keep an API dump around for debugging reflection generation
 /api-dump.json
+
+# Roblox model/place files, used for debugging
+/*.rbxl
+/*.rbxlx
+/*.rbxm
+/*.rbxmx
