@@ -9,7 +9,7 @@
         "$path": "src"
       },
       "TestEZ": {
-        "$path": "modules/TestEZ/lib"
+        "$path": "modules/testez/lib"
       }
     },
     "ServerScriptService": {
