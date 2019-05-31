@@ -76,3 +76,5 @@ function PropertyDescriptor:write(instance, value)
 		return false, Error.new(Error.Kind.PropertyNotWritable, fullName)
 	end
 end
+
+return PropertyDescriptor
