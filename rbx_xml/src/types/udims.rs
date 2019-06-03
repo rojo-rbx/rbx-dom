@@ -22,7 +22,7 @@ impl XmlType<UDimValue> for UDimType {
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
-        writer.write_tag_characters("S", value.0)?;
+        writer.write_tag_characters_f32("S", value.0)?;
         writer.write_tag_characters("O", value.1)?;
 
         writer.write(XmlWriteEvent::end_element())?;
@@ -35,7 +35,7 @@ impl XmlType<UDimValue> for UDimType {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let scale: f32 = reader.read_tag_contents_parse("S")?;
+        let scale: f32 = reader.read_tag_contents_f32("S")?;
         let offset: i32 = reader.read_tag_contents_parse("O")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
@@ -59,9 +59,9 @@ impl XmlType<UDim2Value> for UDim2Type {
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
-        writer.write_tag_characters("XS", value.0)?;
+        writer.write_tag_characters_f32("XS", value.0)?;
         writer.write_tag_characters("XO", value.1)?;
-        writer.write_tag_characters("YS", value.2)?;
+        writer.write_tag_characters_f32("YS", value.2)?;
         writer.write_tag_characters("YO", value.3)?;
 
         writer.write(XmlWriteEvent::end_element())?;
@@ -74,9 +74,9 @@ impl XmlType<UDim2Value> for UDim2Type {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let x_scale: f32 = reader.read_tag_contents_parse("XS")?;
+        let x_scale: f32 = reader.read_tag_contents_f32("XS")?;
         let x_offset: i32 = reader.read_tag_contents_parse("XO")?;
-        let y_scale: f32 = reader.read_tag_contents_parse("YS")?;
+        let y_scale: f32 = reader.read_tag_contents_f32("YS")?;
         let y_offset: i32 = reader.read_tag_contents_parse("YO")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;

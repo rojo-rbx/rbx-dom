@@ -24,11 +24,11 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
         match value {
             Some(properties) => {
                 writer.write_tag_characters("CustomPhysics", "true")?;
-                writer.write_tag_characters("Density", properties.density)?;
-                writer.write_tag_characters("Friction", properties.friction)?;
-                writer.write_tag_characters("Elasticity", properties.elasticity)?;
-                writer.write_tag_characters("FrictionWeight", properties.friction_weight)?;
-                writer.write_tag_characters("ElasticityWeight", properties.elasticity_weight)?;
+                writer.write_tag_characters_f32("Density", properties.density)?;
+                writer.write_tag_characters_f32("Friction", properties.friction)?;
+                writer.write_tag_characters_f32("Elasticity", properties.elasticity)?;
+                writer.write_tag_characters_f32("FrictionWeight", properties.friction_weight)?;
+                writer.write_tag_characters_f32("ElasticityWeight", properties.elasticity_weight)?;
             }
             None => {
                 writer.write_tag_characters("CustomPhysics", "false")?;
@@ -49,11 +49,11 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
 
         let value = match has_custom_physics.as_str() {
             "true" => {
-                let density: f32 = reader.read_tag_contents_parse("Density")?;
-                let friction: f32 = reader.read_tag_contents_parse("Friction")?;
-                let elasticity: f32 = reader.read_tag_contents_parse("Elasticity")?;
-                let friction_weight: f32 = reader.read_tag_contents_parse("FrictionWeight")?;
-                let elasticity_weight: f32 = reader.read_tag_contents_parse("ElasticityWeight")?;
+                let density: f32 = reader.read_tag_contents_f32("Density")?;
+                let friction: f32 = reader.read_tag_contents_f32("Friction")?;
+                let elasticity: f32 = reader.read_tag_contents_f32("Elasticity")?;
+                let friction_weight: f32 = reader.read_tag_contents_f32("FrictionWeight")?;
+                let elasticity_weight: f32 = reader.read_tag_contents_f32("ElasticityWeight")?;
 
                 Some(PhysicalProperties {
                     density,
