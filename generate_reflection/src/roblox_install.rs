@@ -10,8 +10,11 @@ use std::{
 };
 
 #[cfg(not(target_os = "windows"))]
-compile_error!("Roblox cannot be located on this platform yet.");
+fn locate_folder() -> Option<PathBuf> {
+    panic!("Roblox Studio cannot be located on this platform yet");
+}
 
+#[cfg(target_os = "windows")]
 fn locate_folder() -> Option<PathBuf> {
     let local_app_data = PathBuf::from(env::var("LOCALAPPDATA").ok()?);
     Some(local_app_data.join("Roblox"))
