@@ -7,33 +7,6 @@
 			<string name="Name">Folder</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Folder" referent="RBX84B85A2C500048E79846CD63A6127BA3">
-			<Properties>
-				<string name="Name">NumberValues</string>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-			<Item class="NumberValue" referent="RBX3B3D9D3DB43D4E6793B190B081E0A886">
-				<Properties>
-					<string name="Name">+Infinity</string>
-					<BinaryString name="Tags"></BinaryString>
-					<double name="Value">INF</double>
-				</Properties>
-			</Item>
-			<Item class="NumberValue" referent="RBX4A6BDC580E494175B7BC775AB388A05E">
-				<Properties>
-					<string name="Name">-Infinity</string>
-					<BinaryString name="Tags"></BinaryString>
-					<double name="Value">-INF</double>
-				</Properties>
-			</Item>
-			<Item class="NumberValue" referent="RBXF1D43EDCE6ED4124B84A8FEE90E7A495">
-				<Properties>
-					<string name="Name">NaN</string>
-					<BinaryString name="Tags"></BinaryString>
-					<double name="Value">NAN</double>
-				</Properties>
-			</Item>
-		</Item>
 		<Item class="Vector3Value" referent="RBXD5647F0F4FC14C5FB423D40C4372DF47">
 			<Properties>
 				<string name="Name">Vector3</string>
@@ -126,6 +99,27 @@
 				</UDim2>
 				<bool name="Visible">true</bool>
 				<int name="ZIndex">1</int>
+			</Properties>
+		</Item>
+		<Item class="NumberValue" referent="RBX3B3D9D3DB43D4E6793B190B081E0A886">
+			<Properties>
+				<string name="Name">+Infinity</string>
+				<BinaryString name="Tags"></BinaryString>
+				<double name="Value">INF</double>
+			</Properties>
+		</Item>
+		<Item class="NumberValue" referent="RBX4A6BDC580E494175B7BC775AB388A05E">
+			<Properties>
+				<string name="Name">-Infinity</string>
+				<BinaryString name="Tags"></BinaryString>
+				<double name="Value">-INF</double>
+			</Properties>
+		</Item>
+		<Item class="NumberValue" referent="RBXF1D43EDCE6ED4124B84A8FEE90E7A495">
+			<Properties>
+				<string name="Name">NaN</string>
+				<BinaryString name="Tags"></BinaryString>
+				<double name="Value">NAN</double>
 			</Properties>
 		</Item>
 	</Item>
