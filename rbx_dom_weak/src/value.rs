@@ -160,6 +160,7 @@ impl RbxValue {
             RbxValue::Ray { .. } => RbxValueType::Ray,
             RbxValue::Rect { .. } => RbxValueType::Rect,
             RbxValue::Ref { .. } => RbxValueType::Ref,
+            RbxValue::SharedString { .. } => RbxValueType::SharedString,
             RbxValue::String { .. } => RbxValueType::String,
             RbxValue::UDim { .. } => RbxValueType::UDim,
             RbxValue::UDim2 { .. } => RbxValueType::UDim2,

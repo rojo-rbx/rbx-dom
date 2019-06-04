@@ -1,5 +1,5 @@
 //! An implementation of interned buffers keyed by MD5 hash, which is the
-//! mechanism Roblox uses in the brand new SharedString property type.
+//! mechanism Roblox uses in the SharedString API.
 
 use std::{
     collections::HashMap,
@@ -15,6 +15,8 @@ lazy_static::lazy_static! {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Handle {
     key: [u8; 16],
+
+    #[serde(skip)]
     value: Option<Arc<Vec<u8>>>,
 }
 
