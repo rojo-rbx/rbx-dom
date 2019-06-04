@@ -74,6 +74,7 @@ mod unresolved_value;
 mod brick_color;
 mod id;
 mod instance;
+mod interned_buffer;
 mod tree;
 mod value;
 
