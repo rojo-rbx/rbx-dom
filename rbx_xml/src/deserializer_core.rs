@@ -245,6 +245,28 @@ impl<R: Read> XmlEventReader<R> {
         contents.parse().map_err(|e| self.error(e))
     }
 
+    /// Reads a `f32` value, but using Roblox's INF, -INF, and NAN values
+    pub(crate) fn read_tag_contents_f32(&mut self, expected_name: &str) -> Result<f32, NewDecodeError> {
+        let contents = self.read_tag_contents(expected_name)?;
+        Ok(match contents.as_str() {
+            "INF" => std::f32::INFINITY,
+            "-INF" => std::f32::NEG_INFINITY,
+            "NAN" => std::f32::NAN,
+            number => number.parse().map_err(|e| self.error(e))?
+        })
+    }
+
+    /// Reads a `f64` value, but using Roblox's INF, -INF, and NAN values
+    pub(crate) fn read_tag_contents_f64(&mut self, expected_name: &str) -> Result<f64, NewDecodeError> {
+        let contents = self.read_tag_contents(expected_name)?;
+        Ok(match contents.as_str() {
+            "INF" => std::f64::INFINITY,
+            "-INF" => std::f64::NEG_INFINITY,
+            "NAN" => std::f64::NAN,
+            number => number.parse().map_err(|e| self.error(e))?
+        })
+    }
+
     /// Consume events from the iterator until we reach the end of the next tag.
     pub fn eat_unknown_tag(&mut self) -> Result<(), NewDecodeError> {
         let mut depth = 0;

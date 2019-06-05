@@ -9,13 +9,13 @@ use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType
 
 use crate::{
     core::find_canonical_property_descriptor,
-    types::{read_value_xml, read_ref},
-    error::{DecodeError as NewDecodeError, DecodeErrorKind},
+    types::read_value_xml,
+    error::{DecodeError, DecodeErrorKind},
 };
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
-pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<RbxTree, NewDecodeError> {
+pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<RbxTree, DecodeError> {
     let mut tree = RbxTree::new(RbxInstanceProperties {
         class_name: "DataModel".to_owned(),
         name: "DataModel".to_owned(),
@@ -28,7 +28,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Rbx
     let mut state = ParseState::new(&mut tree, options);
 
     deserialize_root(&mut iterator, &mut state, root_id)?;
-    apply_id_rewrites(&mut state);
+    apply_referent_rewrites(&mut state);
 
     Ok(tree)
 }
@@ -93,6 +93,8 @@ impl DecodeOptions {
         }
     }
 
+    /// A utility function to determine whether or not we should reference the
+    /// reflection database at all.
     pub(crate) fn use_reflection(&self) -> bool {
         self.property_behavior != DecodePropertyBehavior::NoReflection
     }
@@ -104,29 +106,61 @@ impl Default for DecodeOptions {
     }
 }
 
-struct IdPropertyRewrite {
-    pub id: RbxId,
-    pub property_name: String,
-    pub referent_value: String,
-}
-
 /// The state needed to deserialize an XML model into an `RbxTree`.
 pub struct ParseState<'a> {
-    options: DecodeOptions,
-    referents: HashMap<String, RbxId>,
-    metadata: HashMap<String, String>,
-    rewrite_ids: Vec<IdPropertyRewrite>,
     tree: &'a mut RbxTree,
+    options: DecodeOptions,
+
+    /// Metadata deserialized from 'Meta' fields in the file.
+    /// Known fields are:
+    /// - ExplicitAutoJoints
+    metadata: HashMap<String, String>,
+
+    /// A map referent strings to IDs. This map is filled up as instances are
+    /// deserialized, and referred to when filling out Ref properties.
+    ///
+    /// We need to do that step in two passes because it's possible for
+    /// instances to refer to instances that are later in the file.
+    referents_to_ids: HashMap<String, RbxId>,
+
+    /// A list of Ref property rewrites to apply. After the first
+    /// deserialization pass, we enumerate over this list and fill in the
+    /// correct Ref value by using the referents map.
+    referent_rewrites: Vec<ReferentRewrite>,
+
+    /// A map from shared string hashes (currently MD5, decided by Roblox) to
+    /// the actual SharedString type.
+    // TODO: Fill in the value type once SharedString is implemented.
+    known_shared_strings: HashMap<String, ()>,
+
+    /// A list of SharedString properties to set in the tree as a secondary
+    /// pass. This works just like referent rewriting since the shared string
+    /// dictionary is usually at the end of the XML file.
+    shared_string_rewrites: Vec<SharedStringRewrite>,
+}
+
+struct ReferentRewrite {
+    id: RbxId,
+    property_name: String,
+    referent_value: String,
+}
+
+struct SharedStringRewrite {
+    id: RbxId,
+    property_name: String,
+    shared_string_hash: String,
 }
 
 impl<'a> ParseState<'a> {
     fn new(tree: &mut RbxTree, options: DecodeOptions) -> ParseState {
         ParseState {
-            options,
-            referents: HashMap::new(),
-            metadata: HashMap::new(),
-            rewrite_ids: Vec::new(),
             tree,
+            options,
+            metadata: HashMap::new(),
+            referents_to_ids: HashMap::new(),
+            referent_rewrites: Vec::new(),
+            known_shared_strings: HashMap::new(),
+            shared_string_rewrites: Vec::new(),
         }
     }
 
@@ -134,24 +168,36 @@ impl<'a> ParseState<'a> {
     /// have a complete view of how referents map to RbxId values.
     ///
     /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_id_rewrite(&mut self, id: RbxId, property_name: String, referent_value: String) {
-        self.rewrite_ids.push(IdPropertyRewrite {
+    pub fn add_referent_rewrite(&mut self, id: RbxId, property_name: String, referent_value: String) {
+        self.referent_rewrites.push(ReferentRewrite {
             id,
             property_name,
             referent_value,
         });
     }
+
+    /// Marks that a property on this instance needs to be rewritten once we
+    /// have a complete view of how referents map to RbxId values.
+    ///
+    /// This is used to deserialize non-null Ref values correctly.
+    pub fn add_shared_string_rewrite(&mut self, id: RbxId, property_name: String, shared_string_hash: String) {
+        self.shared_string_rewrites.push(SharedStringRewrite {
+            id,
+            property_name,
+            shared_string_hash,
+        });
+    }
 }
 
-fn apply_id_rewrites(state: &mut ParseState) {
-    for rewrite in &state.rewrite_ids {
-        let new_value = match state.referents.get(&rewrite.referent_value) {
+fn apply_referent_rewrites(state: &mut ParseState) {
+    for rewrite in &state.referent_rewrites {
+        let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
             Some(id) => *id,
             None => continue
         };
 
         let instance = state.tree.get_instance_mut(rewrite.id)
-            .expect("rbx_xml bug: had ID in referent map that didn't end up in the tree");
+            .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree");
 
         instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
             value: Some(new_value),
@@ -159,33 +205,50 @@ fn apply_id_rewrites(state: &mut ParseState) {
     }
 }
 
+fn apply_shared_string_rewrites(state: &mut ParseState) {
+    for rewrite in &state.shared_string_rewrites {
+        let new_value = match state.known_shared_strings.get(&rewrite.shared_string_hash) {
+            Some(id) => *id,
+            None => continue
+        };
+
+        let instance = state.tree.get_instance_mut(rewrite.id)
+            .expect("rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree");
+
+        // TODO: Insert SharedString value
+
+        // instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
+        //     value: Some(new_value),
+        // });
+    }
+}
+
 fn deserialize_root<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId
-) -> Result<(), NewDecodeError> {
+) -> Result<(), DecodeError> {
     match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {},
         _ => unreachable!(),
     }
 
-    {
-        let attributes = reader.expect_start_with_name("roblox")?;
+    let doc_attributes = reader.expect_start_with_name("roblox")?;
 
-        let mut found_version = false;
-        for attribute in attributes.into_iter() {
-            if attribute.name.local_name == "version" {
-                found_version = true;
+    let mut doc_version = None;
 
-                if attribute.value != "4" {
-                    return Err(reader.error(DecodeErrorKind::WrongDocVersion(attribute.value)));
-                }
-            }
+    for attribute in doc_attributes.into_iter() {
+        match attribute.name.local_name.as_str() {
+            "version" => doc_version = Some(attribute.value),
+            _ => {}
         }
+    }
 
-        if !found_version {
-            return Err(reader.error(DecodeErrorKind::MissingAttribute("version")));
-        }
+    let doc_version = doc_version
+        .ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("version")))?;
+
+    if doc_version != "4" {
+        return Err(reader.error(DecodeErrorKind::WrongDocVersion(doc_version)));
     }
 
     loop {
@@ -229,7 +292,7 @@ fn deserialize_root<R: Read>(
     Ok(())
 }
 
-fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), NewDecodeError> {
+fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), DecodeError> {
     let name = {
         let attributes = reader.expect_start_with_name("Meta")?;
 
@@ -256,7 +319,7 @@ fn deserialize_instance<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId,
-) -> Result<(), NewDecodeError> {
+) -> Result<(), DecodeError> {
     let (class_name, referent) = {
         let attributes = reader.expect_start_with_name("Item")?;
 
@@ -288,11 +351,9 @@ fn deserialize_instance<R: Read>(
     let instance_id = state.tree.insert_instance(instance_props, parent_id);
 
     if let Some(referent) = referent {
-        state.referents.insert(referent, instance_id);
+        state.referents_to_ids.insert(referent, instance_id);
     }
 
-    // we have to collect properties in order to create the instance
-    // name will be captured in this map and extracted later; XML doesn't store it separately
     let mut properties: HashMap<String, RbxValue> = HashMap::new();
 
     loop {
@@ -333,6 +394,10 @@ fn deserialize_instance<R: Read>(
             RbxValue::String { value } => value,
             _ => return Err(reader.error(DecodeErrorKind::NameMustBeString(value.get_type()))),
         },
+
+        // TODO: Use reflection to get default name instead. This should only
+        // matter for ValueBase instances in files created by tools other than
+        // Roblox Studio.
         None => instance.class_name.clone(),
     };
 
@@ -346,7 +411,7 @@ fn deserialize_properties<R: Read>(
     state: &mut ParseState,
     instance_id: RbxId,
     props: &mut HashMap<String, RbxValue>,
-) -> Result<(), NewDecodeError> {
+) -> Result<(), DecodeError> {
     reader.expect_start_with_name("Properties")?;
 
     let class_name = state.tree.get_instance(instance_id)
@@ -396,15 +461,7 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let xml_value = if xml_type_name.as_str() == "Ref" {
-                // Refs need additional state that we don't want to pass to
-                // other property types unnecessarily, so we special-case it
-                // here.
-
-                read_ref(reader, instance_id, descriptor.name(), state)?
-            } else {
-                read_value_xml(reader, &xml_type_name)?
-            };
+            let xml_value = read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name())?;
 
             // The property descriptor might specify a different type than the
             // one we saw in the XML.
@@ -475,13 +532,13 @@ fn deserialize_properties<R: Read>(
                     // We don't care about this property, so we can read it and
                     // throw it into the void.
 
-                    read_value_xml(reader, &xml_type_name)?;
+                    read_value_xml(reader, state, &xml_type_name, instance_id, &xml_property_name)?;
                 }
                 DecodePropertyBehavior::ReadUnknown | DecodePropertyBehavior::NoReflection => {
                     // We'll take this value as-is with no conversions on either
                     // the name or value.
 
-                    let value = read_value_xml(reader, &xml_type_name)?;
+                    let value = read_value_xml(reader, state, &xml_type_name, instance_id, &xml_property_name)?;
                     props.insert(xml_property_name, value);
                 }
                 DecodePropertyBehavior::ErrorOnUnknown => {

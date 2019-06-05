@@ -18,7 +18,7 @@ use crate::api_dump::{ValueType, ValueCategory};
 #[allow(unused)]
 mod inner;
 
-pub use inner::*;
+pub use self::inner::*;
 
 impl RbxInstanceTags {
     pub fn from_dump_tags<T: AsRef<str>>(dump_tags: &[T]) -> RbxInstanceTags {

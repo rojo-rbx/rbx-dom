@@ -25,11 +25,11 @@ pub const XML_TAG_NAME: &'static str = "Ref";
 
 pub fn write_ref<W: Write>(
     writer: &mut XmlEventWriter<W>,
-    property_name: &str,
+    xml_property_name: &str,
     value: &Option<RbxId>,
     state: &mut EmitState,
 ) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
+    writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", xml_property_name))?;
 
     match value {
         Some(id) => writer.write_characters(state.map_id(*id))?,
@@ -55,7 +55,7 @@ pub fn read_ref<R: Read>(
         // We might not know which ID this referent points to yet, so instead of
         // trying to handle the case where we do here, we just let all referents
         // get written later.
-        state.add_id_rewrite(id, property_name.to_owned(), ref_contents);
+        state.add_referent_rewrite(id, property_name.to_owned(), ref_contents);
     }
 
     Ok(RbxValue::Ref {

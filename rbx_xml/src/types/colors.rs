@@ -22,7 +22,7 @@ impl XmlType<[f32; 3]> for Color3Type {
         value: &[f32; 3],
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write_tag_array(value, &TAG_NAMES)?;
+        writer.write_tag_array_f32(value, &TAG_NAMES)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
@@ -40,14 +40,9 @@ impl XmlType<[f32; 3]> for Color3Type {
         // <R>, <G>, and <B> tags with floating-point values inside them.
         // First we have to find out if we have a packed int in.
         let value = if contents.is_empty() {
-            let r: f32 = reader.read_tag_contents("R")?
-                .parse().map_err(|e| reader.error(e))?;
-
-            let g: f32 = reader.read_tag_contents("G")?
-                .parse().map_err(|e| reader.error(e))?;
-
-            let b: f32 = reader.read_tag_contents("B")?
-                .parse().map_err(|e| reader.error(e))?;
+            let r: f32 = reader.read_tag_contents_f32("R")?;
+            let g: f32 = reader.read_tag_contents_f32("G")?;
+            let b: f32 = reader.read_tag_contents_f32("B")?;
 
             RbxValue::Color3 {
                 value: [ r, g, b ],
