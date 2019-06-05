@@ -99,17 +99,27 @@ impl Default for EncodeOptions {
 }
 
 pub struct EmitState {
-    referent_map: HashMap<RbxId, u32>,
-    next_referent: u32,
     options: EncodeOptions,
+
+    /// A map of IDs written so far to the generated referent that they use.
+    /// This map is used to correctly emit Ref properties.
+    referent_map: HashMap<RbxId, u32>,
+
+    /// The referent value that will be used for emitting the next instance.
+    next_referent: u32,
+
+    /// A map of all shared strings referenced so far while generating XML. This
+    /// map will be written as the file's SharedString dictionary.
+    shared_strings_to_emit: HashMap<(), ()>,
 }
 
 impl EmitState {
     pub fn new(options: EncodeOptions) -> EmitState {
         EmitState {
+            options,
             referent_map: HashMap::new(),
             next_referent: 0,
-            options,
+            shared_strings_to_emit: HashMap::new(),
         }
     }
 
@@ -236,5 +246,23 @@ fn serialize_instance<W: Write>(
 
     writer.write(XmlWriteEvent::end_element())?;
 
+    Ok(())
+}
+
+fn serialize_shared_strings<W: Write>(
+    writer: &mut XmlEventWriter<W>,
+    state: &mut EmitState,
+) -> Result<(), NewEncodeError> {
+    if state.shared_strings_to_emit.is_empty() {
+        return Ok(());
+    }
+
+    writer.write(XmlWriteEvent::start_element("SharedStrings"))?;
+
+    for _entry in &state.shared_strings_to_emit {
+        // TODO: Actually write a SharedString tag
+    }
+
+    writer.end_element()?;
     Ok(())
 }

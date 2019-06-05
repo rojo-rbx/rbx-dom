@@ -28,7 +28,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Rbx
     let mut state = ParseState::new(&mut tree, options);
 
     deserialize_root(&mut iterator, &mut state, root_id)?;
-    apply_id_rewrites(&mut state);
+    apply_referent_rewrites(&mut state);
 
     Ok(tree)
 }
@@ -106,12 +106,6 @@ impl Default for DecodeOptions {
     }
 }
 
-struct ReferentRewrite {
-    pub id: RbxId,
-    pub property_name: String,
-    pub referent_value: String,
-}
-
 /// The state needed to deserialize an XML model into an `RbxTree`.
 pub struct ParseState<'a> {
     tree: &'a mut RbxTree,
@@ -133,16 +127,40 @@ pub struct ParseState<'a> {
     /// deserialization pass, we enumerate over this list and fill in the
     /// correct Ref value by using the referents map.
     referent_rewrites: Vec<ReferentRewrite>,
+
+    /// A map from shared string hashes (currently MD5, decided by Roblox) to
+    /// the actual SharedString type.
+    // TODO: Fill in the value type once SharedString is implemented.
+    known_shared_strings: HashMap<String, ()>,
+
+    /// A list of SharedString properties to set in the tree as a secondary
+    /// pass. This works just like referent rewriting since the shared string
+    /// dictionary is usually at the end of the XML file.
+    shared_string_rewrites: Vec<SharedStringRewrite>,
+}
+
+struct ReferentRewrite {
+    id: RbxId,
+    property_name: String,
+    referent_value: String,
+}
+
+struct SharedStringRewrite {
+    id: RbxId,
+    property_name: String,
+    shared_string_hash: String,
 }
 
 impl<'a> ParseState<'a> {
     fn new(tree: &mut RbxTree, options: DecodeOptions) -> ParseState {
         ParseState {
-            options,
-            referents_to_ids: HashMap::new(),
-            metadata: HashMap::new(),
-            referent_rewrites: Vec::new(),
             tree,
+            options,
+            metadata: HashMap::new(),
+            referents_to_ids: HashMap::new(),
+            referent_rewrites: Vec::new(),
+            known_shared_strings: HashMap::new(),
+            shared_string_rewrites: Vec::new(),
         }
     }
 
@@ -157,9 +175,21 @@ impl<'a> ParseState<'a> {
             referent_value,
         });
     }
+
+    /// Marks that a property on this instance needs to be rewritten once we
+    /// have a complete view of how referents map to RbxId values.
+    ///
+    /// This is used to deserialize non-null Ref values correctly.
+    pub fn add_shared_string_rewrite(&mut self, id: RbxId, property_name: String, shared_string_hash: String) {
+        self.shared_string_rewrites.push(SharedStringRewrite {
+            id,
+            property_name,
+            shared_string_hash,
+        });
+    }
 }
 
-fn apply_id_rewrites(state: &mut ParseState) {
+fn apply_referent_rewrites(state: &mut ParseState) {
     for rewrite in &state.referent_rewrites {
         let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
             Some(id) => *id,
@@ -167,11 +197,29 @@ fn apply_id_rewrites(state: &mut ParseState) {
         };
 
         let instance = state.tree.get_instance_mut(rewrite.id)
-            .expect("rbx_xml bug: had ID in referent map that didn't end up in the tree");
+            .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree");
 
         instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
             value: Some(new_value),
         });
+    }
+}
+
+fn apply_shared_string_rewrites(state: &mut ParseState) {
+    for rewrite in &state.shared_string_rewrites {
+        let new_value = match state.known_shared_strings.get(&rewrite.shared_string_hash) {
+            Some(id) => *id,
+            None => continue
+        };
+
+        let instance = state.tree.get_instance_mut(rewrite.id)
+            .expect("rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree");
+
+        // TODO: Insert SharedString value
+
+        // instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
+        //     value: Some(new_value),
+        // });
     }
 }
 
@@ -492,6 +540,7 @@ fn deserialize_properties<R: Read>(
                     // We don't care about this property, so we can read it and
                     // throw it into the void.
 
+                    // TODO: Fix this case for Ref
                     read_value_xml(reader, &xml_type_name)?;
                 }
                 DecodePropertyBehavior::ReadUnknown | DecodePropertyBehavior::NoReflection => {

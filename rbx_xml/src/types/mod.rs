@@ -20,6 +20,7 @@ mod numbers;
 mod physical_properties;
 mod rect;
 mod referent;
+mod shared_string;
 mod strings;
 mod udims;
 mod vectors;
@@ -36,6 +37,7 @@ use crate::{
 };
 
 pub use self::referent::{read_ref, write_ref};
+pub use self::shared_string::{read_shared_string, write_shared_string};
 
 /// The `declare_rbx_types` macro generates the two big match statements that
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
