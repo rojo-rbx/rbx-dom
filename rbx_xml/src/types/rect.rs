@@ -22,13 +22,13 @@ impl XmlType<Rect> for RectType {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
         writer.write(XmlWriteEvent::start_element("min"))?;
-        writer.write_tag_characters("X", value.min.0)?;
-        writer.write_tag_characters("Y", value.min.1)?;
+        writer.write_tag_characters_f32("X", value.min.0)?;
+        writer.write_tag_characters_f32("Y", value.min.1)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         writer.write(XmlWriteEvent::start_element("max"))?;
-        writer.write_tag_characters("X", value.max.0)?;
-        writer.write_tag_characters("Y", value.max.1)?;
+        writer.write_tag_characters_f32("X", value.max.0)?;
+        writer.write_tag_characters_f32("Y", value.max.1)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         writer.write(XmlWriteEvent::end_element())?;
@@ -42,13 +42,13 @@ impl XmlType<Rect> for RectType {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         reader.expect_start_with_name("min")?;
-        let x_min: f32 = reader.read_tag_contents_parse("X")?;
-        let y_min: f32 = reader.read_tag_contents_parse("Y")?;
+        let x_min: f32 = reader.read_tag_contents_f32("X")?;
+        let y_min: f32 = reader.read_tag_contents_f32("Y")?;
         reader.expect_end_with_name("min")?;
 
         reader.expect_start_with_name("max")?;
-        let x_max: f32 = reader.read_tag_contents_parse("X")?;
-        let y_max: f32 = reader.read_tag_contents_parse("Y")?;
+        let x_max: f32 = reader.read_tag_contents_f32("X")?;
+        let y_max: f32 = reader.read_tag_contents_f32("Y")?;
         reader.expect_end_with_name("max")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;

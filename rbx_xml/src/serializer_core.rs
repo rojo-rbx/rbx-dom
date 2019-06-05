@@ -63,11 +63,36 @@ impl<W: Write> XmlEventWriter<W> {
         Ok(())
     }
 
+    /// Writes a `f32` value, but using Roblox's INF, -INF, and NAN values
+    #[inline]
+    pub fn write_characters_f32(&mut self, value: f32) -> Result<(), NewEncodeError> {
+        self.write_characters_f64(value as f64)
+    }
+
+    /// Writes a `f64` value, but using Roblox's INF, -INF, and NAN values
+    pub fn write_characters_f64(&mut self, value: f64) -> Result<(), NewEncodeError> {
+        if value == std::f64::INFINITY {
+            self.write_characters("INF")
+        } else if value == std::f64::NEG_INFINITY {
+            self.write_characters("-INF")
+        } else if value.is_nan() {
+            self.write_characters("NAN")
+        } else {
+            self.write_characters(value)
+        }
+    }
+
     /// The same as `write_characters`, but wraps the characters in a tag with
     /// the given name and no attributes.
     pub fn write_tag_characters<T: std::fmt::Display>(&mut self, tag: &str, value: T) -> Result<(), NewEncodeError> {
         self.write(XmlWriteEvent::start_element(tag))?;
         self.write_characters(value)?;
+        self.write(XmlWriteEvent::end_element())
+    }
+
+    pub fn write_tag_characters_f32(&mut self, tag: &str, value: f32) -> Result<(), NewEncodeError> {
+        self.write(XmlWriteEvent::start_element(tag))?;
+        self.write_characters_f32(value)?;
         self.write(XmlWriteEvent::end_element())
     }
 
@@ -79,6 +104,16 @@ impl<W: Write> XmlEventWriter<W> {
 
         for (index, component) in values.iter().enumerate() {
             self.write_tag_characters(tags[index], component)?;
+        }
+
+        Ok(())
+    }
+
+    pub fn write_tag_array_f32(&mut self, values: &[f32], tags: &[&str]) -> Result<(), NewEncodeError> {
+        assert_eq!(values.len(), tags.len());
+
+        for (index, component) in values.iter().enumerate() {
+            self.write_tag_characters_f32(tags[index], *component)?;
         }
 
         Ok(())

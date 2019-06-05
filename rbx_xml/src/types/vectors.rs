@@ -23,7 +23,7 @@ impl XmlType<[f32; 2]> for Vector2Type {
         value: &[f32; 2],
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write_tag_array(value, &VECTOR2_TAGS)?;
+        writer.write_tag_array_f32(value, &VECTOR2_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
@@ -34,8 +34,8 @@ impl XmlType<[f32; 2]> for Vector2Type {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let x: f32 = reader.read_tag_contents_parse("X")?;
-        let y: f32 = reader.read_tag_contents_parse("Y")?;
+        let x: f32 = reader.read_tag_contents_f32("X")?;
+        let y: f32 = reader.read_tag_contents_f32("Y")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
@@ -89,7 +89,7 @@ impl XmlType<[f32; 3]> for Vector3Type {
         value: &[f32; 3],
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write_tag_array(value, &VECTOR3_TAGS)?;
+        writer.write_tag_array_f32(value, &VECTOR3_TAGS)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
@@ -100,9 +100,9 @@ impl XmlType<[f32; 3]> for Vector3Type {
     ) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
-        let x: f32 = reader.read_tag_contents_parse("X")?;
-        let y: f32 = reader.read_tag_contents_parse("Y")?;
-        let z: f32 = reader.read_tag_contents_parse("Z")?;
+        let x: f32 = reader.read_tag_contents_f32("X")?;
+        let y: f32 = reader.read_tag_contents_f32("Y")?;
+        let z: f32 = reader.read_tag_contents_f32("Z")?;
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
