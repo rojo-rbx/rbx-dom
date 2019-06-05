@@ -85,8 +85,7 @@ macro_rules! declare_rbx_types {
                 $(RbxValue::$rbx_type { value } => <$typedef>::write_xml(writer, xml_property_name, value),)*
 
                 RbxValue::Ref { value } => write_ref(writer, xml_property_name, value, state),
-
-                // TODO: SharedString
+                RbxValue::SharedString { value } => write_shared_string(writer, xml_property_name, value, state),
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.get_type())))

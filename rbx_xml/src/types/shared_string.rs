@@ -2,7 +2,7 @@
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{RbxId, RbxValue};
+use rbx_dom_weak::{RbxId, RbxValue, SharedString};
 
 use crate::{
     error::{EncodeError, DecodeError},
@@ -17,13 +17,13 @@ pub const XML_TAG_NAME: &'static str = "SharedString";
 pub fn write_shared_string<W: Write>(
     writer: &mut XmlEventWriter<W>,
     property_name: &str,
-    value: &(), // TODO: Fill in with SharedString type
+    value: &SharedString,
     state: &mut EmitState,
 ) -> Result<(), EncodeError> {
+    state.add_shared_string(value.clone());
+
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-
-    // TODO: Write SharedString contents
-
+    writer.write_string(&base64::encode(&value.hash()))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())

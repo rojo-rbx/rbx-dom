@@ -84,5 +84,6 @@ pub use crate::{
     id::RbxId,
     instance::{RbxInstanceProperties, RbxInstance},
     tree::{RbxTree, Descendants},
+    shared_string::SharedString,
     value::*,
 };

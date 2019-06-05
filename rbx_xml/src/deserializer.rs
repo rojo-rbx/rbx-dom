@@ -5,7 +5,15 @@ use std::{
 
 use log::trace;
 use rbx_reflection::RbxPropertyTypeDescriptor;
-use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType, RbxValueConversion};
+use rbx_dom_weak::{
+    RbxId,
+    RbxInstanceProperties,
+    RbxTree,
+    RbxValue,
+    RbxValueConversion,
+    RbxValueType,
+    SharedString,
+};
 
 use crate::{
     core::find_canonical_property_descriptor,
@@ -29,6 +37,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Rbx
 
     deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_referent_rewrites(&mut state);
+    apply_shared_string_rewrites(&mut state);
 
     Ok(tree)
 }
@@ -130,8 +139,7 @@ pub struct ParseState<'a> {
 
     /// A map from shared string hashes (currently MD5, decided by Roblox) to
     /// the actual SharedString type.
-    // TODO: Fill in the value type once SharedString is implemented.
-    known_shared_strings: HashMap<String, ()>,
+    known_shared_strings: HashMap<String, SharedString>,
 
     /// A list of SharedString properties to set in the tree as a secondary
     /// pass. This works just like referent rewriting since the shared string
@@ -208,18 +216,16 @@ fn apply_referent_rewrites(state: &mut ParseState) {
 fn apply_shared_string_rewrites(state: &mut ParseState) {
     for rewrite in &state.shared_string_rewrites {
         let new_value = match state.known_shared_strings.get(&rewrite.shared_string_hash) {
-            Some(id) => *id,
+            Some(v) => v.clone(),
             None => continue
         };
 
         let instance = state.tree.get_instance_mut(rewrite.id)
             .expect("rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree");
 
-        // TODO: Insert SharedString value
-
-        // instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
-        //     value: Some(new_value),
-        // });
+        instance.properties.insert(rewrite.property_name.clone(), RbxValue::SharedString {
+            value: new_value,
+        });
     }
 }
 

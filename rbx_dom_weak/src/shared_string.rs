@@ -19,6 +19,14 @@ pub struct SharedString {
 }
 
 impl SharedString {
+    pub fn hash(&self) -> [u8; 16] {
+        self.hash
+    }
+
+    pub fn data(&self) -> &[u8] {
+        self.data.as_ref().unwrap()
+    }
+
     pub fn get_from_hash(hash: [u8; 16]) -> Option<SharedString> {
         let cache = CACHE.read().unwrap();
 
