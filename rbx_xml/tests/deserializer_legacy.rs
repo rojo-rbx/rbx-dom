@@ -16,6 +16,14 @@ fn empty_document() {
 }
 
 #[test]
+fn wrong_version() {
+    let _ = env_logger::try_init();
+    let document = r#"<roblox version="5"></roblox>"#;
+
+    assert!(rbx_xml::from_str_default(document).is_err());
+}
+
+#[test]
 fn mostly_empty() {
     let _ = env_logger::try_init();
     let document = r#"
