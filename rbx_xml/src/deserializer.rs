@@ -93,6 +93,8 @@ impl DecodeOptions {
         }
     }
 
+    /// A utility function to determine whether or not we should reference the
+    /// reflection database at all.
     pub(crate) fn use_reflection(&self) -> bool {
         self.property_behavior != DecodePropertyBehavior::NoReflection
     }
@@ -104,7 +106,7 @@ impl Default for DecodeOptions {
     }
 }
 
-struct IdPropertyRewrite {
+struct ReferentRewrite {
     pub id: RbxId,
     pub property_name: String,
     pub referent_value: String,
@@ -112,20 +114,34 @@ struct IdPropertyRewrite {
 
 /// The state needed to deserialize an XML model into an `RbxTree`.
 pub struct ParseState<'a> {
-    options: DecodeOptions,
-    referents: HashMap<String, RbxId>,
-    metadata: HashMap<String, String>,
-    rewrite_ids: Vec<IdPropertyRewrite>,
     tree: &'a mut RbxTree,
+    options: DecodeOptions,
+
+    /// Metadata deserialized from 'Meta' fields in the file.
+    /// Known fields are:
+    /// - ExplicitAutoJoints
+    metadata: HashMap<String, String>,
+
+    /// A map referent strings to IDs. This map is filled up as instances are
+    /// deserialized, and referred to when filling out Ref properties.
+    ///
+    /// We need to do that step in two passes because it's possible for
+    /// instances to refer to instances that are later in the file.
+    referents_to_ids: HashMap<String, RbxId>,
+
+    /// A list of Ref property rewrites to apply. After the first
+    /// deserialization pass, we enumerate over this list and fill in the
+    /// correct Ref value by using the referents map.
+    referent_rewrites: Vec<ReferentRewrite>,
 }
 
 impl<'a> ParseState<'a> {
     fn new(tree: &mut RbxTree, options: DecodeOptions) -> ParseState {
         ParseState {
             options,
-            referents: HashMap::new(),
+            referents_to_ids: HashMap::new(),
             metadata: HashMap::new(),
-            rewrite_ids: Vec::new(),
+            referent_rewrites: Vec::new(),
             tree,
         }
     }
@@ -134,8 +150,8 @@ impl<'a> ParseState<'a> {
     /// have a complete view of how referents map to RbxId values.
     ///
     /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_id_rewrite(&mut self, id: RbxId, property_name: String, referent_value: String) {
-        self.rewrite_ids.push(IdPropertyRewrite {
+    pub fn add_referent_rewrite(&mut self, id: RbxId, property_name: String, referent_value: String) {
+        self.referent_rewrites.push(ReferentRewrite {
             id,
             property_name,
             referent_value,
@@ -144,8 +160,8 @@ impl<'a> ParseState<'a> {
 }
 
 fn apply_id_rewrites(state: &mut ParseState) {
-    for rewrite in &state.rewrite_ids {
-        let new_value = match state.referents.get(&rewrite.referent_value) {
+    for rewrite in &state.referent_rewrites {
+        let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
             Some(id) => *id,
             None => continue
         };
@@ -288,11 +304,9 @@ fn deserialize_instance<R: Read>(
     let instance_id = state.tree.insert_instance(instance_props, parent_id);
 
     if let Some(referent) = referent {
-        state.referents.insert(referent, instance_id);
+        state.referents_to_ids.insert(referent, instance_id);
     }
 
-    // we have to collect properties in order to create the instance
-    // name will be captured in this map and extracted later; XML doesn't store it separately
     let mut properties: HashMap<String, RbxValue> = HashMap::new();
 
     loop {
@@ -333,6 +347,10 @@ fn deserialize_instance<R: Read>(
             RbxValue::String { value } => value,
             _ => return Err(reader.error(DecodeErrorKind::NameMustBeString(value.get_type()))),
         },
+
+        // TODO: Use reflection to get default name instead. This should only
+        // matter for ValueBase instances in files created by tools other than
+        // Roblox Studio.
         None => instance.class_name.clone(),
     };
 

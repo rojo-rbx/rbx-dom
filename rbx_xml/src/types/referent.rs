@@ -55,7 +55,7 @@ pub fn read_ref<R: Read>(
         // We might not know which ID this referent points to yet, so instead of
         // trying to handle the case where we do here, we just let all referents
         // get written later.
-        state.add_id_rewrite(id, property_name.to_owned(), ref_contents);
+        state.add_referent_rewrite(id, property_name.to_owned(), ref_contents);
     }
 
     Ok(RbxValue::Ref {
