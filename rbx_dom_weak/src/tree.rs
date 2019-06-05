@@ -236,9 +236,6 @@ impl<'a> Iterator for Descendants<'a> {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct SharedStringKey(String);
-
 #[cfg(test)]
 mod test {
     use super::*;
