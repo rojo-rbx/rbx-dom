@@ -140,7 +140,7 @@ impl AsLua for RbxPropertyScriptability {
 
 impl AsLua for RbxValue {
     fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()> {
-        use RbxValue::*;
+        use self::RbxValue::*;
 
         match self {
             BinaryString { value } => {
