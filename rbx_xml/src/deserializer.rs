@@ -10,12 +10,12 @@ use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType
 use crate::{
     core::find_canonical_property_descriptor,
     types::{read_value_xml, read_ref},
-    error::{DecodeError as NewDecodeError, DecodeErrorKind},
+    error::{DecodeError, DecodeErrorKind},
 };
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
-pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<RbxTree, NewDecodeError> {
+pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<RbxTree, DecodeError> {
     let mut tree = RbxTree::new(RbxInstanceProperties {
         class_name: "DataModel".to_owned(),
         name: "DataModel".to_owned(),
@@ -179,29 +179,28 @@ fn deserialize_root<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId
-) -> Result<(), NewDecodeError> {
+) -> Result<(), DecodeError> {
     match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {},
         _ => unreachable!(),
     }
 
-    {
-        let attributes = reader.expect_start_with_name("roblox")?;
+    let doc_attributes = reader.expect_start_with_name("roblox")?;
 
-        let mut found_version = false;
-        for attribute in attributes.into_iter() {
-            if attribute.name.local_name == "version" {
-                found_version = true;
+    let mut doc_version = None;
 
-                if attribute.value != "4" {
-                    return Err(reader.error(DecodeErrorKind::WrongDocVersion(attribute.value)));
-                }
-            }
+    for attribute in doc_attributes.into_iter() {
+        match attribute.name.local_name.as_str() {
+            "version" => doc_version = Some(attribute.value),
+            _ => {}
         }
+    }
 
-        if !found_version {
-            return Err(reader.error(DecodeErrorKind::MissingAttribute("version")));
-        }
+    let doc_version = doc_version
+        .ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("version")))?;
+
+    if doc_version != "4" {
+        return Err(reader.error(DecodeErrorKind::WrongDocVersion(doc_version)));
     }
 
     loop {
@@ -245,7 +244,7 @@ fn deserialize_root<R: Read>(
     Ok(())
 }
 
-fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), NewDecodeError> {
+fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), DecodeError> {
     let name = {
         let attributes = reader.expect_start_with_name("Meta")?;
 
@@ -272,7 +271,7 @@ fn deserialize_instance<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: RbxId,
-) -> Result<(), NewDecodeError> {
+) -> Result<(), DecodeError> {
     let (class_name, referent) = {
         let attributes = reader.expect_start_with_name("Item")?;
 
@@ -364,7 +363,7 @@ fn deserialize_properties<R: Read>(
     state: &mut ParseState,
     instance_id: RbxId,
     props: &mut HashMap<String, RbxValue>,
-) -> Result<(), NewDecodeError> {
+) -> Result<(), DecodeError> {
     reader.expect_start_with_name("Properties")?;
 
     let class_name = state.tree.get_instance(instance_id)
