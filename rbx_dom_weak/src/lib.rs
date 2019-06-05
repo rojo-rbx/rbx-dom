@@ -70,12 +70,12 @@
 
 #![warn(rust_2018_idioms)]
 
-mod unresolved_value;
 mod brick_color;
 mod id;
 mod instance;
-mod interned_buffer;
+mod shared_string;
 mod tree;
+mod unresolved_value;
 mod value;
 
 pub use crate::{

@@ -2,7 +2,7 @@ use serde_derive::{Serialize, Deserialize};
 
 use crate::{
     brick_color::BrickColor,
-    interned_buffer::Handle,
+    shared_string::SharedString,
     id::RbxId,
 };
 
@@ -108,7 +108,7 @@ pub enum RbxValue {
     Ref { value: Option<RbxId> },
 
     #[serde(rename_all = "PascalCase")]
-    SharedString { value: Handle },
+    SharedString { value: SharedString },
 
     #[serde(rename_all = "PascalCase")]
     String { value: String },
