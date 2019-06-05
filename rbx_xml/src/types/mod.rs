@@ -27,17 +27,21 @@ mod vectors;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::RbxValue;
+use rbx_dom_weak::{RbxValue, RbxId};
 
 use crate::{
     core::XmlType,
     error::{EncodeError, EncodeErrorKind, DecodeError, DecodeErrorKind},
     deserializer_core::XmlEventReader,
+    deserializer::ParseState,
     serializer_core::XmlEventWriter,
+    serializer::EmitState,
 };
 
-pub use self::referent::{read_ref, write_ref};
-pub use self::shared_string::{read_shared_string, write_shared_string};
+use self::{
+    referent::{read_ref, write_ref},
+    shared_string::{read_shared_string, write_shared_string},
+};
 
 /// The `declare_rbx_types` macro generates the two big match statements that
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
@@ -49,13 +53,19 @@ macro_rules! declare_rbx_types {
         /// stream.
         pub fn read_value_xml<R: Read>(
             reader: &mut XmlEventReader<R>,
+            state: &mut ParseState,
             xml_type_name: &str,
+            instance_id: RbxId,
+            property_name: &str,
         ) -> Result<RbxValue, DecodeError> {
             match xml_type_name {
                 $(<$typedef>::XML_TAG_NAME => <$typedef>::read_xml(reader),)*
 
                 // Protected strings are only read, never written
                 self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
+
+                self::referent::XML_TAG_NAME => read_ref(reader, instance_id, property_name, state),
+                self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state),
 
                 _ => {
                     Err(reader.error(DecodeErrorKind::UnknownPropertyType(xml_type_name.to_owned())))
@@ -67,11 +77,16 @@ macro_rules! declare_rbx_types {
         /// stream.
         pub fn write_value_xml<W: Write>(
             writer: &mut XmlEventWriter<W>,
+            state: &mut EmitState,
             xml_property_name: &str,
             value: &RbxValue,
         ) -> Result<(), EncodeError> {
             match value {
                 $(RbxValue::$rbx_type { value } => <$typedef>::write_xml(writer, xml_property_name, value),)*
+
+                RbxValue::Ref { value } => write_ref(writer, xml_property_name, value, state),
+
+                // TODO: SharedString
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.get_type())))

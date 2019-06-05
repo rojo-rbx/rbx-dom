@@ -9,7 +9,7 @@ use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId, RbxValueConversion};
 
 use crate::{
     core::find_serialized_property_descriptor,
-    types::{write_value_xml, write_ref},
+    types::write_value_xml,
     error::{EncodeError as NewEncodeError, EncodeErrorKind},
 };
 
@@ -136,20 +136,6 @@ impl EmitState {
     }
 }
 
-fn serialize_value<W: Write>(
-    writer: &mut XmlEventWriter<W>,
-    state: &mut EmitState,
-    xml_name: &str,
-    value: &RbxValue,
-) -> Result<(), NewEncodeError> {
-    // Refs need additional state that we don't want to thread through
-    // `write_value_xml`, so we handle it here.
-    match value {
-        RbxValue::Ref { value: id } => write_ref(writer, xml_name, id, state).map_err(Into::into),
-        _ => write_value_xml(writer, xml_name, value)
-    }
-}
-
 fn serialize_instance<W: Write>(
     writer: &mut XmlEventWriter<W>,
     state: &mut EmitState,
@@ -165,7 +151,7 @@ fn serialize_instance<W: Write>(
 
     writer.write(XmlWriteEvent::start_element("Properties"))?;
 
-    serialize_value(writer, state, "Name", &RbxValue::String {
+    write_value_xml(writer, state, "Name", &RbxValue::String {
         value: instance.name.clone(),
     })?;
 
@@ -217,7 +203,7 @@ fn serialize_instance<W: Write>(
                 })),
             };
 
-            serialize_value(writer, state, &serialized_descriptor.name(), &converted_value)?;
+            write_value_xml(writer, state, &serialized_descriptor.name(), &converted_value)?;
         } else {
             match state.options.property_behavior {
                 EncodePropertyBehavior::IgnoreUnknown => {}
@@ -225,7 +211,7 @@ fn serialize_instance<W: Write>(
                     // We'll take this value as-is with no conversions on
                     // either the name or value.
 
-                    serialize_value(writer, state, property_name, value)?;
+                    write_value_xml(writer, state, property_name, value)?;
                 }
                 EncodePropertyBehavior::ErrorOnUnknown => {
                     return Err(writer.error(EncodeErrorKind::UnknownProperty {

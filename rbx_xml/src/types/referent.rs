@@ -25,11 +25,11 @@ pub const XML_TAG_NAME: &'static str = "Ref";
 
 pub fn write_ref<W: Write>(
     writer: &mut XmlEventWriter<W>,
-    property_name: &str,
+    xml_property_name: &str,
     value: &Option<RbxId>,
     state: &mut EmitState,
 ) -> Result<(), EncodeError> {
-    writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
+    writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", xml_property_name))?;
 
     match value {
         Some(id) => writer.write_characters(state.map_id(*id))?,

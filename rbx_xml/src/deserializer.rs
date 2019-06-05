@@ -9,7 +9,7 @@ use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType
 
 use crate::{
     core::find_canonical_property_descriptor,
-    types::{read_value_xml, read_ref},
+    types::read_value_xml,
     error::{DecodeError, DecodeErrorKind},
 };
 
@@ -461,15 +461,7 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let xml_value = if xml_type_name.as_str() == "Ref" {
-                // Refs need additional state that we don't want to pass to
-                // other property types unnecessarily, so we special-case it
-                // here.
-
-                read_ref(reader, instance_id, descriptor.name(), state)?
-            } else {
-                read_value_xml(reader, &xml_type_name)?
-            };
+            let xml_value = read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name())?;
 
             // The property descriptor might specify a different type than the
             // one we saw in the XML.
@@ -540,14 +532,13 @@ fn deserialize_properties<R: Read>(
                     // We don't care about this property, so we can read it and
                     // throw it into the void.
 
-                    // TODO: Fix this case for Ref
-                    read_value_xml(reader, &xml_type_name)?;
+                    read_value_xml(reader, state, &xml_type_name, instance_id, &xml_property_name)?;
                 }
                 DecodePropertyBehavior::ReadUnknown | DecodePropertyBehavior::NoReflection => {
                     // We'll take this value as-is with no conversions on either
                     // the name or value.
 
-                    let value = read_value_xml(reader, &xml_type_name)?;
+                    let value = read_value_xml(reader, state, &xml_type_name, instance_id, &xml_property_name)?;
                     props.insert(xml_property_name, value);
                 }
                 DecodePropertyBehavior::ErrorOnUnknown => {
