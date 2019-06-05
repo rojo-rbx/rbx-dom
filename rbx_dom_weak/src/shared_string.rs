@@ -119,4 +119,12 @@ mod test {
 
         assert_eq!(SharedString::get_from_hash(hash), None);
     }
+
+    #[test]
+    fn serialization() {
+        let value = SharedString::insert(vec![9, 1, 3, 4]);
+
+        let serialized = serde_json::to_string(&value).unwrap();
+        assert_eq!(serialized, r#""mdxCr5/mgQ6KwGBx5rzuGg==""#);
+    }
 }
