@@ -159,9 +159,13 @@ mod test {
     #[test]
     fn insert_and_get() {
         let handle = SharedString::insert(vec![1, 2, 3]);
-        let second_handle = SharedString::get_from_hash(handle.hash);
+        let second_handle = SharedString::get_from_hash(handle.hash)
+            .expect("Couldn't find SharedString that was just inserted");
 
-        assert_eq!(Some(handle), second_handle);
+        let first_data = handle.data.as_ref().unwrap();
+        let second_data = second_handle.data.as_ref().unwrap();
+
+        assert!(Arc::ptr_eq(first_data, second_data));
     }
 
     #[test]
