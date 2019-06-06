@@ -158,14 +158,25 @@ mod test {
 
     #[test]
     fn insert_and_get() {
-        let handle = SharedString::insert(vec![1, 2, 3]);
-        let second_handle = SharedString::get_from_hash(handle.hash)
+        let handle_1 = SharedString::insert(vec![1, 2, 3]);
+        let handle_2 = SharedString::get_from_hash(handle_1.hash)
             .expect("Couldn't find SharedString that was just inserted");
 
-        let first_data = handle.data.as_ref().unwrap();
-        let second_data = second_handle.data.as_ref().unwrap();
+        let data_1 = handle_1.data.as_ref().unwrap();
+        let data_2 = handle_2.data.as_ref().unwrap();
 
-        assert!(Arc::ptr_eq(first_data, second_data));
+        assert!(Arc::ptr_eq(data_1, data_2));
+    }
+
+    #[test]
+    fn insert_twice() {
+        let handle_1 = SharedString::insert(vec![5, 4, 3]);
+        let handle_2 = SharedString::insert(vec![5, 4, 3]);
+
+        let data_1 = handle_1.data.as_ref().unwrap();
+        let data_2 = handle_2.data.as_ref().unwrap();
+
+        assert!(Arc::ptr_eq(data_1, data_2));
     }
 
     #[test]
