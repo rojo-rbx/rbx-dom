@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+* Added the `SharedString` type, which is used by Roblox to reduce redundant copies of binary buffers. ([#63](https://github.com/LPGhatguy/rbx-dom/pull/63))
 
 ## 1.7.0 (2019-05-14)
 * Added conversions from `BrickColor` to `Color3` and `Color3uint8`. ([#46](https://github.com/LPGhatguy/rbx-dom/pull/46))
