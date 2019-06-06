@@ -12,6 +12,7 @@ static TEST_MODELS: &[&str] = &[
     include_str!("../test-files/part-referent.rbxmx"),
     include_str!("../test-files/parts.rbxmx"),
     include_str!("../test-files/terrain.rbxmx"),
+    include_str!("../test-files/union.rbxmx"),
 ];
 
 #[test]
