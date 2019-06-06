@@ -2,7 +2,7 @@
 //! mechanism Roblox uses in the SharedString API.
 
 use std::{
-    collections::HashMap,
+    collections::{hash_map, HashMap},
     sync::{Arc, Weak, RwLock},
 };
 
@@ -12,22 +12,76 @@ lazy_static::lazy_static! {
     static ref CACHE: RwLock<HashMap<[u8; 16], Weak<Vec<u8>>>> = RwLock::new(HashMap::new());
 }
 
+/// A shared buffer of data that is automatically deduplicated so that only one
+/// copy of a given buffer is in memory at a time.
+///
+/// SharedString is cheap to clone, since it's internally reference-counted.
+///
+/// This type was introduced by Roblox to help efficiently store data like CSG
+/// operation, which was previously kept as BinaryValue objects in
+/// CSGDictionaryService.
+///
+/// rbx_dom_weak's implementation of SharedString tries to be faithful to how
+/// SharedString works in Roblox, which unfortunately means that it's keyed by
+/// MD5 hash. In the event of a hash collision, one of the involved buffers will
+/// be silently discarded. It's possible to diverge from this behavior, but
+/// could potentially cause edge-case content compatibility issues.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SharedString {
+    // We use an Option<Arc<T>> instead of just an Arc<T> so that our Drop impl
+    // can take ownership of the Arc.
     data: Option<Arc<Vec<u8>>>,
     hash: [u8; 16],
 }
 
 impl SharedString {
-    pub fn hash(&self) -> [u8; 16] {
-        self.hash
+    /// Constructs a SharedString from a buffer of data.
+    ///
+    /// If the data is already present in memory as a SharedString, this method
+    /// will return a reference to it, otherwise it'll be inserted.
+    pub fn insert(data: Vec<u8>) -> SharedString {
+        let hash = {
+            let mut context = md5::Context::new();
+            context.consume(&data);
+            context.compute().0
+        };
+
+        let data = {
+            let data = Arc::new(data);
+            let mut cache = CACHE.write().unwrap();
+
+            match cache.entry(hash) {
+                hash_map::Entry::Occupied(mut occupied) => {
+                    match occupied.get().upgrade() {
+                        Some(data) => {
+                            // This is an existing entry that hasn't expired,
+                            // the happy path!
+                            data
+                        }
+                        None => {
+                            // An entry is still present in the global cache,
+                            // but there are no outstanding handles.
+                            occupied.insert(Arc::downgrade(&data));
+                            data
+                        }
+                    }
+                }
+                hash_map::Entry::Vacant(vacant) => {
+                    vacant.insert(Arc::downgrade(&data));
+                    data
+                }
+            }
+        };
+
+        SharedString {
+            hash,
+            data: Some(data),
+        }
     }
 
-    pub fn data(&self) -> &[u8] {
-        self.data.as_ref().unwrap()
-    }
-
-    pub fn get_from_hash(hash: [u8; 16]) -> Option<SharedString> {
+    /// Attempts to find an existing SharedString with the given MD5 hash.
+    #[allow(unused)]
+    fn get_from_hash(hash: [u8; 16]) -> Option<SharedString> {
         let cache = CACHE.read().unwrap();
 
         cache.get(&hash).and_then(|data| {
@@ -38,28 +92,16 @@ impl SharedString {
         })
     }
 
-    pub fn insert(data: Vec<u8>) -> SharedString {
-        let hash = {
-            let mut context = md5::Context::new();
-            context.consume(&data);
-            context.compute().0
-        };
-        let data = Arc::new(data);
+    /// Returns the MD5 hash of the SharedString, which is a unique identifier
+    /// barring hash collisions.
+    pub fn hash(&self) -> [u8; 16] {
+        self.hash
+    }
 
-        // Explicitly return previous data, since SharedString::drop will attempt to
-        // take a write lock on the cache and we don't want to deadlock.
-        let previous = {
-            let mut cache = CACHE.write().unwrap();
-            cache.insert(hash, Arc::downgrade(&data))
-        };
-
-        // Explicitly drop the previous data here, after the lock is released.
-        drop(previous);
-
-        SharedString {
-            hash,
-            data: Some(data),
-        }
+    /// Returns an immutable reference to the underlying buffer from the
+    /// SharedString.
+    pub fn data(&self) -> &[u8] {
+        self.data.as_ref().unwrap()
     }
 }
 
@@ -87,6 +129,9 @@ impl<'de> Deserialize<'de> for SharedString {
 
 impl Drop for SharedString {
     fn drop(&mut self) {
+        // If the reference we're about to drop is the very last reference to
+        // the buffer, we'll be able to unwrap it and remove it from the
+        // SharedString cache.
         match Arc::try_unwrap(self.data.take().unwrap()) {
             Ok(_) => {
                 let mut cache = match CACHE.write() {
