@@ -1,5 +1,3 @@
-use std::io::Cursor;
-
 use rbx_dom_weak::{RbxValue, RbxTree, SharedString};
 
 static TEST_FILE: &[u8] = include_bytes!("../test-files/union.rbxmx");
@@ -30,7 +28,7 @@ fn shared_string_round_trip() {
     let model_id = root_instance.get_children_ids()[0];
 
     let mut buffer = Vec::new();
-    rbx_xml::to_writer(Cursor::new(&mut buffer), &first_tree, &[model_id], encode_options).unwrap();
+    rbx_xml::to_writer(&mut buffer, &first_tree, &[model_id], encode_options).unwrap();
 
     let second_tree = rbx_xml::from_reader(buffer.as_slice(), decode_options).unwrap();
     let second_value = get_config_data(&second_tree);
