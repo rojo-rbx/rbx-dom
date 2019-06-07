@@ -9,6 +9,7 @@ fn services() {
     let folder = rbx_reflection::get_class_descriptor("Folder").unwrap();
     assert!(!folder.is_service());
 
-    let starter_player_scripts = rbx_reflection::get_class_descriptor("StarterPlayerScripts").unwrap();
+    let starter_player_scripts =
+        rbx_reflection::get_class_descriptor("StarterPlayerScripts").unwrap();
     assert!(!starter_player_scripts.is_service());
 }
