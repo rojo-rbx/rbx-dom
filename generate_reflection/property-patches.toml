@@ -151,3 +151,11 @@ canonical_name = "Focus"
 # JointInstance.part1 is a deprecated alias for Part1
 [change.JointInstance.part1]
 canonical_name = "Part1"
+
+[change.Sound.MaxDistance]
+serialized_name = "xmlRead_MaxDistance_3"
+[add.Sound.xmlRead_MaxDistance_3]
+type = { Data = "Float32" }
+canonical_name ="MaxDistance"
+scriptability = "None"
+serializes = false
