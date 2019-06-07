@@ -2,7 +2,7 @@
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
-    let mut output = HashMap::with_capacity(193);
+    let mut output = HashMap::with_capacity(194);
     output.insert(
         Cow::Borrowed("ActionType"),
         RbxEnumDescriptor {
@@ -99,6 +99,18 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 let mut items = HashMap::with_capacity(2);
                 items.insert(Cow::Borrowed("FitWithinMaxSize"), 0);
                 items.insert(Cow::Borrowed("ScaleWithParentSize"), 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("AssetFetchStatus"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("AssetFetchStatus"),
+            items: {
+                let mut items = HashMap::with_capacity(2);
+                items.insert(Cow::Borrowed("Success"), 0);
+                items.insert(Cow::Borrowed("Failure"), 1);
                 items
             },
         },
@@ -673,18 +685,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("Default"), 0);
                 items.insert(Cow::Borrowed("Follow"), 2);
                 items.insert(Cow::Borrowed("Classic"), 1);
-                items
-            },
-        },
-    );
-    output.insert(
-        Cow::Borrowed("DEPRECATED_DebuggerDataModelPreference"),
-        RbxEnumDescriptor {
-            name: Cow::Borrowed("DEPRECATED_DebuggerDataModelPreference"),
-            items: {
-                let mut items = HashMap::with_capacity(2);
-                items.insert(Cow::Borrowed("Server"), 0);
-                items.insert(Cow::Borrowed("Client"), 1);
                 items
             },
         },
@@ -1433,6 +1433,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("Left"), 2);
                 items.insert(Cow::Borrowed("Right"), 3);
                 items.insert(Cow::Borrowed("Float"), 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("InlineAlignment"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("InlineAlignment"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Bottom"), 0);
+                items.insert(Cow::Borrowed("Center"), 1);
+                items.insert(Cow::Borrowed("Top"), 2);
                 items
             },
         },

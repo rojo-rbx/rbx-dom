@@ -238,14 +238,6 @@ return {
 		defaults = {
 		},
 	},
-	AnalyticsService = {
-		superclass = "Instance",
-		properties = {
-		},
-		defaults = {
-			Name = "AnalyticsService",
-		},
-	},
 	AngularVelocity = {
 		superclass = "Constraint",
 		properties = {
@@ -8100,6 +8092,14 @@ return {
 				scriptability = "Read",
 				serializes = false,
 			},
+			IsLuaBottomBarWithText = {
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
 			IsLuaChatEnabled = {
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
@@ -8109,22 +8109,6 @@ return {
 				serializes = false,
 			},
 			IsLuaGameDetailsEnabled = {
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "Read",
-				serializes = false,
-			},
-			IsLuaGamesPageEnabled = {
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "Read",
-				serializes = false,
-			},
-			IsLuaHomePageEnabled = {
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9142,8 +9126,8 @@ return {
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
-				scriptability = "Read",
-				serializes = false,
+				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Guest = {
 				type = {type = "Data", name = "Bool"},
@@ -9796,6 +9780,14 @@ return {
 			Name = "Value",
 		},
 	},
+	RbxAnalyticsService = {
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "RbxAnalyticsService",
+		},
+	},
 	ReflectionMetadata = {
 		superclass = "Instance",
 		properties = {
@@ -10395,6 +10387,13 @@ return {
 			Name = "ReverbSoundEffect",
 			Priority = 0,
 			WetLevel = 0,
+		},
+	},
+	RobloxPluginGuiService = {
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 	RobloxReplicatedStorage = {
@@ -11785,9 +11784,9 @@ return {
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
-				serializedName = nil,
+				serializedName = "xmlRead_MaxDistance_3",
 				scriptability = "ReadWrite",
-				serializes = false,
+				serializes = true,
 			},
 			MinDistance = {
 				type = {type = "Data", name = "Float32"},
@@ -11891,6 +11890,14 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
+			},
+			xmlRead_MaxDistance_3 = {
+				type = {type = "Data", name = "Float32"},
+				isCanonical = false,
+				canonicalName = "MaxDistance",
+				serializedName = nil,
+				scriptability = "None",
 				serializes = false,
 			},
 		},
@@ -12354,7 +12361,6 @@ return {
 		properties = {
 		},
 		defaults = {
-			Name = "StarterCharacterScripts",
 		},
 	},
 	StarterGear = {
@@ -12758,7 +12764,6 @@ return {
 		properties = {
 		},
 		defaults = {
-			Name = "StarterPlayerScripts",
 		},
 	},
 	Stats = {
@@ -13034,6 +13039,14 @@ return {
 		properties = {
 			ActiveScript = {
 				type = {type = "Data", name = "Ref"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			StudioLocaleId = {
+				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14924,6 +14937,27 @@ return {
 			},
 		},
 		defaults = {
+		},
+	},
+	UIInlineLayout = {
+		superclass = "UIGridStyleLayout",
+		properties = {
+			InlineAlignment = {
+				type = {type = "Enum", name = "InlineAlignment"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+			FillDirection = 0,
+			HorizontalAlignment = 1,
+			InlineAlignment = 1,
+			Name = "UIInlineLayout",
+			SortOrder = 0,
+			VerticalAlignment = 1,
 		},
 	},
 	UILayout = {
