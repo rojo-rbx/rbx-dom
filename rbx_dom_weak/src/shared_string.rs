@@ -81,7 +81,7 @@ impl SharedString {
 
     /// Attempts to find an existing SharedString with the given MD5 hash.
     #[allow(unused)]
-    fn get_from_hash(hash: [u8; 16]) -> Option<SharedString> {
+    fn get_from_md5_hash(hash: [u8; 16]) -> Option<SharedString> {
         let cache = CACHE.read().unwrap();
 
         cache.get(&hash).and_then(|data| {
@@ -92,9 +92,9 @@ impl SharedString {
         })
     }
 
-    /// Returns the MD5 hash of the SharedString, which is a unique identifier
-    /// barring hash collisions.
-    pub fn hash(&self) -> [u8; 16] {
+    /// Returns the MD5 hash of the SharedString, which is used as unique
+    /// identifier presently barring hash collisions.
+    pub fn md5_hash(&self) -> [u8; 16] {
         self.hash
     }
 
@@ -159,7 +159,7 @@ mod test {
     #[test]
     fn insert_and_get() {
         let handle_1 = SharedString::insert(vec![1, 2, 3]);
-        let handle_2 = SharedString::get_from_hash(handle_1.hash)
+        let handle_2 = SharedString::get_from_md5_hash(handle_1.hash)
             .expect("Couldn't find SharedString that was just inserted");
 
         let data_1 = handle_1.data.as_ref().unwrap();
@@ -185,7 +185,7 @@ mod test {
             SharedString::insert(vec![4, 5, 6]).hash
         };
 
-        assert_eq!(SharedString::get_from_hash(hash), None);
+        assert_eq!(SharedString::get_from_md5_hash(hash), None);
     }
 
     #[test]

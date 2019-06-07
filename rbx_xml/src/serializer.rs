@@ -145,7 +145,7 @@ impl EmitState {
     }
 
     pub fn add_shared_string(&mut self, value: SharedString) {
-        self.shared_strings_to_emit.insert(value.hash(), value);
+        self.shared_strings_to_emit.insert(value.md5_hash(), value);
     }
 }
 
@@ -260,7 +260,7 @@ fn serialize_shared_strings<W: Write>(
 
     for value in state.shared_strings_to_emit.values() {
         writer.write(XmlWriteEvent::start_element("SharedString")
-            .attr("md5", &base64::encode(&value.hash())))?;
+            .attr("md5", &base64::encode(&value.md5_hash())))?;
 
         writer.write_string(&base64::encode(value.data()))?;
         writer.end_element()?;

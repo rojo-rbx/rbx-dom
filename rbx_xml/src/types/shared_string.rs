@@ -23,7 +23,7 @@ pub fn write_shared_string<W: Write>(
     state.add_shared_string(value.clone());
 
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-    writer.write_string(&base64::encode(&value.hash()))?;
+    writer.write_string(&base64::encode(&value.md5_hash()))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
