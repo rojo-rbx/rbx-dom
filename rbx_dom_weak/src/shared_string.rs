@@ -61,6 +61,12 @@ impl SharedString {
                         None => {
                             // An entry is still present in the global cache,
                             // but there are no outstanding handles.
+                            //
+                            // This might not do quite what we want. The Arc
+                            // might've been unwrapped in SharedString::drop but
+                            // not yet removed from the cache. That worst-case
+                            // should still be okay, we'll just end up with an
+                            // extra copy of this data.
                             occupied.insert(Arc::downgrade(&data));
                             data
                         }
@@ -105,6 +111,8 @@ impl SharedString {
     }
 }
 
+/// SharedString serializes its hash when serialized through Serde. This is to
+/// prevent accidentally creating lots of redundant copeis of its data.
 impl Serialize for SharedString {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -118,6 +126,8 @@ impl Serialize for SharedString {
     }
 }
 
+/// SharedString cannot be deserialized, since the serialization implementation
+/// only includes its hash.
 impl<'de> Deserialize<'de> for SharedString {
     fn deserialize<D>(_deserializer: D) -> Result<SharedString, D::Error>
     where
