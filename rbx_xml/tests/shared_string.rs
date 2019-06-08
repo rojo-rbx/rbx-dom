@@ -33,7 +33,7 @@ fn shared_string_round_trip() {
     let second_tree = rbx_xml::from_reader(buffer.as_slice(), decode_options).unwrap();
     let second_value = get_config_data(&second_tree);
 
-    assert!(first_value.hash() == second_value.hash());
+    assert!(first_value.md5_hash() == second_value.md5_hash());
     assert!(first_value.data() == second_value.data());
 }
 
