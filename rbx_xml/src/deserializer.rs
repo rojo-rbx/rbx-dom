@@ -5,7 +5,15 @@ use std::{
 
 use log::trace;
 use rbx_reflection::RbxPropertyTypeDescriptor;
-use rbx_dom_weak::{RbxTree, RbxId, RbxInstanceProperties, RbxValue, RbxValueType, RbxValueConversion};
+use rbx_dom_weak::{
+    RbxId,
+    RbxInstanceProperties,
+    RbxTree,
+    RbxValue,
+    RbxValueConversion,
+    RbxValueType,
+    SharedString,
+};
 
 use crate::{
     core::find_canonical_property_descriptor,
@@ -29,6 +37,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Rbx
 
     deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_referent_rewrites(&mut state);
+    apply_shared_string_rewrites(&mut state);
 
     Ok(tree)
 }
@@ -130,8 +139,7 @@ pub struct ParseState<'a> {
 
     /// A map from shared string hashes (currently MD5, decided by Roblox) to
     /// the actual SharedString type.
-    // TODO: Fill in the value type once SharedString is implemented.
-    known_shared_strings: HashMap<String, ()>,
+    known_shared_strings: HashMap<String, SharedString>,
 
     /// A list of SharedString properties to set in the tree as a secondary
     /// pass. This works just like referent rewriting since the shared string
@@ -208,18 +216,16 @@ fn apply_referent_rewrites(state: &mut ParseState) {
 fn apply_shared_string_rewrites(state: &mut ParseState) {
     for rewrite in &state.shared_string_rewrites {
         let new_value = match state.known_shared_strings.get(&rewrite.shared_string_hash) {
-            Some(id) => *id,
+            Some(v) => v.clone(),
             None => continue
         };
 
         let instance = state.tree.get_instance_mut(rewrite.id)
             .expect("rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree");
 
-        // TODO: Insert SharedString value
-
-        // instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
-        //     value: Some(new_value),
-        // });
+        instance.properties.insert(rewrite.property_name.clone(), RbxValue::SharedString {
+            value: new_value,
+        });
     }
 }
 
@@ -265,6 +271,9 @@ fn deserialize_root<R: Read>(
                     }
                     "Meta" => {
                         deserialize_metadata(reader, state)?;
+                    }
+                    "SharedStrings" => {
+                        deserialize_shared_string_dict(reader, state)?;
                     }
                     _ => {
                         let event = reader.expect_next().unwrap();
@@ -312,6 +321,72 @@ fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut Par
     reader.expect_end_with_name("Meta")?;
 
     state.metadata.insert(name, value);
+    Ok(())
+}
+
+fn deserialize_shared_string_dict<R: Read>(
+    reader: &mut XmlEventReader<R>,
+    state: &mut ParseState,
+) -> Result<(), DecodeError> {
+    reader.expect_start_with_name("SharedStrings")?;
+
+    loop {
+        match reader.expect_peek()? {
+            XmlReadEvent::StartElement { name, .. } => {
+                if name.local_name == "SharedString" {
+                    deserialize_shared_string(reader, state)?;
+                } else {
+                    let event = reader.expect_next().unwrap();
+                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                }
+            }
+            XmlReadEvent::EndElement { name } => {
+                if name.local_name == "SharedStrings" {
+                    break;
+                } else {
+                    let event = reader.expect_next().unwrap();
+                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                }
+            }
+            _ => {
+                let event = reader.expect_next().unwrap();
+                return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+            }
+        }
+    }
+
+    reader.expect_end_with_name("SharedStrings")?;
+    Ok(())
+}
+
+fn deserialize_shared_string<R: Read>(
+    reader: &mut XmlEventReader<R>,
+    state: &mut ParseState,
+) -> Result<(), DecodeError> {
+    let attributes = reader.expect_start_with_name("SharedString")?;
+
+    let mut md5_hash = None;
+    for attribute in attributes.into_iter() {
+        if attribute.name.local_name == "md5" {
+            md5_hash = Some(attribute.value);
+            break;
+        }
+    }
+
+    let md5_hash = md5_hash
+        .ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("md5")))?;
+
+    let encoded_buffer = reader.read_characters()?
+        .replace("\n", "");
+
+    let buffer = base64::decode(&encoded_buffer)
+        .map_err(|e| reader.error(e))?;
+
+    let value = SharedString::insert(buffer);
+
+    state.known_shared_strings.insert(md5_hash, value);
+
+    reader.expect_end_with_name("SharedString")?;
     Ok(())
 }
 

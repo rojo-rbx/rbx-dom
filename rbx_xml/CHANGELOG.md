@@ -3,6 +3,7 @@
 ## Unreleased
 * Added support for INF and NAN values in compound types like Vector2 ([#62](https://github.com/LPGhatguy/rbx-dom/pull/62))
 * Fixed edge cases around unrecognized Ref properties causing confusing errors.
+* Added support for serializing and deserializing `SharedString` values. ([#63](https://github.com/LPGhatguy/rbx-dom/pull/63))
 
 ## 0.9.0 (2019-05-16)
 * Added real configuration to serialization and deserialization routines

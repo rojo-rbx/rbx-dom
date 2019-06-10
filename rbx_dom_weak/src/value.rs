@@ -2,6 +2,7 @@ use serde_derive::{Serialize, Deserialize};
 
 use crate::{
     brick_color::BrickColor,
+    shared_string::SharedString,
     id::RbxId,
 };
 
@@ -29,6 +30,7 @@ pub enum RbxValueType {
     Ray,
     Rect,
     Ref,
+    SharedString,
     String,
     UDim,
     UDim2,
@@ -106,6 +108,9 @@ pub enum RbxValue {
     Ref { value: Option<RbxId> },
 
     #[serde(rename_all = "PascalCase")]
+    SharedString { value: SharedString },
+
+    #[serde(rename_all = "PascalCase")]
     String { value: String },
 
     #[serde(rename_all = "PascalCase")]
@@ -155,6 +160,7 @@ impl RbxValue {
             RbxValue::Ray { .. } => RbxValueType::Ray,
             RbxValue::Rect { .. } => RbxValueType::Rect,
             RbxValue::Ref { .. } => RbxValueType::Ref,
+            RbxValue::SharedString { .. } => RbxValueType::SharedString,
             RbxValue::String { .. } => RbxValueType::String,
             RbxValue::UDim { .. } => RbxValueType::UDim,
             RbxValue::UDim2 { .. } => RbxValueType::UDim2,

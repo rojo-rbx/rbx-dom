@@ -5,7 +5,14 @@ use std::{
 };
 
 use rbx_reflection::RbxPropertyTypeDescriptor;
-use rbx_dom_weak::{RbxTree, RbxValue, RbxValueType, RbxId, RbxValueConversion};
+use rbx_dom_weak::{
+    RbxTree,
+    RbxValue,
+    RbxValueType,
+    RbxId,
+    RbxValueConversion,
+    SharedString,
+};
 
 use crate::{
     core::find_serialized_property_descriptor,
@@ -24,6 +31,8 @@ pub fn encode_internal<W: Write>(output: W, tree: &RbxTree, ids: &[RbxId], optio
     for id in ids {
         serialize_instance(&mut writer, &mut state, tree, *id)?;
     }
+
+    serialize_shared_strings(&mut writer, &mut state)?;
 
     writer.write(XmlWriteEvent::end_element())?;
 
@@ -110,7 +119,7 @@ pub struct EmitState {
 
     /// A map of all shared strings referenced so far while generating XML. This
     /// map will be written as the file's SharedString dictionary.
-    shared_strings_to_emit: HashMap<(), ()>,
+    shared_strings_to_emit: HashMap<[u8; 16], SharedString>,
 }
 
 impl EmitState {
@@ -133,6 +142,10 @@ impl EmitState {
                 referent
             }
         }
+    }
+
+    pub fn add_shared_string(&mut self, value: SharedString) {
+        self.shared_strings_to_emit.insert(value.md5_hash(), value);
     }
 }
 
@@ -245,8 +258,12 @@ fn serialize_shared_strings<W: Write>(
 
     writer.write(XmlWriteEvent::start_element("SharedStrings"))?;
 
-    for _entry in &state.shared_strings_to_emit {
-        // TODO: Actually write a SharedString tag
+    for value in state.shared_strings_to_emit.values() {
+        writer.write(XmlWriteEvent::start_element("SharedString")
+            .attr("md5", &base64::encode(&value.md5_hash())))?;
+
+        writer.write_string(&base64::encode(value.data()))?;
+        writer.end_element()?;
     }
 
     writer.end_element()?;
