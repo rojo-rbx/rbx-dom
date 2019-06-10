@@ -181,6 +181,8 @@ impl RbxValue {
             return Unnecessary;
         }
 
+        // These conversions should be uniform in style.
+        #[allow(clippy::cast_lossless)]
         match (self, target_type) {
             (RbxValue::Float32 { value }, RbxValueType::Float64) => Converted(RbxValue::Float64 { value: *value as f64 }),
             (RbxValue::Float64 { value }, RbxValueType::Float32) => Converted(RbxValue::Float32 { value: *value as f32 }),
