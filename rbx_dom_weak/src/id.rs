@@ -11,6 +11,8 @@ use uuid::Uuid;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct RbxId(Uuid);
 
+// Default randomly generated stuff doesn't make sense.
+#[allow(clippy::new_without_default)]
 impl RbxId {
     /// Generates a new, random `RbxId`.
     pub fn new() -> RbxId {

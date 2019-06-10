@@ -33,7 +33,7 @@ impl RbxTree {
 
         RbxTree {
             instances,
-            root_id: root_id,
+            root_id,
         }
     }
 
@@ -80,12 +80,7 @@ impl RbxTree {
 
         // We can move children in whatever order since we aren't touching their
         // children tables
-        loop {
-            let id = match to_visit.pop() {
-                Some(id) => id,
-                None => break,
-            };
-
+        while let Some(id) = to_visit.pop() {
             let instance = self.instances.remove(&id).unwrap();
             to_visit.extend_from_slice(&instance.children);
 
@@ -121,12 +116,7 @@ impl RbxTree {
         let mut ids_to_visit = vec![root_id];
         let mut new_tree_instances = HashMap::new();
 
-        loop {
-            let id = match ids_to_visit.pop() {
-                Some(id) => id,
-                None => break,
-            };
-
+        while let Some(id) = ids_to_visit.pop() {
             match self.instances.get(&id) {
                 Some(instance) => ids_to_visit.extend_from_slice(&instance.children),
                 None => continue,
@@ -138,7 +128,7 @@ impl RbxTree {
 
         Some(RbxTree {
             instances: new_tree_instances,
-            root_id: root_id,
+            root_id,
         })
     }
 
@@ -214,21 +204,13 @@ impl<'a> Iterator for Descendants<'a> {
     type Item = &'a RbxInstance;
 
     fn next(&mut self) -> Option<Self::Item> {
-        loop {
-            let id = match self.ids_to_visit.pop() {
-                Some(id) => id,
-                None => break,
-            };
+        while let Some(id) = self.ids_to_visit.pop() {
+            if let Some(instance) = self.tree.get_instance(id) {
+                for child_id in &instance.children {
+                    self.ids_to_visit.push(*child_id);
+                }
 
-            match self.tree.get_instance(id) {
-                Some(instance) => {
-                    for child_id in &instance.children {
-                        self.ids_to_visit.push(*child_id);
-                    }
-
-                    return Some(instance);
-                },
-                None => continue,
+                return Some(instance);
             }
         }
 

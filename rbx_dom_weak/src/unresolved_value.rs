@@ -162,8 +162,8 @@ impl<'de> Deserialize<'de> for UnresolvedRbxValue {
                 value[3] = fourth as f32;
                 value[4] = fifth as f32;
 
-                for i in 5..12 {
-                    value[i] = visitor.next_element()?.ok_or_else(||
+                for (i, item) in value.iter_mut().enumerate().skip(5) {
+                    *item = visitor.next_element()?.ok_or_else(||
                         de::Error::invalid_length(i, &"sequence of length 2, 3, 4, or 12")
                     )?;
                 }
