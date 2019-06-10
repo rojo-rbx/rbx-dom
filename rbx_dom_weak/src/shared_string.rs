@@ -39,7 +39,7 @@ impl SharedString {
     ///
     /// If the data is already present in memory as a SharedString, this method
     /// will return a reference to it, otherwise it'll be inserted.
-    pub fn insert(data: Vec<u8>) -> SharedString {
+    pub fn new(data: Vec<u8>) -> SharedString {
         let hash = {
             let mut context = md5::Context::new();
             context.consume(&data);
@@ -163,7 +163,7 @@ mod test {
 
     #[test]
     fn insert_and_get() {
-        let handle_1 = SharedString::insert(vec![1, 2, 3]);
+        let handle_1 = SharedString::new(vec![1, 2, 3]);
         let handle_2 = SharedString::get_from_md5_hash(handle_1.hash)
             .expect("Couldn't find SharedString that was just inserted");
 
@@ -175,8 +175,8 @@ mod test {
 
     #[test]
     fn insert_twice() {
-        let handle_1 = SharedString::insert(vec![5, 4, 3]);
-        let handle_2 = SharedString::insert(vec![5, 4, 3]);
+        let handle_1 = SharedString::new(vec![5, 4, 3]);
+        let handle_2 = SharedString::new(vec![5, 4, 3]);
 
         let data_1 = handle_1.data.as_ref().unwrap();
         let data_2 = handle_2.data.as_ref().unwrap();
@@ -187,7 +187,7 @@ mod test {
     #[test]
     fn drop() {
         let hash = {
-            SharedString::insert(vec![4, 5, 6]).hash
+            SharedString::new(vec![4, 5, 6]).hash
         };
 
         assert_eq!(SharedString::get_from_md5_hash(hash), None);
@@ -195,7 +195,7 @@ mod test {
 
     #[test]
     fn serialization() {
-        let value = SharedString::insert(vec![9, 1, 3, 4]);
+        let value = SharedString::new(vec![9, 1, 3, 4]);
 
         let serialized = serde_json::to_string(&value).unwrap();
         assert_eq!(serialized, r#""mdxCr5/mgQ6KwGBx5rzuGg==""#);

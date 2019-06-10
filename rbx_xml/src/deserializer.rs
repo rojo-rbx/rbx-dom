@@ -382,7 +382,7 @@ fn deserialize_shared_string<R: Read>(
     let buffer = base64::decode(&encoded_buffer)
         .map_err(|e| reader.error(e))?;
 
-    let value = SharedString::insert(buffer);
+    let value = SharedString::new(buffer);
 
     state.known_shared_strings.insert(md5_hash, value);
 
