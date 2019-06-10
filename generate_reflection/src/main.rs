@@ -54,6 +54,10 @@ enum PluginMessage {
     }
 }
 
+#[allow(
+    clippy::useless_let_if_seq, // https://github.com/rust-lang/rust-clippy/issues/3769
+    clippy::cyclomatic_complexity, // TODO
+)]
 fn main() -> Result<(), Box<dyn Error>> {
     let dump = Dump::read()?;
 
@@ -71,36 +75,33 @@ fn main() -> Result<(), Box<dyn Error>> {
         let mut properties = HashMap::new();
 
         for member in &dump_class.members {
-            match member {
-                DumpClassMember::Property(dump_property) => {
-                    let tags = RbxPropertyTags::from_dump_tags(&dump_property.tags);
+            if let DumpClassMember::Property(dump_property) = member {
+                let tags = RbxPropertyTags::from_dump_tags(&dump_property.tags);
 
-                    let scriptability = if tags.contains(RbxPropertyTags::NOT_SCRIPTABLE) {
-                        RbxPropertyScriptability::None
-                    } else if tags.contains(RbxPropertyTags::READ_ONLY) {
-                        RbxPropertyScriptability::Read
-                    } else {
-                        RbxPropertyScriptability::ReadWrite
-                    };
+                let scriptability = if tags.contains(RbxPropertyTags::NOT_SCRIPTABLE) {
+                    RbxPropertyScriptability::None
+                } else if tags.contains(RbxPropertyTags::READ_ONLY) {
+                    RbxPropertyScriptability::Read
+                } else {
+                    RbxPropertyScriptability::ReadWrite
+                };
 
-                    let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
-                        && dump_property.serialization.can_save;
+                let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
+                    && dump_property.serialization.can_save;
 
-                    let property = RbxPropertyDescriptor {
-                        name: Cow::Owned(dump_property.name.clone()),
-                        value_type: RbxPropertyTypeDescriptor::from(&dump_property.value_type),
-                        tags,
+                let property = RbxPropertyDescriptor {
+                    name: Cow::Owned(dump_property.name.clone()),
+                    value_type: RbxPropertyTypeDescriptor::from(&dump_property.value_type),
+                    tags,
 
-                        is_canonical: true,
-                        canonical_name: None,
-                        serialized_name: None,
-                        scriptability,
-                        serializes,
-                    };
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability,
+                    serializes,
+                };
 
-                    properties.insert(Cow::Owned(dump_property.name.clone()), property);
-                }
-                _ => {}
+                properties.insert(Cow::Owned(dump_property.name.clone()), property);
             }
         }
 

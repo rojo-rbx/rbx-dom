@@ -29,7 +29,7 @@ pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
 
     writeln!(output, "return {{")?;
     for class_name in keys.into_iter() {
-        emit_class(output, database.classes.get(class_name).unwrap())?;
+        emit_class(output, &database.classes[class_name])?;
     }
     writeln!(output, "}}")?;
 
@@ -50,7 +50,7 @@ fn emit_class<W: Write>(output: &mut W, class: &RbxClassDescriptor) -> io::Resul
             continue;
         }
 
-        let property = class.properties.get(property_name).unwrap();
+        let property = &class.properties[property_name];
 
         writeln!(output, "\t\t\t{} = {{", property.name)?;
 
@@ -81,7 +81,7 @@ fn emit_defaults<W: Write>(output: &mut W, class: &RbxClassDescriptor) -> io::Re
             continue;
         }
 
-        let default_value = class.default_properties.get(property_name).unwrap();
+        let default_value = &class.default_properties[property_name];
 
         writeln!(output, "\t\t\t{} = {},", property_name, Lua(default_value))?;
     }

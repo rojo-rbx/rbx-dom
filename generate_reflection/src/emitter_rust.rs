@@ -293,7 +293,7 @@ impl AsRust for RbxValue {
                 quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
             },
             RbxValue::CFrame { value } => {
-                let literals = value.into_iter().cloned().map(Literal::f32_unsuffixed);
+                let literals = value.iter().cloned().map(Literal::f32_unsuffixed);
 
                 quote!(RbxValue::CFrame {
                     value: [
