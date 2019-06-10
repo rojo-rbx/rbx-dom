@@ -31,6 +31,11 @@ use crate::{
 pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
     let classes = generate_classes(&database.classes);
     writeln!(output, "// This file is automatically @generated.")?;
+
+    // We have to do this as a string, or else rustfmt will leave the nasty
+    // syntax that quote generates for it.
+    writeln!(output, "#![allow(clippy::approx_constant, clippy::unreadable_literal)]")?;
+
     write!(output, "{}", classes)
 }
 
@@ -42,6 +47,7 @@ pub fn emit_enums<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io
 
 pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
     writeln!(output, "// This file is automatically @generated.")?;
+    writeln!(output, "#![allow(clippy::unreadable_literal)]")?;
     writeln!(output, "pub const RBX_VERSION_MAJOR: u32 = {};", database.studio_version[0])?;
     writeln!(output, "pub const RBX_VERSION_MINOR: u32 = {};", database.studio_version[1])?;
     writeln!(output, "pub const RBX_VERSION_PATCH: u32 = {};", database.studio_version[2])?;

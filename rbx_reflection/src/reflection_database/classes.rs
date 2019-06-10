@@ -1,4 +1,5 @@
 // This file is automatically @generated.
+#![allow(clippy::approx_constant, clippy::unreadable_literal)]
 use crate::reflection_types::*;
 use rbx_dom_weak::{RbxValue, RbxValueType};
 use std::{borrow::Cow, collections::HashMap};

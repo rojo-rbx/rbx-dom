@@ -31,7 +31,7 @@ impl RbxClassDescriptor {
     /// only instance without a superclass is `Instance`.
     #[inline]
     pub fn superclass(&self) -> Option<&str> {
-        self.superclass.as_ref().map(|v| v.as_ref())
+        self.superclass.as_ref().map(AsRef::as_ref)
     }
 
     /// Locates the property descriptor on this class with the given name if it
@@ -167,14 +167,14 @@ impl RbxPropertyDescriptor {
     /// variant.
     #[inline]
     pub fn canonical_name(&self) -> Option<&str> {
-        self.canonical_name.as_ref().map(|v| v.as_ref())
+        self.canonical_name.as_ref().map(AsRef::as_ref)
     }
 
     /// If this property is serializable and its serialized name is different
     /// than the name given by `name()`, it will be given by `serialized_name`.
     #[inline]
     pub fn serialized_name(&self) -> Option<&str> {
-        self.serialized_name.as_ref().map(|v| v.as_ref())
+        self.serialized_name.as_ref().map(AsRef::as_ref)
     }
 }
 
