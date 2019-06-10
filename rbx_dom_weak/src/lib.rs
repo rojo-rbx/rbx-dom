@@ -68,8 +68,6 @@
 //! [`RbxInstanceProperties`]: struct.RbxInstanceProperties.html
 //! [maplit]: https://crates.io/crates/maplit
 
-#![warn(rust_2018_idioms)]
-
 mod brick_color;
 mod id;
 mod instance;

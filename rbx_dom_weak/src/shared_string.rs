@@ -3,6 +3,7 @@
 
 use std::{
     collections::{hash_map, HashMap},
+    fmt,
     sync::{Arc, Weak, RwLock},
 };
 
@@ -111,29 +112,66 @@ impl SharedString {
     }
 }
 
-/// SharedString serializes its hash when serialized through Serde. This is to
-/// prevent accidentally creating lots of redundant copies of its data.
 impl Serialize for SharedString {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
         if serializer.is_human_readable() {
-            serializer.serialize_str(&base64::encode(&self.hash))
+            serializer.serialize_str(&base64::encode(self.data()))
         } else {
-            serializer.serialize_bytes(&self.hash)
+            serializer.serialize_bytes(self.data())
         }
     }
 }
 
-/// SharedString cannot be deserialized, since the serialization implementation
-/// only includes its hash.
 impl<'de> Deserialize<'de> for SharedString {
-    fn deserialize<D>(_deserializer: D) -> Result<SharedString, D::Error>
+    fn deserialize<D>(deserializer: D) -> Result<SharedString, D::Error>
     where
         D: Deserializer<'de>,
     {
-        panic!("SharedString cannot be deserialized using Serde");
+        struct HumanReadableVisitor;
+
+        impl<'de> serde::de::Visitor<'de> for HumanReadableVisitor {
+            type Value = SharedString;
+
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("A base64-encoded string")
+            }
+
+            fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                let data = base64::decode(value)
+                    .map_err(serde::de::Error::custom)?;
+
+                Ok(SharedString::new(data))
+            }
+        }
+
+        struct BinaryVisitor;
+
+        impl<'de> serde::de::Visitor<'de> for BinaryVisitor {
+            type Value = SharedString;
+
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("A buffer of bytes")
+            }
+
+            fn visit_bytes<E>(self, value: &[u8]) -> Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                Ok(SharedString::new(value.to_vec()))
+            }
+        }
+
+        if deserializer.is_human_readable() {
+            deserializer.deserialize_str(HumanReadableVisitor)
+        } else {
+            deserializer.deserialize_bytes(BinaryVisitor)
+        }
     }
 }
 
@@ -198,6 +236,14 @@ mod test {
         let value = SharedString::new(vec![9, 1, 3, 4]);
 
         let serialized = serde_json::to_string(&value).unwrap();
-        assert_eq!(serialized, r#""mdxCr5/mgQ6KwGBx5rzuGg==""#);
+        assert_eq!(serialized, r#""CQEDBA==""#);
+
+        let deserialized = serde_json::from_str(&serialized).unwrap();
+        assert_eq!(value, deserialized);
+
+        let data_1 = value.data.as_ref().unwrap();
+        let data_2 = deserialized.data.as_ref().unwrap();
+
+        assert!(Arc::ptr_eq(data_1, data_2));
     }
 }
