@@ -20,6 +20,7 @@ local encoders = {
 	String = identity,
 
 	BinaryString = base64.encode,
+	SharedString = base64.encode,
 
 	CFrame = function(value)
 		return {value:GetComponents()}
@@ -64,6 +65,7 @@ local decoders = {
 	String = identity,
 
 	BinaryString = base64.decode,
+	SharedString = base64.decode,
 
 	CFrame = unpackDecoder(CFrame.new),
 	Color3 = unpackDecoder(Color3.new),

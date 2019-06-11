@@ -61,7 +61,7 @@ Roblox reflection information for working with Instances in external tooling.
 | Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
 | Region3            | `N/A`                           | ❌ | ✔ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ❌ | ✔ | ❌ | ❌ |
-| SharedString       | `N/A`                           | ❌ | ❌ | ❌ | ❌ |
+| SharedString       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
 | UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ❌ |
 | UDim2              | `Frame.Size`                    | ✔ | ✔ | ✔ | ❌ |
