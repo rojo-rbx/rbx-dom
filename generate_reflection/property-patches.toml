@@ -1,5 +1,16 @@
 # General stuff
 
+# Property DataModel.lighting doesn't look canonical
+# Property DataModel.workspace doesn't look canonical
+# Property Humanoid.maxHealth doesn't look canonical
+# Property Mouse.hit doesn't look canonical
+# Property Mouse.target doesn't look canonical
+# Property Player.userId doesn't look canonical
+# Property Players.localPlayer doesn't look canonical
+# Property Players.numPlayers doesn't look canonical
+# Property ReflectionMetadataItem.summary doesn't look canonical
+# Property Sound.isPlaying doesn't look canonical
+
 # className is a deprecated alias for ClassName.
 [change.Instance.className]
 canonical_name = "ClassName"
@@ -159,3 +170,33 @@ type = { Data = "Float32" }
 canonical_name ="MaxDistance"
 scriptability = "None"
 serializes = false
+
+# Body movers
+
+[change.BodyAngularVelocity.angularvelocity]
+canonical_name = "AngularVelocity"
+[change.BodyAngularVelocity.maxTorque]
+canonical_name = "MaxTorque"
+
+[change.BodyForce.force]
+canonical_name = "Force"
+
+[change.BodyGyro.cframe]
+canonical_name = "CFrame"
+[change.BodyGyro.maxTorque]
+canonical_name = "MaxTorque"
+
+[change.BodyPosition.maxForce]
+canonical_name = "MaxForce"
+[change.BodyPosition.position]
+canonical_name = "Position"
+
+[change.BodyThrust.force]
+canonical_name = "Force"
+[change.BodyThrust.location]
+canonical_name = "Location"
+
+[change.BodyVelocity.maxForce]
+canonical_name = "MaxForce"
+[change.BodyVelocity.velocity]
+canonical_name = "Velocity"
