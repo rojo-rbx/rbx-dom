@@ -4,6 +4,7 @@ use log::info;
 
 static TEST_MODELS: &[&str] = &[
     include_str!("../test-files/baseplate.rbxlx"),
+    include_str!("../test-files/body-movers.rbxmx"),
     include_str!("../test-files/decals.rbxmx"),
     include_str!("../test-files/effects.rbxmx"),
     include_str!("../test-files/gui.rbxmx"),
