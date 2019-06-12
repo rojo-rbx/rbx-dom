@@ -1598,16 +1598,16 @@ return {
 			},
 			angularvelocity = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "AngularVelocity",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
 			maxTorque = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "MaxTorque",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
@@ -1618,8 +1618,6 @@ return {
 			MaxTorque = Vector3.new(4000, 4000, 4000),
 			Name = "BodyAngularVelocity",
 			P = 1250,
-			angularvelocity = Vector3.new(0, 2, 0),
-			maxTorque = Vector3.new(4000, 4000, 4000),
 		},
 	},
 	BodyColors = {
@@ -1745,8 +1743,8 @@ return {
 			},
 			force = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Force",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
@@ -1755,7 +1753,6 @@ return {
 		defaults = {
 			Force = Vector3.new(0, 1, 0),
 			Name = "BodyForce",
-			force = Vector3.new(0, 1, 0),
 		},
 	},
 	BodyGyro = {
@@ -1795,16 +1792,16 @@ return {
 			},
 			cframe = {
 				type = {type = "Data", name = "CFrame"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "CFrame",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
 			maxTorque = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "MaxTorque",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
@@ -1816,8 +1813,6 @@ return {
 			MaxTorque = Vector3.new(400000, 0, 400000),
 			Name = "BodyGyro",
 			P = 3000,
-			cframe = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-			maxTorque = Vector3.new(400000, 0, 400000),
 		},
 	},
 	BodyMover = {
@@ -1864,16 +1859,16 @@ return {
 			},
 			maxForce = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "MaxForce",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
 			position = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Position",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
@@ -1885,8 +1880,6 @@ return {
 			Name = "BodyPosition",
 			P = 10000,
 			Position = Vector3.new(0, 50, 0),
-			maxForce = Vector3.new(4000, 4000, 4000),
-			position = Vector3.new(0, 50, 0),
 		},
 	},
 	BodyThrust = {
@@ -1910,16 +1903,16 @@ return {
 			},
 			force = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Force",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
 			location = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Location",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
@@ -1929,8 +1922,6 @@ return {
 			Force = Vector3.new(0, 1, 0),
 			Location = Vector3.new(0, 0, 0),
 			Name = "BodyThrust",
-			force = Vector3.new(0, 1, 0),
-			location = Vector3.new(0, 0, 0),
 		},
 	},
 	BodyVelocity = {
@@ -1962,16 +1953,16 @@ return {
 			},
 			maxForce = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "MaxForce",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
 			velocity = {
 				type = {type = "Data", name = "Vector3"},
-				isCanonical = true,
-				canonicalName = nil,
+				isCanonical = false,
+				canonicalName = "Velocity",
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
@@ -1982,8 +1973,6 @@ return {
 			Name = "BodyVelocity",
 			P = 1250,
 			Velocity = Vector3.new(0, 2, 0),
-			maxForce = Vector3.new(4000, 4000, 4000),
-			velocity = Vector3.new(0, 2, 0),
 		},
 	},
 	BoolValue = {
@@ -6909,6 +6898,14 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			LegacyOutlines = {
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
 			OutdoorAmbient = {
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
@@ -8072,6 +8069,41 @@ return {
 			},
 		},
 		defaults = {
+		},
+	},
+	NoCollisionConstraint = {
+		superclass = "Instance",
+		properties = {
+			Enabled = {
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Part0 = {
+				type = {type = "Data", name = "Ref"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Part1 = {
+				type = {type = "Data", name = "Ref"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+			Enabled = true,
+			Name = "NoCollisionConstraint",
+			Part0 = nil,
+			Part1 = nil,
 		},
 	},
 	NonReplicatedCSGDictionaryService = {
@@ -10394,6 +10426,7 @@ return {
 		properties = {
 		},
 		defaults = {
+			Name = "RobloxPluginGuiService",
 		},
 	},
 	RobloxReplicatedStorage = {

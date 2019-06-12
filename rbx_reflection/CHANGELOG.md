@@ -1,6 +1,8 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+* Updated canonical property information for body mover instances like `BodyVelocity`.
+* Updated reflection database to client 0.389.1.310791
 
 ## 3.1.388 (2019-06-10)
 * Updated reflection database to client 0.388.0.307917

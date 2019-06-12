@@ -1914,11 +1914,12 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("MembershipType"),
             items: {
-                let mut items = HashMap::with_capacity(4);
+                let mut items = HashMap::with_capacity(5);
                 items.insert(Cow::Borrowed("None"), 0);
                 items.insert(Cow::Borrowed("BuildersClub"), 1);
                 items.insert(Cow::Borrowed("TurboBuildersClub"), 2);
                 items.insert(Cow::Borrowed("OutrageousBuildersClub"), 3);
+                items.insert(Cow::Borrowed("Premium"), 4);
                 items
             },
         },
