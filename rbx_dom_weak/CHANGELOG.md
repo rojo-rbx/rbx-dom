@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+* Fixed Serde being able to deserialize `RbxValue` and `RbxValueType`'s internal `__Nonexhaustive` value. This should also fix Serde recommending this value to users in error messages.
 
 ## 1.8.0 (2019-06-10)
 * Added the `SharedString` type, which is used by Roblox to reduce redundant copies of binary buffers. ([#63](https://github.com/LPGhatguy/rbx-dom/pull/63))

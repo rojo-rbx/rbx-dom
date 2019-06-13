@@ -40,6 +40,7 @@ pub enum RbxValueType {
     Vector3int16,
 
     #[doc(hidden)]
+    #[serde(skip)]
     __Nonexhaustive,
 }
 
@@ -132,6 +133,7 @@ pub enum RbxValue {
     Vector3int16 { value: [i16; 3] },
 
     #[doc(hidden)]
+    #[serde(skip)]
     __Nonexhaustive,
 }
 
