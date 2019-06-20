@@ -105,8 +105,11 @@ local typeConverters = {
 	["nil"] = function(_value)
 		return { Type = "Ref", Value = nil }
 	end,
-	Instance = function(_value)
-		vwarn("Not sure how to serialize non-nil default Instance property")
+	Instance = function(value)
+		if value ~= nil then
+			warn("Not sure how to serialize non-nil default Instance property")
+		end
+
 		return { Type = "Ref", Value = nil }
 	end,
 	Vector3 = function(value)
