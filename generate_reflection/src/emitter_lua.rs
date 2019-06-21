@@ -39,6 +39,7 @@ pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
 fn emit_class<W: Write>(output: &mut W, class: &RbxClassDescriptor) -> io::Result<()> {
     writeln!(output, "\t{} = {{", class.name)?;
 
+    writeln!(output, "\t\tname = {},", Lua(&class.name))?;
     writeln!(output, "\t\tsuperclass = {},", Lua(&class.superclass))?;
 
     let mut keys: Vec<_> = class.properties.keys().collect();
@@ -54,6 +55,7 @@ fn emit_class<W: Write>(output: &mut W, class: &RbxClassDescriptor) -> io::Resul
 
         writeln!(output, "\t\t\t{} = {{", property.name)?;
 
+        writeln!(output, "\t\t\t\tname = {},", Lua(&property.name))?;
         writeln!(output, "\t\t\t\ttype = {},", Lua(&property.value_type))?;
         writeln!(output, "\t\t\t\tisCanonical = {},", Lua(property.is_canonical))?;
         writeln!(output, "\t\t\t\tcanonicalName = {},", Lua(&property.canonical_name))?;

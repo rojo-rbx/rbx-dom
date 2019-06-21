@@ -3,9 +3,11 @@ local HttpService = game:GetService("HttpService")
 local VERBOSE = false
 local ERROR_AT_END = false
 
-local function vwarn(message)
+local EncodedValue = require(script.Parent.EncodedValue)
+
+local function verbosePrint(...)
 	if VERBOSE then
-		vwarn(message)
+		print(...)
 	end
 end
 
@@ -43,16 +45,16 @@ local classNameBlacklist = {
 	NetworkClient = true,
 }
 
-local function shouldMeasureProperty(propertyName, property)
-	if propertyBlacklist[propertyName] then
+local function shouldMeasureProperty(propertyDescriptor)
+	if propertyBlacklist[propertyDescriptor.name] then
 		return false
 	end
 
-	if property.scriptability ~= "ReadWrite" then
+	if propertyDescriptor.scriptability ~= "ReadWrite" then
 		return false
 	end
 
-	return property.isCanonical
+	return propertyDescriptor.isCanonical
 end
 
 --[[
@@ -79,105 +81,6 @@ local function getDefaultInstance(className)
 	return nil
 end
 
-local function serializeFloat(value)
-	-- TODO: Figure out a better way to serialize infinity and NaN, neither of
-	-- which fit into JSON.
-	if value == math.huge or value == -math.huge then
-		vwarn("Can't serialize infinity or negative infinity yet!")
-		return 999999999 * math.sign(value)
-	end
-
-	return value
-end
-
-local typeConverters = {
-	string = function(value)
-		return { Type = "String", Value = value }
-	end,
-	number = function(value)
-		-- TODO: More precise typing here somehow?
-
-		return { Type = "Float32", Value = serializeFloat(value) }
-	end,
-	boolean = function(value)
-		return { Type = "Bool", Value = value }
-	end,
-	["nil"] = function(_value)
-		return { Type = "Ref", Value = nil }
-	end,
-	Instance = function(value)
-		if value ~= nil then
-			warn("Not sure how to serialize non-nil default Instance property")
-		end
-
-		return { Type = "Ref", Value = nil }
-	end,
-	Vector3 = function(value)
-		return {
-			Type = "Vector3",
-			Value = {
-				serializeFloat(value.X),
-				serializeFloat(value.Y),
-				serializeFloat(value.Z),
-			}
-		}
-	end,
-	Vector2 = function(value)
-		return {
-			Type = "Vector2",
-			Value = {
-				serializeFloat(value.X),
-				serializeFloat(value.Y),
-			}
-		}
-	end,
-	Color3 = function(value)
-		return {
-			Type = "Color3",
-			Value = {
-				serializeFloat(value.r),
-				serializeFloat(value.g),
-				serializeFloat(value.b),
-			}
-		}
-	end,
-	CFrame = function(value)
-		return {
-			Type = "CFrame",
-			Value = {value:components()}
-		}
-	end,
-	EnumItem = function(value)
-		return {
-			Type = "Enum",
-			Value = value.Value,
-		}
-	end,
-	UDim = function(value)
-		return {
-			Type = "UDim",
-			Value = {value.Scale, value.Offset},
-		}
-	end,
-	UDim2 = function(value)
-		return {
-			Type = "UDim2",
-			Value = {value.X.Scale, value.X.Offset, value.Y.Scale, value.Y.Offset},
-		}
-	end,
-}
-
-local function robloxValueToRojoValue(robloxValue)
-	local robloxType = typeof(robloxValue)
-	local converter = typeConverters[robloxType]
-
-	if converter ~= nil then
-		return true, converter(robloxValue)
-	else
-		return false
-	end
-end
-
 return function(postMessage)
 	postMessage(HttpService:JSONEncode({
 		type = "Version",
@@ -188,31 +91,29 @@ return function(postMessage)
 		classes = require(script.Parent.ReflectionClasses),
 	}
 
-	for className, class in pairs(ReflectionDatabase.classes) do
-		local instance = getDefaultInstance(className)
+	for _, class in pairs(ReflectionDatabase.classes) do
+		local instance = getDefaultInstance(class.name)
 
-		if instance == nil then
-			vwarn("Couldn't find a default enough version of instance", class.Name)
-		else
+		if instance ~= nil then
 			local defaultProperties = {}
 
 			local currentClass = class
 
 			while currentClass ~= nil do
-				for propertyName, property in pairs(currentClass.properties) do
-					if shouldMeasureProperty(propertyName, property) then
-						local ok, value = pcall(get, instance, propertyName)
+				for _, propertyDescriptor in pairs(currentClass.properties) do
+					if shouldMeasureProperty(propertyDescriptor) then
+						local ok, value = pcall(get, instance, propertyDescriptor.name)
 
 						if ok then
-							local ok, rojoValue = robloxValueToRojoValue(value)
+							local ok, encoded = EncodedValue.encode(value, propertyDescriptor.type)
 
 							if ok then
-								defaultProperties[propertyName] = rojoValue
+								defaultProperties[propertyDescriptor.name] = encoded
 							else
-								vwarn("Couldn't convert property", propertyName, "on class", class.Name, "to a Rojo value")
+								warn("Couldn't encode property", propertyDescriptor.name, "on class", currentClass.name, encoded)
 							end
 						else
-							vwarn("Couldn't read property", propertyName, "on class", class.Name)
+							verbosePrint("Couldn't read property", propertyDescriptor.name, "on class", class.name)
 						end
 					end
 				end
@@ -223,7 +124,7 @@ return function(postMessage)
 			if next(defaultProperties) ~= nil then
 				postMessage(HttpService:JSONEncode({
 					type = "DefaultProperties",
-					className = className,
+					className = class.name,
 					properties = defaultProperties,
 				}))
 			end

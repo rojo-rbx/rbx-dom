@@ -18,6 +18,7 @@ use std::{
     io::{BufWriter, Write},
     mem,
     path::PathBuf,
+    str,
 };
 
 use serde_derive::Deserialize;
@@ -248,6 +249,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         inject_plugin_main(&mut plugin);
         inject_reflection_classes(&mut plugin, &database);
+        inject_dependencies(&mut plugin);
 
         plugin
     };
@@ -255,8 +257,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let messages = run_in_roblox(&plugin);
 
     for message in &messages {
-        let deserialized = serde_json::from_slice(&message)
-            .expect("Couldn't deserialize message");
+        let deserialized = match serde_json::from_slice(&message) {
+            Ok(v) => v,
+            Err(e) => {
+                panic!("Couldn't deserialize message: {}\n{}", e, str::from_utf8(message).unwrap());
+            }
+        };
 
         match deserialized {
             PluginMessage::Version { version } => {
@@ -318,6 +324,21 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+fn create_module(name: &str, source: String) -> RbxInstanceProperties {
+    let mut properties = HashMap::new();
+
+    properties.insert(
+        String::from("Source"),
+        RbxValue::String { value: source },
+    );
+
+    RbxInstanceProperties {
+        class_name: String::from("ModuleScript"),
+        name: String::from(name),
+        properties,
+    }
+}
+
 fn inject_reflection_classes(plugin: &mut RbxTree, database: &ReflectionDatabase) {
     let root_id = plugin.get_root_id();
 
@@ -328,20 +349,21 @@ fn inject_reflection_classes(plugin: &mut RbxTree, database: &ReflectionDatabase
     let classes_source = String::from_utf8(classes_buffer)
         .expect("Lua class database wasn't valid UTF-8");
 
-    let module = RbxInstanceProperties {
-        class_name: String::from("ModuleScript"),
-        name: String::from("ReflectionClasses"),
-        properties: {
-            let mut properties = HashMap::new();
-
-            properties.insert(
-                String::from("Source"),
-                RbxValue::String { value: classes_source },
-            );
-
-            properties
-        },
-    };
-
+    let module = create_module("ReflectionClasses", classes_source);
     plugin.insert_instance(module, root_id);
+}
+
+/// Injects in the pieces of rbx_dom_lua that we need to generate the dump.
+///
+/// Notably, this reduces the code duplication for serializing/deserializing
+/// values through JSON. We manually track dependencies right now to avoid
+/// needing to depend on Rojo to build the plugin.
+fn inject_dependencies(plugin: &mut RbxTree) {
+    static BASE64: &str = include_str!("../../rbx_dom_lua/src/base64.lua");
+    static ENCODED_VALUE: &str = include_str!("../../rbx_dom_lua/src/EncodedValue.lua");
+
+    let root_id = plugin.get_root_id();
+
+    plugin.insert_instance(create_module("base64", String::from(BASE64)), root_id);
+    plugin.insert_instance(create_module("EncodedValue", String::from(ENCODED_VALUE)), root_id);
 }

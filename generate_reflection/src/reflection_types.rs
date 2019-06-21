@@ -94,19 +94,22 @@ impl<'a> From<&'a ValueType> for RbxPropertyTypeDescriptor {
             }
             ValueCategory::DataType => {
                 let data_kind = match value_type.name.as_str() {
-                    "Vector3" => RbxValueType::Vector3,
-                    "Vector2" => RbxValueType::Vector2,
-                    "Color3" => RbxValueType::Color3,
-                    "CFrame" => RbxValueType::CFrame,
-                    "PhysicalProperties" => RbxValueType::PhysicalProperties,
                     "BinaryString" => RbxValueType::BinaryString,
-                    "UDim" => RbxValueType::UDim,
-                    "UDim2" => RbxValueType::UDim2,
+                    "BrickColor" => RbxValueType::BrickColor,
+                    "CFrame" => RbxValueType::CFrame,
+                    "Color3" => RbxValueType::Color3,
+                    "Color3uint8" => RbxValueType::Color3uint8,
+                    "ColorSequence" => RbxValueType::ColorSequence,
                     "Content" => RbxValueType::Content,
                     "NumberRange" => RbxValueType::NumberRange,
                     "NumberSequence" => RbxValueType::NumberSequence,
-                    "ColorSequence" => RbxValueType::ColorSequence,
+                    "PhysicalProperties" => RbxValueType::PhysicalProperties,
                     "ProtectedString" => RbxValueType::String,
+                    "Rect" => RbxValueType::Rect,
+                    "UDim" => RbxValueType::UDim,
+                    "UDim2" => RbxValueType::UDim2,
+                    "Vector2" => RbxValueType::Vector2,
+                    "Vector3" => RbxValueType::Vector3,
 
                     "QDir" | "QFont" => {
                         // We're never going to support these types.

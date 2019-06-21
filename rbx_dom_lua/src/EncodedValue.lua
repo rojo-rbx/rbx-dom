@@ -10,11 +10,22 @@ local function unpackDecoder(f)
 	end
 end
 
-local encoders = {
+local function serializeFloat(value)
+	-- TODO: Figure out a better way to serialize infinity and NaN, neither of
+	-- which fit into JSON.
+	if value == math.huge or value == -math.huge then
+		return 999999999 * math.sign(value)
+	end
+
+	return value
+end
+
+local encoders
+encoders = {
 	Bool = identity,
 	Content = identity,
-	Float32 = identity,
-	Float64 = identity,
+	Float32 = serializeFloat,
+	Float64 = serializeFloat,
 	Int32 = identity,
 	Int64 = identity,
 	String = identity,
@@ -31,8 +42,40 @@ local encoders = {
 	NumberRange = function(value)
 		return {value.Min, value.Max}
 	end,
+	NumberSequence = function(value)
+		local keypoints = {}
+
+		for index, keypoint in ipairs(value.Keypoints) do
+			keypoints[index] = {
+				Time = keypoint.Time,
+				Value = keypoint.Value,
+				Envelope = keypoint.Envelope,
+			}
+		end
+
+		return {
+			Keypoints = keypoints,
+		}
+	end,
+	ColorSequence = function(value)
+		local keypoints = {}
+
+		for index, keypoint in ipairs(value.Keypoints) do
+			keypoints[index] = {
+				Time = keypoint.Time,
+				Color = encoders.Color3(keypoint.Value),
+			}
+		end
+
+		return {
+			Keypoints = keypoints,
+		}
+	end,
 	Rect = function(value)
-		return {value.Min.X, value.Min.Y, value.Max.X, value.Max.Y}
+		return {
+			Min = {value.Min.X, value.Min.Y},
+			Max = {value.Max.X, value.Max.Y},
+		}
 	end,
 	UDim = function(value)
 		return {value.Scale, value.Offset}
@@ -41,16 +84,41 @@ local encoders = {
 		return {value.X.Scale, value.X.Offset, value.Y.Scale, value.Y.Offset}
 	end,
 	Vector2 = function(value)
-		return {value.X, value.Y}
+		return {
+			serializeFloat(value.X),
+			serializeFloat(value.Y),
+		}
 	end,
 	Vector2int16 = function(value)
 		return {value.X, value.Y}
 	end,
 	Vector3 = function(value)
-		return {value.X, value.Y, value.Z}
+		return {
+			serializeFloat(value.X),
+			serializeFloat(value.Y),
+			serializeFloat(value.Z),
+		}
 	end,
 	Vector3int16 = function(value)
 		return {value.X, value.Y, value.Z}
+	end,
+
+	PhysicalProperties = function(value)
+		if value == nil then
+			return nil
+		else
+			return {
+				Density = value.Density,
+				Friction = value.Friction,
+				Elasticity = value.Elasticity,
+				FrictionWeight = value.FrictionWeight,
+				ElasticityWeight = value.ElasticityWeight,
+			}
+		end
+	end,
+
+	Ref = function(value)
+		return nil
 	end,
 }
 
@@ -71,13 +139,43 @@ local decoders = {
 	Color3 = unpackDecoder(Color3.new),
 	Color3uint8 = unpackDecoder(Color3.fromRGB),
 	NumberRange = unpackDecoder(NumberRange.new),
-	Rect = unpackDecoder(Rect.new),
 	UDim = unpackDecoder(UDim.new),
 	UDim2 = unpackDecoder(UDim2.new),
 	Vector2 = unpackDecoder(Vector2.new),
 	Vector2int16 = unpackDecoder(Vector2int16.new),
 	Vector3 = unpackDecoder(Vector3.new),
 	Vector3int16 = unpackDecoder(Vector3int16.new),
+
+	Rect = function(value)
+		return Rect.new(value.Min.X, value.Min.Y, value.Max.X, value.Max.Y)
+	end,
+
+	NumberSequence = function(value)
+		local keypoints = {}
+
+		for index, keypoint in ipairs(value.keypoints) do
+			keypoints[index] = NumberSequenceKeypoint.new(
+				keypoint.time,
+				keypoint.value,
+				keypoint.envelope
+			)
+		end
+
+		return NumberSequence.new(keypoints)
+	end,
+
+	ColorSequence = function(value)
+		local keypoints = {}
+
+		for index, keypoint in ipairs(value.keypoints) do
+			keypoints[index] = ColorSequenceKeypoint.new(
+				keypoint.time,
+				keypoint.color
+			)
+		end
+
+		return ColorSequence.new(keypoints)
+	end,
 
 	PhysicalProperties = function(properties)
 		if properties == nil then
@@ -92,6 +190,10 @@ local decoders = {
 			)
 		end
 	end,
+
+	Ref = function()
+		return nil
+	end,
 }
 
 local EncodedValue = {}
@@ -105,26 +207,30 @@ function EncodedValue.decode(encodedValue)
 	return false, "Couldn't decode value " .. tostring(encodedValue.Type)
 end
 
-function EncodedValue.encode(rbxValue, reflectionType)
-	if reflectionType ~= nil then
-		if reflectionType.type == "data" then
-			local encoder = encoders[reflectionType.name]
+function EncodedValue.encode(rbxValue, propertyType)
+	assert(propertyType ~= nil, "Property descriptor type is required")
 
-			if encoder ~= nil then
-				return true, {
-					Type = reflectionType.name,
-					Value = encoder(rbxValue),
-				}
-			end
-		elseif reflectionType.type == "enum" then
+	if propertyType.type == "Data" then
+		local encoder = encoders[propertyType.name]
+
+		if encoder == nil then
+			return false, ("Missing encoder for property type %q"):format(propertyType.name)
+		end
+
+		if encoder ~= nil then
 			return true, {
-				Type = "Enum",
-				Value = rbxValue.Value,
+				Type = propertyType.name,
+				Value = encoder(rbxValue),
 			}
 		end
+	elseif propertyType.type == "Enum" then
+		return true, {
+			Type = "Enum",
+			Value = rbxValue.Value,
+		}
 	end
 
-	return false, "Couldn't encode value"
+	return false, ("Unknown property descriptor type %q"):format(tostring(propertyType.type))
 end
 
 return EncodedValue

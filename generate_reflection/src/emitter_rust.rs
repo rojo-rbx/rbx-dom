@@ -64,7 +64,15 @@ fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) ->
             borrow::Cow,
             collections::HashMap,
         };
-        use rbx_dom_weak::{RbxValue, RbxValueType};
+        use rbx_dom_weak::{
+            RbxValue,
+            RbxValueType,
+            NumberSequence,
+            NumberSequenceKeypoint,
+            ColorSequence,
+            ColorSequenceKeypoint,
+            Rect,
+        };
         use crate::reflection_types::*;
 
         pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
@@ -336,10 +344,73 @@ impl AsRust for RbxValue {
                 let value_literal = Literal::string(value);
 
                 quote!(RbxValue::Content {
-                    value: #value_literal,
+                    value: String::from(#value_literal),
                 })
             },
-            _ => unimplemented!(),
+            RbxValue::ColorSequence { value } => {
+                let literal_keypoints = value.keypoints.iter().map(|keypoint| {
+                    let time_literal = Literal::f32_unsuffixed(keypoint.time);
+                    let color_r_literal = Literal::f32_unsuffixed(keypoint.color[0]);
+                    let color_g_literal = Literal::f32_unsuffixed(keypoint.color[1]);
+                    let color_b_literal = Literal::f32_unsuffixed(keypoint.color[2]);
+
+                    quote!(ColorSequenceKeypoint {
+                        time: #time_literal,
+                        color: [#color_r_literal, #color_g_literal, #color_b_literal],
+                    })
+                });
+
+                quote!(RbxValue::ColorSequence {
+                    value: ColorSequence {
+                        keypoints: vec![
+                            #(#literal_keypoints),*
+                        ],
+                    },
+                })
+            },
+            RbxValue::NumberSequence { value } => {
+                let literal_keypoints = value.keypoints.iter().map(|keypoint| {
+                    let time_literal = Literal::f32_unsuffixed(keypoint.time);
+                    let value_literal = Literal::f32_unsuffixed(keypoint.value);
+                    let envelope_literal = Literal::f32_unsuffixed(keypoint.envelope);
+
+                    quote!(NumberSequenceKeypoint {
+                        time: #time_literal,
+                        value: #value_literal,
+                        envelope: #envelope_literal,
+                    })
+                });
+
+                quote!(RbxValue::NumberSequence {
+                    value: NumberSequence {
+                        keypoints: vec![
+                            #(#literal_keypoints),*
+                        ],
+                    },
+                })
+            },
+            RbxValue::Rect { value } => {
+                let min_x_literal = Literal::f32_unsuffixed(value.min.0);
+                let min_y_literal = Literal::f32_unsuffixed(value.min.1);
+                let max_x_literal = Literal::f32_unsuffixed(value.max.0);
+                let max_y_literal = Literal::f32_unsuffixed(value.max.1);
+
+                quote!(RbxValue::Rect {
+                    value: Rect {
+                        min: (#min_x_literal, #min_y_literal),
+                        max: (#max_x_literal, #max_y_literal),
+                    },
+                })
+            },
+            RbxValue::NumberRange { value } => {
+                let min_literal = Literal::f32_unsuffixed(value.0);
+                let max_literal = Literal::f32_unsuffixed(value.1);
+
+                quote!(RbxValue::NumberRange {
+                    value: (#min_literal, #max_literal),
+                })
+            },
+            _ => unimplemented!("emitting Rust type {:?}", self.get_type()),
         }
     }
 }
