@@ -1,6 +1,8 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+
+## 3.2.390
 * Updated reflection database to client 0.390.0.311600
 * Improved accuracy of default values. Notably:
 	* The distinction between `Float32`, `Float64`, `Int32`, and `Int64` should now be correct.
