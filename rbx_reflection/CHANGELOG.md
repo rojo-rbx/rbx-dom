@@ -1,6 +1,10 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+* Updated reflection database to client 0.390.0.311600
+* Improved accuracy of default values. Notably:
+	* The distinction between `Float32`, `Float64`, `Int32`, and `Int64` should now be correct.
+	* Added defaults for new types like `Rect` and `ColorSequence`
 
 ## 3.2.389 (2019-06-12)
 * Updated canonical property information for body mover instances like `BodyVelocity`.
