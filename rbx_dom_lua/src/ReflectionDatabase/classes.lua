@@ -1,6 +1,7 @@
 -- This file is automatically @generated.
 return {
 	ABTestService = {
+		name = "ABTestService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9,6 +10,7 @@ return {
 		},
 	},
 	Accessory = {
+		name = "Accessory",
 		superclass = "Accoutrement",
 		properties = {
 		},
@@ -22,9 +24,11 @@ return {
 		},
 	},
 	Accoutrement = {
+		name = "Accoutrement",
 		superclass = "Instance",
 		properties = {
 			AttachmentForward = {
+				name = "AttachmentForward",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -33,6 +37,7 @@ return {
 				serializes = false,
 			},
 			AttachmentPoint = {
+				name = "AttachmentPoint",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -41,6 +46,7 @@ return {
 				serializes = true,
 			},
 			AttachmentPos = {
+				name = "AttachmentPos",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -49,6 +55,7 @@ return {
 				serializes = false,
 			},
 			AttachmentRight = {
+				name = "AttachmentRight",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -57,6 +64,7 @@ return {
 				serializes = false,
 			},
 			AttachmentUp = {
+				name = "AttachmentUp",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -75,6 +83,7 @@ return {
 		},
 	},
 	AdService = {
+		name = "AdService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -83,6 +92,7 @@ return {
 		},
 	},
 	AdvancedDragger = {
+		name = "AdvancedDragger",
 		superclass = "Instance",
 		properties = {
 		},
@@ -91,9 +101,11 @@ return {
 		},
 	},
 	AlignOrientation = {
+		name = "AlignOrientation",
 		superclass = "Constraint",
 		properties = {
 			AlignType = {
+				name = "AlignType",
 				type = {type = "Enum", name = "AlignType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -102,6 +114,7 @@ return {
 				serializes = true,
 			},
 			MaxAngularVelocity = {
+				name = "MaxAngularVelocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -110,6 +123,7 @@ return {
 				serializes = true,
 			},
 			MaxTorque = {
+				name = "MaxTorque",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -118,6 +132,7 @@ return {
 				serializes = true,
 			},
 			PrimaryAxisOnly = {
+				name = "PrimaryAxisOnly",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -126,6 +141,7 @@ return {
 				serializes = true,
 			},
 			ReactionTorqueEnabled = {
+				name = "ReactionTorqueEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -134,6 +150,7 @@ return {
 				serializes = true,
 			},
 			Responsiveness = {
+				name = "Responsiveness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -142,6 +159,7 @@ return {
 				serializes = true,
 			},
 			RigidityEnabled = {
+				name = "RigidityEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -166,9 +184,11 @@ return {
 		},
 	},
 	AlignPosition = {
+		name = "AlignPosition",
 		superclass = "Constraint",
 		properties = {
 			ApplyAtCenterOfMass = {
+				name = "ApplyAtCenterOfMass",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -177,6 +197,7 @@ return {
 				serializes = true,
 			},
 			MaxForce = {
+				name = "MaxForce",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -185,6 +206,7 @@ return {
 				serializes = true,
 			},
 			MaxVelocity = {
+				name = "MaxVelocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -193,6 +215,7 @@ return {
 				serializes = true,
 			},
 			ReactionForceEnabled = {
+				name = "ReactionForceEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -201,6 +224,7 @@ return {
 				serializes = true,
 			},
 			Responsiveness = {
+				name = "Responsiveness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -209,6 +233,7 @@ return {
 				serializes = true,
 			},
 			RigidityEnabled = {
+				name = "RigidityEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -232,6 +257,7 @@ return {
 		},
 	},
 	AnalysticsSettings = {
+		name = "AnalysticsSettings",
 		superclass = "GenericSettings",
 		properties = {
 		},
@@ -239,9 +265,11 @@ return {
 		},
 	},
 	AngularVelocity = {
+		name = "AngularVelocity",
 		superclass = "Constraint",
 		properties = {
 			AngularVelocity = {
+				name = "AngularVelocity",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -250,6 +278,7 @@ return {
 				serializes = true,
 			},
 			MaxTorque = {
+				name = "MaxTorque",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -258,6 +287,7 @@ return {
 				serializes = true,
 			},
 			RelativeTo = {
+				name = "RelativeTo",
 				type = {type = "Enum", name = "ActuatorRelativeTo"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -278,9 +308,11 @@ return {
 		},
 	},
 	Animation = {
+		name = "Animation",
 		superclass = "Instance",
 		properties = {
 			AnimationId = {
+				name = "AnimationId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -295,6 +327,7 @@ return {
 		},
 	},
 	AnimationController = {
+		name = "AnimationController",
 		superclass = "Instance",
 		properties = {
 		},
@@ -303,9 +336,11 @@ return {
 		},
 	},
 	AnimationTrack = {
+		name = "AnimationTrack",
 		superclass = "Instance",
 		properties = {
 			Animation = {
+				name = "Animation",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -314,6 +349,7 @@ return {
 				serializes = false,
 			},
 			IsPlaying = {
+				name = "IsPlaying",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -322,6 +358,7 @@ return {
 				serializes = false,
 			},
 			Length = {
+				name = "Length",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -330,6 +367,7 @@ return {
 				serializes = false,
 			},
 			Looped = {
+				name = "Looped",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -338,6 +376,7 @@ return {
 				serializes = false,
 			},
 			Priority = {
+				name = "Priority",
 				type = {type = "Enum", name = "AnimationPriority"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -346,6 +385,7 @@ return {
 				serializes = true,
 			},
 			Speed = {
+				name = "Speed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -354,6 +394,7 @@ return {
 				serializes = false,
 			},
 			TimePosition = {
+				name = "TimePosition",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -362,6 +403,7 @@ return {
 				serializes = false,
 			},
 			WeightCurrent = {
+				name = "WeightCurrent",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -370,6 +412,7 @@ return {
 				serializes = false,
 			},
 			WeightTarget = {
+				name = "WeightTarget",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -382,6 +425,7 @@ return {
 		},
 	},
 	Animator = {
+		name = "Animator",
 		superclass = "Instance",
 		properties = {
 		},
@@ -390,6 +434,7 @@ return {
 		},
 	},
 	AppStorageService = {
+		name = "AppStorageService",
 		superclass = "LocalStorageService",
 		properties = {
 		},
@@ -397,9 +442,11 @@ return {
 		},
 	},
 	ArcHandles = {
+		name = "ArcHandles",
 		superclass = "HandlesBase",
 		properties = {
 			Axes = {
+				name = "Axes",
 				type = {type = "Unimplemented", name = "Axes"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -417,6 +464,7 @@ return {
 		},
 	},
 	AssetService = {
+		name = "AssetService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -425,9 +473,11 @@ return {
 		},
 	},
 	Attachment = {
+		name = "Attachment",
 		superclass = "Instance",
 		properties = {
 			Axis = {
+				name = "Axis",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -436,6 +486,7 @@ return {
 				serializes = false,
 			},
 			CFrame = {
+				name = "CFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -444,6 +495,7 @@ return {
 				serializes = true,
 			},
 			Orientation = {
+				name = "Orientation",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -452,6 +504,7 @@ return {
 				serializes = false,
 			},
 			Position = {
+				name = "Position",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -460,6 +513,7 @@ return {
 				serializes = false,
 			},
 			Rotation = {
+				name = "Rotation",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -468,6 +522,7 @@ return {
 				serializes = false,
 			},
 			SecondaryAxis = {
+				name = "SecondaryAxis",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -476,6 +531,7 @@ return {
 				serializes = false,
 			},
 			Visible = {
+				name = "Visible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -484,6 +540,7 @@ return {
 				serializes = true,
 			},
 			WorldAxis = {
+				name = "WorldAxis",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -492,6 +549,7 @@ return {
 				serializes = false,
 			},
 			WorldCFrame = {
+				name = "WorldCFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -500,6 +558,7 @@ return {
 				serializes = false,
 			},
 			WorldOrientation = {
+				name = "WorldOrientation",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -508,6 +567,7 @@ return {
 				serializes = false,
 			},
 			WorldPosition = {
+				name = "WorldPosition",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -516,6 +576,7 @@ return {
 				serializes = false,
 			},
 			WorldRotation = {
+				name = "WorldRotation",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -524,6 +585,7 @@ return {
 				serializes = false,
 			},
 			WorldSecondaryAxis = {
+				name = "WorldSecondaryAxis",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -549,6 +611,7 @@ return {
 		},
 	},
 	Backpack = {
+		name = "Backpack",
 		superclass = "Instance",
 		properties = {
 		},
@@ -557,9 +620,11 @@ return {
 		},
 	},
 	BackpackItem = {
+		name = "BackpackItem",
 		superclass = "Instance",
 		properties = {
 			TextureId = {
+				name = "TextureId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -572,6 +637,7 @@ return {
 		},
 	},
 	BadgeService = {
+		name = "BadgeService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -580,9 +646,11 @@ return {
 		},
 	},
 	BallSocketConstraint = {
+		name = "BallSocketConstraint",
 		superclass = "Constraint",
 		properties = {
 			LimitsEnabled = {
+				name = "LimitsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -591,6 +659,7 @@ return {
 				serializes = true,
 			},
 			Radius = {
+				name = "Radius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -599,6 +668,7 @@ return {
 				serializes = true,
 			},
 			Restitution = {
+				name = "Restitution",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -607,6 +677,7 @@ return {
 				serializes = true,
 			},
 			TwistLimitsEnabled = {
+				name = "TwistLimitsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -615,6 +686,7 @@ return {
 				serializes = true,
 			},
 			TwistLowerAngle = {
+				name = "TwistLowerAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -623,6 +695,7 @@ return {
 				serializes = true,
 			},
 			TwistUpperAngle = {
+				name = "TwistUpperAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -631,6 +704,7 @@ return {
 				serializes = true,
 			},
 			UpperAngle = {
+				name = "UpperAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -655,9 +729,11 @@ return {
 		},
 	},
 	BasePart = {
+		name = "BasePart",
 		superclass = "PVInstance",
 		properties = {
 			Anchored = {
+				name = "Anchored",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -666,6 +742,7 @@ return {
 				serializes = true,
 			},
 			BackParamA = {
+				name = "BackParamA",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -674,6 +751,7 @@ return {
 				serializes = true,
 			},
 			BackParamB = {
+				name = "BackParamB",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -682,6 +760,7 @@ return {
 				serializes = true,
 			},
 			BackSurface = {
+				name = "BackSurface",
 				type = {type = "Enum", name = "SurfaceType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -690,6 +769,7 @@ return {
 				serializes = true,
 			},
 			BackSurfaceInput = {
+				name = "BackSurfaceInput",
 				type = {type = "Enum", name = "InputType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -698,6 +778,7 @@ return {
 				serializes = true,
 			},
 			BottomParamA = {
+				name = "BottomParamA",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -706,6 +787,7 @@ return {
 				serializes = true,
 			},
 			BottomParamB = {
+				name = "BottomParamB",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -714,6 +796,7 @@ return {
 				serializes = true,
 			},
 			BottomSurface = {
+				name = "BottomSurface",
 				type = {type = "Enum", name = "SurfaceType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -722,6 +805,7 @@ return {
 				serializes = true,
 			},
 			BottomSurfaceInput = {
+				name = "BottomSurfaceInput",
 				type = {type = "Enum", name = "InputType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -730,7 +814,8 @@ return {
 				serializes = true,
 			},
 			BrickColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "BrickColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = false,
 				canonicalName = "Color",
 				serializedName = nil,
@@ -738,6 +823,7 @@ return {
 				serializes = false,
 			},
 			CFrame = {
+				name = "CFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -746,6 +832,7 @@ return {
 				serializes = true,
 			},
 			CanCollide = {
+				name = "CanCollide",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -754,6 +841,7 @@ return {
 				serializes = true,
 			},
 			CastShadow = {
+				name = "CastShadow",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -762,6 +850,7 @@ return {
 				serializes = true,
 			},
 			CenterOfMass = {
+				name = "CenterOfMass",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -770,6 +859,7 @@ return {
 				serializes = false,
 			},
 			CollisionGroupId = {
+				name = "CollisionGroupId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -778,6 +868,7 @@ return {
 				serializes = true,
 			},
 			CollisionGroups = {
+				name = "CollisionGroups",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -786,6 +877,7 @@ return {
 				serializes = true,
 			},
 			Color = {
+				name = "Color",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -794,6 +886,7 @@ return {
 				serializes = true,
 			},
 			Color3uint8 = {
+				name = "Color3uint8",
 				type = {type = "Data", name = "Color3uint8"},
 				isCanonical = false,
 				canonicalName = "Color",
@@ -802,6 +895,7 @@ return {
 				serializes = false,
 			},
 			CustomPhysicalProperties = {
+				name = "CustomPhysicalProperties",
 				type = {type = "Data", name = "PhysicalProperties"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -810,6 +904,7 @@ return {
 				serializes = true,
 			},
 			Elasticity = {
+				name = "Elasticity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -818,6 +913,7 @@ return {
 				serializes = false,
 			},
 			Friction = {
+				name = "Friction",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -826,6 +922,7 @@ return {
 				serializes = false,
 			},
 			FrontParamA = {
+				name = "FrontParamA",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -834,6 +931,7 @@ return {
 				serializes = true,
 			},
 			FrontParamB = {
+				name = "FrontParamB",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -842,6 +940,7 @@ return {
 				serializes = true,
 			},
 			FrontSurface = {
+				name = "FrontSurface",
 				type = {type = "Enum", name = "SurfaceType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -850,6 +949,7 @@ return {
 				serializes = true,
 			},
 			FrontSurfaceInput = {
+				name = "FrontSurfaceInput",
 				type = {type = "Enum", name = "InputType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -858,6 +958,7 @@ return {
 				serializes = true,
 			},
 			LeftParamA = {
+				name = "LeftParamA",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -866,6 +967,7 @@ return {
 				serializes = true,
 			},
 			LeftParamB = {
+				name = "LeftParamB",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -874,6 +976,7 @@ return {
 				serializes = true,
 			},
 			LeftSurface = {
+				name = "LeftSurface",
 				type = {type = "Enum", name = "SurfaceType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -882,6 +985,7 @@ return {
 				serializes = true,
 			},
 			LeftSurfaceInput = {
+				name = "LeftSurfaceInput",
 				type = {type = "Enum", name = "InputType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -890,6 +994,7 @@ return {
 				serializes = true,
 			},
 			LocalTransparencyModifier = {
+				name = "LocalTransparencyModifier",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -898,6 +1003,7 @@ return {
 				serializes = false,
 			},
 			Locked = {
+				name = "Locked",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -906,6 +1012,7 @@ return {
 				serializes = true,
 			},
 			Massless = {
+				name = "Massless",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -914,6 +1021,7 @@ return {
 				serializes = true,
 			},
 			Material = {
+				name = "Material",
 				type = {type = "Enum", name = "Material"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -922,6 +1030,7 @@ return {
 				serializes = true,
 			},
 			Orientation = {
+				name = "Orientation",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -930,6 +1039,7 @@ return {
 				serializes = false,
 			},
 			Position = {
+				name = "Position",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -938,6 +1048,7 @@ return {
 				serializes = false,
 			},
 			ReceiveAge = {
+				name = "ReceiveAge",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -946,6 +1057,7 @@ return {
 				serializes = false,
 			},
 			Reflectance = {
+				name = "Reflectance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -954,6 +1066,7 @@ return {
 				serializes = true,
 			},
 			ResizeIncrement = {
+				name = "ResizeIncrement",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -962,6 +1075,7 @@ return {
 				serializes = false,
 			},
 			ResizeableFaces = {
+				name = "ResizeableFaces",
 				type = {type = "Unimplemented", name = "Faces"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -970,6 +1084,7 @@ return {
 				serializes = false,
 			},
 			RightParamA = {
+				name = "RightParamA",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -978,6 +1093,7 @@ return {
 				serializes = true,
 			},
 			RightParamB = {
+				name = "RightParamB",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -986,6 +1102,7 @@ return {
 				serializes = true,
 			},
 			RightSurface = {
+				name = "RightSurface",
 				type = {type = "Enum", name = "SurfaceType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -994,6 +1111,7 @@ return {
 				serializes = true,
 			},
 			RightSurfaceInput = {
+				name = "RightSurfaceInput",
 				type = {type = "Enum", name = "InputType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1002,6 +1120,7 @@ return {
 				serializes = true,
 			},
 			RootPriority = {
+				name = "RootPriority",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1010,6 +1129,7 @@ return {
 				serializes = true,
 			},
 			RotVelocity = {
+				name = "RotVelocity",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1018,6 +1138,7 @@ return {
 				serializes = true,
 			},
 			Rotation = {
+				name = "Rotation",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1026,6 +1147,7 @@ return {
 				serializes = false,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1034,6 +1156,7 @@ return {
 				serializes = true,
 			},
 			SpecificGravity = {
+				name = "SpecificGravity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1042,6 +1165,7 @@ return {
 				serializes = false,
 			},
 			TopParamA = {
+				name = "TopParamA",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1050,6 +1174,7 @@ return {
 				serializes = true,
 			},
 			TopParamB = {
+				name = "TopParamB",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1058,6 +1183,7 @@ return {
 				serializes = true,
 			},
 			TopSurface = {
+				name = "TopSurface",
 				type = {type = "Enum", name = "SurfaceType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1066,6 +1192,7 @@ return {
 				serializes = true,
 			},
 			TopSurfaceInput = {
+				name = "TopSurfaceInput",
 				type = {type = "Enum", name = "InputType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1074,6 +1201,7 @@ return {
 				serializes = true,
 			},
 			Transparency = {
+				name = "Transparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1082,6 +1210,7 @@ return {
 				serializes = true,
 			},
 			Velocity = {
+				name = "Velocity",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1090,7 +1219,8 @@ return {
 				serializes = true,
 			},
 			brickColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "brickColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = false,
 				canonicalName = "Color",
 				serializedName = nil,
@@ -1098,6 +1228,7 @@ return {
 				serializes = false,
 			},
 			size = {
+				name = "size",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "Size",
@@ -1110,6 +1241,7 @@ return {
 		},
 	},
 	BasePlayerGui = {
+		name = "BasePlayerGui",
 		superclass = "Instance",
 		properties = {
 		},
@@ -1117,9 +1249,11 @@ return {
 		},
 	},
 	BaseScript = {
+		name = "BaseScript",
 		superclass = "LuaSourceContainer",
 		properties = {
 			Disabled = {
+				name = "Disabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1128,6 +1262,7 @@ return {
 				serializes = true,
 			},
 			LinkedSource = {
+				name = "LinkedSource",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1140,9 +1275,11 @@ return {
 		},
 	},
 	Beam = {
+		name = "Beam",
 		superclass = "Instance",
 		properties = {
 			Attachment0 = {
+				name = "Attachment0",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1151,6 +1288,7 @@ return {
 				serializes = true,
 			},
 			Attachment1 = {
+				name = "Attachment1",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1159,6 +1297,7 @@ return {
 				serializes = true,
 			},
 			Color = {
+				name = "Color",
 				type = {type = "Data", name = "ColorSequence"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1167,6 +1306,7 @@ return {
 				serializes = true,
 			},
 			CurveSize0 = {
+				name = "CurveSize0",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1175,6 +1315,7 @@ return {
 				serializes = true,
 			},
 			CurveSize1 = {
+				name = "CurveSize1",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1183,6 +1324,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1191,6 +1333,7 @@ return {
 				serializes = true,
 			},
 			FaceCamera = {
+				name = "FaceCamera",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1199,6 +1342,7 @@ return {
 				serializes = true,
 			},
 			LightEmission = {
+				name = "LightEmission",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1207,6 +1351,7 @@ return {
 				serializes = true,
 			},
 			LightInfluence = {
+				name = "LightInfluence",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1215,6 +1360,7 @@ return {
 				serializes = true,
 			},
 			Segments = {
+				name = "Segments",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1223,6 +1369,7 @@ return {
 				serializes = true,
 			},
 			Texture = {
+				name = "Texture",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1231,6 +1378,7 @@ return {
 				serializes = true,
 			},
 			TextureLength = {
+				name = "TextureLength",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1239,6 +1387,7 @@ return {
 				serializes = true,
 			},
 			TextureMode = {
+				name = "TextureMode",
 				type = {type = "Enum", name = "TextureMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1247,6 +1396,7 @@ return {
 				serializes = true,
 			},
 			TextureSpeed = {
+				name = "TextureSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1255,6 +1405,7 @@ return {
 				serializes = true,
 			},
 			Transparency = {
+				name = "Transparency",
 				type = {type = "Data", name = "NumberSequence"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1263,6 +1414,7 @@ return {
 				serializes = true,
 			},
 			Width0 = {
+				name = "Width0",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1271,6 +1423,7 @@ return {
 				serializes = true,
 			},
 			Width1 = {
+				name = "Width1",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1279,6 +1432,7 @@ return {
 				serializes = true,
 			},
 			ZOffset = {
+				name = "ZOffset",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1290,6 +1444,7 @@ return {
 		defaults = {
 			Attachment0 = nil,
 			Attachment1 = nil,
+			Color = ColorSequence.new(ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))),
 			CurveSize0 = 0,
 			CurveSize1 = 0,
 			Enabled = true,
@@ -1302,12 +1457,14 @@ return {
 			TextureLength = 1,
 			TextureMode = 0,
 			TextureSpeed = 1,
+			Transparency = NumberSequence.new(NumberSequenceKeypoint.new(0, 0.5, 0), NumberSequenceKeypoint.new(1, 0.5, 0)),
 			Width0 = 1,
 			Width1 = 1,
 			ZOffset = 0,
 		},
 	},
 	BevelMesh = {
+		name = "BevelMesh",
 		superclass = "DataModelMesh",
 		properties = {
 		},
@@ -1315,9 +1472,11 @@ return {
 		},
 	},
 	BillboardGui = {
+		name = "BillboardGui",
 		superclass = "LayerCollector",
 		properties = {
 			Active = {
+				name = "Active",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1326,6 +1485,7 @@ return {
 				serializes = true,
 			},
 			Adornee = {
+				name = "Adornee",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1334,6 +1494,7 @@ return {
 				serializes = true,
 			},
 			AlwaysOnTop = {
+				name = "AlwaysOnTop",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1342,6 +1503,7 @@ return {
 				serializes = true,
 			},
 			ClipsDescendants = {
+				name = "ClipsDescendants",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1350,6 +1512,7 @@ return {
 				serializes = true,
 			},
 			CurrentDistance = {
+				name = "CurrentDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1358,6 +1521,7 @@ return {
 				serializes = false,
 			},
 			DistanceLowerLimit = {
+				name = "DistanceLowerLimit",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1366,6 +1530,7 @@ return {
 				serializes = true,
 			},
 			DistanceStep = {
+				name = "DistanceStep",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1374,6 +1539,7 @@ return {
 				serializes = true,
 			},
 			DistanceUpperLimit = {
+				name = "DistanceUpperLimit",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1382,6 +1548,7 @@ return {
 				serializes = true,
 			},
 			ExtentsOffset = {
+				name = "ExtentsOffset",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1390,6 +1557,7 @@ return {
 				serializes = true,
 			},
 			ExtentsOffsetWorldSpace = {
+				name = "ExtentsOffsetWorldSpace",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1398,6 +1566,7 @@ return {
 				serializes = true,
 			},
 			LightInfluence = {
+				name = "LightInfluence",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1406,6 +1575,7 @@ return {
 				serializes = true,
 			},
 			MaxDistance = {
+				name = "MaxDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1414,6 +1584,7 @@ return {
 				serializes = true,
 			},
 			PlayerToHideFrom = {
+				name = "PlayerToHideFrom",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1422,6 +1593,7 @@ return {
 				serializes = true,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1430,6 +1602,7 @@ return {
 				serializes = true,
 			},
 			SizeOffset = {
+				name = "SizeOffset",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1438,6 +1611,7 @@ return {
 				serializes = true,
 			},
 			StudsOffset = {
+				name = "StudsOffset",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1446,6 +1620,7 @@ return {
 				serializes = true,
 			},
 			StudsOffsetWorldSpace = {
+				name = "StudsOffsetWorldSpace",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1481,6 +1656,7 @@ return {
 		},
 	},
 	BinaryStringValue = {
+		name = "BinaryStringValue",
 		superclass = "ValueBase",
 		properties = {
 		},
@@ -1489,6 +1665,7 @@ return {
 		},
 	},
 	BindableEvent = {
+		name = "BindableEvent",
 		superclass = "Instance",
 		properties = {
 		},
@@ -1497,6 +1674,7 @@ return {
 		},
 	},
 	BindableFunction = {
+		name = "BindableFunction",
 		superclass = "Instance",
 		properties = {
 		},
@@ -1505,6 +1683,7 @@ return {
 		},
 	},
 	BlockMesh = {
+		name = "BlockMesh",
 		superclass = "BevelMesh",
 		properties = {
 		},
@@ -1516,9 +1695,11 @@ return {
 		},
 	},
 	BloomEffect = {
+		name = "BloomEffect",
 		superclass = "PostEffect",
 		properties = {
 			Intensity = {
+				name = "Intensity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1527,6 +1708,7 @@ return {
 				serializes = true,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1535,6 +1717,7 @@ return {
 				serializes = true,
 			},
 			Threshold = {
+				name = "Threshold",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1552,9 +1735,11 @@ return {
 		},
 	},
 	BlurEffect = {
+		name = "BlurEffect",
 		superclass = "PostEffect",
 		properties = {
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1570,9 +1755,11 @@ return {
 		},
 	},
 	BodyAngularVelocity = {
+		name = "BodyAngularVelocity",
 		superclass = "BodyMover",
 		properties = {
 			AngularVelocity = {
+				name = "AngularVelocity",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1581,6 +1768,7 @@ return {
 				serializes = true,
 			},
 			MaxTorque = {
+				name = "MaxTorque",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1589,6 +1777,7 @@ return {
 				serializes = true,
 			},
 			P = {
+				name = "P",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1597,6 +1786,7 @@ return {
 				serializes = true,
 			},
 			angularvelocity = {
+				name = "angularvelocity",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "AngularVelocity",
@@ -1605,6 +1795,7 @@ return {
 				serializes = false,
 			},
 			maxTorque = {
+				name = "maxTorque",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "MaxTorque",
@@ -1621,10 +1812,12 @@ return {
 		},
 	},
 	BodyColors = {
+		name = "BodyColors",
 		superclass = "CharacterAppearance",
 		properties = {
 			HeadColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "HeadColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -1632,6 +1825,7 @@ return {
 				serializes = false,
 			},
 			HeadColor3 = {
+				name = "HeadColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1640,7 +1834,8 @@ return {
 				serializes = true,
 			},
 			LeftArmColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "LeftArmColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -1648,6 +1843,7 @@ return {
 				serializes = false,
 			},
 			LeftArmColor3 = {
+				name = "LeftArmColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1656,7 +1852,8 @@ return {
 				serializes = true,
 			},
 			LeftLegColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "LeftLegColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -1664,6 +1861,7 @@ return {
 				serializes = false,
 			},
 			LeftLegColor3 = {
+				name = "LeftLegColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1672,7 +1870,8 @@ return {
 				serializes = true,
 			},
 			RightArmColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "RightArmColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -1680,6 +1879,7 @@ return {
 				serializes = false,
 			},
 			RightArmColor3 = {
+				name = "RightArmColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1688,7 +1888,8 @@ return {
 				serializes = true,
 			},
 			RightLegColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "RightLegColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -1696,6 +1897,7 @@ return {
 				serializes = false,
 			},
 			RightLegColor3 = {
+				name = "RightLegColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1704,7 +1906,8 @@ return {
 				serializes = true,
 			},
 			TorsoColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TorsoColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -1712,6 +1915,7 @@ return {
 				serializes = false,
 			},
 			TorsoColor3 = {
+				name = "TorsoColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1731,9 +1935,11 @@ return {
 		},
 	},
 	BodyForce = {
+		name = "BodyForce",
 		superclass = "BodyMover",
 		properties = {
 			Force = {
+				name = "Force",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1742,6 +1948,7 @@ return {
 				serializes = true,
 			},
 			force = {
+				name = "force",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "Force",
@@ -1756,9 +1963,11 @@ return {
 		},
 	},
 	BodyGyro = {
+		name = "BodyGyro",
 		superclass = "BodyMover",
 		properties = {
 			CFrame = {
+				name = "CFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1767,6 +1976,7 @@ return {
 				serializes = true,
 			},
 			D = {
+				name = "D",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1775,6 +1985,7 @@ return {
 				serializes = true,
 			},
 			MaxTorque = {
+				name = "MaxTorque",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1783,6 +1994,7 @@ return {
 				serializes = true,
 			},
 			P = {
+				name = "P",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1791,6 +2003,7 @@ return {
 				serializes = true,
 			},
 			cframe = {
+				name = "cframe",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = false,
 				canonicalName = "CFrame",
@@ -1799,6 +2012,7 @@ return {
 				serializes = false,
 			},
 			maxTorque = {
+				name = "maxTorque",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "MaxTorque",
@@ -1816,6 +2030,7 @@ return {
 		},
 	},
 	BodyMover = {
+		name = "BodyMover",
 		superclass = "Instance",
 		properties = {
 		},
@@ -1823,9 +2038,11 @@ return {
 		},
 	},
 	BodyPosition = {
+		name = "BodyPosition",
 		superclass = "BodyMover",
 		properties = {
 			D = {
+				name = "D",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1834,6 +2051,7 @@ return {
 				serializes = true,
 			},
 			MaxForce = {
+				name = "MaxForce",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1842,6 +2060,7 @@ return {
 				serializes = true,
 			},
 			P = {
+				name = "P",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1850,6 +2069,7 @@ return {
 				serializes = true,
 			},
 			Position = {
+				name = "Position",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1858,6 +2078,7 @@ return {
 				serializes = true,
 			},
 			maxForce = {
+				name = "maxForce",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "MaxForce",
@@ -1866,6 +2087,7 @@ return {
 				serializes = false,
 			},
 			position = {
+				name = "position",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "Position",
@@ -1883,9 +2105,11 @@ return {
 		},
 	},
 	BodyThrust = {
+		name = "BodyThrust",
 		superclass = "BodyMover",
 		properties = {
 			Force = {
+				name = "Force",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1894,6 +2118,7 @@ return {
 				serializes = true,
 			},
 			Location = {
+				name = "Location",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1902,6 +2127,7 @@ return {
 				serializes = true,
 			},
 			force = {
+				name = "force",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "Force",
@@ -1910,6 +2136,7 @@ return {
 				serializes = false,
 			},
 			location = {
+				name = "location",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "Location",
@@ -1925,9 +2152,11 @@ return {
 		},
 	},
 	BodyVelocity = {
+		name = "BodyVelocity",
 		superclass = "BodyMover",
 		properties = {
 			MaxForce = {
+				name = "MaxForce",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1936,6 +2165,7 @@ return {
 				serializes = true,
 			},
 			P = {
+				name = "P",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1944,6 +2174,7 @@ return {
 				serializes = true,
 			},
 			Velocity = {
+				name = "Velocity",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1952,6 +2183,7 @@ return {
 				serializes = true,
 			},
 			maxForce = {
+				name = "maxForce",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "MaxForce",
@@ -1960,6 +2192,7 @@ return {
 				serializes = false,
 			},
 			velocity = {
+				name = "velocity",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = false,
 				canonicalName = "Velocity",
@@ -1976,9 +2209,11 @@ return {
 		},
 	},
 	BoolValue = {
+		name = "BoolValue",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -1993,9 +2228,11 @@ return {
 		},
 	},
 	BoxHandleAdornment = {
+		name = "BoxHandleAdornment",
 		superclass = "HandleAdornment",
 		properties = {
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2018,10 +2255,12 @@ return {
 		},
 	},
 	BrickColorValue = {
+		name = "BrickColorValue",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "Value",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -2034,6 +2273,7 @@ return {
 		},
 	},
 	BrowserService = {
+		name = "BrowserService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2041,9 +2281,11 @@ return {
 		},
 	},
 	CFrameValue = {
+		name = "CFrameValue",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2058,6 +2300,7 @@ return {
 		},
 	},
 	CSGDictionaryService = {
+		name = "CSGDictionaryService",
 		superclass = "FlyweightService",
 		properties = {
 		},
@@ -2065,6 +2308,7 @@ return {
 		},
 	},
 	CacheableContentProvider = {
+		name = "CacheableContentProvider",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2072,9 +2316,11 @@ return {
 		},
 	},
 	Camera = {
+		name = "Camera",
 		superclass = "Instance",
 		properties = {
 			CFrame = {
+				name = "CFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2083,6 +2329,7 @@ return {
 				serializes = true,
 			},
 			CameraSubject = {
+				name = "CameraSubject",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2091,6 +2338,7 @@ return {
 				serializes = true,
 			},
 			CameraType = {
+				name = "CameraType",
 				type = {type = "Enum", name = "CameraType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2099,6 +2347,7 @@ return {
 				serializes = true,
 			},
 			CoordinateFrame = {
+				name = "CoordinateFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = false,
 				canonicalName = "CFrame",
@@ -2107,6 +2356,7 @@ return {
 				serializes = false,
 			},
 			FieldOfView = {
+				name = "FieldOfView",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2115,6 +2365,7 @@ return {
 				serializes = true,
 			},
 			Focus = {
+				name = "Focus",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2123,6 +2374,7 @@ return {
 				serializes = true,
 			},
 			HeadLocked = {
+				name = "HeadLocked",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2131,6 +2383,7 @@ return {
 				serializes = true,
 			},
 			HeadScale = {
+				name = "HeadScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2139,6 +2392,7 @@ return {
 				serializes = true,
 			},
 			NearPlaneZ = {
+				name = "NearPlaneZ",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2147,6 +2401,7 @@ return {
 				serializes = false,
 			},
 			ViewportSize = {
+				name = "ViewportSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2155,6 +2410,7 @@ return {
 				serializes = false,
 			},
 			focus = {
+				name = "focus",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = false,
 				canonicalName = "Focus",
@@ -2175,6 +2431,7 @@ return {
 		},
 	},
 	ChangeHistoryService = {
+		name = "ChangeHistoryService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2183,6 +2440,7 @@ return {
 		},
 	},
 	CharacterAppearance = {
+		name = "CharacterAppearance",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2190,9 +2448,11 @@ return {
 		},
 	},
 	CharacterMesh = {
+		name = "CharacterMesh",
 		superclass = "CharacterAppearance",
 		properties = {
 			BaseTextureId = {
+				name = "BaseTextureId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2201,6 +2461,7 @@ return {
 				serializes = true,
 			},
 			BodyPart = {
+				name = "BodyPart",
 				type = {type = "Enum", name = "BodyPart"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2209,6 +2470,7 @@ return {
 				serializes = true,
 			},
 			MeshId = {
+				name = "MeshId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2217,6 +2479,7 @@ return {
 				serializes = true,
 			},
 			OverlayTextureId = {
+				name = "OverlayTextureId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2234,9 +2497,11 @@ return {
 		},
 	},
 	Chat = {
+		name = "Chat",
 		superclass = "Instance",
 		properties = {
 			BubbleChatEnabled = {
+				name = "BubbleChatEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2245,6 +2510,7 @@ return {
 				serializes = true,
 			},
 			LoadDefaultChat = {
+				name = "LoadDefaultChat",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2260,9 +2526,11 @@ return {
 		},
 	},
 	ChorusSoundEffect = {
+		name = "ChorusSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			Depth = {
+				name = "Depth",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2271,6 +2539,7 @@ return {
 				serializes = true,
 			},
 			Mix = {
+				name = "Mix",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2279,6 +2548,7 @@ return {
 				serializes = true,
 			},
 			Rate = {
+				name = "Rate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2297,9 +2567,11 @@ return {
 		},
 	},
 	ClickDetector = {
+		name = "ClickDetector",
 		superclass = "Instance",
 		properties = {
 			CursorIcon = {
+				name = "CursorIcon",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2308,6 +2580,7 @@ return {
 				serializes = true,
 			},
 			MaxActivationDistance = {
+				name = "MaxActivationDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2323,6 +2596,7 @@ return {
 		},
 	},
 	ClientReplicator = {
+		name = "ClientReplicator",
 		superclass = "NetworkReplicator",
 		properties = {
 		},
@@ -2330,9 +2604,11 @@ return {
 		},
 	},
 	Clothing = {
+		name = "Clothing",
 		superclass = "CharacterAppearance",
 		properties = {
 			Color3 = {
+				name = "Color3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2345,6 +2621,7 @@ return {
 		},
 	},
 	ClusterPacketCache = {
+		name = "ClusterPacketCache",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2352,6 +2629,7 @@ return {
 		},
 	},
 	CollectionService = {
+		name = "CollectionService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2360,9 +2638,11 @@ return {
 		},
 	},
 	Color3Value = {
+		name = "Color3Value",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2377,9 +2657,11 @@ return {
 		},
 	},
 	ColorCorrectionEffect = {
+		name = "ColorCorrectionEffect",
 		superclass = "PostEffect",
 		properties = {
 			Brightness = {
+				name = "Brightness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2388,6 +2670,7 @@ return {
 				serializes = true,
 			},
 			Contrast = {
+				name = "Contrast",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2396,6 +2679,7 @@ return {
 				serializes = true,
 			},
 			Saturation = {
+				name = "Saturation",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2404,6 +2688,7 @@ return {
 				serializes = true,
 			},
 			TintColor = {
+				name = "TintColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2422,9 +2707,11 @@ return {
 		},
 	},
 	CompressorSoundEffect = {
+		name = "CompressorSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			Attack = {
+				name = "Attack",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2433,6 +2720,7 @@ return {
 				serializes = true,
 			},
 			GainMakeup = {
+				name = "GainMakeup",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2441,6 +2729,7 @@ return {
 				serializes = true,
 			},
 			Ratio = {
+				name = "Ratio",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2449,6 +2738,7 @@ return {
 				serializes = true,
 			},
 			Release = {
+				name = "Release",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2457,6 +2747,7 @@ return {
 				serializes = true,
 			},
 			SideChain = {
+				name = "SideChain",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2465,6 +2756,7 @@ return {
 				serializes = true,
 			},
 			Threshold = {
+				name = "Threshold",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2486,9 +2778,11 @@ return {
 		},
 	},
 	ConeHandleAdornment = {
+		name = "ConeHandleAdornment",
 		superclass = "HandleAdornment",
 		properties = {
 			Height = {
+				name = "Height",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2497,6 +2791,7 @@ return {
 				serializes = true,
 			},
 			Radius = {
+				name = "Radius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2520,6 +2815,7 @@ return {
 		},
 	},
 	Configuration = {
+		name = "Configuration",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2528,9 +2824,11 @@ return {
 		},
 	},
 	Constraint = {
+		name = "Constraint",
 		superclass = "Instance",
 		properties = {
 			Active = {
+				name = "Active",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2539,6 +2837,7 @@ return {
 				serializes = false,
 			},
 			Attachment0 = {
+				name = "Attachment0",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2547,6 +2846,7 @@ return {
 				serializes = true,
 			},
 			Attachment1 = {
+				name = "Attachment1",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2555,7 +2855,8 @@ return {
 				serializes = true,
 			},
 			Color = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "Color",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -2563,6 +2864,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2571,6 +2873,7 @@ return {
 				serializes = true,
 			},
 			Visible = {
+				name = "Visible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2583,9 +2886,11 @@ return {
 		},
 	},
 	ContentProvider = {
+		name = "ContentProvider",
 		superclass = "Instance",
 		properties = {
 			BaseUrl = {
+				name = "BaseUrl",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2594,6 +2899,7 @@ return {
 				serializes = false,
 			},
 			RequestQueueSize = {
+				name = "RequestQueueSize",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2607,6 +2913,7 @@ return {
 		},
 	},
 	ContextActionService = {
+		name = "ContextActionService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2615,6 +2922,7 @@ return {
 		},
 	},
 	Controller = {
+		name = "Controller",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2622,6 +2930,7 @@ return {
 		},
 	},
 	ControllerService = {
+		name = "ControllerService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2630,6 +2939,7 @@ return {
 		},
 	},
 	CookiesService = {
+		name = "CookiesService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2638,9 +2948,11 @@ return {
 		},
 	},
 	CoreGui = {
+		name = "CoreGui",
 		superclass = "BasePlayerGui",
 		properties = {
 			SelectionImageObject = {
+				name = "SelectionImageObject",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2649,6 +2961,7 @@ return {
 				serializes = true,
 			},
 			Version = {
+				name = "Version",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2663,6 +2976,7 @@ return {
 		},
 	},
 	CorePackages = {
+		name = "CorePackages",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2671,6 +2985,7 @@ return {
 		},
 	},
 	CoreScript = {
+		name = "CoreScript",
 		superclass = "BaseScript",
 		properties = {
 		},
@@ -2678,6 +2993,7 @@ return {
 		},
 	},
 	CoreScriptSyncService = {
+		name = "CoreScriptSyncService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2685,6 +3001,7 @@ return {
 		},
 	},
 	CornerWedgePart = {
+		name = "CornerWedgePart",
 		superclass = "BasePart",
 		properties = {
 		},
@@ -2739,6 +3056,7 @@ return {
 		},
 	},
 	CustomEvent = {
+		name = "CustomEvent",
 		superclass = "Instance",
 		properties = {
 		},
@@ -2747,9 +3065,11 @@ return {
 		},
 	},
 	CustomEventReceiver = {
+		name = "CustomEventReceiver",
 		superclass = "Instance",
 		properties = {
 			Source = {
+				name = "Source",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2764,9 +3084,11 @@ return {
 		},
 	},
 	CylinderHandleAdornment = {
+		name = "CylinderHandleAdornment",
 		superclass = "HandleAdornment",
 		properties = {
 			Height = {
+				name = "Height",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2775,6 +3097,7 @@ return {
 				serializes = true,
 			},
 			Radius = {
+				name = "Radius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2798,6 +3121,7 @@ return {
 		},
 	},
 	CylinderMesh = {
+		name = "CylinderMesh",
 		superclass = "BevelMesh",
 		properties = {
 		},
@@ -2809,9 +3133,11 @@ return {
 		},
 	},
 	CylindricalConstraint = {
+		name = "CylindricalConstraint",
 		superclass = "SlidingBallConstraint",
 		properties = {
 			AngularActuatorType = {
+				name = "AngularActuatorType",
 				type = {type = "Enum", name = "ActuatorType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2820,6 +3146,7 @@ return {
 				serializes = true,
 			},
 			AngularLimitsEnabled = {
+				name = "AngularLimitsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2828,6 +3155,7 @@ return {
 				serializes = true,
 			},
 			AngularRestitution = {
+				name = "AngularRestitution",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2836,6 +3164,7 @@ return {
 				serializes = true,
 			},
 			AngularSpeed = {
+				name = "AngularSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2844,6 +3173,7 @@ return {
 				serializes = true,
 			},
 			AngularVelocity = {
+				name = "AngularVelocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2852,6 +3182,7 @@ return {
 				serializes = true,
 			},
 			CurrentAngle = {
+				name = "CurrentAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2860,6 +3191,7 @@ return {
 				serializes = false,
 			},
 			InclinationAngle = {
+				name = "InclinationAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2868,6 +3200,7 @@ return {
 				serializes = true,
 			},
 			LowerAngle = {
+				name = "LowerAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2876,6 +3209,7 @@ return {
 				serializes = true,
 			},
 			MotorMaxAngularAcceleration = {
+				name = "MotorMaxAngularAcceleration",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2884,6 +3218,7 @@ return {
 				serializes = true,
 			},
 			MotorMaxTorque = {
+				name = "MotorMaxTorque",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2892,6 +3227,7 @@ return {
 				serializes = true,
 			},
 			RotationAxisVisible = {
+				name = "RotationAxisVisible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2900,6 +3236,7 @@ return {
 				serializes = true,
 			},
 			ServoMaxTorque = {
+				name = "ServoMaxTorque",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2908,6 +3245,7 @@ return {
 				serializes = true,
 			},
 			TargetAngle = {
+				name = "TargetAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2916,6 +3254,7 @@ return {
 				serializes = true,
 			},
 			UpperAngle = {
+				name = "UpperAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2924,6 +3263,7 @@ return {
 				serializes = true,
 			},
 			WorldRotationAxis = {
+				name = "WorldRotationAxis",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2966,9 +3306,11 @@ return {
 		},
 	},
 	DataModel = {
+		name = "DataModel",
 		superclass = "ServiceProvider",
 		properties = {
 			CreatorId = {
+				name = "CreatorId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2977,6 +3319,7 @@ return {
 				serializes = false,
 			},
 			CreatorType = {
+				name = "CreatorType",
 				type = {type = "Enum", name = "CreatorType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2985,6 +3328,7 @@ return {
 				serializes = false,
 			},
 			GameId = {
+				name = "GameId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -2993,6 +3337,7 @@ return {
 				serializes = false,
 			},
 			GearGenreSetting = {
+				name = "GearGenreSetting",
 				type = {type = "Enum", name = "GearGenreSetting"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3001,6 +3346,7 @@ return {
 				serializes = false,
 			},
 			Genre = {
+				name = "Genre",
 				type = {type = "Enum", name = "Genre"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3009,6 +3355,7 @@ return {
 				serializes = false,
 			},
 			IsSFFlagsLoaded = {
+				name = "IsSFFlagsLoaded",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3017,6 +3364,7 @@ return {
 				serializes = false,
 			},
 			JobId = {
+				name = "JobId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3025,6 +3373,7 @@ return {
 				serializes = false,
 			},
 			PlaceId = {
+				name = "PlaceId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3033,6 +3382,7 @@ return {
 				serializes = false,
 			},
 			PlaceVersion = {
+				name = "PlaceVersion",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3041,6 +3391,7 @@ return {
 				serializes = false,
 			},
 			PrivateServerId = {
+				name = "PrivateServerId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3049,6 +3400,7 @@ return {
 				serializes = false,
 			},
 			PrivateServerOwnerId = {
+				name = "PrivateServerOwnerId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3057,6 +3409,7 @@ return {
 				serializes = false,
 			},
 			VIPServerId = {
+				name = "VIPServerId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3065,6 +3418,7 @@ return {
 				serializes = false,
 			},
 			VIPServerOwnerId = {
+				name = "VIPServerOwnerId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3073,6 +3427,7 @@ return {
 				serializes = false,
 			},
 			Workspace = {
+				name = "Workspace",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3081,6 +3436,7 @@ return {
 				serializes = false,
 			},
 			lighting = {
+				name = "lighting",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3089,6 +3445,7 @@ return {
 				serializes = false,
 			},
 			workspace = {
+				name = "workspace",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3101,9 +3458,11 @@ return {
 		},
 	},
 	DataModelMesh = {
+		name = "DataModelMesh",
 		superclass = "Instance",
 		properties = {
 			Offset = {
+				name = "Offset",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3112,6 +3471,7 @@ return {
 				serializes = true,
 			},
 			Scale = {
+				name = "Scale",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3120,6 +3480,7 @@ return {
 				serializes = true,
 			},
 			VertexColor = {
+				name = "VertexColor",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3132,6 +3493,7 @@ return {
 		},
 	},
 	DataStorePages = {
+		name = "DataStorePages",
 		superclass = "Pages",
 		properties = {
 		},
@@ -3139,9 +3501,11 @@ return {
 		},
 	},
 	DataStoreService = {
+		name = "DataStoreService",
 		superclass = "Instance",
 		properties = {
 			AutomaticRetry = {
+				name = "AutomaticRetry",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3150,6 +3514,7 @@ return {
 				serializes = true,
 			},
 			LegacyNamingScheme = {
+				name = "LegacyNamingScheme",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3163,9 +3528,11 @@ return {
 		},
 	},
 	Debris = {
+		name = "Debris",
 		superclass = "Instance",
 		properties = {
 			MaxItems = {
+				name = "MaxItems",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3180,9 +3547,11 @@ return {
 		},
 	},
 	DebugSettings = {
+		name = "DebugSettings",
 		superclass = "Instance",
 		properties = {
 			DataModel = {
+				name = "DataModel",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3191,6 +3560,7 @@ return {
 				serializes = false,
 			},
 			ErrorReporting = {
+				name = "ErrorReporting",
 				type = {type = "Enum", name = "ErrorReporting"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3199,6 +3569,7 @@ return {
 				serializes = true,
 			},
 			GfxCard = {
+				name = "GfxCard",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3207,6 +3578,7 @@ return {
 				serializes = false,
 			},
 			InstanceCount = {
+				name = "InstanceCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3215,6 +3587,7 @@ return {
 				serializes = false,
 			},
 			IsFmodProfilingEnabled = {
+				name = "IsFmodProfilingEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3223,6 +3596,7 @@ return {
 				serializes = true,
 			},
 			IsScriptStackTracingEnabled = {
+				name = "IsScriptStackTracingEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3231,6 +3605,7 @@ return {
 				serializes = true,
 			},
 			JobCount = {
+				name = "JobCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3239,6 +3614,7 @@ return {
 				serializes = false,
 			},
 			LuaRamLimit = {
+				name = "LuaRamLimit",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3247,6 +3623,7 @@ return {
 				serializes = true,
 			},
 			OsIs64Bit = {
+				name = "OsIs64Bit",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3255,6 +3632,7 @@ return {
 				serializes = false,
 			},
 			OsPlatform = {
+				name = "OsPlatform",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3263,6 +3641,7 @@ return {
 				serializes = false,
 			},
 			OsPlatformId = {
+				name = "OsPlatformId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3271,6 +3650,7 @@ return {
 				serializes = false,
 			},
 			OsVer = {
+				name = "OsVer",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3279,6 +3659,7 @@ return {
 				serializes = false,
 			},
 			PlayerCount = {
+				name = "PlayerCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3287,6 +3668,7 @@ return {
 				serializes = false,
 			},
 			ReportSoundWarnings = {
+				name = "ReportSoundWarnings",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3295,6 +3677,7 @@ return {
 				serializes = true,
 			},
 			RobloxProductName = {
+				name = "RobloxProductName",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3303,6 +3686,7 @@ return {
 				serializes = false,
 			},
 			RobloxVersion = {
+				name = "RobloxVersion",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3311,6 +3695,7 @@ return {
 				serializes = false,
 			},
 			SIMD = {
+				name = "SIMD",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3319,6 +3704,7 @@ return {
 				serializes = false,
 			},
 			SystemProductName = {
+				name = "SystemProductName",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3327,6 +3713,7 @@ return {
 				serializes = false,
 			},
 			TickCountPreciseOverride = {
+				name = "TickCountPreciseOverride",
 				type = {type = "Enum", name = "TickCountSampleMethod"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3335,6 +3722,7 @@ return {
 				serializes = true,
 			},
 			VideoMemory = {
+				name = "VideoMemory",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3347,9 +3735,11 @@ return {
 		},
 	},
 	DebuggerBreakpoint = {
+		name = "DebuggerBreakpoint",
 		superclass = "Instance",
 		properties = {
 			Condition = {
+				name = "Condition",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3358,6 +3748,7 @@ return {
 				serializes = true,
 			},
 			IsEnabled = {
+				name = "IsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3366,6 +3757,7 @@ return {
 				serializes = true,
 			},
 			Line = {
+				name = "Line",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3378,9 +3770,11 @@ return {
 		},
 	},
 	DebuggerManager = {
+		name = "DebuggerManager",
 		superclass = "Instance",
 		properties = {
 			DebuggingEnabled = {
+				name = "DebuggingEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3393,9 +3787,11 @@ return {
 		},
 	},
 	DebuggerWatch = {
+		name = "DebuggerWatch",
 		superclass = "Instance",
 		properties = {
 			Expression = {
+				name = "Expression",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3408,9 +3804,11 @@ return {
 		},
 	},
 	Decal = {
+		name = "Decal",
 		superclass = "FaceInstance",
 		properties = {
 			Color3 = {
+				name = "Color3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3419,6 +3817,7 @@ return {
 				serializes = true,
 			},
 			LocalTransparencyModifier = {
+				name = "LocalTransparencyModifier",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3427,6 +3826,7 @@ return {
 				serializes = false,
 			},
 			Shiny = {
+				name = "Shiny",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3435,6 +3835,7 @@ return {
 				serializes = false,
 			},
 			Specular = {
+				name = "Specular",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3443,6 +3844,7 @@ return {
 				serializes = false,
 			},
 			Texture = {
+				name = "Texture",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3451,6 +3853,7 @@ return {
 				serializes = true,
 			},
 			Transparency = {
+				name = "Transparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3471,9 +3874,11 @@ return {
 		},
 	},
 	Dialog = {
+		name = "Dialog",
 		superclass = "Instance",
 		properties = {
 			BehaviorType = {
+				name = "BehaviorType",
 				type = {type = "Enum", name = "DialogBehaviorType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3482,6 +3887,7 @@ return {
 				serializes = true,
 			},
 			ConversationDistance = {
+				name = "ConversationDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3490,6 +3896,7 @@ return {
 				serializes = true,
 			},
 			GoodbyeChoiceActive = {
+				name = "GoodbyeChoiceActive",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3498,6 +3905,7 @@ return {
 				serializes = true,
 			},
 			GoodbyeDialog = {
+				name = "GoodbyeDialog",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3506,6 +3914,7 @@ return {
 				serializes = true,
 			},
 			InUse = {
+				name = "InUse",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3514,6 +3923,7 @@ return {
 				serializes = false,
 			},
 			InitialPrompt = {
+				name = "InitialPrompt",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3522,6 +3932,7 @@ return {
 				serializes = true,
 			},
 			Purpose = {
+				name = "Purpose",
 				type = {type = "Enum", name = "DialogPurpose"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3530,6 +3941,7 @@ return {
 				serializes = true,
 			},
 			Tone = {
+				name = "Tone",
 				type = {type = "Enum", name = "DialogTone"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3538,6 +3950,7 @@ return {
 				serializes = true,
 			},
 			TriggerDistance = {
+				name = "TriggerDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3546,6 +3959,7 @@ return {
 				serializes = true,
 			},
 			TriggerOffset = {
+				name = "TriggerOffset",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3569,9 +3983,11 @@ return {
 		},
 	},
 	DialogChoice = {
+		name = "DialogChoice",
 		superclass = "Instance",
 		properties = {
 			GoodbyeChoiceActive = {
+				name = "GoodbyeChoiceActive",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3580,6 +3996,7 @@ return {
 				serializes = true,
 			},
 			GoodbyeDialog = {
+				name = "GoodbyeDialog",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3588,6 +4005,7 @@ return {
 				serializes = true,
 			},
 			ResponseDialog = {
+				name = "ResponseDialog",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3596,6 +4014,7 @@ return {
 				serializes = true,
 			},
 			UserDialog = {
+				name = "UserDialog",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3613,9 +4032,11 @@ return {
 		},
 	},
 	DistortionSoundEffect = {
+		name = "DistortionSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			Level = {
+				name = "Level",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3632,9 +4053,11 @@ return {
 		},
 	},
 	DockWidgetPluginGui = {
+		name = "DockWidgetPluginGui",
 		superclass = "PluginGui",
 		properties = {
 			HostWidgetWasRestored = {
+				name = "HostWidgetWasRestored",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3647,9 +4070,11 @@ return {
 		},
 	},
 	DoubleConstrainedValue = {
+		name = "DoubleConstrainedValue",
 		superclass = "ValueBase",
 		properties = {
 			ConstrainedValue = {
+				name = "ConstrainedValue",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3658,6 +4083,7 @@ return {
 				serializes = false,
 			},
 			MaxValue = {
+				name = "MaxValue",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3666,6 +4092,7 @@ return {
 				serializes = true,
 			},
 			MinValue = {
+				name = "MinValue",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3674,6 +4101,7 @@ return {
 				serializes = true,
 			},
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3691,6 +4119,7 @@ return {
 		},
 	},
 	Dragger = {
+		name = "Dragger",
 		superclass = "Instance",
 		properties = {
 		},
@@ -3699,9 +4128,11 @@ return {
 		},
 	},
 	DynamicRotate = {
+		name = "DynamicRotate",
 		superclass = "JointInstance",
 		properties = {
 			BaseAngle = {
+				name = "BaseAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3714,9 +4145,11 @@ return {
 		},
 	},
 	EchoSoundEffect = {
+		name = "EchoSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			Delay = {
+				name = "Delay",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3725,6 +4158,7 @@ return {
 				serializes = true,
 			},
 			DryLevel = {
+				name = "DryLevel",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3733,6 +4167,7 @@ return {
 				serializes = true,
 			},
 			Feedback = {
+				name = "Feedback",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3741,6 +4176,7 @@ return {
 				serializes = true,
 			},
 			WetLevel = {
+				name = "WetLevel",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3760,6 +4196,7 @@ return {
 		},
 	},
 	EmotesPages = {
+		name = "EmotesPages",
 		superclass = "InventoryPages",
 		properties = {
 		},
@@ -3767,9 +4204,11 @@ return {
 		},
 	},
 	EqualizerSoundEffect = {
+		name = "EqualizerSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			HighGain = {
+				name = "HighGain",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3778,6 +4217,7 @@ return {
 				serializes = true,
 			},
 			LowGain = {
+				name = "LowGain",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3786,6 +4226,7 @@ return {
 				serializes = true,
 			},
 			MidGain = {
+				name = "MidGain",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3804,9 +4245,11 @@ return {
 		},
 	},
 	Explosion = {
+		name = "Explosion",
 		superclass = "Instance",
 		properties = {
 			BlastPressure = {
+				name = "BlastPressure",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3815,6 +4258,7 @@ return {
 				serializes = true,
 			},
 			BlastRadius = {
+				name = "BlastRadius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3823,6 +4267,7 @@ return {
 				serializes = true,
 			},
 			DestroyJointRadiusPercent = {
+				name = "DestroyJointRadiusPercent",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3831,6 +4276,7 @@ return {
 				serializes = true,
 			},
 			ExplosionType = {
+				name = "ExplosionType",
 				type = {type = "Enum", name = "ExplosionType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3839,6 +4285,7 @@ return {
 				serializes = true,
 			},
 			Position = {
+				name = "Position",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3847,6 +4294,7 @@ return {
 				serializes = true,
 			},
 			Visible = {
+				name = "Visible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3866,9 +4314,11 @@ return {
 		},
 	},
 	FaceInstance = {
+		name = "FaceInstance",
 		superclass = "Instance",
 		properties = {
 			Face = {
+				name = "Face",
 				type = {type = "Enum", name = "NormalId"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3881,9 +4331,11 @@ return {
 		},
 	},
 	Feature = {
+		name = "Feature",
 		superclass = "Instance",
 		properties = {
 			FaceId = {
+				name = "FaceId",
 				type = {type = "Enum", name = "NormalId"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3892,6 +4344,7 @@ return {
 				serializes = true,
 			},
 			InOut = {
+				name = "InOut",
 				type = {type = "Enum", name = "InOut"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3900,6 +4353,7 @@ return {
 				serializes = true,
 			},
 			LeftRight = {
+				name = "LeftRight",
 				type = {type = "Enum", name = "LeftRight"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3908,6 +4362,7 @@ return {
 				serializes = true,
 			},
 			TopBottom = {
+				name = "TopBottom",
 				type = {type = "Enum", name = "TopBottom"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3920,9 +4375,11 @@ return {
 		},
 	},
 	File = {
+		name = "File",
 		superclass = "Instance",
 		properties = {
 			FileName = {
+				name = "FileName",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3931,6 +4388,7 @@ return {
 				serializes = false,
 			},
 			FileSize = {
+				name = "FileSize",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3939,6 +4397,7 @@ return {
 				serializes = false,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3951,9 +4410,11 @@ return {
 		},
 	},
 	FileMesh = {
+		name = "FileMesh",
 		superclass = "DataModelMesh",
 		properties = {
 			MeshId = {
+				name = "MeshId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3962,6 +4423,7 @@ return {
 				serializes = true,
 			},
 			TextureId = {
+				name = "TextureId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3980,9 +4442,11 @@ return {
 		},
 	},
 	Fire = {
+		name = "Fire",
 		superclass = "Instance",
 		properties = {
 			Color = {
+				name = "Color",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3991,6 +4455,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3999,6 +4464,7 @@ return {
 				serializes = true,
 			},
 			Heat = {
+				name = "Heat",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4007,6 +4473,7 @@ return {
 				serializes = true,
 			},
 			SecondaryColor = {
+				name = "SecondaryColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4015,6 +4482,7 @@ return {
 				serializes = true,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4023,6 +4491,7 @@ return {
 				serializes = true,
 			},
 			heat_xml = {
+				name = "heat_xml",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = false,
 				canonicalName = "Heat",
@@ -4031,6 +4500,7 @@ return {
 				serializes = false,
 			},
 			size = {
+				name = "size",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = false,
 				canonicalName = "Size",
@@ -4039,6 +4509,7 @@ return {
 				serializes = false,
 			},
 			size_xml = {
+				name = "size_xml",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = false,
 				canonicalName = "Size",
@@ -4057,10 +4528,12 @@ return {
 		},
 	},
 	Flag = {
+		name = "Flag",
 		superclass = "Tool",
 		properties = {
 			TeamColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TeamColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -4084,10 +4557,12 @@ return {
 		},
 	},
 	FlagStand = {
+		name = "FlagStand",
 		superclass = "Part",
 		properties = {
 			TeamColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TeamColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -4148,6 +4623,7 @@ return {
 		},
 	},
 	FlagStandService = {
+		name = "FlagStandService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4155,9 +4631,11 @@ return {
 		},
 	},
 	FlangeSoundEffect = {
+		name = "FlangeSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			Depth = {
+				name = "Depth",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4166,6 +4644,7 @@ return {
 				serializes = true,
 			},
 			Mix = {
+				name = "Mix",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4174,6 +4653,7 @@ return {
 				serializes = true,
 			},
 			Rate = {
+				name = "Rate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4192,9 +4672,11 @@ return {
 		},
 	},
 	FloorWire = {
+		name = "FloorWire",
 		superclass = "GuiBase3d",
 		properties = {
 			CycleOffset = {
+				name = "CycleOffset",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4203,6 +4685,7 @@ return {
 				serializes = true,
 			},
 			From = {
+				name = "From",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4211,6 +4694,7 @@ return {
 				serializes = true,
 			},
 			StudsBetweenTextures = {
+				name = "StudsBetweenTextures",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4219,6 +4703,7 @@ return {
 				serializes = true,
 			},
 			Texture = {
+				name = "Texture",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4227,6 +4712,7 @@ return {
 				serializes = true,
 			},
 			TextureSize = {
+				name = "TextureSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4235,6 +4721,7 @@ return {
 				serializes = true,
 			},
 			To = {
+				name = "To",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4243,6 +4730,7 @@ return {
 				serializes = true,
 			},
 			Velocity = {
+				name = "Velocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4251,6 +4739,7 @@ return {
 				serializes = true,
 			},
 			WireRadius = {
+				name = "WireRadius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4275,6 +4764,7 @@ return {
 		},
 	},
 	FlyweightService = {
+		name = "FlyweightService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4282,6 +4772,7 @@ return {
 		},
 	},
 	Folder = {
+		name = "Folder",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4290,9 +4781,11 @@ return {
 		},
 	},
 	ForceField = {
+		name = "ForceField",
 		superclass = "Instance",
 		properties = {
 			Visible = {
+				name = "Visible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4307,9 +4800,11 @@ return {
 		},
 	},
 	FormFactorPart = {
+		name = "FormFactorPart",
 		superclass = "BasePart",
 		properties = {
 			FormFactor = {
+				name = "FormFactor",
 				type = {type = "Enum", name = "FormFactor"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4318,6 +4813,7 @@ return {
 				serializes = true,
 			},
 			formFactor = {
+				name = "formFactor",
 				type = {type = "Enum", name = "FormFactor"},
 				isCanonical = false,
 				canonicalName = "FormFactor",
@@ -4326,6 +4822,7 @@ return {
 				serializes = false,
 			},
 			formFactorRaw = {
+				name = "formFactorRaw",
 				type = {type = "Enum", name = "FormFactor"},
 				isCanonical = false,
 				canonicalName = "FormFactor",
@@ -4338,9 +4835,11 @@ return {
 		},
 	},
 	Frame = {
+		name = "Frame",
 		superclass = "GuiObject",
 		properties = {
 			Style = {
+				name = "Style",
 				type = {type = "Enum", name = "FrameStyle"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4380,6 +4879,7 @@ return {
 		},
 	},
 	FriendPages = {
+		name = "FriendPages",
 		superclass = "Pages",
 		properties = {
 		},
@@ -4387,6 +4887,7 @@ return {
 		},
 	},
 	FriendService = {
+		name = "FriendService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4395,9 +4896,11 @@ return {
 		},
 	},
 	FunctionalTest = {
+		name = "FunctionalTest",
 		superclass = "Instance",
 		properties = {
 			Description = {
+				name = "Description",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4412,6 +4915,7 @@ return {
 		},
 	},
 	GamePassService = {
+		name = "GamePassService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4420,9 +4924,11 @@ return {
 		},
 	},
 	GameSettings = {
+		name = "GameSettings",
 		superclass = "Instance",
 		properties = {
 			AdditionalCoreIncludeDirs = {
+				name = "AdditionalCoreIncludeDirs",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4431,6 +4937,7 @@ return {
 				serializes = true,
 			},
 			BubbleChatLifetime = {
+				name = "BubbleChatLifetime",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4439,6 +4946,7 @@ return {
 				serializes = true,
 			},
 			BubbleChatMaxBubbles = {
+				name = "BubbleChatMaxBubbles",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4447,6 +4955,7 @@ return {
 				serializes = true,
 			},
 			ChatHistory = {
+				name = "ChatHistory",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4455,6 +4964,7 @@ return {
 				serializes = true,
 			},
 			ChatScrollLength = {
+				name = "ChatScrollLength",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4463,6 +4973,7 @@ return {
 				serializes = true,
 			},
 			CollisionSoundEnabled = {
+				name = "CollisionSoundEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4471,6 +4982,7 @@ return {
 				serializes = false,
 			},
 			CollisionSoundVolume = {
+				name = "CollisionSoundVolume",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4479,6 +4991,7 @@ return {
 				serializes = false,
 			},
 			HardwareMouse = {
+				name = "HardwareMouse",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4487,6 +5000,7 @@ return {
 				serializes = true,
 			},
 			MaxCollisionSounds = {
+				name = "MaxCollisionSounds",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4495,6 +5009,7 @@ return {
 				serializes = false,
 			},
 			OverrideStarterScript = {
+				name = "OverrideStarterScript",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4503,6 +5018,7 @@ return {
 				serializes = true,
 			},
 			ReportAbuseChatHistory = {
+				name = "ReportAbuseChatHistory",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4511,6 +5027,7 @@ return {
 				serializes = true,
 			},
 			SoftwareSound = {
+				name = "SoftwareSound",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4519,6 +5036,7 @@ return {
 				serializes = true,
 			},
 			VideoCaptureEnabled = {
+				name = "VideoCaptureEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4527,6 +5045,7 @@ return {
 				serializes = true,
 			},
 			VideoQuality = {
+				name = "VideoQuality",
 				type = {type = "Enum", name = "VideoQualitySettings"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4539,6 +5058,7 @@ return {
 		},
 	},
 	GamepadService = {
+		name = "GamepadService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4547,6 +5067,7 @@ return {
 		},
 	},
 	GenericSettings = {
+		name = "GenericSettings",
 		superclass = "ServiceProvider",
 		properties = {
 		},
@@ -4554,6 +5075,7 @@ return {
 		},
 	},
 	Geometry = {
+		name = "Geometry",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4562,6 +5084,7 @@ return {
 		},
 	},
 	GlobalDataStore = {
+		name = "GlobalDataStore",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4569,6 +5092,7 @@ return {
 		},
 	},
 	GlobalSettings = {
+		name = "GlobalSettings",
 		superclass = "GenericSettings",
 		properties = {
 		},
@@ -4576,9 +5100,11 @@ return {
 		},
 	},
 	Glue = {
+		name = "Glue",
 		superclass = "JointInstance",
 		properties = {
 			F0 = {
+				name = "F0",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4587,6 +5113,7 @@ return {
 				serializes = true,
 			},
 			F1 = {
+				name = "F1",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4595,6 +5122,7 @@ return {
 				serializes = true,
 			},
 			F2 = {
+				name = "F2",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4603,6 +5131,7 @@ return {
 				serializes = true,
 			},
 			F3 = {
+				name = "F3",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4624,6 +5153,7 @@ return {
 		},
 	},
 	GoogleAnalyticsConfiguration = {
+		name = "GoogleAnalyticsConfiguration",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4631,6 +5161,7 @@ return {
 		},
 	},
 	GroupService = {
+		name = "GroupService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4639,6 +5170,7 @@ return {
 		},
 	},
 	GuiBase = {
+		name = "GuiBase",
 		superclass = "Instance",
 		properties = {
 		},
@@ -4646,9 +5178,11 @@ return {
 		},
 	},
 	GuiBase2d = {
+		name = "GuiBase2d",
 		superclass = "GuiBase",
 		properties = {
 			AbsolutePosition = {
+				name = "AbsolutePosition",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4657,6 +5191,7 @@ return {
 				serializes = false,
 			},
 			AbsoluteRotation = {
+				name = "AbsoluteRotation",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4665,6 +5200,7 @@ return {
 				serializes = false,
 			},
 			AbsoluteSize = {
+				name = "AbsoluteSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4673,6 +5209,7 @@ return {
 				serializes = false,
 			},
 			AutoLocalize = {
+				name = "AutoLocalize",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4681,6 +5218,7 @@ return {
 				serializes = true,
 			},
 			Localize = {
+				name = "Localize",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4689,6 +5227,7 @@ return {
 				serializes = false,
 			},
 			RootLocalizationTable = {
+				name = "RootLocalizationTable",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4701,10 +5240,12 @@ return {
 		},
 	},
 	GuiBase3d = {
+		name = "GuiBase3d",
 		superclass = "GuiBase",
 		properties = {
 			Color = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "Color",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -4712,6 +5253,7 @@ return {
 				serializes = false,
 			},
 			Color3 = {
+				name = "Color3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4720,6 +5262,7 @@ return {
 				serializes = true,
 			},
 			Transparency = {
+				name = "Transparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4728,6 +5271,7 @@ return {
 				serializes = true,
 			},
 			Visible = {
+				name = "Visible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4740,9 +5284,11 @@ return {
 		},
 	},
 	GuiButton = {
+		name = "GuiButton",
 		superclass = "GuiObject",
 		properties = {
 			AutoButtonColor = {
+				name = "AutoButtonColor",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4751,6 +5297,7 @@ return {
 				serializes = true,
 			},
 			Modal = {
+				name = "Modal",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4759,6 +5306,7 @@ return {
 				serializes = true,
 			},
 			Selected = {
+				name = "Selected",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4767,6 +5315,7 @@ return {
 				serializes = true,
 			},
 			Style = {
+				name = "Style",
 				type = {type = "Enum", name = "ButtonStyle"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4779,6 +5328,7 @@ return {
 		},
 	},
 	GuiLabel = {
+		name = "GuiLabel",
 		superclass = "GuiObject",
 		properties = {
 		},
@@ -4786,6 +5336,7 @@ return {
 		},
 	},
 	GuiMain = {
+		name = "GuiMain",
 		superclass = "ScreenGui",
 		properties = {
 		},
@@ -4803,9 +5354,11 @@ return {
 		},
 	},
 	GuiObject = {
+		name = "GuiObject",
 		superclass = "GuiBase2d",
 		properties = {
 			Active = {
+				name = "Active",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4814,6 +5367,7 @@ return {
 				serializes = true,
 			},
 			AnchorPoint = {
+				name = "AnchorPoint",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4822,7 +5376,8 @@ return {
 				serializes = true,
 			},
 			BackgroundColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "BackgroundColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -4830,6 +5385,7 @@ return {
 				serializes = false,
 			},
 			BackgroundColor3 = {
+				name = "BackgroundColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4838,6 +5394,7 @@ return {
 				serializes = true,
 			},
 			BackgroundTransparency = {
+				name = "BackgroundTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4846,7 +5403,8 @@ return {
 				serializes = true,
 			},
 			BorderColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "BorderColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -4854,6 +5412,7 @@ return {
 				serializes = false,
 			},
 			BorderColor3 = {
+				name = "BorderColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4862,6 +5421,7 @@ return {
 				serializes = true,
 			},
 			BorderSizePixel = {
+				name = "BorderSizePixel",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4870,6 +5430,7 @@ return {
 				serializes = true,
 			},
 			ClipsDescendants = {
+				name = "ClipsDescendants",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4878,6 +5439,7 @@ return {
 				serializes = true,
 			},
 			Draggable = {
+				name = "Draggable",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4886,6 +5448,7 @@ return {
 				serializes = true,
 			},
 			LayoutOrder = {
+				name = "LayoutOrder",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4894,6 +5457,7 @@ return {
 				serializes = true,
 			},
 			NextSelectionDown = {
+				name = "NextSelectionDown",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4902,6 +5466,7 @@ return {
 				serializes = true,
 			},
 			NextSelectionLeft = {
+				name = "NextSelectionLeft",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4910,6 +5475,7 @@ return {
 				serializes = true,
 			},
 			NextSelectionRight = {
+				name = "NextSelectionRight",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4918,6 +5484,7 @@ return {
 				serializes = true,
 			},
 			NextSelectionUp = {
+				name = "NextSelectionUp",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4926,6 +5493,7 @@ return {
 				serializes = true,
 			},
 			Position = {
+				name = "Position",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4934,6 +5502,7 @@ return {
 				serializes = true,
 			},
 			Rotation = {
+				name = "Rotation",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4942,6 +5511,7 @@ return {
 				serializes = true,
 			},
 			Selectable = {
+				name = "Selectable",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4950,6 +5520,7 @@ return {
 				serializes = true,
 			},
 			SelectionImageObject = {
+				name = "SelectionImageObject",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4958,6 +5529,7 @@ return {
 				serializes = true,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4966,6 +5538,7 @@ return {
 				serializes = true,
 			},
 			SizeConstraint = {
+				name = "SizeConstraint",
 				type = {type = "Enum", name = "SizeConstraint"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4974,6 +5547,7 @@ return {
 				serializes = true,
 			},
 			Transparency = {
+				name = "Transparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4982,6 +5556,7 @@ return {
 				serializes = false,
 			},
 			Visible = {
+				name = "Visible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -4990,6 +5565,7 @@ return {
 				serializes = true,
 			},
 			ZIndex = {
+				name = "ZIndex",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5002,9 +5578,11 @@ return {
 		},
 	},
 	GuiService = {
+		name = "GuiService",
 		superclass = "Instance",
 		properties = {
 			AutoSelectGuiEnabled = {
+				name = "AutoSelectGuiEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5013,6 +5591,7 @@ return {
 				serializes = true,
 			},
 			CoreEffectFolder = {
+				name = "CoreEffectFolder",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5021,6 +5600,7 @@ return {
 				serializes = false,
 			},
 			CoreGuiFolder = {
+				name = "CoreGuiFolder",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5029,6 +5609,7 @@ return {
 				serializes = false,
 			},
 			CoreGuiNavigationEnabled = {
+				name = "CoreGuiNavigationEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5037,6 +5618,7 @@ return {
 				serializes = true,
 			},
 			GuiNavigationEnabled = {
+				name = "GuiNavigationEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5045,6 +5627,7 @@ return {
 				serializes = true,
 			},
 			IsModalDialog = {
+				name = "IsModalDialog",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5053,6 +5636,7 @@ return {
 				serializes = false,
 			},
 			IsWindows = {
+				name = "IsWindows",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5061,6 +5645,7 @@ return {
 				serializes = false,
 			},
 			MenuIsOpen = {
+				name = "MenuIsOpen",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5069,6 +5654,7 @@ return {
 				serializes = false,
 			},
 			SelectedCoreObject = {
+				name = "SelectedCoreObject",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5077,6 +5663,7 @@ return {
 				serializes = false,
 			},
 			SelectedObject = {
+				name = "SelectedObject",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5097,6 +5684,7 @@ return {
 		},
 	},
 	GuidRegistryService = {
+		name = "GuidRegistryService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -5104,9 +5692,11 @@ return {
 		},
 	},
 	HandleAdornment = {
+		name = "HandleAdornment",
 		superclass = "PVAdornment",
 		properties = {
 			AlwaysOnTop = {
+				name = "AlwaysOnTop",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5115,6 +5705,7 @@ return {
 				serializes = true,
 			},
 			CFrame = {
+				name = "CFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5123,6 +5714,7 @@ return {
 				serializes = true,
 			},
 			SizeRelativeOffset = {
+				name = "SizeRelativeOffset",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5131,6 +5723,7 @@ return {
 				serializes = true,
 			},
 			ZIndex = {
+				name = "ZIndex",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5143,9 +5736,11 @@ return {
 		},
 	},
 	Handles = {
+		name = "Handles",
 		superclass = "HandlesBase",
 		properties = {
 			Faces = {
+				name = "Faces",
 				type = {type = "Unimplemented", name = "Faces"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5154,6 +5749,7 @@ return {
 				serializes = true,
 			},
 			Style = {
+				name = "Style",
 				type = {type = "Enum", name = "HandlesStyle"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5172,6 +5768,7 @@ return {
 		},
 	},
 	HandlesBase = {
+		name = "HandlesBase",
 		superclass = "PartAdornment",
 		properties = {
 		},
@@ -5179,6 +5776,7 @@ return {
 		},
 	},
 	HapticService = {
+		name = "HapticService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -5187,6 +5785,7 @@ return {
 		},
 	},
 	Hat = {
+		name = "Hat",
 		superclass = "Accoutrement",
 		properties = {
 		},
@@ -5200,9 +5799,11 @@ return {
 		},
 	},
 	HingeConstraint = {
+		name = "HingeConstraint",
 		superclass = "Constraint",
 		properties = {
 			ActuatorType = {
+				name = "ActuatorType",
 				type = {type = "Enum", name = "ActuatorType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5211,6 +5812,7 @@ return {
 				serializes = true,
 			},
 			AngularSpeed = {
+				name = "AngularSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5219,6 +5821,7 @@ return {
 				serializes = true,
 			},
 			AngularVelocity = {
+				name = "AngularVelocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5227,6 +5830,7 @@ return {
 				serializes = true,
 			},
 			CurrentAngle = {
+				name = "CurrentAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5235,6 +5839,7 @@ return {
 				serializes = false,
 			},
 			LimitsEnabled = {
+				name = "LimitsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5243,6 +5848,7 @@ return {
 				serializes = true,
 			},
 			LowerAngle = {
+				name = "LowerAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5251,6 +5857,7 @@ return {
 				serializes = true,
 			},
 			MotorMaxAcceleration = {
+				name = "MotorMaxAcceleration",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5259,6 +5866,7 @@ return {
 				serializes = true,
 			},
 			MotorMaxTorque = {
+				name = "MotorMaxTorque",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5267,6 +5875,7 @@ return {
 				serializes = true,
 			},
 			Radius = {
+				name = "Radius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5275,6 +5884,7 @@ return {
 				serializes = true,
 			},
 			Restitution = {
+				name = "Restitution",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5283,6 +5893,7 @@ return {
 				serializes = true,
 			},
 			ServoMaxTorque = {
+				name = "ServoMaxTorque",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5291,6 +5902,7 @@ return {
 				serializes = true,
 			},
 			TargetAngle = {
+				name = "TargetAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5299,6 +5911,7 @@ return {
 				serializes = true,
 			},
 			UpperAngle = {
+				name = "UpperAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5328,6 +5941,7 @@ return {
 		},
 	},
 	Hint = {
+		name = "Hint",
 		superclass = "Message",
 		properties = {
 		},
@@ -5337,6 +5951,7 @@ return {
 		},
 	},
 	Hole = {
+		name = "Hole",
 		superclass = "Feature",
 		properties = {
 		},
@@ -5349,6 +5964,7 @@ return {
 		},
 	},
 	Hopper = {
+		name = "Hopper",
 		superclass = "Instance",
 		properties = {
 		},
@@ -5356,9 +5972,11 @@ return {
 		},
 	},
 	HopperBin = {
+		name = "HopperBin",
 		superclass = "BackpackItem",
 		properties = {
 			Active = {
+				name = "Active",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5367,6 +5985,7 @@ return {
 				serializes = true,
 			},
 			BinType = {
+				name = "BinType",
 				type = {type = "Enum", name = "BinType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5383,6 +6002,7 @@ return {
 		},
 	},
 	HttpRbxApiService = {
+		name = "HttpRbxApiService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -5391,6 +6011,7 @@ return {
 		},
 	},
 	HttpRequest = {
+		name = "HttpRequest",
 		superclass = "Instance",
 		properties = {
 		},
@@ -5398,9 +6019,11 @@ return {
 		},
 	},
 	HttpService = {
+		name = "HttpService",
 		superclass = "Instance",
 		properties = {
 			HttpEnabled = {
+				name = "HttpEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5414,9 +6037,11 @@ return {
 		},
 	},
 	Humanoid = {
+		name = "Humanoid",
 		superclass = "Instance",
 		properties = {
 			AutoJumpEnabled = {
+				name = "AutoJumpEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5425,6 +6050,7 @@ return {
 				serializes = true,
 			},
 			AutoRotate = {
+				name = "AutoRotate",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5433,6 +6059,7 @@ return {
 				serializes = true,
 			},
 			AutomaticScalingEnabled = {
+				name = "AutomaticScalingEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5441,6 +6068,7 @@ return {
 				serializes = true,
 			},
 			BreakJointsOnDeath = {
+				name = "BreakJointsOnDeath",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5449,6 +6077,7 @@ return {
 				serializes = true,
 			},
 			CameraOffset = {
+				name = "CameraOffset",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5457,6 +6086,7 @@ return {
 				serializes = false,
 			},
 			CollisionType = {
+				name = "CollisionType",
 				type = {type = "Enum", name = "HumanoidCollisionType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5465,6 +6095,7 @@ return {
 				serializes = true,
 			},
 			DisplayDistanceType = {
+				name = "DisplayDistanceType",
 				type = {type = "Enum", name = "HumanoidDisplayDistanceType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5473,6 +6104,7 @@ return {
 				serializes = true,
 			},
 			FloorMaterial = {
+				name = "FloorMaterial",
 				type = {type = "Enum", name = "Material"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5481,6 +6113,7 @@ return {
 				serializes = false,
 			},
 			Health = {
+				name = "Health",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5489,6 +6122,7 @@ return {
 				serializes = false,
 			},
 			HealthDisplayDistance = {
+				name = "HealthDisplayDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5497,6 +6131,7 @@ return {
 				serializes = true,
 			},
 			HealthDisplayType = {
+				name = "HealthDisplayType",
 				type = {type = "Enum", name = "HumanoidHealthDisplayType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5505,6 +6140,7 @@ return {
 				serializes = true,
 			},
 			HipHeight = {
+				name = "HipHeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5513,6 +6149,7 @@ return {
 				serializes = true,
 			},
 			Jump = {
+				name = "Jump",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5521,6 +6158,7 @@ return {
 				serializes = false,
 			},
 			JumpHeight = {
+				name = "JumpHeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5529,6 +6167,7 @@ return {
 				serializes = true,
 			},
 			JumpPower = {
+				name = "JumpPower",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5537,6 +6176,7 @@ return {
 				serializes = true,
 			},
 			LeftLeg = {
+				name = "LeftLeg",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5545,6 +6185,7 @@ return {
 				serializes = false,
 			},
 			MaxHealth = {
+				name = "MaxHealth",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5553,6 +6194,7 @@ return {
 				serializes = true,
 			},
 			MaxSlopeAngle = {
+				name = "MaxSlopeAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5561,6 +6203,7 @@ return {
 				serializes = true,
 			},
 			MoveDirection = {
+				name = "MoveDirection",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5569,6 +6212,7 @@ return {
 				serializes = false,
 			},
 			NameDisplayDistance = {
+				name = "NameDisplayDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5577,6 +6221,7 @@ return {
 				serializes = true,
 			},
 			NameOcclusion = {
+				name = "NameOcclusion",
 				type = {type = "Enum", name = "NameOcclusion"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5585,6 +6230,7 @@ return {
 				serializes = true,
 			},
 			PlatformStand = {
+				name = "PlatformStand",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5593,6 +6239,7 @@ return {
 				serializes = false,
 			},
 			RigType = {
+				name = "RigType",
 				type = {type = "Enum", name = "HumanoidRigType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5601,6 +6248,7 @@ return {
 				serializes = true,
 			},
 			RightLeg = {
+				name = "RightLeg",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5609,6 +6257,7 @@ return {
 				serializes = false,
 			},
 			RootPart = {
+				name = "RootPart",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5617,6 +6266,7 @@ return {
 				serializes = false,
 			},
 			SeatPart = {
+				name = "SeatPart",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5625,6 +6275,7 @@ return {
 				serializes = false,
 			},
 			Sit = {
+				name = "Sit",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5633,6 +6284,7 @@ return {
 				serializes = false,
 			},
 			TargetPoint = {
+				name = "TargetPoint",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5641,6 +6293,7 @@ return {
 				serializes = false,
 			},
 			Torso = {
+				name = "Torso",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5649,6 +6302,7 @@ return {
 				serializes = false,
 			},
 			UseJumpPower = {
+				name = "UseJumpPower",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5657,6 +6311,7 @@ return {
 				serializes = true,
 			},
 			WalkSpeed = {
+				name = "WalkSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5665,6 +6320,7 @@ return {
 				serializes = true,
 			},
 			WalkToPart = {
+				name = "WalkToPart",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5673,6 +6329,7 @@ return {
 				serializes = false,
 			},
 			WalkToPoint = {
+				name = "WalkToPoint",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5681,6 +6338,7 @@ return {
 				serializes = false,
 			},
 			maxHealth = {
+				name = "maxHealth",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5724,6 +6382,7 @@ return {
 		},
 	},
 	HumanoidController = {
+		name = "HumanoidController",
 		superclass = "Controller",
 		properties = {
 		},
@@ -5732,9 +6391,11 @@ return {
 		},
 	},
 	HumanoidDescription = {
+		name = "HumanoidDescription",
 		superclass = "Instance",
 		properties = {
 			BackAccessory = {
+				name = "BackAccessory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5743,6 +6404,7 @@ return {
 				serializes = true,
 			},
 			BodyTypeScale = {
+				name = "BodyTypeScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5751,6 +6413,7 @@ return {
 				serializes = true,
 			},
 			ClimbAnimation = {
+				name = "ClimbAnimation",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5759,6 +6422,7 @@ return {
 				serializes = true,
 			},
 			DepthScale = {
+				name = "DepthScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5767,6 +6431,7 @@ return {
 				serializes = true,
 			},
 			Face = {
+				name = "Face",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5775,6 +6440,7 @@ return {
 				serializes = true,
 			},
 			FaceAccessory = {
+				name = "FaceAccessory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5783,6 +6449,7 @@ return {
 				serializes = true,
 			},
 			FallAnimation = {
+				name = "FallAnimation",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5791,6 +6458,7 @@ return {
 				serializes = true,
 			},
 			FrontAccessory = {
+				name = "FrontAccessory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5799,6 +6467,7 @@ return {
 				serializes = true,
 			},
 			GraphicTShirt = {
+				name = "GraphicTShirt",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5807,6 +6476,7 @@ return {
 				serializes = true,
 			},
 			HairAccessory = {
+				name = "HairAccessory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5815,6 +6485,7 @@ return {
 				serializes = true,
 			},
 			HatAccessory = {
+				name = "HatAccessory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5823,6 +6494,7 @@ return {
 				serializes = true,
 			},
 			Head = {
+				name = "Head",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5831,6 +6503,7 @@ return {
 				serializes = true,
 			},
 			HeadColor = {
+				name = "HeadColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5839,6 +6512,7 @@ return {
 				serializes = true,
 			},
 			HeadScale = {
+				name = "HeadScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5847,6 +6521,7 @@ return {
 				serializes = true,
 			},
 			HeightScale = {
+				name = "HeightScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5855,6 +6530,7 @@ return {
 				serializes = true,
 			},
 			IdleAnimation = {
+				name = "IdleAnimation",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5863,6 +6539,7 @@ return {
 				serializes = true,
 			},
 			JumpAnimation = {
+				name = "JumpAnimation",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5871,6 +6548,7 @@ return {
 				serializes = true,
 			},
 			LeftArm = {
+				name = "LeftArm",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5879,6 +6557,7 @@ return {
 				serializes = true,
 			},
 			LeftArmColor = {
+				name = "LeftArmColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5887,6 +6566,7 @@ return {
 				serializes = true,
 			},
 			LeftLeg = {
+				name = "LeftLeg",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5895,6 +6575,7 @@ return {
 				serializes = true,
 			},
 			LeftLegColor = {
+				name = "LeftLegColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5903,6 +6584,7 @@ return {
 				serializes = true,
 			},
 			NeckAccessory = {
+				name = "NeckAccessory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5911,6 +6593,7 @@ return {
 				serializes = true,
 			},
 			Pants = {
+				name = "Pants",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5919,6 +6602,7 @@ return {
 				serializes = true,
 			},
 			ProportionScale = {
+				name = "ProportionScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5927,6 +6611,7 @@ return {
 				serializes = true,
 			},
 			RightArm = {
+				name = "RightArm",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5935,6 +6620,7 @@ return {
 				serializes = true,
 			},
 			RightArmColor = {
+				name = "RightArmColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5943,6 +6629,7 @@ return {
 				serializes = true,
 			},
 			RightLeg = {
+				name = "RightLeg",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5951,6 +6638,7 @@ return {
 				serializes = true,
 			},
 			RightLegColor = {
+				name = "RightLegColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5959,6 +6647,7 @@ return {
 				serializes = true,
 			},
 			RunAnimation = {
+				name = "RunAnimation",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5967,6 +6656,7 @@ return {
 				serializes = true,
 			},
 			Shirt = {
+				name = "Shirt",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5975,6 +6665,7 @@ return {
 				serializes = true,
 			},
 			ShouldersAccessory = {
+				name = "ShouldersAccessory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5983,6 +6674,7 @@ return {
 				serializes = true,
 			},
 			SwimAnimation = {
+				name = "SwimAnimation",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5991,6 +6683,7 @@ return {
 				serializes = true,
 			},
 			Torso = {
+				name = "Torso",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -5999,6 +6692,7 @@ return {
 				serializes = true,
 			},
 			TorsoColor = {
+				name = "TorsoColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6007,6 +6701,7 @@ return {
 				serializes = true,
 			},
 			WaistAccessory = {
+				name = "WaistAccessory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6015,6 +6710,7 @@ return {
 				serializes = true,
 			},
 			WalkAnimation = {
+				name = "WalkAnimation",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6023,6 +6719,7 @@ return {
 				serializes = true,
 			},
 			WidthScale = {
+				name = "WidthScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6073,9 +6770,11 @@ return {
 		},
 	},
 	ImageButton = {
+		name = "ImageButton",
 		superclass = "GuiButton",
 		properties = {
 			HoverImage = {
+				name = "HoverImage",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6084,6 +6783,7 @@ return {
 				serializes = true,
 			},
 			Image = {
+				name = "Image",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6092,6 +6792,7 @@ return {
 				serializes = true,
 			},
 			ImageColor3 = {
+				name = "ImageColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6100,6 +6801,7 @@ return {
 				serializes = true,
 			},
 			ImageRectOffset = {
+				name = "ImageRectOffset",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6108,6 +6810,7 @@ return {
 				serializes = true,
 			},
 			ImageRectSize = {
+				name = "ImageRectSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6116,6 +6819,7 @@ return {
 				serializes = true,
 			},
 			ImageTransparency = {
+				name = "ImageTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6124,6 +6828,7 @@ return {
 				serializes = true,
 			},
 			IsLoaded = {
+				name = "IsLoaded",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6132,6 +6837,7 @@ return {
 				serializes = false,
 			},
 			PressedImage = {
+				name = "PressedImage",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6140,6 +6846,7 @@ return {
 				serializes = true,
 			},
 			ScaleType = {
+				name = "ScaleType",
 				type = {type = "Enum", name = "ScaleType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6148,7 +6855,8 @@ return {
 				serializes = true,
 			},
 			SliceCenter = {
-				type = {type = "Unimplemented", name = "Rect"},
+				name = "SliceCenter",
+				type = {type = "Data", name = "Rect"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -6156,6 +6864,7 @@ return {
 				serializes = true,
 			},
 			SliceScale = {
+				name = "SliceScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6164,6 +6873,7 @@ return {
 				serializes = true,
 			},
 			TileSize = {
+				name = "TileSize",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6207,6 +6917,7 @@ return {
 			SelectionImageObject = nil,
 			Size = UDim2.new(0, 0, 0, 0),
 			SizeConstraint = 0,
+			SliceCenter = Rect.new(0, 0, 0, 0),
 			SliceScale = 1,
 			Style = 0,
 			TileSize = UDim2.new(1, 0, 1, 0),
@@ -6216,9 +6927,11 @@ return {
 		},
 	},
 	ImageHandleAdornment = {
+		name = "ImageHandleAdornment",
 		superclass = "HandleAdornment",
 		properties = {
 			Image = {
+				name = "Image",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6227,6 +6940,7 @@ return {
 				serializes = true,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6250,9 +6964,11 @@ return {
 		},
 	},
 	ImageLabel = {
+		name = "ImageLabel",
 		superclass = "GuiLabel",
 		properties = {
 			Image = {
+				name = "Image",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6261,6 +6977,7 @@ return {
 				serializes = true,
 			},
 			ImageColor3 = {
+				name = "ImageColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6269,6 +6986,7 @@ return {
 				serializes = true,
 			},
 			ImageRectOffset = {
+				name = "ImageRectOffset",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6277,6 +6995,7 @@ return {
 				serializes = true,
 			},
 			ImageRectSize = {
+				name = "ImageRectSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6285,6 +7004,7 @@ return {
 				serializes = true,
 			},
 			ImageTransparency = {
+				name = "ImageTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6293,6 +7013,7 @@ return {
 				serializes = true,
 			},
 			IsLoaded = {
+				name = "IsLoaded",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6301,6 +7022,7 @@ return {
 				serializes = false,
 			},
 			ScaleType = {
+				name = "ScaleType",
 				type = {type = "Enum", name = "ScaleType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6309,7 +7031,8 @@ return {
 				serializes = true,
 			},
 			SliceCenter = {
-				type = {type = "Unimplemented", name = "Rect"},
+				name = "SliceCenter",
+				type = {type = "Data", name = "Rect"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -6317,6 +7040,7 @@ return {
 				serializes = true,
 			},
 			SliceScale = {
+				name = "SliceScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6325,6 +7049,7 @@ return {
 				serializes = true,
 			},
 			TileSize = {
+				name = "TileSize",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6363,6 +7088,7 @@ return {
 			SelectionImageObject = nil,
 			Size = UDim2.new(0, 0, 0, 0),
 			SizeConstraint = 0,
+			SliceCenter = Rect.new(0, 0, 0, 0),
 			SliceScale = 1,
 			TileSize = UDim2.new(1, 0, 1, 0),
 			Transparency = 0,
@@ -6371,9 +7097,11 @@ return {
 		},
 	},
 	InputObject = {
+		name = "InputObject",
 		superclass = "Instance",
 		properties = {
 			Delta = {
+				name = "Delta",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6382,6 +7110,7 @@ return {
 				serializes = false,
 			},
 			KeyCode = {
+				name = "KeyCode",
 				type = {type = "Enum", name = "KeyCode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6390,6 +7119,7 @@ return {
 				serializes = false,
 			},
 			Position = {
+				name = "Position",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6398,6 +7128,7 @@ return {
 				serializes = false,
 			},
 			UserInputState = {
+				name = "UserInputState",
 				type = {type = "Enum", name = "UserInputState"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6406,6 +7137,7 @@ return {
 				serializes = false,
 			},
 			UserInputType = {
+				name = "UserInputType",
 				type = {type = "Enum", name = "UserInputType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6418,9 +7150,11 @@ return {
 		},
 	},
 	InsertService = {
+		name = "InsertService",
 		superclass = "Instance",
 		properties = {
 			AllowClientInsertModels = {
+				name = "AllowClientInsertModels",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6429,6 +7163,7 @@ return {
 				serializes = true,
 			},
 			AllowInsertFreeModels = {
+				name = "AllowInsertFreeModels",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6443,9 +7178,11 @@ return {
 		},
 	},
 	Instance = {
+		name = "Instance",
 		superclass = nil,
 		properties = {
 			Archivable = {
+				name = "Archivable",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6454,6 +7191,7 @@ return {
 				serializes = true,
 			},
 			ClassName = {
+				name = "ClassName",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6462,6 +7200,7 @@ return {
 				serializes = false,
 			},
 			DataCost = {
+				name = "DataCost",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6470,6 +7209,7 @@ return {
 				serializes = false,
 			},
 			Name = {
+				name = "Name",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6478,6 +7218,7 @@ return {
 				serializes = true,
 			},
 			Parent = {
+				name = "Parent",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6486,6 +7227,7 @@ return {
 				serializes = false,
 			},
 			RobloxLocked = {
+				name = "RobloxLocked",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6494,6 +7236,7 @@ return {
 				serializes = false,
 			},
 			Tags = {
+				name = "Tags",
 				type = {type = "Data", name = "BinaryString"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6502,6 +7245,7 @@ return {
 				serializes = true,
 			},
 			archivable = {
+				name = "archivable",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = false,
 				canonicalName = "Archivable",
@@ -6510,6 +7254,7 @@ return {
 				serializes = false,
 			},
 			className = {
+				name = "className",
 				type = {type = "Data", name = "String"},
 				isCanonical = false,
 				canonicalName = "ClassName",
@@ -6522,9 +7267,11 @@ return {
 		},
 	},
 	IntConstrainedValue = {
+		name = "IntConstrainedValue",
 		superclass = "ValueBase",
 		properties = {
 			ConstrainedValue = {
+				name = "ConstrainedValue",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6533,6 +7280,7 @@ return {
 				serializes = false,
 			},
 			MaxValue = {
+				name = "MaxValue",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6541,6 +7289,7 @@ return {
 				serializes = true,
 			},
 			MinValue = {
+				name = "MinValue",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6549,6 +7298,7 @@ return {
 				serializes = true,
 			},
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6566,9 +7316,11 @@ return {
 		},
 	},
 	IntValue = {
+		name = "IntValue",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6583,6 +7335,7 @@ return {
 		},
 	},
 	InventoryPages = {
+		name = "InventoryPages",
 		superclass = "Pages",
 		properties = {
 		},
@@ -6590,9 +7343,11 @@ return {
 		},
 	},
 	JointInstance = {
+		name = "JointInstance",
 		superclass = "Instance",
 		properties = {
 			Active = {
+				name = "Active",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6601,6 +7356,7 @@ return {
 				serializes = false,
 			},
 			C0 = {
+				name = "C0",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6609,6 +7365,7 @@ return {
 				serializes = true,
 			},
 			C1 = {
+				name = "C1",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6617,6 +7374,7 @@ return {
 				serializes = true,
 			},
 			Part0 = {
+				name = "Part0",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6625,6 +7383,7 @@ return {
 				serializes = true,
 			},
 			Part1 = {
+				name = "Part1",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6633,6 +7392,7 @@ return {
 				serializes = true,
 			},
 			part1 = {
+				name = "part1",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = false,
 				canonicalName = "Part1",
@@ -6645,6 +7405,7 @@ return {
 		},
 	},
 	JointsService = {
+		name = "JointsService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -6653,6 +7414,7 @@ return {
 		},
 	},
 	KeyboardService = {
+		name = "KeyboardService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -6661,9 +7423,11 @@ return {
 		},
 	},
 	Keyframe = {
+		name = "Keyframe",
 		superclass = "Instance",
 		properties = {
 			Time = {
+				name = "Time",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6678,9 +7442,11 @@ return {
 		},
 	},
 	KeyframeMarker = {
+		name = "KeyframeMarker",
 		superclass = "Instance",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6695,9 +7461,11 @@ return {
 		},
 	},
 	KeyframeSequence = {
+		name = "KeyframeSequence",
 		superclass = "Instance",
 		properties = {
 			AuthoredHipHeight = {
+				name = "AuthoredHipHeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6706,6 +7474,7 @@ return {
 				serializes = true,
 			},
 			Loop = {
+				name = "Loop",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6714,6 +7483,7 @@ return {
 				serializes = true,
 			},
 			Priority = {
+				name = "Priority",
 				type = {type = "Enum", name = "AnimationPriority"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6730,6 +7500,7 @@ return {
 		},
 	},
 	KeyframeSequenceProvider = {
+		name = "KeyframeSequenceProvider",
 		superclass = "Instance",
 		properties = {
 		},
@@ -6738,9 +7509,11 @@ return {
 		},
 	},
 	LayerCollector = {
+		name = "LayerCollector",
 		superclass = "GuiBase2d",
 		properties = {
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6749,6 +7522,7 @@ return {
 				serializes = true,
 			},
 			ResetOnSpawn = {
+				name = "ResetOnSpawn",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6757,6 +7531,7 @@ return {
 				serializes = true,
 			},
 			ZIndexBehavior = {
+				name = "ZIndexBehavior",
 				type = {type = "Enum", name = "ZIndexBehavior"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6769,9 +7544,11 @@ return {
 		},
 	},
 	Light = {
+		name = "Light",
 		superclass = "Instance",
 		properties = {
 			Brightness = {
+				name = "Brightness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6780,6 +7557,7 @@ return {
 				serializes = true,
 			},
 			Color = {
+				name = "Color",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6788,6 +7566,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6796,6 +7575,7 @@ return {
 				serializes = true,
 			},
 			Shadows = {
+				name = "Shadows",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6808,9 +7588,11 @@ return {
 		},
 	},
 	Lighting = {
+		name = "Lighting",
 		superclass = "Instance",
 		properties = {
 			Ambient = {
+				name = "Ambient",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6819,6 +7601,7 @@ return {
 				serializes = true,
 			},
 			Brightness = {
+				name = "Brightness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6827,6 +7610,7 @@ return {
 				serializes = true,
 			},
 			ClockTime = {
+				name = "ClockTime",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6835,6 +7619,7 @@ return {
 				serializes = false,
 			},
 			ColorShift_Bottom = {
+				name = "ColorShift_Bottom",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6843,6 +7628,7 @@ return {
 				serializes = true,
 			},
 			ColorShift_Top = {
+				name = "ColorShift_Top",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6851,6 +7637,7 @@ return {
 				serializes = true,
 			},
 			ExposureCompensation = {
+				name = "ExposureCompensation",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6859,6 +7646,7 @@ return {
 				serializes = true,
 			},
 			FogColor = {
+				name = "FogColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6867,6 +7655,7 @@ return {
 				serializes = true,
 			},
 			FogEnd = {
+				name = "FogEnd",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6875,6 +7664,7 @@ return {
 				serializes = true,
 			},
 			FogStart = {
+				name = "FogStart",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6883,6 +7673,7 @@ return {
 				serializes = true,
 			},
 			GeographicLatitude = {
+				name = "GeographicLatitude",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6891,6 +7682,7 @@ return {
 				serializes = true,
 			},
 			GlobalShadows = {
+				name = "GlobalShadows",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6899,6 +7691,7 @@ return {
 				serializes = true,
 			},
 			LegacyOutlines = {
+				name = "LegacyOutlines",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6907,6 +7700,7 @@ return {
 				serializes = true,
 			},
 			OutdoorAmbient = {
+				name = "OutdoorAmbient",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6915,6 +7709,7 @@ return {
 				serializes = true,
 			},
 			Outlines = {
+				name = "Outlines",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6923,6 +7718,7 @@ return {
 				serializes = true,
 			},
 			ShadowColor = {
+				name = "ShadowColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6931,6 +7727,7 @@ return {
 				serializes = false,
 			},
 			ShadowSoftness = {
+				name = "ShadowSoftness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6939,6 +7736,7 @@ return {
 				serializes = true,
 			},
 			Technology = {
+				name = "Technology",
 				type = {type = "Enum", name = "Technology"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6947,6 +7745,7 @@ return {
 				serializes = true,
 			},
 			TimeOfDay = {
+				name = "TimeOfDay",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6976,9 +7775,11 @@ return {
 		},
 	},
 	LineForce = {
+		name = "LineForce",
 		superclass = "Constraint",
 		properties = {
 			ApplyAtCenterOfMass = {
+				name = "ApplyAtCenterOfMass",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6987,6 +7788,7 @@ return {
 				serializes = true,
 			},
 			InverseSquareLaw = {
+				name = "InverseSquareLaw",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -6995,6 +7797,7 @@ return {
 				serializes = true,
 			},
 			Magnitude = {
+				name = "Magnitude",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7003,6 +7806,7 @@ return {
 				serializes = true,
 			},
 			MaxForce = {
+				name = "MaxForce",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7011,6 +7815,7 @@ return {
 				serializes = true,
 			},
 			ReactionForceEnabled = {
+				name = "ReactionForceEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7033,9 +7838,11 @@ return {
 		},
 	},
 	LineHandleAdornment = {
+		name = "LineHandleAdornment",
 		superclass = "HandleAdornment",
 		properties = {
 			Length = {
+				name = "Length",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7044,6 +7851,7 @@ return {
 				serializes = true,
 			},
 			Thickness = {
+				name = "Thickness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7067,6 +7875,7 @@ return {
 		},
 	},
 	LocalScript = {
+		name = "LocalScript",
 		superclass = "Script",
 		properties = {
 		},
@@ -7078,6 +7887,7 @@ return {
 		},
 	},
 	LocalStorageService = {
+		name = "LocalStorageService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7085,9 +7895,11 @@ return {
 		},
 	},
 	LocalizationService = {
+		name = "LocalizationService",
 		superclass = "Instance",
 		properties = {
 			ForcePlayModeGameLocaleId = {
+				name = "ForcePlayModeGameLocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7096,6 +7908,7 @@ return {
 				serializes = false,
 			},
 			ForcePlayModeRobloxLocaleId = {
+				name = "ForcePlayModeRobloxLocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7104,6 +7917,7 @@ return {
 				serializes = false,
 			},
 			IsTextScraperRunning = {
+				name = "IsTextScraperRunning",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7112,6 +7926,7 @@ return {
 				serializes = false,
 			},
 			RobloxForcePlayModeGameLocaleId = {
+				name = "RobloxForcePlayModeGameLocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7120,6 +7935,7 @@ return {
 				serializes = false,
 			},
 			RobloxForcePlayModeRobloxLocaleId = {
+				name = "RobloxForcePlayModeRobloxLocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7128,6 +7944,7 @@ return {
 				serializes = false,
 			},
 			RobloxLocaleId = {
+				name = "RobloxLocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7136,6 +7953,7 @@ return {
 				serializes = false,
 			},
 			SystemLocaleId = {
+				name = "SystemLocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7152,9 +7970,11 @@ return {
 		},
 	},
 	LocalizationTable = {
+		name = "LocalizationTable",
 		superclass = "Instance",
 		properties = {
 			Contents = {
+				name = "Contents",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7163,6 +7983,7 @@ return {
 				serializes = true,
 			},
 			DevelopmentLanguage = {
+				name = "DevelopmentLanguage",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7171,6 +7992,7 @@ return {
 				serializes = false,
 			},
 			Root = {
+				name = "Root",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7179,6 +8001,7 @@ return {
 				serializes = false,
 			},
 			SourceLocaleId = {
+				name = "SourceLocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7195,6 +8018,7 @@ return {
 		},
 	},
 	LogService = {
+		name = "LogService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7203,6 +8027,7 @@ return {
 		},
 	},
 	LoginService = {
+		name = "LoginService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7210,9 +8035,11 @@ return {
 		},
 	},
 	LuaSettings = {
+		name = "LuaSettings",
 		superclass = "Instance",
 		properties = {
 			AreScriptStartsReported = {
+				name = "AreScriptStartsReported",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7221,6 +8048,7 @@ return {
 				serializes = true,
 			},
 			DefaultWaitTime = {
+				name = "DefaultWaitTime",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7229,6 +8057,7 @@ return {
 				serializes = true,
 			},
 			GcFrequency = {
+				name = "GcFrequency",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7237,6 +8066,7 @@ return {
 				serializes = true,
 			},
 			GcLimit = {
+				name = "GcLimit",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7245,6 +8075,7 @@ return {
 				serializes = true,
 			},
 			GcPause = {
+				name = "GcPause",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7253,6 +8084,7 @@ return {
 				serializes = true,
 			},
 			GcStepMul = {
+				name = "GcStepMul",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7261,6 +8093,7 @@ return {
 				serializes = true,
 			},
 			WaitingThreadsBudget = {
+				name = "WaitingThreadsBudget",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7273,9 +8106,11 @@ return {
 		},
 	},
 	LuaSourceContainer = {
+		name = "LuaSourceContainer",
 		superclass = "Instance",
 		properties = {
 			CurrentEditor = {
+				name = "CurrentEditor",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7288,6 +8123,7 @@ return {
 		},
 	},
 	LuaWebService = {
+		name = "LuaWebService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7296,6 +8132,7 @@ return {
 		},
 	},
 	ManualGlue = {
+		name = "ManualGlue",
 		superclass = "ManualSurfaceJointInstance",
 		properties = {
 		},
@@ -7308,6 +8145,7 @@ return {
 		},
 	},
 	ManualSurfaceJointInstance = {
+		name = "ManualSurfaceJointInstance",
 		superclass = "JointInstance",
 		properties = {
 		},
@@ -7315,6 +8153,7 @@ return {
 		},
 	},
 	ManualWeld = {
+		name = "ManualWeld",
 		superclass = "ManualSurfaceJointInstance",
 		properties = {
 		},
@@ -7327,6 +8166,7 @@ return {
 		},
 	},
 	MarketplaceService = {
+		name = "MarketplaceService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7335,6 +8175,7 @@ return {
 		},
 	},
 	MeshContentProvider = {
+		name = "MeshContentProvider",
 		superclass = "CacheableContentProvider",
 		properties = {
 		},
@@ -7343,9 +8184,11 @@ return {
 		},
 	},
 	MeshPart = {
+		name = "MeshPart",
 		superclass = "TriangleMeshPart",
 		properties = {
 			MeshID = {
+				name = "MeshID",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7354,6 +8197,7 @@ return {
 				serializes = true,
 			},
 			MeshId = {
+				name = "MeshId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7362,6 +8206,7 @@ return {
 				serializes = true,
 			},
 			RenderFidelity = {
+				name = "RenderFidelity",
 				type = {type = "Enum", name = "RenderFidelity"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7370,6 +8215,7 @@ return {
 				serializes = true,
 			},
 			TextureID = {
+				name = "TextureID",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7432,9 +8278,11 @@ return {
 		},
 	},
 	Message = {
+		name = "Message",
 		superclass = "Instance",
 		properties = {
 			Text = {
+				name = "Text",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7449,6 +8297,7 @@ return {
 		},
 	},
 	MessagingService = {
+		name = "MessagingService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7457,9 +8306,11 @@ return {
 		},
 	},
 	Model = {
+		name = "Model",
 		superclass = "PVInstance",
 		properties = {
 			PrimaryPart = {
+				name = "PrimaryPart",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7474,9 +8325,11 @@ return {
 		},
 	},
 	ModuleScript = {
+		name = "ModuleScript",
 		superclass = "LuaSourceContainer",
 		properties = {
 			LinkedSource = {
+				name = "LinkedSource",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7485,6 +8338,7 @@ return {
 				serializes = true,
 			},
 			Source = {
+				name = "Source",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7500,9 +8354,11 @@ return {
 		},
 	},
 	Motor = {
+		name = "Motor",
 		superclass = "JointInstance",
 		properties = {
 			CurrentAngle = {
+				name = "CurrentAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7511,6 +8367,7 @@ return {
 				serializes = false,
 			},
 			DesiredAngle = {
+				name = "DesiredAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7519,6 +8376,7 @@ return {
 				serializes = true,
 			},
 			MaxVelocity = {
+				name = "MaxVelocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7539,9 +8397,11 @@ return {
 		},
 	},
 	Motor6D = {
+		name = "Motor6D",
 		superclass = "Motor",
 		properties = {
 			Transform = {
+				name = "Transform",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7563,6 +8423,7 @@ return {
 		},
 	},
 	MotorFeature = {
+		name = "MotorFeature",
 		superclass = "Feature",
 		properties = {
 		},
@@ -7575,9 +8436,11 @@ return {
 		},
 	},
 	Mouse = {
+		name = "Mouse",
 		superclass = "Instance",
 		properties = {
 			Hit = {
+				name = "Hit",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7586,6 +8449,7 @@ return {
 				serializes = false,
 			},
 			Icon = {
+				name = "Icon",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7594,6 +8458,7 @@ return {
 				serializes = true,
 			},
 			Origin = {
+				name = "Origin",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7602,6 +8467,7 @@ return {
 				serializes = false,
 			},
 			Target = {
+				name = "Target",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7610,6 +8476,7 @@ return {
 				serializes = false,
 			},
 			TargetFilter = {
+				name = "TargetFilter",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7618,6 +8485,7 @@ return {
 				serializes = true,
 			},
 			TargetSurface = {
+				name = "TargetSurface",
 				type = {type = "Enum", name = "NormalId"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7626,6 +8494,7 @@ return {
 				serializes = false,
 			},
 			UnitRay = {
+				name = "UnitRay",
 				type = {type = "Unimplemented", name = "Ray"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7634,6 +8503,7 @@ return {
 				serializes = false,
 			},
 			ViewSizeX = {
+				name = "ViewSizeX",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7642,6 +8512,7 @@ return {
 				serializes = false,
 			},
 			ViewSizeY = {
+				name = "ViewSizeY",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7650,6 +8521,7 @@ return {
 				serializes = false,
 			},
 			X = {
+				name = "X",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7658,6 +8530,7 @@ return {
 				serializes = false,
 			},
 			Y = {
+				name = "Y",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7666,6 +8539,7 @@ return {
 				serializes = false,
 			},
 			hit = {
+				name = "hit",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7674,6 +8548,7 @@ return {
 				serializes = false,
 			},
 			target = {
+				name = "target",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7686,6 +8561,7 @@ return {
 		},
 	},
 	MouseService = {
+		name = "MouseService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7694,6 +8570,7 @@ return {
 		},
 	},
 	NegateOperation = {
+		name = "NegateOperation",
 		superclass = "PartOperation",
 		properties = {
 		},
@@ -7750,9 +8627,11 @@ return {
 		},
 	},
 	NetworkClient = {
+		name = "NetworkClient",
 		superclass = "NetworkPeer",
 		properties = {
 			Ticket = {
+				name = "Ticket",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7765,6 +8644,7 @@ return {
 		},
 	},
 	NetworkMarker = {
+		name = "NetworkMarker",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7772,6 +8652,7 @@ return {
 		},
 	},
 	NetworkPeer = {
+		name = "NetworkPeer",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7779,6 +8660,7 @@ return {
 		},
 	},
 	NetworkReplicator = {
+		name = "NetworkReplicator",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7786,9 +8668,11 @@ return {
 		},
 	},
 	NetworkServer = {
+		name = "NetworkServer",
 		superclass = "NetworkPeer",
 		properties = {
 			Port = {
+				name = "Port",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7801,9 +8685,11 @@ return {
 		},
 	},
 	NetworkSettings = {
+		name = "NetworkSettings",
 		superclass = "Instance",
 		properties = {
 			ArePhysicsRejectionsReported = {
+				name = "ArePhysicsRejectionsReported",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7812,6 +8698,7 @@ return {
 				serializes = true,
 			},
 			ClientPhysicsSendRate = {
+				name = "ClientPhysicsSendRate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7820,6 +8707,7 @@ return {
 				serializes = true,
 			},
 			DataGCRate = {
+				name = "DataGCRate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7828,6 +8716,7 @@ return {
 				serializes = true,
 			},
 			DataMtuAdjust = {
+				name = "DataMtuAdjust",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7836,6 +8725,7 @@ return {
 				serializes = true,
 			},
 			DataSendPriority = {
+				name = "DataSendPriority",
 				type = {type = "Enum", name = "PacketPriority"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7844,6 +8734,7 @@ return {
 				serializes = false,
 			},
 			DataSendRate = {
+				name = "DataSendRate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7852,6 +8743,7 @@ return {
 				serializes = true,
 			},
 			ExtraMemoryUsed = {
+				name = "ExtraMemoryUsed",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7860,6 +8752,7 @@ return {
 				serializes = false,
 			},
 			FreeMemoryMBytes = {
+				name = "FreeMemoryMBytes",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7868,6 +8761,7 @@ return {
 				serializes = false,
 			},
 			IncommingReplicationLag = {
+				name = "IncommingReplicationLag",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7876,6 +8770,7 @@ return {
 				serializes = true,
 			},
 			IsQueueErrorComputed = {
+				name = "IsQueueErrorComputed",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7884,6 +8779,7 @@ return {
 				serializes = true,
 			},
 			NetworkOwnerRate = {
+				name = "NetworkOwnerRate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7892,6 +8788,7 @@ return {
 				serializes = true,
 			},
 			PhysicsMtuAdjust = {
+				name = "PhysicsMtuAdjust",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7900,6 +8797,7 @@ return {
 				serializes = true,
 			},
 			PhysicsSendPriority = {
+				name = "PhysicsSendPriority",
 				type = {type = "Enum", name = "PacketPriority"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7908,6 +8806,7 @@ return {
 				serializes = false,
 			},
 			PhysicsSendRate = {
+				name = "PhysicsSendRate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7916,6 +8815,7 @@ return {
 				serializes = true,
 			},
 			PreferredClientPort = {
+				name = "PreferredClientPort",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7924,6 +8824,7 @@ return {
 				serializes = true,
 			},
 			PrintBits = {
+				name = "PrintBits",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7932,6 +8833,7 @@ return {
 				serializes = true,
 			},
 			PrintEvents = {
+				name = "PrintEvents",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7940,6 +8842,7 @@ return {
 				serializes = true,
 			},
 			PrintFilters = {
+				name = "PrintFilters",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7948,6 +8851,7 @@ return {
 				serializes = true,
 			},
 			PrintInstances = {
+				name = "PrintInstances",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7956,6 +8860,7 @@ return {
 				serializes = true,
 			},
 			PrintPhysicsErrors = {
+				name = "PrintPhysicsErrors",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7964,6 +8869,7 @@ return {
 				serializes = true,
 			},
 			PrintProperties = {
+				name = "PrintProperties",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7972,6 +8878,7 @@ return {
 				serializes = true,
 			},
 			PrintSplitMessage = {
+				name = "PrintSplitMessage",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7980,6 +8887,7 @@ return {
 				serializes = true,
 			},
 			PrintStreamInstanceQuota = {
+				name = "PrintStreamInstanceQuota",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7988,6 +8896,7 @@ return {
 				serializes = true,
 			},
 			PrintTouches = {
+				name = "PrintTouches",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -7996,6 +8905,7 @@ return {
 				serializes = true,
 			},
 			ProxyEnabled = {
+				name = "ProxyEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8004,6 +8914,7 @@ return {
 				serializes = true,
 			},
 			ProxyURL = {
+				name = "ProxyURL",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8012,6 +8923,7 @@ return {
 				serializes = true,
 			},
 			ReceiveRate = {
+				name = "ReceiveRate",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8020,6 +8932,7 @@ return {
 				serializes = true,
 			},
 			RenderStreamedRegions = {
+				name = "RenderStreamedRegions",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8028,6 +8941,7 @@ return {
 				serializes = true,
 			},
 			ShowActiveAnimationAsset = {
+				name = "ShowActiveAnimationAsset",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8036,6 +8950,7 @@ return {
 				serializes = true,
 			},
 			TouchSendRate = {
+				name = "TouchSendRate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8044,6 +8959,7 @@ return {
 				serializes = true,
 			},
 			TrackDataTypes = {
+				name = "TrackDataTypes",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8052,6 +8968,7 @@ return {
 				serializes = true,
 			},
 			TrackPhysicsDetails = {
+				name = "TrackPhysicsDetails",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8060,6 +8977,7 @@ return {
 				serializes = true,
 			},
 			UsePhysicsPacketCache = {
+				name = "UsePhysicsPacketCache",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8072,9 +8990,11 @@ return {
 		},
 	},
 	NoCollisionConstraint = {
+		name = "NoCollisionConstraint",
 		superclass = "Instance",
 		properties = {
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8083,6 +9003,7 @@ return {
 				serializes = true,
 			},
 			Part0 = {
+				name = "Part0",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8091,6 +9012,7 @@ return {
 				serializes = true,
 			},
 			Part1 = {
+				name = "Part1",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8107,6 +9029,7 @@ return {
 		},
 	},
 	NonReplicatedCSGDictionaryService = {
+		name = "NonReplicatedCSGDictionaryService",
 		superclass = "FlyweightService",
 		properties = {
 		},
@@ -8114,9 +9037,11 @@ return {
 		},
 	},
 	NotificationService = {
+		name = "NotificationService",
 		superclass = "Instance",
 		properties = {
 			IsLuaBottomBarEnabled = {
+				name = "IsLuaBottomBarEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8125,6 +9050,7 @@ return {
 				serializes = false,
 			},
 			IsLuaBottomBarWithText = {
+				name = "IsLuaBottomBarWithText",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8133,6 +9059,7 @@ return {
 				serializes = false,
 			},
 			IsLuaChatEnabled = {
+				name = "IsLuaChatEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8141,6 +9068,7 @@ return {
 				serializes = false,
 			},
 			IsLuaGameDetailsEnabled = {
+				name = "IsLuaGameDetailsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8149,6 +9077,7 @@ return {
 				serializes = false,
 			},
 			SelectedTheme = {
+				name = "SelectedTheme",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8163,9 +9092,11 @@ return {
 		},
 	},
 	NumberValue = {
+		name = "NumberValue",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8180,9 +9111,11 @@ return {
 		},
 	},
 	ObjectValue = {
+		name = "ObjectValue",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8197,6 +9130,7 @@ return {
 		},
 	},
 	OrderedDataStore = {
+		name = "OrderedDataStore",
 		superclass = "GlobalDataStore",
 		properties = {
 		},
@@ -8204,9 +9138,11 @@ return {
 		},
 	},
 	PVAdornment = {
+		name = "PVAdornment",
 		superclass = "GuiBase3d",
 		properties = {
 			Adornee = {
+				name = "Adornee",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8219,6 +9155,7 @@ return {
 		},
 	},
 	PVInstance = {
+		name = "PVInstance",
 		superclass = "Instance",
 		properties = {
 		},
@@ -8226,9 +9163,11 @@ return {
 		},
 	},
 	PackageLink = {
+		name = "PackageLink",
 		superclass = "Instance",
 		properties = {
 			AutoUpdate = {
+				name = "AutoUpdate",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8237,6 +9176,7 @@ return {
 				serializes = true,
 			},
 			PackageId = {
+				name = "PackageId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8245,6 +9185,7 @@ return {
 				serializes = false,
 			},
 			Status = {
+				name = "Status",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8253,6 +9194,7 @@ return {
 				serializes = false,
 			},
 			VersionNumber = {
+				name = "VersionNumber",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8265,6 +9207,7 @@ return {
 		},
 	},
 	PackageService = {
+		name = "PackageService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -8273,9 +9216,11 @@ return {
 		},
 	},
 	Pages = {
+		name = "Pages",
 		superclass = "Instance",
 		properties = {
 			IsFinished = {
+				name = "IsFinished",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8288,9 +9233,11 @@ return {
 		},
 	},
 	Pants = {
+		name = "Pants",
 		superclass = "Clothing",
 		properties = {
 			PantsTemplate = {
+				name = "PantsTemplate",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8306,9 +9253,11 @@ return {
 		},
 	},
 	ParabolaAdornment = {
+		name = "ParabolaAdornment",
 		superclass = "PVAdornment",
 		properties = {
 			A = {
+				name = "A",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8317,6 +9266,7 @@ return {
 				serializes = false,
 			},
 			B = {
+				name = "B",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8325,6 +9275,7 @@ return {
 				serializes = false,
 			},
 			C = {
+				name = "C",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8333,6 +9284,7 @@ return {
 				serializes = false,
 			},
 			Range = {
+				name = "Range",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8341,6 +9293,7 @@ return {
 				serializes = false,
 			},
 			Thickness = {
+				name = "Thickness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8363,9 +9316,11 @@ return {
 		},
 	},
 	Part = {
+		name = "Part",
 		superclass = "FormFactorPart",
 		properties = {
 			Shape = {
+				name = "Shape",
 				type = {type = "Enum", name = "PartType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8374,6 +9329,7 @@ return {
 				serializes = true,
 			},
 			shape = {
+				name = "shape",
 				type = {type = "Enum", name = "PartType"},
 				isCanonical = false,
 				canonicalName = "Shape",
@@ -8435,9 +9391,11 @@ return {
 		},
 	},
 	PartAdornment = {
+		name = "PartAdornment",
 		superclass = "GuiBase3d",
 		properties = {
 			Adornee = {
+				name = "Adornee",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8450,9 +9408,11 @@ return {
 		},
 	},
 	PartOperation = {
+		name = "PartOperation",
 		superclass = "TriangleMeshPart",
 		properties = {
 			RenderFidelity = {
+				name = "RenderFidelity",
 				type = {type = "Enum", name = "RenderFidelity"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8461,6 +9421,7 @@ return {
 				serializes = true,
 			},
 			TriangleCount = {
+				name = "TriangleCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8469,6 +9430,7 @@ return {
 				serializes = false,
 			},
 			UsePartColor = {
+				name = "UsePartColor",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8530,6 +9492,7 @@ return {
 		},
 	},
 	PartOperationAsset = {
+		name = "PartOperationAsset",
 		superclass = "Instance",
 		properties = {
 		},
@@ -8538,9 +9501,11 @@ return {
 		},
 	},
 	ParticleEmitter = {
+		name = "ParticleEmitter",
 		superclass = "Instance",
 		properties = {
 			Acceleration = {
+				name = "Acceleration",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8549,6 +9514,7 @@ return {
 				serializes = true,
 			},
 			Color = {
+				name = "Color",
 				type = {type = "Data", name = "ColorSequence"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8557,6 +9523,7 @@ return {
 				serializes = true,
 			},
 			Drag = {
+				name = "Drag",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8565,6 +9532,7 @@ return {
 				serializes = true,
 			},
 			EmissionDirection = {
+				name = "EmissionDirection",
 				type = {type = "Enum", name = "NormalId"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8573,6 +9541,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8581,6 +9550,7 @@ return {
 				serializes = true,
 			},
 			Lifetime = {
+				name = "Lifetime",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8589,6 +9559,7 @@ return {
 				serializes = true,
 			},
 			LightEmission = {
+				name = "LightEmission",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8597,6 +9568,7 @@ return {
 				serializes = true,
 			},
 			LightInfluence = {
+				name = "LightInfluence",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8605,6 +9577,7 @@ return {
 				serializes = true,
 			},
 			LockedToPart = {
+				name = "LockedToPart",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8613,6 +9586,7 @@ return {
 				serializes = true,
 			},
 			Rate = {
+				name = "Rate",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8621,6 +9595,7 @@ return {
 				serializes = true,
 			},
 			RotSpeed = {
+				name = "RotSpeed",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8629,6 +9604,7 @@ return {
 				serializes = true,
 			},
 			Rotation = {
+				name = "Rotation",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8637,6 +9613,7 @@ return {
 				serializes = true,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "NumberSequence"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8645,6 +9622,7 @@ return {
 				serializes = true,
 			},
 			Speed = {
+				name = "Speed",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8653,6 +9631,7 @@ return {
 				serializes = true,
 			},
 			SpreadAngle = {
+				name = "SpreadAngle",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8661,6 +9640,7 @@ return {
 				serializes = true,
 			},
 			Texture = {
+				name = "Texture",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8669,6 +9649,7 @@ return {
 				serializes = true,
 			},
 			Transparency = {
+				name = "Transparency",
 				type = {type = "Data", name = "NumberSequence"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8677,6 +9658,7 @@ return {
 				serializes = true,
 			},
 			VelocityInheritance = {
+				name = "VelocityInheritance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8685,6 +9667,7 @@ return {
 				serializes = true,
 			},
 			VelocitySpread = {
+				name = "VelocitySpread",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8693,6 +9676,7 @@ return {
 				serializes = false,
 			},
 			ZOffset = {
+				name = "ZOffset",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8703,25 +9687,34 @@ return {
 		},
 		defaults = {
 			Acceleration = Vector3.new(0, 0, 0),
+			Color = ColorSequence.new(ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))),
 			Drag = 0,
 			EmissionDirection = 1,
 			Enabled = true,
+			Lifetime = NumberRange.new(5, 10),
 			LightEmission = 0,
 			LightInfluence = 0,
 			LockedToPart = false,
 			Name = "ParticleEmitter",
 			Rate = 20,
+			RotSpeed = NumberRange.new(0, 0),
+			Rotation = NumberRange.new(0, 0),
+			Size = NumberSequence.new(NumberSequenceKeypoint.new(0, 1, 0), NumberSequenceKeypoint.new(1, 1, 0)),
+			Speed = NumberRange.new(5, 5),
 			SpreadAngle = Vector2.new(0, 0),
 			Texture = "rbxasset://textures/particles/sparkles_main.dds",
+			Transparency = NumberSequence.new(NumberSequenceKeypoint.new(0, 0, 0), NumberSequenceKeypoint.new(1, 0, 0)),
 			VelocityInheritance = 0,
 			VelocitySpread = 0,
 			ZOffset = 0,
 		},
 	},
 	Path = {
+		name = "Path",
 		superclass = "Instance",
 		properties = {
 			Status = {
+				name = "Status",
 				type = {type = "Enum", name = "PathStatus"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8734,9 +9727,11 @@ return {
 		},
 	},
 	PathfindingService = {
+		name = "PathfindingService",
 		superclass = "Instance",
 		properties = {
 			EmptyCutoff = {
+				name = "EmptyCutoff",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8751,6 +9746,7 @@ return {
 		},
 	},
 	PhysicsPacketCache = {
+		name = "PhysicsPacketCache",
 		superclass = "Instance",
 		properties = {
 		},
@@ -8758,6 +9754,7 @@ return {
 		},
 	},
 	PhysicsService = {
+		name = "PhysicsService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -8766,9 +9763,11 @@ return {
 		},
 	},
 	PhysicsSettings = {
+		name = "PhysicsSettings",
 		superclass = "Instance",
 		properties = {
 			AllowSleep = {
+				name = "AllowSleep",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8777,6 +9776,7 @@ return {
 				serializes = true,
 			},
 			AreAnchorsShown = {
+				name = "AreAnchorsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8785,6 +9785,7 @@ return {
 				serializes = true,
 			},
 			AreAssembliesShown = {
+				name = "AreAssembliesShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8793,6 +9794,7 @@ return {
 				serializes = true,
 			},
 			AreAwakePartsHighlighted = {
+				name = "AreAwakePartsHighlighted",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8801,6 +9803,7 @@ return {
 				serializes = true,
 			},
 			AreBodyTypesShown = {
+				name = "AreBodyTypesShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8809,6 +9812,7 @@ return {
 				serializes = true,
 			},
 			AreContactIslandsShown = {
+				name = "AreContactIslandsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8817,6 +9821,7 @@ return {
 				serializes = true,
 			},
 			AreContactPointsShown = {
+				name = "AreContactPointsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8825,6 +9830,7 @@ return {
 				serializes = true,
 			},
 			AreJointCoordinatesShown = {
+				name = "AreJointCoordinatesShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8833,6 +9839,7 @@ return {
 				serializes = true,
 			},
 			AreMechanismsShown = {
+				name = "AreMechanismsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8841,6 +9848,7 @@ return {
 				serializes = true,
 			},
 			AreModelCoordsShown = {
+				name = "AreModelCoordsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8849,6 +9857,7 @@ return {
 				serializes = true,
 			},
 			AreOwnersShown = {
+				name = "AreOwnersShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8857,6 +9866,7 @@ return {
 				serializes = true,
 			},
 			ArePartCoordsShown = {
+				name = "ArePartCoordsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8865,6 +9875,7 @@ return {
 				serializes = true,
 			},
 			AreRegionsShown = {
+				name = "AreRegionsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8873,6 +9884,7 @@ return {
 				serializes = true,
 			},
 			AreUnalignedPartsShown = {
+				name = "AreUnalignedPartsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8881,6 +9893,7 @@ return {
 				serializes = true,
 			},
 			AreWorldCoordsShown = {
+				name = "AreWorldCoordsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8889,6 +9902,7 @@ return {
 				serializes = true,
 			},
 			DisableCSGv2 = {
+				name = "DisableCSGv2",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8897,6 +9911,7 @@ return {
 				serializes = true,
 			},
 			IsReceiveAgeShown = {
+				name = "IsReceiveAgeShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8905,6 +9920,7 @@ return {
 				serializes = true,
 			},
 			IsTreeShown = {
+				name = "IsTreeShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8913,6 +9929,7 @@ return {
 				serializes = true,
 			},
 			PhysicsEnvironmentalThrottle = {
+				name = "PhysicsEnvironmentalThrottle",
 				type = {type = "Enum", name = "EnviromentalPhysicsThrottle"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8921,6 +9938,7 @@ return {
 				serializes = true,
 			},
 			ShowDecompositionGeometry = {
+				name = "ShowDecompositionGeometry",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8929,6 +9947,7 @@ return {
 				serializes = true,
 			},
 			ThrottleAdjustTime = {
+				name = "ThrottleAdjustTime",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8937,6 +9956,7 @@ return {
 				serializes = true,
 			},
 			UseCSGv2 = {
+				name = "UseCSGv2",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8949,9 +9969,11 @@ return {
 		},
 	},
 	PitchShiftSoundEffect = {
+		name = "PitchShiftSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			Octave = {
+				name = "Octave",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8968,6 +9990,7 @@ return {
 		},
 	},
 	Platform = {
+		name = "Platform",
 		superclass = "Part",
 		properties = {
 		},
@@ -8975,9 +9998,11 @@ return {
 		},
 	},
 	Player = {
+		name = "Player",
 		superclass = "Instance",
 		properties = {
 			AccountAge = {
+				name = "AccountAge",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8986,6 +10011,7 @@ return {
 				serializes = false,
 			},
 			AppearanceDidLoad = {
+				name = "AppearanceDidLoad",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -8994,6 +10020,7 @@ return {
 				serializes = false,
 			},
 			AutoJumpEnabled = {
+				name = "AutoJumpEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9002,6 +10029,7 @@ return {
 				serializes = true,
 			},
 			CameraMaxZoomDistance = {
+				name = "CameraMaxZoomDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9010,6 +10038,7 @@ return {
 				serializes = true,
 			},
 			CameraMinZoomDistance = {
+				name = "CameraMinZoomDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9018,6 +10047,7 @@ return {
 				serializes = true,
 			},
 			CameraMode = {
+				name = "CameraMode",
 				type = {type = "Enum", name = "CameraMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9026,6 +10056,7 @@ return {
 				serializes = true,
 			},
 			CanLoadCharacterAppearance = {
+				name = "CanLoadCharacterAppearance",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9034,6 +10065,7 @@ return {
 				serializes = false,
 			},
 			Character = {
+				name = "Character",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9042,6 +10074,7 @@ return {
 				serializes = true,
 			},
 			CharacterAppearance = {
+				name = "CharacterAppearance",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9050,6 +10083,7 @@ return {
 				serializes = true,
 			},
 			CharacterAppearanceId = {
+				name = "CharacterAppearanceId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9058,6 +10092,7 @@ return {
 				serializes = true,
 			},
 			ChatMode = {
+				name = "ChatMode",
 				type = {type = "Enum", name = "ChatMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9066,6 +10101,7 @@ return {
 				serializes = false,
 			},
 			DataComplexity = {
+				name = "DataComplexity",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9074,6 +10110,7 @@ return {
 				serializes = false,
 			},
 			DataComplexityLimit = {
+				name = "DataComplexityLimit",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9082,6 +10119,7 @@ return {
 				serializes = false,
 			},
 			DataReady = {
+				name = "DataReady",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9090,6 +10128,7 @@ return {
 				serializes = false,
 			},
 			DevCameraOcclusionMode = {
+				name = "DevCameraOcclusionMode",
 				type = {type = "Enum", name = "DevCameraOcclusionMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9098,6 +10137,7 @@ return {
 				serializes = true,
 			},
 			DevComputerCameraMode = {
+				name = "DevComputerCameraMode",
 				type = {type = "Enum", name = "DevComputerCameraMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9106,6 +10146,7 @@ return {
 				serializes = true,
 			},
 			DevComputerMovementMode = {
+				name = "DevComputerMovementMode",
 				type = {type = "Enum", name = "DevComputerMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9114,6 +10155,7 @@ return {
 				serializes = true,
 			},
 			DevEnableMouseLock = {
+				name = "DevEnableMouseLock",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9122,6 +10164,7 @@ return {
 				serializes = true,
 			},
 			DevTouchCameraMode = {
+				name = "DevTouchCameraMode",
 				type = {type = "Enum", name = "DevTouchCameraMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9130,6 +10173,7 @@ return {
 				serializes = true,
 			},
 			DevTouchMovementMode = {
+				name = "DevTouchMovementMode",
 				type = {type = "Enum", name = "DevTouchMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9138,6 +10182,7 @@ return {
 				serializes = true,
 			},
 			DisplayName = {
+				name = "DisplayName",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9146,6 +10191,7 @@ return {
 				serializes = false,
 			},
 			FollowUserId = {
+				name = "FollowUserId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9154,6 +10200,7 @@ return {
 				serializes = false,
 			},
 			GameplayPaused = {
+				name = "GameplayPaused",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9162,6 +10209,7 @@ return {
 				serializes = true,
 			},
 			Guest = {
+				name = "Guest",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9170,6 +10218,7 @@ return {
 				serializes = false,
 			},
 			HealthDisplayDistance = {
+				name = "HealthDisplayDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9178,6 +10227,7 @@ return {
 				serializes = true,
 			},
 			LocaleId = {
+				name = "LocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9186,6 +10236,7 @@ return {
 				serializes = false,
 			},
 			MaximumSimulationRadius = {
+				name = "MaximumSimulationRadius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9194,6 +10245,7 @@ return {
 				serializes = false,
 			},
 			MembershipType = {
+				name = "MembershipType",
 				type = {type = "Enum", name = "MembershipType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9202,6 +10254,7 @@ return {
 				serializes = false,
 			},
 			NameDisplayDistance = {
+				name = "NameDisplayDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9210,6 +10263,7 @@ return {
 				serializes = true,
 			},
 			Neutral = {
+				name = "Neutral",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9218,6 +10272,7 @@ return {
 				serializes = true,
 			},
 			OsPlatform = {
+				name = "OsPlatform",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9226,6 +10281,7 @@ return {
 				serializes = false,
 			},
 			ReplicationFocus = {
+				name = "ReplicationFocus",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9234,6 +10290,7 @@ return {
 				serializes = true,
 			},
 			RespawnLocation = {
+				name = "RespawnLocation",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9242,6 +10299,7 @@ return {
 				serializes = true,
 			},
 			SimulationRadius = {
+				name = "SimulationRadius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9250,6 +10308,7 @@ return {
 				serializes = false,
 			},
 			Team = {
+				name = "Team",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9258,7 +10317,8 @@ return {
 				serializes = true,
 			},
 			TeamColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TeamColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -9266,6 +10326,7 @@ return {
 				serializes = true,
 			},
 			Teleported = {
+				name = "Teleported",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9274,6 +10335,7 @@ return {
 				serializes = false,
 			},
 			TeleportedIn = {
+				name = "TeleportedIn",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9282,6 +10344,7 @@ return {
 				serializes = true,
 			},
 			UserId = {
+				name = "UserId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9290,6 +10353,7 @@ return {
 				serializes = false,
 			},
 			VRDevice = {
+				name = "VRDevice",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9298,6 +10362,7 @@ return {
 				serializes = false,
 			},
 			userId = {
+				name = "userId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9310,9 +10375,11 @@ return {
 		},
 	},
 	PlayerGui = {
+		name = "PlayerGui",
 		superclass = "BasePlayerGui",
 		properties = {
 			CurrentScreenOrientation = {
+				name = "CurrentScreenOrientation",
 				type = {type = "Enum", name = "ScreenOrientation"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9321,6 +10388,7 @@ return {
 				serializes = false,
 			},
 			ScreenOrientation = {
+				name = "ScreenOrientation",
 				type = {type = "Enum", name = "ScreenOrientation"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9329,6 +10397,7 @@ return {
 				serializes = true,
 			},
 			SelectionImageObject = {
+				name = "SelectionImageObject",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9341,6 +10410,7 @@ return {
 		},
 	},
 	PlayerMouse = {
+		name = "PlayerMouse",
 		superclass = "Mouse",
 		properties = {
 		},
@@ -9348,6 +10418,7 @@ return {
 		},
 	},
 	PlayerScripts = {
+		name = "PlayerScripts",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9355,9 +10426,11 @@ return {
 		},
 	},
 	Players = {
+		name = "Players",
 		superclass = "Instance",
 		properties = {
 			BubbleChat = {
+				name = "BubbleChat",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9366,6 +10439,7 @@ return {
 				serializes = false,
 			},
 			CharacterAutoLoads = {
+				name = "CharacterAutoLoads",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9374,6 +10448,7 @@ return {
 				serializes = true,
 			},
 			ClassicChat = {
+				name = "ClassicChat",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9382,6 +10457,7 @@ return {
 				serializes = false,
 			},
 			LocalPlayer = {
+				name = "LocalPlayer",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9390,6 +10466,7 @@ return {
 				serializes = false,
 			},
 			MaxPlayers = {
+				name = "MaxPlayers",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9398,6 +10475,7 @@ return {
 				serializes = true,
 			},
 			MaxPlayersInternal = {
+				name = "MaxPlayersInternal",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = false,
 				canonicalName = "MaxPlayers",
@@ -9406,6 +10484,7 @@ return {
 				serializes = false,
 			},
 			NumPlayers = {
+				name = "NumPlayers",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9414,6 +10493,7 @@ return {
 				serializes = false,
 			},
 			PreferredPlayers = {
+				name = "PreferredPlayers",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9422,6 +10502,7 @@ return {
 				serializes = true,
 			},
 			PreferredPlayersInternal = {
+				name = "PreferredPlayersInternal",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = false,
 				canonicalName = "PreferredPlayers",
@@ -9430,6 +10511,7 @@ return {
 				serializes = false,
 			},
 			RespawnTime = {
+				name = "RespawnTime",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9438,6 +10520,7 @@ return {
 				serializes = true,
 			},
 			localPlayer = {
+				name = "localPlayer",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9446,6 +10529,7 @@ return {
 				serializes = false,
 			},
 			numPlayers = {
+				name = "numPlayers",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9461,9 +10545,11 @@ return {
 		},
 	},
 	Plugin = {
+		name = "Plugin",
 		superclass = "Instance",
 		properties = {
 			CollisionEnabled = {
+				name = "CollisionEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9472,6 +10558,7 @@ return {
 				serializes = false,
 			},
 			GridSize = {
+				name = "GridSize",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9480,6 +10567,7 @@ return {
 				serializes = false,
 			},
 			UsesAssetInsertionDrag = {
+				name = "UsesAssetInsertionDrag",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9492,9 +10580,11 @@ return {
 		},
 	},
 	PluginAction = {
+		name = "PluginAction",
 		superclass = "Instance",
 		properties = {
 			ActionId = {
+				name = "ActionId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9503,6 +10593,7 @@ return {
 				serializes = false,
 			},
 			AllowBinding = {
+				name = "AllowBinding",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9511,6 +10602,7 @@ return {
 				serializes = false,
 			},
 			StatusTip = {
+				name = "StatusTip",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9519,6 +10611,7 @@ return {
 				serializes = false,
 			},
 			Text = {
+				name = "Text",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9532,9 +10625,11 @@ return {
 		},
 	},
 	PluginDragEvent = {
+		name = "PluginDragEvent",
 		superclass = "Instance",
 		properties = {
 			Data = {
+				name = "Data",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9543,6 +10638,7 @@ return {
 				serializes = false,
 			},
 			MimeType = {
+				name = "MimeType",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9551,6 +10647,7 @@ return {
 				serializes = false,
 			},
 			Position = {
+				name = "Position",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9559,6 +10656,7 @@ return {
 				serializes = false,
 			},
 			Sender = {
+				name = "Sender",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9571,9 +10669,11 @@ return {
 		},
 	},
 	PluginGui = {
+		name = "PluginGui",
 		superclass = "LayerCollector",
 		properties = {
 			Title = {
+				name = "Title",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9586,6 +10686,7 @@ return {
 		},
 	},
 	PluginGuiService = {
+		name = "PluginGuiService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9594,6 +10695,7 @@ return {
 		},
 	},
 	PluginManager = {
+		name = "PluginManager",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9601,9 +10703,11 @@ return {
 		},
 	},
 	PluginMenu = {
+		name = "PluginMenu",
 		superclass = "Instance",
 		properties = {
 			Icon = {
+				name = "Icon",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9612,6 +10716,7 @@ return {
 				serializes = false,
 			},
 			Title = {
+				name = "Title",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9624,6 +10729,7 @@ return {
 		},
 	},
 	PluginMouse = {
+		name = "PluginMouse",
 		superclass = "Mouse",
 		properties = {
 		},
@@ -9631,6 +10737,7 @@ return {
 		},
 	},
 	PluginToolbar = {
+		name = "PluginToolbar",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9638,9 +10745,11 @@ return {
 		},
 	},
 	PluginToolbarButton = {
+		name = "PluginToolbarButton",
 		superclass = "Instance",
 		properties = {
 			ClickableWhenViewportHidden = {
+				name = "ClickableWhenViewportHidden",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9649,6 +10758,7 @@ return {
 				serializes = false,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9657,6 +10767,7 @@ return {
 				serializes = false,
 			},
 			Icon = {
+				name = "Icon",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9669,9 +10780,11 @@ return {
 		},
 	},
 	PointLight = {
+		name = "PointLight",
 		superclass = "Light",
 		properties = {
 			Range = {
+				name = "Range",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9690,6 +10803,7 @@ return {
 		},
 	},
 	PointsService = {
+		name = "PointsService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9698,9 +10812,11 @@ return {
 		},
 	},
 	Pose = {
+		name = "Pose",
 		superclass = "Instance",
 		properties = {
 			CFrame = {
+				name = "CFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9709,6 +10825,7 @@ return {
 				serializes = true,
 			},
 			EasingDirection = {
+				name = "EasingDirection",
 				type = {type = "Enum", name = "PoseEasingDirection"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9717,6 +10834,7 @@ return {
 				serializes = true,
 			},
 			EasingStyle = {
+				name = "EasingStyle",
 				type = {type = "Enum", name = "PoseEasingStyle"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9725,6 +10843,7 @@ return {
 				serializes = true,
 			},
 			MaskWeight = {
+				name = "MaskWeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9733,6 +10852,7 @@ return {
 				serializes = false,
 			},
 			Weight = {
+				name = "Weight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9751,9 +10871,11 @@ return {
 		},
 	},
 	PostEffect = {
+		name = "PostEffect",
 		superclass = "Instance",
 		properties = {
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9766,6 +10888,7 @@ return {
 		},
 	},
 	PrismaticConstraint = {
+		name = "PrismaticConstraint",
 		superclass = "SlidingBallConstraint",
 		properties = {
 		},
@@ -9790,6 +10913,7 @@ return {
 		},
 	},
 	QWidgetPluginGui = {
+		name = "QWidgetPluginGui",
 		superclass = "PluginGui",
 		properties = {
 		},
@@ -9797,9 +10921,11 @@ return {
 		},
 	},
 	RayValue = {
+		name = "RayValue",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Unimplemented", name = "Ray"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9813,6 +10939,7 @@ return {
 		},
 	},
 	RbxAnalyticsService = {
+		name = "RbxAnalyticsService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9821,6 +10948,7 @@ return {
 		},
 	},
 	ReflectionMetadata = {
+		name = "ReflectionMetadata",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9829,6 +10957,7 @@ return {
 		},
 	},
 	ReflectionMetadataCallbacks = {
+		name = "ReflectionMetadataCallbacks",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9837,9 +10966,11 @@ return {
 		},
 	},
 	ReflectionMetadataClass = {
+		name = "ReflectionMetadataClass",
 		superclass = "ReflectionMetadataItem",
 		properties = {
 			ExplorerImageIndex = {
+				name = "ExplorerImageIndex",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9848,6 +10979,7 @@ return {
 				serializes = true,
 			},
 			ExplorerOrder = {
+				name = "ExplorerOrder",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9856,6 +10988,7 @@ return {
 				serializes = true,
 			},
 			Insertable = {
+				name = "Insertable",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9864,6 +10997,7 @@ return {
 				serializes = true,
 			},
 			PreferredParent = {
+				name = "PreferredParent",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9872,6 +11006,7 @@ return {
 				serializes = true,
 			},
 			PreferredParents = {
+				name = "PreferredParents",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9888,7 +11023,7 @@ return {
 			Deprecated = false,
 			EditingDisabled = false,
 			ExplorerImageIndex = 0,
-			ExplorerOrder = 2147483600,
+			ExplorerOrder = 2147483647,
 			Insertable = true,
 			IsBackend = false,
 			Name = "Instance",
@@ -9903,6 +11038,7 @@ return {
 		},
 	},
 	ReflectionMetadataClasses = {
+		name = "ReflectionMetadataClasses",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9911,6 +11047,7 @@ return {
 		},
 	},
 	ReflectionMetadataEnum = {
+		name = "ReflectionMetadataEnum",
 		superclass = "ReflectionMetadataItem",
 		properties = {
 		},
@@ -9932,6 +11069,7 @@ return {
 		},
 	},
 	ReflectionMetadataEnumItem = {
+		name = "ReflectionMetadataEnumItem",
 		superclass = "ReflectionMetadataItem",
 		properties = {
 		},
@@ -9953,6 +11091,7 @@ return {
 		},
 	},
 	ReflectionMetadataEnums = {
+		name = "ReflectionMetadataEnums",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9961,6 +11100,7 @@ return {
 		},
 	},
 	ReflectionMetadataEvents = {
+		name = "ReflectionMetadataEvents",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9969,6 +11109,7 @@ return {
 		},
 	},
 	ReflectionMetadataFunctions = {
+		name = "ReflectionMetadataFunctions",
 		superclass = "Instance",
 		properties = {
 		},
@@ -9977,9 +11118,11 @@ return {
 		},
 	},
 	ReflectionMetadataItem = {
+		name = "ReflectionMetadataItem",
 		superclass = "Instance",
 		properties = {
 			Browsable = {
+				name = "Browsable",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9988,6 +11131,7 @@ return {
 				serializes = true,
 			},
 			ClassCategory = {
+				name = "ClassCategory",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9996,6 +11140,7 @@ return {
 				serializes = true,
 			},
 			ClientOnly = {
+				name = "ClientOnly",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10004,6 +11149,7 @@ return {
 				serializes = true,
 			},
 			Constraint = {
+				name = "Constraint",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10012,6 +11158,7 @@ return {
 				serializes = true,
 			},
 			Deprecated = {
+				name = "Deprecated",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10020,6 +11167,7 @@ return {
 				serializes = true,
 			},
 			EditingDisabled = {
+				name = "EditingDisabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10028,6 +11176,7 @@ return {
 				serializes = true,
 			},
 			IsBackend = {
+				name = "IsBackend",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10036,6 +11185,7 @@ return {
 				serializes = true,
 			},
 			ScriptContext = {
+				name = "ScriptContext",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10044,6 +11194,7 @@ return {
 				serializes = true,
 			},
 			ServerOnly = {
+				name = "ServerOnly",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10052,6 +11203,7 @@ return {
 				serializes = true,
 			},
 			UIMaximum = {
+				name = "UIMaximum",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10060,6 +11212,7 @@ return {
 				serializes = true,
 			},
 			UIMinimum = {
+				name = "UIMinimum",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10068,6 +11221,7 @@ return {
 				serializes = true,
 			},
 			UINumTicks = {
+				name = "UINumTicks",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10076,6 +11230,7 @@ return {
 				serializes = true,
 			},
 			summary = {
+				name = "summary",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10088,6 +11243,7 @@ return {
 		},
 	},
 	ReflectionMetadataMember = {
+		name = "ReflectionMetadataMember",
 		superclass = "ReflectionMetadataItem",
 		properties = {
 		},
@@ -10109,6 +11265,7 @@ return {
 		},
 	},
 	ReflectionMetadataProperties = {
+		name = "ReflectionMetadataProperties",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10117,6 +11274,7 @@ return {
 		},
 	},
 	ReflectionMetadataYieldFunctions = {
+		name = "ReflectionMetadataYieldFunctions",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10125,6 +11283,7 @@ return {
 		},
 	},
 	RemoteEvent = {
+		name = "RemoteEvent",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10133,6 +11292,7 @@ return {
 		},
 	},
 	RemoteFunction = {
+		name = "RemoteFunction",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10141,9 +11301,11 @@ return {
 		},
 	},
 	RenderSettings = {
+		name = "RenderSettings",
 		superclass = "Instance",
 		properties = {
 			AutoFRMLevel = {
+				name = "AutoFRMLevel",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10152,6 +11314,7 @@ return {
 				serializes = true,
 			},
 			EagerBulkExecution = {
+				name = "EagerBulkExecution",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10160,6 +11323,7 @@ return {
 				serializes = true,
 			},
 			EditQualityLevel = {
+				name = "EditQualityLevel",
 				type = {type = "Enum", name = "QualityLevel"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10168,6 +11332,7 @@ return {
 				serializes = true,
 			},
 			EnableFRM = {
+				name = "EnableFRM",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10176,6 +11341,7 @@ return {
 				serializes = false,
 			},
 			ExportMergeByMaterial = {
+				name = "ExportMergeByMaterial",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10184,6 +11350,7 @@ return {
 				serializes = true,
 			},
 			FrameRateManager = {
+				name = "FrameRateManager",
 				type = {type = "Enum", name = "FramerateManagerMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10192,6 +11359,7 @@ return {
 				serializes = true,
 			},
 			GraphicsMode = {
+				name = "GraphicsMode",
 				type = {type = "Enum", name = "GraphicsMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10200,6 +11368,7 @@ return {
 				serializes = true,
 			},
 			MeshCacheSize = {
+				name = "MeshCacheSize",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10208,6 +11377,7 @@ return {
 				serializes = true,
 			},
 			QualityLevel = {
+				name = "QualityLevel",
 				type = {type = "Enum", name = "QualityLevel"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10216,6 +11386,7 @@ return {
 				serializes = true,
 			},
 			ReloadAssets = {
+				name = "ReloadAssets",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10224,6 +11395,7 @@ return {
 				serializes = true,
 			},
 			RenderCSGTrianglesDebug = {
+				name = "RenderCSGTrianglesDebug",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10232,6 +11404,7 @@ return {
 				serializes = true,
 			},
 			ShowBoundingBoxes = {
+				name = "ShowBoundingBoxes",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10244,9 +11417,11 @@ return {
 		},
 	},
 	RenderingTest = {
+		name = "RenderingTest",
 		superclass = "Instance",
 		properties = {
 			CFrame = {
+				name = "CFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10255,6 +11430,7 @@ return {
 				serializes = true,
 			},
 			ComparisonDiffThreshold = {
+				name = "ComparisonDiffThreshold",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10263,6 +11439,7 @@ return {
 				serializes = true,
 			},
 			ComparisonMethod = {
+				name = "ComparisonMethod",
 				type = {type = "Enum", name = "RenderingTestComparisonMethod"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10271,6 +11448,7 @@ return {
 				serializes = true,
 			},
 			ComparisonPsnrThreshold = {
+				name = "ComparisonPsnrThreshold",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10279,6 +11457,7 @@ return {
 				serializes = true,
 			},
 			Description = {
+				name = "Description",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10287,6 +11466,7 @@ return {
 				serializes = true,
 			},
 			FieldOfView = {
+				name = "FieldOfView",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10295,6 +11475,7 @@ return {
 				serializes = true,
 			},
 			Orientation = {
+				name = "Orientation",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10303,6 +11484,7 @@ return {
 				serializes = false,
 			},
 			Position = {
+				name = "Position",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10311,6 +11493,7 @@ return {
 				serializes = false,
 			},
 			QualityLevel = {
+				name = "QualityLevel",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10319,6 +11502,7 @@ return {
 				serializes = true,
 			},
 			ShouldSkip = {
+				name = "ShouldSkip",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10327,6 +11511,7 @@ return {
 				serializes = true,
 			},
 			Ticket = {
+				name = "Ticket",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10351,6 +11536,7 @@ return {
 		},
 	},
 	ReplicatedFirst = {
+		name = "ReplicatedFirst",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10359,6 +11545,7 @@ return {
 		},
 	},
 	ReplicatedStorage = {
+		name = "ReplicatedStorage",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10367,9 +11554,11 @@ return {
 		},
 	},
 	ReverbSoundEffect = {
+		name = "ReverbSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			DecayTime = {
+				name = "DecayTime",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10378,6 +11567,7 @@ return {
 				serializes = true,
 			},
 			Density = {
+				name = "Density",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10386,6 +11576,7 @@ return {
 				serializes = true,
 			},
 			Diffusion = {
+				name = "Diffusion",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10394,6 +11585,7 @@ return {
 				serializes = true,
 			},
 			DryLevel = {
+				name = "DryLevel",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10402,6 +11594,7 @@ return {
 				serializes = true,
 			},
 			WetLevel = {
+				name = "WetLevel",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10422,6 +11615,7 @@ return {
 		},
 	},
 	RobloxPluginGuiService = {
+		name = "RobloxPluginGuiService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10430,6 +11624,7 @@ return {
 		},
 	},
 	RobloxReplicatedStorage = {
+		name = "RobloxReplicatedStorage",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10438,9 +11633,11 @@ return {
 		},
 	},
 	RocketPropulsion = {
+		name = "RocketPropulsion",
 		superclass = "BodyMover",
 		properties = {
 			CartoonFactor = {
+				name = "CartoonFactor",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10449,6 +11646,7 @@ return {
 				serializes = true,
 			},
 			MaxSpeed = {
+				name = "MaxSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10457,6 +11655,7 @@ return {
 				serializes = true,
 			},
 			MaxThrust = {
+				name = "MaxThrust",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10465,6 +11664,7 @@ return {
 				serializes = true,
 			},
 			MaxTorque = {
+				name = "MaxTorque",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10473,6 +11673,7 @@ return {
 				serializes = true,
 			},
 			Target = {
+				name = "Target",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10481,6 +11682,7 @@ return {
 				serializes = true,
 			},
 			TargetOffset = {
+				name = "TargetOffset",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10489,6 +11691,7 @@ return {
 				serializes = true,
 			},
 			TargetRadius = {
+				name = "TargetRadius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10497,6 +11700,7 @@ return {
 				serializes = true,
 			},
 			ThrustD = {
+				name = "ThrustD",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10505,6 +11709,7 @@ return {
 				serializes = true,
 			},
 			ThrustP = {
+				name = "ThrustP",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10513,6 +11718,7 @@ return {
 				serializes = true,
 			},
 			TurnD = {
+				name = "TurnD",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10521,6 +11727,7 @@ return {
 				serializes = true,
 			},
 			TurnP = {
+				name = "TurnP",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10545,9 +11752,11 @@ return {
 		},
 	},
 	RodConstraint = {
+		name = "RodConstraint",
 		superclass = "Constraint",
 		properties = {
 			CurrentDistance = {
+				name = "CurrentDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10556,6 +11765,7 @@ return {
 				serializes = false,
 			},
 			Length = {
+				name = "Length",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10564,6 +11774,7 @@ return {
 				serializes = true,
 			},
 			Thickness = {
+				name = "Thickness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10583,9 +11794,11 @@ return {
 		},
 	},
 	RopeConstraint = {
+		name = "RopeConstraint",
 		superclass = "Constraint",
 		properties = {
 			CurrentDistance = {
+				name = "CurrentDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10594,6 +11807,7 @@ return {
 				serializes = false,
 			},
 			Length = {
+				name = "Length",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10602,6 +11816,7 @@ return {
 				serializes = true,
 			},
 			Restitution = {
+				name = "Restitution",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10610,6 +11825,7 @@ return {
 				serializes = true,
 			},
 			Thickness = {
+				name = "Thickness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10630,6 +11846,7 @@ return {
 		},
 	},
 	Rotate = {
+		name = "Rotate",
 		superclass = "JointInstance",
 		properties = {
 		},
@@ -10642,6 +11859,7 @@ return {
 		},
 	},
 	RotateP = {
+		name = "RotateP",
 		superclass = "DynamicRotate",
 		properties = {
 		},
@@ -10655,6 +11873,7 @@ return {
 		},
 	},
 	RotateV = {
+		name = "RotateV",
 		superclass = "DynamicRotate",
 		properties = {
 		},
@@ -10668,6 +11887,7 @@ return {
 		},
 	},
 	RunService = {
+		name = "RunService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10676,6 +11896,7 @@ return {
 		},
 	},
 	RunningAverageItemDouble = {
+		name = "RunningAverageItemDouble",
 		superclass = "StatsItem",
 		properties = {
 		},
@@ -10683,6 +11904,7 @@ return {
 		},
 	},
 	RunningAverageItemInt = {
+		name = "RunningAverageItemInt",
 		superclass = "StatsItem",
 		properties = {
 		},
@@ -10690,6 +11912,7 @@ return {
 		},
 	},
 	RunningAverageTimeIntervalItem = {
+		name = "RunningAverageTimeIntervalItem",
 		superclass = "StatsItem",
 		properties = {
 		},
@@ -10697,6 +11920,7 @@ return {
 		},
 	},
 	RuntimeScriptService = {
+		name = "RuntimeScriptService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10705,9 +11929,11 @@ return {
 		},
 	},
 	ScreenGui = {
+		name = "ScreenGui",
 		superclass = "LayerCollector",
 		properties = {
 			DisplayOrder = {
+				name = "DisplayOrder",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10716,6 +11942,7 @@ return {
 				serializes = true,
 			},
 			IgnoreGuiInset = {
+				name = "IgnoreGuiInset",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10724,6 +11951,7 @@ return {
 				serializes = true,
 			},
 			OnTopOfCoreBlur = {
+				name = "OnTopOfCoreBlur",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10746,9 +11974,11 @@ return {
 		},
 	},
 	Script = {
+		name = "Script",
 		superclass = "BaseScript",
 		properties = {
 			Source = {
+				name = "Source",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10765,9 +11995,11 @@ return {
 		},
 	},
 	ScriptContext = {
+		name = "ScriptContext",
 		superclass = "Instance",
 		properties = {
 			ScriptsDisabled = {
+				name = "ScriptsDisabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10781,9 +12013,11 @@ return {
 		},
 	},
 	ScriptDebugger = {
+		name = "ScriptDebugger",
 		superclass = "Instance",
 		properties = {
 			CurrentLine = {
+				name = "CurrentLine",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10792,6 +12026,7 @@ return {
 				serializes = false,
 			},
 			IsDebugging = {
+				name = "IsDebugging",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10800,6 +12035,7 @@ return {
 				serializes = false,
 			},
 			IsPaused = {
+				name = "IsPaused",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10808,6 +12044,7 @@ return {
 				serializes = false,
 			},
 			Script = {
+				name = "Script",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10820,6 +12057,7 @@ return {
 		},
 	},
 	ScriptService = {
+		name = "ScriptService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -10828,9 +12066,11 @@ return {
 		},
 	},
 	ScrollingFrame = {
+		name = "ScrollingFrame",
 		superclass = "GuiObject",
 		properties = {
 			AbsoluteWindowSize = {
+				name = "AbsoluteWindowSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10839,6 +12079,7 @@ return {
 				serializes = false,
 			},
 			BottomImage = {
+				name = "BottomImage",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10847,6 +12088,7 @@ return {
 				serializes = true,
 			},
 			CanvasPosition = {
+				name = "CanvasPosition",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10855,6 +12097,7 @@ return {
 				serializes = true,
 			},
 			CanvasSize = {
+				name = "CanvasSize",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10863,6 +12106,7 @@ return {
 				serializes = true,
 			},
 			ElasticBehavior = {
+				name = "ElasticBehavior",
 				type = {type = "Enum", name = "ElasticBehavior"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10871,6 +12115,7 @@ return {
 				serializes = true,
 			},
 			HorizontalScrollBarInset = {
+				name = "HorizontalScrollBarInset",
 				type = {type = "Enum", name = "ScrollBarInset"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10879,6 +12124,7 @@ return {
 				serializes = true,
 			},
 			MidImage = {
+				name = "MidImage",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10887,6 +12133,7 @@ return {
 				serializes = true,
 			},
 			ScrollBarImageColor3 = {
+				name = "ScrollBarImageColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10895,6 +12142,7 @@ return {
 				serializes = true,
 			},
 			ScrollBarImageTransparency = {
+				name = "ScrollBarImageTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10903,6 +12151,7 @@ return {
 				serializes = true,
 			},
 			ScrollBarThickness = {
+				name = "ScrollBarThickness",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10911,6 +12160,7 @@ return {
 				serializes = true,
 			},
 			ScrollingDirection = {
+				name = "ScrollingDirection",
 				type = {type = "Enum", name = "ScrollingDirection"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10919,6 +12169,7 @@ return {
 				serializes = true,
 			},
 			ScrollingEnabled = {
+				name = "ScrollingEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10927,6 +12178,7 @@ return {
 				serializes = true,
 			},
 			TopImage = {
+				name = "TopImage",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10935,6 +12187,7 @@ return {
 				serializes = true,
 			},
 			VerticalScrollBarInset = {
+				name = "VerticalScrollBarInset",
 				type = {type = "Enum", name = "ScrollBarInset"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10943,6 +12196,7 @@ return {
 				serializes = true,
 			},
 			VerticalScrollBarPosition = {
+				name = "VerticalScrollBarPosition",
 				type = {type = "Enum", name = "VerticalScrollBarPosition"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10995,9 +12249,11 @@ return {
 		},
 	},
 	Seat = {
+		name = "Seat",
 		superclass = "Part",
 		properties = {
 			Disabled = {
+				name = "Disabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11006,6 +12262,7 @@ return {
 				serializes = true,
 			},
 			Occupant = {
+				name = "Occupant",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11068,6 +12325,7 @@ return {
 		},
 	},
 	Selection = {
+		name = "Selection",
 		superclass = "Instance",
 		properties = {
 		},
@@ -11076,9 +12334,11 @@ return {
 		},
 	},
 	SelectionBox = {
+		name = "SelectionBox",
 		superclass = "PVAdornment",
 		properties = {
 			LineThickness = {
+				name = "LineThickness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11087,7 +12347,8 @@ return {
 				serializes = true,
 			},
 			SurfaceColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "SurfaceColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -11095,6 +12356,7 @@ return {
 				serializes = false,
 			},
 			SurfaceColor3 = {
+				name = "SurfaceColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11103,6 +12365,7 @@ return {
 				serializes = true,
 			},
 			SurfaceTransparency = {
+				name = "SurfaceTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11123,9 +12386,11 @@ return {
 		},
 	},
 	SelectionLasso = {
+		name = "SelectionLasso",
 		superclass = "GuiBase3d",
 		properties = {
 			Humanoid = {
+				name = "Humanoid",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11138,9 +12403,11 @@ return {
 		},
 	},
 	SelectionPartLasso = {
+		name = "SelectionPartLasso",
 		superclass = "SelectionLasso",
 		properties = {
 			Part = {
+				name = "Part",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11159,9 +12426,11 @@ return {
 		},
 	},
 	SelectionPointLasso = {
+		name = "SelectionPointLasso",
 		superclass = "SelectionLasso",
 		properties = {
 			Point = {
+				name = "Point",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11180,10 +12449,12 @@ return {
 		},
 	},
 	SelectionSphere = {
+		name = "SelectionSphere",
 		superclass = "PVAdornment",
 		properties = {
 			SurfaceColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "SurfaceColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -11191,6 +12462,7 @@ return {
 				serializes = false,
 			},
 			SurfaceColor3 = {
+				name = "SurfaceColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11199,6 +12471,7 @@ return {
 				serializes = true,
 			},
 			SurfaceTransparency = {
+				name = "SurfaceTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11218,6 +12491,7 @@ return {
 		},
 	},
 	ServerReplicator = {
+		name = "ServerReplicator",
 		superclass = "NetworkReplicator",
 		properties = {
 		},
@@ -11225,9 +12499,11 @@ return {
 		},
 	},
 	ServerScriptService = {
+		name = "ServerScriptService",
 		superclass = "Instance",
 		properties = {
 			LoadStringEnabled = {
+				name = "LoadStringEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11241,6 +12517,7 @@ return {
 		},
 	},
 	ServerStorage = {
+		name = "ServerStorage",
 		superclass = "Instance",
 		properties = {
 		},
@@ -11249,6 +12526,7 @@ return {
 		},
 	},
 	ServiceProvider = {
+		name = "ServiceProvider",
 		superclass = "Instance",
 		properties = {
 		},
@@ -11256,9 +12534,11 @@ return {
 		},
 	},
 	Shirt = {
+		name = "Shirt",
 		superclass = "Clothing",
 		properties = {
 			ShirtTemplate = {
+				name = "ShirtTemplate",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11274,9 +12554,11 @@ return {
 		},
 	},
 	ShirtGraphic = {
+		name = "ShirtGraphic",
 		superclass = "CharacterAppearance",
 		properties = {
 			Color3 = {
+				name = "Color3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11285,6 +12567,7 @@ return {
 				serializes = true,
 			},
 			Graphic = {
+				name = "Graphic",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11300,9 +12583,11 @@ return {
 		},
 	},
 	SkateboardController = {
+		name = "SkateboardController",
 		superclass = "Controller",
 		properties = {
 			Steer = {
+				name = "Steer",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11311,6 +12596,7 @@ return {
 				serializes = false,
 			},
 			Throttle = {
+				name = "Throttle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11324,9 +12610,11 @@ return {
 		},
 	},
 	SkateboardPlatform = {
+		name = "SkateboardPlatform",
 		superclass = "Part",
 		properties = {
 			Controller = {
+				name = "Controller",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11335,6 +12623,7 @@ return {
 				serializes = false,
 			},
 			ControllingHumanoid = {
+				name = "ControllingHumanoid",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11343,6 +12632,7 @@ return {
 				serializes = false,
 			},
 			Steer = {
+				name = "Steer",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11351,6 +12641,7 @@ return {
 				serializes = true,
 			},
 			StickyWheels = {
+				name = "StickyWheels",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11359,6 +12650,7 @@ return {
 				serializes = true,
 			},
 			Throttle = {
+				name = "Throttle",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11423,10 +12715,12 @@ return {
 		},
 	},
 	Skin = {
+		name = "Skin",
 		superclass = "CharacterAppearance",
 		properties = {
 			SkinColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "SkinColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -11439,9 +12733,11 @@ return {
 		},
 	},
 	Sky = {
+		name = "Sky",
 		superclass = "Instance",
 		properties = {
 			CelestialBodiesShown = {
+				name = "CelestialBodiesShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11450,6 +12746,7 @@ return {
 				serializes = true,
 			},
 			MoonAngularSize = {
+				name = "MoonAngularSize",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11458,6 +12755,7 @@ return {
 				serializes = true,
 			},
 			MoonTextureId = {
+				name = "MoonTextureId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11466,6 +12764,7 @@ return {
 				serializes = true,
 			},
 			SkyboxBk = {
+				name = "SkyboxBk",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11474,6 +12773,7 @@ return {
 				serializes = true,
 			},
 			SkyboxDn = {
+				name = "SkyboxDn",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11482,6 +12782,7 @@ return {
 				serializes = true,
 			},
 			SkyboxFt = {
+				name = "SkyboxFt",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11490,6 +12791,7 @@ return {
 				serializes = true,
 			},
 			SkyboxLf = {
+				name = "SkyboxLf",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11498,6 +12800,7 @@ return {
 				serializes = true,
 			},
 			SkyboxRt = {
+				name = "SkyboxRt",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11506,6 +12809,7 @@ return {
 				serializes = true,
 			},
 			SkyboxUp = {
+				name = "SkyboxUp",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11514,6 +12818,7 @@ return {
 				serializes = true,
 			},
 			StarCount = {
+				name = "StarCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11522,6 +12827,7 @@ return {
 				serializes = true,
 			},
 			SunAngularSize = {
+				name = "SunAngularSize",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11530,6 +12836,7 @@ return {
 				serializes = true,
 			},
 			SunTextureId = {
+				name = "SunTextureId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11555,9 +12862,11 @@ return {
 		},
 	},
 	SlidingBallConstraint = {
+		name = "SlidingBallConstraint",
 		superclass = "Constraint",
 		properties = {
 			ActuatorType = {
+				name = "ActuatorType",
 				type = {type = "Enum", name = "ActuatorType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11566,6 +12875,7 @@ return {
 				serializes = true,
 			},
 			CurrentPosition = {
+				name = "CurrentPosition",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11574,6 +12884,7 @@ return {
 				serializes = false,
 			},
 			LimitsEnabled = {
+				name = "LimitsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11582,6 +12893,7 @@ return {
 				serializes = true,
 			},
 			LowerLimit = {
+				name = "LowerLimit",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11590,6 +12902,7 @@ return {
 				serializes = true,
 			},
 			MotorMaxAcceleration = {
+				name = "MotorMaxAcceleration",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11598,6 +12911,7 @@ return {
 				serializes = true,
 			},
 			MotorMaxForce = {
+				name = "MotorMaxForce",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11606,6 +12920,7 @@ return {
 				serializes = true,
 			},
 			Restitution = {
+				name = "Restitution",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11614,6 +12929,7 @@ return {
 				serializes = true,
 			},
 			ServoMaxForce = {
+				name = "ServoMaxForce",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11622,6 +12938,7 @@ return {
 				serializes = true,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11630,6 +12947,7 @@ return {
 				serializes = true,
 			},
 			Speed = {
+				name = "Speed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11638,6 +12956,7 @@ return {
 				serializes = true,
 			},
 			TargetPosition = {
+				name = "TargetPosition",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11646,6 +12965,7 @@ return {
 				serializes = true,
 			},
 			UpperLimit = {
+				name = "UpperLimit",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11654,6 +12974,7 @@ return {
 				serializes = true,
 			},
 			Velocity = {
+				name = "Velocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11666,9 +12987,11 @@ return {
 		},
 	},
 	Smoke = {
+		name = "Smoke",
 		superclass = "Instance",
 		properties = {
 			Color = {
+				name = "Color",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11677,6 +13000,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11685,6 +13009,7 @@ return {
 				serializes = true,
 			},
 			Opacity = {
+				name = "Opacity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11693,6 +13018,7 @@ return {
 				serializes = true,
 			},
 			RiseVelocity = {
+				name = "RiseVelocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11701,6 +13027,7 @@ return {
 				serializes = true,
 			},
 			Size = {
+				name = "Size",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11709,6 +13036,7 @@ return {
 				serializes = true,
 			},
 			opacity_xml = {
+				name = "opacity_xml",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = false,
 				canonicalName = "Opacity",
@@ -11717,6 +13045,7 @@ return {
 				serializes = false,
 			},
 			riseVelocity_xml = {
+				name = "riseVelocity_xml",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = false,
 				canonicalName = "RiseVelocity",
@@ -11725,6 +13054,7 @@ return {
 				serializes = false,
 			},
 			size_xml = {
+				name = "size_xml",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = false,
 				canonicalName = "Size",
@@ -11743,6 +13073,7 @@ return {
 		},
 	},
 	Snap = {
+		name = "Snap",
 		superclass = "JointInstance",
 		properties = {
 		},
@@ -11755,6 +13086,7 @@ return {
 		},
 	},
 	SocialService = {
+		name = "SocialService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -11763,6 +13095,7 @@ return {
 		},
 	},
 	SolidModelContentProvider = {
+		name = "SolidModelContentProvider",
 		superclass = "CacheableContentProvider",
 		properties = {
 		},
@@ -11771,9 +13104,11 @@ return {
 		},
 	},
 	Sound = {
+		name = "Sound",
 		superclass = "Instance",
 		properties = {
 			EmitterSize = {
+				name = "EmitterSize",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11782,6 +13117,7 @@ return {
 				serializes = true,
 			},
 			IsLoaded = {
+				name = "IsLoaded",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11790,6 +13126,7 @@ return {
 				serializes = false,
 			},
 			IsPaused = {
+				name = "IsPaused",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11798,6 +13135,7 @@ return {
 				serializes = false,
 			},
 			IsPlaying = {
+				name = "IsPlaying",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11806,6 +13144,7 @@ return {
 				serializes = false,
 			},
 			Looped = {
+				name = "Looped",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11814,6 +13153,7 @@ return {
 				serializes = true,
 			},
 			MaxDistance = {
+				name = "MaxDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11822,6 +13162,7 @@ return {
 				serializes = true,
 			},
 			MinDistance = {
+				name = "MinDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11830,6 +13171,7 @@ return {
 				serializes = false,
 			},
 			Pitch = {
+				name = "Pitch",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11838,6 +13180,7 @@ return {
 				serializes = false,
 			},
 			PlayOnRemove = {
+				name = "PlayOnRemove",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11846,6 +13189,7 @@ return {
 				serializes = true,
 			},
 			PlaybackLoudness = {
+				name = "PlaybackLoudness",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11854,6 +13198,7 @@ return {
 				serializes = false,
 			},
 			PlaybackSpeed = {
+				name = "PlaybackSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11862,6 +13207,7 @@ return {
 				serializes = true,
 			},
 			Playing = {
+				name = "Playing",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11870,6 +13216,7 @@ return {
 				serializes = true,
 			},
 			RollOffMode = {
+				name = "RollOffMode",
 				type = {type = "Enum", name = "RollOffMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11878,6 +13225,7 @@ return {
 				serializes = true,
 			},
 			SoundGroup = {
+				name = "SoundGroup",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11886,6 +13234,7 @@ return {
 				serializes = true,
 			},
 			SoundId = {
+				name = "SoundId",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11894,6 +13243,7 @@ return {
 				serializes = true,
 			},
 			TimeLength = {
+				name = "TimeLength",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11902,6 +13252,7 @@ return {
 				serializes = false,
 			},
 			TimePosition = {
+				name = "TimePosition",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11910,6 +13261,7 @@ return {
 				serializes = true,
 			},
 			Volume = {
+				name = "Volume",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11918,6 +13270,7 @@ return {
 				serializes = true,
 			},
 			isPlaying = {
+				name = "isPlaying",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11926,6 +13279,7 @@ return {
 				serializes = false,
 			},
 			xmlRead_MaxDistance_3 = {
+				name = "xmlRead_MaxDistance_3",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = false,
 				canonicalName = "MaxDistance",
@@ -11952,9 +13306,11 @@ return {
 		},
 	},
 	SoundEffect = {
+		name = "SoundEffect",
 		superclass = "Instance",
 		properties = {
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11963,6 +13319,7 @@ return {
 				serializes = true,
 			},
 			Priority = {
+				name = "Priority",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11975,9 +13332,11 @@ return {
 		},
 	},
 	SoundGroup = {
+		name = "SoundGroup",
 		superclass = "Instance",
 		properties = {
 			Volume = {
+				name = "Volume",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -11992,9 +13351,11 @@ return {
 		},
 	},
 	SoundService = {
+		name = "SoundService",
 		superclass = "Instance",
 		properties = {
 			AmbientReverb = {
+				name = "AmbientReverb",
 				type = {type = "Enum", name = "ReverbType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12003,6 +13364,7 @@ return {
 				serializes = true,
 			},
 			DistanceFactor = {
+				name = "DistanceFactor",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12011,6 +13373,7 @@ return {
 				serializes = true,
 			},
 			DopplerScale = {
+				name = "DopplerScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12019,6 +13382,7 @@ return {
 				serializes = true,
 			},
 			RespectFilteringEnabled = {
+				name = "RespectFilteringEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12027,6 +13391,7 @@ return {
 				serializes = true,
 			},
 			RolloffScale = {
+				name = "RolloffScale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12045,9 +13410,11 @@ return {
 		},
 	},
 	Sparkles = {
+		name = "Sparkles",
 		superclass = "Instance",
 		properties = {
 			Color = {
+				name = "Color",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12056,6 +13423,7 @@ return {
 				serializes = false,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12064,6 +13432,7 @@ return {
 				serializes = true,
 			},
 			SparkleColor = {
+				name = "SparkleColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12080,9 +13449,11 @@ return {
 		},
 	},
 	SpawnLocation = {
+		name = "SpawnLocation",
 		superclass = "Part",
 		properties = {
 			AllowTeamChangeOnTouch = {
+				name = "AllowTeamChangeOnTouch",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12091,6 +13462,7 @@ return {
 				serializes = true,
 			},
 			Duration = {
+				name = "Duration",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12099,6 +13471,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12107,6 +13480,7 @@ return {
 				serializes = true,
 			},
 			Neutral = {
+				name = "Neutral",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12115,7 +13489,8 @@ return {
 				serializes = true,
 			},
 			TeamColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TeamColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -12180,6 +13555,7 @@ return {
 		},
 	},
 	SpawnerService = {
+		name = "SpawnerService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -12187,9 +13563,11 @@ return {
 		},
 	},
 	SpecialMesh = {
+		name = "SpecialMesh",
 		superclass = "FileMesh",
 		properties = {
 			MeshType = {
+				name = "MeshType",
 				type = {type = "Enum", name = "MeshType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12209,9 +13587,11 @@ return {
 		},
 	},
 	SphereHandleAdornment = {
+		name = "SphereHandleAdornment",
 		superclass = "HandleAdornment",
 		properties = {
 			Radius = {
+				name = "Radius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12234,9 +13614,11 @@ return {
 		},
 	},
 	SpotLight = {
+		name = "SpotLight",
 		superclass = "Light",
 		properties = {
 			Angle = {
+				name = "Angle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12245,6 +13627,7 @@ return {
 				serializes = true,
 			},
 			Face = {
+				name = "Face",
 				type = {type = "Enum", name = "NormalId"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12253,6 +13636,7 @@ return {
 				serializes = true,
 			},
 			Range = {
+				name = "Range",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12273,9 +13657,11 @@ return {
 		},
 	},
 	SpringConstraint = {
+		name = "SpringConstraint",
 		superclass = "Constraint",
 		properties = {
 			Coils = {
+				name = "Coils",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12284,6 +13670,7 @@ return {
 				serializes = true,
 			},
 			CurrentLength = {
+				name = "CurrentLength",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12292,6 +13679,7 @@ return {
 				serializes = false,
 			},
 			Damping = {
+				name = "Damping",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12300,6 +13688,7 @@ return {
 				serializes = true,
 			},
 			FreeLength = {
+				name = "FreeLength",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12308,6 +13697,7 @@ return {
 				serializes = true,
 			},
 			LimitsEnabled = {
+				name = "LimitsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12316,6 +13706,7 @@ return {
 				serializes = true,
 			},
 			MaxForce = {
+				name = "MaxForce",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12324,6 +13715,7 @@ return {
 				serializes = true,
 			},
 			MaxLength = {
+				name = "MaxLength",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12332,6 +13724,7 @@ return {
 				serializes = true,
 			},
 			MinLength = {
+				name = "MinLength",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12340,6 +13733,7 @@ return {
 				serializes = true,
 			},
 			Radius = {
+				name = "Radius",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12348,6 +13742,7 @@ return {
 				serializes = true,
 			},
 			Stiffness = {
+				name = "Stiffness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12356,6 +13751,7 @@ return {
 				serializes = true,
 			},
 			Thickness = {
+				name = "Thickness",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12383,6 +13779,7 @@ return {
 		},
 	},
 	StandardPages = {
+		name = "StandardPages",
 		superclass = "Pages",
 		properties = {
 		},
@@ -12390,6 +13787,7 @@ return {
 		},
 	},
 	StarterCharacterScripts = {
+		name = "StarterCharacterScripts",
 		superclass = "StarterPlayerScripts",
 		properties = {
 		},
@@ -12397,6 +13795,7 @@ return {
 		},
 	},
 	StarterGear = {
+		name = "StarterGear",
 		superclass = "Instance",
 		properties = {
 		},
@@ -12405,9 +13804,11 @@ return {
 		},
 	},
 	StarterGui = {
+		name = "StarterGui",
 		superclass = "BasePlayerGui",
 		properties = {
 			ProcessUserInput = {
+				name = "ProcessUserInput",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12416,6 +13817,7 @@ return {
 				serializes = false,
 			},
 			ResetPlayerGuiOnSpawn = {
+				name = "ResetPlayerGuiOnSpawn",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12424,6 +13826,7 @@ return {
 				serializes = true,
 			},
 			ScreenOrientation = {
+				name = "ScreenOrientation",
 				type = {type = "Enum", name = "ScreenOrientation"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12432,6 +13835,7 @@ return {
 				serializes = true,
 			},
 			ShowDevelopmentGui = {
+				name = "ShowDevelopmentGui",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12449,6 +13853,7 @@ return {
 		},
 	},
 	StarterPack = {
+		name = "StarterPack",
 		superclass = "Instance",
 		properties = {
 		},
@@ -12457,9 +13862,11 @@ return {
 		},
 	},
 	StarterPlayer = {
+		name = "StarterPlayer",
 		superclass = "Instance",
 		properties = {
 			AllowCustomAnimations = {
+				name = "AllowCustomAnimations",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12468,6 +13875,7 @@ return {
 				serializes = true,
 			},
 			AutoJumpEnabled = {
+				name = "AutoJumpEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12476,6 +13884,7 @@ return {
 				serializes = true,
 			},
 			CameraMaxZoomDistance = {
+				name = "CameraMaxZoomDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12484,6 +13893,7 @@ return {
 				serializes = true,
 			},
 			CameraMinZoomDistance = {
+				name = "CameraMinZoomDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12492,6 +13902,7 @@ return {
 				serializes = true,
 			},
 			CameraMode = {
+				name = "CameraMode",
 				type = {type = "Enum", name = "CameraMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12500,6 +13911,7 @@ return {
 				serializes = true,
 			},
 			CharacterJumpHeight = {
+				name = "CharacterJumpHeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12508,6 +13920,7 @@ return {
 				serializes = true,
 			},
 			CharacterJumpPower = {
+				name = "CharacterJumpPower",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12516,6 +13929,7 @@ return {
 				serializes = true,
 			},
 			CharacterMaxSlopeAngle = {
+				name = "CharacterMaxSlopeAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12524,6 +13938,7 @@ return {
 				serializes = true,
 			},
 			CharacterUseJumpPower = {
+				name = "CharacterUseJumpPower",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12532,6 +13947,7 @@ return {
 				serializes = true,
 			},
 			CharacterWalkSpeed = {
+				name = "CharacterWalkSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12540,6 +13956,7 @@ return {
 				serializes = true,
 			},
 			DevCameraOcclusionMode = {
+				name = "DevCameraOcclusionMode",
 				type = {type = "Enum", name = "DevCameraOcclusionMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12548,6 +13965,7 @@ return {
 				serializes = true,
 			},
 			DevComputerCameraMovementMode = {
+				name = "DevComputerCameraMovementMode",
 				type = {type = "Enum", name = "DevComputerCameraMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12556,6 +13974,7 @@ return {
 				serializes = true,
 			},
 			DevComputerMovementMode = {
+				name = "DevComputerMovementMode",
 				type = {type = "Enum", name = "DevComputerMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12564,6 +13983,7 @@ return {
 				serializes = true,
 			},
 			DevTouchCameraMovementMode = {
+				name = "DevTouchCameraMovementMode",
 				type = {type = "Enum", name = "DevTouchCameraMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12572,6 +13992,7 @@ return {
 				serializes = true,
 			},
 			DevTouchMovementMode = {
+				name = "DevTouchMovementMode",
 				type = {type = "Enum", name = "DevTouchMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12580,6 +14001,7 @@ return {
 				serializes = true,
 			},
 			EnableMouseLockOption = {
+				name = "EnableMouseLockOption",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12588,6 +14010,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDFace = {
+				name = "GameSettingsAssetIDFace",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12596,6 +14019,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDHead = {
+				name = "GameSettingsAssetIDHead",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12604,6 +14028,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDLeftArm = {
+				name = "GameSettingsAssetIDLeftArm",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12612,6 +14037,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDLeftLeg = {
+				name = "GameSettingsAssetIDLeftLeg",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12620,6 +14046,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDPants = {
+				name = "GameSettingsAssetIDPants",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12628,6 +14055,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDRightArm = {
+				name = "GameSettingsAssetIDRightArm",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12636,6 +14064,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDRightLeg = {
+				name = "GameSettingsAssetIDRightLeg",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12644,6 +14073,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDShirt = {
+				name = "GameSettingsAssetIDShirt",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12652,6 +14082,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDTeeShirt = {
+				name = "GameSettingsAssetIDTeeShirt",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12660,6 +14091,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAssetIDTorso = {
+				name = "GameSettingsAssetIDTorso",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12668,6 +14100,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsAvatar = {
+				name = "GameSettingsAvatar",
 				type = {type = "Enum", name = "GameAvatarType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12676,6 +14109,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsR15Collision = {
+				name = "GameSettingsR15Collision",
 				type = {type = "Enum", name = "R15CollisionType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12684,6 +14118,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsScaleRangeBodyType = {
+				name = "GameSettingsScaleRangeBodyType",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12692,6 +14127,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsScaleRangeHead = {
+				name = "GameSettingsScaleRangeHead",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12700,6 +14136,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsScaleRangeHeight = {
+				name = "GameSettingsScaleRangeHeight",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12708,6 +14145,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsScaleRangeProportion = {
+				name = "GameSettingsScaleRangeProportion",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12716,6 +14154,7 @@ return {
 				serializes = true,
 			},
 			GameSettingsScaleRangeWidth = {
+				name = "GameSettingsScaleRangeWidth",
 				type = {type = "Data", name = "NumberRange"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12724,6 +14163,7 @@ return {
 				serializes = true,
 			},
 			HealthDisplayDistance = {
+				name = "HealthDisplayDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12732,6 +14172,7 @@ return {
 				serializes = true,
 			},
 			LoadCharacterAppearance = {
+				name = "LoadCharacterAppearance",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12740,6 +14181,7 @@ return {
 				serializes = true,
 			},
 			NameDisplayDistance = {
+				name = "NameDisplayDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12748,6 +14190,7 @@ return {
 				serializes = true,
 			},
 			UserEmotesEnabled = {
+				name = "UserEmotesEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12785,6 +14228,11 @@ return {
 			GameSettingsAssetIDTorso = 0,
 			GameSettingsAvatar = 1,
 			GameSettingsR15Collision = 0,
+			GameSettingsScaleRangeBodyType = NumberRange.new(0, 1),
+			GameSettingsScaleRangeHead = NumberRange.new(0.95, 1),
+			GameSettingsScaleRangeHeight = NumberRange.new(0.9, 1.05),
+			GameSettingsScaleRangeProportion = NumberRange.new(0, 1),
+			GameSettingsScaleRangeWidth = NumberRange.new(0.7, 1),
 			HealthDisplayDistance = 100,
 			LoadCharacterAppearance = true,
 			Name = "StarterPlayer",
@@ -12793,6 +14241,7 @@ return {
 		},
 	},
 	StarterPlayerScripts = {
+		name = "StarterPlayerScripts",
 		superclass = "Instance",
 		properties = {
 		},
@@ -12800,9 +14249,11 @@ return {
 		},
 	},
 	Stats = {
+		name = "Stats",
 		superclass = "Instance",
 		properties = {
 			ContactsCount = {
+				name = "ContactsCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12811,6 +14262,7 @@ return {
 				serializes = false,
 			},
 			DataReceiveKbps = {
+				name = "DataReceiveKbps",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12819,6 +14271,7 @@ return {
 				serializes = false,
 			},
 			DataSendKbps = {
+				name = "DataSendKbps",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12827,6 +14280,7 @@ return {
 				serializes = false,
 			},
 			HeartbeatTimeMs = {
+				name = "HeartbeatTimeMs",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12835,6 +14289,7 @@ return {
 				serializes = false,
 			},
 			InstanceCount = {
+				name = "InstanceCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12843,6 +14298,7 @@ return {
 				serializes = false,
 			},
 			MovingPrimitivesCount = {
+				name = "MovingPrimitivesCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12851,6 +14307,7 @@ return {
 				serializes = false,
 			},
 			PhysicsReceiveKbps = {
+				name = "PhysicsReceiveKbps",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12859,6 +14316,7 @@ return {
 				serializes = false,
 			},
 			PhysicsSendKbps = {
+				name = "PhysicsSendKbps",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12867,6 +14325,7 @@ return {
 				serializes = false,
 			},
 			PhysicsStepTimeMs = {
+				name = "PhysicsStepTimeMs",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12875,6 +14334,7 @@ return {
 				serializes = false,
 			},
 			PrimitivesCount = {
+				name = "PrimitivesCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12888,6 +14348,7 @@ return {
 		},
 	},
 	StatsItem = {
+		name = "StatsItem",
 		superclass = "Instance",
 		properties = {
 		},
@@ -12895,6 +14356,7 @@ return {
 		},
 	},
 	Status = {
+		name = "Status",
 		superclass = "Model",
 		properties = {
 		},
@@ -12902,6 +14364,7 @@ return {
 		},
 	},
 	StopWatchReporter = {
+		name = "StopWatchReporter",
 		superclass = "Instance",
 		properties = {
 		},
@@ -12909,9 +14372,11 @@ return {
 		},
 	},
 	StringValue = {
+		name = "StringValue",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12926,9 +14391,11 @@ return {
 		},
 	},
 	Studio = {
+		name = "Studio",
 		superclass = "Instance",
 		properties = {
 			DefaultScriptFileDir = {
+				name = "DefaultScriptFileDir",
 				type = {type = "Unimplemented", name = "QDir"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12937,6 +14404,7 @@ return {
 				serializes = true,
 			},
 			DeprecatedObjectsShown = {
+				name = "DeprecatedObjectsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12945,6 +14413,7 @@ return {
 				serializes = true,
 			},
 			Font = {
+				name = "Font",
 				type = {type = "Unimplemented", name = "QFont"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12953,6 +14422,7 @@ return {
 				serializes = true,
 			},
 			Language = {
+				name = "Language",
 				type = {type = "Enum", name = "LanguagePreference"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12961,6 +14431,7 @@ return {
 				serializes = true,
 			},
 			LuaDebuggerEnabled = {
+				name = "LuaDebuggerEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12969,6 +14440,7 @@ return {
 				serializes = true,
 			},
 			LuaDebuggerEnabledAtStartup = {
+				name = "LuaDebuggerEnabledAtStartup",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12977,6 +14449,7 @@ return {
 				serializes = false,
 			},
 			OverrideCoreScripts = {
+				name = "OverrideCoreScripts",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12985,6 +14458,7 @@ return {
 				serializes = true,
 			},
 			OverrideCoreScriptsDir = {
+				name = "OverrideCoreScriptsDir",
 				type = {type = "Unimplemented", name = "QDir"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -12993,6 +14467,7 @@ return {
 				serializes = true,
 			},
 			PermissionLevelShown = {
+				name = "PermissionLevelShown",
 				type = {type = "Enum", name = "PermissionLevelShown"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13001,6 +14476,7 @@ return {
 				serializes = true,
 			},
 			PluginsDir = {
+				name = "PluginsDir",
 				type = {type = "Unimplemented", name = "QDir"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13009,6 +14485,7 @@ return {
 				serializes = true,
 			},
 			RecentSavesDir = {
+				name = "RecentSavesDir",
 				type = {type = "Unimplemented", name = "QDir"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13017,6 +14494,7 @@ return {
 				serializes = true,
 			},
 			RuntimeUndoBehavior = {
+				name = "RuntimeUndoBehavior",
 				type = {type = "Enum", name = "RuntimeUndoBehavior"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13025,6 +14503,7 @@ return {
 				serializes = true,
 			},
 			ScriptTimeoutLength = {
+				name = "ScriptTimeoutLength",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13033,6 +14512,7 @@ return {
 				serializes = true,
 			},
 			Theme = {
+				name = "Theme",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13045,9 +14525,11 @@ return {
 		},
 	},
 	StudioData = {
+		name = "StudioData",
 		superclass = "Instance",
 		properties = {
 			SrcPlaceId = {
+				name = "SrcPlaceId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13056,6 +14538,7 @@ return {
 				serializes = true,
 			},
 			SrcUniverseId = {
+				name = "SrcUniverseId",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13068,9 +14551,11 @@ return {
 		},
 	},
 	StudioService = {
+		name = "StudioService",
 		superclass = "Instance",
 		properties = {
 			ActiveScript = {
+				name = "ActiveScript",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13079,6 +14564,7 @@ return {
 				serializes = false,
 			},
 			StudioLocaleId = {
+				name = "StudioLocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13092,6 +14578,7 @@ return {
 		},
 	},
 	StudioTheme = {
+		name = "StudioTheme",
 		superclass = "Instance",
 		properties = {
 		},
@@ -13099,9 +14586,11 @@ return {
 		},
 	},
 	SunRaysEffect = {
+		name = "SunRaysEffect",
 		superclass = "PostEffect",
 		properties = {
 			Intensity = {
+				name = "Intensity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13110,6 +14599,7 @@ return {
 				serializes = true,
 			},
 			Spread = {
+				name = "Spread",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13126,9 +14616,11 @@ return {
 		},
 	},
 	SurfaceGui = {
+		name = "SurfaceGui",
 		superclass = "LayerCollector",
 		properties = {
 			Active = {
+				name = "Active",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13137,6 +14629,7 @@ return {
 				serializes = true,
 			},
 			Adornee = {
+				name = "Adornee",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13145,6 +14638,7 @@ return {
 				serializes = true,
 			},
 			AlwaysOnTop = {
+				name = "AlwaysOnTop",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13153,6 +14647,7 @@ return {
 				serializes = true,
 			},
 			CanvasSize = {
+				name = "CanvasSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13161,6 +14656,7 @@ return {
 				serializes = true,
 			},
 			ClipsDescendants = {
+				name = "ClipsDescendants",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13169,6 +14665,7 @@ return {
 				serializes = true,
 			},
 			Face = {
+				name = "Face",
 				type = {type = "Enum", name = "NormalId"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13177,6 +14674,7 @@ return {
 				serializes = true,
 			},
 			LightInfluence = {
+				name = "LightInfluence",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13185,6 +14683,7 @@ return {
 				serializes = true,
 			},
 			PixelsPerStud = {
+				name = "PixelsPerStud",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13193,6 +14692,7 @@ return {
 				serializes = true,
 			},
 			SizingMode = {
+				name = "SizingMode",
 				type = {type = "Enum", name = "SurfaceGuiSizingMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13201,6 +14701,7 @@ return {
 				serializes = true,
 			},
 			ToolPunchThroughDistance = {
+				name = "ToolPunchThroughDistance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13209,6 +14710,7 @@ return {
 				serializes = true,
 			},
 			ZOffset = {
+				name = "ZOffset",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13239,9 +14741,11 @@ return {
 		},
 	},
 	SurfaceLight = {
+		name = "SurfaceLight",
 		superclass = "Light",
 		properties = {
 			Angle = {
+				name = "Angle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13250,6 +14754,7 @@ return {
 				serializes = true,
 			},
 			Face = {
+				name = "Face",
 				type = {type = "Enum", name = "NormalId"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13258,6 +14763,7 @@ return {
 				serializes = true,
 			},
 			Range = {
+				name = "Range",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13278,9 +14784,11 @@ return {
 		},
 	},
 	SurfaceSelection = {
+		name = "SurfaceSelection",
 		superclass = "PartAdornment",
 		properties = {
 			TargetSurface = {
+				name = "TargetSurface",
 				type = {type = "Enum", name = "NormalId"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13299,9 +14807,11 @@ return {
 		},
 	},
 	TaskScheduler = {
+		name = "TaskScheduler",
 		superclass = "Instance",
 		properties = {
 			SchedulerDutyCycle = {
+				name = "SchedulerDutyCycle",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13310,6 +14820,7 @@ return {
 				serializes = false,
 			},
 			SchedulerRate = {
+				name = "SchedulerRate",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13318,6 +14829,7 @@ return {
 				serializes = false,
 			},
 			ThreadPoolConfig = {
+				name = "ThreadPoolConfig",
 				type = {type = "Enum", name = "ThreadPoolConfig"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13326,6 +14838,7 @@ return {
 				serializes = true,
 			},
 			ThreadPoolSize = {
+				name = "ThreadPoolSize",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13338,9 +14851,11 @@ return {
 		},
 	},
 	Team = {
+		name = "Team",
 		superclass = "Instance",
 		properties = {
 			AutoAssignable = {
+				name = "AutoAssignable",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13349,6 +14864,7 @@ return {
 				serializes = true,
 			},
 			AutoColorCharacters = {
+				name = "AutoColorCharacters",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13357,6 +14873,7 @@ return {
 				serializes = false,
 			},
 			Score = {
+				name = "Score",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13365,7 +14882,8 @@ return {
 				serializes = false,
 			},
 			TeamColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TeamColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -13381,6 +14899,7 @@ return {
 		},
 	},
 	Teams = {
+		name = "Teams",
 		superclass = "Instance",
 		properties = {
 		},
@@ -13389,9 +14908,11 @@ return {
 		},
 	},
 	TeleportService = {
+		name = "TeleportService",
 		superclass = "Instance",
 		properties = {
 			CustomizedTeleportUI = {
+				name = "CustomizedTeleportUI",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13406,9 +14927,11 @@ return {
 		},
 	},
 	Terrain = {
+		name = "Terrain",
 		superclass = "BasePart",
 		properties = {
 			IsSmooth = {
+				name = "IsSmooth",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13417,6 +14940,7 @@ return {
 				serializes = false,
 			},
 			MaterialColors = {
+				name = "MaterialColors",
 				type = {type = "Data", name = "BinaryString"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13425,6 +14949,7 @@ return {
 				serializes = true,
 			},
 			MaxExtents = {
+				name = "MaxExtents",
 				type = {type = "Unimplemented", name = "Region3int16"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13433,6 +14958,7 @@ return {
 				serializes = false,
 			},
 			WaterColor = {
+				name = "WaterColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13441,6 +14967,7 @@ return {
 				serializes = true,
 			},
 			WaterReflectance = {
+				name = "WaterReflectance",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13449,6 +14976,7 @@ return {
 				serializes = true,
 			},
 			WaterTransparency = {
+				name = "WaterTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13457,6 +14985,7 @@ return {
 				serializes = true,
 			},
 			WaterWaveSize = {
+				name = "WaterWaveSize",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13465,6 +14994,7 @@ return {
 				serializes = true,
 			},
 			WaterWaveSpeed = {
+				name = "WaterWaveSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13477,9 +15007,11 @@ return {
 		},
 	},
 	TerrainRegion = {
+		name = "TerrainRegion",
 		superclass = "Instance",
 		properties = {
 			IsSmooth = {
+				name = "IsSmooth",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13488,6 +15020,7 @@ return {
 				serializes = false,
 			},
 			SizeInCells = {
+				name = "SizeInCells",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13501,9 +15034,11 @@ return {
 		},
 	},
 	TestService = {
+		name = "TestService",
 		superclass = "Instance",
 		properties = {
 			AutoRuns = {
+				name = "AutoRuns",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13512,6 +15047,7 @@ return {
 				serializes = true,
 			},
 			Description = {
+				name = "Description",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13520,6 +15056,7 @@ return {
 				serializes = true,
 			},
 			ErrorCount = {
+				name = "ErrorCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13528,6 +15065,7 @@ return {
 				serializes = false,
 			},
 			ExecuteWithStudioRun = {
+				name = "ExecuteWithStudioRun",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13536,6 +15074,7 @@ return {
 				serializes = true,
 			},
 			Is30FpsThrottleEnabled = {
+				name = "Is30FpsThrottleEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13544,6 +15083,7 @@ return {
 				serializes = true,
 			},
 			IsPhysicsEnvironmentalThrottled = {
+				name = "IsPhysicsEnvironmentalThrottled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13552,6 +15092,7 @@ return {
 				serializes = true,
 			},
 			IsSleepAllowed = {
+				name = "IsSleepAllowed",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13560,6 +15101,7 @@ return {
 				serializes = true,
 			},
 			NumberOfPlayers = {
+				name = "NumberOfPlayers",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13568,6 +15110,7 @@ return {
 				serializes = true,
 			},
 			SimulateSecondsLag = {
+				name = "SimulateSecondsLag",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13576,6 +15119,7 @@ return {
 				serializes = true,
 			},
 			TestCount = {
+				name = "TestCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13584,6 +15128,7 @@ return {
 				serializes = false,
 			},
 			Timeout = {
+				name = "Timeout",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13592,6 +15137,7 @@ return {
 				serializes = true,
 			},
 			WarnCount = {
+				name = "WarnCount",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13614,9 +15160,11 @@ return {
 		},
 	},
 	TextBox = {
+		name = "TextBox",
 		superclass = "GuiObject",
 		properties = {
 			ClearTextOnFocus = {
+				name = "ClearTextOnFocus",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13625,6 +15173,7 @@ return {
 				serializes = true,
 			},
 			CursorPosition = {
+				name = "CursorPosition",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13633,6 +15182,7 @@ return {
 				serializes = false,
 			},
 			Font = {
+				name = "Font",
 				type = {type = "Enum", name = "Font"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13641,6 +15191,7 @@ return {
 				serializes = true,
 			},
 			FontSize = {
+				name = "FontSize",
 				type = {type = "Enum", name = "FontSize"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13649,6 +15200,7 @@ return {
 				serializes = false,
 			},
 			IsPassword = {
+				name = "IsPassword",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13657,6 +15209,7 @@ return {
 				serializes = false,
 			},
 			LineHeight = {
+				name = "LineHeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13665,6 +15218,7 @@ return {
 				serializes = true,
 			},
 			ManualFocusRelease = {
+				name = "ManualFocusRelease",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13673,6 +15227,7 @@ return {
 				serializes = false,
 			},
 			MultiLine = {
+				name = "MultiLine",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13681,6 +15236,7 @@ return {
 				serializes = true,
 			},
 			OverlayNativeInput = {
+				name = "OverlayNativeInput",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13689,6 +15245,7 @@ return {
 				serializes = false,
 			},
 			PlaceholderColor3 = {
+				name = "PlaceholderColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13697,6 +15254,7 @@ return {
 				serializes = true,
 			},
 			PlaceholderText = {
+				name = "PlaceholderText",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13705,6 +15263,7 @@ return {
 				serializes = true,
 			},
 			ShowNativeInput = {
+				name = "ShowNativeInput",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13713,6 +15272,7 @@ return {
 				serializes = true,
 			},
 			Text = {
+				name = "Text",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13721,6 +15281,7 @@ return {
 				serializes = true,
 			},
 			TextBounds = {
+				name = "TextBounds",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13729,7 +15290,8 @@ return {
 				serializes = false,
 			},
 			TextColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TextColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -13737,6 +15299,7 @@ return {
 				serializes = false,
 			},
 			TextColor3 = {
+				name = "TextColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13745,6 +15308,7 @@ return {
 				serializes = true,
 			},
 			TextFits = {
+				name = "TextFits",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13753,6 +15317,7 @@ return {
 				serializes = false,
 			},
 			TextScaled = {
+				name = "TextScaled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13761,6 +15326,7 @@ return {
 				serializes = true,
 			},
 			TextSize = {
+				name = "TextSize",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13769,6 +15335,7 @@ return {
 				serializes = true,
 			},
 			TextStrokeColor3 = {
+				name = "TextStrokeColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13777,6 +15344,7 @@ return {
 				serializes = true,
 			},
 			TextStrokeTransparency = {
+				name = "TextStrokeTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13785,6 +15353,7 @@ return {
 				serializes = true,
 			},
 			TextTransparency = {
+				name = "TextTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13793,6 +15362,7 @@ return {
 				serializes = true,
 			},
 			TextTruncate = {
+				name = "TextTruncate",
 				type = {type = "Enum", name = "TextTruncate"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13801,6 +15371,7 @@ return {
 				serializes = true,
 			},
 			TextWrap = {
+				name = "TextWrap",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13809,6 +15380,7 @@ return {
 				serializes = false,
 			},
 			TextWrapped = {
+				name = "TextWrapped",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13817,6 +15389,7 @@ return {
 				serializes = true,
 			},
 			TextXAlignment = {
+				name = "TextXAlignment",
 				type = {type = "Enum", name = "TextXAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13825,6 +15398,7 @@ return {
 				serializes = true,
 			},
 			TextYAlignment = {
+				name = "TextYAlignment",
 				type = {type = "Enum", name = "TextYAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13887,9 +15461,11 @@ return {
 		},
 	},
 	TextButton = {
+		name = "TextButton",
 		superclass = "GuiButton",
 		properties = {
 			Font = {
+				name = "Font",
 				type = {type = "Enum", name = "Font"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13898,6 +15474,7 @@ return {
 				serializes = true,
 			},
 			FontSize = {
+				name = "FontSize",
 				type = {type = "Enum", name = "FontSize"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13906,6 +15483,7 @@ return {
 				serializes = false,
 			},
 			LineHeight = {
+				name = "LineHeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13914,6 +15492,7 @@ return {
 				serializes = true,
 			},
 			LocalizedText = {
+				name = "LocalizedText",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13922,6 +15501,7 @@ return {
 				serializes = false,
 			},
 			Text = {
+				name = "Text",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13930,6 +15510,7 @@ return {
 				serializes = true,
 			},
 			TextBounds = {
+				name = "TextBounds",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13938,7 +15519,8 @@ return {
 				serializes = false,
 			},
 			TextColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TextColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -13946,6 +15528,7 @@ return {
 				serializes = false,
 			},
 			TextColor3 = {
+				name = "TextColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13954,6 +15537,7 @@ return {
 				serializes = true,
 			},
 			TextFits = {
+				name = "TextFits",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13962,6 +15546,7 @@ return {
 				serializes = false,
 			},
 			TextScaled = {
+				name = "TextScaled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13970,6 +15555,7 @@ return {
 				serializes = true,
 			},
 			TextSize = {
+				name = "TextSize",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13978,6 +15564,7 @@ return {
 				serializes = true,
 			},
 			TextStrokeColor3 = {
+				name = "TextStrokeColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13986,6 +15573,7 @@ return {
 				serializes = true,
 			},
 			TextStrokeTransparency = {
+				name = "TextStrokeTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -13994,6 +15582,7 @@ return {
 				serializes = true,
 			},
 			TextTransparency = {
+				name = "TextTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14002,6 +15591,7 @@ return {
 				serializes = true,
 			},
 			TextTruncate = {
+				name = "TextTruncate",
 				type = {type = "Enum", name = "TextTruncate"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14010,6 +15600,7 @@ return {
 				serializes = true,
 			},
 			TextWrap = {
+				name = "TextWrap",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14018,6 +15609,7 @@ return {
 				serializes = false,
 			},
 			TextWrapped = {
+				name = "TextWrapped",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14026,6 +15618,7 @@ return {
 				serializes = true,
 			},
 			TextXAlignment = {
+				name = "TextXAlignment",
 				type = {type = "Enum", name = "TextXAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14034,6 +15627,7 @@ return {
 				serializes = true,
 			},
 			TextYAlignment = {
+				name = "TextYAlignment",
 				type = {type = "Enum", name = "TextYAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14091,6 +15685,7 @@ return {
 		},
 	},
 	TextFilterResult = {
+		name = "TextFilterResult",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14098,9 +15693,11 @@ return {
 		},
 	},
 	TextLabel = {
+		name = "TextLabel",
 		superclass = "GuiLabel",
 		properties = {
 			Font = {
+				name = "Font",
 				type = {type = "Enum", name = "Font"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14109,6 +15706,7 @@ return {
 				serializes = true,
 			},
 			FontSize = {
+				name = "FontSize",
 				type = {type = "Enum", name = "FontSize"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14117,6 +15715,7 @@ return {
 				serializes = false,
 			},
 			LineHeight = {
+				name = "LineHeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14125,6 +15724,7 @@ return {
 				serializes = true,
 			},
 			LocalizedText = {
+				name = "LocalizedText",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14133,6 +15733,7 @@ return {
 				serializes = false,
 			},
 			Text = {
+				name = "Text",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14141,6 +15742,7 @@ return {
 				serializes = true,
 			},
 			TextBounds = {
+				name = "TextBounds",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14149,7 +15751,8 @@ return {
 				serializes = false,
 			},
 			TextColor = {
-				type = {type = "Unimplemented", name = "BrickColor"},
+				name = "TextColor",
+				type = {type = "Data", name = "BrickColor"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14157,6 +15760,7 @@ return {
 				serializes = false,
 			},
 			TextColor3 = {
+				name = "TextColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14165,6 +15769,7 @@ return {
 				serializes = true,
 			},
 			TextFits = {
+				name = "TextFits",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14173,6 +15778,7 @@ return {
 				serializes = false,
 			},
 			TextScaled = {
+				name = "TextScaled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14181,6 +15787,7 @@ return {
 				serializes = true,
 			},
 			TextSize = {
+				name = "TextSize",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14189,6 +15796,7 @@ return {
 				serializes = true,
 			},
 			TextStrokeColor3 = {
+				name = "TextStrokeColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14197,6 +15805,7 @@ return {
 				serializes = true,
 			},
 			TextStrokeTransparency = {
+				name = "TextStrokeTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14205,6 +15814,7 @@ return {
 				serializes = true,
 			},
 			TextTransparency = {
+				name = "TextTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14213,6 +15823,7 @@ return {
 				serializes = true,
 			},
 			TextTruncate = {
+				name = "TextTruncate",
 				type = {type = "Enum", name = "TextTruncate"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14221,6 +15832,7 @@ return {
 				serializes = true,
 			},
 			TextWrap = {
+				name = "TextWrap",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14229,6 +15841,7 @@ return {
 				serializes = false,
 			},
 			TextWrapped = {
+				name = "TextWrapped",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14237,6 +15850,7 @@ return {
 				serializes = true,
 			},
 			TextXAlignment = {
+				name = "TextXAlignment",
 				type = {type = "Enum", name = "TextXAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14245,6 +15859,7 @@ return {
 				serializes = true,
 			},
 			TextYAlignment = {
+				name = "TextYAlignment",
 				type = {type = "Enum", name = "TextYAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14298,6 +15913,7 @@ return {
 		},
 	},
 	TextService = {
+		name = "TextService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14306,9 +15922,11 @@ return {
 		},
 	},
 	Texture = {
+		name = "Texture",
 		superclass = "Decal",
 		properties = {
 			StudsPerTileU = {
+				name = "StudsPerTileU",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14317,6 +15935,7 @@ return {
 				serializes = true,
 			},
 			StudsPerTileV = {
+				name = "StudsPerTileV",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14339,6 +15958,7 @@ return {
 		},
 	},
 	ThirdPartyUserService = {
+		name = "ThirdPartyUserService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14346,6 +15966,7 @@ return {
 		},
 	},
 	TimerService = {
+		name = "TimerService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14354,9 +15975,11 @@ return {
 		},
 	},
 	Tool = {
+		name = "Tool",
 		superclass = "BackpackItem",
 		properties = {
 			CanBeDropped = {
+				name = "CanBeDropped",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14365,6 +15988,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14373,6 +15997,7 @@ return {
 				serializes = true,
 			},
 			Grip = {
+				name = "Grip",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14381,6 +16006,7 @@ return {
 				serializes = true,
 			},
 			GripForward = {
+				name = "GripForward",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14389,6 +16015,7 @@ return {
 				serializes = false,
 			},
 			GripPos = {
+				name = "GripPos",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14397,6 +16024,7 @@ return {
 				serializes = false,
 			},
 			GripRight = {
+				name = "GripRight",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14405,6 +16033,7 @@ return {
 				serializes = false,
 			},
 			GripUp = {
+				name = "GripUp",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14413,6 +16042,7 @@ return {
 				serializes = false,
 			},
 			ManualActivationOnly = {
+				name = "ManualActivationOnly",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14421,6 +16051,7 @@ return {
 				serializes = true,
 			},
 			RequiresHandle = {
+				name = "RequiresHandle",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14429,6 +16060,7 @@ return {
 				serializes = true,
 			},
 			ToolTip = {
+				name = "ToolTip",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14453,9 +16085,11 @@ return {
 		},
 	},
 	Torque = {
+		name = "Torque",
 		superclass = "Constraint",
 		properties = {
 			RelativeTo = {
+				name = "RelativeTo",
 				type = {type = "Enum", name = "ActuatorRelativeTo"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14464,6 +16098,7 @@ return {
 				serializes = true,
 			},
 			Torque = {
+				name = "Torque",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14483,6 +16118,7 @@ return {
 		},
 	},
 	TotalCountTimeIntervalItem = {
+		name = "TotalCountTimeIntervalItem",
 		superclass = "StatsItem",
 		properties = {
 		},
@@ -14490,6 +16126,7 @@ return {
 		},
 	},
 	TouchInputService = {
+		name = "TouchInputService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14498,6 +16135,7 @@ return {
 		},
 	},
 	TouchTransmitter = {
+		name = "TouchTransmitter",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14505,9 +16143,11 @@ return {
 		},
 	},
 	Trail = {
+		name = "Trail",
 		superclass = "Instance",
 		properties = {
 			Attachment0 = {
+				name = "Attachment0",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14516,6 +16156,7 @@ return {
 				serializes = true,
 			},
 			Attachment1 = {
+				name = "Attachment1",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14524,6 +16165,7 @@ return {
 				serializes = true,
 			},
 			Color = {
+				name = "Color",
 				type = {type = "Data", name = "ColorSequence"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14532,6 +16174,7 @@ return {
 				serializes = true,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14540,6 +16183,7 @@ return {
 				serializes = true,
 			},
 			FaceCamera = {
+				name = "FaceCamera",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14548,6 +16192,7 @@ return {
 				serializes = true,
 			},
 			Lifetime = {
+				name = "Lifetime",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14556,6 +16201,7 @@ return {
 				serializes = true,
 			},
 			LightEmission = {
+				name = "LightEmission",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14564,6 +16210,7 @@ return {
 				serializes = true,
 			},
 			LightInfluence = {
+				name = "LightInfluence",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14572,6 +16219,7 @@ return {
 				serializes = true,
 			},
 			MaxLength = {
+				name = "MaxLength",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14580,6 +16228,7 @@ return {
 				serializes = true,
 			},
 			MinLength = {
+				name = "MinLength",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14588,6 +16237,7 @@ return {
 				serializes = true,
 			},
 			Texture = {
+				name = "Texture",
 				type = {type = "Data", name = "Content"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14596,6 +16246,7 @@ return {
 				serializes = true,
 			},
 			TextureLength = {
+				name = "TextureLength",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14604,6 +16255,7 @@ return {
 				serializes = true,
 			},
 			TextureMode = {
+				name = "TextureMode",
 				type = {type = "Enum", name = "TextureMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14612,6 +16264,7 @@ return {
 				serializes = true,
 			},
 			Transparency = {
+				name = "Transparency",
 				type = {type = "Data", name = "NumberSequence"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14620,6 +16273,7 @@ return {
 				serializes = true,
 			},
 			WidthScale = {
+				name = "WidthScale",
 				type = {type = "Data", name = "NumberSequence"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14631,6 +16285,7 @@ return {
 		defaults = {
 			Attachment0 = nil,
 			Attachment1 = nil,
+			Color = ColorSequence.new(ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))),
 			Enabled = true,
 			FaceCamera = false,
 			Lifetime = 2,
@@ -14642,12 +16297,16 @@ return {
 			Texture = "",
 			TextureLength = 1,
 			TextureMode = 0,
+			Transparency = NumberSequence.new(NumberSequenceKeypoint.new(0, 0.5, 0), NumberSequenceKeypoint.new(1, 0.5, 0)),
+			WidthScale = NumberSequence.new(NumberSequenceKeypoint.new(0, 1, 0), NumberSequenceKeypoint.new(1, 1, 0)),
 		},
 	},
 	Translator = {
+		name = "Translator",
 		superclass = "Instance",
 		properties = {
 			LocaleId = {
+				name = "LocaleId",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14660,9 +16319,11 @@ return {
 		},
 	},
 	TremoloSoundEffect = {
+		name = "TremoloSoundEffect",
 		superclass = "SoundEffect",
 		properties = {
 			Depth = {
+				name = "Depth",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14671,6 +16332,7 @@ return {
 				serializes = true,
 			},
 			Duty = {
+				name = "Duty",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14679,6 +16341,7 @@ return {
 				serializes = true,
 			},
 			Frequency = {
+				name = "Frequency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14697,9 +16360,11 @@ return {
 		},
 	},
 	TriangleMeshPart = {
+		name = "TriangleMeshPart",
 		superclass = "BasePart",
 		properties = {
 			CollisionFidelity = {
+				name = "CollisionFidelity",
 				type = {type = "Enum", name = "CollisionFidelity"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14712,9 +16377,11 @@ return {
 		},
 	},
 	TrussPart = {
+		name = "TrussPart",
 		superclass = "BasePart",
 		properties = {
 			Style = {
+				name = "Style",
 				type = {type = "Enum", name = "Style"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14775,9 +16442,11 @@ return {
 		},
 	},
 	Tween = {
+		name = "Tween",
 		superclass = "TweenBase",
 		properties = {
 			Instance = {
+				name = "Instance",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14786,6 +16455,7 @@ return {
 				serializes = false,
 			},
 			TweenInfo = {
+				name = "TweenInfo",
 				type = {type = "Unimplemented", name = "TweenInfo"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14799,9 +16469,11 @@ return {
 		},
 	},
 	TweenBase = {
+		name = "TweenBase",
 		superclass = "Instance",
 		properties = {
 			PlaybackState = {
+				name = "PlaybackState",
 				type = {type = "Enum", name = "PlaybackState"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14814,6 +16486,7 @@ return {
 		},
 	},
 	TweenService = {
+		name = "TweenService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14822,9 +16495,11 @@ return {
 		},
 	},
 	UIAspectRatioConstraint = {
+		name = "UIAspectRatioConstraint",
 		superclass = "UIConstraint",
 		properties = {
 			AspectRatio = {
+				name = "AspectRatio",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14833,6 +16508,7 @@ return {
 				serializes = true,
 			},
 			AspectType = {
+				name = "AspectType",
 				type = {type = "Enum", name = "AspectType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14841,6 +16517,7 @@ return {
 				serializes = true,
 			},
 			DominantAxis = {
+				name = "DominantAxis",
 				type = {type = "Enum", name = "DominantAxis"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14857,6 +16534,7 @@ return {
 		},
 	},
 	UIBase = {
+		name = "UIBase",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14864,6 +16542,7 @@ return {
 		},
 	},
 	UIComponent = {
+		name = "UIComponent",
 		superclass = "UIBase",
 		properties = {
 		},
@@ -14871,6 +16550,7 @@ return {
 		},
 	},
 	UIConstraint = {
+		name = "UIConstraint",
 		superclass = "UIComponent",
 		properties = {
 		},
@@ -14878,9 +16558,11 @@ return {
 		},
 	},
 	UIGridLayout = {
+		name = "UIGridLayout",
 		superclass = "UIGridStyleLayout",
 		properties = {
 			CellPadding = {
+				name = "CellPadding",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14889,6 +16571,7 @@ return {
 				serializes = true,
 			},
 			CellSize = {
+				name = "CellSize",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14897,6 +16580,7 @@ return {
 				serializes = true,
 			},
 			FillDirectionMaxCells = {
+				name = "FillDirectionMaxCells",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14905,6 +16589,7 @@ return {
 				serializes = true,
 			},
 			StartCorner = {
+				name = "StartCorner",
 				type = {type = "Enum", name = "StartCorner"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14926,9 +16611,11 @@ return {
 		},
 	},
 	UIGridStyleLayout = {
+		name = "UIGridStyleLayout",
 		superclass = "UILayout",
 		properties = {
 			AbsoluteContentSize = {
+				name = "AbsoluteContentSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14937,6 +16624,7 @@ return {
 				serializes = false,
 			},
 			FillDirection = {
+				name = "FillDirection",
 				type = {type = "Enum", name = "FillDirection"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14945,6 +16633,7 @@ return {
 				serializes = true,
 			},
 			HorizontalAlignment = {
+				name = "HorizontalAlignment",
 				type = {type = "Enum", name = "HorizontalAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14953,6 +16642,7 @@ return {
 				serializes = true,
 			},
 			SortOrder = {
+				name = "SortOrder",
 				type = {type = "Enum", name = "SortOrder"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14961,6 +16651,7 @@ return {
 				serializes = true,
 			},
 			VerticalAlignment = {
+				name = "VerticalAlignment",
 				type = {type = "Enum", name = "VerticalAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14973,9 +16664,11 @@ return {
 		},
 	},
 	UIInlineLayout = {
+		name = "UIInlineLayout",
 		superclass = "UIGridStyleLayout",
 		properties = {
 			InlineAlignment = {
+				name = "InlineAlignment",
 				type = {type = "Enum", name = "InlineAlignment"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14994,6 +16687,7 @@ return {
 		},
 	},
 	UILayout = {
+		name = "UILayout",
 		superclass = "UIComponent",
 		properties = {
 		},
@@ -15001,9 +16695,11 @@ return {
 		},
 	},
 	UIListLayout = {
+		name = "UIListLayout",
 		superclass = "UIGridStyleLayout",
 		properties = {
 			Padding = {
+				name = "Padding",
 				type = {type = "Data", name = "UDim"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15022,9 +16718,11 @@ return {
 		},
 	},
 	UIPadding = {
+		name = "UIPadding",
 		superclass = "UIComponent",
 		properties = {
 			PaddingBottom = {
+				name = "PaddingBottom",
 				type = {type = "Data", name = "UDim"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15033,6 +16731,7 @@ return {
 				serializes = true,
 			},
 			PaddingLeft = {
+				name = "PaddingLeft",
 				type = {type = "Data", name = "UDim"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15041,6 +16740,7 @@ return {
 				serializes = true,
 			},
 			PaddingRight = {
+				name = "PaddingRight",
 				type = {type = "Data", name = "UDim"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15049,6 +16749,7 @@ return {
 				serializes = true,
 			},
 			PaddingTop = {
+				name = "PaddingTop",
 				type = {type = "Data", name = "UDim"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15066,9 +16767,11 @@ return {
 		},
 	},
 	UIPageLayout = {
+		name = "UIPageLayout",
 		superclass = "UIGridStyleLayout",
 		properties = {
 			Animated = {
+				name = "Animated",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15077,6 +16780,7 @@ return {
 				serializes = true,
 			},
 			Circular = {
+				name = "Circular",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15085,6 +16789,7 @@ return {
 				serializes = true,
 			},
 			CurrentPage = {
+				name = "CurrentPage",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15093,6 +16798,7 @@ return {
 				serializes = false,
 			},
 			EasingDirection = {
+				name = "EasingDirection",
 				type = {type = "Enum", name = "EasingDirection"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15101,6 +16807,7 @@ return {
 				serializes = true,
 			},
 			EasingStyle = {
+				name = "EasingStyle",
 				type = {type = "Enum", name = "EasingStyle"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15109,6 +16816,7 @@ return {
 				serializes = true,
 			},
 			GamepadInputEnabled = {
+				name = "GamepadInputEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15117,6 +16825,7 @@ return {
 				serializes = true,
 			},
 			Padding = {
+				name = "Padding",
 				type = {type = "Data", name = "UDim"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15125,6 +16834,7 @@ return {
 				serializes = true,
 			},
 			ScrollWheelInputEnabled = {
+				name = "ScrollWheelInputEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15133,6 +16843,7 @@ return {
 				serializes = true,
 			},
 			TouchInputEnabled = {
+				name = "TouchInputEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15141,6 +16852,7 @@ return {
 				serializes = true,
 			},
 			TweenTime = {
+				name = "TweenTime",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15167,9 +16879,11 @@ return {
 		},
 	},
 	UIScale = {
+		name = "UIScale",
 		superclass = "UIComponent",
 		properties = {
 			Scale = {
+				name = "Scale",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15184,9 +16898,11 @@ return {
 		},
 	},
 	UISizeConstraint = {
+		name = "UISizeConstraint",
 		superclass = "UIConstraint",
 		properties = {
 			MaxSize = {
+				name = "MaxSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15195,6 +16911,7 @@ return {
 				serializes = true,
 			},
 			MinSize = {
+				name = "MinSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15210,9 +16927,11 @@ return {
 		},
 	},
 	UITableLayout = {
+		name = "UITableLayout",
 		superclass = "UIGridStyleLayout",
 		properties = {
 			FillEmptySpaceColumns = {
+				name = "FillEmptySpaceColumns",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15221,6 +16940,7 @@ return {
 				serializes = true,
 			},
 			FillEmptySpaceRows = {
+				name = "FillEmptySpaceRows",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15229,6 +16949,7 @@ return {
 				serializes = true,
 			},
 			MajorAxis = {
+				name = "MajorAxis",
 				type = {type = "Enum", name = "TableMajorAxis"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15237,6 +16958,7 @@ return {
 				serializes = true,
 			},
 			Padding = {
+				name = "Padding",
 				type = {type = "Data", name = "UDim2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15258,9 +16980,11 @@ return {
 		},
 	},
 	UITextSizeConstraint = {
+		name = "UITextSizeConstraint",
 		superclass = "UIConstraint",
 		properties = {
 			MaxTextSize = {
+				name = "MaxTextSize",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15269,6 +16993,7 @@ return {
 				serializes = true,
 			},
 			MinTextSize = {
+				name = "MinTextSize",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15284,6 +17009,7 @@ return {
 		},
 	},
 	UnionOperation = {
+		name = "UnionOperation",
 		superclass = "PartOperation",
 		properties = {
 		},
@@ -15340,9 +17066,11 @@ return {
 		},
 	},
 	UserGameSettings = {
+		name = "UserGameSettings",
 		superclass = "Instance",
 		properties = {
 			AllTutorialsDisabled = {
+				name = "AllTutorialsDisabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15351,6 +17079,7 @@ return {
 				serializes = true,
 			},
 			CameraMode = {
+				name = "CameraMode",
 				type = {type = "Enum", name = "CustomCameraMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15359,6 +17088,7 @@ return {
 				serializes = true,
 			},
 			CameraYInverted = {
+				name = "CameraYInverted",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15367,6 +17097,7 @@ return {
 				serializes = true,
 			},
 			ChatVisible = {
+				name = "ChatVisible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15375,6 +17106,7 @@ return {
 				serializes = true,
 			},
 			ComputerCameraMovementMode = {
+				name = "ComputerCameraMovementMode",
 				type = {type = "Enum", name = "ComputerCameraMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15383,6 +17115,7 @@ return {
 				serializes = true,
 			},
 			ComputerMovementMode = {
+				name = "ComputerMovementMode",
 				type = {type = "Enum", name = "ComputerMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15391,6 +17124,7 @@ return {
 				serializes = true,
 			},
 			ControlMode = {
+				name = "ControlMode",
 				type = {type = "Enum", name = "ControlMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15399,6 +17133,7 @@ return {
 				serializes = true,
 			},
 			Fullscreen = {
+				name = "Fullscreen",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15407,6 +17142,7 @@ return {
 				serializes = true,
 			},
 			GamepadCameraSensitivity = {
+				name = "GamepadCameraSensitivity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15415,6 +17151,7 @@ return {
 				serializes = true,
 			},
 			HasEverUsedVR = {
+				name = "HasEverUsedVR",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15423,6 +17160,7 @@ return {
 				serializes = true,
 			},
 			IsUsingCameraYInverted = {
+				name = "IsUsingCameraYInverted",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15431,6 +17169,7 @@ return {
 				serializes = false,
 			},
 			IsUsingGamepadCameraSensitivity = {
+				name = "IsUsingGamepadCameraSensitivity",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15439,6 +17178,7 @@ return {
 				serializes = false,
 			},
 			MasterVolume = {
+				name = "MasterVolume",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15447,6 +17187,7 @@ return {
 				serializes = true,
 			},
 			MicroProfilerWebServerEnabled = {
+				name = "MicroProfilerWebServerEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15455,6 +17196,7 @@ return {
 				serializes = true,
 			},
 			MicroProfilerWebServerIP = {
+				name = "MicroProfilerWebServerIP",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15463,6 +17205,7 @@ return {
 				serializes = false,
 			},
 			MicroProfilerWebServerPort = {
+				name = "MicroProfilerWebServerPort",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15471,6 +17214,7 @@ return {
 				serializes = false,
 			},
 			MouseSensitivity = {
+				name = "MouseSensitivity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15479,6 +17223,7 @@ return {
 				serializes = true,
 			},
 			MouseSensitivityFirstPerson = {
+				name = "MouseSensitivityFirstPerson",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15487,6 +17232,7 @@ return {
 				serializes = true,
 			},
 			MouseSensitivityThirdPerson = {
+				name = "MouseSensitivityThirdPerson",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15495,6 +17241,7 @@ return {
 				serializes = true,
 			},
 			OnScreenProfilerEnabled = {
+				name = "OnScreenProfilerEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15503,6 +17250,7 @@ return {
 				serializes = true,
 			},
 			OnboardingsCompleted = {
+				name = "OnboardingsCompleted",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15511,6 +17259,7 @@ return {
 				serializes = false,
 			},
 			PerformanceStatsVisible = {
+				name = "PerformanceStatsVisible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15519,6 +17268,7 @@ return {
 				serializes = true,
 			},
 			RCCProfilerRecordFrameRate = {
+				name = "RCCProfilerRecordFrameRate",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15527,6 +17277,7 @@ return {
 				serializes = true,
 			},
 			RCCProfilerRecordTimeFrame = {
+				name = "RCCProfilerRecordTimeFrame",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15535,6 +17286,7 @@ return {
 				serializes = true,
 			},
 			RotationType = {
+				name = "RotationType",
 				type = {type = "Enum", name = "RotationType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15543,6 +17295,7 @@ return {
 				serializes = false,
 			},
 			SavedQualityLevel = {
+				name = "SavedQualityLevel",
 				type = {type = "Enum", name = "SavedQualitySetting"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15551,6 +17304,7 @@ return {
 				serializes = true,
 			},
 			StartMaximized = {
+				name = "StartMaximized",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15559,6 +17313,7 @@ return {
 				serializes = true,
 			},
 			StartScreenPosition = {
+				name = "StartScreenPosition",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15567,6 +17322,7 @@ return {
 				serializes = true,
 			},
 			StartScreenSize = {
+				name = "StartScreenSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15575,6 +17331,7 @@ return {
 				serializes = true,
 			},
 			TouchCameraMovementMode = {
+				name = "TouchCameraMovementMode",
 				type = {type = "Enum", name = "TouchCameraMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15583,6 +17340,7 @@ return {
 				serializes = true,
 			},
 			TouchMovementMode = {
+				name = "TouchMovementMode",
 				type = {type = "Enum", name = "TouchMovementMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15591,6 +17349,7 @@ return {
 				serializes = true,
 			},
 			UsedCoreGuiIsVisibleToggle = {
+				name = "UsedCoreGuiIsVisibleToggle",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15599,6 +17358,7 @@ return {
 				serializes = true,
 			},
 			UsedCustomGuiIsVisibleToggle = {
+				name = "UsedCustomGuiIsVisibleToggle",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15607,6 +17367,7 @@ return {
 				serializes = true,
 			},
 			UsedHideHudShortcut = {
+				name = "UsedHideHudShortcut",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15615,6 +17376,7 @@ return {
 				serializes = true,
 			},
 			VREnabled = {
+				name = "VREnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15623,6 +17385,7 @@ return {
 				serializes = true,
 			},
 			VRRotationIntensity = {
+				name = "VRRotationIntensity",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15635,9 +17398,11 @@ return {
 		},
 	},
 	UserInputService = {
+		name = "UserInputService",
 		superclass = "Instance",
 		properties = {
 			AccelerometerEnabled = {
+				name = "AccelerometerEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15646,6 +17411,7 @@ return {
 				serializes = false,
 			},
 			BottomBarSize = {
+				name = "BottomBarSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15654,6 +17420,7 @@ return {
 				serializes = false,
 			},
 			GamepadEnabled = {
+				name = "GamepadEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15662,6 +17429,7 @@ return {
 				serializes = false,
 			},
 			GazeSelectionEnabled = {
+				name = "GazeSelectionEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15670,6 +17438,7 @@ return {
 				serializes = false,
 			},
 			GyroscopeEnabled = {
+				name = "GyroscopeEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15678,6 +17447,7 @@ return {
 				serializes = false,
 			},
 			KeyboardEnabled = {
+				name = "KeyboardEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15686,6 +17456,7 @@ return {
 				serializes = false,
 			},
 			LegacyInputEventsEnabled = {
+				name = "LegacyInputEventsEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15694,6 +17465,7 @@ return {
 				serializes = true,
 			},
 			ModalEnabled = {
+				name = "ModalEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15702,6 +17474,7 @@ return {
 				serializes = false,
 			},
 			MouseBehavior = {
+				name = "MouseBehavior",
 				type = {type = "Enum", name = "MouseBehavior"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15710,6 +17483,7 @@ return {
 				serializes = true,
 			},
 			MouseDeltaSensitivity = {
+				name = "MouseDeltaSensitivity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15718,6 +17492,7 @@ return {
 				serializes = false,
 			},
 			MouseEnabled = {
+				name = "MouseEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15726,6 +17501,7 @@ return {
 				serializes = false,
 			},
 			MouseIconEnabled = {
+				name = "MouseIconEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15734,6 +17510,7 @@ return {
 				serializes = true,
 			},
 			NavBarSize = {
+				name = "NavBarSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15742,6 +17519,7 @@ return {
 				serializes = false,
 			},
 			OnScreenKeyboardAnimationDuration = {
+				name = "OnScreenKeyboardAnimationDuration",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15750,6 +17528,7 @@ return {
 				serializes = false,
 			},
 			OnScreenKeyboardPosition = {
+				name = "OnScreenKeyboardPosition",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15758,6 +17537,7 @@ return {
 				serializes = false,
 			},
 			OnScreenKeyboardSize = {
+				name = "OnScreenKeyboardSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15766,6 +17546,7 @@ return {
 				serializes = false,
 			},
 			OnScreenKeyboardVisible = {
+				name = "OnScreenKeyboardVisible",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15774,6 +17555,7 @@ return {
 				serializes = false,
 			},
 			OverrideMouseIconBehavior = {
+				name = "OverrideMouseIconBehavior",
 				type = {type = "Enum", name = "OverrideMouseIconBehavior"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15782,6 +17564,7 @@ return {
 				serializes = false,
 			},
 			RightBarSize = {
+				name = "RightBarSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15790,6 +17573,7 @@ return {
 				serializes = false,
 			},
 			StatusBarSize = {
+				name = "StatusBarSize",
 				type = {type = "Data", name = "Vector2"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15798,6 +17582,7 @@ return {
 				serializes = false,
 			},
 			TouchEnabled = {
+				name = "TouchEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15806,6 +17591,7 @@ return {
 				serializes = false,
 			},
 			UserHeadCFrame = {
+				name = "UserHeadCFrame",
 				type = {type = "Data", name = "CFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15814,6 +17600,7 @@ return {
 				serializes = false,
 			},
 			VREnabled = {
+				name = "VREnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15834,6 +17621,7 @@ return {
 		},
 	},
 	UserSettings = {
+		name = "UserSettings",
 		superclass = "GenericSettings",
 		properties = {
 		},
@@ -15841,6 +17629,7 @@ return {
 		},
 	},
 	UserStorageService = {
+		name = "UserStorageService",
 		superclass = "LocalStorageService",
 		properties = {
 		},
@@ -15848,9 +17637,11 @@ return {
 		},
 	},
 	VRService = {
+		name = "VRService",
 		superclass = "Instance",
 		properties = {
 			GuiInputUserCFrame = {
+				name = "GuiInputUserCFrame",
 				type = {type = "Enum", name = "UserCFrame"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15859,6 +17650,7 @@ return {
 				serializes = false,
 			},
 			VRDeviceName = {
+				name = "VRDeviceName",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15867,6 +17659,7 @@ return {
 				serializes = false,
 			},
 			VREnabled = {
+				name = "VREnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15881,6 +17674,7 @@ return {
 		},
 	},
 	ValueBase = {
+		name = "ValueBase",
 		superclass = "Instance",
 		properties = {
 		},
@@ -15888,9 +17682,11 @@ return {
 		},
 	},
 	Vector3Value = {
+		name = "Vector3Value",
 		superclass = "ValueBase",
 		properties = {
 			Value = {
+				name = "Value",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15905,9 +17701,11 @@ return {
 		},
 	},
 	VectorForce = {
+		name = "VectorForce",
 		superclass = "Constraint",
 		properties = {
 			ApplyAtCenterOfMass = {
+				name = "ApplyAtCenterOfMass",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15916,6 +17714,7 @@ return {
 				serializes = true,
 			},
 			Force = {
+				name = "Force",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15924,6 +17723,7 @@ return {
 				serializes = true,
 			},
 			RelativeTo = {
+				name = "RelativeTo",
 				type = {type = "Enum", name = "ActuatorRelativeTo"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15944,6 +17744,7 @@ return {
 		},
 	},
 	VehicleController = {
+		name = "VehicleController",
 		superclass = "Controller",
 		properties = {
 		},
@@ -15952,9 +17753,11 @@ return {
 		},
 	},
 	VehicleSeat = {
+		name = "VehicleSeat",
 		superclass = "BasePart",
 		properties = {
 			AreHingesDetected = {
+				name = "AreHingesDetected",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15963,6 +17766,7 @@ return {
 				serializes = false,
 			},
 			Disabled = {
+				name = "Disabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15971,6 +17775,7 @@ return {
 				serializes = true,
 			},
 			HeadsUpDisplay = {
+				name = "HeadsUpDisplay",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15979,6 +17784,7 @@ return {
 				serializes = true,
 			},
 			MaxSpeed = {
+				name = "MaxSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15987,6 +17793,7 @@ return {
 				serializes = true,
 			},
 			Occupant = {
+				name = "Occupant",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -15995,6 +17802,7 @@ return {
 				serializes = false,
 			},
 			Steer = {
+				name = "Steer",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16003,6 +17811,7 @@ return {
 				serializes = true,
 			},
 			SteerFloat = {
+				name = "SteerFloat",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16011,6 +17820,7 @@ return {
 				serializes = true,
 			},
 			Throttle = {
+				name = "Throttle",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16019,6 +17829,7 @@ return {
 				serializes = true,
 			},
 			ThrottleFloat = {
+				name = "ThrottleFloat",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16027,6 +17838,7 @@ return {
 				serializes = true,
 			},
 			Torque = {
+				name = "Torque",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16035,6 +17847,7 @@ return {
 				serializes = true,
 			},
 			TurnSpeed = {
+				name = "TurnSpeed",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16103,9 +17916,11 @@ return {
 		},
 	},
 	VelocityMotor = {
+		name = "VelocityMotor",
 		superclass = "JointInstance",
 		properties = {
 			CurrentAngle = {
+				name = "CurrentAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16114,6 +17929,7 @@ return {
 				serializes = true,
 			},
 			DesiredAngle = {
+				name = "DesiredAngle",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16122,6 +17938,7 @@ return {
 				serializes = true,
 			},
 			Hole = {
+				name = "Hole",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16130,6 +17947,7 @@ return {
 				serializes = true,
 			},
 			MaxVelocity = {
+				name = "MaxVelocity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16151,9 +17969,11 @@ return {
 		},
 	},
 	ViewportFrame = {
+		name = "ViewportFrame",
 		superclass = "GuiObject",
 		properties = {
 			Ambient = {
+				name = "Ambient",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16162,6 +17982,7 @@ return {
 				serializes = true,
 			},
 			CurrentCamera = {
+				name = "CurrentCamera",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16170,6 +17991,7 @@ return {
 				serializes = false,
 			},
 			ImageColor3 = {
+				name = "ImageColor3",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16178,6 +18000,7 @@ return {
 				serializes = true,
 			},
 			ImageTransparency = {
+				name = "ImageTransparency",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16186,6 +18009,7 @@ return {
 				serializes = true,
 			},
 			LightColor = {
+				name = "LightColor",
 				type = {type = "Data", name = "Color3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16194,6 +18018,7 @@ return {
 				serializes = true,
 			},
 			LightDirection = {
+				name = "LightDirection",
 				type = {type = "Data", name = "Vector3"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16238,9 +18063,11 @@ return {
 		},
 	},
 	VirtualInputManager = {
+		name = "VirtualInputManager",
 		superclass = "Instance",
 		properties = {
 			AdditionalLuaState = {
+				name = "AdditionalLuaState",
 				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16255,6 +18082,7 @@ return {
 		},
 	},
 	VirtualUser = {
+		name = "VirtualUser",
 		superclass = "Instance",
 		properties = {
 		},
@@ -16263,6 +18091,7 @@ return {
 		},
 	},
 	Visit = {
+		name = "Visit",
 		superclass = "Instance",
 		properties = {
 		},
@@ -16271,6 +18100,7 @@ return {
 		},
 	},
 	WedgePart = {
+		name = "WedgePart",
 		superclass = "FormFactorPart",
 		properties = {
 		},
@@ -16326,6 +18156,7 @@ return {
 		},
 	},
 	Weld = {
+		name = "Weld",
 		superclass = "JointInstance",
 		properties = {
 		},
@@ -16338,9 +18169,11 @@ return {
 		},
 	},
 	WeldConstraint = {
+		name = "WeldConstraint",
 		superclass = "Instance",
 		properties = {
 			Active = {
+				name = "Active",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16349,6 +18182,7 @@ return {
 				serializes = false,
 			},
 			Enabled = {
+				name = "Enabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16357,6 +18191,7 @@ return {
 				serializes = true,
 			},
 			Part0 = {
+				name = "Part0",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16365,6 +18200,7 @@ return {
 				serializes = false,
 			},
 			Part1 = {
+				name = "Part1",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16381,9 +18217,11 @@ return {
 		},
 	},
 	Workspace = {
+		name = "Workspace",
 		superclass = "Model",
 		properties = {
 			AllowThirdPartySales = {
+				name = "AllowThirdPartySales",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16392,6 +18230,7 @@ return {
 				serializes = true,
 			},
 			AutoJointsMode = {
+				name = "AutoJointsMode",
 				type = {type = "Enum", name = "AutoJointsMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16400,6 +18239,7 @@ return {
 				serializes = true,
 			},
 			CurrentCamera = {
+				name = "CurrentCamera",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16408,6 +18248,7 @@ return {
 				serializes = true,
 			},
 			DistributedGameTime = {
+				name = "DistributedGameTime",
 				type = {type = "Data", name = "Float64"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16416,6 +18257,7 @@ return {
 				serializes = true,
 			},
 			FallenPartsDestroyHeight = {
+				name = "FallenPartsDestroyHeight",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16424,6 +18266,7 @@ return {
 				serializes = true,
 			},
 			FilteringEnabled = {
+				name = "FilteringEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16432,6 +18275,7 @@ return {
 				serializes = true,
 			},
 			Gravity = {
+				name = "Gravity",
 				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16440,6 +18284,7 @@ return {
 				serializes = true,
 			},
 			StreamingEnabled = {
+				name = "StreamingEnabled",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16448,6 +18293,7 @@ return {
 				serializes = true,
 			},
 			StreamingMinRadius = {
+				name = "StreamingMinRadius",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16456,6 +18302,7 @@ return {
 				serializes = true,
 			},
 			StreamingPauseMode = {
+				name = "StreamingPauseMode",
 				type = {type = "Enum", name = "StreamingPauseMode"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16464,6 +18311,7 @@ return {
 				serializes = true,
 			},
 			StreamingTargetRadius = {
+				name = "StreamingTargetRadius",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16472,6 +18320,7 @@ return {
 				serializes = true,
 			},
 			TemporaryLegacyPhysicsSolverOverride = {
+				name = "TemporaryLegacyPhysicsSolverOverride",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -16480,6 +18329,7 @@ return {
 				serializes = false,
 			},
 			Terrain = {
+				name = "Terrain",
 				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
