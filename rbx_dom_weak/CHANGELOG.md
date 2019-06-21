@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+
+## 1.8.1 (2019-06-20)
 * Fixed Serde being able to deserialize `RbxValue` and `RbxValueType`'s internal `__Nonexhaustive` value. This should also fix Serde recommending this value to users in error messages.
 * Fixed `BrickColor` serialization to use Roblox color names
 
