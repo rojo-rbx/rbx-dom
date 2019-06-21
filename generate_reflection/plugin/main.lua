@@ -5,6 +5,8 @@ local ERROR_AT_END = false
 
 local EncodedValue = require(script.Parent.EncodedValue)
 
+local ReflectionClasses = require(script.Parent.ReflectionClasses)
+
 local function verbosePrint(...)
 	if VERBOSE then
 		print(...)
@@ -87,11 +89,7 @@ return function(postMessage)
 		version = getClientVersion(),
 	}))
 
-	local ReflectionDatabase = {
-		classes = require(script.Parent.ReflectionClasses),
-	}
-
-	for _, class in pairs(ReflectionDatabase.classes) do
+	for _, class in pairs(ReflectionClasses) do
 		local instance = getDefaultInstance(class.name)
 
 		if instance ~= nil then
@@ -118,7 +116,7 @@ return function(postMessage)
 					end
 				end
 
-				currentClass = ReflectionDatabase.classes[currentClass.superclass]
+				currentClass = ReflectionClasses[currentClass.superclass]
 			end
 
 			if next(defaultProperties) ~= nil then
