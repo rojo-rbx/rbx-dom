@@ -1,4 +1,4 @@
-use rbx_dom_weak::{RbxValue, RbxValueType, RbxValueConversion};
+use rbx_dom_weak::{BrickColor, RbxValue, RbxValueType, RbxValueConversion};
 
 #[test]
 fn color3_to_color3uint8() {
@@ -47,5 +47,28 @@ fn color3uint8_to_color3() {
         RbxValueConversion::Converted(RbxValue::Color3 {
             value: [1.0, 1.0, 1.0],
         }),
+    );
+}
+
+#[test]
+fn int_to_brickcolor() {
+    let eggplant = RbxValue::Int32 { value: 33 };
+    assert_eq!(
+        eggplant.try_convert_ref(RbxValueType::BrickColor),
+        RbxValueConversion::Converted(RbxValue::BrickColor {
+            value: BrickColor::Eggplant,
+        }),
+    );
+
+    let zero = RbxValue::Int32 { value: 0 };
+    assert_eq!(
+        zero.try_convert_ref(RbxValueType::BrickColor),
+        RbxValueConversion::Failed,
+    );
+
+    let out_of_range = RbxValue::Int32 { value: 300 };
+    assert_eq!(
+        out_of_range.try_convert_ref(RbxValueType::BrickColor),
+        RbxValueConversion::Failed,
     );
 }

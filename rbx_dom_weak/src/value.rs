@@ -192,14 +192,24 @@ impl RbxValue {
         // These conversions should be uniform in style.
         #[allow(clippy::cast_lossless)]
         match (self, target_type) {
-            (RbxValue::Float32 { value }, RbxValueType::Float64) => Converted(RbxValue::Float64 { value: *value as f64 }),
-            (RbxValue::Float64 { value }, RbxValueType::Float32) => Converted(RbxValue::Float32 { value: *value as f32 }),
+            // Floats can be widened for compatibility
+            (RbxValue::Float32 { value }, RbxValueType::Float64) =>
+                Converted(RbxValue::Float64 { value: *value as f64 }),
+            (RbxValue::Float64 { value }, RbxValueType::Float32) =>
+                Converted(RbxValue::Float32 { value: *value as f32 }),
 
+            // Integers can be widened; MANY types migrated from Int32 to Int64
+            // and may appear as either.
             (RbxValue::Int32 { value }, RbxValueType::Int64) => Converted(RbxValue::Int64 { value: *value as i64 }),
             (RbxValue::Int64 { value }, RbxValueType::Int32) => Converted(RbxValue::Int32 { value: *value as i32 }),
 
+            // Strings can be treated as content values for compatibility, and
+            // since their representation is functionally identical.
             (RbxValue::String { value }, RbxValueType::Content) => Converted(RbxValue::Content { value: value.clone() }),
 
+            // The difference between Color3 and Color3uint8 isn't surfaced to
+            // users. The difference is meaningful for lighting properties that
+            // can represent HDR colors.
             (RbxValue::Color3 { value }, RbxValueType::Color3uint8) => {
                 Converted(RbxValue::Color3uint8 {
                     value: [
@@ -218,10 +228,30 @@ impl RbxValue {
                     ],
                 })
             }
-            (RbxValue::BrickColor { value }, RbxValueType::Color3) => Converted(RbxValue::Color3 { value: value.as_rgb_f32() }),
-            (RbxValue::BrickColor { value }, RbxValueType::Color3uint8) => Converted(RbxValue::Color3uint8 { value: value.as_rgb() }),
 
-            (_this, _) => Failed
+            // BrickColor can be converted one-way to Color3 or Color3uint8,
+            // which is generally preferred. We don't have the opposite
+            // conversion, which is much less useful.
+            (RbxValue::BrickColor { value }, RbxValueType::Color3) =>
+                Converted(RbxValue::Color3 { value: value.as_rgb_f32() }),
+            (RbxValue::BrickColor { value }, RbxValueType::Color3uint8) =>
+                Converted(RbxValue::Color3uint8 { value: value.as_rgb() }),
+
+            // Some BrickColor properties (like SpawnLocation.TeamColor) are
+            // ints for some reason, so we downcast them if they're in range for
+            // BrickColor.
+            (RbxValue::Int32 { value }, RbxValueType::BrickColor) => {
+                if *value > 255 || *value < 0 {
+                    return Failed;
+                }
+
+                match BrickColor::from_palette(*value as u8) {
+                    Some(converted) => Converted(RbxValue::BrickColor { value: converted }),
+                    None => Failed,
+                }
+            }
+
+            _ => Failed
         }
     }
 }
