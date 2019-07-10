@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+
+## 1.8.2 (2019-07-10)
 * Added conversion from `Int32` to `BrickColor`. This should fix serialization of `SpawnLocation` instances, which use `int` instead of `BrickColor` in at least the XML model format.
 
 ## 1.8.1 (2019-06-20)
