@@ -87,5 +87,8 @@ This project has unveiled a handful of interesting bugs and quirks in Roblox!
 - `Color3` properties not serialized as `Color3uint8` would have their colors mistakenly clamped in the XML place format. This was bad for properties on `Lighting`.
 - `ColorSequence`'s XML serialization contains an extra value per keypoint that was intended to be used as an envelope value, but was never implemented.
 
+## Minimum Rust Version
+This project tries (via CI) to support Rust 1.32.0 and newer.
+
 ## License
 rbx-dom is available under the MIT license. See [LICENSE.txt](LICENSE.txt) for details.
