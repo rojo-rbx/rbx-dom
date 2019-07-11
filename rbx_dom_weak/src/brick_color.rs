@@ -18,6 +18,8 @@ macro_rules! make_brick_color {
 
         impl BrickColor {
             pub fn from_name(name: &str) -> Option<BrickColor> {
+                // There are collisions in names of some colors
+                #[allow(unreachable_patterns)]
                 match name {
                     $(
                         $name => Some(BrickColor::$enum),
@@ -286,7 +288,7 @@ make_brick_color!({
     [Mauve, "Mauve", 342, (224, 178, 208)],
     [Sunrise, "Sunrise", 343, (212, 144, 189)],
     [Tawny, "Tawny", 344, (150, 85, 85)],
-    [Rust_2, "Rust", 345, (143, 76, 42)],
+    [Rust2, "Rust", 345, (143, 76, 42)],
     [Cashmere, "Cashmere", 346, (211, 190, 150)],
     [Khaki, "Khaki", 347, (226, 220, 188)],
     [LilyWhite, "Lily white", 348, (237, 234, 234)],
@@ -323,7 +325,7 @@ make_brick_color!({
     [CGABrown, "CGA brown", 1014, (170, 85, 0)],
     [Magenta, "Magenta", 1015, (170, 0, 170)],
     [Pink, "Pink", 1016, (255, 102, 204)],
-    [DeepOrange_2, "Deep orange", 1017, (255, 175, 0)],
+    [DeepOrange2, "Deep orange", 1017, (255, 175, 0)],
     [Teal, "Teal", 1018, (18, 238, 212)],
     [Toothpaste, "Toothpaste", 1019, (0, 255, 255)],
     [LimeGreen, "Lime green", 1020, (0, 255, 0)],
