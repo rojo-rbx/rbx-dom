@@ -242,12 +242,16 @@ impl RbxValue {
             // BrickColor.
             (RbxValue::Int32 { value }, RbxValueType::BrickColor) => {
                 if *value > 255 || *value < 0 {
+                    println!("OUT OF RANGE");
                     return Failed;
                 }
 
                 match BrickColor::from_palette(*value as u8) {
                     Some(converted) => Converted(RbxValue::BrickColor { value: converted }),
-                    None => Failed,
+                    None => {
+                        println!("NOT FOUND");
+                        Failed
+                    }
                 }
             }
 
