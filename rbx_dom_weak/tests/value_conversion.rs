@@ -52,7 +52,7 @@ fn color3uint8_to_color3() {
 
 #[test]
 fn int_to_brickcolor() {
-    let eggplant = RbxValue::Int32 { value: 33 };
+    let eggplant = RbxValue::Int32 { value: 316 };
     assert_eq!(
         eggplant.try_convert_ref(RbxValueType::BrickColor),
         RbxValueConversion::Converted(RbxValue::BrickColor {
@@ -66,7 +66,7 @@ fn int_to_brickcolor() {
         RbxValueConversion::Failed,
     );
 
-    let out_of_range = RbxValue::Int32 { value: 300 };
+    let out_of_range = RbxValue::Int32 { value: 9999999 };
     assert_eq!(
         out_of_range.try_convert_ref(RbxValueType::BrickColor),
         RbxValueConversion::Failed,

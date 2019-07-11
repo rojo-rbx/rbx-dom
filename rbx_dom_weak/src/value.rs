@@ -241,15 +241,13 @@ impl RbxValue {
             // ints for some reason, so we downcast them if they're in range for
             // BrickColor.
             (RbxValue::Int32 { value }, RbxValueType::BrickColor) => {
-                if *value > 255 || *value < 0 {
-                    println!("OUT OF RANGE");
+                if *value < 0 || *value > std::u16::MAX as i32 {
                     return Failed;
                 }
 
-                match BrickColor::from_palette(*value as u8) {
+                match BrickColor::from_number(*value as u16) {
                     Some(converted) => Converted(RbxValue::BrickColor { value: converted }),
                     None => {
-                        println!("NOT FOUND");
                         Failed
                     }
                 }
