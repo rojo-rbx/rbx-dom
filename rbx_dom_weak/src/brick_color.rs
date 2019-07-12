@@ -10,15 +10,31 @@ macro_rules! make_brick_color {
             ($color3_r: expr, $color3_g: expr, $color3_b: expr)
         ],)+
     }) => {
+        /// BrickColor values were the old, palette-based system of defining
+        /// colors in Roblox. As of the time of writing, they're still used for
+        /// some old systems like SpawnLocation and Team objects.
+        ///
+        /// Parts no longer use BrickColor, but we have conversions here to
+        /// support older models.
         #[derive(Debug, Clone, Copy, PartialEq)]
-        #[repr(u16)]
         pub enum BrickColor {
             $($enum = $value,)+
         }
 
         impl BrickColor {
+            /// Find the first BrickColor with the given name, if it exists.
+            ///
+            /// Note that some colors (Lilac, Rust, Gold, and Deep orange) have
+            /// name collisions and can only have one of their variants
+            /// constructed from this function.
+            ///
+            /// This is roughly equivalent to `BrickColor.new(string)` from
+            /// within Roblox, except unknown values will yield `None` instead
+            /// of `Medium stone grey`.
             pub fn from_name(name: &str) -> Option<BrickColor> {
-                // There are collisions in names of some colors
+                // There are collisions in names of some colors. This should
+                // work the same way that Roblox works when mapping names to
+                // BrickColors!
                 #[allow(unreachable_patterns)]
                 match name {
                     $(
@@ -29,6 +45,13 @@ macro_rules! make_brick_color {
                 }
             }
 
+            /// Finds the BrickColor from its associated value. This is
+            /// different from a BrickColor's _palette_ number, which not all
+            /// colors have.
+            ///
+            /// This is roughly equivalent to `BrickColor.new(number)` from
+            /// within Roblox, except unknown values will yield `None` instead
+            /// of `Medium stone grey`.
             pub fn from_number(value: u16) -> Option<BrickColor> {
                 match value {
                     $(
@@ -344,6 +367,13 @@ make_brick_color!({
 });
 
 impl BrickColor {
+    /// Convert from a BrickColor palette number to a BrickColor.
+    ///
+    /// This function should not be used for new code, it only exists because of
+    /// a misunderstanding of the range of valid BrickColor values.
+    ///
+    /// This function operates like `BrickColor.palette` within Roblox.
+    #[deprecated]
     pub fn from_palette(value: u8) -> Option<BrickColor> {
         match value {
             1 => Some(BrickColor::SlimeGreen),
