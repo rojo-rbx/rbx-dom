@@ -315,7 +315,10 @@ impl BrickColor {
     /// a misunderstanding of the range of valid BrickColor values.
     ///
     /// This function operates like `BrickColor.palette` within Roblox.
-    #[deprecated]
+    #[deprecated(
+        since = "1.9.0",
+        note = "Please use BrickColor::from_number instead"
+    )]
     pub fn from_palette(value: u8) -> Option<BrickColor> {
         match value {
             1 => Some(BrickColor::SlimeGreen),
