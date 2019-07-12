@@ -1,5 +1,6 @@
-use serde::{Serialize, Serializer, Deserialize, Deserializer};
 use std::fmt;
+
+use serde_repr::{Serialize_repr, Deserialize_repr};
 
 macro_rules! make_brick_color {
     ({
@@ -16,7 +17,8 @@ macro_rules! make_brick_color {
         ///
         /// Parts no longer use BrickColor, but we have conversions here to
         /// support older models.
-        #[derive(Debug, Clone, Copy, PartialEq)]
+        #[derive(Debug, Clone, Copy, PartialEq, Serialize_repr, Deserialize_repr)]
+        #[repr(u16)]
         pub enum BrickColor {
             $($enum = $value,)+
         }
@@ -89,66 +91,6 @@ macro_rules! make_brick_color {
                     $(
                         BrickColor::$enum => write!(writer, $name),
                     )+
-                }
-            }
-        }
-
-        impl<'de> Deserialize<'de> for BrickColor {
-            fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-                struct NameVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for NameVisitor {
-                    type Value = BrickColor;
-
-                    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-                        formatter.write_str("the name of a brick color")
-                    }
-
-                    fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        BrickColor::from_name(value)
-                            .ok_or_else(||
-                                E::custom(format!("unknown brick color name: {}", &value))
-                            )
-                    }
-                }
-
-                struct PaletteVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for PaletteVisitor {
-                    type Value = BrickColor;
-
-                    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-                        formatter.write_str("the palette of a brick color")
-                    }
-
-                    fn visit_u8<E>(self, value: u8) -> Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        BrickColor::from_palette(value)
-                            .ok_or_else(||
-                                E::custom(format!("unknown brick color value: {}", &value))
-                            )
-                    }
-                }
-
-                if deserializer.is_human_readable() {
-                    deserializer.deserialize_str(NameVisitor)
-                } else {
-                    deserializer.deserialize_u8(PaletteVisitor)
-                }
-            }
-        }
-
-        impl Serialize for BrickColor {
-            fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-                if serializer.is_human_readable() {
-                    serializer.serialize_str(&self.to_string())
-                } else {
-                    serializer.serialize_u8(*self as u8)
                 }
             }
         }
@@ -515,12 +457,18 @@ mod tests {
 
     #[test]
     fn from_name() {
-        assert_eq!(BrickColor::from_name("Pastel brown").unwrap().to_string(), "Pastel brown");
+        assert_eq!(BrickColor::from_name("Pastel brown"), Some(BrickColor::PastelBrown));
     }
 
     #[test]
+    #[allow(deprecated)]
     fn from_palette() {
-        assert_eq!(BrickColor::from_palette(99).unwrap().to_string(), "Pastel brown");
+        assert_eq!(BrickColor::from_palette(99), Some(BrickColor::PastelBrown));
+    }
+
+    #[test]
+    fn from_number() {
+        assert_eq!(BrickColor::from_number(1030), Some(BrickColor::PastelBrown));
     }
 
     #[test]
@@ -530,12 +478,12 @@ mod tests {
 
     #[test]
     fn test_round_trip() {
-        let value = BrickColor::from_name("Pastel brown").unwrap();
+        let value = BrickColor::PastelBrown;
 
         let serialized = serde_json::to_string(&value).unwrap();
-        assert_eq!(serialized, "\"Pastel brown\"");
+        assert_eq!(serialized, "1030");
 
-        let deserialized = serde_json::from_str(&serialized).unwrap();
-        assert_eq!(value, deserialized);
+        let deserialized: BrickColor = serde_json::from_str(&serialized).unwrap();
+        assert_eq!(deserialized, value);
     }
 }
