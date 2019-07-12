@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Added support for reading and writing `BrickColor` values.
 
 ## 0.10.0 (2019-06-10)
 * Added support for INF and NAN values in compound types like Vector2 ([#62](https://github.com/LPGhatguy/rbx-dom/pull/62))

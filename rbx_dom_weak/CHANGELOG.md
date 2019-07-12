@@ -1,6 +1,14 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+* Changed `BrickColor` to be much more correct
+	* All BrickColor values are now correctly available instead of just palette colors
+	* Enum values now align with the `BrickColor.Number` property and `BrickColor.new` constructor
+	* `BrickColor` no longer serializes to strings in human-readable Serde formats to avoid information loss. These colors have colliding names:
+		* Rust
+		* Lilac
+		* Gold
+		* Deep orange
 
 ## 1.8.2 (2019-07-10)
 * Added conversion from `Int32` to `BrickColor`. This should fix serialization of `SpawnLocation` instances, which use `int` instead of `BrickColor` in at least the XML model format.

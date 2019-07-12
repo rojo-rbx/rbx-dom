@@ -40,7 +40,7 @@ Roblox reflection information for working with Instances in external tooling.
 | Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ | ❌ |
 | BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ❌ |
 | Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
-| BrickColor         | `Part.BrickColor`               | ✔ | ❌ | ❌ | ❌ |
+| BrickColor         | `Part.BrickColor`               | ✔ | ❌ | ✔ | ❌ |
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ❌ |
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ❌ |
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
