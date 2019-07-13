@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+
+## 1.9.0 (2019-07-12)
 * Changed `BrickColor` to be much more correct
 	* All BrickColor values are now correctly available instead of just palette colors
 	* Enum values now align with the `BrickColor.Number` property and `BrickColor.new` constructor
