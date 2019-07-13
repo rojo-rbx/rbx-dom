@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.11.0 (2019-07-12)
 * Added support for reading and writing `BrickColor` values.
 
 ## 0.10.0 (2019-06-10)

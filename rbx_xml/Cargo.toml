@@ -5,14 +5,14 @@ license = "MIT"
 documentation = "https://docs.rs/rbx_xml"
 homepage = "https://github.com/LPGhatguy/rbx-dom"
 repository = "https://github.com/LPGhatguy/rbx-dom.git"
-version = "0.10.0"
+version = "0.11.0"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
 base64 = "0.10.0"
 log = "0.4.6"
-rbx_dom_weak = { version = "1.8.2", path = "../rbx_dom_weak" }
+rbx_dom_weak = { version = "1.9.0", path = "../rbx_dom_weak" }
 rbx_reflection = { version = "3.1.388", path = "../rbx_reflection" }
 xml-rs = "0.8"
 
