@@ -84,6 +84,11 @@ macro_rules! declare_rbx_types {
             match value {
                 $(RbxValue::$rbx_type { value } => <$typedef>::write_xml(writer, xml_property_name, value),)*
 
+                // BrickColor values just encode as 32-bit ints, and have no
+                // unique appearance for reading.
+                RbxValue::BrickColor { value } =>
+                    self::numbers::Int32Type::write_xml(writer, xml_property_name, &(*value as i32)),
+
                 RbxValue::Ref { value } => write_ref(writer, xml_property_name, value, state),
                 RbxValue::SharedString { value } => write_shared_string(writer, xml_property_name, value, state),
 
