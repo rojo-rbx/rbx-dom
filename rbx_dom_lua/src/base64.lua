@@ -103,6 +103,7 @@ local function decodeBase64(str)
 			out[nOut + 3] = char(b3)
 			nOut = nOut + 3
 			nAcc = 0
+			acc = 0
 		end
 	end
 
