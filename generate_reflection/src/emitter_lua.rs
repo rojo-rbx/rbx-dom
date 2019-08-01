@@ -170,7 +170,7 @@ impl AsLua for RbxValue {
             Int64 { value } => write!(output, "{}", value),
             NumberRange { value } => write!(output, "NumberRange.new({}, {})", value.0, value.1),
             NumberSequence { value } => {
-                write!(output, "NumberSequence.new(")?;
+                write!(output, "NumberSequence.new({{")?;
 
                 for (index, keypoint) in value.keypoints.iter().enumerate() {
                     write!(output, "NumberSequenceKeypoint.new({}, {}, {})",
@@ -181,10 +181,10 @@ impl AsLua for RbxValue {
                     }
                 }
 
-                write!(output, ")")
+                write!(output, "}})")
             }
             ColorSequence { value } => {
-                write!(output, "ColorSequence.new(")?;
+                write!(output, "ColorSequence.new({{")?;
 
                 for (index, keypoint) in value.keypoints.iter().enumerate() {
                     write!(output, "ColorSequenceKeypoint.new({}, Color3.new({}, {}, {}))",
@@ -195,7 +195,7 @@ impl AsLua for RbxValue {
                     }
                 }
 
-                write!(output, ")")
+                write!(output, "}})")
             }
             Rect { value } => {
                 write!(output, "Rect.new({}, {}, {}, {})", value.min.0, value.min.1, value.max.0, value.max.1)
