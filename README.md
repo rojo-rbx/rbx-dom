@@ -1,5 +1,5 @@
 # rbx-dom
-![Travis-CI Build Status](https://api.travis-ci.org/LPGhatguy/rbx-dom.svg?branch=master)
+[![Travis-CI Build Status](https://api.travis-ci.org/rojo-rbx/rbx-dom.svg?branch=master)](https://travis-ci.org/rojo-rbx/rbx-dom)
 
 rbx-dom is a collection of crates to help represent, serialize, and deserialize Roblox DOMs. The goal of rbx-dom is to have a common format that projects like [Rojo](https://github.com/LPGhatguy/rojo) can use for handling Instances efficiently.
 
