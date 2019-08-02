@@ -72,6 +72,7 @@ fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) ->
             ColorSequence,
             ColorSequenceKeypoint,
             Rect,
+            BrickColor,
         };
         use crate::reflection_types::*;
 
@@ -408,6 +409,13 @@ impl AsRust for RbxValue {
 
                 quote!(RbxValue::NumberRange {
                     value: (#min_literal, #max_literal),
+                })
+            },
+            RbxValue::BrickColor { value } => {
+                let value_literal = Literal::u16_unsuffixed(*value as u16);
+
+                quote!(RbxValue::BrickColor {
+                    value: BrickColor::from_number(#value_literal).unwrap(),
                 })
             },
             _ => unimplemented!("emitting Rust type {:?}", self.get_type()),

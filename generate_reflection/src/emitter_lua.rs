@@ -223,7 +223,8 @@ impl AsLua for RbxValue {
             Vector2int16 { value } => write!(output, "Vector2int16.new({}, {})", value[0], value[1]),
             Vector3 { value } => write!(output, "Vector3.new({}, {}, {})", value[0], value[1], value[2]),
             Vector3int16 { value } => write!(output, "Vector3int16.new({}, {}, {})", value[0], value[1], value[2]),
-            _ => unimplemented!()
+            BrickColor { value } => write!(output, "BrickColor.new({})", *value as u16),
+            other => unimplemented!("Unknown value type: {:?}", other)
         }
     }
 }
