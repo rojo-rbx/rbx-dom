@@ -2,13 +2,13 @@
 #![allow(clippy::approx_constant, clippy::unreadable_literal)]
 use crate::reflection_types::*;
 use rbx_dom_weak::{
-    ColorSequence, ColorSequenceKeypoint, NumberSequence, NumberSequenceKeypoint, RbxValue,
-    RbxValueType, Rect,
+    BrickColor, ColorSequence, ColorSequenceKeypoint, NumberSequence, NumberSequenceKeypoint,
+    RbxValue, RbxValueType, Rect,
 };
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
     {
-        let mut map = HashMap::with_capacity(409);
+        let mut map = HashMap::with_capacity(412);
         map.insert(
             Cow::Borrowed("ABTestService"),
             RbxClassDescriptor {
@@ -336,10 +336,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(12);
+                    let mut map = HashMap::with_capacity(13);
                     map.insert(Cow::Borrowed("AlignType"), RbxValue::Enum { value: 0 });
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("MaxAngularVelocity"),
@@ -467,13 +473,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(11);
+                    let mut map = HashMap::with_capacity(12);
                     map.insert(
                         Cow::Borrowed("ApplyAtCenterOfMass"),
                         RbxValue::Bool { value: false },
                     );
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("MaxForce"),
@@ -516,6 +528,43 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 tags: RbxInstanceTags::NOT_CREATABLE,
                 properties: HashMap::new(),
                 default_properties: HashMap::new(),
+            },
+        );
+        map.insert(
+            Cow::Borrowed("AnalyticsService"),
+            RbxClassDescriptor {
+                name: Cow::Borrowed("AnalyticsService"),
+                superclass: Some(Cow::Borrowed("Instance")),
+                tags: RbxInstanceTags::NOT_CREATABLE
+                    | RbxInstanceTags::NOT_REPLICATED
+                    | RbxInstanceTags::SERVICE,
+                properties: {
+                    let mut map = HashMap::with_capacity(1);
+                    map.insert(
+                        Cow::Borrowed("ApiKey"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("ApiKey"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::String),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map
+                },
+                default_properties: {
+                    let mut map = HashMap::with_capacity(1);
+                    map.insert(
+                        Cow::Borrowed("Name"),
+                        RbxValue::String {
+                            value: String::from("AnalyticsService"),
+                        },
+                    );
+                    map
+                },
             },
         );
         map.insert(
@@ -570,7 +619,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(8);
+                    let mut map = HashMap::with_capacity(9);
                     map.insert(
                         Cow::Borrowed("AngularVelocity"),
                         RbxValue::Vector3 {
@@ -579,6 +628,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     );
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(Cow::Borrowed("MaxTorque"), RbxValue::Float32 { value: 0.0 });
                     map.insert(
@@ -842,8 +897,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(5);
+                    let mut map = HashMap::with_capacity(6);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -1313,9 +1374,15 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(12);
+                    let mut map = HashMap::with_capacity(13);
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(1009).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("LimitsEnabled"),
@@ -2765,7 +2832,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     );
                     map.insert(
                         Cow::Borrowed("DistanceLowerLimit"),
-                        RbxValue::Float32 { value: -1.0 },
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(
                         Cow::Borrowed("DistanceStep"),
@@ -3310,7 +3377,13 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(7);
+                    let mut map = HashMap::with_capacity(13);
+                    map.insert(
+                        Cow::Borrowed("HeadColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(226).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("HeadColor3"),
                         RbxValue::Color3 {
@@ -3318,9 +3391,21 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("LeftArmColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(226).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("LeftArmColor3"),
                         RbxValue::Color3 {
                             value: [0.9921569, 0.9176471, 0.5529412],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("LeftLegColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
                         },
                     );
                     map.insert(
@@ -3336,15 +3421,33 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("RightArmColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(226).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("RightArmColor3"),
                         RbxValue::Color3 {
                             value: [0.9921569, 0.9176471, 0.5529412],
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("RightLegColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("RightLegColor3"),
                         RbxValue::Color3 {
                             value: [0.050980397, 0.41176474, 0.6745098],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("TorsoColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(28).unwrap(),
                         },
                     );
                     map.insert(
@@ -3895,7 +3998,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
+                    let mut map = HashMap::with_capacity(11);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("AlwaysOnTop"),
@@ -3905,6 +4008,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CFrame"),
                         RbxValue::CFrame {
                             value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
                         },
                     );
                     map.insert(
@@ -3965,11 +4074,17 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(1);
+                    let mut map = HashMap::with_capacity(2);
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
                             value: String::from("Value"),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Value"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
                         },
                     );
                     map
@@ -4887,7 +5002,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(11);
+                    let mut map = HashMap::with_capacity(12);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("AlwaysOnTop"),
@@ -4897,6 +5012,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CFrame"),
                         RbxValue::CFrame {
                             value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
                         },
                     );
                     map.insert(
@@ -5521,7 +5642,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(11);
+                    let mut map = HashMap::with_capacity(12);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("AlwaysOnTop"),
@@ -5531,6 +5652,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CFrame"),
                         RbxValue::CFrame {
                             value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
                         },
                     );
                     map.insert(
@@ -5808,7 +5935,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(30);
+                    let mut map = HashMap::with_capacity(31);
                     map.insert(Cow::Borrowed("ActuatorType"), RbxValue::Enum { value: 0 });
                     map.insert(
                         Cow::Borrowed("AngularActuatorType"),
@@ -5832,6 +5959,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     );
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(1009).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("InclinationAngle"),
@@ -7238,6 +7371,27 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
             },
         );
         map.insert(
+            Cow::Borrowed("DraftsService"),
+            RbxClassDescriptor {
+                name: Cow::Borrowed("DraftsService"),
+                superclass: Some(Cow::Borrowed("Instance")),
+                tags: RbxInstanceTags::NOT_CREATABLE
+                    | RbxInstanceTags::NOT_REPLICATED
+                    | RbxInstanceTags::SERVICE,
+                properties: HashMap::new(),
+                default_properties: {
+                    let mut map = HashMap::with_capacity(1);
+                    map.insert(
+                        Cow::Borrowed("Name"),
+                        RbxValue::String {
+                            value: String::from("DraftsService"),
+                        },
+                    );
+                    map
+                },
+            },
+        );
+        map.insert(
             Cow::Borrowed("Dragger"),
             RbxClassDescriptor {
                 name: Cow::Borrowed("Dragger"),
@@ -7954,7 +8108,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(12);
+                    let mut map = HashMap::with_capacity(13);
                     map.insert(
                         Cow::Borrowed("CanBeDropped"),
                         RbxValue::Bool { value: true },
@@ -8005,6 +8159,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("TeamColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("TextureId"),
                         RbxValue::Content {
                             value: String::from(""),
@@ -8044,7 +8204,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(49);
+                    let mut map = HashMap::with_capacity(50);
                     map.insert(Cow::Borrowed("Anchored"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("BackParamA"),
@@ -8186,6 +8346,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Size"),
                         RbxValue::Vector3 {
                             value: [4.0, 1.2, 2.0],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("TeamColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
                         },
                     );
                     map.insert(
@@ -8403,7 +8569,13 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(12);
+                    let mut map = HashMap::with_capacity(13);
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -8601,7 +8773,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(27);
+                    let mut map = HashMap::with_capacity(29);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -8612,6 +8784,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("BackgroundColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("BackgroundColor3"),
                         RbxValue::Color3 {
                             value: [0.6392157, 0.63529414, 0.64705884],
@@ -8620,6 +8798,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("BackgroundTransparency"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("BorderColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("BorderColor3"),
@@ -10114,8 +10298,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(6);
+                    let mut map = HashMap::with_capacity(7);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -10400,7 +10590,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(17);
+                    let mut map = HashMap::with_capacity(18);
                     map.insert(Cow::Borrowed("ActuatorType"), RbxValue::Enum { value: 0 });
                     map.insert(
                         Cow::Borrowed("AngularSpeed"),
@@ -10412,6 +10602,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     );
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(1009).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("LimitsEnabled"),
@@ -11235,7 +11431,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(37);
+                    let mut map = HashMap::with_capacity(38);
                     map.insert(
                         Cow::Borrowed("BackAccessory"),
                         RbxPropertyDescriptor {
@@ -11523,6 +11719,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("NumberEmotesLoaded"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("NumberEmotesLoaded"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Int32),
+                            tags: RbxPropertyTags::HIDDEN,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("Pants"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Pants"),
@@ -11720,7 +11929,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(38);
+                    let mut map = HashMap::with_capacity(39);
                     map.insert(
                         Cow::Borrowed("BackAccessory"),
                         RbxValue::String {
@@ -11805,6 +12014,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::String {
                             value: String::from(""),
                         },
+                    );
+                    map.insert(
+                        Cow::Borrowed("NumberEmotesLoaded"),
+                        RbxValue::Int32 { value: -1 },
                     );
                     map.insert(Cow::Borrowed("Pants"), RbxValue::Int32 { value: 0 });
                     map.insert(
@@ -12023,7 +12236,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(41);
+                    let mut map = HashMap::with_capacity(43);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -12038,6 +12251,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("BackgroundColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("BackgroundColor3"),
                         RbxValue::Color3 {
                             value: [0.6392157, 0.63529414, 0.64705884],
@@ -12046,6 +12265,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("BackgroundTransparency"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("BorderColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("BorderColor3"),
@@ -12215,7 +12440,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(11);
+                    let mut map = HashMap::with_capacity(12);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("AlwaysOnTop"),
@@ -12225,6 +12450,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CFrame"),
                         RbxValue::CFrame {
                             value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(1).unwrap(),
                         },
                     );
                     map.insert(
@@ -12406,7 +12637,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(35);
+                    let mut map = HashMap::with_capacity(37);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -12417,6 +12648,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("BackgroundColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("BackgroundColor3"),
                         RbxValue::Color3 {
                             value: [0.6392157, 0.63529414, 0.64705884],
@@ -12425,6 +12662,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("BackgroundTransparency"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("BorderColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("BorderColor3"),
@@ -13542,7 +13785,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Outlines"),
                             value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
-                            tags: RbxPropertyTags::empty(),
+                            tags: RbxPropertyTags::DEPRECATED,
                             is_canonical: true,
                             canonical_name: None,
                             serialized_name: None,
@@ -13766,13 +14009,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
+                    let mut map = HashMap::with_capacity(11);
                     map.insert(
                         Cow::Borrowed("ApplyAtCenterOfMass"),
                         RbxValue::Bool { value: false },
                     );
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("InverseSquareLaw"),
@@ -13840,7 +14089,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(11);
+                    let mut map = HashMap::with_capacity(12);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("AlwaysOnTop"),
@@ -13850,6 +14099,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CFrame"),
                         RbxValue::CFrame {
                             value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
                         },
                     );
                     map.insert(
@@ -16464,11 +16719,17 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
+                    let mut map = HashMap::with_capacity(11);
                     map.insert(Cow::Borrowed("A"), RbxValue::Float32 { value: 1.0 });
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("B"), RbxValue::Float32 { value: 0.0 });
                     map.insert(Cow::Borrowed("C"), RbxValue::Float32 { value: 0.0 });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(1).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -18716,7 +18977,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::NOT_REPLICATED,
                 properties: {
-                    let mut map = HashMap::with_capacity(4);
+                    let mut map = HashMap::with_capacity(7);
                     map.insert(
                         Cow::Borrowed("ActionId"),
                         RbxPropertyDescriptor {
@@ -18740,6 +19001,45 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                             canonical_name: None,
                             serialized_name: None,
                             scriptability: RbxPropertyScriptability::Read,
+                            serializes: false,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Checked"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("Checked"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                            tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("DefaultShortcut"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("DefaultShortcut"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::String),
+                            tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Enabled"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("Enabled"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                            tags: RbxPropertyTags::NOT_REPLICATED,
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
                             serializes: false,
                         },
                     );
@@ -18772,7 +19072,15 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(1);
+                    let mut map = HashMap::with_capacity(4);
+                    map.insert(Cow::Borrowed("Checked"), RbxValue::Bool { value: false });
+                    map.insert(
+                        Cow::Borrowed("DefaultShortcut"),
+                        RbxValue::String {
+                            value: String::from(""),
+                        },
+                    );
+                    map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
@@ -19226,10 +19534,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 tags: RbxInstanceTags::empty(),
                 properties: HashMap::new(),
                 default_properties: {
-                    let mut map = HashMap::with_capacity(17);
+                    let mut map = HashMap::with_capacity(18);
                     map.insert(Cow::Borrowed("ActuatorType"), RbxValue::Enum { value: 0 });
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(1009).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("LimitsEnabled"),
@@ -19390,7 +19704,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("ReflectionMetadataItem")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(5);
+                    let mut map = HashMap::with_capacity(4);
                     map.insert(
                         Cow::Borrowed("ExplorerImageIndex"),
                         RbxPropertyDescriptor {
@@ -19443,23 +19757,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                             serializes: true,
                         },
                     );
-                    map.insert(
-                        Cow::Borrowed("PreferredParents"),
-                        RbxPropertyDescriptor {
-                            name: Cow::Borrowed("PreferredParents"),
-                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::String),
-                            tags: RbxPropertyTags::empty(),
-                            is_canonical: true,
-                            canonical_name: None,
-                            serialized_name: None,
-                            scriptability: RbxPropertyScriptability::ReadWrite,
-                            serializes: true,
-                        },
-                    );
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(19);
+                    let mut map = HashMap::with_capacity(18);
                     map.insert(Cow::Borrowed("Browsable"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("ClassCategory"),
@@ -19497,12 +19798,6 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     );
                     map.insert(
                         Cow::Borrowed("PreferredParent"),
-                        RbxValue::String {
-                            value: String::from(""),
-                        },
-                    );
-                    map.insert(
-                        Cow::Borrowed("PreferredParents"),
                         RbxValue::String {
                             value: String::from(""),
                         },
@@ -20849,9 +21144,15 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(7);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(Cow::Borrowed("Length"), RbxValue::Float32 { value: 5.0 });
                     map.insert(
@@ -20929,9 +21230,15 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(8);
+                    let mut map = HashMap::with_capacity(9);
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(25).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(Cow::Borrowed("Length"), RbxValue::Float32 { value: 5.0 });
                     map.insert(
@@ -21593,7 +21900,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(40);
+                    let mut map = HashMap::with_capacity(42);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -21604,6 +21911,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("BackgroundColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("BackgroundColor3"),
                         RbxValue::Color3 {
                             value: [0.6392157, 0.63529414, 0.64705884],
@@ -21612,6 +21925,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("BackgroundTransparency"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("BorderColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("BorderColor3"),
@@ -22041,8 +22360,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(8);
+                    let mut map = HashMap::with_capacity(10);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -22057,6 +22382,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Name"),
                         RbxValue::String {
                             value: String::from("SelectionBox"),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("SurfaceColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
                         },
                     );
                     map.insert(
@@ -22128,7 +22459,13 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(6);
+                    let mut map = HashMap::with_capacity(7);
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -22176,7 +22513,13 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(6);
+                    let mut map = HashMap::with_capacity(7);
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -22257,8 +22600,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(7);
+                    let mut map = HashMap::with_capacity(9);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -22269,6 +22618,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Name"),
                         RbxValue::String {
                             value: String::from("SelectionSphere"),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("SurfaceColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
                         },
                     );
                     map.insert(
@@ -22797,11 +23152,17 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(1);
+                    let mut map = HashMap::with_capacity(2);
                     map.insert(
                         Cow::Borrowed("Name"),
                         RbxValue::String {
                             value: String::from("Skin"),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("SkinColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(226).unwrap(),
                         },
                     );
                     map
@@ -24098,7 +24459,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(53);
+                    let mut map = HashMap::with_capacity(54);
                     map.insert(
                         Cow::Borrowed("AllowTeamChangeOnTouch"),
                         RbxValue::Bool { value: false },
@@ -24250,6 +24611,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("TeamColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("TopParamA"),
                         RbxValue::Float32 { value: -0.5 },
                     );
@@ -24373,7 +24740,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
+                    let mut map = HashMap::with_capacity(11);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
                     map.insert(
                         Cow::Borrowed("AlwaysOnTop"),
@@ -24383,6 +24750,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("CFrame"),
                         RbxValue::CFrame {
                             value: [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
                         },
                     );
                     map.insert(
@@ -24644,10 +25017,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(15);
+                    let mut map = HashMap::with_capacity(16);
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Coils"), RbxValue::Float32 { value: 3.0 });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(200).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Damping"), RbxValue::Float32 { value: 0.0 });
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
@@ -25736,7 +26115,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("Instance")),
                 tags: RbxInstanceTags::NOT_REPLICATED | RbxInstanceTags::SERVICE,
                 properties: {
-                    let mut map = HashMap::with_capacity(71);
+                    let mut map = HashMap::with_capacity(74);
                     map.insert(
                         Cow::Borrowed("Always Save Script Changes"),
                         RbxPropertyDescriptor {
@@ -25754,6 +26133,32 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Animate Hover Over"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("Animate Hover Over"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Auto Closing Brackets"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("Auto Closing Brackets"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("Auto Closing Quotes"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("Auto Closing Quotes"),
                             value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
@@ -26600,6 +27005,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("Skip Closing Brackets and Quotes"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("Skip Closing Brackets and Quotes"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("String Color"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("String Color"),
@@ -27163,8 +27581,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(6);
+                    let mut map = HashMap::with_capacity(7);
                     map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -27317,7 +27741,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(4);
+                    let mut map = HashMap::with_capacity(5);
                     map.insert(
                         Cow::Borrowed("AutoAssignable"),
                         RbxValue::Bool { value: true },
@@ -27333,6 +27757,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(Cow::Borrowed("Score"), RbxValue::Int32 { value: 0 });
+                    map.insert(
+                        Cow::Borrowed("TeamColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(1).unwrap(),
+                        },
+                    );
                     map
                 },
             },
@@ -27783,7 +28213,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("GuiObject")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(27);
+                    let mut map = HashMap::with_capacity(29);
                     map.insert(
                         Cow::Borrowed("ClearTextOnFocus"),
                         RbxPropertyDescriptor {
@@ -27928,6 +28358,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("SelectionStart"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("SelectionStart"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Int32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: false,
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("ShowNativeInput"),
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("ShowNativeInput"),
@@ -27986,6 +28429,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxPropertyDescriptor {
                             name: Cow::Borrowed("TextColor3"),
                             value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Color3),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("TextEditable"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("TextEditable"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
                             tags: RbxPropertyTags::empty(),
                             is_canonical: true,
                             canonical_name: None,
@@ -28146,7 +28602,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(50);
+                    let mut map = HashMap::with_capacity(55);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -28157,6 +28613,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("BackgroundColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("BackgroundColor3"),
                         RbxValue::Color3 {
                             value: [0.6392157, 0.63529414, 0.64705884],
@@ -28165,6 +28627,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("BackgroundTransparency"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("BorderColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("BorderColor3"),
@@ -28258,6 +28726,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Ref { value: None },
                     );
                     map.insert(
+                        Cow::Borrowed("SelectionStart"),
+                        RbxValue::Int32 { value: -1 },
+                    );
+                    map.insert(
                         Cow::Borrowed("ShowNativeInput"),
                         RbxValue::Bool { value: true },
                     );
@@ -28275,10 +28747,20 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("TextColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("TextColor3"),
                         RbxValue::Color3 {
                             value: [0.10588236, 0.16470589, 0.20784315],
                         },
+                    );
+                    map.insert(
+                        Cow::Borrowed("TextEditable"),
+                        RbxValue::Bool { value: true },
                     );
                     map.insert(Cow::Borrowed("TextScaled"), RbxValue::Bool { value: false });
                     map.insert(Cow::Borrowed("TextSize"), RbxValue::Float32 { value: 8.0 });
@@ -28582,7 +29064,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(45);
+                    let mut map = HashMap::with_capacity(48);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -28597,6 +29079,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("BackgroundColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("BackgroundColor3"),
                         RbxValue::Color3 {
                             value: [0.6392157, 0.63529414, 0.64705884],
@@ -28605,6 +29093,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("BackgroundTransparency"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("BorderColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("BorderColor3"),
@@ -28681,6 +29175,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         Cow::Borrowed("Text"),
                         RbxValue::String {
                             value: String::from("Button"),
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("TextColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
                         },
                     );
                     map.insert(
@@ -29001,7 +29501,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(41);
+                    let mut map = HashMap::with_capacity(44);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("AnchorPoint"),
@@ -29012,6 +29512,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("BackgroundColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("BackgroundColor3"),
                         RbxValue::Color3 {
                             value: [0.6392157, 0.63529414, 0.64705884],
@@ -29020,6 +29526,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("BackgroundTransparency"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("BorderColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("BorderColor3"),
@@ -29096,6 +29608,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         },
                     );
                     map.insert(
+                        Cow::Borrowed("TextColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("TextColor3"),
                         RbxValue::Color3 {
                             value: [0.10588236, 0.16470589, 0.20784315],
@@ -29163,7 +29681,33 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("Decal")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(2);
+                    let mut map = HashMap::with_capacity(4);
+                    map.insert(
+                        Cow::Borrowed("OffsetStudsU"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("OffsetStudsU"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
+                    map.insert(
+                        Cow::Borrowed("OffsetStudsV"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("OffsetStudsV"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
                     map.insert(
                         Cow::Borrowed("StudsPerTileU"),
                         RbxPropertyDescriptor {
@@ -29193,7 +29737,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(10);
+                    let mut map = HashMap::with_capacity(12);
                     map.insert(
                         Cow::Borrowed("Color3"),
                         RbxValue::Color3 {
@@ -29210,6 +29754,14 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::String {
                             value: String::from("Texture"),
                         },
+                    );
+                    map.insert(
+                        Cow::Borrowed("OffsetStudsU"),
+                        RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("OffsetStudsV"),
+                        RbxValue::Float32 { value: 0.0 },
                     );
                     map.insert(Cow::Borrowed("Shiny"), RbxValue::Float32 { value: 20.0 });
                     map.insert(Cow::Borrowed("Specular"), RbxValue::Float32 { value: 0.0 });
@@ -29512,9 +30064,15 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(7);
+                    let mut map = HashMap::with_capacity(8);
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("Name"),
@@ -30582,7 +31140,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                 superclass: Some(Cow::Borrowed("UIGridStyleLayout")),
                 tags: RbxInstanceTags::empty(),
                 properties: {
-                    let mut map = HashMap::with_capacity(1);
+                    let mut map = HashMap::with_capacity(2);
                     map.insert(
                         Cow::Borrowed("InlineAlignment"),
                         RbxPropertyDescriptor {
@@ -30598,10 +31156,23 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                             serializes: true,
                         },
                     );
+                    map.insert(
+                        Cow::Borrowed("InlinePadding"),
+                        RbxPropertyDescriptor {
+                            name: Cow::Borrowed("InlinePadding"),
+                            value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::UDim2),
+                            tags: RbxPropertyTags::empty(),
+                            is_canonical: true,
+                            canonical_name: None,
+                            serialized_name: None,
+                            scriptability: RbxPropertyScriptability::ReadWrite,
+                            serializes: true,
+                        },
+                    );
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(6);
+                    let mut map = HashMap::with_capacity(7);
                     map.insert(Cow::Borrowed("FillDirection"), RbxValue::Enum { value: 0 });
                     map.insert(
                         Cow::Borrowed("HorizontalAlignment"),
@@ -30610,6 +31181,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("InlineAlignment"),
                         RbxValue::Enum { value: 1 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("InlinePadding"),
+                        RbxValue::UDim2 {
+                            value: (0.0, 0, 0.0, 0),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("Name"),
@@ -32434,13 +33011,19 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(8);
+                    let mut map = HashMap::with_capacity(9);
                     map.insert(
                         Cow::Borrowed("ApplyAtCenterOfMass"),
                         RbxValue::Bool { value: false },
                     );
                     map.insert(Cow::Borrowed("Attachment0"), RbxValue::Ref { value: None });
                     map.insert(Cow::Borrowed("Attachment1"), RbxValue::Ref { value: None });
+                    map.insert(
+                        Cow::Borrowed("Color"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(23).unwrap(),
+                        },
+                    );
                     map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
                     map.insert(
                         Cow::Borrowed("Force"),
@@ -32919,6 +33502,16 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
             },
         );
         map.insert(
+            Cow::Borrowed("VersionControlService"),
+            RbxClassDescriptor {
+                name: Cow::Borrowed("VersionControlService"),
+                superclass: Some(Cow::Borrowed("Instance")),
+                tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
+                properties: HashMap::new(),
+                default_properties: HashMap::new(),
+            },
+        );
+        map.insert(
             Cow::Borrowed("ViewportFrame"),
             RbxClassDescriptor {
                 name: Cow::Borrowed("ViewportFrame"),
@@ -33007,7 +33600,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map
                 },
                 default_properties: {
-                    let mut map = HashMap::with_capacity(32);
+                    let mut map = HashMap::with_capacity(34);
                     map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: false });
                     map.insert(
                         Cow::Borrowed("Ambient"),
@@ -33024,6 +33617,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                         RbxValue::Bool { value: true },
                     );
                     map.insert(
+                        Cow::Borrowed("BackgroundColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(194).unwrap(),
+                        },
+                    );
+                    map.insert(
                         Cow::Borrowed("BackgroundColor3"),
                         RbxValue::Color3 {
                             value: [0.6392157, 0.63529414, 0.64705884],
@@ -33032,6 +33631,12 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
                     map.insert(
                         Cow::Borrowed("BackgroundTransparency"),
                         RbxValue::Float32 { value: 0.0 },
+                    );
+                    map.insert(
+                        Cow::Borrowed("BorderColor"),
+                        RbxValue::BrickColor {
+                            value: BrickColor::from_number(26).unwrap(),
+                        },
                     );
                     map.insert(
                         Cow::Borrowed("BorderColor3"),
