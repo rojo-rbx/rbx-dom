@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Fixed decoding `BinaryString` values with arbitrary whitespace in them, including CRLF line endings.
 
 ## 0.11.0 (2019-07-12)
 * Added support for reading and writing `BrickColor` values.
