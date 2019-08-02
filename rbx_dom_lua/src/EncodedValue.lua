@@ -33,6 +33,10 @@ encoders = {
 	BinaryString = base64.encode,
 	SharedString = base64.encode,
 
+	BrickColor = function(value)
+		return value.Number
+	end,
+
 	CFrame = function(value)
 		return {value:GetComponents()}
 	end,
@@ -134,6 +138,8 @@ local decoders = {
 
 	BinaryString = base64.decode,
 	SharedString = base64.decode,
+
+	BrickColor = BrickColor.new,
 
 	CFrame = unpackDecoder(CFrame.new),
 	Color3 = unpackDecoder(Color3.new),
