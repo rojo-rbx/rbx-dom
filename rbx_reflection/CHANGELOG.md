@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+## 3.2.395
+* Updated reflection database to client 0.395.0.324413
+
 ## 3.2.390
 * Updated reflection database to client 0.390.0.311600
 * Improved accuracy of default values. Notably:
