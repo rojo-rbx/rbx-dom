@@ -176,8 +176,8 @@ fn serialize_instance<'a, W: Write>(
 
     // Move references to our properties into property_buffer so we can sort
     // them and iterate them in order.
-    property_buffer.extend(instance.properties.iter());
-    property_buffer.sort_by_key(|(key, _)| *key);
+    property_buffer.extend(&instance.properties);
+    property_buffer.sort_unstable_by_key(|(key, _)| *key);
 
     for (property_name, value) in property_buffer.drain(..) {
         let maybe_serialized_descriptor = if state.options.use_reflection() {
