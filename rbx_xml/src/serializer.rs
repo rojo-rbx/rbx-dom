@@ -28,8 +28,9 @@ pub fn encode_internal<W: Write>(output: W, tree: &RbxTree, ids: &[RbxId], optio
 
     writer.write(XmlWriteEvent::start_element("roblox").attr("version", "4"))?;
 
+    let mut property_buffer = Vec::new();
     for id in ids {
-        serialize_instance(&mut writer, &mut state, tree, *id)?;
+        serialize_instance(&mut writer, &mut state, tree, *id, &mut property_buffer)?;
     }
 
     serialize_shared_strings(&mut writer, &mut state)?;
@@ -149,11 +150,16 @@ impl EmitState {
     }
 }
 
-fn serialize_instance<W: Write>(
+/// Serialize a single instance.
+///
+/// `property_buffer` is a Vec that can be reused between calls to
+/// serialize_instance to make sorting properties more efficient.
+fn serialize_instance<'a, W: Write>(
     writer: &mut XmlEventWriter<W>,
     state: &mut EmitState,
-    tree: &RbxTree,
+    tree: &'a RbxTree,
     id: RbxId,
+    property_buffer: &mut Vec<(&'a String, &'a RbxValue)>,
 ) -> Result<(), NewEncodeError> {
     let instance = tree.get_instance(id).unwrap();
     let mapped_id = state.map_id(id);
@@ -168,7 +174,12 @@ fn serialize_instance<W: Write>(
         value: instance.name.clone(),
     })?;
 
-    for (property_name, value) in &instance.properties {
+    // Move references to our properties into property_buffer so we can sort
+    // them and iterate them in order.
+    property_buffer.extend(instance.properties.iter());
+    property_buffer.sort_by_key(|(key, _)| *key);
+
+    for (property_name, value) in property_buffer.drain(..) {
         let maybe_serialized_descriptor = if state.options.use_reflection() {
             find_serialized_property_descriptor(&instance.class_name, property_name)
         } else {
@@ -240,7 +251,7 @@ fn serialize_instance<W: Write>(
     writer.write(XmlWriteEvent::end_element())?;
 
     for child_id in instance.get_children_ids() {
-        serialize_instance(writer, state, tree, *child_id)?;
+        serialize_instance(writer, state, tree, *child_id, property_buffer)?;
     }
 
     writer.write(XmlWriteEvent::end_element())?;
