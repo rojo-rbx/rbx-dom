@@ -1,7 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
-* Fixed encoding properties in a nondeterministic order. Properties should now be sorted.
+
+## 0.11.2 (2019-08-08)
+* Fixed encoding properties in a nondeterministic order. Properties should now be sorted. ([#66](https://github.com/rojo-rbx/rbx-dom/pull/66))
 
 ## 0.11.1 (2019-08-01)
 * Fixed decoding `BinaryString` values with arbitrary whitespace in them, including CRLF line endings.
