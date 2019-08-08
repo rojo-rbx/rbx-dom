@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Fixed encoding properties in a nondeterministic order. Properties should now be sorted.
 
 ## 0.11.1 (2019-08-01)
 * Fixed decoding `BinaryString` values with arbitrary whitespace in them, including CRLF line endings.
