@@ -153,7 +153,7 @@ local decoders = {
 	Vector3int16 = unpackDecoder(Vector3int16.new),
 
 	Rect = function(value)
-		return Rect.new(value.Min.X, value.Min.Y, value.Max.X, value.Max.Y)
+		return Rect.new(value.Min[1], value.Min[2], value.Max[1], value.Max[2])
 	end,
 
 	NumberSequence = function(value)
@@ -214,7 +214,7 @@ function EncodedValue.decode(encodedValue)
 end
 
 function EncodedValue.encode(rbxValue, propertyType)
-	assert(propertyType ~= nil, "Property descriptor type is required")
+	assert(propertyType ~= nil, "Property type descriptor is required")
 
 	if propertyType.type == "Data" then
 		local encoder = encoders[propertyType.name]
