@@ -56,10 +56,35 @@ pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
     Ok(())
 }
 
+fn get_generated_function_name<'a>(class: &Cow<'a, str>) -> Ident {
+    Ident::new(&format!("generate_{}", class), Span::call_site())
+}
+
 fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) -> TokenStream {
-    let classes_literal = classes.as_rust();
+    let class_functions = classes.iter().map(|entry| {
+        let (class_name, descriptor) = entry;
+        let function_name_token = get_generated_function_name(class_name);
+        let descriptor_literal = descriptor.as_rust();
+
+        quote! {
+            fn #function_name_token() -> RbxClassDescriptor {
+                return #descriptor_literal
+            }
+        }
+    });
+
+    let map_insertions = classes.iter().map(|entry| {
+        let (class_name, _) = entry;
+        let function_name_token = get_generated_function_name(class_name);
+        let class_name_literal = class_name.as_rust();
+
+        quote!(map.insert(#class_name_literal, #function_name_token()))
+    });
+
+    let len_literal = Literal::usize_unsuffixed(classes.len());
 
     quote! {
+        #![allow(non_snake_case)]
         use std::{
             borrow::Cow,
             collections::HashMap,
@@ -76,8 +101,14 @@ fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) ->
         };
         use crate::reflection_types::*;
 
+        #(#class_functions)*
+
         pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
-            #classes_literal
+            let mut map = HashMap::with_capacity(#len_literal);
+
+            #(#map_insertions;)*
+
+            map
         }
     }
 }
