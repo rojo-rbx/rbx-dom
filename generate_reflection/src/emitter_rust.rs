@@ -14,6 +14,7 @@ use std::{
 use quote::quote;
 use proc_macro2::{TokenStream, Literal, Ident, Span};
 use rbx_dom_weak::RbxValue;
+use heck::SnakeCase;
 
 use crate::{
     api_dump::{Dump, DumpEnum},
@@ -57,7 +58,7 @@ pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
 }
 
 fn get_generated_function_name<'a>(class: &Cow<'a, str>) -> Ident {
-    Ident::new(&format!("generate_{}", class), Span::call_site())
+    Ident::new(&format!("generate_{}", class.to_snake_case()), Span::call_site())
 }
 
 fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) -> TokenStream {
@@ -84,7 +85,6 @@ fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) ->
     let len_literal = Literal::usize_unsuffixed(classes.len());
 
     quote! {
-        #![allow(non_snake_case)]
         use std::{
             borrow::Cow,
             collections::HashMap,
