@@ -19,6 +19,36 @@ return function()
 		expect(decoded).to.equal(output)
 	end)
 
+	it("should decode NumberSequence values", function()
+		local input = {
+			Type = "NumberSequence",
+			Value = {
+				Keypoints = {
+					{
+						Time = 0,
+						Value = 0.5,
+						Envelope = 0,
+					},
+
+					{
+						Time = 1,
+						Value = 0.5,
+						Envelope = 0,
+					},
+				}
+			},
+		}
+
+		local output = NumberSequence.new({
+			NumberSequenceKeypoint.new(0, 0.5, 0),
+			NumberSequenceKeypoint.new(1, 0.5, 0),
+		})
+
+		local ok, decoded = EncodedValue.decode(input)
+		assert(ok, decoded)
+		expect(decoded).to.equal(output)
+	end)
+
 	-- This part of rbx_dom_lua needs some work still.
 	itSKIP("should encode Rect values", function()
 		local input = Rect.new(10, 20, 30, 40)

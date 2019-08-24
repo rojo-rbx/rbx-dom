@@ -159,11 +159,11 @@ local decoders = {
 	NumberSequence = function(value)
 		local keypoints = {}
 
-		for index, keypoint in ipairs(value.keypoints) do
+		for index, keypoint in ipairs(value.Keypoints) do
 			keypoints[index] = NumberSequenceKeypoint.new(
-				keypoint.time,
-				keypoint.value,
-				keypoint.envelope
+				keypoint.Time,
+				keypoint.Value,
+				keypoint.Envelope
 			)
 		end
 
@@ -173,10 +173,10 @@ local decoders = {
 	ColorSequence = function(value)
 		local keypoints = {}
 
-		for index, keypoint in ipairs(value.keypoints) do
+		for index, keypoint in ipairs(value.Keypoints) do
 			keypoints[index] = ColorSequenceKeypoint.new(
-				keypoint.time,
-				keypoint.color
+				keypoint.Time,
+				keypoint.Color
 			)
 		end
 
@@ -188,11 +188,11 @@ local decoders = {
 			return nil
 		else
 			return PhysicalProperties.new(
-				properties.density,
-				properties.friction,
-				properties.elasticity,
-				properties.frictionWeight,
-				properties.elasticityWeight
+				properties.Density,
+				properties.Friction,
+				properties.Elasticity,
+				properties.FrictionWeight,
+				properties.ElasticityWeight
 			)
 		end
 	end,
