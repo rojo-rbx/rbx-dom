@@ -49,6 +49,31 @@ return function()
 		expect(decoded).to.equal(output)
 	end)
 
+	it("should decode PhysicalProperties values", function()
+		local input = {
+			Type = "PhysicalProperties",
+			Value = {
+				Density = 0.1,
+				Friction = 0.2,
+				Elasticity = 0.3,
+				FrictionWeight = 0.4,
+				ElasticityWeight = 0.5,
+			},
+		}
+
+		local output = PhysicalProperties.new(
+			0.1,
+			0.2,
+			0.3,
+			0.4,
+			0.5
+		)
+
+		local ok, decoded = EncodedValue.decode(input)
+		assert(ok, decoded)
+		expect(decoded).to.equal(output)
+	end)
+
 	-- This part of rbx_dom_lua needs some work still.
 	itSKIP("should encode Rect values", function()
 		local input = Rect.new(10, 20, 30, 40)
