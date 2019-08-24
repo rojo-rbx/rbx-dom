@@ -176,7 +176,7 @@ local decoders = {
 		for index, keypoint in ipairs(value.Keypoints) do
 			keypoints[index] = ColorSequenceKeypoint.new(
 				keypoint.Time,
-				keypoint.Color
+				Color3.new(unpack(keypoint.Color))
 			)
 		end
 
