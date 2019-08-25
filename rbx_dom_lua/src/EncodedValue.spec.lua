@@ -19,6 +19,34 @@ return function()
 		expect(decoded).to.equal(output)
 	end)
 
+	it("should decode ColorSequence values", function()
+		local input = {
+			Type = "ColorSequence",
+			Value = {
+				Keypoints = {
+					{
+						Time = 0,
+						Color = { 0.12, 0.34, 0.56 },
+					},
+
+					{
+						Time = 1,
+						Color = { 0.13, 0.33, 0.37 },
+					},
+				}
+			},
+		}
+
+		local output = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, Color3.new(0.12, 0.34, 0.56)),
+			ColorSequenceKeypoint.new(1, Color3.new(0.13, 0.33, 0.37)),
+		})
+
+		local ok, decoded = EncodedValue.decode(input)
+		assert(ok, decoded)
+		expect(decoded).to.equal(output)
+	end)
+
 	it("should decode NumberSequence values", function()
 		local input = {
 			Type = "NumberSequence",
