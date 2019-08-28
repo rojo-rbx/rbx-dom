@@ -153,17 +153,17 @@ local decoders = {
 	Vector3int16 = unpackDecoder(Vector3int16.new),
 
 	Rect = function(value)
-		return Rect.new(value.Min.X, value.Min.Y, value.Max.X, value.Max.Y)
+		return Rect.new(value.Min[1], value.Min[2], value.Max[1], value.Max[2])
 	end,
 
 	NumberSequence = function(value)
 		local keypoints = {}
 
-		for index, keypoint in ipairs(value.keypoints) do
+		for index, keypoint in ipairs(value.Keypoints) do
 			keypoints[index] = NumberSequenceKeypoint.new(
-				keypoint.time,
-				keypoint.value,
-				keypoint.envelope
+				keypoint.Time,
+				keypoint.Value,
+				keypoint.Envelope
 			)
 		end
 
@@ -173,10 +173,10 @@ local decoders = {
 	ColorSequence = function(value)
 		local keypoints = {}
 
-		for index, keypoint in ipairs(value.keypoints) do
+		for index, keypoint in ipairs(value.Keypoints) do
 			keypoints[index] = ColorSequenceKeypoint.new(
-				keypoint.time,
-				keypoint.color
+				keypoint.Time,
+				Color3.new(unpack(keypoint.Color))
 			)
 		end
 
@@ -188,11 +188,11 @@ local decoders = {
 			return nil
 		else
 			return PhysicalProperties.new(
-				properties.density,
-				properties.friction,
-				properties.elasticity,
-				properties.frictionWeight,
-				properties.elasticityWeight
+				properties.Density,
+				properties.Friction,
+				properties.Elasticity,
+				properties.FrictionWeight,
+				properties.ElasticityWeight
 			)
 		end
 	end,
@@ -214,7 +214,7 @@ function EncodedValue.decode(encodedValue)
 end
 
 function EncodedValue.encode(rbxValue, propertyType)
-	assert(propertyType ~= nil, "Property descriptor type is required")
+	assert(propertyType ~= nil, "Property type descriptor is required")
 
 	if propertyType.type == "Data" then
 		local encoder = encoders[propertyType.name]
