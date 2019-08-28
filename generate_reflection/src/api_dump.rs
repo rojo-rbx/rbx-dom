@@ -9,8 +9,7 @@ use std::{
 
 use serde_derive::Deserialize;
 use tempfile::tempdir;
-
-use crate::roblox_install::RobloxStudio;
+use roblox_install::RobloxStudio;
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -105,12 +104,13 @@ pub struct DumpEnumItem {
 
 impl Dump {
     pub fn read() -> io::Result<Dump> {
-        let studio_install = RobloxStudio::locate()?;
+        let studio_install = RobloxStudio::locate()
+            .expect("Could not locate Roblox Studio install");
 
         let dir = tempdir()?;
         let dump_path = dir.path().join("api-dump.json");
 
-        Command::new(studio_install.exe_path())
+        Command::new(studio_install.application_path())
             .arg("-API")
             .arg(&dump_path)
             .status()?;

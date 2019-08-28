@@ -44,8 +44,7 @@ use hyper::{
 };
 use rbx_dom_weak::{RbxValue, RbxTree, RbxInstanceProperties};
 use tempfile::tempdir;
-
-use crate::roblox_install::RobloxStudio;
+use roblox_install::RobloxStudio;
 
 // Aren't futures great?
 type HyperResponse = Box<Future<Item = Response<Body>, Error = hyper::Error> + Send>;
@@ -216,7 +215,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         hyper::rt::run(server);
     });
 
-    let _studio_process = KillOnDrop(Command::new(studio_install.exe_path())
+    let _studio_process = KillOnDrop(Command::new(studio_install.application_path())
         .arg(format!("{}", place_file_path.display()))
         .spawn()
         .expect("Couldn't start Roblox Studio"));

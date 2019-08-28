@@ -57,13 +57,16 @@ pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
     Ok(())
 }
 
-fn get_generated_function_name<'a>(class: &Cow<'a, str>) -> Ident {
+fn get_generated_function_name(class: &str) -> Ident {
     Ident::new(&format!("generate_{}", class.to_snake_case()), Span::call_site())
 }
 
 fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) -> TokenStream {
-    let class_functions = classes.iter().map(|entry| {
-        let (class_name, descriptor) = entry;
+    let mut class_names: Vec<_> = classes.keys().collect();
+    class_names.sort();
+
+    let class_functions = class_names.iter().map(|class_name| {
+        let descriptor = classes.get(*class_name).unwrap();
         let function_name_token = get_generated_function_name(class_name);
         let descriptor_literal = descriptor.as_rust();
 
@@ -74,8 +77,7 @@ fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) ->
         }
     });
 
-    let map_insertions = classes.iter().map(|entry| {
-        let (class_name, _) = entry;
+    let map_insertions = class_names.iter().map(|class_name| {
         let function_name_token = get_generated_function_name(class_name);
         let class_name_literal = class_name.as_rust();
 
