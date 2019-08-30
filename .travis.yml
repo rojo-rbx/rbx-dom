@@ -1,6 +1,18 @@
-language: rust
-rust: [1.32.0, stable]
-cache: cargo
+matrix:
+  include:
+    - language: rust
+      rust: 1.32.0
+      cache: cargo
 
-script:
-  - cargo test --verbose
+      script:
+        - cargo test --all --locked --verbose
+
+    - language: rust
+      rust: stable
+      cache: cargo
+
+      install:
+        - rustup component add rustfmt
+        - rustup component add clippy
+
+      script: ./bin/run-tests.sh
