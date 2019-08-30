@@ -3526,6 +3526,32 @@ return {
 		defaults = {
 		},
 	},
+	DataModelSession = {
+		name = "DataModelSession",
+		superclass = "Instance",
+		properties = {
+			CurrentGameStateType = {
+				name = "CurrentGameStateType",
+				type = {type = "Enum", name = "StudioDataModelType"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			SessionId = {
+				name = "SessionId",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+		},
+		defaults = {
+		},
+	},
 	DataStorePages = {
 		name = "DataStorePages",
 		superclass = "Pages",
@@ -8210,6 +8236,32 @@ return {
 			Name = "Instance",
 		},
 	},
+	MDIInstance = {
+		name = "MDIInstance",
+		superclass = "Instance",
+		properties = {
+			FocusedDataModelSession = {
+				name = "FocusedDataModelSession",
+				type = {type = "Data", name = "Ref"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			FocusedDataModelSessionId = {
+				name = "FocusedDataModelSessionId",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+		},
+		defaults = {
+		},
+	},
 	ManualGlue = {
 		name = "ManualGlue",
 		superclass = "ManualSurfaceJointInstance",
@@ -10687,6 +10739,15 @@ return {
 			HostDataModelType = {
 				name = "HostDataModelType",
 				type = {type = "Enum", name = "StudioDataModelType"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			MDIInstance = {
+				name = "MDIInstance",
+				type = {type = "Data", name = "Ref"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
