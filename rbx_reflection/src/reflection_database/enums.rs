@@ -2,7 +2,7 @@
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
-    let mut output = HashMap::with_capacity(196);
+    let mut output = HashMap::with_capacity(198);
     output.insert(
         Cow::Borrowed("ActionType"),
         RbxEnumDescriptor {
@@ -170,19 +170,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
-        Cow::Borrowed("AutoJointsMode"),
-        RbxEnumDescriptor {
-            name: Cow::Borrowed("AutoJointsMode"),
-            items: {
-                let mut items = HashMap::with_capacity(3);
-                items.insert(Cow::Borrowed("Default"), 0);
-                items.insert(Cow::Borrowed("Explicit"), 1);
-                items.insert(Cow::Borrowed("LegacyImplicit"), 2);
-                items
-            },
-        },
-    );
-    output.insert(
         Cow::Borrowed("AvatarContextMenuOption"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("AvatarContextMenuOption"),
@@ -275,6 +262,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("RightUpperArm"), 14);
                 items.insert(Cow::Borrowed("RootPart"), 15);
                 items.insert(Cow::Borrowed("Unknown"), 17);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("BorderMode"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("BorderMode"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Outline"), 0);
+                items.insert(Cow::Borrowed("Middle"), 1);
+                items.insert(Cow::Borrowed("Inset"), 2);
                 items
             },
         },
@@ -2674,6 +2674,22 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("StudioDataModelType"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("StudioDataModelType"),
+            items: {
+                let mut items = HashMap::with_capacity(6);
+                items.insert(Cow::Borrowed("Edit"), 0);
+                items.insert(Cow::Borrowed("PlayClient"), 2);
+                items.insert(Cow::Borrowed("PlayServer"), 3);
+                items.insert(Cow::Borrowed("RobloxPlugin"), 4);
+                items.insert(Cow::Borrowed("UserPlugin"), 5);
+                items.insert(Cow::Borrowed("Null"), 6);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("StudioStyleGuideColor"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("StudioStyleGuideColor"),
@@ -2944,6 +2960,21 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 let mut items = HashMap::with_capacity(2);
                 items.insert(Cow::Borrowed("PublicChat"), 1);
                 items.insert(Cow::Borrowed("PrivateChat"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("TextInputType"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("TextInputType"),
+            items: {
+                let mut items = HashMap::with_capacity(5);
+                items.insert(Cow::Borrowed("Default"), 0);
+                items.insert(Cow::Borrowed("NoSuggestions"), 1);
+                items.insert(Cow::Borrowed("Number"), 2);
+                items.insert(Cow::Borrowed("Email"), 3);
+                items.insert(Cow::Borrowed("Phone"), 4);
                 items
             },
         },

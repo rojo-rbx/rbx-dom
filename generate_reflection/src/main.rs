@@ -7,7 +7,6 @@ mod database;
 mod emitter_lua;
 mod emitter_rust;
 mod reflection_types;
-mod roblox_install;
 mod run_in_roblox;
 
 use std::{
