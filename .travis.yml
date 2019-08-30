@@ -15,4 +15,4 @@ matrix:
         - rustup component add rustfmt
         - rustup component add clippy
 
-      script: ./bin/run-tests.sh
+      script: ./scripts/run-tests.sh
