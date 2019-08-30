@@ -5,7 +5,7 @@ matrix:
       cache: cargo
 
       script:
-        - cargo test --all --locked --verbose
+        - cargo test --all --verbose
 
     - language: rust
       rust: stable

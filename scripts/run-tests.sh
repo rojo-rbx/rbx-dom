@@ -2,7 +2,7 @@
 
 set -ev
 
-cargo test --all --locked --verbose
+cargo test --all --verbose
 
 # Skip formatting generate_reflection because of
 # https://github.com/rust-lang/rustfmt/issues/3688
