@@ -1,28 +1,22 @@
-use std::{
-    borrow::Cow,
-    collections::HashMap,
-    io::Write,
-};
+use std::{borrow::Cow, collections::HashMap, io::Write};
 
+use rbx_dom_weak::{RbxId, RbxTree, RbxValue, RbxValueConversion, RbxValueType, SharedString};
 use rbx_reflection::RbxPropertyTypeDescriptor;
-use rbx_dom_weak::{
-    RbxTree,
-    RbxValue,
-    RbxValueType,
-    RbxId,
-    RbxValueConversion,
-    SharedString,
-};
 
 use crate::{
     core::find_serialized_property_descriptor,
-    types::write_value_xml,
     error::{EncodeError as NewEncodeError, EncodeErrorKind},
+    types::write_value_xml,
 };
 
 use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
 
-pub fn encode_internal<W: Write>(output: W, tree: &RbxTree, ids: &[RbxId], options: EncodeOptions) -> Result<(), NewEncodeError> {
+pub fn encode_internal<W: Write>(
+    output: W,
+    tree: &RbxTree,
+    ids: &[RbxId],
+    options: EncodeOptions,
+) -> Result<(), NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
     let mut state = EmitState::new(options);
 
@@ -164,15 +158,22 @@ fn serialize_instance<'a, W: Write>(
     let instance = tree.get_instance(id).unwrap();
     let mapped_id = state.map_id(id);
 
-    writer.write(XmlWriteEvent::start_element("Item")
-        .attr("class", &instance.class_name)
-        .attr("referent", &mapped_id.to_string()))?;
+    writer.write(
+        XmlWriteEvent::start_element("Item")
+            .attr("class", &instance.class_name)
+            .attr("referent", &mapped_id.to_string()),
+    )?;
 
     writer.write(XmlWriteEvent::start_element("Properties"))?;
 
-    write_value_xml(writer, state, "Name", &RbxValue::String {
-        value: instance.name.clone(),
-    })?;
+    write_value_xml(
+        writer,
+        state,
+        "Name",
+        &RbxValue::String {
+            value: instance.name.clone(),
+        },
+    )?;
 
     // Move references to our properties into property_buffer so we can sort
     // them and iterate them in order.
@@ -209,7 +210,8 @@ fn serialize_instance<'a, W: Write>(
                                 property_name: property_name.clone(),
                             }));
                         }
-                        EncodePropertyBehavior::NoReflection | EncodePropertyBehavior::__Nonexhaustive => {
+                        EncodePropertyBehavior::NoReflection
+                        | EncodePropertyBehavior::__Nonexhaustive => {
                             unreachable!();
                         }
                     }
@@ -219,15 +221,24 @@ fn serialize_instance<'a, W: Write>(
             let converted_value = match value.try_convert_ref(value_type) {
                 RbxValueConversion::Converted(converted) => Cow::Owned(converted),
                 RbxValueConversion::Unnecessary => Cow::Borrowed(value),
-                RbxValueConversion::Failed => return Err(writer.error(EncodeErrorKind::UnsupportedPropertyConversion {
-                    class_name: instance.class_name.clone(),
-                    property_name: property_name.to_string(),
-                    expected_type: value_type,
-                    actual_type: value.get_type(),
-                })),
+                RbxValueConversion::Failed => {
+                    return Err(
+                        writer.error(EncodeErrorKind::UnsupportedPropertyConversion {
+                            class_name: instance.class_name.clone(),
+                            property_name: property_name.to_string(),
+                            expected_type: value_type,
+                            actual_type: value.get_type(),
+                        }),
+                    )
+                }
             };
 
-            write_value_xml(writer, state, &serialized_descriptor.name(), &converted_value)?;
+            write_value_xml(
+                writer,
+                state,
+                &serialized_descriptor.name(),
+                &converted_value,
+            )?;
         } else {
             match state.options.property_behavior {
                 EncodePropertyBehavior::IgnoreUnknown => {}
@@ -243,7 +254,7 @@ fn serialize_instance<'a, W: Write>(
                         property_name: property_name.clone(),
                     }));
                 }
-                EncodePropertyBehavior::__Nonexhaustive => unreachable!()
+                EncodePropertyBehavior::__Nonexhaustive => unreachable!(),
             }
         }
     }
@@ -270,8 +281,10 @@ fn serialize_shared_strings<W: Write>(
     writer.write(XmlWriteEvent::start_element("SharedStrings"))?;
 
     for value in state.shared_strings_to_emit.values() {
-        writer.write(XmlWriteEvent::start_element("SharedString")
-            .attr("md5", &base64::encode(&value.md5_hash())))?;
+        writer.write(
+            XmlWriteEvent::start_element("SharedString")
+                .attr("md5", &base64::encode(&value.md5_hash())),
+        )?;
 
         writer.write_string(&base64::encode(value.data()))?;
         writer.end_element()?;

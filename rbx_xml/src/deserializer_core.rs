@@ -1,20 +1,12 @@
-use std::{
-    io::Read,
-    str::FromStr,
-};
+use std::{io::Read, str::FromStr};
 
 use log::trace;
-use xml::{
-    attribute::OwnedAttribute,
-    reader::ParserConfig,
-};
+use xml::{attribute::OwnedAttribute, reader::ParserConfig};
 
-use crate::{
-    error::{DecodeError as NewDecodeError, DecodeErrorKind},
-};
+use crate::error::{DecodeError as NewDecodeError, DecodeErrorKind};
 
-pub use xml::reader::XmlEvent as XmlReadEvent;
 pub use xml::reader::Error as XmlReadError;
+pub use xml::reader::XmlEvent as XmlReadEvent;
 pub type XmlReadResult = Result<XmlReadEvent, XmlReadError>;
 
 /// A wrapper around an XML event iterator created by xml-rs.
@@ -42,13 +34,13 @@ impl<R: Read> Iterator for XmlEventReader<R> {
                     XmlReadEvent::Whitespace(_) => continue,
                     XmlReadEvent::EndDocument => {
                         self.finished = true;
-                        return Some(Ok(item))
-                    },
-                    _ => return Some(Ok(item))
+                        return Some(Ok(item));
+                    }
+                    _ => return Some(Ok(item)),
                 },
                 Err(err) => {
                     self.finished = true;
-                    return Some(Err(err))
+                    return Some(Err(err));
                 }
             }
         }
@@ -116,17 +108,28 @@ impl<R: Read> XmlEventReader<R> {
 
     /// Consumes the next event and returns `Ok(())` if it was an opening tag
     /// with the given name, otherwise returns an error.
-    pub fn expect_start_with_name(&mut self, expected_name: &str) -> Result<Vec<OwnedAttribute>, NewDecodeError> {
+    pub fn expect_start_with_name(
+        &mut self,
+        expected_name: &str,
+    ) -> Result<Vec<OwnedAttribute>, NewDecodeError> {
         match self.expect_next()? {
-            XmlReadEvent::StartElement { name, attributes, namespace } => {
+            XmlReadEvent::StartElement {
+                name,
+                attributes,
+                namespace,
+            } => {
                 if name.local_name != expected_name {
-                    let event = XmlReadEvent::StartElement { name, attributes, namespace };
+                    let event = XmlReadEvent::StartElement {
+                        name,
+                        attributes,
+                        namespace,
+                    };
                     return Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
                 }
 
                 Ok(attributes)
             }
-            event => Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)))
+            event => Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event))),
         }
     }
 
@@ -143,7 +146,7 @@ impl<R: Read> XmlEventReader<R> {
 
                 Ok(())
             }
-            _ => Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event)))
+            _ => Err(self.error(DecodeErrorKind::UnexpectedXmlEvent(event))),
         }
     }
 
@@ -170,7 +173,7 @@ impl<R: Read> XmlEventReader<R> {
             Some(Ok(XmlReadEvent::Characters(_))) | Some(Ok(XmlReadEvent::CData(_))) => {
                 match self.next().unwrap().unwrap() {
                     XmlReadEvent::Characters(value) | XmlReadEvent::CData(value) => Ok(Some(value)),
-                    _ => unreachable!()
+                    _ => unreachable!(),
                 }
             }
 
@@ -236,34 +239,43 @@ impl<R: Read> XmlEventReader<R> {
         Ok(contents)
     }
 
-    pub(crate) fn read_tag_contents_parse<T>(&mut self, expected_name: &str) -> Result<T, NewDecodeError>
+    pub(crate) fn read_tag_contents_parse<T>(
+        &mut self,
+        expected_name: &str,
+    ) -> Result<T, NewDecodeError>
     where
         T: FromStr,
-        <T as FromStr>::Err: Into<DecodeErrorKind>
+        <T as FromStr>::Err: Into<DecodeErrorKind>,
     {
         let contents = self.read_tag_contents(expected_name)?;
         contents.parse().map_err(|e| self.error(e))
     }
 
     /// Reads a `f32` value, but using Roblox's INF, -INF, and NAN values
-    pub(crate) fn read_tag_contents_f32(&mut self, expected_name: &str) -> Result<f32, NewDecodeError> {
+    pub(crate) fn read_tag_contents_f32(
+        &mut self,
+        expected_name: &str,
+    ) -> Result<f32, NewDecodeError> {
         let contents = self.read_tag_contents(expected_name)?;
         Ok(match contents.as_str() {
             "INF" => std::f32::INFINITY,
             "-INF" => std::f32::NEG_INFINITY,
             "NAN" => std::f32::NAN,
-            number => number.parse().map_err(|e| self.error(e))?
+            number => number.parse().map_err(|e| self.error(e))?,
         })
     }
 
     /// Reads a `f64` value, but using Roblox's INF, -INF, and NAN values
-    pub(crate) fn read_tag_contents_f64(&mut self, expected_name: &str) -> Result<f64, NewDecodeError> {
+    pub(crate) fn read_tag_contents_f64(
+        &mut self,
+        expected_name: &str,
+    ) -> Result<f64, NewDecodeError> {
         let contents = self.read_tag_contents(expected_name)?;
         Ok(match contents.as_str() {
             "INF" => std::f64::INFINITY,
             "-INF" => std::f64::NEG_INFINITY,
             "NAN" => std::f64::NAN,
-            number => number.parse().map_err(|e| self.error(e))?
+            number => number.parse().map_err(|e| self.error(e))?,
         })
     }
 
@@ -278,7 +290,7 @@ impl<R: Read> XmlEventReader<R> {
                 XmlReadEvent::StartElement { name, .. } => {
                     trace!("Eat unknown start: {:?}", name);
                     depth += 1;
-                },
+                }
                 XmlReadEvent::EndElement { name } => {
                     trace!("Eat unknown end: {:?}", name);
                     depth -= 1;
@@ -287,10 +299,10 @@ impl<R: Read> XmlEventReader<R> {
                         trace!("Reached end of unknown block");
                         break;
                     }
-                },
+                }
                 other => {
                     trace!("Eat unknown: {:?}", other);
-                },
+                }
             }
         }
 

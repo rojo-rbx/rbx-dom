@@ -1,12 +1,12 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{RbxValue, NumberSequence, NumberSequenceKeypoint};
+use rbx_dom_weak::{NumberSequence, NumberSequenceKeypoint, RbxValue};
 
 use crate::{
     core::XmlType,
-    error::{DecodeError, DecodeErrorKind, EncodeError},
     deserializer_core::XmlEventReader,
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    error::{DecodeError, DecodeErrorKind, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct NumberSequenceType;
@@ -35,22 +35,21 @@ impl XmlType<NumberSequence> for NumberSequenceType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let contents = reader.read_characters()?;
         let mut pieces = contents
             .split(" ")
             .filter(|slice| !slice.is_empty())
-            .map(|piece| {
-                piece.parse::<f32>()
-                    .map_err(|e| reader.error(e))
-            });
+            .map(|piece| piece.parse::<f32>().map_err(|e| reader.error(e)));
         let mut keypoints = Vec::new();
 
-        let wrong_length = || reader.error(DecodeErrorKind::InvalidContent("incorrect number of values"));
+        let wrong_length = || {
+            reader.error(DecodeErrorKind::InvalidContent(
+                "incorrect number of values",
+            ))
+        };
 
         loop {
             let time = match pieces.next() {
@@ -61,19 +60,23 @@ impl XmlType<NumberSequence> for NumberSequenceType {
             let value = pieces.next().ok_or_else(wrong_length)??;
             let envelope = pieces.next().ok_or_else(wrong_length)??;
 
-            keypoints.push(NumberSequenceKeypoint { time, value, envelope });
+            keypoints.push(NumberSequenceKeypoint {
+                time,
+                value,
+                envelope,
+            });
         }
 
         if keypoints.len() < 2 {
-            return Err(reader.error(DecodeErrorKind::InvalidContent("expected two or more keypoints")));
+            return Err(reader.error(DecodeErrorKind::InvalidContent(
+                "expected two or more keypoints",
+            )));
         }
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::NumberSequence {
-            value: NumberSequence {
-                keypoints,
-            },
+            value: NumberSequence { keypoints },
         })
     }
 }
@@ -105,7 +108,7 @@ mod test {
             &test_input,
             RbxValue::NumberSequence {
                 value: test_input.clone(),
-            }
+            },
         );
     }
 
@@ -130,7 +133,7 @@ mod test {
                         },
                     ],
                 },
-            }
+            },
         );
     }
 
@@ -153,7 +156,7 @@ mod test {
                         envelope: 13.0,
                     },
                 ],
-            }
+            },
         );
     }
 }

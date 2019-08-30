@@ -1,12 +1,12 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{RbxValue, ColorSequence, ColorSequenceKeypoint};
+use rbx_dom_weak::{ColorSequence, ColorSequenceKeypoint, RbxValue};
 
 use crate::{
     core::XmlType,
+    deserializer_core::XmlEventReader,
     error::{DecodeError, DecodeErrorKind, EncodeError},
-    deserializer_core::{XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct ColorSequenceType;
@@ -42,22 +42,21 @@ impl XmlType<ColorSequence> for ColorSequenceType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let contents = reader.read_characters()?;
         let mut pieces = contents
             .split(" ")
             .filter(|slice| !slice.is_empty())
-            .map(|piece| {
-                piece.parse::<f32>()
-                    .map_err(|e| reader.error(e))
-            });
+            .map(|piece| piece.parse::<f32>().map_err(|e| reader.error(e)));
         let mut keypoints = Vec::new();
 
-        let wrong_length = || reader.error(DecodeErrorKind::InvalidContent("incorrect number of values"));
+        let wrong_length = || {
+            reader.error(DecodeErrorKind::InvalidContent(
+                "incorrect number of values",
+            ))
+        };
 
         loop {
             let time = match pieces.next() {
@@ -73,19 +72,22 @@ impl XmlType<ColorSequence> for ColorSequenceType {
             // have a corresponding field in rbx_dom_weak's type.
             let _envelope = pieces.next().ok_or_else(wrong_length)??;
 
-            keypoints.push(ColorSequenceKeypoint { time, color: [r, g, b] });
+            keypoints.push(ColorSequenceKeypoint {
+                time,
+                color: [r, g, b],
+            });
         }
 
         if keypoints.len() < 2 {
-            return Err(reader.error(DecodeErrorKind::InvalidContent("expected two or more keypoints")));
+            return Err(reader.error(DecodeErrorKind::InvalidContent(
+                "expected two or more keypoints",
+            )));
         }
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::ColorSequence {
-            value: ColorSequence {
-                keypoints,
-            },
+            value: ColorSequence { keypoints },
         })
     }
 }
@@ -115,7 +117,7 @@ mod test {
             &test_input,
             RbxValue::ColorSequence {
                 value: test_input.clone(),
-            }
+            },
         );
     }
 
@@ -138,7 +140,7 @@ mod test {
                         },
                     ],
                 },
-            }
+            },
         );
     }
 
@@ -159,7 +161,7 @@ mod test {
                         color: [1.0, 0.5, 0.0],
                     },
                 ],
-            }
+            },
         );
     }
 }

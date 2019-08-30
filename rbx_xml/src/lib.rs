@@ -133,16 +133,13 @@ mod test_util;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{RbxTree, RbxId};
+use rbx_dom_weak::{RbxId, RbxTree};
 
-use crate::{
-    deserializer::decode_internal,
-    serializer::encode_internal,
-};
+use crate::{deserializer::decode_internal, serializer::encode_internal};
 
 pub use crate::{
-    error::{EncodeError, DecodeError},
     deserializer::{DecodeOptions, DecodePropertyBehavior},
+    error::{DecodeError, EncodeError},
     serializer::{EncodeOptions, EncodePropertyBehavior},
 };
 
@@ -171,13 +168,22 @@ pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<RbxTree, DecodeError
 
 /// Serializes a subset of the given tree to an XML format model or place,
 /// writing to something that implements the `std::io::Write` trait.
-pub fn to_writer<W: Write>(writer: W, tree: &RbxTree, ids: &[RbxId], options: EncodeOptions) -> Result<(), EncodeError> {
+pub fn to_writer<W: Write>(
+    writer: W,
+    tree: &RbxTree,
+    ids: &[RbxId],
+    options: EncodeOptions,
+) -> Result<(), EncodeError> {
     encode_internal(writer, tree, ids, options)
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,
 /// writing to something that implements the `std::io::Write` trait using the
 /// default encoder options.
-pub fn to_writer_default<W: Write>(writer: W, tree: &RbxTree, ids: &[RbxId]) -> Result<(), EncodeError> {
+pub fn to_writer_default<W: Write>(
+    writer: W,
+    tree: &RbxTree,
+    ids: &[RbxId],
+) -> Result<(), EncodeError> {
     encode_internal(writer, tree, ids, EncodeOptions::default())
 }

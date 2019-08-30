@@ -15,11 +15,9 @@ static TEST_DOCUMENT: &str = r#"
 
 #[test]
 fn ignore_unknown_properties() {
-    let options = DecodeOptions::new()
-        .property_behavior(DecodePropertyBehavior::IgnoreUnknown);
+    let options = DecodeOptions::new().property_behavior(DecodePropertyBehavior::IgnoreUnknown);
 
-    let tree = rbx_xml::from_str(TEST_DOCUMENT, options)
-        .expect("Couldn't decode tree");
+    let tree = rbx_xml::from_str(TEST_DOCUMENT, options).expect("Couldn't decode tree");
 
     let root_instance = tree.get_instance(tree.get_root_id()).unwrap();
 
@@ -35,19 +33,14 @@ fn ignore_unknown_properties() {
         }),
     );
 
-    assert_eq!(
-        child_instance.properties.get("UnknownProperty"),
-        None,
-    );
+    assert_eq!(child_instance.properties.get("UnknownProperty"), None,);
 }
 
 #[test]
 fn read_unknown_properties() {
-    let options = DecodeOptions::new()
-        .property_behavior(DecodePropertyBehavior::ReadUnknown);
+    let options = DecodeOptions::new().property_behavior(DecodePropertyBehavior::ReadUnknown);
 
-    let tree = rbx_xml::from_str(TEST_DOCUMENT, options)
-        .expect("Couldn't decode tree");
+    let tree = rbx_xml::from_str(TEST_DOCUMENT, options).expect("Couldn't decode tree");
 
     let root_instance = tree.get_instance(tree.get_root_id()).unwrap();
 
@@ -73,20 +66,16 @@ fn read_unknown_properties() {
 
 #[test]
 fn error_on_unknown_properties() {
-    let options = DecodeOptions::new()
-        .property_behavior(DecodePropertyBehavior::ErrorOnUnknown);
+    let options = DecodeOptions::new().property_behavior(DecodePropertyBehavior::ErrorOnUnknown);
 
-    rbx_xml::from_str(TEST_DOCUMENT, options)
-        .expect_err("Expected tree to fail to deserialize");
+    rbx_xml::from_str(TEST_DOCUMENT, options).expect_err("Expected tree to fail to deserialize");
 }
 
 #[test]
 fn no_reflection() {
-    let options = DecodeOptions::new()
-        .property_behavior(DecodePropertyBehavior::NoReflection);
+    let options = DecodeOptions::new().property_behavior(DecodePropertyBehavior::NoReflection);
 
-    let tree = rbx_xml::from_str(TEST_DOCUMENT, options)
-        .expect("Couldn't decode tree");
+    let tree = rbx_xml::from_str(TEST_DOCUMENT, options).expect("Couldn't decode tree");
 
     let root_instance = tree.get_instance(tree.get_root_id()).unwrap();
 
@@ -123,11 +112,9 @@ fn no_reflection_renamed_value() {
         </roblox>
     "#;
 
-    let options = DecodeOptions::new()
-        .property_behavior(DecodePropertyBehavior::NoReflection);
+    let options = DecodeOptions::new().property_behavior(DecodePropertyBehavior::NoReflection);
 
-    let tree = rbx_xml::from_str(document, options)
-        .expect("Couldn't decode tree");
+    let tree = rbx_xml::from_str(document, options).expect("Couldn't decode tree");
 
     let root_instance = tree.get_instance(tree.get_root_id()).unwrap();
 
@@ -138,8 +125,6 @@ fn no_reflection_renamed_value() {
 
     assert_eq!(
         child_instance.properties.get("formFactorRaw"),
-        Some(&RbxValue::Enum {
-            value: 1,
-        }),
+        Some(&RbxValue::Enum { value: 1 }),
     );
 }

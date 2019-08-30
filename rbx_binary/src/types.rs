@@ -23,7 +23,7 @@ impl BinaryType<bool> for BoolType {
 
     fn write_array<'write, I, W: Write>(output: &mut W, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = &'write bool>
+        I: Iterator<Item = &'write bool>,
     {
         for value in values {
             BoolType::write_binary(output, *value)?;
@@ -62,7 +62,7 @@ impl BinaryType<str> for StringType {
 
     fn write_array<'write, I, W: Write>(output: &mut W, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = &'write str>
+        I: Iterator<Item = &'write str>,
     {
         for value in values {
             StringType::write_binary(output, value)?;

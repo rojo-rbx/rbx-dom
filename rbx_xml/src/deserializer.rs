@@ -1,24 +1,15 @@
-use std::{
-    io::Read,
-    collections::HashMap,
-};
+use std::{collections::HashMap, io::Read};
 
 use log::trace;
-use rbx_reflection::RbxPropertyTypeDescriptor;
 use rbx_dom_weak::{
-    RbxId,
-    RbxInstanceProperties,
-    RbxTree,
-    RbxValue,
-    RbxValueConversion,
-    RbxValueType,
-    SharedString,
+    RbxId, RbxInstanceProperties, RbxTree, RbxValue, RbxValueConversion, RbxValueType, SharedString,
 };
+use rbx_reflection::RbxPropertyTypeDescriptor;
 
 use crate::{
     core::find_canonical_property_descriptor,
-    types::read_value_xml,
     error::{DecodeError, DecodeErrorKind},
+    types::read_value_xml,
 };
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
@@ -176,7 +167,12 @@ impl<'a> ParseState<'a> {
     /// have a complete view of how referents map to RbxId values.
     ///
     /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_referent_rewrite(&mut self, id: RbxId, property_name: String, referent_value: String) {
+    pub fn add_referent_rewrite(
+        &mut self,
+        id: RbxId,
+        property_name: String,
+        referent_value: String,
+    ) {
         self.referent_rewrites.push(ReferentRewrite {
             id,
             property_name,
@@ -188,7 +184,12 @@ impl<'a> ParseState<'a> {
     /// have a complete view of how referents map to RbxId values.
     ///
     /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_shared_string_rewrite(&mut self, id: RbxId, property_name: String, shared_string_hash: String) {
+    pub fn add_shared_string_rewrite(
+        &mut self,
+        id: RbxId,
+        property_name: String,
+        shared_string_hash: String,
+    ) {
         self.shared_string_rewrites.push(SharedStringRewrite {
             id,
             property_name,
@@ -201,15 +202,20 @@ fn apply_referent_rewrites(state: &mut ParseState) {
     for rewrite in &state.referent_rewrites {
         let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
             Some(id) => *id,
-            None => continue
+            None => continue,
         };
 
-        let instance = state.tree.get_instance_mut(rewrite.id)
+        let instance = state
+            .tree
+            .get_instance_mut(rewrite.id)
             .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree");
 
-        instance.properties.insert(rewrite.property_name.clone(), RbxValue::Ref {
-            value: Some(new_value),
-        });
+        instance.properties.insert(
+            rewrite.property_name.clone(),
+            RbxValue::Ref {
+                value: Some(new_value),
+            },
+        );
     }
 }
 
@@ -217,25 +223,27 @@ fn apply_shared_string_rewrites(state: &mut ParseState) {
     for rewrite in &state.shared_string_rewrites {
         let new_value = match state.known_shared_strings.get(&rewrite.shared_string_hash) {
             Some(v) => v.clone(),
-            None => continue
+            None => continue,
         };
 
-        let instance = state.tree.get_instance_mut(rewrite.id)
-            .expect("rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree");
+        let instance = state.tree.get_instance_mut(rewrite.id).expect(
+            "rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree",
+        );
 
-        instance.properties.insert(rewrite.property_name.clone(), RbxValue::SharedString {
-            value: new_value,
-        });
+        instance.properties.insert(
+            rewrite.property_name.clone(),
+            RbxValue::SharedString { value: new_value },
+        );
     }
 }
 
 fn deserialize_root<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
-    parent_id: RbxId
+    parent_id: RbxId,
 ) -> Result<(), DecodeError> {
     match reader.expect_next()? {
-        XmlReadEvent::StartDocument { .. } => {},
+        XmlReadEvent::StartDocument { .. } => {}
         _ => unreachable!(),
     }
 
@@ -250,8 +258,8 @@ fn deserialize_root<R: Read>(
         }
     }
 
-    let doc_version = doc_version
-        .ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("version")))?;
+    let doc_version =
+        doc_version.ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("version")))?;
 
     if doc_version != "4" {
         return Err(reader.error(DecodeErrorKind::WrongDocVersion(doc_version)));
@@ -301,7 +309,10 @@ fn deserialize_root<R: Read>(
     Ok(())
 }
 
-fn deserialize_metadata<R: Read>(reader: &mut XmlEventReader<R>, state: &mut ParseState) -> Result<(), DecodeError> {
+fn deserialize_metadata<R: Read>(
+    reader: &mut XmlEventReader<R>,
+    state: &mut ParseState,
+) -> Result<(), DecodeError> {
     let name = {
         let attributes = reader.expect_start_with_name("Meta")?;
 
@@ -373,14 +384,12 @@ fn deserialize_shared_string<R: Read>(
         }
     }
 
-    let md5_hash = md5_hash
-        .ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("md5")))?;
+    let md5_hash =
+        md5_hash.ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("md5")))?;
 
-    let encoded_buffer = reader.read_characters()?
-        .replace("\n", "");
+    let encoded_buffer = reader.read_characters()?.replace("\n", "");
 
-    let buffer = base64::decode(&encoded_buffer)
-        .map_err(|e| reader.error(e))?;
+    let buffer = base64::decode(&encoded_buffer).map_err(|e| reader.error(e))?;
 
     let value = SharedString::new(buffer);
 
@@ -405,12 +414,12 @@ fn deserialize_instance<R: Read>(
             match attribute.name.local_name.as_str() {
                 "class" => class = Some(attribute.value),
                 "referent" => referent = Some(attribute.value),
-                _ => {},
+                _ => {}
             }
         }
 
-        let class = class
-            .ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("class")))?;
+        let class =
+            class.ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("class")))?;
 
         (class, referent)
     };
@@ -444,7 +453,7 @@ fn deserialize_instance<R: Read>(
                     let event = reader.expect_next().unwrap();
                     return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
                 }
-            }
+            },
             XmlReadEvent::EndElement { name } => {
                 if name.local_name != "Item" {
                     let event = reader.expect_next().unwrap();
@@ -489,14 +498,19 @@ fn deserialize_properties<R: Read>(
 ) -> Result<(), DecodeError> {
     reader.expect_start_with_name("Properties")?;
 
-    let class_name = state.tree.get_instance(instance_id)
+    let class_name = state
+        .tree
+        .get_instance(instance_id)
         .expect("Couldn't find instance to deserialize properties into")
-        .class_name.clone();
+        .class_name
+        .clone();
 
     loop {
         let (xml_type_name, xml_property_name) = {
             match reader.expect_peek()? {
-                XmlReadEvent::StartElement { name, attributes, .. } => {
+                XmlReadEvent::StartElement {
+                    name, attributes, ..
+                } => {
                     let mut xml_property_name = None;
 
                     for attribute in attributes {
@@ -508,20 +522,20 @@ fn deserialize_properties<R: Read>(
 
                     let xml_property_name = match xml_property_name {
                         Some(value) => value,
-                        None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name")))
+                        None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name"))),
                     };
 
                     (name.local_name.to_owned(), xml_property_name)
-                },
+                }
                 XmlReadEvent::EndElement { name } => {
                     if name.local_name == "Properties" {
                         reader.expect_next()?;
-                        return Ok(())
+                        return Ok(());
                     } else {
                         let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
                         return Err(reader.error(err));
                     }
-                },
+                }
                 _ => {
                     let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
                     return Err(reader.error(err));
@@ -536,7 +550,13 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let xml_value = read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name())?;
+            let xml_value = read_value_xml(
+                reader,
+                state,
+                &xml_type_name,
+                instance_id,
+                descriptor.name(),
+            )?;
 
             // The property descriptor might specify a different type than the
             // one we saw in the XML.
@@ -571,11 +591,12 @@ fn deserialize_properties<R: Read>(
                                 property_name: xml_property_name,
                             }));
                         }
-                        DecodePropertyBehavior::NoReflection | DecodePropertyBehavior::__Nonexhaustive => {
+                        DecodePropertyBehavior::NoReflection
+                        | DecodePropertyBehavior::__Nonexhaustive => {
                             unreachable!();
                         }
                     }
-                },
+                }
             };
 
             let value = match xml_value.try_convert_ref(expected_type) {
@@ -591,12 +612,14 @@ fn deserialize_properties<R: Read>(
                 // The property descriptor disagreed, and there was no
                 // conversion available. This is always an error.
                 RbxValueConversion::Failed => {
-                    return Err(reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
-                        class_name: class_name.clone(),
-                        property_name: descriptor.name().to_string(),
-                        expected_type,
-                        actual_type: xml_value.get_type(),
-                    }));
+                    return Err(
+                        reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
+                            class_name: class_name.clone(),
+                            property_name: descriptor.name().to_string(),
+                            expected_type,
+                            actual_type: xml_value.get_type(),
+                        }),
+                    );
                 }
             };
 
@@ -607,13 +630,25 @@ fn deserialize_properties<R: Read>(
                     // We don't care about this property, so we can read it and
                     // throw it into the void.
 
-                    read_value_xml(reader, state, &xml_type_name, instance_id, &xml_property_name)?;
+                    read_value_xml(
+                        reader,
+                        state,
+                        &xml_type_name,
+                        instance_id,
+                        &xml_property_name,
+                    )?;
                 }
                 DecodePropertyBehavior::ReadUnknown | DecodePropertyBehavior::NoReflection => {
                     // We'll take this value as-is with no conversions on either
                     // the name or value.
 
-                    let value = read_value_xml(reader, state, &xml_type_name, instance_id, &xml_property_name)?;
+                    let value = read_value_xml(
+                        reader,
+                        state,
+                        &xml_type_name,
+                        instance_id,
+                        &xml_property_name,
+                    )?;
                     props.insert(xml_property_name, value);
                 }
                 DecodePropertyBehavior::ErrorOnUnknown => {
@@ -622,7 +657,7 @@ fn deserialize_properties<R: Read>(
                         property_name: xml_property_name,
                     }));
                 }
-                DecodePropertyBehavior::__Nonexhaustive => unreachable!()
+                DecodePropertyBehavior::__Nonexhaustive => unreachable!(),
             }
         }
     }

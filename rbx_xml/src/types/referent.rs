@@ -14,11 +14,11 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{RbxId, RbxValue};
 
 use crate::{
-    error::{EncodeError, DecodeError},
-    deserializer_core::XmlEventReader,
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
     deserializer::ParseState,
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, EncodeError},
     serializer::EmitState,
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub const XML_TAG_NAME: &'static str = "Ref";
@@ -33,7 +33,7 @@ pub fn write_ref<W: Write>(
 
     match value {
         Some(id) => writer.write_characters(state.map_id(*id))?,
-        None => writer.write(XmlWriteEvent::characters("null"))?
+        None => writer.write(XmlWriteEvent::characters("null"))?,
     }
 
     writer.write(XmlWriteEvent::end_element())?;
@@ -58,7 +58,5 @@ pub fn read_ref<R: Read>(
         state.add_referent_rewrite(id, property_name.to_owned(), ref_contents);
     }
 
-    Ok(RbxValue::Ref {
-        value: None,
-    })
+    Ok(RbxValue::Ref { value: None })
 }

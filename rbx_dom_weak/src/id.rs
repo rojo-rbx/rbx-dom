@@ -1,6 +1,6 @@
 use std::fmt;
 
-use serde_derive::{Serialize, Deserialize};
+use serde_derive::{Deserialize, Serialize};
 use uuid::Uuid;
 
 /// A unique ID that represents an instance within an [`RbxTree`].

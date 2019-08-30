@@ -27,15 +27,15 @@ mod vectors;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{RbxValue, RbxId};
+use rbx_dom_weak::{RbxId, RbxValue};
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, EncodeErrorKind, DecodeError, DecodeErrorKind},
-    deserializer_core::XmlEventReader,
     deserializer::ParseState,
-    serializer_core::XmlEventWriter,
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, DecodeErrorKind, EncodeError, EncodeErrorKind},
     serializer::EmitState,
+    serializer_core::XmlEventWriter,
 };
 
 use self::{

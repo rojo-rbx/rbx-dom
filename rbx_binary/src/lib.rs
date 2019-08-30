@@ -7,11 +7,11 @@
 //! and cause a panic when serializing.
 
 mod core;
-mod types;
-mod serializer;
 mod deserializer;
+mod serializer;
+mod types;
 
 pub use crate::{
-    serializer::{encode, EncodeError},
     deserializer::{decode, DecodeError},
+    serializer::{encode, EncodeError},
 };

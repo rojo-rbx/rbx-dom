@@ -5,11 +5,11 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{RbxId, RbxValue, SharedString};
 
 use crate::{
-    error::{EncodeError, DecodeError},
-    deserializer_core::XmlEventReader,
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
     deserializer::ParseState,
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, EncodeError},
     serializer::EmitState,
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub const XML_TAG_NAME: &'static str = "SharedString";
@@ -41,7 +41,5 @@ pub fn read_shared_string<R: Read>(
 
     // The value we actually pick here doesn't matter, it'll be overwritten
     // later.
-    Ok(RbxValue::BinaryString {
-        value: Vec::new(),
-    })
+    Ok(RbxValue::BinaryString { value: Vec::new() })
 }

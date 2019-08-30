@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, DecodeError},
-    deserializer_core::{XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 static VECTOR2_TAGS: [&str; 2] = ["X", "Y"];
@@ -29,9 +29,7 @@ impl XmlType<[f32; 2]> for Vector2Type {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x: f32 = reader.read_tag_contents_f32("X")?;
@@ -39,9 +37,7 @@ impl XmlType<[f32; 2]> for Vector2Type {
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::Vector2 {
-            value: [x, y],
-        })
+        Ok(RbxValue::Vector2 { value: [x, y] })
     }
 }
 
@@ -62,9 +58,7 @@ impl XmlType<[i16; 2]> for Vector2int16Type {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x: i16 = reader.read_tag_contents_parse("X")?;
@@ -72,9 +66,7 @@ impl XmlType<[i16; 2]> for Vector2int16Type {
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::Vector2int16 {
-            value: [x, y],
-        })
+        Ok(RbxValue::Vector2int16 { value: [x, y] })
     }
 }
 
@@ -95,9 +87,7 @@ impl XmlType<[f32; 3]> for Vector3Type {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x: f32 = reader.read_tag_contents_f32("X")?;
@@ -106,9 +96,7 @@ impl XmlType<[f32; 3]> for Vector3Type {
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::Vector3 {
-            value: [x, y, z],
-        })
+        Ok(RbxValue::Vector3 { value: [x, y, z] })
     }
 }
 
@@ -129,9 +117,7 @@ impl XmlType<[i16; 3]> for Vector3int16Type {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x: i16 = reader.read_tag_contents_parse("X")?;
@@ -140,9 +126,7 @@ impl XmlType<[i16; 3]> for Vector3int16Type {
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::Vector3int16 {
-            value: [x, y, z],
-        })
+        Ok(RbxValue::Vector3int16 { value: [x, y, z] })
     }
 }
 
@@ -158,9 +142,7 @@ mod test {
 
         test_util::test_xml_round_trip::<Vector2Type, _>(
             &test_input,
-            RbxValue::Vector2 {
-                value: test_input,
-            }
+            RbxValue::Vector2 { value: test_input },
         );
     }
 
@@ -170,9 +152,7 @@ mod test {
 
         test_util::test_xml_round_trip::<Vector2int16Type, _>(
             &test_input,
-            RbxValue::Vector2int16 {
-                value: test_input,
-            }
+            RbxValue::Vector2int16 { value: test_input },
         );
     }
 
@@ -182,9 +162,7 @@ mod test {
 
         test_util::test_xml_round_trip::<Vector3Type, _>(
             &test_input,
-            RbxValue::Vector3 {
-                value: test_input,
-            }
+            RbxValue::Vector3 { value: test_input },
         );
     }
 
@@ -194,9 +172,7 @@ mod test {
 
         test_util::test_xml_round_trip::<Vector3int16Type, _>(
             &test_input,
-            RbxValue::Vector3int16 {
-                value: test_input,
-            }
+            RbxValue::Vector3int16 { value: test_input },
         );
     }
 }

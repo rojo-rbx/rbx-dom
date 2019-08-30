@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, DecodeError},
-    deserializer_core::{XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct UDimType;
@@ -30,9 +30,7 @@ impl XmlType<UDimValue> for UDimType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let scale: f32 = reader.read_tag_contents_f32("S")?;
@@ -69,9 +67,7 @@ impl XmlType<UDim2Value> for UDim2Type {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let x_scale: f32 = reader.read_tag_contents_f32("XS")?;
@@ -99,9 +95,7 @@ mod test {
 
         test_util::test_xml_round_trip::<UDimType, _>(
             &test_input,
-            RbxValue::UDim {
-                value: test_input,
-            }
+            RbxValue::UDim { value: test_input },
         );
     }
 
@@ -111,9 +105,7 @@ mod test {
 
         test_util::test_xml_round_trip::<UDim2Type, _>(
             &test_input,
-            RbxValue::UDim2 {
-                value: test_input,
-            }
+            RbxValue::UDim2 { value: test_input },
         );
     }
 
@@ -126,9 +118,7 @@ mod test {
                     <O>1</O>
                 </UDim>
             "#,
-            RbxValue::UDim {
-                value: (0.5, 1),
-            }
+            RbxValue::UDim { value: (0.5, 1) },
         );
     }
 
@@ -145,7 +135,7 @@ mod test {
             "#,
             RbxValue::UDim2 {
                 value: (0.5, 1, 1.5, 2),
-            }
+            },
         );
     }
 }

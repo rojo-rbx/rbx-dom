@@ -25,14 +25,19 @@ fn part_color() {
     let part_id = root_instance.get_children_ids()[0];
     let part = tree.get_instance(part_id).unwrap();
 
-    let color = part.properties.get("Color")
+    let color = part
+        .properties
+        .get("Color")
         .expect("Missing 'Color' property");
 
     match color {
         RbxValue::Color3 { value } => {
             color3_approx_eq(*value, [0.639216, 0.635294, 0.647059]);
         }
-        _ => panic!("Color property wrong type, expected Color3, got value {:?}", color)
+        _ => panic!(
+            "Color property wrong type, expected Color3, got value {:?}",
+            color
+        ),
     }
 
     let mut buffer = Vec::new();

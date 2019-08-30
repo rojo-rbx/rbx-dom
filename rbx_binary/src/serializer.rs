@@ -1,24 +1,16 @@
 use std::{
-    io::{self, Cursor, Write},
-    collections::HashMap,
     borrow::{Borrow, Cow},
+    collections::HashMap,
+    io::{self, Cursor, Write},
     u32,
 };
 
-use byteorder::{WriteBytesExt, LittleEndian};
-use rbx_dom_weak::{RbxTree, RbxInstance, RbxId, RbxValue};
+use byteorder::{LittleEndian, WriteBytesExt};
+use rbx_dom_weak::{RbxId, RbxInstance, RbxTree, RbxValue};
 
 use crate::{
-    core::{
-        FILE_MAGIC_HEADER,
-        FILE_SIGNATURE,
-        FILE_VERSION,
-    },
-    types::{
-        BoolType,
-        StringType,
-        encode_referent_array,
-    },
+    core::{FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    types::{encode_referent_array, BoolType, StringType},
 };
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
@@ -51,22 +43,28 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
 
     // Type data
     for (type_name, type_info) in &type_infos {
-        encode_chunk(&mut output, b"INST", Compression::Compressed, |mut output| {
-            output.write_u32::<LittleEndian>(type_info.id)?;
-            StringType::write_binary(&mut output, type_name)?;
+        encode_chunk(
+            &mut output,
+            b"INST",
+            Compression::Compressed,
+            |mut output| {
+                output.write_u32::<LittleEndian>(type_info.id)?;
+                StringType::write_binary(&mut output, type_name)?;
 
-            // TODO: Set this flag for services?
-            output.write_u8(0)?; // Flag that no additional data is attached
+                // TODO: Set this flag for services?
+                output.write_u8(0)?; // Flag that no additional data is attached
 
-            output.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
+                output.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
 
-            let type_referents = type_info.object_ids
-                .iter()
-                .map(|id| *referents.get(id).unwrap());
-            encode_referent_array(&mut output, type_referents)?;
+                let type_referents = type_info
+                    .object_ids
+                    .iter()
+                    .map(|id| *referents.get(id).unwrap());
+                encode_referent_array(&mut output, type_referents)?;
 
-            Ok(())
-        })?;
+                Ok(())
+            },
+        )?;
     }
 
     // Property data
@@ -74,58 +72,71 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
     // individual encode methods to properly support interleaved data.
     for (_type_name, type_info) in &type_infos {
         for prop_info in &type_info.properties {
-            encode_chunk(&mut output, b"PROP", Compression::Compressed, |mut output| {
-                output.write_u32::<LittleEndian>(type_info.id)?;
-                StringType::write_binary(&mut output, &prop_info.name)?;
-                output.write_u8(prop_info.kind.id())?;
+            encode_chunk(
+                &mut output,
+                b"PROP",
+                Compression::Compressed,
+                |mut output| {
+                    output.write_u32::<LittleEndian>(type_info.id)?;
+                    StringType::write_binary(&mut output, &prop_info.name)?;
+                    output.write_u8(prop_info.kind.id())?;
 
-                for instance_id in &type_info.object_ids {
-                    let instance = relevant_instances.get(instance_id).unwrap();
-                    let value = match prop_info.name.as_str() {
-                        "Name" => Cow::Owned(RbxValue::String {
-                            value: instance.name.clone()
-                        }),
-                        _ => {
-                            // TODO: This is way wrong; we need type information
-                            // to fall back to the correct default value.
-                            let value = instance.properties.get(&prop_info.name)
-                                .map(Cow::Borrowed)
-                                .unwrap_or_else(|| Cow::Owned(prop_info.kind.default_value()));
+                    for instance_id in &type_info.object_ids {
+                        let instance = relevant_instances.get(instance_id).unwrap();
+                        let value = match prop_info.name.as_str() {
+                            "Name" => Cow::Owned(RbxValue::String {
+                                value: instance.name.clone(),
+                            }),
+                            _ => {
+                                // TODO: This is way wrong; we need type information
+                                // to fall back to the correct default value.
+                                let value = instance
+                                    .properties
+                                    .get(&prop_info.name)
+                                    .map(Cow::Borrowed)
+                                    .unwrap_or_else(|| Cow::Owned(prop_info.kind.default_value()));
 
-                            // For now, we ensure that every instance of a given
-                            // type pinky-promises to have the correct type.
-                            // TODO: Turn this into a real error
-                            assert_eq!(PropKind::from_value(&value), prop_info.kind);
+                                // For now, we ensure that every instance of a given
+                                // type pinky-promises to have the correct type.
+                                // TODO: Turn this into a real error
+                                assert_eq!(PropKind::from_value(&value), prop_info.kind);
 
-                            value
-                        },
-                    };
+                                value
+                            }
+                        };
 
-                    assert_eq!(PropKind::from_value(&value), prop_info.kind);
+                        assert_eq!(PropKind::from_value(&value), prop_info.kind);
 
-                    match value.borrow() {
-                        RbxValue::String { value } => StringType::write_binary(&mut output, value)?,
-                        RbxValue::Bool { value } => BoolType::write_binary(&mut output, *value)?,
-                        _ => unimplemented!(),
+                        match value.borrow() {
+                            RbxValue::String { value } => {
+                                StringType::write_binary(&mut output, value)?
+                            }
+                            RbxValue::Bool { value } => {
+                                BoolType::write_binary(&mut output, *value)?
+                            }
+                            _ => unimplemented!(),
+                        }
                     }
-                }
 
-                Ok(())
-            })?;
+                    Ok(())
+                },
+            )?;
         }
     }
 
-    encode_chunk(&mut output, b"PRNT", Compression::Compressed, |mut output| {
-        output.write_u8(0)?; // Parent chunk data, version 0
-        output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
+    encode_chunk(
+        &mut output,
+        b"PRNT",
+        Compression::Compressed,
+        |mut output| {
+            output.write_u8(0)?; // Parent chunk data, version 0
+            output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
 
-        let ids = relevant_instances
-            .keys()
-            .map(|id| *referents.get(id).unwrap());
+            let ids = relevant_instances
+                .keys()
+                .map(|id| *referents.get(id).unwrap());
 
-        let parent_ids = relevant_instances
-            .keys()
-            .map(|id| {
+            let parent_ids = relevant_instances.keys().map(|id| {
                 let instance = relevant_instances.get(id).unwrap();
                 match instance.get_parent_id() {
                     Some(parent_id) => *referents.get(&parent_id).unwrap_or(&-1),
@@ -133,15 +144,19 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
                 }
             });
 
-        encode_referent_array(&mut output, ids)?;
-        encode_referent_array(&mut output, parent_ids)?;
+            encode_referent_array(&mut output, ids)?;
+            encode_referent_array(&mut output, parent_ids)?;
 
-        Ok(())
-    })?;
+            Ok(())
+        },
+    )?;
 
-    encode_chunk(&mut output, b"END\0", Compression::Uncompressed, |mut output| {
-        output.write_all(FILE_FOOTER)
-    })?;
+    encode_chunk(
+        &mut output,
+        b"END\0",
+        Compression::Uncompressed,
+        |mut output| output.write_all(FILE_FOOTER),
+    )?;
 
     Ok(())
 }
@@ -167,9 +182,7 @@ impl PropKind {
             PropKind::String => RbxValue::String {
                 value: String::new(),
             },
-            PropKind::Bool => RbxValue::Bool {
-                value: false,
-            },
+            PropKind::Bool => RbxValue::Bool { value: false },
         }
     }
 
@@ -194,7 +207,9 @@ struct TypeInfo {
     properties: Vec<PropInfo>,
 }
 
-fn generate_type_infos<'a>(instances: &HashMap<RbxId, &'a RbxInstance>) -> HashMap<&'a str, TypeInfo> {
+fn generate_type_infos<'a>(
+    instances: &HashMap<RbxId, &'a RbxInstance>,
+) -> HashMap<&'a str, TypeInfo> {
     let mut type_infos = HashMap::new();
     let mut next_type_id = 0;
 
@@ -207,24 +222,27 @@ fn generate_type_infos<'a>(instances: &HashMap<RbxId, &'a RbxInstance>) -> HashM
                 let info = TypeInfo {
                     id: next_type_id,
                     object_ids: Vec::new(),
-                    properties: vec![
-                        PropInfo {
-                            name: "Name".to_string(),
-                            kind: PropKind::String,
-                        },
-                    ],
+                    properties: vec![PropInfo {
+                        name: "Name".to_string(),
+                        kind: PropKind::String,
+                    }],
                 };
                 next_type_id += 1;
 
                 type_infos.insert(class_name, info);
                 type_infos.get_mut(class_name).unwrap()
-            },
+            }
         };
 
         info.object_ids.push(instance.get_id());
 
         for (prop_name, prop_value) in &instance.properties {
-            if info.properties.iter().find(|prop| &prop.name == prop_name).is_none() {
+            if info
+                .properties
+                .iter()
+                .find(|prop| &prop.name == prop_name)
+                .is_none()
+            {
                 let prop_info = PropInfo {
                     name: prop_name.clone(),
                     kind: PropKind::from_value(prop_value),
@@ -254,7 +272,8 @@ fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a 
     let mut output = HashMap::new();
 
     for id in ids {
-        let instance = tree.get_instance(*id)
+        let instance = tree
+            .get_instance(*id)
             .expect("Given ID didn't exist in the tree");
         output.insert(*id, instance);
 
@@ -271,8 +290,14 @@ enum Compression {
     Uncompressed,
 }
 
-fn encode_chunk<W: Write, F>(output: &mut W, chunk_name: &[u8], compression: Compression, body: F) -> io::Result<()>
-    where F: Fn(Cursor<&mut Vec<u8>>) -> io::Result<()>
+fn encode_chunk<W: Write, F>(
+    output: &mut W,
+    chunk_name: &[u8],
+    compression: Compression,
+    body: F,
+) -> io::Result<()>
+where
+    F: Fn(Cursor<&mut Vec<u8>>) -> io::Result<()>,
 {
     output.write_all(chunk_name)?;
 
@@ -288,14 +313,14 @@ fn encode_chunk<W: Write, F>(output: &mut W, chunk_name: &[u8], compression: Com
             output.write_u32::<LittleEndian>(0)?;
 
             output.write_all(&compressed)?;
-        },
+        }
         Compression::Uncompressed => {
             output.write_u32::<LittleEndian>(0)?;
             output.write_u32::<LittleEndian>(buffer.len() as u32)?;
             output.write_u32::<LittleEndian>(0)?;
 
             output.write_all(&buffer)?;
-        },
+        }
     }
 
     Ok(())
@@ -305,8 +330,8 @@ fn encode_chunk<W: Write, F>(output: &mut W, chunk_name: &[u8], compression: Com
 mod test {
     use super::*;
 
-    use std::collections::HashMap;
     use rbx_dom_weak::RbxInstanceProperties;
+    use std::collections::HashMap;
 
     fn new_test_tree() -> RbxTree {
         let instance = RbxInstanceProperties {

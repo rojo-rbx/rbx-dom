@@ -15,5 +15,8 @@ fn f32_to_f64() {
 
     assert_eq!(value.name, "A NumberValue");
     assert_eq!(value.class_name, "NumberValue");
-    assert_eq!(value.properties.get("Value"), Some(&RbxValue::Float64 { value: 308.0 }));
+    assert_eq!(
+        value.properties.get("Value"),
+        Some(&RbxValue::Float64 { value: 308.0 })
+    );
 }

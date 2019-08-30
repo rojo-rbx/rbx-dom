@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, DecodeError},
-    deserializer_core::{XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 macro_rules! float_type {
@@ -21,16 +21,15 @@ macro_rules! float_type {
                 name: &str,
                 value: &$rust_type,
             ) -> Result<(), EncodeError> {
-                writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
+                writer
+                    .write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
                 writer.write_characters_f64(*value as f64)?;
                 writer.write(XmlWriteEvent::end_element())?;
 
                 Ok(())
             }
 
-            fn read_xml<R: Read>(
-                reader: &mut XmlEventReader<R>,
-            ) -> Result<RbxValue, DecodeError> {
+            fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
                 Ok(RbxValue::$rbx_type {
                     value: reader.$reader_method(Self::XML_TAG_NAME)?,
                 })
@@ -38,7 +37,6 @@ macro_rules! float_type {
         }
     };
 }
-
 
 macro_rules! int_type {
     ($rbx_type: ident, $type_struct: ident, $rust_type: ty, $xml_name: expr) => {
@@ -52,22 +50,21 @@ macro_rules! int_type {
                 name: &str,
                 value: &$rust_type,
             ) -> Result<(), EncodeError> {
-                writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
+                writer
+                    .write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
                 writer.write_characters(*value)?;
                 writer.write(XmlWriteEvent::end_element())?;
 
                 Ok(())
             }
 
-            fn read_xml<R: Read>(
-                reader: &mut XmlEventReader<R>,
-            ) -> Result<RbxValue, DecodeError> {
-                let value: $rust_type = reader.read_tag_contents(Self::XML_TAG_NAME)?
-                    .parse().map_err(|e| reader.error(e))?;
+            fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
+                let value: $rust_type = reader
+                    .read_tag_contents(Self::XML_TAG_NAME)?
+                    .parse()
+                    .map_err(|e| reader.error(e))?;
 
-                Ok(RbxValue::$rbx_type {
-                    value,
-                })
+                Ok(RbxValue::$rbx_type { value })
             }
         }
     };
@@ -82,19 +79,13 @@ int_type!(Int64, Int64Type, i64, "int64");
 mod test {
     use super::*;
 
-    use crate::{
-        core::XmlType,
-        deserializer_core::XmlEventReader,
-        test_util,
-    };
+    use crate::{core::XmlType, deserializer_core::XmlEventReader, test_util};
 
     #[test]
     fn round_trip_f32() {
         test_util::test_xml_round_trip::<Float32Type, _>(
             &123456.0,
-            RbxValue::Float32 {
-                value: 123456.0,
-            }
+            RbxValue::Float32 { value: 123456.0 },
         );
     }
 
@@ -102,9 +93,7 @@ mod test {
     fn round_trip_f64() {
         test_util::test_xml_round_trip::<Float64Type, _>(
             &123456.0,
-            RbxValue::Float64 {
-                value: 123456.0,
-            }
+            RbxValue::Float64 { value: 123456.0 },
         );
     }
 
@@ -112,9 +101,7 @@ mod test {
     fn round_trip_i32() {
         test_util::test_xml_round_trip::<Int32Type, _>(
             &-4654321,
-            RbxValue::Int32 {
-                value: -4654321,
-            }
+            RbxValue::Int32 { value: -4654321 },
         );
     }
 
@@ -124,7 +111,7 @@ mod test {
             &281474976710656,
             RbxValue::Int64 {
                 value: 281474976710656,
-            }
+            },
         );
     }
 
@@ -132,18 +119,20 @@ mod test {
     fn test_inf_and_nan_deserialize() {
         test_util::test_xml_deserialize::<Float32Type, _>(
             r#"<float name="foo">INF</float>"#,
-            RbxValue::Float32 { value: std::f32::INFINITY },
+            RbxValue::Float32 {
+                value: std::f32::INFINITY,
+            },
         );
 
         test_util::test_xml_deserialize::<Float32Type, _>(
             r#"<float name="foo">-INF</float>"#,
-            RbxValue::Float32 { value: std::f32::NEG_INFINITY },
+            RbxValue::Float32 {
+                value: std::f32::NEG_INFINITY,
+            },
         );
 
         // Can't just use test_util::test_xml_deserialize, because NaN != NaN!
-        let mut reader = XmlEventReader::from_source(
-            r#"<float name="foo">NAN</float>"#.as_bytes()
-        );
+        let mut reader = XmlEventReader::from_source(r#"<float name="foo">NAN</float>"#.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
         let value = Float32Type::read_xml(&mut reader).unwrap();
         match value {

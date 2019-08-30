@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{DecodeError, DecodeErrorKind, EncodeError},
     deserializer_core::XmlEventReader,
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    error::{DecodeError, DecodeErrorKind, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct NumberRangeType;
@@ -31,24 +31,21 @@ impl XmlType<(f32, f32)> for NumberRangeType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let contents = reader.read_characters()?;
         let mut pieces = contents
             .split(" ")
             .filter(|slice| !slice.is_empty())
-            .map(|piece| {
-                piece.parse::<f32>()
-                    .map_err(|e| reader.error(e))
-            });
+            .map(|piece| piece.parse::<f32>().map_err(|e| reader.error(e)));
 
-        let min = pieces.next()
+        let min = pieces
+            .next()
             .ok_or_else(|| reader.error(DecodeErrorKind::InvalidContent("missing min value")))??;
 
-        let max = pieces.next()
+        let max = pieces
+            .next()
             .ok_or_else(|| reader.error(DecodeErrorKind::InvalidContent("missing max value")))??;
 
         match pieces.next() {
@@ -58,9 +55,7 @@ impl XmlType<(f32, f32)> for NumberRangeType {
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::NumberRange {
-            value: (min, max),
-        })
+        Ok(RbxValue::NumberRange { value: (min, max) })
     }
 }
 
@@ -76,9 +71,7 @@ mod test {
 
         test_util::test_xml_round_trip::<NumberRangeType, _>(
             &test_input,
-            RbxValue::NumberRange {
-                value: test_input,
-            }
+            RbxValue::NumberRange { value: test_input },
         );
     }
 
@@ -90,7 +83,7 @@ mod test {
             "#,
             RbxValue::NumberRange {
                 value: (80.5, -30.0),
-            }
+            },
         );
     }
 
@@ -100,7 +93,7 @@ mod test {
             r#"
                 <NumberRange name="foo">80.5 -30 </NumberRange>
             "#,
-            &(80.5, -30.0)
+            &(80.5, -30.0),
         );
     }
 }

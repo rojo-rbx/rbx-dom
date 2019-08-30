@@ -15,7 +15,10 @@ pub struct DecodeError {
 }
 
 impl DecodeError {
-    pub(crate) fn new_from_reader<R: Read>(kind: DecodeErrorKind, reader: &xml::EventReader<R>) -> DecodeError {
+    pub(crate) fn new_from_reader<R: Read>(
+        kind: DecodeErrorKind,
+        reader: &xml::EventReader<R>,
+    ) -> DecodeError {
         use xml::common::Position;
 
         let pos = reader.position();
@@ -42,7 +45,11 @@ impl DecodeError {
 
 impl fmt::Display for DecodeError {
     fn fmt(&self, output: &mut fmt::Formatter) -> fmt::Result {
-        write!(output, "line {}, column {}: {}", self.inner.line, self.inner.column, self.inner.kind)
+        write!(
+            output,
+            "line {}, column {}: {}",
+            self.inner.line, self.inner.column, self.inner.kind
+        )
     }
 }
 
@@ -97,18 +104,41 @@ impl fmt::Display for DecodeErrorKind {
             ParseInt(err) => write!(output, "{}", err),
             DecodeBase64(err) => write!(output, "{}", err),
 
-            WrongDocVersion(version) => write!(output, "Invalid version '{}', expected version 4", version),
+            WrongDocVersion(version) => {
+                write!(output, "Invalid version '{}', expected version 4", version)
+            }
             UnexpectedEof => write!(output, "Unexpected end-of-file"),
             UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {:?}", event),
-            MissingAttribute(attribute_name) => write!(output, "Missing attribute '{}'", attribute_name),
-            UnknownProperty { class_name, property_name } =>
-                write!(output, "Property {}.{} is unknown", class_name, property_name),
-            UnknownPropertyType(prop_name) => write!(output, "Unknown property type '{}'", prop_name),
+            MissingAttribute(attribute_name) => {
+                write!(output, "Missing attribute '{}'", attribute_name)
+            }
+            UnknownProperty {
+                class_name,
+                property_name,
+            } => write!(
+                output,
+                "Property {}.{} is unknown",
+                class_name, property_name
+            ),
+            UnknownPropertyType(prop_name) => {
+                write!(output, "Unknown property type '{}'", prop_name)
+            }
             InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
-            NameMustBeString(ty) => write!(output, "The 'Name' property must be of type String, but it was {:?}", ty),
-            UnsupportedPropertyConversion { class_name, property_name, expected_type, actual_type } =>
-                write!(output, "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
-                    class_name, property_name, expected_type, actual_type)
+            NameMustBeString(ty) => write!(
+                output,
+                "The 'Name' property must be of type String, but it was {:?}",
+                ty
+            ),
+            UnsupportedPropertyConversion {
+                class_name,
+                property_name,
+                expected_type,
+                actual_type,
+            } => write!(
+                output,
+                "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
+                class_name, property_name, expected_type, actual_type
+            ),
         }
     }
 }
@@ -168,8 +198,13 @@ pub struct EncodeError {
 }
 
 impl EncodeError {
-    pub(crate) fn new_from_writer<W: Write>(kind: EncodeErrorKind, _writer: &xml::EventWriter<W>) -> EncodeError {
-        EncodeError { kind: Box::new(kind) }
+    pub(crate) fn new_from_writer<W: Write>(
+        kind: EncodeErrorKind,
+        _writer: &xml::EventWriter<W>,
+    ) -> EncodeError {
+        EncodeError {
+            kind: Box::new(kind),
+        }
     }
 }
 
@@ -211,12 +246,27 @@ impl fmt::Display for EncodeErrorKind {
             Io(err) => write!(output, "{}", err),
             Xml(err) => write!(output, "{}", err),
 
-            UnknownProperty { class_name, property_name } =>
-                write!(output, "Property {}.{} is unknown", class_name, property_name),
-            UnsupportedPropertyType(ty) => write!(output, "Properties of type {:?} cannot be encoded yet", ty),
-            UnsupportedPropertyConversion { class_name, property_name, expected_type, actual_type } =>
-                write!(output, "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
-                    class_name, property_name, expected_type, actual_type)
+            UnknownProperty {
+                class_name,
+                property_name,
+            } => write!(
+                output,
+                "Property {}.{} is unknown",
+                class_name, property_name
+            ),
+            UnsupportedPropertyType(ty) => {
+                write!(output, "Properties of type {:?} cannot be encoded yet", ty)
+            }
+            UnsupportedPropertyConversion {
+                class_name,
+                property_name,
+                expected_type,
+                actual_type,
+            } => write!(
+                output,
+                "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
+                class_name, property_name, expected_type, actual_type
+            ),
         }
     }
 }

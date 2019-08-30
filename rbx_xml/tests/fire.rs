@@ -17,6 +17,12 @@ fn fire_weird_properties() {
     assert_eq!(fire.class_name, "Fire");
     assert_eq!(fire.properties.get("size_xml"), None);
     assert_eq!(fire.properties.get("heat_xml"), None);
-    assert_eq!(fire.properties.get("Size"), Some(&RbxValue::Float32 { value: 2.0 }));
-    assert_eq!(fire.properties.get("Heat"), Some(&RbxValue::Float32 { value: 3.0 }));
+    assert_eq!(
+        fire.properties.get("Size"),
+        Some(&RbxValue::Float32 { value: 2.0 })
+    );
+    assert_eq!(
+        fire.properties.get("Heat"),
+        Some(&RbxValue::Float32 { value: 3.0 })
+    );
 }

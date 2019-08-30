@@ -1,27 +1,18 @@
 use std::{
-    io::{self, Cursor, Read},
-    collections::HashMap,
     borrow::Cow,
+    collections::HashMap,
     fmt,
+    io::{self, Cursor, Read},
     str,
 };
 
+use byteorder::{LittleEndian, ReadBytesExt};
 use log::trace;
-use byteorder::{ReadBytesExt, LittleEndian};
-use rbx_dom_weak::{RbxTree, RbxInstanceProperties, RbxId, RbxValue};
+use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue};
 
 use crate::{
-    core::{
-        BinaryType,
-        FILE_MAGIC_HEADER,
-        FILE_SIGNATURE,
-        FILE_VERSION,
-    },
-    types::{
-        BoolType,
-        StringType,
-        decode_referent_array,
-    },
+    core::{BinaryType, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    types::{decode_referent_array, BoolType, StringType},
 };
 
 #[derive(Debug)]
@@ -42,7 +33,11 @@ impl From<io::Error> for DecodeError {
 /// Roblox model files can contain multiple instances at the top level. This
 /// happens in the case of places as well as Studio users choosing multiple
 /// objects when saving a model file.
-pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> Result<(), DecodeError> {
+pub fn decode<R: Read>(
+    tree: &mut RbxTree,
+    parent_id: RbxId,
+    mut source: R,
+) -> Result<(), DecodeError> {
     let header = decode_file_header(&mut source)?;
     trace!("Number of types: {}", header.num_instance_types);
     trace!("Number of instances: {}", header.num_instances);
@@ -65,11 +60,9 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
             b"PROP" => decode_prop_chunk(&mut cursor, &instance_types, &mut instance_props)?,
             b"PRNT" => decode_prnt_chunk(&mut cursor, &mut instance_parents)?,
             b"END\0" => break,
-            _ => {
-                match str::from_utf8(&header.name) {
-                    Ok(name) => trace!("Unknown chunk name {}", name),
-                    Err(_) => trace!("Unknown chunk name {:?}", header.name),
-                }
+            _ => match str::from_utf8(&header.name) {
+                Ok(name) => trace!("Unknown chunk name {}", name),
+                Err(_) => trace!("Unknown chunk name {:?}", header.name),
             },
         }
 
@@ -90,7 +83,14 @@ pub fn decode<R: Read>(tree: &mut RbxTree, parent_id: RbxId, mut source: R) -> R
 
     if let Some(root_referents) = parents_to_children.get(&-1) {
         for referent in root_referents {
-            construct_and_parent(tree, parent_id, *referent, &parents_to_children, &instance_types, &instance_props);
+            construct_and_parent(
+                tree,
+                parent_id,
+                *referent,
+                &parents_to_children,
+                &instance_types,
+                &instance_props,
+            );
         }
     }
 
@@ -105,10 +105,12 @@ fn construct_and_parent(
     instance_types: &HashMap<u32, InstanceType>,
     instance_props: &HashMap<i32, InstanceProps>,
 ) {
-    let props = instance_props.get(&referent)
+    let props = instance_props
+        .get(&referent)
         .expect("Could not find props for referent listed in PRNT chunk");
 
-    let type_info = instance_types.get(&props.type_id)
+    let type_info = instance_types
+        .get(&props.type_id)
         .expect("Could not find type information for referent");
 
     let mut properties = HashMap::new();
@@ -118,7 +120,9 @@ fn construct_and_parent(
         }
     }
 
-    let name = props.properties.get("Name")
+    let name = props
+        .properties
+        .get("Name")
         .map(|name| match name {
             RbxValue::String { value } => value.clone(),
             _ => panic!("Invalid non-string type used for 'Name' property"),
@@ -135,7 +139,14 @@ fn construct_and_parent(
 
     if let Some(child_referents) = parents_to_children.get(&referent) {
         for child_referent in child_referents {
-            construct_and_parent(tree, id, *child_referent, parents_to_children, instance_types, instance_props);
+            construct_and_parent(
+                tree,
+                id,
+                *child_referent,
+                parents_to_children,
+                instance_types,
+                instance_props,
+            );
         }
     }
 }
@@ -194,8 +205,11 @@ impl fmt::Display for ChunkHeader {
             Cow::Owned(format!("{:?}", self.name))
         };
 
-        write!(output, "Chunk \"{}\" (compressed: {}, len: {}, reserved: {})",
-            name, self.compressed_len, self.len, self.reserved)
+        write!(
+            output,
+            "Chunk \"{}\" (compressed: {}, len: {}, reserved: {})",
+            name, self.compressed_len, self.len, self.reserved
+        )
     }
 }
 
@@ -224,7 +238,9 @@ fn decode_chunk<R: Read>(source: &mut R, output: &mut Vec<u8>) -> io::Result<Chu
         source.take(header.len as u64).read_to_end(output)?;
     } else {
         let mut compressed_data = Vec::new();
-        source.take(header.compressed_len as u64).read_to_end(&mut compressed_data)?;
+        source
+            .take(header.compressed_len as u64)
+            .read_to_end(&mut compressed_data)?;
 
         let data = lz4::block::decompress(&compressed_data, Some(header.len as i32))?;
         output.extend_from_slice(&data);
@@ -235,7 +251,10 @@ fn decode_chunk<R: Read>(source: &mut R, output: &mut Vec<u8>) -> io::Result<Chu
     Ok(header)
 }
 
-fn decode_meta_chunk<R: Read>(source: &mut R, output: &mut HashMap<String, String>) -> io::Result<()> {
+fn decode_meta_chunk<R: Read>(
+    source: &mut R,
+    output: &mut HashMap<String, String>,
+) -> io::Result<()> {
     let len = source.read_u32::<LittleEndian>()?;
 
     for _ in 0..len {
@@ -255,7 +274,10 @@ struct InstanceType {
     referents: Vec<i32>,
 }
 
-fn decode_inst_chunk<R: Read>(source: &mut R, instance_types: &mut HashMap<u32, InstanceType>) -> io::Result<()> {
+fn decode_inst_chunk<R: Read>(
+    source: &mut R,
+    instance_types: &mut HashMap<u32, InstanceType>,
+) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
     let type_name = StringType::read_binary(source)?;
     let _additional_data = source.read_u8()?;
@@ -264,14 +286,22 @@ fn decode_inst_chunk<R: Read>(source: &mut R, instance_types: &mut HashMap<u32, 
     let mut referents = vec![0; number_instances as usize];
     decode_referent_array(source, &mut referents)?;
 
-    trace!("{} instances of type ID {} ({})", number_instances, type_id, type_name);
+    trace!(
+        "{} instances of type ID {} ({})",
+        number_instances,
+        type_id,
+        type_name
+    );
     trace!("Referents found: {:?}", referents);
 
-    instance_types.insert(type_id, InstanceType {
+    instance_types.insert(
         type_id,
-        type_name,
-        referents,
-    });
+        InstanceType {
+            type_id,
+            type_name,
+            referents,
+        },
+    );
 
     Ok(())
 }
@@ -295,7 +325,8 @@ fn decode_prop_chunk<R: Read>(
     trace!("Set prop (type {}) {}.{}", data_type, type_id, prop_name);
 
     // TODO: Convert to new error type instead of panic
-    let instance_type = instance_types.get(&type_id)
+    let instance_type = instance_types
+        .get(&type_id)
         .expect("Could not find instance type!");
 
     match data_type {
@@ -304,65 +335,64 @@ fn decode_prop_chunk<R: Read>(
 
             for (index, value) in values.into_iter().enumerate() {
                 let referent = instance_type.referents[index];
-                let prop_data = instance_props
-                    .entry(referent)
-                    .or_insert(InstanceProps {
-                        type_id,
-                        referent,
-                        properties: HashMap::new(),
-                    });
+                let prop_data = instance_props.entry(referent).or_insert(InstanceProps {
+                    type_id,
+                    referent,
+                    properties: HashMap::new(),
+                });
 
                 prop_data.properties.insert(prop_name.clone(), value);
             }
-        },
+        }
         0x02 => {
             let values = BoolType::read_array(&mut source, instance_type.referents.len())?;
 
             for (index, value) in values.into_iter().enumerate() {
                 let referent = instance_type.referents[index];
-                let prop_data = instance_props
-                    .entry(referent)
-                    .or_insert(InstanceProps {
-                        type_id,
-                        referent,
-                        properties: HashMap::new(),
-                    });
+                let prop_data = instance_props.entry(referent).or_insert(InstanceProps {
+                    type_id,
+                    referent,
+                    properties: HashMap::new(),
+                });
 
                 prop_data.properties.insert(prop_name.clone(), value);
             }
-        },
-        0x03 => { /* i32 */ },
-        0x04 => { /* f32 */ },
-        0x05 => { /* f64 */ },
-        0x06 => { /* UDim */ },
-        0x07 => { /* UDim2 */ },
-        0x08 => { /* Ray */ },
-        0x09 => { /* Faces */ },
-        0x0A => { /* Axis */ },
-        0x0B => { /* BrickColor */ },
-        0x0C => { /* Color3 */ },
-        0x0D => { /* Vector2 */ },
-        0x0E => { /* Vector3 */ },
-        0x10 => { /* CFrame */ },
-        0x12 => { /* Enum */ },
-        0x13 => { /* Referent */ },
-        0x14 => { /* Vector3int16 */ },
-        0x15 => { /* NumberSequence */ },
-        0x16 => { /* ColorSequence */ },
-        0x17 => { /* NumberRange */ },
-        0x18 => { /* Rect2D */ },
-        0x19 => { /* PhysicalProperties */ },
-        0x1A => { /* Color3uint8 */ },
-        0x1B => { /* Int64 */ },
+        }
+        0x03 => { /* i32 */ }
+        0x04 => { /* f32 */ }
+        0x05 => { /* f64 */ }
+        0x06 => { /* UDim */ }
+        0x07 => { /* UDim2 */ }
+        0x08 => { /* Ray */ }
+        0x09 => { /* Faces */ }
+        0x0A => { /* Axis */ }
+        0x0B => { /* BrickColor */ }
+        0x0C => { /* Color3 */ }
+        0x0D => { /* Vector2 */ }
+        0x0E => { /* Vector3 */ }
+        0x10 => { /* CFrame */ }
+        0x12 => { /* Enum */ }
+        0x13 => { /* Referent */ }
+        0x14 => { /* Vector3int16 */ }
+        0x15 => { /* NumberSequence */ }
+        0x16 => { /* ColorSequence */ }
+        0x17 => { /* NumberRange */ }
+        0x18 => { /* Rect2D */ }
+        0x19 => { /* PhysicalProperties */ }
+        0x1A => { /* Color3uint8 */ }
+        0x1B => { /* Int64 */ }
         _ => {
             trace!("Unknown prop type {} named {}", data_type, prop_name);
-        },
+        }
     }
 
     Ok(())
 }
 
-fn decode_prnt_chunk<R: Read>(source: &mut R, instance_parents: &mut HashMap<i32, i32>) -> io::Result<()> {
+fn decode_prnt_chunk<R: Read>(
+    source: &mut R,
+    instance_parents: &mut HashMap<i32, i32>,
+) -> io::Result<()> {
     let version = source.read_u8()?;
 
     if version != 0 {

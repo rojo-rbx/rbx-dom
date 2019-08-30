@@ -1,6 +1,6 @@
 use std::fmt;
 
-use serde_repr::{Serialize_repr, Deserialize_repr};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 macro_rules! make_brick_color {
     ({
@@ -315,10 +315,7 @@ impl BrickColor {
     /// a misunderstanding of the range of valid BrickColor values.
     ///
     /// This function operates like `BrickColor.palette` within Roblox.
-    #[deprecated(
-        since = "1.9.0",
-        note = "Please use BrickColor::from_number instead"
-    )]
+    #[deprecated(since = "1.9.0", note = "Please use BrickColor::from_number instead")]
     pub fn from_palette(value: u8) -> Option<BrickColor> {
         match value {
             1 => Some(BrickColor::SlimeGreen),
@@ -460,7 +457,10 @@ mod tests {
 
     #[test]
     fn from_name() {
-        assert_eq!(BrickColor::from_name("Pastel brown"), Some(BrickColor::PastelBrown));
+        assert_eq!(
+            BrickColor::from_name("Pastel brown"),
+            Some(BrickColor::PastelBrown)
+        );
     }
 
     #[test]

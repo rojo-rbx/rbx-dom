@@ -17,11 +17,17 @@ fn spawn_location() {
 
     assert_eq!(spawn.name, "SpawnLocation");
     assert_eq!(spawn.class_name, "SpawnLocation");
-    assert_eq!(spawn.properties.get("FormFactor"), Some(&RbxValue::Enum { value: 1 }));
+    assert_eq!(
+        spawn.properties.get("FormFactor"),
+        Some(&RbxValue::Enum { value: 1 })
+    );
     assert_eq!(spawn.properties.get("formFactorRaw"), None);
-    assert_eq!(spawn.properties.get("TeamColor"), Some(&RbxValue::BrickColor {
-        value: BrickColor::MediumStoneGrey,
-    }));
+    assert_eq!(
+        spawn.properties.get("TeamColor"),
+        Some(&RbxValue::BrickColor {
+            value: BrickColor::MediumStoneGrey,
+        })
+    );
 }
 
 /// Asserts that 'Team.TeamColor' deserializes correctly as a BrickColor.
@@ -38,9 +44,12 @@ fn team() {
 
     assert_eq!(team.name, "Team");
     assert_eq!(team.class_name, "Team");
-    assert_eq!(team.properties.get("TeamColor"), Some(&RbxValue::BrickColor {
-        value: BrickColor::LimeGreen,
-    }));
+    assert_eq!(
+        team.properties.get("TeamColor"),
+        Some(&RbxValue::BrickColor {
+            value: BrickColor::LimeGreen,
+        })
+    );
 }
 
 /// Roblox has name collisions for BrickColors!
@@ -65,12 +74,18 @@ fn team_lilac() {
     assert_eq!(team.name, "Team");
     assert_eq!(team.class_name, "Team");
 
-    assert_ne!(team.properties.get("TeamColor"), Some(&RbxValue::BrickColor {
-        value: BrickColor::Lilac, // This Lilac has a value of 321
-    }));
-    assert_eq!(team.properties.get("TeamColor"), Some(&RbxValue::BrickColor {
-        value: BrickColor::Lilac2, // This Lilac has a value of 219
-    }));
+    assert_ne!(
+        team.properties.get("TeamColor"),
+        Some(&RbxValue::BrickColor {
+            value: BrickColor::Lilac, // This Lilac has a value of 321
+        })
+    );
+    assert_eq!(
+        team.properties.get("TeamColor"),
+        Some(&RbxValue::BrickColor {
+            value: BrickColor::Lilac2, // This Lilac has a value of 219
+        })
+    );
 }
 
 /// When BrickColor values are deserialized without reflection information, they
@@ -91,7 +106,8 @@ fn team_no_reflection() {
 
     assert_eq!(team.name, "Team");
     assert_eq!(team.class_name, "Team");
-    assert_eq!(team.properties.get("TeamColor"), Some(&RbxValue::Int32 {
-        value: 1020,
-    }));
+    assert_eq!(
+        team.properties.get("TeamColor"),
+        Some(&RbxValue::Int32 { value: 1020 })
+    );
 }

@@ -4,10 +4,10 @@
 use std::{
     collections::{hash_map, HashMap},
     fmt,
-    sync::{Arc, Weak, RwLock},
+    sync::{Arc, RwLock, Weak},
 };
 
-use serde::{Serialize, Serializer, Deserialize, Deserializer};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 lazy_static::lazy_static! {
     static ref CACHE: RwLock<HashMap<[u8; 16], Weak<Vec<u8>>>> = RwLock::new(HashMap::new());
@@ -143,8 +143,7 @@ impl<'de> Deserialize<'de> for SharedString {
             where
                 E: serde::de::Error,
             {
-                let data = base64::decode(value)
-                    .map_err(serde::de::Error::custom)?;
+                let data = base64::decode(value).map_err(serde::de::Error::custom)?;
 
                 Ok(SharedString::new(data))
             }
@@ -182,12 +181,12 @@ impl Drop for SharedString {
         // SharedString cache.
         if Arc::try_unwrap(self.data.take().unwrap()).is_ok() {
             let mut cache = match CACHE.write() {
-               Ok(v) => v,
-               Err(_) => {
-                   // If the lock is poisoned, we should just leave it
-                   // alone so that we don't accidentally double-panic.
-                   return;
-               }
+                Ok(v) => v,
+                Err(_) => {
+                    // If the lock is poisoned, we should just leave it
+                    // alone so that we don't accidentally double-panic.
+                    return;
+                }
             };
 
             cache.remove(&self.hash);
@@ -224,9 +223,7 @@ mod test {
 
     #[test]
     fn drop() {
-        let hash = {
-            SharedString::new(vec![4, 5, 6]).hash
-        };
+        let hash = { SharedString::new(vec![4, 5, 6]).hash };
 
         assert_eq!(SharedString::get_from_md5_hash(hash), None);
     }

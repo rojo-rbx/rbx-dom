@@ -1,10 +1,6 @@
 use rbx_dom_weak::RbxValue;
 
-use crate::{
-    core::XmlType,
-    deserializer_core::XmlEventReader,
-    serializer_core::XmlEventWriter,
-};
+use crate::{core::XmlType, deserializer_core::XmlEventReader, serializer_core::XmlEventWriter};
 
 pub fn test_xml_round_trip<Xml, InnerType>(test_value: &InnerType, wrapped_value: RbxValue)
 where
@@ -43,11 +39,13 @@ where
     let mut expected_events = XmlEventReader::from_source(expected_source.as_bytes());
     let mut actual_events = XmlEventReader::from_source(buffer.as_slice());
 
-    let fail = || panic!(
-        "Expected XML:\n{}\n\nActual XML:\n{}",
-        expected_source,
-        std::str::from_utf8(&buffer).unwrap(),
-    );
+    let fail = || {
+        panic!(
+            "Expected XML:\n{}\n\nActual XML:\n{}",
+            expected_source,
+            std::str::from_utf8(&buffer).unwrap(),
+        )
+    };
 
     loop {
         let (expected, actual) = (expected_events.next(), actual_events.next());
@@ -64,7 +62,7 @@ where
             (true, false) | (false, true) => {
                 println!("Event streams were different lengths!");
                 fail()
-            },
+            }
             (false, false) => break,
         }
     }

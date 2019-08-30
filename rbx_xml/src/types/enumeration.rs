@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{DecodeError, EncodeError},
     deserializer_core::XmlEventReader,
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    error::{DecodeError, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct EnumType;
@@ -26,15 +26,13 @@ impl XmlType<u32> for EnumType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
-        let value: u32 = reader.read_tag_contents(Self::XML_TAG_NAME)?
-            .parse().map_err(|e| reader.error(e))?;
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
+        let value: u32 = reader
+            .read_tag_contents(Self::XML_TAG_NAME)?
+            .parse()
+            .map_err(|e| reader.error(e))?;
 
-        Ok(RbxValue::Enum {
-            value,
-        })
+        Ok(RbxValue::Enum { value })
     }
 }
 
@@ -46,11 +44,6 @@ mod test {
 
     #[test]
     fn round_trip() {
-        test_util::test_xml_round_trip::<EnumType, _>(
-            &4654321,
-            RbxValue::Enum {
-                value: 4654321,
-            }
-        );
+        test_util::test_xml_round_trip::<EnumType, _>(&4654321, RbxValue::Enum { value: 4654321 });
     }
 }

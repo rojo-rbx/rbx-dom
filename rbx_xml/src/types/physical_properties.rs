@@ -4,9 +4,9 @@ use rbx_dom_weak::{PhysicalProperties, RbxValue};
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, DecodeError, DecodeErrorKind},
-    deserializer_core::{XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, DecodeErrorKind, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct PhysicalPropertiesType;
@@ -28,7 +28,8 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
                 writer.write_tag_characters_f32("Friction", properties.friction)?;
                 writer.write_tag_characters_f32("Elasticity", properties.elasticity)?;
                 writer.write_tag_characters_f32("FrictionWeight", properties.friction_weight)?;
-                writer.write_tag_characters_f32("ElasticityWeight", properties.elasticity_weight)?;
+                writer
+                    .write_tag_characters_f32("ElasticityWeight", properties.elasticity_weight)?;
             }
             None => {
                 writer.write_tag_characters("CustomPhysics", "false")?;
@@ -40,9 +41,7 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let has_custom_physics = reader.read_tag_contents("CustomPhysics")?;
@@ -65,15 +64,15 @@ impl XmlType<Option<PhysicalProperties>> for PhysicalPropertiesType {
             }
             "false" => None,
             _ => {
-                return Err(reader.error(DecodeErrorKind::InvalidContent("expected CustomPhysics to be true or false")));
+                return Err(reader.error(DecodeErrorKind::InvalidContent(
+                    "expected CustomPhysics to be true or false",
+                )));
             }
         };
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::PhysicalProperties {
-            value,
-        })
+        Ok(RbxValue::PhysicalProperties { value })
     }
 }
 
@@ -87,9 +86,7 @@ mod test {
     fn round_trip_physical_properties_normal() {
         test_util::test_xml_round_trip::<PhysicalPropertiesType, _>(
             &None,
-            RbxValue::PhysicalProperties {
-                value: None,
-            }
+            RbxValue::PhysicalProperties { value: None },
         );
     }
 
@@ -105,9 +102,7 @@ mod test {
 
         test_util::test_xml_round_trip::<PhysicalPropertiesType, _>(
             &test_value,
-            RbxValue::PhysicalProperties {
-                value: test_value,
-            }
+            RbxValue::PhysicalProperties { value: test_value },
         );
     }
 
@@ -119,9 +114,7 @@ mod test {
                     <CustomPhysics>false</CustomPhysics>
                 </PhysicalProperties>
             "#,
-            RbxValue::PhysicalProperties {
-                value: None,
-            }
+            RbxValue::PhysicalProperties { value: None },
         );
     }
 
@@ -146,7 +139,7 @@ mod test {
                     friction_weight: 2.0,
                     elasticity_weight: 2.5,
                 }),
-            }
+            },
         );
     }
 
@@ -158,7 +151,7 @@ mod test {
                     <CustomPhysics>false</CustomPhysics>
                 </PhysicalProperties>
             "#,
-            &None
+            &None,
         );
     }
 
@@ -181,7 +174,7 @@ mod test {
                 elasticity: 1.5,
                 friction_weight: 2.0,
                 elasticity_weight: 2.5,
-            })
+            }),
         );
     }
 }

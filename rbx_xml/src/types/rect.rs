@@ -4,9 +4,9 @@ use rbx_dom_weak::{RbxValue, Rect};
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, DecodeError},
-    deserializer_core::{XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct RectType;
@@ -36,9 +36,7 @@ impl XmlType<Rect> for RectType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         reader.expect_start_with_name("min")?;
@@ -77,9 +75,7 @@ mod test {
 
         test_util::test_xml_round_trip::<RectType, _>(
             &test_input,
-            RbxValue::Rect {
-                value: test_input,
-            }
+            RbxValue::Rect { value: test_input },
         );
     }
 
@@ -103,7 +99,7 @@ mod test {
                     min: (12.5, -30.5),
                     max: (23.0, 9.0),
                 },
-            }
+            },
         );
     }
 
@@ -125,7 +121,7 @@ mod test {
             &Rect {
                 min: (12.5, -30.5),
                 max: (23.0, 9.0),
-            }
+            },
         );
     }
 }

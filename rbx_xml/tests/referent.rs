@@ -1,6 +1,6 @@
 use std::io::Cursor;
 
-use rbx_dom_weak::{RbxValue, RbxTree};
+use rbx_dom_weak::{RbxTree, RbxValue};
 
 static TEST_FILE: &[u8] = include_bytes!("../test-files/part-referent.rbxmx");
 

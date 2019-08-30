@@ -1,7 +1,4 @@
-use std::{
-    io::Cursor,
-    collections::HashMap,
-};
+use std::{collections::HashMap, io::Cursor};
 
 use log::trace;
 
@@ -11,7 +8,6 @@ static MODELS: &[&[u8]] = &[
     include_bytes!("../test-files/model-a.rbxm"),
     include_bytes!("../test-files/model-b.rbxm"),
     include_bytes!("../test-files/model-c.rbxm"),
-
     // https://github.com/LPGhatguy/rbx-dom/issues/49
     // include_bytes!("../test-files/Baseplate.rbxl"),
 ];

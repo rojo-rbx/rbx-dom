@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, DecodeError},
-    deserializer_core::{XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct BinaryStringType;
@@ -26,24 +26,16 @@ impl XmlType<[u8]> for BinaryStringType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         let contents = reader.read_tag_contents(Self::XML_TAG_NAME)?;
 
         // Roblox wraps base64 BinaryString data at the 72 byte mark. The base64
         // crate doesn't accept whitespace.
-        let contents: String = contents
-            .chars()
-            .filter(|c| !c.is_whitespace())
-            .collect();
+        let contents: String = contents.chars().filter(|c| !c.is_whitespace()).collect();
 
-        let value = base64::decode(&contents)
-            .map_err(|e| reader.error(e))?;
+        let value = base64::decode(&contents).map_err(|e| reader.error(e))?;
 
-        Ok(RbxValue::BinaryString {
-            value,
-        })
+        Ok(RbxValue::BinaryString { value })
     }
 }
 
@@ -55,7 +47,8 @@ mod test {
 
     #[test]
     fn round_trip_binary_string() {
-        let test_value = b"\x00\x01hello,\n\x7Fworld, from a fairly sizable binary string literal.\n";
+        let test_value =
+            b"\x00\x01hello,\n\x7Fworld, from a fairly sizable binary string literal.\n";
 
         let wrapped_value = RbxValue::BinaryString {
             value: test_value.to_vec(),

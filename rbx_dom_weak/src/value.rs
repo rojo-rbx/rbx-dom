@@ -1,10 +1,6 @@
-use serde_derive::{Serialize, Deserialize};
+use serde_derive::{Deserialize, Serialize};
 
-use crate::{
-    brick_color::BrickColor,
-    shared_string::SharedString,
-    id::RbxId,
-};
+use crate::{brick_color::BrickColor, id::RbxId, shared_string::SharedString};
 
 /// An enum that can hold any of the types that [`RbxValue`] can.
 ///
@@ -193,19 +189,27 @@ impl RbxValue {
         #[allow(clippy::cast_lossless)]
         match (self, target_type) {
             // Floats can be widened for compatibility
-            (RbxValue::Float32 { value }, RbxValueType::Float64) =>
-                Converted(RbxValue::Float64 { value: *value as f64 }),
-            (RbxValue::Float64 { value }, RbxValueType::Float32) =>
-                Converted(RbxValue::Float32 { value: *value as f32 }),
+            (RbxValue::Float32 { value }, RbxValueType::Float64) => Converted(RbxValue::Float64 {
+                value: *value as f64,
+            }),
+            (RbxValue::Float64 { value }, RbxValueType::Float32) => Converted(RbxValue::Float32 {
+                value: *value as f32,
+            }),
 
             // Integers can be widened; MANY types migrated from Int32 to Int64
             // and may appear as either.
-            (RbxValue::Int32 { value }, RbxValueType::Int64) => Converted(RbxValue::Int64 { value: *value as i64 }),
-            (RbxValue::Int64 { value }, RbxValueType::Int32) => Converted(RbxValue::Int32 { value: *value as i32 }),
+            (RbxValue::Int32 { value }, RbxValueType::Int64) => Converted(RbxValue::Int64 {
+                value: *value as i64,
+            }),
+            (RbxValue::Int64 { value }, RbxValueType::Int32) => Converted(RbxValue::Int32 {
+                value: *value as i32,
+            }),
 
             // Strings can be treated as content values for compatibility, and
             // since their representation is functionally identical.
-            (RbxValue::String { value }, RbxValueType::Content) => Converted(RbxValue::Content { value: value.clone() }),
+            (RbxValue::String { value }, RbxValueType::Content) => Converted(RbxValue::Content {
+                value: value.clone(),
+            }),
 
             // The difference between Color3 and Color3uint8 isn't surfaced to
             // users. The difference is meaningful for lighting properties that
@@ -232,10 +236,14 @@ impl RbxValue {
             // BrickColor can be converted one-way to Color3 or Color3uint8,
             // which is generally preferred. We don't have the opposite
             // conversion, which is much less useful.
-            (RbxValue::BrickColor { value }, RbxValueType::Color3) =>
-                Converted(RbxValue::Color3 { value: value.as_rgb_f32() }),
-            (RbxValue::BrickColor { value }, RbxValueType::Color3uint8) =>
-                Converted(RbxValue::Color3uint8 { value: value.as_rgb() }),
+            (RbxValue::BrickColor { value }, RbxValueType::Color3) => Converted(RbxValue::Color3 {
+                value: value.as_rgb_f32(),
+            }),
+            (RbxValue::BrickColor { value }, RbxValueType::Color3uint8) => {
+                Converted(RbxValue::Color3uint8 {
+                    value: value.as_rgb(),
+                })
+            }
 
             // Some BrickColor properties (like SpawnLocation.TeamColor) are
             // ints for some reason, so we downcast them if they're in range for
@@ -247,13 +255,11 @@ impl RbxValue {
 
                 match BrickColor::from_number(*value as u16) {
                     Some(converted) => Converted(RbxValue::BrickColor { value: converted }),
-                    None => {
-                        Failed
-                    }
+                    None => Failed,
                 }
             }
 
-            _ => Failed
+            _ => Failed,
         }
     }
 }
@@ -276,7 +282,7 @@ pub enum RbxValueConversion {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ColorSequence {
-    pub keypoints: Vec<ColorSequenceKeypoint>
+    pub keypoints: Vec<ColorSequenceKeypoint>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
@@ -328,20 +334,25 @@ pub struct PhysicalProperties {
 /// Methods to help encode BinaryString values to base64 when used with
 /// human-readable formats like JSON.
 mod base64_encoding {
-    use serde::{Serializer, de, Deserialize, Deserializer};
+    use serde::{de, Deserialize, Deserializer, Serializer};
 
     pub fn serialize<S>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error>
-        where S: Serializer
+    where
+        S: Serializer,
     {
         if serializer.is_human_readable() {
-            serializer.collect_str(&base64::display::Base64Display::with_config(bytes, base64::STANDARD))
+            serializer.collect_str(&base64::display::Base64Display::with_config(
+                bytes,
+                base64::STANDARD,
+            ))
         } else {
             serializer.serialize_bytes(bytes)
         }
     }
 
     pub fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
-        where D: Deserializer<'de>
+    where
+        D: Deserializer<'de>,
     {
         if deserializer.is_human_readable() {
             let s = <&str>::deserialize(deserializer)?;

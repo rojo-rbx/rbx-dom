@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{DecodeError, EncodeError},
     deserializer_core::XmlEventReader,
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    error::{DecodeError, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 static TAG_NAMES: [&str; 3] = ["R", "G", "B"];
@@ -28,9 +28,7 @@ impl XmlType<[f32; 3]> for Color3Type {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let contents = reader.read_characters()?;
@@ -44,18 +42,19 @@ impl XmlType<[f32; 3]> for Color3Type {
             let g: f32 = reader.read_tag_contents_f32("G")?;
             let b: f32 = reader.read_tag_contents_f32("B")?;
 
-            RbxValue::Color3 {
-                value: [ r, g, b ],
-            }
+            RbxValue::Color3 { value: [r, g, b] }
         } else {
-            let packed_value: u32 = contents.parse()
-                .map_err(|e| reader.error(e))?;
+            let packed_value: u32 = contents.parse().map_err(|e| reader.error(e))?;
 
             let [r, g, b] = decode_packed_color3(packed_value)?;
 
             RbxValue::Color3 {
                 // floating-point Color3s go from 0 to 1 instead of 0 to 255
-                value: [ f32::from(r) / 255.0, f32::from(g) / 255.0, f32::from(b) / 255.0 ],
+                value: [
+                    f32::from(r) / 255.0,
+                    f32::from(g) / 255.0,
+                    f32::from(b) / 255.0,
+                ],
             }
         };
 
@@ -85,15 +84,12 @@ impl XmlType<[u8; 3]> for Color3uint8Type {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         // Color3uint8s are stored as packed u32s.
         let content = reader.read_characters()?;
-        let packed_value: u32 = content.parse()
-            .map_err(|e| reader.error(e))?;
+        let packed_value: u32 = content.parse().map_err(|e| reader.error(e))?;
 
         let value = RbxValue::Color3uint8 {
             value: decode_packed_color3(packed_value)?,

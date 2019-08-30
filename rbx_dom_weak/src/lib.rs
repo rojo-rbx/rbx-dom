@@ -77,11 +77,11 @@ mod unresolved_value;
 mod value;
 
 pub use crate::{
-    unresolved_value::{AmbiguousRbxValue, UnresolvedRbxValue},
     brick_color::BrickColor,
     id::RbxId,
-    instance::{RbxInstanceProperties, RbxInstance},
-    tree::{RbxTree, Descendants},
+    instance::{RbxInstance, RbxInstanceProperties},
     shared_string::SharedString,
+    tree::{Descendants, RbxTree},
+    unresolved_value::{AmbiguousRbxValue, UnresolvedRbxValue},
     value::*,
 };

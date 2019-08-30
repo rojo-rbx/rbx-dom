@@ -4,12 +4,14 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, DecodeError},
-    deserializer_core::{XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    deserializer_core::XmlEventReader,
+    error::{DecodeError, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
-static TAG_NAMES: [&str; 12] = ["X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22"];
+static TAG_NAMES: [&str; 12] = [
+    "X", "Y", "Z", "R00", "R01", "R02", "R10", "R11", "R12", "R20", "R21", "R22",
+];
 
 pub struct CFrameType;
 type CFrameValue = [f32; 12];
@@ -29,9 +31,7 @@ impl XmlType<CFrameValue> for CFrameType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let mut components = [0.0; 12];
@@ -43,9 +43,7 @@ impl XmlType<CFrameValue> for CFrameType {
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::CFrame {
-            value: components,
-        })
+        Ok(RbxValue::CFrame { value: components })
     }
 }
 
@@ -58,17 +56,12 @@ mod test {
     #[test]
     fn round_trip() {
         let test_input: [f32; 12] = [
-            123.0, 456.0, 789.0,
-            987.0, 654.0, 432.0,
-            210.0, 0.0, -12345.0,
-            765.0, 234.0, 123123.0,
+            123.0, 456.0, 789.0, 987.0, 654.0, 432.0, 210.0, 0.0, -12345.0, 765.0, 234.0, 123123.0,
         ];
 
         test_util::test_xml_round_trip::<CFrameType, _>(
             &test_input,
-            RbxValue::CFrame {
-                value: test_input,
-            }
+            RbxValue::CFrame { value: test_input },
         );
     }
 }

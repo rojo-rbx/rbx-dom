@@ -1,11 +1,8 @@
 use std::collections::HashMap;
 
-use serde_derive::{Serialize, Deserialize};
+use serde_derive::{Deserialize, Serialize};
 
-use crate::{
-    id::RbxId,
-    value::RbxValue,
-};
+use crate::{id::RbxId, value::RbxValue};
 
 /// The properties associated with a Roblox Instance that might not exist yet.
 ///

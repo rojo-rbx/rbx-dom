@@ -1,4 +1,4 @@
-use rbx_dom_weak::{RbxValue, RbxTree, SharedString};
+use rbx_dom_weak::{RbxTree, RbxValue, SharedString};
 
 static TEST_FILE: &[u8] = include_bytes!("../test-files/union.rbxmx");
 
@@ -47,11 +47,13 @@ fn get_config_data(tree: &RbxTree) -> SharedString {
     let part_id = root_instance.get_children_ids()[0];
     let part_instance = tree.get_instance(part_id).unwrap();
 
-    let physical_config_data = part_instance.properties.get("PhysicalConfigData")
+    let physical_config_data = part_instance
+        .properties
+        .get("PhysicalConfigData")
         .expect("Expected property PhysicalConfigData to be present");
 
     match physical_config_data {
         RbxValue::SharedString { value } => value.clone(),
-        _ =>  panic!("PhysicalConfigData was not a SharedString value")
+        _ => panic!("PhysicalConfigData was not a SharedString value"),
     }
 }

@@ -5,8 +5,8 @@ use rbx_reflection::RbxPropertyDescriptor;
 
 use crate::{
     deserializer_core::XmlEventReader,
-    serializer_core::XmlEventWriter,
     error::{DecodeError, EncodeError},
+    serializer_core::XmlEventWriter,
 };
 
 pub trait XmlType<T: ?Sized> {
@@ -18,25 +18,21 @@ pub trait XmlType<T: ?Sized> {
         value: &T,
     ) -> Result<(), EncodeError>;
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError>;
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError>;
 }
 
 pub fn find_canonical_property_descriptor(
     class_name: &str,
     property_name: &str,
 ) -> Option<&'static RbxPropertyDescriptor> {
-    find_property_descriptors(class_name, property_name)
-        .map(|(canonical, _serialized)| canonical)
+    find_property_descriptors(class_name, property_name).map(|(canonical, _serialized)| canonical)
 }
 
 pub fn find_serialized_property_descriptor(
     class_name: &str,
     property_name: &str,
 ) -> Option<&'static RbxPropertyDescriptor> {
-    find_property_descriptors(class_name, property_name)
-        .map(|(_canonical, serialized)| serialized)
+    find_property_descriptors(class_name, property_name).map(|(_canonical, serialized)| serialized)
 }
 
 /// Find both the canonical and serialized property descriptors for a given
@@ -44,7 +40,10 @@ pub fn find_serialized_property_descriptor(
 fn find_property_descriptors(
     class_name: &str,
     property_name: &str,
-) -> Option<(&'static RbxPropertyDescriptor, &'static RbxPropertyDescriptor)> {
+) -> Option<(
+    &'static RbxPropertyDescriptor,
+    &'static RbxPropertyDescriptor,
+)> {
     let class_descriptor = rbx_reflection::get_class_descriptor(class_name)?;
 
     let mut current_class_descriptor = class_descriptor;
@@ -57,13 +56,20 @@ fn find_property_descriptors(
     loop {
         // If this class descriptor knows about this property name,
         // we're pretty much done!
-        if let Some(property_descriptor) = current_class_descriptor.get_property_descriptor(property_name) {
+        if let Some(property_descriptor) =
+            current_class_descriptor.get_property_descriptor(property_name)
+        {
             if property_descriptor.is_canonical() {
                 // The property name in the XML was the canonical name
                 // and also the serialized name, hooray!
 
-                let serialized_descriptor = property_descriptor.serialized_name()
-                    .map(|name| current_class_descriptor.get_property_descriptor(name).unwrap())
+                let serialized_descriptor = property_descriptor
+                    .serialized_name()
+                    .map(|name| {
+                        current_class_descriptor
+                            .get_property_descriptor(name)
+                            .unwrap()
+                    })
                     .unwrap_or(property_descriptor);
 
                 return Some((property_descriptor, serialized_descriptor));
@@ -73,11 +79,17 @@ fn find_property_descriptors(
                 // This property has a canonical form that we'll map
                 // from the XML name.
 
-                let canonical_descriptor = current_class_descriptor.get_property_descriptor(canonical_name)
+                let canonical_descriptor = current_class_descriptor
+                    .get_property_descriptor(canonical_name)
                     .unwrap();
 
-                let serialized_descriptor = canonical_descriptor.serialized_name()
-                    .map(|name| current_class_descriptor.get_property_descriptor(name).unwrap())
+                let serialized_descriptor = canonical_descriptor
+                    .serialized_name()
+                    .map(|name| {
+                        current_class_descriptor
+                            .get_property_descriptor(name)
+                            .unwrap()
+                    })
                     .unwrap_or(canonical_descriptor);
 
                 return Some((canonical_descriptor, serialized_descriptor));

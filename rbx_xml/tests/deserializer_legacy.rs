@@ -85,8 +85,12 @@ fn children() {
     let tree = rbx_xml::from_str_default(document).unwrap();
     let root_id = tree.get_root_id();
     let root = tree.get_instance(root_id).unwrap();
-    let first_folder = tree.get_instance(root.get_children_ids()[0]).expect("expected a child");
-    let inner_folder = tree.get_instance(first_folder.get_children_ids()[0]).expect("expected a subchild");
+    let first_folder = tree
+        .get_instance(root.get_children_ids()[0])
+        .expect("expected a child");
+    let inner_folder = tree
+        .get_instance(first_folder.get_children_ids()[0])
+        .expect("expected a subchild");
     assert_eq!(first_folder.name, "Outer");
     assert_eq!(inner_folder.name, "Inner");
 }
@@ -112,11 +116,18 @@ fn canonicalized_names() {
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
-    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+    let descendant = tree
+        .get_instance(root_instance.get_children_ids()[0])
+        .unwrap();
 
     assert_eq!(descendant.name, "Part");
     assert_eq!(descendant.class_name, "Part");
-    assert_eq!(descendant.properties.get("Size"), Some(&RbxValue::Vector3 { value: [123.0, 456.0, 789.0] }));
+    assert_eq!(
+        descendant.properties.get("Size"),
+        Some(&RbxValue::Vector3 {
+            value: [123.0, 456.0, 789.0]
+        })
+    );
 }
 
 #[test]
@@ -136,11 +147,16 @@ fn with_bool() {
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
-    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+    let descendant = tree
+        .get_instance(root_instance.get_children_ids()[0])
+        .unwrap();
 
     assert_eq!(descendant.name, "BoolValue");
     assert_eq!(descendant.class_name, "BoolValue");
-    assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Bool { value: true }));
+    assert_eq!(
+        descendant.properties.get("Value"),
+        Some(&RbxValue::Bool { value: true })
+    );
 }
 
 #[test]
@@ -165,11 +181,18 @@ fn with_vector3() {
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
-    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+    let descendant = tree
+        .get_instance(root_instance.get_children_ids()[0])
+        .unwrap();
 
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "Vector3Value");
-    assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Vector3 { value: [ 0.0, 0.25, -123.23 ] }));
+    assert_eq!(
+        descendant.properties.get("Value"),
+        Some(&RbxValue::Vector3 {
+            value: [0.0, 0.25, -123.23]
+        })
+    );
 }
 
 #[test]
@@ -201,7 +224,12 @@ fn with_color3() {
 
     for descendant in tree.descendants(root_id) {
         if descendant.name == "Test" {
-            assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::Color3 { value: [ 0.0, 0.25, 0.75 ] }));
+            assert_eq!(
+                descendant.properties.get("Value"),
+                Some(&RbxValue::Color3 {
+                    value: [0.0, 0.25, 0.75]
+                })
+            );
         } else if descendant.name == "Test2" {
             if let Some(&RbxValue::Color3 { value }) = descendant.properties.get("Value") {
                 assert!(floats_approx_equal(value[0], 1.0, 0.001));
@@ -232,7 +260,9 @@ fn with_color3uint8() {
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
-    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+    let descendant = tree
+        .get_instance(root_instance.get_children_ids()[0])
+        .unwrap();
 
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "Color3Value");
@@ -240,7 +270,9 @@ fn with_color3uint8() {
     // With reflection-based serialization and property value conversion, the
     // Color3uint8 value will be converted to Color3 on deserialization!
 
-    let value = descendant.properties.get("Value")
+    let value = descendant
+        .properties
+        .get("Value")
         .expect("Missing 'Value' property");
 
     match value {
@@ -251,7 +283,7 @@ fn with_color3uint8() {
             floats_approx_equal(value[1], 0.5, epsilon);
             floats_approx_equal(value[2], 0.25, epsilon);
         }
-        _ => panic!("Expected Color3, got {:?}", value)
+        _ => panic!("Expected Color3, got {:?}", value),
     }
 }
 
@@ -286,18 +318,18 @@ fn with_cframe() {
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
-    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+    let descendant = tree
+        .get_instance(root_instance.get_children_ids()[0])
+        .unwrap();
 
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "CFrameValue");
-    assert_eq!(descendant.properties.get("Value"), Some(&RbxValue::CFrame {
-        value: [
-            0.0, 0.5, 0.0,
-            1.0, 0.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 0.0, 1.0,
-        ],
-    }));
+    assert_eq!(
+        descendant.properties.get("Value"),
+        Some(&RbxValue::CFrame {
+            value: [0.0, 0.5, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0,],
+        })
+    );
 }
 
 #[test]
@@ -354,11 +386,16 @@ fn with_ref_none() {
     let root_id = tree.get_root_id();
 
     let root_instance = tree.get_instance(root_id).unwrap();
-    let descendant = tree.get_instance(root_instance.get_children_ids()[0]).unwrap();
+    let descendant = tree
+        .get_instance(root_instance.get_children_ids()[0])
+        .unwrap();
 
     assert_eq!(descendant.name, "Test");
     assert_eq!(descendant.class_name, "ObjectValue");
 
-    let value = descendant.properties.get("Value").expect("no value property");
+    let value = descendant
+        .properties
+        .get("Value")
+        .expect("no value property");
     assert_eq!(value, &RbxValue::Ref { value: None });
 }

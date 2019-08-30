@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
-    error::{EncodeError, DecodeError, DecodeErrorKind},
     deserializer_core::XmlEventReader,
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    error::{DecodeError, DecodeErrorKind, EncodeError},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct BoolType;
@@ -21,11 +21,7 @@ impl XmlType<bool> for BoolType {
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
 
-        let value_as_str = if *value {
-            "true"
-        } else {
-            "false"
-        };
+        let value_as_str = if *value { "true" } else { "false" };
 
         writer.write(XmlWriteEvent::characters(value_as_str))?;
         writer.end_element()?;
@@ -33,9 +29,7 @@ impl XmlType<bool> for BoolType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let content = reader.read_characters()?;
@@ -43,14 +37,14 @@ impl XmlType<bool> for BoolType {
         let value = match content.as_str() {
             "true" => true,
             "false" => false,
-            _ => return Err(reader.error(DecodeErrorKind::InvalidContent("expected true or false")))
+            _ => {
+                return Err(reader.error(DecodeErrorKind::InvalidContent("expected true or false")))
+            }
         };
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::Bool {
-            value
-        })
+        Ok(RbxValue::Bool { value })
     }
 }
 
@@ -62,21 +56,11 @@ mod test {
 
     #[test]
     fn round_trip_true() {
-        test_util::test_xml_round_trip::<BoolType, _>(
-            &true,
-            RbxValue::Bool {
-                value: true,
-            }
-        );
+        test_util::test_xml_round_trip::<BoolType, _>(&true, RbxValue::Bool { value: true });
     }
 
     #[test]
     fn round_trip_false() {
-        test_util::test_xml_round_trip::<BoolType, _>(
-            &false,
-            RbxValue::Bool {
-                value: false,
-            }
-        );
+        test_util::test_xml_round_trip::<BoolType, _>(&false, RbxValue::Bool { value: false });
     }
 }

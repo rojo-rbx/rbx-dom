@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use serde_derive::{Serialize, Deserialize};
+use serde_derive::{Deserialize, Serialize};
 
 use crate::{
     id::RbxId,
@@ -31,10 +31,7 @@ impl RbxTree {
         let mut instances = HashMap::new();
         instances.insert(root_id, rooted_root);
 
-        RbxTree {
-            instances,
-            root_id,
-        }
+        RbxTree { instances, root_id }
     }
 
     /// Returns the ID of the root instance in the tree, which can be used
@@ -44,7 +41,7 @@ impl RbxTree {
     }
 
     /// Returns an iterator over all IDs in the tree.
-    pub fn iter_all_ids(&self) -> impl Iterator<Item=RbxId> + '_ {
+    pub fn iter_all_ids(&self) -> impl Iterator<Item = RbxId> + '_ {
         self.instances.keys().cloned()
     }
 
@@ -65,12 +62,19 @@ impl RbxTree {
     /// ## Panics
     /// Panics if the instance `source_id` doesn't exist in the source tree or
     /// if the instance `dest_parent_id` doesn't exist in the destination tree.
-    pub fn move_instance(&mut self, source_id: RbxId, dest_tree: &mut RbxTree, dest_parent_id: RbxId) {
+    pub fn move_instance(
+        &mut self,
+        source_id: RbxId,
+        dest_tree: &mut RbxTree,
+        dest_parent_id: RbxId,
+    ) {
         self.orphan_instance(source_id);
 
         // Remove the instance we're trying to move and manually rewrite its
         // parent.
-        let mut root_instance = self.instances.remove(&source_id)
+        let mut root_instance = self
+            .instances
+            .remove(&source_id)
             .expect("Cannot move an instance that does not exist in the tree");
         root_instance.parent = Some(dest_parent_id);
 
@@ -93,7 +97,11 @@ impl RbxTree {
     ///
     /// ## Panics
     /// Panics if the given ID does not refer to an instance in this tree.
-    pub fn insert_instance(&mut self, properties: RbxInstanceProperties, parent_id: RbxId) -> RbxId {
+    pub fn insert_instance(
+        &mut self,
+        properties: RbxInstanceProperties,
+        parent_id: RbxId,
+    ) -> RbxId {
         let mut tree_instance = RbxInstance::new(properties);
         tree_instance.parent = Some(parent_id);
 
@@ -138,7 +146,8 @@ impl RbxTree {
     /// ## Panics
     /// Panics if the given ID is not present in the tree.
     pub fn descendants(&self, id: RbxId) -> Descendants<'_> {
-        let instance = self.get_instance(id)
+        let instance = self
+            .get_instance(id)
             .expect("Cannot enumerate descendants of an instance not in the tree");
 
         Descendants {
@@ -158,12 +167,15 @@ impl RbxTree {
     /// Panics if the given instance does not exist, does not have a parent, or
     /// if any RbxTree variants were violated.
     fn orphan_instance(&mut self, orphan_id: RbxId) {
-        let parent_id = self.instances.get(&orphan_id)
+        let parent_id = self
+            .instances
+            .get(&orphan_id)
             .expect("Cannot orphan an instance that does not exist in the tree")
             .get_parent_id()
             .expect("Cannot orphan an instance without a parent, like the root instance");
 
-        let parent = self.get_instance_mut(parent_id)
+        let parent = self
+            .get_instance_mut(parent_id)
             .expect("Instance referred to an ID that does not exist");
 
         parent.children.retain(|&id| id != orphan_id);
@@ -176,11 +188,14 @@ impl RbxTree {
     /// Panics if the instance has a None parent or if the parent it refers to
     /// does not exist in this tree.
     fn insert_internal_and_unorphan(&mut self, instance: RbxInstance) {
-        let parent_id = instance.parent
+        let parent_id = instance
+            .parent
             .expect("Cannot use insert_internal_and_unorphan on instances with no parent");
 
         {
-            let parent = self.instances.get_mut(&parent_id)
+            let parent = self
+                .instances
+                .get_mut(&parent_id)
                 .expect("Cannot insert_internal_and_unorphan into an instance not in this tree");
 
             parent.children.push(instance.get_id());
@@ -234,23 +249,32 @@ mod test {
 
         let root_id = tree.get_root_id();
 
-        let a_id = tree.insert_instance(RbxInstanceProperties {
-            name: "A".to_owned(),
-            class_name: "Folder".to_owned(),
-            properties: HashMap::new(),
-        }, root_id);
+        let a_id = tree.insert_instance(
+            RbxInstanceProperties {
+                name: "A".to_owned(),
+                class_name: "Folder".to_owned(),
+                properties: HashMap::new(),
+            },
+            root_id,
+        );
 
-        let b_id = tree.insert_instance(RbxInstanceProperties {
-            name: "B".to_owned(),
-            class_name: "Folder".to_owned(),
-            properties: HashMap::new(),
-        }, root_id);
+        let b_id = tree.insert_instance(
+            RbxInstanceProperties {
+                name: "B".to_owned(),
+                class_name: "Folder".to_owned(),
+                properties: HashMap::new(),
+            },
+            root_id,
+        );
 
-        let c_id = tree.insert_instance(RbxInstanceProperties {
-            name: "C".to_owned(),
-            class_name: "Folder".to_owned(),
-            properties: HashMap::new(),
-        }, b_id);
+        let c_id = tree.insert_instance(
+            RbxInstanceProperties {
+                name: "C".to_owned(),
+                class_name: "Folder".to_owned(),
+                properties: HashMap::new(),
+            },
+            b_id,
+        );
 
         let mut seen_ids = HashSet::new();
 
@@ -274,23 +298,32 @@ mod test {
 
         let source_root_id = source_tree.get_root_id();
 
-        let a_id = source_tree.insert_instance(RbxInstanceProperties {
-            name: "A".to_owned(),
-            class_name: "Folder".to_owned(),
-            properties: HashMap::new(),
-        }, source_root_id);
+        let a_id = source_tree.insert_instance(
+            RbxInstanceProperties {
+                name: "A".to_owned(),
+                class_name: "Folder".to_owned(),
+                properties: HashMap::new(),
+            },
+            source_root_id,
+        );
 
-        let b_id = source_tree.insert_instance(RbxInstanceProperties {
-            name: "B".to_owned(),
-            class_name: "Folder".to_owned(),
-            properties: HashMap::new(),
-        }, a_id);
+        let b_id = source_tree.insert_instance(
+            RbxInstanceProperties {
+                name: "B".to_owned(),
+                class_name: "Folder".to_owned(),
+                properties: HashMap::new(),
+            },
+            a_id,
+        );
 
-        let c_id = source_tree.insert_instance(RbxInstanceProperties {
-            name: "C".to_owned(),
-            class_name: "Folder".to_owned(),
-            properties: HashMap::new(),
-        }, a_id);
+        let c_id = source_tree.insert_instance(
+            RbxInstanceProperties {
+                name: "C".to_owned(),
+                class_name: "Folder".to_owned(),
+                properties: HashMap::new(),
+            },
+            a_id,
+        );
 
         let mut dest_tree = RbxTree::new(RbxInstanceProperties {
             name: "Place 2".to_owned(),
@@ -305,12 +338,29 @@ mod test {
         assert!(source_tree.get_instance(a_id).is_none());
         assert!(source_tree.get_instance(b_id).is_none());
         assert!(source_tree.get_instance(c_id).is_none());
-        assert_eq!(source_tree.get_instance(source_root_id).unwrap().get_children_ids().len(), 0);
+        assert_eq!(
+            source_tree
+                .get_instance(source_root_id)
+                .unwrap()
+                .get_children_ids()
+                .len(),
+            0
+        );
 
         assert!(dest_tree.get_instance(a_id).is_some());
         assert!(dest_tree.get_instance(b_id).is_some());
         assert!(dest_tree.get_instance(c_id).is_some());
-        assert_eq!(dest_tree.get_instance(dest_root_id).unwrap().get_children_ids().len(), 1);
-        assert_eq!(dest_tree.get_instance(a_id).unwrap().get_children_ids(), &[b_id, c_id]);
+        assert_eq!(
+            dest_tree
+                .get_instance(dest_root_id)
+                .unwrap()
+                .get_children_ids()
+                .len(),
+            1
+        );
+        assert_eq!(
+            dest_tree.get_instance(a_id).unwrap().get_children_ids(),
+            &[b_id, c_id]
+        );
     }
 }

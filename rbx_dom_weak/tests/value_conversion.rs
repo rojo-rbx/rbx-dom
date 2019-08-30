@@ -1,4 +1,4 @@
-use rbx_dom_weak::{BrickColor, RbxValue, RbxValueType, RbxValueConversion};
+use rbx_dom_weak::{BrickColor, RbxValue, RbxValueConversion, RbxValueType};
 
 #[test]
 fn color3_to_color3uint8() {
@@ -8,9 +8,7 @@ fn color3_to_color3uint8() {
 
     assert_eq!(
         black.try_convert_ref(RbxValueType::Color3uint8),
-        RbxValueConversion::Converted(RbxValue::Color3uint8 {
-            value: [0, 0, 0],
-        }),
+        RbxValueConversion::Converted(RbxValue::Color3uint8 { value: [0, 0, 0] }),
     );
 
     let white = RbxValue::Color3 {
@@ -27,9 +25,7 @@ fn color3_to_color3uint8() {
 
 #[test]
 fn color3uint8_to_color3() {
-    let black = RbxValue::Color3uint8 {
-        value: [0, 0, 0],
-    };
+    let black = RbxValue::Color3uint8 { value: [0, 0, 0] };
 
     assert_eq!(
         black.try_convert_ref(RbxValueType::Color3),

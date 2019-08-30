@@ -4,9 +4,9 @@ use rbx_dom_weak::RbxValue;
 
 use crate::{
     core::XmlType,
+    deserializer_core::{XmlEventReader, XmlReadEvent},
     error::{DecodeError, DecodeErrorKind, EncodeError},
-    deserializer_core::{XmlReadEvent, XmlEventReader},
-    serializer_core::{XmlWriteEvent, XmlEventWriter},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub struct ContentType;
@@ -39,32 +39,36 @@ impl XmlType<str> for ContentType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(
-        reader: &mut XmlEventReader<R>,
-    ) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
 
         let value = match reader.expect_next()? {
-            XmlReadEvent::StartElement { name, attributes, namespace } => {
-                match name.local_name.as_str() {
-                    "null" => {
-                        reader.expect_end_with_name("null")?;
+            XmlReadEvent::StartElement {
+                name,
+                attributes,
+                namespace,
+            } => match name.local_name.as_str() {
+                "null" => {
+                    reader.expect_end_with_name("null")?;
 
-                        String::new()
-                    }
-                    "url" => {
-                        let value = reader.read_characters()?;
-                        reader.expect_end_with_name("url")?;
-
-                        value.to_owned()
-                    }
-                    _ => {
-                        let event = XmlReadEvent::StartElement { name, attributes, namespace };
-                        return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                    }
+                    String::new()
                 }
-            }
-            unexpected => return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(unexpected)))
+                "url" => {
+                    let value = reader.read_characters()?;
+                    reader.expect_end_with_name("url")?;
+
+                    value.to_owned()
+                }
+                _ => {
+                    let event = XmlReadEvent::StartElement {
+                        name,
+                        attributes,
+                        namespace,
+                    };
+                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                }
+            },
+            unexpected => return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(unexpected))),
         };
 
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
@@ -87,7 +91,7 @@ mod test {
             test_value,
             RbxValue::Content {
                 value: test_value.to_owned(),
-            }
+            },
         );
     }
 
@@ -97,7 +101,7 @@ mod test {
             "",
             RbxValue::Content {
                 value: String::new(),
-            }
+            },
         );
     }
 
@@ -111,7 +115,7 @@ mod test {
             "#,
             RbxValue::Content {
                 value: String::from("Some URL"),
-            }
+            },
         );
     }
 
@@ -125,7 +129,7 @@ mod test {
             "#,
             RbxValue::Content {
                 value: String::new(),
-            }
+            },
         );
     }
 
@@ -137,7 +141,7 @@ mod test {
                     <url>Some URL</url>
                 </Content>
             "#,
-            "Some URL"
+            "Some URL",
         );
     }
 
@@ -149,7 +153,7 @@ mod test {
                     <null></null>
                 </Content>
             "#,
-            ""
+            "",
         );
     }
 }
