@@ -2,6 +2,10 @@
 
 ## Unreleased Changes
 
+## 3.2.399 (2019-09-03)
+* Updated reflection database to client 0.399.0.334382
+* Fixed stack overflow in debug builds without `opt-level=1` caused by reflection database
+
 ## 3.2.395
 * Updated reflection database to client 0.395.0.324413
 
