@@ -92,6 +92,26 @@ impl RbxTree {
         }
     }
 
+    /// Move the instance with the ID `id` so that its new parent is
+    /// `dest_parent_id`.
+    ///
+    /// ## Panics
+    /// Panics if `id` or `dest_parent_id` do not refer to instances that exist
+    /// in the tree.
+    ///
+    /// Panics if this operation would cause the tree to become cyclical and
+    /// invalid.
+    pub fn set_parent(&mut self, id: RbxId, dest_parent_id: RbxId) {
+        for instance in self.descendants(id) {
+            if instance.get_id() == dest_parent_id {
+                panic!("set_parent cannot create circular references");
+            }
+        }
+
+        self.orphan_instance(id);
+        self.unorphan_instance(id, dest_parent_id);
+    }
+
     /// Inserts a new instance with the given properties into the tree, putting it
     /// under the instance with the given ID.
     ///
@@ -188,20 +208,31 @@ impl RbxTree {
     /// Panics if the instance has a None parent or if the parent it refers to
     /// does not exist in this tree.
     fn insert_internal_and_unorphan(&mut self, instance: RbxInstance) {
+        let id = instance.get_id();
         let parent_id = instance
             .parent
             .expect("Cannot use insert_internal_and_unorphan on instances with no parent");
 
-        {
-            let parent = self
-                .instances
-                .get_mut(&parent_id)
-                .expect("Cannot insert_internal_and_unorphan into an instance not in this tree");
+        self.instances.insert(instance.get_id(), instance);
+        self.unorphan_instance(id, parent_id);
+    }
 
-            parent.children.push(instance.get_id());
+    fn unorphan_instance(&mut self, id: RbxId, parent_id: RbxId) {
+        {
+            let instance = self
+                .instances
+                .get_mut(&id)
+                .expect("Cannot unorphan and instance not in this tree");
+
+            instance.parent = Some(parent_id);
         }
 
-        self.instances.insert(instance.get_id(), instance);
+        let parent = self
+            .instances
+            .get_mut(&parent_id)
+            .expect("Cannot unorphan into an instance not in this tree");
+
+        parent.children.push(id);
     }
 }
 
@@ -362,5 +393,39 @@ mod test {
             dest_tree.get_instance(a_id).unwrap().get_children_ids(),
             &[b_id, c_id]
         );
+    }
+
+    #[test]
+    fn set_parent() {
+        let mut tree = RbxTree::new(RbxInstanceProperties {
+            name: "Place 1".to_owned(),
+            class_name: "DataModel".to_owned(),
+            properties: HashMap::new(),
+        });
+
+        let root_id = tree.get_root_id();
+
+        let a_id = tree.insert_instance(
+            RbxInstanceProperties {
+                name: "A".to_owned(),
+                class_name: "A".to_owned(),
+                properties: HashMap::new(),
+            },
+            root_id,
+        );
+
+        let b_id = tree.insert_instance(
+            RbxInstanceProperties {
+                name: "B".to_owned(),
+                class_name: "B".to_owned(),
+                properties: HashMap::new(),
+            },
+            root_id,
+        );
+
+        tree.set_parent(a_id, b_id);
+
+        let a = tree.get_instance(a_id).unwrap();
+        assert_eq!(a.get_parent_id(), Some(b_id));
     }
 }

@@ -1,6 +1,7 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+* Added `RbxTree::set_parent`, for moving instances within a single tree.
 
 ## 1.9.0 (2019-07-12)
 * Changed `BrickColor` to be much more correct
