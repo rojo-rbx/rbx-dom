@@ -1,6 +1,8 @@
 # rbx\_dom\_weak Changelog
 
 ## Unreleased Changes
+
+## 1.10.0 (2019-09-15)
 * Added `RbxTree::set_parent`, for moving instances within a single tree.
 
 ## 1.9.0 (2019-07-12)
