@@ -6225,9 +6225,9 @@ fn generate_data_model_session() -> RbxClassDescriptor {
         properties: {
             let mut map = HashMap::with_capacity(2);
             map.insert(
-                Cow::Borrowed("CurrentGameStateType"),
+                Cow::Borrowed("CurrentDataModelType"),
                 RbxPropertyDescriptor {
-                    name: Cow::Borrowed("CurrentGameStateType"),
+                    name: Cow::Borrowed("CurrentDataModelType"),
                     value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
                         "StudioDataModelType",
                     )),
@@ -6356,7 +6356,7 @@ fn generate_debug_settings() -> RbxClassDescriptor {
         superclass: Some(Cow::Borrowed("Instance")),
         tags: RbxInstanceTags::NOT_BROWSABLE | RbxInstanceTags::SETTINGS,
         properties: {
-            let mut map = HashMap::with_capacity(20);
+            let mut map = HashMap::with_capacity(19);
             map.insert(
                 Cow::Borrowed("DataModel"),
                 RbxPropertyDescriptor {
@@ -6446,19 +6446,6 @@ fn generate_debug_settings() -> RbxClassDescriptor {
                     serialized_name: None,
                     scriptability: RbxPropertyScriptability::Read,
                     serializes: false,
-                },
-            );
-            map.insert(
-                Cow::Borrowed("LuaRamLimit"),
-                RbxPropertyDescriptor {
-                    name: Cow::Borrowed("LuaRamLimit"),
-                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Int32),
-                    tags: RbxPropertyTags::empty(),
-                    is_canonical: true,
-                    canonical_name: None,
-                    serialized_name: None,
-                    scriptability: RbxPropertyScriptability::ReadWrite,
-                    serializes: true,
                 },
             );
             map.insert(
@@ -18746,7 +18733,7 @@ fn generate_plugin() -> RbxClassDescriptor {
         superclass: Some(Cow::Borrowed("Instance")),
         tags: RbxInstanceTags::NOT_CREATABLE,
         properties: {
-            let mut map = HashMap::with_capacity(5);
+            let mut map = HashMap::with_capacity(6);
             map.insert(
                 Cow::Borrowed("CollisionEnabled"),
                 RbxPropertyDescriptor {
@@ -18780,6 +18767,19 @@ fn generate_plugin() -> RbxClassDescriptor {
                     value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed(
                         "StudioDataModelType",
                     )),
+                    tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability: RbxPropertyScriptability::Read,
+                    serializes: false,
+                },
+            );
+            map.insert(
+                Cow::Borrowed("HostDataModelTypeIsCurrent"),
+                RbxPropertyDescriptor {
+                    name: Cow::Borrowed("HostDataModelTypeIsCurrent"),
+                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
                     tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     is_canonical: true,
                     canonical_name: None,
@@ -18921,14 +18921,14 @@ fn generate_plugin_action() -> RbxClassDescriptor {
         },
         default_properties: {
             let mut map = HashMap::with_capacity(4);
-            map.insert(Cow::Borrowed("Checked"), RbxValue::Bool { value: false });
+            map.insert(Cow::Borrowed("Checked"), RbxValue::Bool { value: true });
             map.insert(
                 Cow::Borrowed("DefaultShortcut"),
                 RbxValue::String {
                     value: String::from(""),
                 },
             );
-            map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
+            map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: false });
             map.insert(
                 Cow::Borrowed("Name"),
                 RbxValue::String {
@@ -19225,6 +19225,26 @@ fn generate_points_service() -> RbxClassDescriptor {
                 Cow::Borrowed("Name"),
                 RbxValue::String {
                     value: String::from("PointsService"),
+                },
+            );
+            map
+        },
+    };
+}
+fn generate_policy_service() -> RbxClassDescriptor {
+    return RbxClassDescriptor {
+        name: Cow::Borrowed("PolicyService"),
+        superclass: Some(Cow::Borrowed("Instance")),
+        tags: RbxInstanceTags::NOT_CREATABLE
+            | RbxInstanceTags::NOT_REPLICATED
+            | RbxInstanceTags::SERVICE,
+        properties: HashMap::new(),
+        default_properties: {
+            let mut map = HashMap::with_capacity(1);
+            map.insert(
+                Cow::Borrowed("Name"),
+                RbxValue::String {
+                    value: String::from("PolicyService"),
                 },
             );
             map
@@ -24798,6 +24818,24 @@ fn generate_spring_constraint() -> RbxClassDescriptor {
         },
     };
 }
+fn generate_standalone_plugin_scripts() -> RbxClassDescriptor {
+    return RbxClassDescriptor {
+        name: Cow::Borrowed("StandalonePluginScripts"),
+        superclass: Some(Cow::Borrowed("Instance")),
+        tags: RbxInstanceTags::empty(),
+        properties: HashMap::new(),
+        default_properties: {
+            let mut map = HashMap::with_capacity(1);
+            map.insert(
+                Cow::Borrowed("Name"),
+                RbxValue::String {
+                    value: String::from("StandalonePluginScripts"),
+                },
+            );
+            map
+        },
+    };
+}
 fn generate_standard_pages() -> RbxClassDescriptor {
     return RbxClassDescriptor {
         name: Cow::Borrowed("StandardPages"),
@@ -26863,12 +26901,51 @@ fn generate_studio_service() -> RbxClassDescriptor {
             | RbxInstanceTags::NOT_REPLICATED
             | RbxInstanceTags::SERVICE,
         properties: {
-            let mut map = HashMap::with_capacity(2);
+            let mut map = HashMap::with_capacity(6);
             map.insert(
                 Cow::Borrowed("ActiveScript"),
                 RbxPropertyDescriptor {
                     name: Cow::Borrowed("ActiveScript"),
                     value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Ref),
+                    tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability: RbxPropertyScriptability::Read,
+                    serializes: false,
+                },
+            );
+            map.insert(
+                Cow::Borrowed("GridSize"),
+                RbxPropertyDescriptor {
+                    name: Cow::Borrowed("GridSize"),
+                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
+                    tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability: RbxPropertyScriptability::Read,
+                    serializes: false,
+                },
+            );
+            map.insert(
+                Cow::Borrowed("InstalledPluginData"),
+                RbxPropertyDescriptor {
+                    name: Cow::Borrowed("InstalledPluginData"),
+                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::String),
+                    tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability: RbxPropertyScriptability::Read,
+                    serializes: false,
+                },
+            );
+            map.insert(
+                Cow::Borrowed("RotateIncrement"),
+                RbxPropertyDescriptor {
+                    name: Cow::Borrowed("RotateIncrement"),
+                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Float32),
                     tags: RbxPropertyTags::NOT_REPLICATED | RbxPropertyTags::READ_ONLY,
                     is_canonical: true,
                     canonical_name: None,
@@ -26890,15 +26967,32 @@ fn generate_studio_service() -> RbxClassDescriptor {
                     serializes: false,
                 },
             );
+            map.insert(
+                Cow::Borrowed("UseLocalSpace"),
+                RbxPropertyDescriptor {
+                    name: Cow::Borrowed("UseLocalSpace"),
+                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                    tags: RbxPropertyTags::NOT_REPLICATED,
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability: RbxPropertyScriptability::ReadWrite,
+                    serializes: false,
+                },
+            );
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(1);
+            let mut map = HashMap::with_capacity(2);
             map.insert(
                 Cow::Borrowed("Name"),
                 RbxValue::String {
                     value: String::from("StudioService"),
                 },
+            );
+            map.insert(
+                Cow::Borrowed("UseLocalSpace"),
+                RbxValue::Bool { value: true },
             );
             map
         },
@@ -27926,6 +28020,19 @@ fn generate_text_box() -> RbxClassDescriptor {
                 },
             );
             map.insert(
+                Cow::Borrowed("EnableRealtimeFilteringHints"),
+                RbxPropertyDescriptor {
+                    name: Cow::Borrowed("EnableRealtimeFilteringHints"),
+                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
+                    tags: RbxPropertyTags::NOT_REPLICATED,
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability: RbxPropertyScriptability::ReadWrite,
+                    serializes: false,
+                },
+            );
+            map.insert(
                 Cow::Borrowed("Font"),
                 RbxPropertyDescriptor {
                     name: Cow::Borrowed("Font"),
@@ -27944,19 +28051,6 @@ fn generate_text_box() -> RbxClassDescriptor {
                     name: Cow::Borrowed("FontSize"),
                     value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("FontSize")),
                     tags: RbxPropertyTags::DEPRECATED | RbxPropertyTags::NOT_REPLICATED,
-                    is_canonical: true,
-                    canonical_name: None,
-                    serialized_name: None,
-                    scriptability: RbxPropertyScriptability::ReadWrite,
-                    serializes: false,
-                },
-            );
-            map.insert(
-                Cow::Borrowed("IsPassword"),
-                RbxPropertyDescriptor {
-                    name: Cow::Borrowed("IsPassword"),
-                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::Bool),
-                    tags: RbxPropertyTags::NOT_REPLICATED,
                     is_canonical: true,
                     canonical_name: None,
                     serialized_name: None,
@@ -28350,9 +28444,12 @@ fn generate_text_box() -> RbxClassDescriptor {
                 RbxValue::Int32 { value: 1 },
             );
             map.insert(Cow::Borrowed("Draggable"), RbxValue::Bool { value: false });
+            map.insert(
+                Cow::Borrowed("EnableRealtimeFilteringHints"),
+                RbxValue::Bool { value: false },
+            );
             map.insert(Cow::Borrowed("Font"), RbxValue::Enum { value: 0 });
             map.insert(Cow::Borrowed("FontSize"), RbxValue::Enum { value: 0 });
-            map.insert(Cow::Borrowed("IsPassword"), RbxValue::Bool { value: false });
             map.insert(Cow::Borrowed("LayoutOrder"), RbxValue::Int32 { value: 0 });
             map.insert(
                 Cow::Borrowed("LineHeight"),
@@ -33728,7 +33825,7 @@ fn generate_workspace() -> RbxClassDescriptor {
         superclass: Some(Cow::Borrowed("Model")),
         tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
         properties: {
-            let mut map = HashMap::with_capacity(12);
+            let mut map = HashMap::with_capacity(13);
             map.insert(
                 Cow::Borrowed("AllowThirdPartySales"),
                 RbxPropertyDescriptor {
@@ -33739,6 +33836,19 @@ fn generate_workspace() -> RbxClassDescriptor {
                     canonical_name: None,
                     serialized_name: None,
                     scriptability: RbxPropertyScriptability::ReadWrite,
+                    serializes: true,
+                },
+            );
+            map.insert(
+                Cow::Borrowed("CollisionGroups"),
+                RbxPropertyDescriptor {
+                    name: Cow::Borrowed("CollisionGroups"),
+                    value_type: RbxPropertyTypeDescriptor::Data(RbxValueType::String),
+                    tags: RbxPropertyTags::empty(),
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability: RbxPropertyScriptability::Custom,
                     serializes: true,
                 },
             );
@@ -33928,7 +34038,7 @@ fn generate_workspace() -> RbxClassDescriptor {
     };
 }
 pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
-    let mut map = HashMap::with_capacity(416);
+    let mut map = HashMap::with_capacity(418);
     map.insert(Cow::Borrowed("ABTestService"), generate_ab_test_service());
     map.insert(Cow::Borrowed("Accessory"), generate_accessory());
     map.insert(Cow::Borrowed("Accoutrement"), generate_accoutrement());
@@ -34444,6 +34554,7 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
     );
     map.insert(Cow::Borrowed("PointLight"), generate_point_light());
     map.insert(Cow::Borrowed("PointsService"), generate_points_service());
+    map.insert(Cow::Borrowed("PolicyService"), generate_policy_service());
     map.insert(Cow::Borrowed("Pose"), generate_pose());
     map.insert(Cow::Borrowed("PostEffect"), generate_post_effect());
     map.insert(
@@ -34635,6 +34746,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
     map.insert(
         Cow::Borrowed("SpringConstraint"),
         generate_spring_constraint(),
+    );
+    map.insert(
+        Cow::Borrowed("StandalonePluginScripts"),
+        generate_standalone_plugin_scripts(),
     );
     map.insert(Cow::Borrowed("StandardPages"), generate_standard_pages());
     map.insert(

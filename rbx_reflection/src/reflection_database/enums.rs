@@ -983,10 +983,9 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("ExplosionType"),
             items: {
-                let mut items = HashMap::with_capacity(3);
+                let mut items = HashMap::with_capacity(2);
                 items.insert(Cow::Borrowed("NoCraters"), 0);
                 items.insert(Cow::Borrowed("Craters"), 1);
-                items.insert(Cow::Borrowed("CratersAndDebris"), 2);
                 items
             },
         },
@@ -2898,10 +2897,10 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
             name: Cow::Borrowed("Technology"),
             items: {
                 let mut items = HashMap::with_capacity(4);
-                items.insert(Cow::Borrowed("Legacy"), 0);
-                items.insert(Cow::Borrowed("Voxel"), 1);
                 items.insert(Cow::Borrowed("Compatibility"), 2);
+                items.insert(Cow::Borrowed("Voxel"), 1);
                 items.insert(Cow::Borrowed("ShadowMap"), 3);
+                items.insert(Cow::Borrowed("Legacy"), 0);
                 items
             },
         },
@@ -2969,12 +2968,13 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("TextInputType"),
             items: {
-                let mut items = HashMap::with_capacity(5);
+                let mut items = HashMap::with_capacity(6);
                 items.insert(Cow::Borrowed("Default"), 0);
                 items.insert(Cow::Borrowed("NoSuggestions"), 1);
                 items.insert(Cow::Borrowed("Number"), 2);
                 items.insert(Cow::Borrowed("Email"), 3);
                 items.insert(Cow::Borrowed("Phone"), 4);
+                items.insert(Cow::Borrowed("Password"), 5);
                 items
             },
         },

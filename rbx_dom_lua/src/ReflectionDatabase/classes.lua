@@ -3530,8 +3530,8 @@ return {
 		name = "DataModelSession",
 		superclass = "Instance",
 		properties = {
-			CurrentGameStateType = {
-				name = "CurrentGameStateType",
+			CurrentDataModelType = {
+				name = "CurrentDataModelType",
 				type = {type = "Enum", name = "StudioDataModelType"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -3672,15 +3672,6 @@ return {
 				serializedName = nil,
 				scriptability = "Read",
 				serializes = false,
-			},
-			LuaRamLimit = {
-				name = "LuaRamLimit",
-				type = {type = "Data", name = "Int32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
 			},
 			OsIs64Bit = {
 				name = "OsIs64Bit",
@@ -10745,6 +10736,15 @@ return {
 				scriptability = "Read",
 				serializes = false,
 			},
+			HostDataModelTypeIsCurrent = {
+				name = "HostDataModelTypeIsCurrent",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
 			MDIInstance = {
 				name = "MDIInstance",
 				type = {type = "Data", name = "Ref"},
@@ -10836,9 +10836,9 @@ return {
 			},
 		},
 		defaults = {
-			Checked = false,
+			Checked = true,
 			DefaultShortcut = "",
-			Enabled = true,
+			Enabled = false,
 			Name = "Instance",
 		},
 	},
@@ -11027,6 +11027,15 @@ return {
 		},
 		defaults = {
 			Name = "PointsService",
+		},
+	},
+	PolicyService = {
+		name = "PolicyService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "PolicyService",
 		},
 	},
 	Pose = {
@@ -14002,6 +14011,15 @@ return {
 			Visible = false,
 		},
 	},
+	StandalonePluginScripts = {
+		name = "StandalonePluginScripts",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "StandalonePluginScripts",
+		},
+	},
 	StandardPages = {
 		name = "StandardPages",
 		superclass = "Pages",
@@ -14787,6 +14805,33 @@ return {
 				scriptability = "Read",
 				serializes = false,
 			},
+			GridSize = {
+				name = "GridSize",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			InstalledPluginData = {
+				name = "InstalledPluginData",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			RotateIncrement = {
+				name = "RotateIncrement",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
 			StudioLocaleId = {
 				name = "StudioLocaleId",
 				type = {type = "Data", name = "String"},
@@ -14796,9 +14841,19 @@ return {
 				scriptability = "Read",
 				serializes = false,
 			},
+			UseLocalSpace = {
+				name = "UseLocalSpace",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
 		},
 		defaults = {
 			Name = "StudioService",
+			UseLocalSpace = true,
 		},
 	},
 	StudioTheme = {
@@ -15407,6 +15462,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
+			EnableRealtimeFilteringHints = {
+				name = "EnableRealtimeFilteringHints",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
 			Font = {
 				name = "Font",
 				type = {type = "Enum", name = "Font"},
@@ -15419,15 +15483,6 @@ return {
 			FontSize = {
 				name = "FontSize",
 				type = {type = "Enum", name = "FontSize"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = false,
-			},
-			IsPassword = {
-				name = "IsPassword",
-				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15675,9 +15730,9 @@ return {
 			ClipsDescendants = false,
 			CursorPosition = 1,
 			Draggable = false,
+			EnableRealtimeFilteringHints = false,
 			Font = 0,
 			FontSize = 0,
-			IsPassword = false,
 			LayoutOrder = 0,
 			LineHeight = 1,
 			Localize = true,
@@ -18557,6 +18612,15 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			CollisionGroups = {
+				name = "CollisionGroups",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Custom",
 				serializes = true,
 			},
 			CurrentCamera = {
