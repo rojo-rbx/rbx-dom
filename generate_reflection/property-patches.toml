@@ -27,6 +27,13 @@ type = { Data = "BinaryString" }
 scriptability = "Custom"
 serializes = true
 
+# Collision groups in a place are serialized as a string that looks like:
+# Default^0^1
+[add.Workspace.CollisionGroups]
+type = { Data = "String" }
+scriptability = "Custom"
+serializes = true
+
 # 'Contents' is the name of the field in the Roblox file formats, so it makes
 # sense to use it as the canonical name of this property.
 [add.LocalizationTable.Contents]
