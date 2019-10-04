@@ -1,6 +1,8 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+
+## 3.2.404 (2019-10-04)
 * Updated reflection database to client 0.404.346082
 * Added `Workspace.CollisionGroups` descriptor to improving ergonomics of Rojo.
 
