@@ -20,7 +20,7 @@ impl XmlType<[u8]> for BinaryStringType {
         value: &[u8],
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        if value.len() > 0 {
+        if !value.is_empty() {
             writer.write(XmlWriteEvent::cdata(&base64::encode(value)))?;
         }
         writer.end_element()?;
