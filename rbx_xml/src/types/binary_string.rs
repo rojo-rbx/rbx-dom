@@ -20,7 +20,9 @@ impl XmlType<[u8]> for BinaryStringType {
         value: &[u8],
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write(XmlWriteEvent::characters(&base64::encode(value)))?;
+        if value.len() > 0 {
+            writer.write(XmlWriteEvent::cdata(&base64::encode(value)))?;
+        }
         writer.end_element()?;
 
         Ok(())
@@ -105,6 +107,22 @@ mod test {
             RbxValue::BinaryString {
                 value: "Hello, world!".into(),
             },
+        );
+    }
+
+    #[test]
+    fn cdata_serialize() {
+        test_util::test_xml_serialize::<BinaryStringType, _>(
+            "<BinaryString name=\"foo\"><![CDATA[SGVsbG8sIHdvcmxkIQ==]]></BinaryString>",
+            b"Hello, world!",
+        );
+    }
+
+    #[test]
+    fn no_cdata_empty() {
+        test_util::test_xml_serialize::<BinaryStringType, _>(
+            "<BinaryString name=\"foo\"></BinaryString>",
+            b"",
         );
     }
 }
