@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Empty BinaryStrings will now serialize without an empty CDATA tag ([#76](https://github.com/rojo-rbx/rbx-dom/pull/76)).
 
 ## 0.11.2 (2019-08-08)
 * Fixed encoding properties in a nondeterministic order. Properties should now be sorted. ([#66](https://github.com/rojo-rbx/rbx-dom/pull/66))
