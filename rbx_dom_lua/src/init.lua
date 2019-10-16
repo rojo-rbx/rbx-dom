@@ -8,6 +8,10 @@ local function findCanonicalPropertyDescriptor(className, propertyName)
 	repeat
 		local currentClass = ReflectionDatabase.classes[currentClassName]
 
+		if currentClass == nil then
+			return currentClass
+		end
+
 		local propertyData = currentClass.properties[propertyName]
 		if propertyData ~= nil then
 			if propertyData.isCanonical then
