@@ -2,7 +2,7 @@
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
-    let mut output = HashMap::with_capacity(198);
+    let mut output = HashMap::with_capacity(199);
     output.insert(
         Cow::Borrowed("ActionType"),
         RbxEnumDescriptor {
@@ -2366,6 +2366,22 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 let mut items = HashMap::with_capacity(2);
                 items.insert(Cow::Borrowed("psnr"), 0);
                 items.insert(Cow::Borrowed("diff"), 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("ReturnKeyType"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("ReturnKeyType"),
+            items: {
+                let mut items = HashMap::with_capacity(6);
+                items.insert(Cow::Borrowed("Default"), 0);
+                items.insert(Cow::Borrowed("Done"), 1);
+                items.insert(Cow::Borrowed("Go"), 2);
+                items.insert(Cow::Borrowed("Next"), 3);
+                items.insert(Cow::Borrowed("Search"), 4);
+                items.insert(Cow::Borrowed("Send"), 5);
                 items
             },
         },

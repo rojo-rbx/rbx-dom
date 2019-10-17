@@ -27992,7 +27992,7 @@ fn generate_text_box() -> RbxClassDescriptor {
         superclass: Some(Cow::Borrowed("GuiObject")),
         tags: RbxInstanceTags::empty(),
         properties: {
-            let mut map = HashMap::with_capacity(30);
+            let mut map = HashMap::with_capacity(31);
             map.insert(
                 Cow::Borrowed("ClearTextOnFocus"),
                 RbxPropertyDescriptor {
@@ -28134,6 +28134,19 @@ fn generate_text_box() -> RbxClassDescriptor {
                     serialized_name: None,
                     scriptability: RbxPropertyScriptability::ReadWrite,
                     serializes: true,
+                },
+            );
+            map.insert(
+                Cow::Borrowed("ReturnKeyType"),
+                RbxPropertyDescriptor {
+                    name: Cow::Borrowed("ReturnKeyType"),
+                    value_type: RbxPropertyTypeDescriptor::Enum(Cow::Borrowed("ReturnKeyType")),
+                    tags: RbxPropertyTags::NOT_REPLICATED,
+                    is_canonical: true,
+                    canonical_name: None,
+                    serialized_name: None,
+                    scriptability: RbxPropertyScriptability::ReadWrite,
+                    serializes: false,
                 },
             );
             map.insert(
@@ -28388,7 +28401,7 @@ fn generate_text_box() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(57);
+            let mut map = HashMap::with_capacity(58);
             map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
             map.insert(
                 Cow::Borrowed("AnchorPoint"),
@@ -28505,6 +28518,7 @@ fn generate_text_box() -> RbxClassDescriptor {
                     value: (0.0, 0, 0.0, 0),
                 },
             );
+            map.insert(Cow::Borrowed("ReturnKeyType"), RbxValue::Enum { value: 0 });
             map.insert(
                 Cow::Borrowed("RootLocalizationTable"),
                 RbxValue::Ref { value: None },
@@ -30588,6 +30602,26 @@ fn generate_tween_service() -> RbxClassDescriptor {
                 Cow::Borrowed("Name"),
                 RbxValue::String {
                     value: String::from("TweenService"),
+                },
+            );
+            map
+        },
+    };
+}
+fn generate_ugc_validation_service() -> RbxClassDescriptor {
+    return RbxClassDescriptor {
+        name: Cow::Borrowed("UGCValidationService"),
+        superclass: Some(Cow::Borrowed("Instance")),
+        tags: RbxInstanceTags::NOT_CREATABLE
+            | RbxInstanceTags::NOT_REPLICATED
+            | RbxInstanceTags::SERVICE,
+        properties: HashMap::new(),
+        default_properties: {
+            let mut map = HashMap::with_capacity(1);
+            map.insert(
+                Cow::Borrowed("Name"),
+                RbxValue::String {
+                    value: String::from("UGCValidationService"),
                 },
             );
             map
@@ -34038,7 +34072,7 @@ fn generate_workspace() -> RbxClassDescriptor {
     };
 }
 pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
-    let mut map = HashMap::with_capacity(418);
+    let mut map = HashMap::with_capacity(419);
     map.insert(Cow::Borrowed("ABTestService"), generate_ab_test_service());
     map.insert(Cow::Borrowed("Accessory"), generate_accessory());
     map.insert(Cow::Borrowed("Accoutrement"), generate_accoutrement());
@@ -34835,6 +34869,10 @@ pub fn generate_classes() -> HashMap<Cow<'static, str>, RbxClassDescriptor> {
     map.insert(Cow::Borrowed("Tween"), generate_tween());
     map.insert(Cow::Borrowed("TweenBase"), generate_tween_base());
     map.insert(Cow::Borrowed("TweenService"), generate_tween_service());
+    map.insert(
+        Cow::Borrowed("UGCValidationService"),
+        generate_ugc_validation_service(),
+    );
     map.insert(
         Cow::Borrowed("UIAspectRatioConstraint"),
         generate_ui_aspect_ratio_constraint(),

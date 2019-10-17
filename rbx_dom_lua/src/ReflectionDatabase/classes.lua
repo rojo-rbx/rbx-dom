@@ -15543,6 +15543,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			ReturnKeyType = {
+				name = "ReturnKeyType",
+				type = {type = "Enum", name = "ReturnKeyType"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
 			SelectionStart = {
 				name = "SelectionStart",
 				type = {type = "Data", name = "Int32"},
@@ -15747,6 +15756,7 @@ return {
 			PlaceholderColor3 = Color3.new(0.7, 0.7, 0.7),
 			PlaceholderText = "",
 			Position = UDim2.new(0, 0, 0, 0),
+			ReturnKeyType = 0,
 			RootLocalizationTable = nil,
 			Rotation = 0,
 			Selectable = true,
@@ -16836,6 +16846,15 @@ return {
 		},
 		defaults = {
 			Name = "TweenService",
+		},
+	},
+	UGCValidationService = {
+		name = "UGCValidationService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "UGCValidationService",
 		},
 	},
 	UIAspectRatioConstraint = {
