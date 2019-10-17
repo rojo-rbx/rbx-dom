@@ -108,7 +108,13 @@ return function(postMessage)
 							if ok then
 								defaultProperties[propertyDescriptor.name] = encoded
 							else
-								warn("Couldn't encode property", propertyDescriptor.name, "on class", currentClass.name, encoded)
+								warn(
+									"Couldn't encode property",
+									propertyDescriptor.name,
+									"on class",
+									currentClass.name,
+									encoded
+								)
 							end
 						else
 							verbosePrint("Couldn't read property", propertyDescriptor.name, "on class", class.name)
