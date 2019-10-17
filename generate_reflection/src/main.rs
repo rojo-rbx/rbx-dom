@@ -1,11 +1,11 @@
 // Our use of quote! hits the recursion limit, oops.
-#![recursion_limit="128"]
+#![recursion_limit = "128"]
 
 mod api_dump;
-mod property_patches;
 mod database;
 mod emitter_lua;
 mod emitter_rust;
+mod property_patches;
 mod reflection_types;
 mod run_in_roblox;
 
@@ -20,22 +20,18 @@ use std::{
     str,
 };
 
+use rbx_dom_weak::{RbxInstanceProperties, RbxTree, RbxValue};
 use serde_derive::Deserialize;
-use rbx_dom_weak::{RbxTree, RbxValue, RbxInstanceProperties};
 
 use crate::{
-    run_in_roblox::{inject_plugin_main, run_in_roblox},
     api_dump::{Dump, DumpClassMember},
     database::ReflectionDatabase,
     property_patches::load_property_patches,
     reflection_types::{
-        RbxClassDescriptor,
-        RbxPropertyDescriptor,
-        RbxInstanceTags,
-        RbxPropertyScriptability,
-        RbxPropertyTags,
-        RbxPropertyTypeDescriptor,
+        RbxClassDescriptor, RbxInstanceTags, RbxPropertyDescriptor, RbxPropertyScriptability,
+        RbxPropertyTags, RbxPropertyTypeDescriptor,
     },
+    run_in_roblox::{inject_plugin_main, run_in_roblox},
 };
 
 static PLUGIN_MAIN: &str = include_str!("../plugin/main.lua");
@@ -51,7 +47,7 @@ enum PluginMessage {
     DefaultProperties {
         class_name: String,
         properties: HashMap<Cow<'static, str>, RbxValue>,
-    }
+    },
 }
 
 #[allow(
@@ -119,12 +115,20 @@ fn main() -> Result<(), Box<dyn Error>> {
     let property_patches = load_property_patches();
 
     for (class_name, class_changes) in &property_patches.change {
-        let class = classes.get_mut(class_name.as_str())
+        let class = classes
+            .get_mut(class_name.as_str())
             .unwrap_or_else(|| panic!("Class {} defined in patch file wasn't present", class_name));
 
         for (property_name, property_change) in class_changes {
-            let existing_property = class.properties.get_mut(property_name.as_str())
-                .unwrap_or_else(|| panic!("Property {}.{} did not exist in dump", class_name, property_name));
+            let existing_property = class
+                .properties
+                .get_mut(property_name.as_str())
+                .unwrap_or_else(|| {
+                    panic!(
+                        "Property {}.{} did not exist in dump",
+                        class_name, property_name
+                    )
+                });
 
             println!("{}.{} changed", class_name, property_name);
 
@@ -143,12 +147,16 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     for (class_name, class_adds) in &property_patches.add {
-        let class = classes.get_mut(class_name.as_str())
+        let class = classes
+            .get_mut(class_name.as_str())
             .unwrap_or_else(|| panic!("Class {} defined in patch file wasn't present", class_name));
 
         for (property_name, property_add) in class_adds {
             if class.properties.contains_key(property_name.as_str()) {
-                panic!("Property {}.{} marked for addition in patch was already present", class_name, property_name);
+                panic!(
+                    "Property {}.{} marked for addition in patch was already present",
+                    class_name, property_name
+                );
             }
 
             println!("{}.{} added", class_name, property_name);
@@ -173,7 +181,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                 tags: RbxPropertyTags::empty(),
             };
 
-            class.properties.insert(Cow::Owned(property_name.clone()), property);
+            class
+                .properties
+                .insert(Cow::Owned(property_name.clone()), property);
         }
     }
 
@@ -182,8 +192,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             if let Some(canonical_name) = &property.canonical_name {
                 let canonical_property = match class.properties.get(canonical_name) {
                     Some(value) => value,
-                    None => panic!("Property {}.{} refers to canonical property ({}) that does not exist.",
-                        class_name, property_name, canonical_name)
+                    None => panic!(
+                        "Property {}.{} refers to canonical property ({}) that does not exist.",
+                        class_name, property_name, canonical_name
+                    ),
                 };
 
                 if !canonical_property.is_canonical {
@@ -195,8 +207,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             if let Some(serialized_name) = &property.serialized_name {
                 let _serialized_property = match class.properties.get(serialized_name) {
                     Some(value) => value,
-                    None => panic!("Property {}.{} refers to serialized property ({}) that does not exist.",
-                        class_name, property_name, serialized_name)
+                    None => panic!(
+                        "Property {}.{} refers to serialized property ({}) that does not exist.",
+                        class_name, property_name, serialized_name
+                    ),
                 };
             }
 
@@ -207,12 +221,15 @@ fn main() -> Result<(), Box<dyn Error>> {
                     probably_mistake = true;
                 }
 
-                if  property_name.ends_with("_xml") {
+                if property_name.ends_with("_xml") {
                     probably_mistake = true;
                 }
 
                 if probably_mistake {
-                    println!("Property {}.{} doesn't look canonical", class_name, property_name);
+                    println!(
+                        "Property {}.{} doesn't look canonical",
+                        class_name, property_name
+                    );
                 }
             }
         }
@@ -234,9 +251,12 @@ fn main() -> Result<(), Box<dyn Error>> {
         let root_id = plugin.get_root_id();
 
         let mut main_properties = HashMap::new();
-        main_properties.insert(String::from("Source"), RbxValue::String {
-            value: PLUGIN_MAIN.to_owned(),
-        });
+        main_properties.insert(
+            String::from("Source"),
+            RbxValue::String {
+                value: PLUGIN_MAIN.to_owned(),
+            },
+        );
 
         let main = RbxInstanceProperties {
             name: String::from("Main"),
@@ -259,7 +279,11 @@ fn main() -> Result<(), Box<dyn Error>> {
         let deserialized = match serde_json::from_slice(&message) {
             Ok(v) => v,
             Err(e) => {
-                panic!("Couldn't deserialize message: {}\n{}", e, str::from_utf8(message).unwrap());
+                panic!(
+                    "Couldn't deserialize message: {}\n{}",
+                    e,
+                    str::from_utf8(message).unwrap()
+                );
             }
         };
 
@@ -267,7 +291,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             PluginMessage::Version { version } => {
                 database.studio_version = version;
             }
-            PluginMessage::DefaultProperties { class_name, properties } => {
+            PluginMessage::DefaultProperties {
+                class_name,
+                properties,
+            } => {
                 if let Some(class) = database.classes.get_mut(class_name.as_str()) {
                     mem::replace(&mut class.default_properties, properties);
                 }
@@ -326,10 +353,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 fn create_module(name: &str, source: String) -> RbxInstanceProperties {
     let mut properties = HashMap::new();
 
-    properties.insert(
-        String::from("Source"),
-        RbxValue::String { value: source },
-    );
+    properties.insert(String::from("Source"), RbxValue::String { value: source });
 
     RbxInstanceProperties {
         class_name: String::from("ModuleScript"),
@@ -345,8 +369,8 @@ fn inject_reflection_classes(plugin: &mut RbxTree, database: &ReflectionDatabase
     emitter_lua::emit_classes(&mut classes_buffer, database)
         .expect("Couldn't emit Lua class database");
 
-    let classes_source = String::from_utf8(classes_buffer)
-        .expect("Lua class database wasn't valid UTF-8");
+    let classes_source =
+        String::from_utf8(classes_buffer).expect("Lua class database wasn't valid UTF-8");
 
     let module = create_module("ReflectionClasses", classes_source);
     plugin.insert_instance(module, root_id);
@@ -364,5 +388,8 @@ fn inject_dependencies(plugin: &mut RbxTree) {
     let root_id = plugin.get_root_id();
 
     plugin.insert_instance(create_module("base64", String::from(BASE64)), root_id);
-    plugin.insert_instance(create_module("EncodedValue", String::from(ENCODED_VALUE)), root_id);
+    plugin.insert_instance(
+        create_module("EncodedValue", String::from(ENCODED_VALUE)),
+        root_id,
+    );
 }

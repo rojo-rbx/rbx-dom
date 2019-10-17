@@ -1,12 +1,6 @@
-use std::{
-    borrow::Cow,
-    collections::HashMap,
-};
+use std::{borrow::Cow, collections::HashMap};
 
-use crate::{
-    api_dump::Dump,
-    reflection_types::RbxClassDescriptor,
-};
+use crate::{api_dump::Dump, reflection_types::RbxClassDescriptor};
 
 pub struct ReflectionDatabase {
     pub dump: Dump,

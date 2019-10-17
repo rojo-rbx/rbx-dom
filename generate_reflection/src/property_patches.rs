@@ -3,14 +3,11 @@
 //!
 //! See `property-patches.toml` for the input.
 
-use std::{
-    borrow::Cow,
-    collections::HashMap,
-};
+use std::{borrow::Cow, collections::HashMap};
 
 use serde_derive::Deserialize;
 
-use crate::reflection_types::{RbxPropertyTypeDescriptor, RbxPropertyScriptability};
+use crate::reflection_types::{RbxPropertyScriptability, RbxPropertyTypeDescriptor};
 
 static PATCH_SOURCE: &str = include_str!("../property-patches.toml");
 
@@ -38,6 +35,5 @@ pub struct PropertyAdd {
 }
 
 pub fn load_property_patches() -> PropertyPatches {
-    toml::from_str(PATCH_SOURCE)
-        .expect("Couldn't parse property-patches.toml")
+    toml::from_str(PATCH_SOURCE).expect("Couldn't parse property-patches.toml")
 }

@@ -6,7 +6,7 @@ use std::borrow::Cow;
 use log::warn;
 use rbx_dom_weak::RbxValueType;
 
-use crate::api_dump::{ValueType, ValueCategory};
+use crate::api_dump::{ValueCategory, ValueType};
 
 // The types this module exposes are defined in the rbx_reflection crate itself
 // since they're supposed to line up 1:1 and we don't want them to get out of
@@ -52,12 +52,12 @@ impl RbxPropertyTags {
 
         for dump_tag in dump_tags {
             let converted = match dump_tag.as_ref() {
-                "Deprecated" =>  RbxPropertyTags::DEPRECATED,
-                "Hidden" =>  RbxPropertyTags::HIDDEN,
-                "NotBrowsable" =>  RbxPropertyTags::NOT_BROWSABLE,
-                "NotReplicated" =>  RbxPropertyTags::NOT_REPLICATED,
-                "NotScriptable" =>  RbxPropertyTags::NOT_SCRIPTABLE,
-                "ReadOnly" =>  RbxPropertyTags::READ_ONLY,
+                "Deprecated" => RbxPropertyTags::DEPRECATED,
+                "Hidden" => RbxPropertyTags::HIDDEN,
+                "NotBrowsable" => RbxPropertyTags::NOT_BROWSABLE,
+                "NotReplicated" => RbxPropertyTags::NOT_REPLICATED,
+                "NotScriptable" => RbxPropertyTags::NOT_SCRIPTABLE,
+                "ReadOnly" => RbxPropertyTags::READ_ONLY,
                 _ => {
                     warn!("Unknown instance flag {}", dump_tag.as_ref());
                     continue;
@@ -86,8 +86,10 @@ impl<'a> From<&'a ValueType> for RbxPropertyTypeDescriptor {
                     unknown => {
                         println!("Can't emit primitives of type {}", unknown);
 
-                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
-                    },
+                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(
+                            value_type.name.to_owned(),
+                        ));
+                    }
                 };
 
                 RbxPropertyTypeDescriptor::Data(data_kind)
@@ -113,19 +115,25 @@ impl<'a> From<&'a ValueType> for RbxPropertyTypeDescriptor {
 
                     "QDir" | "QFont" => {
                         // We're never going to support these types.
-                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
-                    },
+                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(
+                            value_type.name.to_owned(),
+                        ));
+                    }
 
                     unknown => {
                         println!("Can't emit data of type {}", unknown);
 
-                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(value_type.name.to_owned()));
-                    },
+                        return RbxPropertyTypeDescriptor::UnimplementedType(Cow::Owned(
+                            value_type.name.to_owned(),
+                        ));
+                    }
                 };
 
                 RbxPropertyTypeDescriptor::Data(data_kind)
             }
-            ValueCategory::Enum => RbxPropertyTypeDescriptor::Enum(Cow::Owned(value_type.name.to_owned())),
+            ValueCategory::Enum => {
+                RbxPropertyTypeDescriptor::Enum(Cow::Owned(value_type.name.to_owned()))
+            }
             ValueCategory::Class => RbxPropertyTypeDescriptor::Data(RbxValueType::Ref),
         }
     }

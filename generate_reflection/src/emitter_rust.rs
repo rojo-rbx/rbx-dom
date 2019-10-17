@@ -11,22 +11,18 @@ use std::{
     io::{self, Write},
 };
 
-use quote::quote;
-use proc_macro2::{TokenStream, Literal, Ident, Span};
-use rbx_dom_weak::RbxValue;
 use heck::SnakeCase;
+use proc_macro2::{Ident, Literal, Span, TokenStream};
+use quote::quote;
+use rbx_dom_weak::RbxValue;
 
 use crate::{
     api_dump::{Dump, DumpEnum},
-    reflection_types::{
-        RbxClassDescriptor,
-        RbxPropertyDescriptor,
-        RbxInstanceTags,
-        RbxPropertyScriptability,
-        RbxPropertyTags,
-        RbxPropertyTypeDescriptor,
-    },
     database::ReflectionDatabase,
+    reflection_types::{
+        RbxClassDescriptor, RbxInstanceTags, RbxPropertyDescriptor, RbxPropertyScriptability,
+        RbxPropertyTags, RbxPropertyTypeDescriptor,
+    },
 };
 
 pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
@@ -35,7 +31,10 @@ pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
 
     // We have to do this as a string, or else rustfmt will leave the nasty
     // syntax that quote generates for it.
-    writeln!(output, "#![allow(clippy::approx_constant, clippy::unreadable_literal)]")?;
+    writeln!(
+        output,
+        "#![allow(clippy::approx_constant, clippy::unreadable_literal)]"
+    )?;
 
     write!(output, "{}", classes)
 }
@@ -49,16 +48,35 @@ pub fn emit_enums<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io
 pub fn emit_version<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
     writeln!(output, "// This file is automatically @generated.")?;
     writeln!(output, "#![allow(clippy::unreadable_literal)]")?;
-    writeln!(output, "pub const RBX_VERSION_MAJOR: u32 = {};", database.studio_version[0])?;
-    writeln!(output, "pub const RBX_VERSION_MINOR: u32 = {};", database.studio_version[1])?;
-    writeln!(output, "pub const RBX_VERSION_PATCH: u32 = {};", database.studio_version[2])?;
-    writeln!(output, "pub const RBX_VERSION_BUILD: u32 = {};", database.studio_version[3])?;
+    writeln!(
+        output,
+        "pub const RBX_VERSION_MAJOR: u32 = {};",
+        database.studio_version[0]
+    )?;
+    writeln!(
+        output,
+        "pub const RBX_VERSION_MINOR: u32 = {};",
+        database.studio_version[1]
+    )?;
+    writeln!(
+        output,
+        "pub const RBX_VERSION_PATCH: u32 = {};",
+        database.studio_version[2]
+    )?;
+    writeln!(
+        output,
+        "pub const RBX_VERSION_BUILD: u32 = {};",
+        database.studio_version[3]
+    )?;
 
     Ok(())
 }
 
 fn get_generated_function_name(class: &str) -> Ident {
-    Ident::new(&format!("generate_{}", class.to_snake_case()), Span::call_site())
+    Ident::new(
+        &format!("generate_{}", class.to_snake_case()),
+        Span::call_site(),
+    )
 }
 
 fn generate_classes(classes: &HashMap<Cow<'static, str>, RbxClassDescriptor>) -> TokenStream {
@@ -220,14 +238,12 @@ impl AsRust for RbxInstanceTags {
             return quote!(RbxInstanceTags::empty());
         }
 
-        let tags = self
-            .into_iter()
-            .map(|tag| {
-                let tag_name = format!("{:?}", tag);
-                let name_literal = Ident::new(&tag_name, Span::call_site());
+        let tags = self.into_iter().map(|tag| {
+            let tag_name = format!("{:?}", tag);
+            let name_literal = Ident::new(&tag_name, Span::call_site());
 
-                quote!(RbxInstanceTags::#name_literal)
-            });
+            quote!(RbxInstanceTags::#name_literal)
+        });
 
         quote! {
             #(#tags)|*
@@ -241,14 +257,12 @@ impl AsRust for RbxPropertyTags {
             return quote!(RbxPropertyTags::empty());
         }
 
-        let tags = self
-            .into_iter()
-            .map(|tag| {
-                let tag_name = format!("{:?}", tag);
-                let name_literal = Ident::new(&tag_name, Span::call_site());
+        let tags = self.into_iter().map(|tag| {
+            let tag_name = format!("{:?}", tag);
+            let name_literal = Ident::new(&tag_name, Span::call_site());
 
-                quote!(RbxPropertyTags::#name_literal)
-            });
+            quote!(RbxPropertyTags::#name_literal)
+        });
 
         quote! {
             #(#tags)|*
@@ -262,27 +276,27 @@ impl AsRust for RbxValue {
             RbxValue::String { value } => {
                 let value_literal = Literal::string(value);
                 quote!(RbxValue::String { value: String::from(#value_literal) })
-            },
+            }
             RbxValue::BinaryString { value } => {
                 let value_literal = Literal::byte_string(value);
                 quote!(RbxValue::BinaryString { value: #value_literal.into() })
-            },
+            }
             RbxValue::Int32 { value } => {
                 let value_literal = Literal::i32_unsuffixed(*value);
                 quote!(RbxValue::Int32 { value: #value_literal })
-            },
+            }
             RbxValue::Int64 { value } => {
                 let value_literal = Literal::i64_unsuffixed(*value);
                 quote!(RbxValue::Int64 { value: #value_literal })
-            },
+            }
             RbxValue::Float32 { value } => {
                 let value_literal = Literal::f32_unsuffixed(*value);
                 quote!(RbxValue::Float32 { value: #value_literal })
-            },
+            }
             RbxValue::Float64 { value } => {
                 let value_literal = Literal::f64_unsuffixed(*value);
                 quote!(RbxValue::Float64 { value: #value_literal })
-            },
+            }
             RbxValue::Bool { value } => {
                 let value_literal = if *value {
                     Ident::new("true", Span::call_site())
@@ -290,50 +304,48 @@ impl AsRust for RbxValue {
                     Ident::new("false", Span::call_site())
                 };
                 quote!(RbxValue::Bool { value: #value_literal })
-            },
-            RbxValue::Ref { .. } => {
-                quote!(RbxValue::Ref { value: None })
-            },
+            }
+            RbxValue::Ref { .. } => quote!(RbxValue::Ref { value: None }),
             RbxValue::Vector2 { value } => {
                 let x_literal = Literal::f32_unsuffixed(value[0]);
                 let y_literal = Literal::f32_unsuffixed(value[1]);
 
                 quote!(RbxValue::Vector2 { value: [#x_literal, #y_literal] })
-            },
+            }
             RbxValue::Vector3 { value } => {
                 let x_literal = Literal::f32_unsuffixed(value[0]);
                 let y_literal = Literal::f32_unsuffixed(value[1]);
                 let z_literal = Literal::f32_unsuffixed(value[2]);
 
                 quote!(RbxValue::Vector3 { value: [#x_literal, #y_literal, #z_literal] })
-            },
+            }
             RbxValue::Vector2int16 { value } => {
                 let x_literal = Literal::i16_unsuffixed(value[0]);
                 let y_literal = Literal::i16_unsuffixed(value[1]);
 
                 quote!(RbxValue::Vector2int16 { value: [#x_literal, #y_literal] })
-            },
+            }
             RbxValue::Vector3int16 { value } => {
                 let x_literal = Literal::i16_unsuffixed(value[0]);
                 let y_literal = Literal::i16_unsuffixed(value[1]);
                 let z_literal = Literal::i16_unsuffixed(value[2]);
 
                 quote!(RbxValue::Vector3int16 { value: [#x_literal, #y_literal, #z_literal] })
-            },
+            }
             RbxValue::Color3 { value } => {
                 let r_literal = Literal::f32_unsuffixed(value[0]);
                 let g_literal = Literal::f32_unsuffixed(value[1]);
                 let b_literal = Literal::f32_unsuffixed(value[2]);
 
                 quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
-            },
+            }
             RbxValue::Color3uint8 { value } => {
                 let r_literal = Literal::u8_unsuffixed(value[0]);
                 let g_literal = Literal::u8_unsuffixed(value[1]);
                 let b_literal = Literal::u8_unsuffixed(value[2]);
 
                 quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
-            },
+            }
             RbxValue::CFrame { value } => {
                 let literals = value.iter().cloned().map(Literal::f32_unsuffixed);
 
@@ -342,12 +354,12 @@ impl AsRust for RbxValue {
                         #(#literals),*
                     ]
                 })
-            },
+            }
             RbxValue::Enum { value } => {
                 let value_literal = Literal::u32_unsuffixed(*value);
 
                 quote!(RbxValue::Enum { value: #value_literal })
-            },
+            }
             RbxValue::PhysicalProperties { value } => {
                 let value_literal = match value {
                     Some(_) => quote!(Some(PhysicalProperties)),
@@ -355,7 +367,7 @@ impl AsRust for RbxValue {
                 };
 
                 quote!(RbxValue::PhysicalProperties { value: #value_literal })
-            },
+            }
             RbxValue::UDim { value } => {
                 let literal_scale = Literal::f32_unsuffixed(value.0);
                 let literal_offset = Literal::i32_unsuffixed(value.1);
@@ -363,7 +375,7 @@ impl AsRust for RbxValue {
                 quote!(RbxValue::UDim {
                     value: (#literal_scale, #literal_offset)
                 })
-            },
+            }
             RbxValue::UDim2 { value } => {
                 let literal_x_scale = Literal::f32_unsuffixed(value.0);
                 let literal_x_offset = Literal::i32_unsuffixed(value.1);
@@ -373,14 +385,14 @@ impl AsRust for RbxValue {
                 quote!(RbxValue::UDim2 {
                     value: (#literal_x_scale, #literal_x_offset, #literal_y_scale, #literal_y_offset)
                 })
-            },
+            }
             RbxValue::Content { value } => {
                 let value_literal = Literal::string(value);
 
                 quote!(RbxValue::Content {
                     value: String::from(#value_literal),
                 })
-            },
+            }
             RbxValue::ColorSequence { value } => {
                 let literal_keypoints = value.keypoints.iter().map(|keypoint| {
                     let time_literal = Literal::f32_unsuffixed(keypoint.time);
@@ -401,7 +413,7 @@ impl AsRust for RbxValue {
                         ],
                     },
                 })
-            },
+            }
             RbxValue::NumberSequence { value } => {
                 let literal_keypoints = value.keypoints.iter().map(|keypoint| {
                     let time_literal = Literal::f32_unsuffixed(keypoint.time);
@@ -422,7 +434,7 @@ impl AsRust for RbxValue {
                         ],
                     },
                 })
-            },
+            }
             RbxValue::Rect { value } => {
                 let min_x_literal = Literal::f32_unsuffixed(value.min.0);
                 let min_y_literal = Literal::f32_unsuffixed(value.min.1);
@@ -435,7 +447,7 @@ impl AsRust for RbxValue {
                         max: (#max_x_literal, #max_y_literal),
                     },
                 })
-            },
+            }
             RbxValue::NumberRange { value } => {
                 let min_literal = Literal::f32_unsuffixed(value.0);
                 let max_literal = Literal::f32_unsuffixed(value.1);
@@ -443,23 +455,23 @@ impl AsRust for RbxValue {
                 quote!(RbxValue::NumberRange {
                     value: (#min_literal, #max_literal),
                 })
-            },
+            }
             RbxValue::BrickColor { value } => {
                 let value_literal = Literal::u16_unsuffixed(*value as u16);
 
                 quote!(RbxValue::BrickColor {
                     value: BrickColor::from_number(#value_literal).unwrap(),
                 })
-            },
+            }
             _ => unimplemented!("emitting Rust type {:?}", self.get_type()),
         }
     }
 }
 
 impl<K, V> AsRust for HashMap<K, V>
-    where
-        K: AsRust + Eq + Hash + Ord,
-        V: AsRust
+where
+    K: AsRust + Eq + Hash + Ord,
+    V: AsRust,
 {
     fn as_rust(&self) -> TokenStream {
         if self.is_empty() {
@@ -471,15 +483,13 @@ impl<K, V> AsRust for HashMap<K, V>
         let mut keys: Vec<_> = self.keys().collect();
         keys.sort();
 
-        let insertions = keys
-            .iter()
-            .map(|key| {
-                let value = self.get(key).unwrap();
-                let key_literal = key.as_rust();
-                let value_literal = value.as_rust();
+        let insertions = keys.iter().map(|key| {
+            let value = self.get(key).unwrap();
+            let key_literal = key.as_rust();
+            let value_literal = value.as_rust();
 
-                quote!(map.insert(#key_literal, #value_literal))
-            });
+            quote!(map.insert(#key_literal, #value_literal))
+        });
 
         quote!({
             let mut map = HashMap::with_capacity(#len_literal);
@@ -526,14 +536,17 @@ impl<'a> AsRust for Cow<'a, str> {
     }
 }
 
-impl<T> AsRust for Option<T> where T: AsRust {
+impl<T> AsRust for Option<T>
+where
+    T: AsRust,
+{
     fn as_rust(&self) -> TokenStream {
         match self {
             Some(value) => {
                 let inner_literal = value.as_rust();
                 quote!(Some(#inner_literal))
             }
-            None => quote!(None)
+            None => quote!(None),
         }
     }
 }

@@ -30,21 +30,11 @@ use std::{
     time::Duration,
 };
 
-use futures::{
-    future,
-    stream::Stream,
-    Future,
-};
-use hyper::{
-    service::service_fn,
-    Body,
-    Method,
-    Response,
-    Server,
-};
-use rbx_dom_weak::{RbxValue, RbxTree, RbxInstanceProperties};
-use tempfile::tempdir;
+use futures::{future, stream::Stream, Future};
+use hyper::{service::service_fn, Body, Method, Response, Server};
+use rbx_dom_weak::{RbxInstanceProperties, RbxTree, RbxValue};
 use roblox_install::RobloxStudio;
+use tempfile::tempdir;
 
 // Aren't futures great?
 type HyperResponse = Box<Future<Item = Response<Body>, Error = hyper::Error> + Send>;
@@ -84,10 +74,7 @@ fn create_place() -> RbxTree {
         properties: {
             let mut properties = HashMap::new();
 
-            properties.insert(
-                String::from("HttpEnabled"),
-                RbxValue::Bool { value: true },
-            );
+            properties.insert(String::from("HttpEnabled"), RbxValue::Bool { value: true });
 
             properties
         },
@@ -105,8 +92,7 @@ fn create_place() -> RbxTree {
 }
 
 pub fn inject_plugin_main(tree: &mut RbxTree) {
-    let complete_source = PLUGIN_TEMPLATE
-        .replace("{{PORT}}", &PORT.to_string());
+    let complete_source = PLUGIN_TEMPLATE.replace("{{PORT}}", &PORT.to_string());
 
     let entry_point = RbxInstanceProperties {
         name: String::from("generate_rbx_reflection main"),
@@ -116,7 +102,9 @@ pub fn inject_plugin_main(tree: &mut RbxTree) {
 
             properties.insert(
                 String::from("Source"),
-                RbxValue::String { value: complete_source },
+                RbxValue::String {
+                    value: complete_source,
+                },
             );
 
             properties
@@ -128,19 +116,19 @@ pub fn inject_plugin_main(tree: &mut RbxTree) {
 }
 
 pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
-    let studio_install = RobloxStudio::locate()
-        .expect("Could not find Roblox Studio installation");
+    let studio_install = RobloxStudio::locate().expect("Could not find Roblox Studio installation");
 
-    let work_dir = tempdir()
-        .expect("Could not create temporary directory");
+    let work_dir = tempdir().expect("Could not create temporary directory");
 
     let place_file_path = work_dir.path().join("place.rbxlx");
-    let plugin_file_path = studio_install.built_in_plugins_path().join("run_in_roblox.rbxmx");
+    let plugin_file_path = studio_install
+        .built_in_plugins_path()
+        .join("run_in_roblox.rbxmx");
 
     {
         let place = create_place();
-        let mut place_file = File::create(&place_file_path)
-            .expect("Could not create temporary place file");
+        let mut place_file =
+            File::create(&place_file_path).expect("Could not create temporary place file");
 
         let root_id = place.get_root_id();
         let top_level_ids = place.get_instance(root_id).unwrap().get_children_ids();
@@ -150,8 +138,8 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
     }
 
     {
-        let mut plugin_file = File::create(&plugin_file_path)
-            .expect("Could not create temporary plugin file");
+        let mut plugin_file =
+            File::create(&plugin_file_path).expect("Could not create temporary plugin file");
 
         let root_id = plugin.get_root_id();
 
@@ -173,33 +161,30 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
                 match (request.method(), request.uri().path()) {
                     (&Method::GET, "/") => {
                         *response.body_mut() = Body::from("Hey there!");
-                    },
+                    }
                     (&Method::POST, "/start") => {
                         message_tx.send(Message::Start).unwrap();
                         *response.body_mut() = Body::from("Started");
-                    },
+                    }
                     (&Method::POST, "/finish") => {
                         message_tx.send(Message::Finish).unwrap();
                         *response.body_mut() = Body::from("Finished");
-                    },
+                    }
                     (&Method::POST, "/message") => {
                         let message_tx = message_tx.clone();
 
-                        let future = request
-                            .into_body()
-                            .concat2()
-                            .map(move |chunk| {
-                                message_tx.send(Message::Message(chunk.to_vec())).unwrap();
+                        let future = request.into_body().concat2().map(move |chunk| {
+                            message_tx.send(Message::Message(chunk.to_vec())).unwrap();
 
-                                *response.body_mut() = Body::from("Got it!");
-                                response
-                            });
+                            *response.body_mut() = Body::from("Got it!");
+                            response
+                        });
 
                         return Box::new(future);
-                    },
+                    }
                     _ => {
                         *response.status_mut() = hyper::StatusCode::NOT_FOUND;
-                    },
+                    }
                 }
 
                 Box::new(future::ok(response))
@@ -215,13 +200,15 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         hyper::rt::run(server);
     });
 
-    let _studio_process = KillOnDrop(Command::new(studio_install.application_path())
-        .arg(format!("{}", place_file_path.display()))
-        .spawn()
-        .expect("Couldn't start Roblox Studio"));
+    let _studio_process = KillOnDrop(
+        Command::new(studio_install.application_path())
+            .arg(format!("{}", place_file_path.display()))
+            .spawn()
+            .expect("Couldn't start Roblox Studio"),
+    );
 
-    match message_rx.recv_timeout(Duration::from_secs(10)).unwrap() {
-        Message::Start => {},
+    match message_rx.recv_timeout(Duration::from_secs(30)).unwrap() {
+        Message::Start => {}
         _ => panic!("Invalid first message received"),
     }
 
@@ -231,7 +218,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
         let message = message_rx.recv().unwrap();
 
         match message {
-            Message::Start => {},
+            Message::Start => {}
             Message::Finish => break,
             Message::Message(message) => messages.push(message),
         }

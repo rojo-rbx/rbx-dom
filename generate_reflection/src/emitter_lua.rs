@@ -9,12 +9,14 @@ use std::{
 
 use heck::CamelCase;
 use lazy_static::lazy_static;
-use regex::Regex;
 use rbx_dom_weak::RbxValue;
+use regex::Regex;
 
 use crate::{
     database::ReflectionDatabase,
-    reflection_types::{RbxPropertyTypeDescriptor, RbxClassDescriptor, RbxPropertyTags, RbxPropertyScriptability},
+    reflection_types::{
+        RbxClassDescriptor, RbxPropertyScriptability, RbxPropertyTags, RbxPropertyTypeDescriptor,
+    },
 };
 
 lazy_static! {
@@ -57,10 +59,26 @@ fn emit_class<W: Write>(output: &mut W, class: &RbxClassDescriptor) -> io::Resul
 
         writeln!(output, "\t\t\t\tname = {},", Lua(&property.name))?;
         writeln!(output, "\t\t\t\ttype = {},", Lua(&property.value_type))?;
-        writeln!(output, "\t\t\t\tisCanonical = {},", Lua(property.is_canonical))?;
-        writeln!(output, "\t\t\t\tcanonicalName = {},", Lua(&property.canonical_name))?;
-        writeln!(output, "\t\t\t\tserializedName = {},", Lua(&property.serialized_name))?;
-        writeln!(output, "\t\t\t\tscriptability = {},", Lua(property.scriptability))?;
+        writeln!(
+            output,
+            "\t\t\t\tisCanonical = {},",
+            Lua(property.is_canonical)
+        )?;
+        writeln!(
+            output,
+            "\t\t\t\tcanonicalName = {},",
+            Lua(&property.canonical_name)
+        )?;
+        writeln!(
+            output,
+            "\t\t\t\tserializedName = {},",
+            Lua(&property.serialized_name)
+        )?;
+        writeln!(
+            output,
+            "\t\t\t\tscriptability = {},",
+            Lua(property.scriptability)
+        )?;
         writeln!(output, "\t\t\t\tserializes = {},", Lua(property.serializes))?;
 
         writeln!(output, "\t\t\t}},")?;
@@ -107,9 +125,11 @@ impl AsLua for RbxPropertyTypeDescriptor {
             RbxPropertyTypeDescriptor::Enum(enum_name) => {
                 write!(output, "{{type = \"Enum\", name = {}}}", Lua(enum_name))
             }
-            RbxPropertyTypeDescriptor::UnimplementedType(type_name) => {
-                write!(output, "{{type = \"Unimplemented\", name = {}}}", Lua(type_name))
-            }
+            RbxPropertyTypeDescriptor::UnimplementedType(type_name) => write!(
+                output,
+                "{{type = \"Unimplemented\", name = {}}}",
+                Lua(type_name)
+            ),
         }
     }
 }
@@ -135,7 +155,7 @@ impl AsLua for RbxPropertyTags {
 }
 
 impl AsLua for RbxPropertyScriptability {
-    fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()>  {
+    fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()> {
         format!("{:?}", self).as_lua(output)
     }
 }
@@ -152,16 +172,32 @@ impl AsLua for RbxValue {
                 Ok(())
             }
             Bool { value } => write!(output, "{}", *value),
-            CFrame { value } => {
-                write!(output,
-                    "CFrame.new({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
-                    value[0], value[1], value[2],
-                    value[3], value[4], value[5],
-                    value[6], value[7], value[8],
-                    value[9], value[10], value[11])
-            }
-            Color3 { value } => write!(output, "Color3.new({}, {}, {})", value[0], value[1], value[2]),
-            Color3uint8 { value } => write!(output, "Color3.fromRGB({}, {}, {})", value[0], value[1], value[2]),
+            CFrame { value } => write!(
+                output,
+                "CFrame.new({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
+                value[0],
+                value[1],
+                value[2],
+                value[3],
+                value[4],
+                value[5],
+                value[6],
+                value[7],
+                value[8],
+                value[9],
+                value[10],
+                value[11]
+            ),
+            Color3 { value } => write!(
+                output,
+                "Color3.new({}, {}, {})",
+                value[0], value[1], value[2]
+            ),
+            Color3uint8 { value } => write!(
+                output,
+                "Color3.fromRGB({}, {}, {})",
+                value[0], value[1], value[2]
+            ),
             Content { value } => write!(output, "\"{}\"", value),
             Enum { value } => write!(output, "{}", value),
             Float32 { value } => write!(output, "{}", value),
@@ -173,8 +209,11 @@ impl AsLua for RbxValue {
                 write!(output, "NumberSequence.new({{")?;
 
                 for (index, keypoint) in value.keypoints.iter().enumerate() {
-                    write!(output, "NumberSequenceKeypoint.new({}, {}, {})",
-                        keypoint.time, keypoint.value, keypoint.envelope)?;
+                    write!(
+                        output,
+                        "NumberSequenceKeypoint.new({}, {}, {})",
+                        keypoint.time, keypoint.value, keypoint.envelope
+                    )?;
 
                     if index < value.keypoints.len() - 1 {
                         write!(output, ", ")?;
@@ -187,8 +226,11 @@ impl AsLua for RbxValue {
                 write!(output, "ColorSequence.new({{")?;
 
                 for (index, keypoint) in value.keypoints.iter().enumerate() {
-                    write!(output, "ColorSequenceKeypoint.new({}, Color3.new({}, {}, {}))",
-                        keypoint.time, keypoint.color[0], keypoint.color[1], keypoint.color[2])?;
+                    write!(
+                        output,
+                        "ColorSequenceKeypoint.new({}, Color3.new({}, {}, {}))",
+                        keypoint.time, keypoint.color[0], keypoint.color[1], keypoint.color[2]
+                    )?;
 
                     if index < value.keypoints.len() - 1 {
                         write!(output, ", ")?;
@@ -197,18 +239,23 @@ impl AsLua for RbxValue {
 
                 write!(output, "}})")
             }
-            Rect { value } => {
-                write!(output, "Rect.new({}, {}, {}, {})", value.min.0, value.min.1, value.max.0, value.max.1)
-            }
-            PhysicalProperties { value } => {
-                match value {
-                    Some(props) => {
-                        write!(output, "PhysicalProperties.new({}, {}, {}, {}, {})",
-                            props.density, props.friction, props.elasticity, props.friction_weight, props.elasticity_weight)
-                    }
-                    None => write!(output, "nil")
-                }
-            }
+            Rect { value } => write!(
+                output,
+                "Rect.new({}, {}, {}, {})",
+                value.min.0, value.min.1, value.max.0, value.max.1
+            ),
+            PhysicalProperties { value } => match value {
+                Some(props) => write!(
+                    output,
+                    "PhysicalProperties.new({}, {}, {}, {}, {})",
+                    props.density,
+                    props.friction,
+                    props.elasticity,
+                    props.friction_weight,
+                    props.elasticity_weight
+                ),
+                None => write!(output, "nil"),
+            },
             Ref { value } => {
                 if value.is_some() {
                     panic!("Can't serialize non-None Ref");
@@ -218,18 +265,35 @@ impl AsLua for RbxValue {
             }
             String { value } => write!(output, "\"{}\"", value),
             UDim { value } => write!(output, "UDim.new({}, {})", value.0, value.1),
-            UDim2 { value } => write!(output, "UDim2.new({}, {}, {}, {})", value.0, value.1, value.2, value.3),
+            UDim2 { value } => write!(
+                output,
+                "UDim2.new({}, {}, {}, {})",
+                value.0, value.1, value.2, value.3
+            ),
             Vector2 { value } => write!(output, "Vector2.new({}, {})", value[0], value[1]),
-            Vector2int16 { value } => write!(output, "Vector2int16.new({}, {})", value[0], value[1]),
-            Vector3 { value } => write!(output, "Vector3.new({}, {}, {})", value[0], value[1], value[2]),
-            Vector3int16 { value } => write!(output, "Vector3int16.new({}, {}, {})", value[0], value[1], value[2]),
+            Vector2int16 { value } => {
+                write!(output, "Vector2int16.new({}, {})", value[0], value[1])
+            }
+            Vector3 { value } => write!(
+                output,
+                "Vector3.new({}, {}, {})",
+                value[0], value[1], value[2]
+            ),
+            Vector3int16 { value } => write!(
+                output,
+                "Vector3int16.new({}, {}, {})",
+                value[0], value[1], value[2]
+            ),
             BrickColor { value } => write!(output, "BrickColor.new({})", *value as u16),
-            other => unimplemented!("Unknown value type: {:?}", other)
+            other => unimplemented!("Unknown value type: {:?}", other),
         }
     }
 }
 
-impl<'a, T> AsLua for &'a T where T: AsLua + 'a {
+impl<'a, T> AsLua for &'a T
+where
+    T: AsLua + 'a,
+{
     fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()> {
         (**self).as_lua(output)
     }
@@ -254,7 +318,10 @@ impl AsLua for bool {
     }
 }
 
-impl<T> AsLua for Option<T> where T: AsLua {
+impl<T> AsLua for Option<T>
+where
+    T: AsLua,
+{
     fn as_lua<W: Write>(&self, output: &mut W) -> io::Result<()> {
         match self {
             Some(inner) => inner.as_lua(output),
