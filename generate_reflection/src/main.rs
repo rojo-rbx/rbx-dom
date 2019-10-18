@@ -15,7 +15,6 @@ use std::{
     error::Error,
     fs::{self, File},
     io::{BufWriter, Write},
-    mem,
     path::PathBuf,
     str,
 };
@@ -44,10 +43,17 @@ enum PluginMessage {
     },
 
     #[serde(rename_all = "camelCase")]
-    DefaultProperties {
+    PatchDescriptors {
         class_name: String,
-        properties: HashMap<Cow<'static, str>, RbxValue>,
+        descriptors: HashMap<Cow<'static, str>, DescriptorPatch>,
     },
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct DescriptorPatch {
+    default_value: Option<RbxValue>,
+    scriptability: Option<RbxPropertyScriptability>,
 }
 
 #[allow(
@@ -291,12 +297,24 @@ fn main() -> Result<(), Box<dyn Error>> {
             PluginMessage::Version { version } => {
                 database.studio_version = version;
             }
-            PluginMessage::DefaultProperties {
+            PluginMessage::PatchDescriptors {
                 class_name,
-                properties,
+                descriptors,
             } => {
                 if let Some(class) = database.classes.get_mut(class_name.as_str()) {
-                    mem::replace(&mut class.default_properties, properties);
+                    for (property_name, patch) in descriptors {
+                        if let Some(default_value) = patch.default_value {
+                            class
+                                .default_properties
+                                .insert(property_name.clone(), default_value.clone());
+                        }
+
+                        if let Some(descriptor) = class.properties.get_mut(&property_name) {
+                            if let Some(scriptability) = patch.scriptability {
+                                descriptor.scriptability = scriptability;
+                            }
+                        }
+                    }
                 }
             }
         }

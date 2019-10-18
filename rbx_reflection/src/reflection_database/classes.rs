@@ -4418,7 +4418,7 @@ fn generate_chat() -> RbxClassDescriptor {
                     is_canonical: true,
                     canonical_name: None,
                     serialized_name: None,
-                    scriptability: RbxPropertyScriptability::ReadWrite,
+                    scriptability: RbxPropertyScriptability::Read,
                     serializes: true,
                 },
             );
@@ -6331,7 +6331,7 @@ fn generate_debris() -> RbxClassDescriptor {
                     is_canonical: true,
                     canonical_name: None,
                     serialized_name: None,
-                    scriptability: RbxPropertyScriptability::ReadWrite,
+                    scriptability: RbxPropertyScriptability::Read,
                     serializes: true,
                 },
             );
@@ -14570,7 +14570,7 @@ fn generate_mesh_part() -> RbxClassDescriptor {
                     is_canonical: true,
                     canonical_name: None,
                     serialized_name: None,
-                    scriptability: RbxPropertyScriptability::ReadWrite,
+                    scriptability: RbxPropertyScriptability::Read,
                     serializes: true,
                 },
             );
@@ -24141,7 +24141,7 @@ fn generate_sparkles() -> RbxClassDescriptor {
             map.insert(
                 Cow::Borrowed("SparkleColor"),
                 RbxValue::Color3 {
-                    value: [0.5647059, 0.098039225, 1.0],
+                    value: [0.5647059, 0.09803923, 1.0],
                 },
             );
             map

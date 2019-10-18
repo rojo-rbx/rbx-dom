@@ -20,6 +20,10 @@ local function get(parent, key)
 	return parent[key]
 end
 
+local function set(parent, key, value)
+	parent[key] = value
+end
+
 local function getClientVersion()
 	local version = string.split(version(), ". ")
 	local major = tonumber(version[1])
@@ -83,6 +87,16 @@ local function getDefaultInstance(className)
 	return nil
 end
 
+local function scriptabilityWithoutWrite(scriptability)
+	if scriptability == "ReadWrite" then
+		return "Read"
+	elseif scriptability == "Write" then
+		return "None"
+	else
+		return scriptability
+	end
+end
+
 return function(postMessage)
 	postMessage(HttpService:JSONEncode({
 		type = "Version",
@@ -93,20 +107,29 @@ return function(postMessage)
 		local instance = getDefaultInstance(class.name)
 
 		if instance ~= nil then
-			local defaultProperties = {}
+			local updatedDescriptors = {}
 
 			local currentClass = class
 
 			while currentClass ~= nil do
 				for _, propertyDescriptor in pairs(currentClass.properties) do
 					if shouldMeasureProperty(propertyDescriptor) then
-						local ok, value = pcall(get, instance, propertyDescriptor.name)
+						local getSuccess, value = pcall(get, instance, propertyDescriptor.name)
 
-						if ok then
-							local ok, encoded = EncodedValue.encode(value, propertyDescriptor.type)
+						if getSuccess then
+							local writeSuccess = pcall(set, instance, propertyDescriptor.name, value)
+							local encodeSuccess, encoded = EncodedValue.encode(value, propertyDescriptor.type)
 
-							if ok then
-								defaultProperties[propertyDescriptor.name] = encoded
+							local scriptability
+							if not writeSuccess then
+								scriptability = scriptabilityWithoutWrite(propertyDescriptor.scriptability)
+							end
+
+							if encodeSuccess then
+								updatedDescriptors[propertyDescriptor.name] = {
+									defaultValue = encoded,
+									scriptability = scriptability,
+								}
 							else
 								warn(
 									"Couldn't encode property",
@@ -125,11 +148,11 @@ return function(postMessage)
 				currentClass = ReflectionClasses[currentClass.superclass]
 			end
 
-			if next(defaultProperties) ~= nil then
+			if next(updatedDescriptors) ~= nil then
 				postMessage(HttpService:JSONEncode({
-					type = "DefaultProperties",
+					type = "PatchDescriptors",
 					className = class.name,
-					properties = defaultProperties,
+					descriptors = updatedDescriptors,
 				}))
 			end
 		end
