@@ -1,7 +1,7 @@
 use std::{
     borrow::{Borrow, Cow},
     collections::HashMap,
-    io::{self, Cursor, Write},
+    io::{self, Write},
     u32,
 };
 
@@ -9,6 +9,7 @@ use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{RbxId, RbxInstance, RbxTree, RbxValue};
 
 use crate::{
+    chunk::{encode_chunk, Compression},
     core::{FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
     types::{encode_referent_array, BoolType, StringType},
 };
@@ -283,47 +284,6 @@ fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a 
     }
 
     output
-}
-
-enum Compression {
-    Compressed,
-    Uncompressed,
-}
-
-fn encode_chunk<W: Write, F>(
-    output: &mut W,
-    chunk_name: &[u8],
-    compression: Compression,
-    body: F,
-) -> io::Result<()>
-where
-    F: Fn(Cursor<&mut Vec<u8>>) -> io::Result<()>,
-{
-    output.write_all(chunk_name)?;
-
-    let mut buffer = Vec::new();
-    body(Cursor::new(&mut buffer))?;
-
-    match compression {
-        Compression::Compressed => {
-            let compressed = lz4::block::compress(&buffer, None, false)?;
-
-            output.write_u32::<LittleEndian>(compressed.len() as u32)?;
-            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
-            output.write_u32::<LittleEndian>(0)?;
-
-            output.write_all(&compressed)?;
-        }
-        Compression::Uncompressed => {
-            output.write_u32::<LittleEndian>(0)?;
-            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
-            output.write_u32::<LittleEndian>(0)?;
-
-            output.write_all(&buffer)?;
-        }
-    }
-
-    Ok(())
 }
 
 #[cfg(test)]

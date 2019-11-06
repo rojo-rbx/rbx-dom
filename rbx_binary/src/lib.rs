@@ -6,6 +6,7 @@
 //! supported values. Unrecognized values will be ignored when deserializing,
 //! and cause a panic when serializing.
 
+mod chunk;
 mod core;
 mod deserializer;
 mod serializer;
