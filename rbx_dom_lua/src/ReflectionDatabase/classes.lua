@@ -6,7 +6,6 @@ return {
 		properties = {
 		},
 		defaults = {
-			Name = "ABTestService",
 		},
 	},
 	Accessory = {
@@ -3004,7 +3003,6 @@ return {
 		},
 		defaults = {
 			Name = "CoreGui",
-			SelectionImageObject = nil,
 		},
 	},
 	CorePackages = {
@@ -3013,7 +3011,6 @@ return {
 		properties = {
 		},
 		defaults = {
-			Name = "CorePackages",
 		},
 	},
 	CoreScript = {
@@ -5333,7 +5330,6 @@ return {
 			IgnoreGuiInset = false,
 			Localize = true,
 			Name = "GuiMain",
-			OnTopOfCoreBlur = false,
 			ResetOnSpawn = true,
 			RootLocalizationTable = nil,
 			ZIndexBehavior = 0,
@@ -5669,12 +5665,9 @@ return {
 		},
 		defaults = {
 			AutoSelectGuiEnabled = true,
-			CoreEffectFolder = nil,
-			CoreGuiFolder = nil,
 			CoreGuiNavigationEnabled = true,
 			GuiNavigationEnabled = true,
 			Name = "GuiService",
-			SelectedCoreObject = nil,
 			SelectedObject = nil,
 		},
 	},
@@ -6758,7 +6751,6 @@ return {
 			LeftLegColor = Color3.new(0, 0, 0),
 			Name = "HumanoidDescription",
 			NeckAccessory = "",
-			NumberEmotesLoaded = -1,
 			Pants = 0,
 			ProportionScale = 1,
 			RightArm = 0,
@@ -8008,10 +8000,7 @@ return {
 			},
 		},
 		defaults = {
-			IsTextScraperRunning = false,
 			Name = "LocalizationService",
-			RobloxForcePlayModeGameLocaleId = "",
-			RobloxForcePlayModeRobloxLocaleId = "en-us",
 		},
 	},
 	LocalizationTable = {
@@ -9173,7 +9162,6 @@ return {
 		},
 		defaults = {
 			Name = "NotificationService",
-			SelectedTheme = "",
 		},
 	},
 	NumberValue = {
@@ -9388,17 +9376,6 @@ return {
 			},
 		},
 		defaults = {
-			A = 1,
-			Adornee = nil,
-			B = 0,
-			C = 0,
-			Color = BrickColor.new(1),
-			Color3 = Color3.new(0.9490197, 0.95294124, 0.95294124),
-			Name = "ParabolaAdornment",
-			Range = 1,
-			Thickness = 1,
-			Transparency = 0,
-			Visible = true,
 		},
 	},
 	Part = {
@@ -10762,9 +10739,6 @@ return {
 			},
 		},
 		defaults = {
-			Checked = true,
-			DefaultShortcut = "",
-			Enabled = true,
 			Name = "Instance",
 		},
 	},
@@ -11098,7 +11072,6 @@ return {
 		properties = {
 		},
 		defaults = {
-			Name = "RbxAnalyticsService",
 		},
 	},
 	ReflectionMetadata = {
@@ -11764,7 +11737,6 @@ return {
 		properties = {
 		},
 		defaults = {
-			Name = "RobloxPluginGuiService",
 		},
 	},
 	RobloxReplicatedStorage = {
@@ -11773,7 +11745,6 @@ return {
 		properties = {
 		},
 		defaults = {
-			Name = "RobloxReplicatedStorage",
 		},
 	},
 	RocketPropulsion = {
@@ -12116,7 +12087,6 @@ return {
 			IgnoreGuiInset = false,
 			Localize = true,
 			Name = "ScreenGui",
-			OnTopOfCoreBlur = false,
 			ResetOnSpawn = true,
 			RootLocalizationTable = nil,
 			ZIndexBehavior = 0,
@@ -14043,7 +14013,7 @@ return {
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
-				scriptability = "ReadWrite",
+				scriptability = "Read",
 				serializes = true,
 			},
 			AutoJumpEnabled = {
@@ -14388,23 +14358,6 @@ return {
 			DevTouchCameraMovementMode = 0,
 			DevTouchMovementMode = 0,
 			EnableMouseLockOption = true,
-			GameSettingsAssetIDFace = 0,
-			GameSettingsAssetIDHead = 0,
-			GameSettingsAssetIDLeftArm = 0,
-			GameSettingsAssetIDLeftLeg = 0,
-			GameSettingsAssetIDPants = 0,
-			GameSettingsAssetIDRightArm = 0,
-			GameSettingsAssetIDRightLeg = 0,
-			GameSettingsAssetIDShirt = 0,
-			GameSettingsAssetIDTeeShirt = 0,
-			GameSettingsAssetIDTorso = 0,
-			GameSettingsAvatar = 1,
-			GameSettingsR15Collision = 0,
-			GameSettingsScaleRangeBodyType = NumberRange.new(0, 1),
-			GameSettingsScaleRangeHead = NumberRange.new(0.95, 1),
-			GameSettingsScaleRangeHeight = NumberRange.new(0.9, 1.05),
-			GameSettingsScaleRangeProportion = NumberRange.new(0, 1),
-			GameSettingsScaleRangeWidth = NumberRange.new(0.7, 1),
 			HealthDisplayDistance = 100,
 			LoadCharacterAppearance = true,
 			Name = "StarterPlayer",
@@ -15669,24 +15622,20 @@ return {
 			ClipsDescendants = false,
 			CursorPosition = 1,
 			Draggable = false,
-			EnableRealtimeFilteringHints = false,
 			Font = 0,
 			FontSize = 0,
 			LayoutOrder = 0,
 			LineHeight = 1,
 			Localize = true,
-			ManualFocusRelease = false,
 			MultiLine = false,
 			Name = "TextBox",
 			NextSelectionDown = nil,
 			NextSelectionLeft = nil,
 			NextSelectionRight = nil,
 			NextSelectionUp = nil,
-			OverlayNativeInput = false,
 			PlaceholderColor3 = Color3.new(0.7, 0.7, 0.7),
 			PlaceholderText = "",
 			Position = UDim2.new(0, 0, 0, 0),
-			ReturnKeyType = 0,
 			RootLocalizationTable = nil,
 			Rotation = 0,
 			Selectable = true,
@@ -15699,7 +15648,6 @@ return {
 			TextColor = BrickColor.new(26),
 			TextColor3 = Color3.new(0.10588236, 0.16470589, 0.20784315),
 			TextEditable = true,
-			TextInputType = 0,
 			TextScaled = false,
 			TextSize = 8,
 			TextStrokeColor3 = Color3.new(0, 0, 0),
@@ -17932,14 +17880,11 @@ return {
 			},
 		},
 		defaults = {
-			GazeSelectionEnabled = true,
-			LegacyInputEventsEnabled = true,
 			ModalEnabled = false,
 			MouseBehavior = 0,
 			MouseDeltaSensitivity = 1,
 			MouseIconEnabled = true,
 			Name = "Instance",
-			OverrideMouseIconBehavior = 0,
 		},
 	},
 	UserSettings = {
@@ -18412,7 +18357,6 @@ return {
 			},
 		},
 		defaults = {
-			AdditionalLuaState = "",
 			Name = "VirtualInputManager",
 		},
 	},

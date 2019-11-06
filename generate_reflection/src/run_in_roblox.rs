@@ -121,9 +121,7 @@ pub fn run_in_roblox(plugin: &RbxTree) -> Vec<Vec<u8>> {
     let work_dir = tempdir().expect("Could not create temporary directory");
 
     let place_file_path = work_dir.path().join("place.rbxlx");
-    let plugin_file_path = studio_install
-        .built_in_plugins_path()
-        .join("run_in_roblox.rbxmx");
+    let plugin_file_path = studio_install.plugins_path().join("run_in_roblox.rbxmx");
 
     {
         let place = create_place();
