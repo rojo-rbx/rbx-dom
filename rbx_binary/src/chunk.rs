@@ -1,5 +1,4 @@
 use std::{
-    borrow::Cow,
     fmt,
     io::{self, Read, Write},
     str,
@@ -7,11 +6,18 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 
+/// The compression format of a chunk in the binary model format.
+#[derive(Debug, Clone, Copy)]
 pub enum Compression {
     Compressed,
     Uncompressed,
 }
 
+/// Holds a chunk that is currently being written.
+///
+/// This type intended to be written into via io::Write and then dumped into the
+/// output stream all at once. It handles compression and chunk header output
+/// automatically.
 pub struct ChunkBuilder {
     chunk_name: &'static [u8],
     compression: Compression,
@@ -115,9 +121,9 @@ struct ChunkHeader {
 impl fmt::Display for ChunkHeader {
     fn fmt(&self, output: &mut fmt::Formatter) -> fmt::Result {
         let name = if let Ok(name) = str::from_utf8(&self.name) {
-            Cow::Borrowed(name)
+            name.to_owned()
         } else {
-            Cow::Owned(format!("{:?}", self.name))
+            format!("{:?}", self.name)
         };
 
         write!(
