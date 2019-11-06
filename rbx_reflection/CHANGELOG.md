@@ -1,6 +1,10 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+* Updated reflection database to client 0.408.357216
+* Improved accuracy of `scriptability` property on class descriptors.
+* Removed default property values for properties only accessible by built-in plugins.
+	* This was required by a recent security change in Roblox Studio.
 
 ## 3.2.404 (2019-10-04)
 * Updated reflection database to client 0.404.346082
