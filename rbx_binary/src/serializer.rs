@@ -10,8 +10,8 @@ use rbx_dom_weak::{RbxId, RbxInstance, RbxTree, RbxValue};
 
 use crate::{
     chunk::{ChunkBuilder, Compression},
-    core::{FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
-    types::{encode_referent_array, BoolType, StringType},
+    core::{RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    types::encode_referent_array,
 };
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
@@ -47,7 +47,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
         let mut chunk = ChunkBuilder::new(b"INST", Compression::Compressed);
 
         chunk.write_u32::<LittleEndian>(type_info.id)?;
-        StringType::write_binary(&mut chunk, type_name)?;
+        chunk.write_string(type_name)?;
 
         // TODO: Set this flag for services?
         chunk.write_u8(0)?; // Flag that no additional data is attached
@@ -71,7 +71,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
             let mut chunk = ChunkBuilder::new(b"PROP", Compression::Compressed);
 
             chunk.write_u32::<LittleEndian>(type_info.id)?;
-            StringType::write_binary(&mut chunk, &prop_info.name)?;
+            chunk.write_string(&prop_info.name)?;
             chunk.write_u8(prop_info.kind.id())?;
 
             for instance_id in &type_info.object_ids {
@@ -101,8 +101,8 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
                 assert_eq!(PropKind::from_value(&value), prop_info.kind);
 
                 match value.borrow() {
-                    RbxValue::String { value } => StringType::write_binary(&mut chunk, value)?,
-                    RbxValue::Bool { value } => BoolType::write_binary(&mut chunk, *value)?,
+                    RbxValue::String { value } => chunk.write_string(value)?,
+                    RbxValue::Bool { value } => chunk.write_bool(*value)?,
                     _ => unimplemented!(),
                 }
             }

@@ -10,7 +10,7 @@ use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue};
 
 use crate::{
     chunk::decode_chunk,
-    core::{BinaryType, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    core::{BinaryType, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
     types::{decode_referent_array, BoolType, StringType},
 };
 
@@ -190,8 +190,8 @@ fn decode_meta_chunk<R: Read>(
     let len = source.read_u32::<LittleEndian>()?;
 
     for _ in 0..len {
-        let key = StringType::read_binary(source)?;
-        let value = StringType::read_binary(source)?;
+        let key = source.read_string()?;
+        let value = source.read_string()?;
 
         output.insert(key, value);
     }
@@ -211,7 +211,7 @@ fn decode_inst_chunk<R: Read>(
     instance_types: &mut HashMap<u32, InstanceType>,
 ) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
-    let type_name = StringType::read_binary(source)?;
+    let type_name = source.read_string()?;
     let _additional_data = source.read_u8()?;
     let number_instances = source.read_u32::<LittleEndian>()?;
 
@@ -251,7 +251,7 @@ fn decode_prop_chunk<R: Read>(
     instance_props: &mut HashMap<i32, InstanceProps>,
 ) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
-    let prop_name = StringType::read_binary(&mut source)?;
+    let prop_name = source.read_string()?;
     let data_type = source.read_u8()?;
 
     trace!("Set prop (type {}) {}.{}", data_type, type_id, prop_name);

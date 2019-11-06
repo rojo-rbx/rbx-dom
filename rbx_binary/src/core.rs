@@ -15,21 +15,37 @@ pub trait BinaryType<T: ?Sized + 'static> {
         I: Iterator<Item = &'write T>;
 }
 
-pub fn read_string<R: Read>(input: &mut R) -> io::Result<String> {
-    let length = input.read_u32::<LittleEndian>()?;
+pub trait RbxReadExt: Read {
+    fn read_string(&mut self) -> io::Result<String> {
+        let length = self.read_u32::<LittleEndian>()?;
 
-    let mut value = String::with_capacity(length as usize);
-    input.take(length as u64).read_to_string(&mut value)?;
+        let mut value = String::with_capacity(length as usize);
+        self.take(length as u64).read_to_string(&mut value)?;
 
-    Ok(value)
+        Ok(value)
+    }
+
+    fn read_bool(&mut self) -> io::Result<bool> {
+        Ok(self.read_u8()? != 0)
+    }
 }
 
-pub fn write_string<W: Write>(output: &mut W, value: &str) -> io::Result<()> {
-    output.write_u32::<LittleEndian>(value.len() as u32)?;
-    write!(output, "{}", value)?;
+impl<R> RbxReadExt for R where R: Read {}
 
-    Ok(())
+pub trait RbxWriteExt: Write {
+    fn write_string(&mut self, value: &str) -> io::Result<()> {
+        self.write_u32::<LittleEndian>(value.len() as u32)?;
+        write!(self, "{}", value)?;
+
+        Ok(())
+    }
+
+    fn write_bool(&mut self, value: bool) -> io::Result<()> {
+        self.write_u8(value as u8)
+    }
 }
+
+impl<W> RbxWriteExt for W where W: Write {}
 
 /// Applies the integer transformation generally used in property data in the
 /// Roblox binary format.

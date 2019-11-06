@@ -3,10 +3,10 @@ use std::{
     mem,
 };
 
-use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
+use byteorder::{ReadBytesExt, WriteBytesExt};
 use rbx_dom_weak::RbxValue;
 
-use crate::core::BinaryType;
+use crate::core::{transform_i32, untransform_i32, BinaryType, RbxReadExt, RbxWriteExt};
 
 pub struct BoolType;
 
@@ -34,18 +34,6 @@ impl BinaryType<bool> for BoolType {
     }
 }
 
-impl BoolType {
-    pub fn read_binary<R: Read>(source: &mut R) -> io::Result<RbxValue> {
-        Ok(RbxValue::Bool {
-            value: source.read_u8()? != 0,
-        })
-    }
-
-    pub fn write_binary<W: Write>(output: &mut W, value: bool) -> io::Result<()> {
-        output.write_u8(value as u8)
-    }
-}
-
 pub struct StringType;
 
 impl BinaryType<str> for StringType {
@@ -54,7 +42,7 @@ impl BinaryType<str> for StringType {
 
         for _ in 0..count {
             result.push(RbxValue::String {
-                value: StringType::read_binary(source)?,
+                value: source.read_string()?,
             });
         }
 
@@ -66,35 +54,11 @@ impl BinaryType<str> for StringType {
         I: Iterator<Item = &'write str>,
     {
         for value in values {
-            StringType::write_binary(output, value)?;
+            output.write_string(value)?;
         }
 
         Ok(())
     }
-}
-
-impl StringType {
-    pub fn read_binary<R: Read>(source: &mut R) -> io::Result<String> {
-        let length = source.read_u32::<LittleEndian>()?;
-
-        let mut value = String::new();
-        source.take(length as u64).read_to_string(&mut value)?;
-
-        Ok(value)
-    }
-
-    pub fn write_binary<W: Write>(output: &mut W, value: &str) -> io::Result<()> {
-        output.write_u32::<LittleEndian>(value.len() as u32)?;
-        write!(output, "{}", value)
-    }
-}
-
-pub fn encode_i32(value: i32) -> i32 {
-    (value << 1) ^ (value >> 31)
-}
-
-pub fn decode_i32(value: i32) -> i32 {
-    ((value as u32) >> 1) as i32 ^ -(value & 1)
 }
 
 pub fn encode_interleaved_transformed_i32_array<W: Write, I>(
@@ -106,7 +70,7 @@ where
 {
     for shift in &[24, 16, 8, 0] {
         for value in values.clone() {
-            let encoded = encode_i32(value) >> shift;
+            let encoded = transform_i32(value) >> shift;
             output.write_u8(encoded as u8)?;
         }
     }
@@ -126,7 +90,7 @@ pub fn decode_interleaved_transformed_i32_array<R: Read>(
         let v2 = buffer[i + output.len() * 2] as i32;
         let v3 = buffer[i + output.len() * 3] as i32;
 
-        output[i] = decode_i32((v0 << 24) | (v1 << 16) | (v2 << 8) | v3);
+        output[i] = untransform_i32((v0 << 24) | (v1 << 16) | (v2 << 8) | v3);
     }
 
     Ok(())
