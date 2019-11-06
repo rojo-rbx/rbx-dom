@@ -14,16 +14,7 @@ fn generate_ab_test_service() -> RbxClassDescriptor {
             | RbxInstanceTags::NOT_REPLICATED
             | RbxInstanceTags::SERVICE,
         properties: HashMap::new(),
-        default_properties: {
-            let mut map = HashMap::with_capacity(1);
-            map.insert(
-                Cow::Borrowed("Name"),
-                RbxValue::String {
-                    value: String::from("ABTestService"),
-                },
-            );
-            map
-        },
+        default_properties: HashMap::new(),
     };
 }
 fn generate_accessory() -> RbxClassDescriptor {
@@ -5215,16 +5206,12 @@ fn generate_core_gui() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(2);
+            let mut map = HashMap::with_capacity(1);
             map.insert(
                 Cow::Borrowed("Name"),
                 RbxValue::String {
                     value: String::from("CoreGui"),
                 },
-            );
-            map.insert(
-                Cow::Borrowed("SelectionImageObject"),
-                RbxValue::Ref { value: None },
             );
             map
         },
@@ -5238,16 +5225,7 @@ fn generate_core_packages() -> RbxClassDescriptor {
             | RbxInstanceTags::NOT_REPLICATED
             | RbxInstanceTags::SERVICE,
         properties: HashMap::new(),
-        default_properties: {
-            let mut map = HashMap::with_capacity(1);
-            map.insert(
-                Cow::Borrowed("Name"),
-                RbxValue::String {
-                    value: String::from("CorePackages"),
-                },
-            );
-            map
-        },
+        default_properties: HashMap::new(),
     };
 }
 fn generate_core_script() -> RbxClassDescriptor {
@@ -9350,7 +9328,7 @@ fn generate_gui_main() -> RbxClassDescriptor {
         tags: RbxInstanceTags::DEPRECATED,
         properties: HashMap::new(),
         default_properties: {
-            let mut map = HashMap::with_capacity(10);
+            let mut map = HashMap::with_capacity(9);
             map.insert(
                 Cow::Borrowed("AutoLocalize"),
                 RbxValue::Bool { value: true },
@@ -9367,10 +9345,6 @@ fn generate_gui_main() -> RbxClassDescriptor {
                 RbxValue::String {
                     value: String::from("GuiMain"),
                 },
-            );
-            map.insert(
-                Cow::Borrowed("OnTopOfCoreBlur"),
-                RbxValue::Bool { value: false },
             );
             map.insert(
                 Cow::Borrowed("ResetOnSpawn"),
@@ -9872,18 +9846,10 @@ fn generate_gui_service() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(8);
+            let mut map = HashMap::with_capacity(5);
             map.insert(
                 Cow::Borrowed("AutoSelectGuiEnabled"),
                 RbxValue::Bool { value: true },
-            );
-            map.insert(
-                Cow::Borrowed("CoreEffectFolder"),
-                RbxValue::Ref { value: None },
-            );
-            map.insert(
-                Cow::Borrowed("CoreGuiFolder"),
-                RbxValue::Ref { value: None },
             );
             map.insert(
                 Cow::Borrowed("CoreGuiNavigationEnabled"),
@@ -9898,10 +9864,6 @@ fn generate_gui_service() -> RbxClassDescriptor {
                 RbxValue::String {
                     value: String::from("GuiService"),
                 },
-            );
-            map.insert(
-                Cow::Borrowed("SelectedCoreObject"),
-                RbxValue::Ref { value: None },
             );
             map.insert(
                 Cow::Borrowed("SelectedObject"),
@@ -11633,7 +11595,7 @@ fn generate_humanoid_description() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(39);
+            let mut map = HashMap::with_capacity(38);
             map.insert(
                 Cow::Borrowed("BackAccessory"),
                 RbxValue::String {
@@ -11718,10 +11680,6 @@ fn generate_humanoid_description() -> RbxClassDescriptor {
                 RbxValue::String {
                     value: String::from(""),
                 },
-            );
-            map.insert(
-                Cow::Borrowed("NumberEmotesLoaded"),
-                RbxValue::Int32 { value: -1 },
             );
             map.insert(Cow::Borrowed("Pants"), RbxValue::Int32 { value: 0 });
             map.insert(
@@ -14004,27 +13962,11 @@ fn generate_localization_service() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(4);
-            map.insert(
-                Cow::Borrowed("IsTextScraperRunning"),
-                RbxValue::Bool { value: false },
-            );
+            let mut map = HashMap::with_capacity(1);
             map.insert(
                 Cow::Borrowed("Name"),
                 RbxValue::String {
                     value: String::from("LocalizationService"),
-                },
-            );
-            map.insert(
-                Cow::Borrowed("RobloxForcePlayModeGameLocaleId"),
-                RbxValue::String {
-                    value: String::from(""),
-                },
-            );
-            map.insert(
-                Cow::Borrowed("RobloxForcePlayModeRobloxLocaleId"),
-                RbxValue::String {
-                    value: String::from("en-us"),
                 },
             );
             map
@@ -16095,17 +16037,11 @@ fn generate_notification_service() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(2);
+            let mut map = HashMap::with_capacity(1);
             map.insert(
                 Cow::Borrowed("Name"),
                 RbxValue::String {
                     value: String::from("NotificationService"),
-                },
-            );
-            map.insert(
-                Cow::Borrowed("SelectedTheme"),
-                RbxValue::String {
-                    value: String::from(""),
                 },
             );
             map
@@ -16454,39 +16390,7 @@ fn generate_parabola_adornment() -> RbxClassDescriptor {
             );
             map
         },
-        default_properties: {
-            let mut map = HashMap::with_capacity(11);
-            map.insert(Cow::Borrowed("A"), RbxValue::Float32 { value: 1.0 });
-            map.insert(Cow::Borrowed("Adornee"), RbxValue::Ref { value: None });
-            map.insert(Cow::Borrowed("B"), RbxValue::Float32 { value: 0.0 });
-            map.insert(Cow::Borrowed("C"), RbxValue::Float32 { value: 0.0 });
-            map.insert(
-                Cow::Borrowed("Color"),
-                RbxValue::BrickColor {
-                    value: BrickColor::from_number(1).unwrap(),
-                },
-            );
-            map.insert(
-                Cow::Borrowed("Color3"),
-                RbxValue::Color3 {
-                    value: [0.9490197, 0.95294124, 0.95294124],
-                },
-            );
-            map.insert(
-                Cow::Borrowed("Name"),
-                RbxValue::String {
-                    value: String::from("ParabolaAdornment"),
-                },
-            );
-            map.insert(Cow::Borrowed("Range"), RbxValue::Float32 { value: 1.0 });
-            map.insert(Cow::Borrowed("Thickness"), RbxValue::Float32 { value: 1.0 });
-            map.insert(
-                Cow::Borrowed("Transparency"),
-                RbxValue::Float32 { value: 0.0 },
-            );
-            map.insert(Cow::Borrowed("Visible"), RbxValue::Bool { value: true });
-            map
-        },
+        default_properties: HashMap::new(),
     };
 }
 fn generate_part() -> RbxClassDescriptor {
@@ -18816,15 +18720,7 @@ fn generate_plugin_action() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(4);
-            map.insert(Cow::Borrowed("Checked"), RbxValue::Bool { value: true });
-            map.insert(
-                Cow::Borrowed("DefaultShortcut"),
-                RbxValue::String {
-                    value: String::from(""),
-                },
-            );
-            map.insert(Cow::Borrowed("Enabled"), RbxValue::Bool { value: true });
+            let mut map = HashMap::with_capacity(1);
             map.insert(
                 Cow::Borrowed("Name"),
                 RbxValue::String {
@@ -19391,16 +19287,7 @@ fn generate_rbx_analytics_service() -> RbxClassDescriptor {
         superclass: Some(Cow::Borrowed("Instance")),
         tags: RbxInstanceTags::NOT_CREATABLE | RbxInstanceTags::SERVICE,
         properties: HashMap::new(),
-        default_properties: {
-            let mut map = HashMap::with_capacity(1);
-            map.insert(
-                Cow::Borrowed("Name"),
-                RbxValue::String {
-                    value: String::from("RbxAnalyticsService"),
-                },
-            );
-            map
-        },
+        default_properties: HashMap::new(),
     };
 }
 fn generate_reflection_metadata() -> RbxClassDescriptor {
@@ -20583,16 +20470,7 @@ fn generate_roblox_plugin_gui_service() -> RbxClassDescriptor {
             | RbxInstanceTags::NOT_REPLICATED
             | RbxInstanceTags::SERVICE,
         properties: HashMap::new(),
-        default_properties: {
-            let mut map = HashMap::with_capacity(1);
-            map.insert(
-                Cow::Borrowed("Name"),
-                RbxValue::String {
-                    value: String::from("RobloxPluginGuiService"),
-                },
-            );
-            map
-        },
+        default_properties: HashMap::new(),
     };
 }
 fn generate_roblox_replicated_storage() -> RbxClassDescriptor {
@@ -20603,16 +20481,7 @@ fn generate_roblox_replicated_storage() -> RbxClassDescriptor {
             | RbxInstanceTags::NOT_CREATABLE
             | RbxInstanceTags::SERVICE,
         properties: HashMap::new(),
-        default_properties: {
-            let mut map = HashMap::with_capacity(1);
-            map.insert(
-                Cow::Borrowed("Name"),
-                RbxValue::String {
-                    value: String::from("RobloxReplicatedStorage"),
-                },
-            );
-            map
-        },
+        default_properties: HashMap::new(),
     };
 }
 fn generate_rocket_propulsion() -> RbxClassDescriptor {
@@ -21187,7 +21056,7 @@ fn generate_screen_gui() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(10);
+            let mut map = HashMap::with_capacity(9);
             map.insert(
                 Cow::Borrowed("AutoLocalize"),
                 RbxValue::Bool { value: true },
@@ -21204,10 +21073,6 @@ fn generate_screen_gui() -> RbxClassDescriptor {
                 RbxValue::String {
                     value: String::from("ScreenGui"),
                 },
-            );
-            map.insert(
-                Cow::Borrowed("OnTopOfCoreBlur"),
-                RbxValue::Bool { value: false },
             );
             map.insert(
                 Cow::Borrowed("ResetOnSpawn"),
@@ -24895,7 +24760,7 @@ fn generate_starter_player() -> RbxClassDescriptor {
                     is_canonical: true,
                     canonical_name: None,
                     serialized_name: None,
-                    scriptability: RbxPropertyScriptability::ReadWrite,
+                    scriptability: RbxPropertyScriptability::Read,
                     serializes: true,
                 },
             );
@@ -25380,7 +25245,7 @@ fn generate_starter_player() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(38);
+            let mut map = HashMap::with_capacity(21);
             map.insert(
                 Cow::Borrowed("AllowCustomAnimations"),
                 RbxValue::Bool { value: true },
@@ -25441,74 +25306,6 @@ fn generate_starter_player() -> RbxClassDescriptor {
             map.insert(
                 Cow::Borrowed("EnableMouseLockOption"),
                 RbxValue::Bool { value: true },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDFace"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDHead"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDLeftArm"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDLeftLeg"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDPants"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDRightArm"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDRightLeg"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDShirt"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDTeeShirt"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAssetIDTorso"),
-                RbxValue::Int32 { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsAvatar"),
-                RbxValue::Enum { value: 1 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsR15Collision"),
-                RbxValue::Enum { value: 0 },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsScaleRangeBodyType"),
-                RbxValue::NumberRange { value: (0.0, 1.0) },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsScaleRangeHead"),
-                RbxValue::NumberRange { value: (0.95, 1.0) },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsScaleRangeHeight"),
-                RbxValue::NumberRange { value: (0.9, 1.05) },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsScaleRangeProportion"),
-                RbxValue::NumberRange { value: (0.0, 1.0) },
-            );
-            map.insert(
-                Cow::Borrowed("GameSettingsScaleRangeWidth"),
-                RbxValue::NumberRange { value: (0.7, 1.0) },
             );
             map.insert(
                 Cow::Borrowed("HealthDisplayDistance"),
@@ -28301,7 +28098,7 @@ fn generate_text_box() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(58);
+            let mut map = HashMap::with_capacity(53);
             map.insert(Cow::Borrowed("Active"), RbxValue::Bool { value: true });
             map.insert(
                 Cow::Borrowed("AnchorPoint"),
@@ -28357,10 +28154,6 @@ fn generate_text_box() -> RbxClassDescriptor {
                 RbxValue::Int32 { value: 1 },
             );
             map.insert(Cow::Borrowed("Draggable"), RbxValue::Bool { value: false });
-            map.insert(
-                Cow::Borrowed("EnableRealtimeFilteringHints"),
-                RbxValue::Bool { value: false },
-            );
             map.insert(Cow::Borrowed("Font"), RbxValue::Enum { value: 0 });
             map.insert(Cow::Borrowed("FontSize"), RbxValue::Enum { value: 0 });
             map.insert(Cow::Borrowed("LayoutOrder"), RbxValue::Int32 { value: 0 });
@@ -28369,10 +28162,6 @@ fn generate_text_box() -> RbxClassDescriptor {
                 RbxValue::Float32 { value: 1.0 },
             );
             map.insert(Cow::Borrowed("Localize"), RbxValue::Bool { value: true });
-            map.insert(
-                Cow::Borrowed("ManualFocusRelease"),
-                RbxValue::Bool { value: false },
-            );
             map.insert(Cow::Borrowed("MultiLine"), RbxValue::Bool { value: false });
             map.insert(
                 Cow::Borrowed("Name"),
@@ -28397,10 +28186,6 @@ fn generate_text_box() -> RbxClassDescriptor {
                 RbxValue::Ref { value: None },
             );
             map.insert(
-                Cow::Borrowed("OverlayNativeInput"),
-                RbxValue::Bool { value: false },
-            );
-            map.insert(
                 Cow::Borrowed("PlaceholderColor3"),
                 RbxValue::Color3 {
                     value: [0.7, 0.7, 0.7],
@@ -28418,7 +28203,6 @@ fn generate_text_box() -> RbxClassDescriptor {
                     value: (0.0, 0, 0.0, 0),
                 },
             );
-            map.insert(Cow::Borrowed("ReturnKeyType"), RbxValue::Enum { value: 0 });
             map.insert(
                 Cow::Borrowed("RootLocalizationTable"),
                 RbxValue::Ref { value: None },
@@ -28466,7 +28250,6 @@ fn generate_text_box() -> RbxClassDescriptor {
                 Cow::Borrowed("TextEditable"),
                 RbxValue::Bool { value: true },
             );
-            map.insert(Cow::Borrowed("TextInputType"), RbxValue::Enum { value: 0 });
             map.insert(Cow::Borrowed("TextScaled"), RbxValue::Bool { value: false });
             map.insert(Cow::Borrowed("TextSize"), RbxValue::Float32 { value: 8.0 });
             map.insert(
@@ -32450,15 +32233,7 @@ fn generate_user_input_service() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(8);
-            map.insert(
-                Cow::Borrowed("GazeSelectionEnabled"),
-                RbxValue::Bool { value: true },
-            );
-            map.insert(
-                Cow::Borrowed("LegacyInputEventsEnabled"),
-                RbxValue::Bool { value: true },
-            );
+            let mut map = HashMap::with_capacity(5);
             map.insert(
                 Cow::Borrowed("ModalEnabled"),
                 RbxValue::Bool { value: false },
@@ -32477,10 +32252,6 @@ fn generate_user_input_service() -> RbxClassDescriptor {
                 RbxValue::String {
                     value: String::from("Instance"),
                 },
-            );
-            map.insert(
-                Cow::Borrowed("OverrideMouseIconBehavior"),
-                RbxValue::Enum { value: 0 },
             );
             map
         },
@@ -33415,13 +33186,7 @@ fn generate_virtual_input_manager() -> RbxClassDescriptor {
             map
         },
         default_properties: {
-            let mut map = HashMap::with_capacity(2);
-            map.insert(
-                Cow::Borrowed("AdditionalLuaState"),
-                RbxValue::String {
-                    value: String::from(""),
-                },
-            );
+            let mut map = HashMap::with_capacity(1);
             map.insert(
                 Cow::Borrowed("Name"),
                 RbxValue::String {
