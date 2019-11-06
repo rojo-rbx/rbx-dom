@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::HashMap,
+    collections::{BTreeMap, HashMap},
     io::{self, Write},
     u32,
 };
@@ -186,8 +186,8 @@ struct TypeInfo {
 
 fn generate_type_infos<'a>(
     instances: &HashMap<RbxId, &'a RbxInstance>,
-) -> HashMap<&'a str, TypeInfo> {
-    let mut type_infos = HashMap::new();
+) -> BTreeMap<&'a str, TypeInfo> {
+    let mut type_infos = BTreeMap::new();
     let mut next_type_id = 0;
 
     for instance in instances.values() {
