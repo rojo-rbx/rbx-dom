@@ -2,7 +2,7 @@
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
-    let mut output = HashMap::with_capacity(199);
+    let mut output = HashMap::with_capacity(198);
     output.insert(
         Cow::Borrowed("ActionType"),
         RbxEnumDescriptor {
@@ -966,19 +966,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
-        Cow::Borrowed("ErrorReporting"),
-        RbxEnumDescriptor {
-            name: Cow::Borrowed("ErrorReporting"),
-            items: {
-                let mut items = HashMap::with_capacity(3);
-                items.insert(Cow::Borrowed("DontReport"), 0);
-                items.insert(Cow::Borrowed("Prompt"), 1);
-                items.insert(Cow::Borrowed("Report"), 2);
-                items
-            },
-        },
-    );
-    output.insert(
         Cow::Borrowed("ExplosionType"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("ExplosionType"),
@@ -1510,23 +1497,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
-        Cow::Borrowed("JointType"),
-        RbxEnumDescriptor {
-            name: Cow::Borrowed("JointType"),
-            items: {
-                let mut items = HashMap::with_capacity(7);
-                items.insert(Cow::Borrowed("None"), 28);
-                items.insert(Cow::Borrowed("Rotate"), 7);
-                items.insert(Cow::Borrowed("RotateP"), 8);
-                items.insert(Cow::Borrowed("RotateV"), 9);
-                items.insert(Cow::Borrowed("Glue"), 10);
-                items.insert(Cow::Borrowed("Weld"), 1);
-                items.insert(Cow::Borrowed("Snap"), 3);
-                items
-            },
-        },
-    );
-    output.insert(
         Cow::Borrowed("KeyCode"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("KeyCode"),
@@ -1989,6 +1959,20 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("MessageInfo"), 1);
                 items.insert(Cow::Borrowed("MessageWarning"), 2);
                 items.insert(Cow::Borrowed("MessageError"), 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("ModifierKey"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("ModifierKey"),
+            items: {
+                let mut items = HashMap::with_capacity(4);
+                items.insert(Cow::Borrowed("Alt"), 2);
+                items.insert(Cow::Borrowed("Ctrl"), 1);
+                items.insert(Cow::Borrowed("Meta"), 3);
+                items.insert(Cow::Borrowed("Shift"), 0);
                 items
             },
         },
@@ -2699,7 +2683,7 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("PlayServer"), 3);
                 items.insert(Cow::Borrowed("RobloxPlugin"), 4);
                 items.insert(Cow::Borrowed("UserPlugin"), 5);
-                items.insert(Cow::Borrowed("Null"), 6);
+                items.insert(Cow::Borrowed("None"), 6);
                 items
             },
         },
