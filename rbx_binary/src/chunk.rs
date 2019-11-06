@@ -1,7 +1,7 @@
 use std::{
     borrow::Cow,
     fmt,
-    io::{self, Cursor, Read, Write},
+    io::{self, Read, Write},
     str,
 };
 
