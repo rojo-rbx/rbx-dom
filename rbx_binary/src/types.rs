@@ -15,7 +15,8 @@ impl BinaryType<bool> for BoolType {
         let mut result = Vec::with_capacity(count);
 
         for _ in 0..count {
-            result.push(BoolType::read_binary(source)?);
+            let value = source.read_u8()? != 0;
+            result.push(RbxValue::Bool { value });
         }
 
         Ok(result)
@@ -26,7 +27,7 @@ impl BinaryType<bool> for BoolType {
         I: Iterator<Item = &'write bool>,
     {
         for value in values {
-            BoolType::write_binary(output, *value)?;
+            output.write_u8(*value as u8)?;
         }
 
         Ok(())
