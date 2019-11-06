@@ -9,7 +9,7 @@ use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{RbxId, RbxInstance, RbxTree, RbxValue};
 
 use crate::{
-    chunk::{encode_chunk, Compression},
+    chunk::{encode_chunk, ChunkBuilder, Compression},
     core::{FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
     types::{encode_referent_array, BoolType, StringType},
 };
@@ -44,28 +44,23 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
 
     // Type data
     for (type_name, type_info) in &type_infos {
-        encode_chunk(
-            &mut output,
-            b"INST",
-            Compression::Compressed,
-            |mut output| {
-                output.write_u32::<LittleEndian>(type_info.id)?;
-                StringType::write_binary(&mut output, type_name)?;
+        let mut chunk = ChunkBuilder::new(b"INST", Compression::Compressed);
 
-                // TODO: Set this flag for services?
-                output.write_u8(0)?; // Flag that no additional data is attached
+        chunk.write_u32::<LittleEndian>(type_info.id)?;
+        StringType::write_binary(&mut chunk, type_name)?;
 
-                output.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
+        // TODO: Set this flag for services?
+        chunk.write_u8(0)?; // Flag that no additional data is attached
 
-                let type_referents = type_info
-                    .object_ids
-                    .iter()
-                    .map(|id| *referents.get(id).unwrap());
-                encode_referent_array(&mut output, type_referents)?;
+        chunk.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
 
-                Ok(())
-            },
-        )?;
+        let type_referents = type_info
+            .object_ids
+            .iter()
+            .map(|id| *referents.get(id).unwrap());
+        encode_referent_array(&mut chunk, type_referents)?;
+
+        chunk.dump(&mut output)?;
     }
 
     // Property data

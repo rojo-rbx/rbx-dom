@@ -7,17 +7,68 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 
+pub enum Compression {
+    Compressed,
+    Uncompressed,
+}
+
+pub struct ChunkBuilder {
+    chunk_name: &'static [u8],
+    compression: Compression,
+    buffer: Vec<u8>,
+}
+
+impl ChunkBuilder {
+    pub fn new(chunk_name: &'static [u8], compression: Compression) -> Self {
+        ChunkBuilder {
+            chunk_name,
+            compression,
+            buffer: Vec::new(),
+        }
+    }
+
+    pub fn dump<W: Write>(self, output: &mut W) -> io::Result<()> {
+        output.write_all(self.chunk_name)?;
+
+        match self.compression {
+            Compression::Compressed => {
+                let compressed = lz4::block::compress(&self.buffer, None, false)?;
+
+                output.write_u32::<LittleEndian>(compressed.len() as u32)?;
+                output.write_u32::<LittleEndian>(self.buffer.len() as u32)?;
+                output.write_u32::<LittleEndian>(0)?;
+
+                output.write_all(&compressed)?;
+            }
+            Compression::Uncompressed => {
+                output.write_u32::<LittleEndian>(0)?;
+                output.write_u32::<LittleEndian>(self.buffer.len() as u32)?;
+                output.write_u32::<LittleEndian>(0)?;
+
+                output.write_all(&self.buffer)?;
+            }
+        }
+
+        Ok(())
+    }
+}
+
+impl Write for ChunkBuilder {
+    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+        self.buffer.write(buf)
+    }
+
+    fn flush(&mut self) -> io::Result<()> {
+        Ok(())
+    }
+}
+
 #[derive(Debug)]
 pub struct ChunkHeader {
     pub name: [u8; 4],
     pub compressed_len: u32,
     pub len: u32,
     pub reserved: u32,
-}
-
-pub enum Compression {
-    Compressed,
-    Uncompressed,
 }
 
 impl fmt::Display for ChunkHeader {
