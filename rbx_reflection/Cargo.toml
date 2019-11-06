@@ -1,16 +1,17 @@
 [package]
 name = "rbx_reflection"
 description = "Roblox reflection database and ambiguous type resolution"
+version = "3.3.408"
 license = "MIT"
 documentation = "https://docs.rs/rbx_reflection"
 homepage = "https://github.com/LPGhatguy/rbx-dom"
 repository = "https://github.com/LPGhatguy/rbx-dom.git"
-version = "3.2.404"
+readme = "README.md"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
 bitflags = "1.0.4"
 lazy_static = "1.2.0"
-rbx_dom_weak = { version = "1.0.0", path = "../rbx_dom_weak" }
+rbx_dom_weak = { version = "1.10.0", path = "../rbx_dom_weak" }
 serde = { version = "1.0", features = ["derive"] }

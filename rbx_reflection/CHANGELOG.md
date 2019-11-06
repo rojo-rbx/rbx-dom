@@ -1,6 +1,8 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+
+## 3.3.408 (2019-11-05)
 * Updated reflection database to client 0.408.357216
 * Improved accuracy of `scriptability` property on class descriptors.
 * Removed default property values for properties only accessible by built-in plugins.
