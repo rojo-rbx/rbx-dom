@@ -41,31 +41,26 @@ pub fn decode<R: Read>(
     trace!("Number of types: {}", header.num_instance_types);
     trace!("Number of instances: {}", header.num_instances);
 
-    let mut chunk_buffer = Vec::new();
     let mut metadata: HashMap<String, String> = HashMap::new();
     let mut instance_types: HashMap<u32, InstanceType> = HashMap::new();
     let mut instance_props: HashMap<i32, InstanceProps> = HashMap::new();
     let mut instance_parents: HashMap<i32, i32> = HashMap::new();
 
     loop {
-        let header = decode_chunk(&mut source, &mut chunk_buffer)?;
-        let mut cursor = Cursor::new(&chunk_buffer);
+        let chunk = decode_chunk(&mut source)?;
+        let mut cursor = Cursor::new(&chunk.data);
 
-        trace!("Chunk {}", header);
-
-        match &header.name {
+        match &chunk.name {
             b"META" => decode_meta_chunk(&mut cursor, &mut metadata)?,
             b"INST" => decode_inst_chunk(&mut cursor, &mut instance_types)?,
             b"PROP" => decode_prop_chunk(&mut cursor, &instance_types, &mut instance_props)?,
             b"PRNT" => decode_prnt_chunk(&mut cursor, &mut instance_parents)?,
             b"END\0" => break,
-            _ => match str::from_utf8(&header.name) {
+            _ => match str::from_utf8(&chunk.name) {
                 Ok(name) => trace!("Unknown chunk name {}", name),
-                Err(_) => trace!("Unknown chunk name {:?}", header.name),
+                Err(_) => trace!("Unknown chunk name {:?}", chunk.name),
             },
         }
-
-        chunk_buffer.clear();
     }
 
     trace!("Instance types: {:#?}", instance_types);

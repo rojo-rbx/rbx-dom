@@ -64,10 +64,51 @@ impl Write for ChunkBuilder {
 }
 
 #[derive(Debug)]
-pub struct ChunkHeader {
+pub struct Chunk {
     pub name: [u8; 4],
+    pub data: Vec<u8>,
+}
+
+pub fn decode_chunk<R: Read>(source: &mut R) -> io::Result<Chunk> {
+    let header = decode_chunk_header(source)?;
+
+    log::trace!("{}", header);
+
+    let data = if header.compressed_len == 0 {
+        let mut data = Vec::with_capacity(header.len as usize);
+        source.take(header.len as u64).read_to_end(&mut data)?;
+        data
+    } else {
+        let mut compressed_data = Vec::with_capacity(header.compressed_len as usize);
+        source
+            .take(header.compressed_len as u64)
+            .read_to_end(&mut compressed_data)?;
+
+        lz4::block::decompress(&compressed_data, Some(header.len as i32))?
+    };
+
+    assert_eq!(data.len(), header.len as usize);
+
+    Ok(Chunk {
+        name: header.name,
+        data,
+    })
+}
+
+#[derive(Debug)]
+struct ChunkHeader {
+    /// 4-byte short name for the chunk, like "INST" or "PRNT"
+    pub name: [u8; 4],
+
+    /// The length of the chunk's compressed data. For uncompressed chunks, this
+    /// is always zero.
     pub compressed_len: u32,
+
+    /// The length that the chunk's data will have when decompressed. For
+    /// uncompressed chunks, this is their length as-is.
     pub len: u32,
+
+    /// Always zero.
     pub reserved: u32,
 }
 
@@ -85,28 +126,6 @@ impl fmt::Display for ChunkHeader {
             name, self.compressed_len, self.len, self.reserved
         )
     }
-}
-
-pub fn decode_chunk<R: Read>(source: &mut R, output: &mut Vec<u8>) -> io::Result<ChunkHeader> {
-    let header = decode_chunk_header(source)?;
-
-    log::trace!("{}", header);
-
-    if header.compressed_len == 0 {
-        source.take(header.len as u64).read_to_end(output)?;
-    } else {
-        let mut compressed_data = Vec::new();
-        source
-            .take(header.compressed_len as u64)
-            .read_to_end(&mut compressed_data)?;
-
-        let data = lz4::block::decompress(&compressed_data, Some(header.len as i32))?;
-        output.extend_from_slice(&data);
-    }
-
-    assert_eq!(output.len(), header.len as usize);
-
-    Ok(header)
 }
 
 fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
