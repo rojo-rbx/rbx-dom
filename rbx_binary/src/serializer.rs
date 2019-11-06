@@ -234,7 +234,7 @@ fn generate_type_infos<'a>(
 }
 
 fn generate_referents(instances: &HashMap<RbxId, &RbxInstance>) -> HashMap<RbxId, i32> {
-    let mut referents = HashMap::new();
+    let mut referents = HashMap::with_capacity(instances.len());
     let mut next_referent = 0;
 
     for instance in instances.values() {
