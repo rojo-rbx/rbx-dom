@@ -9,7 +9,7 @@ use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{RbxId, RbxInstance, RbxTree, RbxValue};
 
 use crate::{
-    chunk::{encode_chunk, ChunkBuilder, Compression},
+    chunk::{ChunkBuilder, Compression},
     core::{FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
     types::{encode_referent_array, BoolType, StringType},
 };
@@ -68,91 +68,72 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<
     // individual encode methods to properly support interleaved data.
     for (_type_name, type_info) in &type_infos {
         for prop_info in &type_info.properties {
-            encode_chunk(
-                &mut output,
-                b"PROP",
-                Compression::Compressed,
-                |mut output| {
-                    output.write_u32::<LittleEndian>(type_info.id)?;
-                    StringType::write_binary(&mut output, &prop_info.name)?;
-                    output.write_u8(prop_info.kind.id())?;
+            let mut chunk = ChunkBuilder::new(b"PROP", Compression::Compressed);
 
-                    for instance_id in &type_info.object_ids {
-                        let instance = relevant_instances.get(instance_id).unwrap();
-                        let value = match prop_info.name.as_str() {
-                            "Name" => Cow::Owned(RbxValue::String {
-                                value: instance.name.clone(),
-                            }),
-                            _ => {
-                                // TODO: This is way wrong; we need type information
-                                // to fall back to the correct default value.
-                                let value = instance
-                                    .properties
-                                    .get(&prop_info.name)
-                                    .map(Cow::Borrowed)
-                                    .unwrap_or_else(|| Cow::Owned(prop_info.kind.default_value()));
+            chunk.write_u32::<LittleEndian>(type_info.id)?;
+            StringType::write_binary(&mut chunk, &prop_info.name)?;
+            chunk.write_u8(prop_info.kind.id())?;
 
-                                // For now, we ensure that every instance of a given
-                                // type pinky-promises to have the correct type.
-                                // TODO: Turn this into a real error
-                                assert_eq!(PropKind::from_value(&value), prop_info.kind);
+            for instance_id in &type_info.object_ids {
+                let instance = relevant_instances.get(instance_id).unwrap();
+                let value = match prop_info.name.as_str() {
+                    "Name" => Cow::Owned(RbxValue::String {
+                        value: instance.name.clone(),
+                    }),
+                    _ => {
+                        // TODO: This is way wrong; we need type information
+                        // to fall back to the correct default value.
+                        let value = instance
+                            .properties
+                            .get(&prop_info.name)
+                            .map(Cow::Borrowed)
+                            .unwrap_or_else(|| Cow::Owned(prop_info.kind.default_value()));
 
-                                value
-                            }
-                        };
-
+                        // For now, we ensure that every instance of a given
+                        // type pinky-promises to have the correct type.
+                        // TODO: Turn this into a real error
                         assert_eq!(PropKind::from_value(&value), prop_info.kind);
 
-                        match value.borrow() {
-                            RbxValue::String { value } => {
-                                StringType::write_binary(&mut output, value)?
-                            }
-                            RbxValue::Bool { value } => {
-                                BoolType::write_binary(&mut output, *value)?
-                            }
-                            _ => unimplemented!(),
-                        }
+                        value
                     }
+                };
 
-                    Ok(())
-                },
-            )?;
+                assert_eq!(PropKind::from_value(&value), prop_info.kind);
+
+                match value.borrow() {
+                    RbxValue::String { value } => StringType::write_binary(&mut chunk, value)?,
+                    RbxValue::Bool { value } => BoolType::write_binary(&mut chunk, *value)?,
+                    _ => unimplemented!(),
+                }
+            }
+
+            chunk.dump(&mut output)?;
         }
     }
 
-    encode_chunk(
-        &mut output,
-        b"PRNT",
-        Compression::Compressed,
-        |mut output| {
-            output.write_u8(0)?; // Parent chunk data, version 0
-            output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
+    let mut parent = ChunkBuilder::new(b"PRNT", Compression::Compressed);
+    parent.write_u8(0)?; // Parent chunk data, version 0
+    parent.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
 
-            let ids = relevant_instances
-                .keys()
-                .map(|id| *referents.get(id).unwrap());
+    let ids = relevant_instances
+        .keys()
+        .map(|id| *referents.get(id).unwrap());
 
-            let parent_ids = relevant_instances.keys().map(|id| {
-                let instance = relevant_instances.get(id).unwrap();
-                match instance.get_parent_id() {
-                    Some(parent_id) => *referents.get(&parent_id).unwrap_or(&-1),
-                    None => -1,
-                }
-            });
+    let parent_ids = relevant_instances.keys().map(|id| {
+        let instance = relevant_instances.get(id).unwrap();
+        match instance.get_parent_id() {
+            Some(parent_id) => *referents.get(&parent_id).unwrap_or(&-1),
+            None => -1,
+        }
+    });
 
-            encode_referent_array(&mut output, ids)?;
-            encode_referent_array(&mut output, parent_ids)?;
+    encode_referent_array(&mut parent, ids)?;
+    encode_referent_array(&mut parent, parent_ids)?;
+    parent.dump(&mut output)?;
 
-            Ok(())
-        },
-    )?;
-
-    encode_chunk(
-        &mut output,
-        b"END\0",
-        Compression::Uncompressed,
-        |mut output| output.write_all(FILE_FOOTER),
-    )?;
+    let mut end = ChunkBuilder::new(b"END\0", Compression::Uncompressed);
+    end.write_all(FILE_FOOTER)?;
+    end.dump(&mut output)?;
 
     Ok(())
 }
@@ -285,8 +266,9 @@ fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a 
 mod test {
     use super::*;
 
+    use std::{collections::HashMap, io::Cursor};
+
     use rbx_dom_weak::RbxInstanceProperties;
-    use std::collections::HashMap;
 
     fn new_test_tree() -> RbxTree {
         let instance = RbxInstanceProperties {

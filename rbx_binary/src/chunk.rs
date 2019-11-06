@@ -87,42 +87,6 @@ impl fmt::Display for ChunkHeader {
     }
 }
 
-pub fn encode_chunk<W: Write, F>(
-    output: &mut W,
-    chunk_name: &[u8],
-    compression: Compression,
-    body: F,
-) -> io::Result<()>
-where
-    F: Fn(Cursor<&mut Vec<u8>>) -> io::Result<()>,
-{
-    output.write_all(chunk_name)?;
-
-    let mut buffer = Vec::new();
-    body(Cursor::new(&mut buffer))?;
-
-    match compression {
-        Compression::Compressed => {
-            let compressed = lz4::block::compress(&buffer, None, false)?;
-
-            output.write_u32::<LittleEndian>(compressed.len() as u32)?;
-            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
-            output.write_u32::<LittleEndian>(0)?;
-
-            output.write_all(&compressed)?;
-        }
-        Compression::Uncompressed => {
-            output.write_u32::<LittleEndian>(0)?;
-            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
-            output.write_u32::<LittleEndian>(0)?;
-
-            output.write_all(&buffer)?;
-        }
-    }
-
-    Ok(())
-}
-
 pub fn decode_chunk<R: Read>(source: &mut R, output: &mut Vec<u8>) -> io::Result<ChunkHeader> {
     let header = decode_chunk_header(source)?;
 
