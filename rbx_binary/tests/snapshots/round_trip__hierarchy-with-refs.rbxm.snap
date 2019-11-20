@@ -1,0 +1,69 @@
+---
+source: rbx_binary/tests/round_trip.rs
+expression: roundtrip_viewed
+---
+- id: id-0
+  name: A
+  class_name: Folder
+  properties:
+    AttributesSerialize:
+      Type: String
+      Value: ""
+    Tags:
+      Type: String
+      Value: ""
+  children:
+    - id: id-1
+      name: B
+      class_name: Folder
+      properties:
+        AttributesSerialize:
+          Type: String
+          Value: ""
+        Tags:
+          Type: String
+          Value: ""
+      children:
+        - id: id-2
+          name: C
+          class_name: Part
+          properties:
+            Anchored:
+              Type: Bool
+              Value: false
+            AttributesSerialize:
+              Type: String
+              Value: ""
+            CanCollide:
+              Type: Bool
+              Value: true
+            CastShadow:
+              Type: Bool
+              Value: true
+            Locked:
+              Type: Bool
+              Value: false
+            Massless:
+              Type: Bool
+              Value: false
+            Tags:
+              Type: String
+              Value: ""
+          children:
+            - id: id-3
+              name: Weld
+              class_name: Weld
+              properties:
+                AttributesSerialize:
+                  Type: String
+                  Value: ""
+                Enabled:
+                  Type: Bool
+                  Value: true
+                IsAutoJoint:
+                  Type: Bool
+                  Value: false
+                Tags:
+                  Type: String
+                  Value: ""
+              children: []

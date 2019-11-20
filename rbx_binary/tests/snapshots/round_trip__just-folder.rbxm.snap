@@ -1,0 +1,15 @@
+---
+source: rbx_binary/tests/round_trip.rs
+expression: roundtrip_viewed
+---
+- id: id-0
+  name: Folder
+  class_name: Folder
+  properties:
+    AttributesSerialize:
+      Type: String
+      Value: ""
+    Tags:
+      Type: String
+      Value: ""
+  children: []

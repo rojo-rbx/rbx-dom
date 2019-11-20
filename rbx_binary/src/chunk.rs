@@ -104,18 +104,18 @@ pub fn decode_chunk<R: Read>(source: &mut R) -> io::Result<Chunk> {
 #[derive(Debug)]
 struct ChunkHeader {
     /// 4-byte short name for the chunk, like "INST" or "PRNT"
-    pub name: [u8; 4],
+    name: [u8; 4],
 
     /// The length of the chunk's compressed data. For uncompressed chunks, this
     /// is always zero.
-    pub compressed_len: u32,
+    compressed_len: u32,
 
     /// The length that the chunk's data will have when decompressed. For
     /// uncompressed chunks, this is their length as-is.
-    pub len: u32,
+    len: u32,
 
     /// Always zero.
-    pub reserved: u32,
+    reserved: u32,
 }
 
 impl fmt::Display for ChunkHeader {

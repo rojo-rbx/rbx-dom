@@ -17,3 +17,5 @@ rbx_dom_weak = { version = "1.0.0", path = "../rbx_dom_weak" }
 
 [dev-dependencies]
 env_logger = "0.6.0"
+rbx_dom_test = { path = "../rbx_dom_test" }
+insta = "0.12.0"

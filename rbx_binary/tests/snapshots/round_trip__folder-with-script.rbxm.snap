@@ -1,0 +1,38 @@
+---
+source: rbx_binary/tests/round_trip.rs
+expression: roundtrip_viewed
+---
+- id: id-0
+  name: Root Folder
+  class_name: Folder
+  properties:
+    AttributesSerialize:
+      Type: String
+      Value: ""
+    Tags:
+      Type: String
+      Value: ""
+  children:
+    - id: id-1
+      name: Script
+      class_name: Script
+      properties:
+        AttributesSerialize:
+          Type: String
+          Value: ""
+        Disabled:
+          Type: Bool
+          Value: true
+        LinkedSource:
+          Type: String
+          Value: ""
+        ScriptGuid:
+          Type: String
+          Value: "{BC000457-E210-4FC1-818E-3BC90260942C}"
+        Source:
+          Type: String
+          Value: "print(\"Hello, world!\")\n"
+        Tags:
+          Type: String
+          Value: ""
+      children: []

@@ -348,38 +348,3 @@ fn decode_prnt_chunk<R: Read>(
 
     Ok(())
 }
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    use std::collections::HashMap;
-
-    static MODEL_A: &[u8] = include_bytes!("../test-files/model-a.rbxm");
-    static MODEL_B: &[u8] = include_bytes!("../test-files/model-b.rbxm");
-    static MODEL_C: &[u8] = include_bytes!("../test-files/model-c.rbxm");
-
-    fn new_test_tree() -> RbxTree {
-        let root = RbxInstanceProperties {
-            name: "Folder".to_string(),
-            class_name: "Folder".to_string(),
-            properties: HashMap::new(),
-        };
-
-        RbxTree::new(root)
-    }
-
-    #[test]
-    fn test_decode() {
-        let _ = env_logger::try_init();
-
-        for model_source in &[MODEL_A, MODEL_B, MODEL_C] {
-            let mut tree = new_test_tree();
-            let root_id = tree.get_root_id();
-
-            print!("\n");
-            trace!("Model:");
-            decode(&mut tree, root_id, *model_source).unwrap();
-        }
-    }
-}
