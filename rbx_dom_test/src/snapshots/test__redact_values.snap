@@ -1,0 +1,10 @@
+---
+source: test_util/src/lib.rs
+expression: "TreeViewer::new().view(&tree)"
+---
+id: id-0
+name: Root
+class_name: ObjectValue
+properties:
+  Value: id-0
+children: []
