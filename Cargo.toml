@@ -2,6 +2,7 @@
 members = [
 	"generate_reflection",
 	"rbx_binary",
+	"rbx_dom_test",
 	"rbx_dom_weak",
 	"rbx_reflection",
 	"rbx_xml",
