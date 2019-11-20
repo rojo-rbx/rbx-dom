@@ -24,6 +24,21 @@ impl TreeViewer {
         self.view_instance(tree, root_id)
     }
 
+    pub fn view_children(&mut self, tree: &RbxTree) -> Vec<ViewedInstance> {
+        let root_id = tree.get_root_id();
+        let root_instance = tree.get_instance(root_id).unwrap();
+        let children = root_instance.get_children_ids();
+
+        for &id in children {
+            self.populate_id_map(tree, id);
+        }
+
+        children
+            .iter()
+            .map(|&id| self.view_instance(tree, id))
+            .collect()
+    }
+
     fn populate_id_map(&mut self, tree: &RbxTree, id: RbxId) {
         self.id_map.insert(id, format!("id-{}", self.next_id));
         self.next_id += 1;
