@@ -6,7 +6,7 @@ use std::{
 use byteorder::{ReadBytesExt, WriteBytesExt};
 use rbx_dom_weak::RbxValue;
 
-use crate::core::{transform_i32, untransform_i32, BinaryType, RbxReadExt, RbxWriteExt};
+use crate::core::{untransform_i32, BinaryType, RbxReadExt, RbxWriteExt};
 
 pub struct BoolType;
 
@@ -61,22 +61,6 @@ impl BinaryType<str> for StringType {
     }
 }
 
-pub fn encode_interleaved_transformed_i32_array<W: Write, I>(
-    output: &mut W,
-    values: I,
-) -> io::Result<()>
-where
-    I: Iterator<Item = i32> + Clone,
-{
-    for shift in &[24, 16, 8, 0] {
-        for value in values.clone() {
-            let encoded = transform_i32(value) >> shift;
-            output.write_u8(encoded as u8)?;
-        }
-    }
-    Ok(())
-}
-
 pub fn decode_interleaved_transformed_i32_array<R: Read>(
     source: &mut R,
     output: &mut [i32],
@@ -94,21 +78,6 @@ pub fn decode_interleaved_transformed_i32_array<R: Read>(
     }
 
     Ok(())
-}
-
-pub fn encode_referent_array<W: Write, I>(output: &mut W, values: I) -> io::Result<()>
-where
-    I: Iterator<Item = i32> + Clone,
-{
-    let mut delta_encoded = Vec::new();
-    let mut last_value = 0;
-
-    for value in values {
-        delta_encoded.push(value - last_value);
-        last_value = value;
-    }
-
-    encode_interleaved_transformed_i32_array(output, delta_encoded.iter().cloned())
 }
 
 pub fn decode_referent_array<R: Read>(source: &mut R, output: &mut [i32]) -> io::Result<()> {
