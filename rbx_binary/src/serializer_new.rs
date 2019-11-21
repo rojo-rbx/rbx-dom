@@ -238,7 +238,14 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 match prop_info.kind {
                     RbxValueType::String => StringType::write_values(&mut self.output, values)?,
                     RbxValueType::Bool => BoolType::write_values(&mut self.output, values)?,
-                    _ => unreachable!(),
+                    _ => {
+                        // This should be unreachable because we assert that we
+                        // have a known binary format type ID above. We might
+                        // hit this panic if we forget to add a case for any
+                        // newly supported types here.
+
+                        unreachable!();
+                    }
                 }
 
                 chunk.dump(&mut self.output)?;
