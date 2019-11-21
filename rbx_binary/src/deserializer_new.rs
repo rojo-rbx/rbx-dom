@@ -1,6 +1,7 @@
 use std::{
     collections::HashMap,
     io::{self, Read},
+    str,
 };
 
 use byteorder::{LittleEndian, ReadBytesExt};
@@ -30,7 +31,23 @@ pub fn decode_compat<R: Read>(
 }
 
 pub fn decode<R: Read>(mut input: R) -> io::Result<RbxTree> {
-    let deserializer = BinaryDeserializer::new(input)?;
+    let mut deserializer = BinaryDeserializer::new(input)?;
+
+    loop {
+        let chunk = Chunk::decode(&mut deserializer.input)?;
+
+        match &chunk.name {
+            b"META" => deserializer.decode_meta_chunk(chunk)?,
+            b"INST" => deserializer.decode_inst_chunk(chunk)?,
+            b"PROP" => deserializer.decode_prop_chunk(chunk)?,
+            b"PRNT" => deserializer.decode_prnt_chunk(chunk)?,
+            b"END\0" => break,
+            _ => match str::from_utf8(&chunk.name) {
+                Ok(name) => log::info!("Unknown binary chunk name {}", name),
+                Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
+            },
+        }
+    }
 
     Ok(deserializer.finish())
 }
