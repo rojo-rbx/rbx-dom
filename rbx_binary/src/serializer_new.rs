@@ -197,24 +197,46 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// chunks named INST.
     fn serialize_instances(&mut self) -> io::Result<()> {
         for (type_name, type_info) in &self.type_infos {
-            for object_id in &type_info.object_ids {
-                let mut chunk = ChunkBuilder::new(b"INST", Compression::Compressed);
+            let mut chunk = ChunkBuilder::new(b"INST", Compression::Compressed);
 
-                chunk.write_u32::<LittleEndian>(type_info.type_id)?;
-                chunk.write_string(type_name)?;
+            chunk.write_u32::<LittleEndian>(type_info.type_id)?;
+            chunk.write_string(type_name)?;
 
-                // TODO: Write different byte for types that are services.
-                chunk.write_u8(0)?;
+            // TODO: Use reflection information (pulled from type_info?) to
+            // decide if this type is a service or not.
+            let is_service = false;
 
-                chunk.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
+            // It's possible that this integer will be expanded in the future to
+            // be a general version/format field instead of just service vs
+            // non-service.
+            //
+            // At that point, we'll start thinking about it like it's a u8
+            // instead of a bool.
+            chunk.write_bool(is_service)?;
 
-                // TODO: Write referent array
+            chunk.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
 
-                // TODO: If the type is a service, write one byte per referent
-                // that is the value '1'
+            chunk.write_referents(
+                type_info
+                    .object_ids
+                    .iter()
+                    .map(|id| self.id_to_referent[id]),
+            )?;
 
-                chunk.dump(&mut self.output)?;
+            if is_service {
+                // It's unclear what this byte is used for, but when the type is
+                // a service (like Workspace, Lighting, etc), we need to write
+                // the value `1` for every instance in our file of that type.
+                //
+                // In 99.9% of cases, there's only going to be one copy of a
+                // given service, so we're not worried about doing this super
+                // efficiently.
+                for _ in 0..type_info.object_ids.len() {
+                    chunk.write_u8(1)?;
+                }
             }
+
+            chunk.dump(&mut self.output)?;
         }
 
         Ok(())
@@ -286,6 +308,30 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write out the hierarchical relations between instances, stored in a
     /// chunk named PRNT.
     fn serialize_parents(&mut self) -> io::Result<()> {
+        let mut chunk = ChunkBuilder::new(b"PRNT", Compression::Compressed);
+
+        chunk.write_u8(0)?; // PRNT version 0
+        chunk.write_u32::<LittleEndian>(self.relevant_instances.len() as u32)?;
+
+        let object_referents = self
+            .relevant_instances
+            .iter()
+            .map(|id| self.id_to_referent[id]);
+
+        let parent_referents = self.relevant_instances.iter().map(|id| {
+            let instance = self.tree.get_instance(*id).unwrap();
+
+            match instance.get_parent_id() {
+                Some(parent_id) => self.id_to_referent[&parent_id],
+                None => -1,
+            }
+        });
+
+        chunk.write_referents(object_referents)?;
+        chunk.write_referents(parent_referents)?;
+
+        chunk.dump(&mut self.output)?;
+
         Ok(())
     }
 

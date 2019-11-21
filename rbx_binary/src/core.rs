@@ -43,6 +43,36 @@ pub trait RbxWriteExt: Write {
     fn write_bool(&mut self, value: bool) -> io::Result<()> {
         self.write_u8(value as u8)
     }
+
+    fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: Iterator<Item = i32>,
+    {
+        let values: Vec<_> = values.collect();
+
+        for shift in &[24, 16, 8, 0] {
+            for value in values.iter().copied() {
+                let encoded = transform_i32(value) >> shift;
+                self.write_u8(encoded as u8)?;
+            }
+        }
+
+        Ok(())
+    }
+
+    fn write_referents<I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: Iterator<Item = i32>,
+    {
+        let mut last_value = 0;
+        let delta_encoded = values.map(|value| {
+            let encoded = value - last_value;
+            last_value = value;
+            encoded
+        });
+
+        self.write_interleaved_i32_array(delta_encoded)
+    }
 }
 
 impl<W> RbxWriteExt for W where W: Write {}
