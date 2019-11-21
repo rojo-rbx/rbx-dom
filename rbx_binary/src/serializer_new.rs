@@ -23,7 +23,11 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> io::Result<
         serializer.add_instance(*id);
     }
 
+    log::debug!("Type info discovered: {:#?}", serializer.type_infos);
+
     serializer.generate_referents();
+
+    log::trace!("Referents constructed: {:#?}", serializer.id_to_referent);
 
     serializer.write_header()?;
     serializer.serialize_metadata()?;
@@ -65,6 +69,8 @@ struct BinarySerializer<'a, W> {
     next_type_id: u32,
 }
 
+/// An instance class that our serializer knows about. We should have one struct
+/// per unique ClassName.
 #[derive(Debug)]
 struct TypeInfo {
     /// The ID that this serializer will use to refer to this type of instance.
@@ -75,12 +81,16 @@ struct TypeInfo {
 
     /// All of the defined properties for this type found on any instance of
     /// this type.
+    ///
+    /// Stored in a sorted map to try to ensure that we write out properties in
+    /// a deterministic order.
     properties: BTreeMap<String, PropInfo>,
 }
 
 #[derive(Debug)]
 struct PropInfo {
     kind: RbxValueType,
+    // TODO: Should we store the default value for this descriptor here?
 }
 
 impl<'a, W: Write> BinarySerializer<'a, W> {
@@ -118,12 +128,25 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         let type_info = self.get_or_create_type_info(&instance.class_name);
         type_info.object_ids.push(id);
 
-        for prop_name in instance.properties.keys() {
-            if !type_info.properties.contains_key(prop_name.as_str()) {
+        for (prop_name, prop_value) in &instance.properties {
+            let prop_type = prop_value.get_type();
+
+            if let Some(prop_info) = type_info.properties.get(prop_name) {
+                // TODO: We should be able to check if this value can be
+                // converted into the correct type instead.
+                assert_eq!(prop_type, prop_info.kind);
+            } else {
                 // TODO: Add configurability for using reflection information
                 // and how rbx_binary should fall back when encountering unknown
                 // properties.
-            }
+                //
+                // Currently we just use the type of the first copy of this
+                // property that we find in the tree.
+
+                type_info
+                    .properties
+                    .insert(prop_name.to_owned(), PropInfo { kind: prop_type });
+            };
         }
     }
 
@@ -164,18 +187,21 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         Ok(())
     }
 
+    /// Write out any metadata about this file, stored in a chunk named META.
     fn serialize_metadata(&mut self) -> io::Result<()> {
         // TODO: There is no concept of metadata in a tree yet.
         Ok(())
     }
 
+    /// Write out the declarations of all instances, stored in a series of
+    /// chunks named INST.
     fn serialize_instances(&mut self) -> io::Result<()> {
         for type_info in self.type_infos.values() {
             for (prop_name, prop_info) in &type_info.properties {
                 let value_type_id = match id_from_value_type(prop_info.kind) {
                     Some(id) => id,
                     None => {
-                        log::trace!(
+                        log::debug!(
                             "Prop type {:?} is not supported by rbx_binary",
                             prop_info.kind
                         );
@@ -195,13 +221,16 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 let values = type_info.object_ids.iter().map(|id| {
                     let instance = tree.get_instance(*id).unwrap();
 
+                    // We store the Name property in a different field for
+                    // convenience, but when serializing to the binary model
+                    // format we need to handle it just like other properties.
                     if prop_name == "Name" {
                         Cow::Owned(RbxValue::String {
                             value: instance.name.clone(),
                         })
                     } else {
-                        // TODO: Fall back to default value for this
-                        // property descriptor.
+                        // TODO: Fall back to default value for this property
+                        // descriptor.
                         Cow::Borrowed(instance.properties.get(prop_name).unwrap())
                     }
                 });
@@ -219,14 +248,22 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         Ok(())
     }
 
+    /// Write out batch declarations of property values for the instances
+    /// previously defined in the INST chunks. Property data is contained in
+    /// chunks named PROP.
     fn serialize_properties(&mut self) -> io::Result<()> {
         Ok(())
     }
 
+    /// Write out the hierarchical relations between instances, stored in a
+    /// chunk named PRNT.
     fn serialize_parents(&mut self) -> io::Result<()> {
         Ok(())
     }
 
+    /// Write the fixed, uncompressed end chunk used to verify that the file
+    /// hasn't been truncated mistakenly. This chunk is named END\0, with a zero
+    /// byte at the end.
     fn serialize_end(&mut self) -> io::Result<()> {
         let mut end = ChunkBuilder::new(b"END\0", Compression::Uncompressed);
         end.write_all(FILE_FOOTER)?;
@@ -236,6 +273,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     }
 }
 
+/// Convenience implementation that lets us write through to the underlying
+/// output buffer by writing to the BinarySerializer to avoid referring to
+/// `self.output` a bunch.
 impl<W: Write> Write for BinarySerializer<'_, W> {
     fn write(&mut self, buffer: &[u8]) -> io::Result<usize> {
         self.output.write(buffer)
