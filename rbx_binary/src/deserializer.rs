@@ -1,6 +1,6 @@
 use std::{
     collections::HashMap,
-    io::{self, Cursor, Read},
+    io::{self, Read},
     str,
 };
 
@@ -48,13 +48,13 @@ pub fn decode<R: Read>(
 
     loop {
         let chunk = decode_chunk(&mut source)?;
-        let mut cursor = Cursor::new(&chunk.data);
+        let data = chunk.data.as_slice();
 
         match &chunk.name {
-            b"META" => decode_meta_chunk(&mut cursor, &mut metadata)?,
-            b"INST" => decode_inst_chunk(&mut cursor, &mut instance_types)?,
-            b"PROP" => decode_prop_chunk(&mut cursor, &instance_types, &mut instance_props)?,
-            b"PRNT" => decode_prnt_chunk(&mut cursor, &mut instance_parents)?,
+            b"META" => decode_meta_chunk(data, &mut metadata)?,
+            b"INST" => decode_inst_chunk(data, &mut instance_types)?,
+            b"PROP" => decode_prop_chunk(data, &instance_types, &mut instance_props)?,
+            b"PRNT" => decode_prnt_chunk(data, &mut instance_parents)?,
             b"END\0" => break,
             _ => match str::from_utf8(&chunk.name) {
                 Ok(name) => trace!("Unknown chunk name {}", name),
@@ -184,7 +184,7 @@ fn decode_file_header<R: Read>(source: &mut R) -> Result<FileHeader, DecodeError
 }
 
 fn decode_meta_chunk<R: Read>(
-    source: &mut R,
+    mut source: R,
     output: &mut HashMap<String, String>,
 ) -> io::Result<()> {
     let len = source.read_u32::<LittleEndian>()?;
@@ -207,7 +207,7 @@ struct InstanceType {
 }
 
 fn decode_inst_chunk<R: Read>(
-    source: &mut R,
+    mut source: R,
     instance_types: &mut HashMap<u32, InstanceType>,
 ) -> io::Result<()> {
     let type_id = source.read_u32::<LittleEndian>()?;
@@ -216,7 +216,7 @@ fn decode_inst_chunk<R: Read>(
     let number_instances = source.read_u32::<LittleEndian>()?;
 
     let mut referents = vec![0; number_instances as usize];
-    decode_referent_array(source, &mut referents)?;
+    decode_referent_array(&mut source, &mut referents)?;
 
     trace!(
         "{} instances of type ID {} ({})",
@@ -322,7 +322,7 @@ fn decode_prop_chunk<R: Read>(
 }
 
 fn decode_prnt_chunk<R: Read>(
-    source: &mut R,
+    mut source: R,
     instance_parents: &mut HashMap<i32, i32>,
 ) -> io::Result<()> {
     let version = source.read_u8()?;
@@ -339,8 +339,8 @@ fn decode_prnt_chunk<R: Read>(
     let mut instance_ids = vec![0; number_objects as usize];
     let mut parent_ids = vec![0; number_objects as usize];
 
-    decode_referent_array(source, &mut instance_ids)?;
-    decode_referent_array(source, &mut parent_ids)?;
+    decode_referent_array(&mut source, &mut instance_ids)?;
+    decode_referent_array(&mut source, &mut parent_ids)?;
 
     for (id, parent_id) in instance_ids.iter().zip(&parent_ids) {
         instance_parents.insert(*id, *parent_id);
