@@ -9,11 +9,11 @@
 mod chunk;
 mod core;
 mod deserializer;
-mod serializer_new;
+mod serializer;
 mod types;
 mod types_new;
 
 pub use crate::{
     deserializer::{decode, DecodeError},
-    serializer_new::encode,
+    serializer::encode,
 };
