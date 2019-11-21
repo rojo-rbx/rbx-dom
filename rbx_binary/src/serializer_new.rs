@@ -321,10 +321,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         let parent_referents = self.relevant_instances.iter().map(|id| {
             let instance = self.tree.get_instance(*id).unwrap();
 
-            match instance.get_parent_id() {
-                Some(parent_id) => self.id_to_referent[&parent_id],
-                None => -1,
-            }
+            // If there's no parent set OR our parent is not one of the
+            // instances we're serializing, we use -1 to represent a null
+            // parent.
+            instance
+                .get_parent_id()
+                .and_then(|parent_id| self.id_to_referent.get(&parent_id).cloned())
+                .unwrap_or(-1)
         });
 
         chunk.write_referents(object_referents)?;
