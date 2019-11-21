@@ -155,7 +155,16 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let type_info = TypeInfo::new(type_id);
+            let mut type_info = TypeInfo::new(type_id);
+
+            // We assume that every instance has a property named Name.
+            type_info.properties.insert(
+                "Name".to_owned(),
+                PropInfo {
+                    kind: RbxValueType::String,
+                },
+            );
+
             self.type_infos.insert(class_name.to_owned(), type_info);
         }
 
@@ -178,13 +187,15 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     fn write_header(&mut self) -> io::Result<()> {
         log::trace!("Writing header");
 
-        self.write_all(FILE_MAGIC_HEADER)?;
-        self.write_all(FILE_SIGNATURE)?;
-        self.write_u16::<LittleEndian>(FILE_VERSION)?;
+        self.output.write_all(FILE_MAGIC_HEADER)?;
+        self.output.write_all(FILE_SIGNATURE)?;
+        self.output.write_u16::<LittleEndian>(FILE_VERSION)?;
 
-        self.write_u32::<LittleEndian>(self.type_infos.len() as u32)?;
-        self.write_u32::<LittleEndian>(self.relevant_instances.len() as u32)?;
-        self.write_u64::<LittleEndian>(0)?;
+        self.output
+            .write_u32::<LittleEndian>(self.type_infos.len() as u32)?;
+        self.output
+            .write_u32::<LittleEndian>(self.relevant_instances.len() as u32)?;
+        self.output.write_u64::<LittleEndian>(0)?;
 
         Ok(())
     }
@@ -306,8 +317,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 });
 
                 match prop_info.kind {
-                    RbxValueType::String => StringType::write_values(&mut self.output, values)?,
-                    RbxValueType::Bool => BoolType::write_values(&mut self.output, values)?,
+                    RbxValueType::String => StringType::write_values(&mut chunk, values)?,
+                    RbxValueType::Bool => BoolType::write_values(&mut chunk, values)?,
                     _ => {
                         // This should be unreachable because we assert that we
                         // have a known binary format type ID above. We might
@@ -368,22 +379,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
         let mut end = ChunkBuilder::new(b"END\0", Compression::Uncompressed);
         end.write_all(FILE_FOOTER)?;
-        end.dump(self)?;
+        end.dump(&mut self.output)?;
 
         Ok(())
-    }
-}
-
-/// Convenience implementation that lets us write through to the underlying
-/// output buffer by writing to the BinarySerializer to avoid referring to
-/// `self.output` a bunch.
-impl<W: Write> Write for BinarySerializer<'_, W> {
-    fn write(&mut self, buffer: &[u8]) -> io::Result<usize> {
-        self.output.write(buffer)
-    }
-
-    fn flush(&mut self) -> io::Result<()> {
-        self.output.flush()
     }
 }
 
