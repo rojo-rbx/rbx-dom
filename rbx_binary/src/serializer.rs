@@ -76,6 +76,11 @@ struct TypeInfo {
     /// The ID that this serializer will use to refer to this type of instance.
     type_id: u32,
 
+    /// Whether this type is considered a service. Only one copy of a given
+    /// service can exist for a given ServiceProvider. DataModel is the only
+    /// ServiceProvider in most projects.
+    is_service: bool,
+
     /// The IDs of all of the instances of this type.
     object_ids: Vec<RbxId>,
 
@@ -150,22 +155,44 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         }
     }
 
+    /// Finds the type info from the given class name if it exists, or creates
+    /// one and returns a reference to it if not.
     fn get_or_create_type_info(&mut self, class_name: &str) -> &mut TypeInfo {
         if !self.type_infos.contains_key(class_name) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let mut type_info = TypeInfo::new(type_id);
+            let is_service;
 
-            // We assume that every instance has a property named Name.
-            type_info.properties.insert(
+            if let Some(class_descriptor) = rbx_reflection::get_class_descriptor(class_name) {
+                is_service = class_descriptor.is_service();
+            } else {
+                log::info!("The class {} is not known to rbx_binary", class_name);
+                is_service = false;
+            };
+
+            let mut properties = BTreeMap::new();
+
+            // Every instance has a property named Name. Even though
+            // rbx_dom_weak encodes the name property specially, we still insert
+            // this property into the type info and handle it like a regular
+            // property during encoding.
+            properties.insert(
                 "Name".to_owned(),
                 PropInfo {
                     kind: RbxValueType::String,
                 },
             );
 
-            self.type_infos.insert(class_name.to_owned(), type_info);
+            self.type_infos.insert(
+                class_name.to_owned(),
+                TypeInfo {
+                    type_id,
+                    is_service,
+                    object_ids: Vec::new(),
+                    properties,
+                },
+            );
         }
 
         self.type_infos.get_mut(class_name).unwrap()
@@ -224,17 +251,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             chunk.write_u32::<LittleEndian>(type_info.type_id)?;
             chunk.write_string(type_name)?;
 
-            // TODO: Use reflection information (pulled from type_info?) to
-            // decide if this type is a service or not.
-            let is_service = false;
-
             // It's possible that this integer will be expanded in the future to
             // be a general version/format field instead of just service vs
             // non-service.
             //
             // At that point, we'll start thinking about it like it's a u8
             // instead of a bool.
-            chunk.write_bool(is_service)?;
+            chunk.write_bool(type_info.is_service)?;
 
             chunk.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
 
@@ -245,7 +268,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     .map(|id| self.id_to_referent[id]),
             )?;
 
-            if is_service {
+            if type_info.is_service {
                 // It's unclear what this byte is used for, but when the type is
                 // a service (like Workspace, Lighting, etc), we need to write
                 // the value `1` for every instance in our file of that type.
@@ -382,15 +405,5 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         end.dump(&mut self.output)?;
 
         Ok(())
-    }
-}
-
-impl TypeInfo {
-    fn new(type_id: u32) -> Self {
-        TypeInfo {
-            type_id,
-            object_ids: Vec::new(),
-            properties: BTreeMap::new(),
-        }
     }
 }
