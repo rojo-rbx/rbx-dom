@@ -176,6 +176,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     }
 
     fn write_header(&mut self) -> io::Result<()> {
+        log::trace!("Writing header");
+
         self.write_all(FILE_MAGIC_HEADER)?;
         self.write_all(FILE_SIGNATURE)?;
         self.write_u16::<LittleEndian>(FILE_VERSION)?;
@@ -189,6 +191,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Write out any metadata about this file, stored in a chunk named META.
     fn serialize_metadata(&mut self) -> io::Result<()> {
+        log::trace!("Writing metadata (currently no-op)");
         // TODO: There is no concept of metadata in a tree yet.
         Ok(())
     }
@@ -196,7 +199,15 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write out the declarations of all instances, stored in a series of
     /// chunks named INST.
     fn serialize_instances(&mut self) -> io::Result<()> {
+        log::trace!("Writing instance chunks");
+
         for (type_name, type_info) in &self.type_infos {
+            log::trace!(
+                "Writing chunk for {} ({} instances)",
+                type_name,
+                type_info.object_ids.len()
+            );
+
             let mut chunk = ChunkBuilder::new(b"INST", Compression::Compressed);
 
             chunk.write_u32::<LittleEndian>(type_info.type_id)?;
@@ -246,13 +257,15 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// previously defined in the INST chunks. Property data is contained in
     /// chunks named PROP.
     fn serialize_properties(&mut self) -> io::Result<()> {
-        for type_info in self.type_infos.values() {
+        log::trace!("Writing properties");
+
+        for (type_name, type_info) in &self.type_infos {
             for (prop_name, prop_info) in &type_info.properties {
                 let value_type_id = match id_from_value_type(prop_info.kind) {
                     Some(id) => id,
                     None => {
                         log::debug!(
-                            "Prop type {:?} is not supported by rbx_binary",
+                            "Prop type {:?} is not supported by rbx_binary, skipping",
                             prop_info.kind
                         );
 
@@ -260,6 +273,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         continue;
                     }
                 };
+
+                log::trace!(
+                    "Writing property {}.{} (type {:?})",
+                    type_name,
+                    prop_name,
+                    prop_info.kind
+                );
 
                 let mut chunk = ChunkBuilder::new(b"PROP", Compression::Compressed);
 
@@ -308,6 +328,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write out the hierarchical relations between instances, stored in a
     /// chunk named PRNT.
     fn serialize_parents(&mut self) -> io::Result<()> {
+        log::trace!("Writing parent relationships");
+
         let mut chunk = ChunkBuilder::new(b"PRNT", Compression::Compressed);
 
         chunk.write_u8(0)?; // PRNT version 0
@@ -342,6 +364,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// hasn't been truncated mistakenly. This chunk is named END\0, with a zero
     /// byte at the end.
     fn serialize_end(&mut self) -> io::Result<()> {
+        log::trace!("Writing file end");
+
         let mut end = ChunkBuilder::new(b"END\0", Compression::Uncompressed);
         end.write_all(FILE_FOOTER)?;
         end.dump(self)?;
