@@ -3,7 +3,7 @@ use std::{collections::HashMap, fs, path::Path};
 use rbx_dom_test::TreeViewer;
 use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
 
-use rbx_binary::encode;
+use rbx_binary::{decode, encode};
 
 #[test]
 fn just_folder() {
@@ -30,7 +30,7 @@ fn test_round_trip(test_name: &str) {
     let mut initial_tree = new_test_tree();
 
     let root_id = initial_tree.get_root_id();
-    rbx_binary::decode(&mut initial_tree, root_id, initial_contents.as_slice()).unwrap();
+    decode(&mut initial_tree, root_id, initial_contents.as_slice()).unwrap();
 
     let initial_viewed = TreeViewer::new().view_children(&initial_tree);
     insta::assert_yaml_snapshot!(test_name, initial_viewed);
@@ -43,7 +43,7 @@ fn test_round_trip(test_name: &str) {
     let mut roundtrip_tree = new_test_tree();
 
     let root_id = roundtrip_tree.get_root_id();
-    rbx_binary::decode(&mut roundtrip_tree, root_id, roundtrip_contents.as_slice()).unwrap();
+    decode(&mut roundtrip_tree, root_id, roundtrip_contents.as_slice()).unwrap();
 
     let roundtrip_viewed = TreeViewer::new().view_children(&roundtrip_tree);
     insta::assert_yaml_snapshot!(test_name, roundtrip_viewed);
