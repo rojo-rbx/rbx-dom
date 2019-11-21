@@ -142,6 +142,13 @@ fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
     let len = source.read_u32::<LittleEndian>()?;
     let reserved = source.read_u32::<LittleEndian>()?;
 
+    if reserved != 0 {
+        panic!(
+            "Chunk reserved space was not zero, it was {}. This chunk may be malformed.",
+            reserved
+        );
+    }
+
     Ok(ChunkHeader {
         name,
         compressed_len,
