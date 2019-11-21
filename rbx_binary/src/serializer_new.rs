@@ -196,6 +196,34 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write out the declarations of all instances, stored in a series of
     /// chunks named INST.
     fn serialize_instances(&mut self) -> io::Result<()> {
+        for (type_name, type_info) in &self.type_infos {
+            for object_id in &type_info.object_ids {
+                let mut chunk = ChunkBuilder::new(b"INST", Compression::Compressed);
+
+                chunk.write_u32::<LittleEndian>(type_info.type_id)?;
+                chunk.write_string(type_name)?;
+
+                // TODO: Write different byte for types that are services.
+                chunk.write_u8(0)?;
+
+                chunk.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
+
+                // TODO: Write referent array
+
+                // TODO: If the type is a service, write one byte per referent
+                // that is the value '1'
+
+                chunk.dump(&mut self.output)?;
+            }
+        }
+
+        Ok(())
+    }
+
+    /// Write out batch declarations of property values for the instances
+    /// previously defined in the INST chunks. Property data is contained in
+    /// chunks named PROP.
+    fn serialize_properties(&mut self) -> io::Result<()> {
         for type_info in self.type_infos.values() {
             for (prop_name, prop_info) in &type_info.properties {
                 let value_type_id = match id_from_value_type(prop_info.kind) {
@@ -252,13 +280,6 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             }
         }
 
-        Ok(())
-    }
-
-    /// Write out batch declarations of property values for the instances
-    /// previously defined in the INST chunks. Property data is contained in
-    /// chunks named PROP.
-    fn serialize_properties(&mut self) -> io::Result<()> {
         Ok(())
     }
 
