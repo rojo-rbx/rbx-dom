@@ -75,30 +75,32 @@ pub struct Chunk {
     pub data: Vec<u8>,
 }
 
-pub fn decode_chunk<R: Read>(source: &mut R) -> io::Result<Chunk> {
-    let header = decode_chunk_header(source)?;
+impl Chunk {
+    pub fn decode<R: Read>(mut source: R) -> io::Result<Chunk> {
+        let header = decode_chunk_header(&mut source)?;
 
-    log::trace!("{}", header);
+        log::trace!("{}", header);
 
-    let data = if header.compressed_len == 0 {
-        let mut data = Vec::with_capacity(header.len as usize);
-        source.take(header.len as u64).read_to_end(&mut data)?;
-        data
-    } else {
-        let mut compressed_data = Vec::with_capacity(header.compressed_len as usize);
-        source
-            .take(header.compressed_len as u64)
-            .read_to_end(&mut compressed_data)?;
+        let data = if header.compressed_len == 0 {
+            let mut data = Vec::with_capacity(header.len as usize);
+            source.take(header.len as u64).read_to_end(&mut data)?;
+            data
+        } else {
+            let mut compressed_data = Vec::with_capacity(header.compressed_len as usize);
+            source
+                .take(header.compressed_len as u64)
+                .read_to_end(&mut compressed_data)?;
 
-        lz4::block::decompress(&compressed_data, Some(header.len as i32))?
-    };
+            lz4::block::decompress(&compressed_data, Some(header.len as i32))?
+        };
 
-    assert_eq!(data.len(), header.len as usize);
+        assert_eq!(data.len(), header.len as usize);
 
-    Ok(Chunk {
-        name: header.name,
-        data,
-    })
+        Ok(Chunk {
+            name: header.name,
+            data,
+        })
+    }
 }
 
 #[derive(Debug)]

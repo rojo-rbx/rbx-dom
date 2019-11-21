@@ -9,7 +9,7 @@ use log::trace;
 use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue};
 
 use crate::{
-    chunk::decode_chunk,
+    chunk::Chunk,
     core::{BinaryType, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
     types::{decode_referent_array, BoolType, StringType},
 };
@@ -47,7 +47,7 @@ pub fn decode<R: Read>(
     let mut instance_parents: HashMap<i32, i32> = HashMap::new();
 
     loop {
-        let chunk = decode_chunk(&mut source)?;
+        let chunk = Chunk::decode(&mut source)?;
         let data = chunk.data.as_slice();
 
         match &chunk.name {
