@@ -1,4 +1,7 @@
-use std::io::{self, Read, Write};
+use std::{
+    io::{self, Read, Write},
+    mem,
+};
 
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use rbx_dom_weak::{RbxValue, RbxValueType};
@@ -27,6 +30,35 @@ pub trait RbxReadExt: Read {
 
     fn read_bool(&mut self) -> io::Result<bool> {
         Ok(self.read_u8()? != 0)
+    }
+
+    fn read_interleaved_i32_array(&mut self, output: &mut [i32]) -> io::Result<()> {
+        let mut buffer = vec![0; output.len() * mem::size_of::<i32>()];
+        self.read_exact(&mut buffer)?;
+
+        for i in 0..output.len() {
+            let v0 = buffer[i] as i32;
+            let v1 = buffer[i + output.len()] as i32;
+            let v2 = buffer[i + output.len() * 2] as i32;
+            let v3 = buffer[i + output.len() * 3] as i32;
+
+            output[i] = untransform_i32((v0 << 24) | (v1 << 16) | (v2 << 8) | v3);
+        }
+
+        Ok(())
+    }
+
+    fn read_referent_array(&mut self, output: &mut [i32]) -> io::Result<()> {
+        self.read_interleaved_i32_array(output)?;
+
+        let mut last = 0;
+
+        for i in 0..output.len() {
+            output[i] += last;
+            last = output[i];
+        }
+
+        Ok(())
     }
 }
 
