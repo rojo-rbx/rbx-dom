@@ -1,11 +1,12 @@
 use std::{
-    collections::HashMap,
+    collections::{HashMap, VecDeque},
     io::{self, Read},
+    rc::Rc,
     str,
 };
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree};
+use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue};
 
 use crate::{
     chunk::Chunk,
@@ -37,7 +38,10 @@ pub fn decode<R: Read>(input: R) -> io::Result<RbxTree> {
             b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
             b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
             b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
-            b"END\0" => break,
+            b"END\0" => {
+                deserializer.decode_end_chunk(&chunk.data)?;
+                break;
+            }
             _ => match str::from_utf8(&chunk.name) {
                 Ok(name) => log::info!("Unknown binary chunk name {}", name),
                 Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
@@ -63,14 +67,15 @@ struct BinaryDeserializer<R> {
     /// All of the instance types described by the file so far.
     type_infos: HashMap<u32, TypeInfo>,
 
-    /// For each instance known in this file, tracks its parent instance. A
-    /// value of -1 indicates no parent.
+    /// For each known referent in the file, tracks which referents are
+    /// considered its children.
     ///
-    /// The first entry is the referent of the subject instance, while the
-    /// second entry is the referent of its parent instance.
-    instance_parents: Vec<(i32, i32)>,
-
+    /// This map is used to construct the final tree from top to bottom. The
+    /// entries for the entry `-1`, the null referent, are treated as the
+    /// top-level instances in the file.
     children_from_ref: HashMap<i32, Vec<i32>>,
+
+    instances: HashMap<i32, Instance>,
 }
 
 /// All the information contained in the header before any chunks are read from
@@ -100,6 +105,22 @@ struct TypeInfo {
     // TODO: Put class descriptor reference for this type here?
 }
 
+struct Instance {
+    /// The file-defined referent for this instance.
+    referent: i32,
+
+    /// The type of this instance, given as a type ID defined in the file.
+    type_id: u32,
+
+    /// Referents for the children of this instance.
+    children: Vec<i32>,
+
+    /// The properties found for this instance so far from the PROP chunk. Using
+    /// a Vec preserves order in the unlikely event of a collision and is also
+    /// compact storage since we don't need to look up properties by key.
+    properties: Vec<(Rc<String>, RbxValue)>,
+}
+
 impl<R: Read> BinaryDeserializer<R> {
     fn new(mut input: R) -> io::Result<Self> {
         let tree = make_temp_output_tree();
@@ -107,16 +128,16 @@ impl<R: Read> BinaryDeserializer<R> {
         let header = FileHeader::decode(&mut input)?;
 
         let type_infos = HashMap::with_capacity(header.num_types as usize);
-        let instance_parents = Vec::with_capacity(header.num_instances as usize);
         let children_from_ref = HashMap::with_capacity(header.num_instances as usize);
+        let instances = HashMap::with_capacity(header.num_instances as usize);
 
         Ok(BinaryDeserializer {
             input,
             tree,
             metadata: HashMap::new(),
             type_infos,
-            instance_parents,
             children_from_ref,
+            instances,
         })
     }
 
@@ -182,7 +203,7 @@ impl<R: Read> BinaryDeserializer<R> {
         );
 
         match data_type {
-            0x01 => { /* String, ProtectedString, Content, BinaryString */ }
+            0x01 => { /* String, ProtectedString, Content, BinaryString, SharedString */ }
             0x02 => { /* Bool */ }
             0x03 => { /* i32 */ }
             0x04 => { /* f32 */ }
@@ -237,7 +258,10 @@ impl<R: Read> BinaryDeserializer<R> {
         chunk.read_referent_array(&mut parents)?;
 
         for (id, parent_id) in subjects.iter().copied().zip(parents.iter().copied()) {
-            self.instance_parents.push((id, parent_id));
+            self.children_from_ref
+                .entry(id)
+                .or_default()
+                .push(parent_id);
         }
 
         Ok(())
@@ -251,6 +275,48 @@ impl<R: Read> BinaryDeserializer<R> {
         // truncated.
 
         Ok(())
+    }
+
+    /// Combines together all the decoded information to build and emplace
+    /// instances in our tree.
+    fn construct_tree(&mut self) {
+        // Track all the instances we need to construct. Order of construction
+        // is important to preserve for both determinism and sometimes
+        // functionality of models we handle.
+        let mut instances_to_construct = VecDeque::new();
+
+        // Any instance with a parent of -1 will be at the top level of the
+        // tree. Because of the way rbx_dom_weak generally works, we need to
+        // start at the top to begin construction.
+        if let Some(root_referents) = self.children_from_ref.get(&-1) {
+            let root_id = self.tree.get_root_id();
+
+            for &referent in root_referents {
+                instances_to_construct.push_back((referent, root_id));
+            }
+        } else {
+            log::info!("File defined no root referents. It might be malformed.");
+        }
+
+        while let Some((referent, parent_id)) = instances_to_construct.pop_front() {
+            let id = self.construct_and_insert_instance(referent, parent_id);
+
+            if let Some(children) = self.children_from_ref.get(&referent) {
+                for &referent in children {
+                    instances_to_construct.push_back((referent, id));
+                }
+            }
+        }
+    }
+
+    fn construct_and_insert_instance(&mut self, referent: i32, parent_id: RbxId) -> RbxId {
+        let properties = RbxInstanceProperties {
+            name: "TEMP".to_string(),
+            class_name: "TEMP".to_string(),
+            properties: HashMap::new(),
+        };
+
+        self.tree.insert_instance(properties, parent_id)
     }
 
     fn finish(self) -> RbxTree {
