@@ -4,7 +4,7 @@ use std::{
 };
 
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
-use rbx_dom_weak::{RbxValue, RbxValueType};
+use rbx_dom_weak::RbxValue;
 
 pub static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
 pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
@@ -108,16 +108,6 @@ pub trait RbxWriteExt: Write {
 }
 
 impl<W> RbxWriteExt for W where W: Write {}
-
-pub fn id_from_value_type(value_type: RbxValueType) -> Option<u8> {
-    use RbxValueType::*;
-
-    match value_type {
-        String => Some(0x1),
-        Bool => Some(0x2),
-        _ => None,
-    }
-}
 
 /// Applies the integer transformation generally used in property data in the
 /// Roblox binary format.

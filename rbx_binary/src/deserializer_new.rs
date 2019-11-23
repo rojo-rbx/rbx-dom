@@ -1,5 +1,6 @@
 use std::{
     collections::{HashMap, VecDeque},
+    convert::TryInto,
     io::{self, Read},
     rc::Rc,
     str,
@@ -11,6 +12,7 @@ use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue};
 use crate::{
     chunk::Chunk,
     core::{RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    types_new::Type,
 };
 
 /// A compatibility shim to expose the new deserializer with the API of the old
@@ -188,13 +190,13 @@ impl<R: Read> BinaryDeserializer<R> {
     fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> io::Result<()> {
         let type_id = chunk.read_u32::<LittleEndian>()?;
         let prop_name = chunk.read_string()?;
-        let data_type = chunk.read_u8()?;
+        let data_type: Type = chunk.read_u8()?.try_into().unwrap();
 
         // TODO: Gracefully handle error instead of panic
         let type_info = &self.type_infos[&type_id];
 
         log::trace!(
-            "PROP chunk ({}.{}, (instance type {}) prop type {:x?}",
+            "PROP chunk ({}.{}, instance type {}, prop type {}",
             type_info.type_name,
             prop_name,
             type_info.type_id,
@@ -202,38 +204,31 @@ impl<R: Read> BinaryDeserializer<R> {
         );
 
         match data_type {
-            0x01 => { /* String, ProtectedString, Content, BinaryString, SharedString */ }
-            0x02 => { /* Bool */ }
-            0x03 => { /* i32 */ }
-            0x04 => { /* f32 */ }
-            0x05 => { /* f64 */ }
-            0x06 => { /* UDim */ }
-            0x07 => { /* UDim2 */ }
-            0x08 => { /* Ray */ }
-            0x09 => { /* Faces */ }
-            0x0A => { /* Axis */ }
-            0x0B => { /* BrickColor */ }
-            0x0C => { /* Color3 */ }
-            0x0D => { /* Vector2 */ }
-            0x0E => { /* Vector3 */ }
-            0x10 => { /* CFrame */ }
-            0x12 => { /* Enum */ }
-            0x13 => { /* Referent */ }
-            0x14 => { /* Vector3int16 */ }
-            0x15 => { /* NumberSequence */ }
-            0x16 => { /* ColorSequence */ }
-            0x17 => { /* NumberRange */ }
-            0x18 => { /* Rect2D */ }
-            0x19 => { /* PhysicalProperties */ }
-            0x1A => { /* Color3uint8 */ }
-            0x1B => { /* Int64 */ }
-            _ => {
-                log::info!(
-                    "Unknown prop type {:x?} on property named {}",
-                    data_type,
-                    prop_name
-                );
-            }
+            Type::String => {}
+            Type::Bool => {}
+            Type::Int32 => {}
+            Type::Float32 => {}
+            Type::Float64 => {}
+            Type::UDim => {}
+            Type::UDim2 => {}
+            Type::Ray => {}
+            Type::Faces => {}
+            Type::Axis => {}
+            Type::BrickColor => {}
+            Type::Color3 => {}
+            Type::Vector2 => {}
+            Type::Vector3 => {}
+            Type::CFrame => {}
+            Type::Enum => {}
+            Type::Ref => {}
+            Type::Vector3int16 => {}
+            Type::NumberSequence => {}
+            Type::ColorSequence => {}
+            Type::NumberRange => {}
+            Type::Rect => {}
+            Type::PhysicalProperties => {}
+            Type::Color3uint8 => {}
+            Type::Int64 => {}
         }
 
         Ok(())

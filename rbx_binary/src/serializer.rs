@@ -10,8 +10,8 @@ use rbx_dom_weak::{RbxId, RbxTree, RbxValue, RbxValueType};
 
 use crate::{
     chunk::{ChunkBuilder, Compression},
-    core::{id_from_value_type, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
-    types_new::{BinaryType, BoolType, StringType},
+    core::{RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    types_new::{BinaryType, BoolType, StringType, Type},
 };
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
@@ -295,7 +295,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
         for (type_name, type_info) in &self.type_infos {
             for (prop_name, prop_info) in &type_info.properties {
-                let value_type_id = match id_from_value_type(prop_info.kind) {
+                let value_type = match Type::from_rbx_type(prop_info.kind) {
                     Some(id) => id,
                     None => {
                         log::debug!(
@@ -319,7 +319,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                 chunk.write_u32::<LittleEndian>(type_info.type_id)?;
                 chunk.write_string(&prop_name)?;
-                chunk.write_u8(value_type_id)?;
+                chunk.write_u8(value_type as u8)?;
 
                 let tree = &self.tree;
                 let values = type_info.object_ids.iter().map(|id| {
