@@ -113,9 +113,6 @@ struct TypeInfo {
 /// instance. Incrementally built up by the deserializer as we decode different
 /// chunks.
 struct Instance {
-    /// The file-defined referent for this instance.
-    referent: i32,
-
     /// The type of this instance, given as a type ID defined in the file.
     type_id: u32,
 
@@ -224,10 +221,18 @@ impl<R: Read> BinaryDeserializer<R> {
                         return Ok(());
                     }
                 };
+
+                log::trace!(
+                    "Known prop, canonical name {} and type {:?}",
+                    canonical_name,
+                    canonical_type
+                );
             }
             None => {
                 canonical_name = prop_name;
                 canonical_type = data_type.to_default_rbx_type();
+
+                log::trace!("Unknown prop, using type {:?}", canonical_type);
             }
         }
 
@@ -247,7 +252,19 @@ impl<R: Read> BinaryDeserializer<R> {
                 RbxValueType::BinaryString => {}
                 _ => panic!("type mismatch"),
             },
-            Type::Bool => {}
+            Type::Bool => match canonical_type {
+                RbxValueType::Bool => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_bool()?;
+                        let rbx_value = RbxValue::Bool { value };
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                _ => panic!("type mismatch"),
+            },
             Type::Int32 => {}
             Type::Float32 => {}
             Type::Float64 => {}

@@ -1,12 +1,12 @@
 use std::{
     convert::TryFrom,
     fmt,
-    io::{self, Read, Write},
+    io::{self, Write},
 };
 
 use rbx_dom_weak::{RbxValue, RbxValueType};
 
-use crate::core::{RbxReadExt, RbxWriteExt};
+use crate::core::RbxWriteExt;
 
 pub trait BinaryType {
     fn write_values<W: Write, I, T>(output: W, values: I) -> io::Result<()>
@@ -16,45 +16,6 @@ pub trait BinaryType {
 }
 
 pub struct StringType;
-
-impl StringType {
-    fn read_values<R: Read>(
-        mut input: R,
-        count: usize,
-    ) -> io::Result<impl Iterator<Item = io::Result<Vec<u8>>>> {
-        Ok(StringTypeIter {
-            input,
-            remaining: count,
-        })
-    }
-}
-
-struct StringTypeIter<R> {
-    input: R,
-    remaining: usize,
-}
-
-impl<R: Read> Iterator for StringTypeIter<R> {
-    type Item = io::Result<Vec<u8>>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.remaining == 0 {
-            return None;
-        }
-
-        match self.input.read_string() {
-            Ok(value) => {
-                self.remaining -= 1;
-                Some(Ok(value.into_bytes()))
-            }
-            Err(err) => Some(Err(err)),
-        }
-    }
-
-    fn size_hint(&self) -> (usize, Option<usize>) {
-        (self.remaining, Some(self.remaining))
-    }
-}
 
 impl BinaryType for StringType {
     fn write_values<W: Write, I, T>(mut output: W, values: I) -> io::Result<()>
