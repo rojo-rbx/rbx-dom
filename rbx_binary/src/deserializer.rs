@@ -10,8 +10,8 @@ use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue};
 
 use crate::{
     chunk::Chunk,
-    core::{BinaryType, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
-    types::{decode_referent_array, BoolType, StringType},
+    core::{RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    types::{BinaryType, BoolType, StringType},
 };
 
 #[derive(Debug)]
@@ -216,7 +216,7 @@ fn decode_inst_chunk<R: Read>(
     let number_instances = source.read_u32::<LittleEndian>()?;
 
     let mut referents = vec![0; number_instances as usize];
-    decode_referent_array(&mut source, &mut referents)?;
+    source.read_referent_array(&mut referents)?;
 
     trace!(
         "{} instances of type ID {} ({})",
@@ -339,8 +339,8 @@ fn decode_prnt_chunk<R: Read>(
     let mut instance_ids = vec![0; number_objects as usize];
     let mut parent_ids = vec![0; number_objects as usize];
 
-    decode_referent_array(&mut source, &mut instance_ids)?;
-    decode_referent_array(&mut source, &mut parent_ids)?;
+    source.read_referent_array(&mut instance_ids)?;
+    source.read_referent_array(&mut parent_ids)?;
 
     for (id, parent_id) in instance_ids.iter().zip(&parent_ids) {
         instance_parents.insert(*id, *parent_id);
