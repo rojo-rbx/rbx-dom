@@ -67,15 +67,12 @@ struct BinaryDeserializer<R> {
     /// All of the instance types described by the file so far.
     type_infos: HashMap<u32, TypeInfo>,
 
-    /// For each known referent in the file, tracks which referents are
-    /// considered its children.
-    ///
-    /// This map is used to construct the final tree from top to bottom. The
-    /// entries for the entry `-1`, the null referent, are treated as the
-    /// top-level instances in the file.
-    children_from_ref: HashMap<i32, Vec<i32>>,
+    /// All of the instances known by the deserializer.
+    instances_by_ref: HashMap<i32, Instance>,
 
-    instances: HashMap<i32, Instance>,
+    /// Referents for all of the instances with no parent, in order they appear
+    /// in the file.
+    root_instance_refs: Vec<i32>,
 }
 
 /// All the information contained in the header before any chunks are read from
@@ -105,6 +102,9 @@ struct TypeInfo {
     // TODO: Put class descriptor reference for this type here?
 }
 
+/// Contains all the information we need to gather in order to construct an
+/// instance. Incrementally built up by the deserializer as we decode different
+/// chunks.
 struct Instance {
     /// The file-defined referent for this instance.
     referent: i32,
@@ -128,16 +128,15 @@ impl<R: Read> BinaryDeserializer<R> {
         let header = FileHeader::decode(&mut input)?;
 
         let type_infos = HashMap::with_capacity(header.num_types as usize);
-        let children_from_ref = HashMap::with_capacity(header.num_instances as usize);
-        let instances = HashMap::with_capacity(header.num_instances as usize);
+        let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
 
         Ok(BinaryDeserializer {
             input,
             tree,
             metadata: HashMap::new(),
             type_infos,
-            children_from_ref,
-            instances,
+            instances_by_ref,
+            root_instance_refs: Vec::new(),
         })
     }
 
@@ -258,10 +257,12 @@ impl<R: Read> BinaryDeserializer<R> {
         chunk.read_referent_array(&mut parents)?;
 
         for (id, parent_id) in subjects.iter().copied().zip(parents.iter().copied()) {
-            self.children_from_ref
-                .entry(id)
-                .or_default()
-                .push(parent_id);
+            if parent_id == -1 {
+                self.root_instance_refs.push(id);
+            } else {
+                let instance = self.instances_by_ref.get_mut(&parent_id).unwrap();
+                instance.children.push(id);
+            }
         }
 
         Ok(())
@@ -287,22 +288,17 @@ impl<R: Read> BinaryDeserializer<R> {
 
         // Any instance with a parent of -1 will be at the top level of the
         // tree. Because of the way rbx_dom_weak generally works, we need to
-        // start at the top to begin construction.
-        if let Some(root_referents) = self.children_from_ref.get(&-1) {
-            let root_id = self.tree.get_root_id();
-
-            for &referent in root_referents {
-                instances_to_construct.push_back((referent, root_id));
-            }
-        } else {
-            log::info!("File defined no root referents. It might be malformed.");
+        // start at the top of the tree to begin construction.
+        let root_id = self.tree.get_root_id();
+        for &referent in &self.root_instance_refs {
+            instances_to_construct.push_back((referent, root_id));
         }
 
         while let Some((referent, parent_id)) = instances_to_construct.pop_front() {
             let id = self.construct_and_insert_instance(referent, parent_id);
 
-            if let Some(children) = self.children_from_ref.get(&referent) {
-                for &referent in children {
+            if let Some(instance) = self.instances_by_ref.get(&referent) {
+                for &referent in &instance.children {
                     instances_to_construct.push_back((referent, id));
                 }
             }
@@ -310,10 +306,39 @@ impl<R: Read> BinaryDeserializer<R> {
     }
 
     fn construct_and_insert_instance(&mut self, referent: i32, parent_id: RbxId) -> RbxId {
+        let instance = self.instances_by_ref.get_mut(&referent).unwrap();
+        let type_info = &self.type_infos[&instance.type_id];
+
+        let class_name = type_info.type_name.clone();
+        let mut name = None;
+        let mut properties = HashMap::new();
+
+        for (prop_key, prop_value) in instance.properties.drain(..) {
+            if prop_key.as_str() == "Name" {
+                if let RbxValue::String { value } = prop_value {
+                    name = Some(value);
+                } else {
+                    panic!("Name property was defined as a non-string type.");
+                }
+            } else {
+                // If this is the last instance that needs this prop, we can
+                // take ownership of the refcounted property name and
+                // otherwise clone it.
+                let key = Rc::try_unwrap(prop_key).unwrap_or_else(|prop_key| (*prop_key).clone());
+
+                properties.insert(key, prop_value);
+            }
+        }
+
+        // TODO: Look up default instance name from class descriptor and then
+        // fall back to ClassName if the Name property or whole class descriptor
+        // is unknown.
+        let name = name.unwrap_or_else(|| class_name.clone());
+
         let properties = RbxInstanceProperties {
-            name: "TEMP".to_string(),
-            class_name: "TEMP".to_string(),
-            properties: HashMap::new(),
+            class_name,
+            name,
+            properties,
         };
 
         self.tree.insert_instance(properties, parent_id)
