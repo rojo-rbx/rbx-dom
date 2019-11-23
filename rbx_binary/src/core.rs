@@ -119,6 +119,13 @@ pub fn find_canonical_property_descriptor(
     find_property_descriptors(class_name, property_name).map(|(canonical, _serialized)| canonical)
 }
 
+pub fn find_serialized_property_descriptor(
+    class_name: &str,
+    property_name: &str,
+) -> Option<&'static RbxPropertyDescriptor> {
+    find_property_descriptors(class_name, property_name).map(|(_canonical, serialized)| serialized)
+}
+
 /// Find both the canonical and serialized property descriptors for a given
 /// class and property name pair. These might be the same descriptor!
 fn find_property_descriptors(

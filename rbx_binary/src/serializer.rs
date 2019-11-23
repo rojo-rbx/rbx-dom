@@ -7,10 +7,14 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{RbxId, RbxTree, RbxValue, RbxValueType};
+use rbx_reflection::RbxPropertyTypeDescriptor;
 
 use crate::{
     chunk::{ChunkBuilder, Compression},
-    core::{RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    core::{
+        find_serialized_property_descriptor, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
+        FILE_VERSION,
+    },
     types::{BinaryType, BoolType, StringType, Type},
 };
 
@@ -94,7 +98,7 @@ struct TypeInfo {
 
 #[derive(Debug)]
 struct PropInfo {
-    kind: RbxValueType,
+    prop_type: Type,
     // TODO: Should we store the default value for this descriptor here?
 }
 
@@ -134,24 +138,39 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         type_info.object_ids.push(id);
 
         for (prop_name, prop_value) in &instance.properties {
-            let prop_type = prop_value.get_type();
+            let ser_name;
+            let ser_rbx_type;
 
-            if let Some(prop_info) = type_info.properties.get(prop_name) {
-                // TODO: We should be able to check if this value can be
-                // converted into the correct type instead.
-                assert_eq!(prop_type, prop_info.kind);
-            } else {
-                // TODO: Add configurability for using reflection information
-                // and how rbx_binary should fall back when encountering unknown
-                // properties.
-                //
-                // Currently we just use the type of the first copy of this
-                // property that we find in the tree.
+            match find_serialized_property_descriptor(&instance.class_name, prop_name) {
+                Some(descriptor) => {
+                    ser_name = descriptor.name();
+                    ser_rbx_type = match descriptor.property_type() {
+                        RbxPropertyTypeDescriptor::Data(ty) => *ty,
+                        RbxPropertyTypeDescriptor::Enum(_) => RbxValueType::Enum,
+                        RbxPropertyTypeDescriptor::UnimplementedType(name) => {
+                            log::info!("Unimplemented data type {}", name);
 
-                type_info
-                    .properties
-                    .insert(prop_name.to_owned(), PropInfo { kind: prop_type });
-            };
+                            // TODO: Configurable handling of unknown types?
+                            return;
+                        }
+                    };
+                }
+                None => {
+                    ser_name = prop_name.as_str();
+                    ser_rbx_type = prop_value.get_type();
+                }
+            }
+
+            let ser_type = Type::from_rbx_type(ser_rbx_type).unwrap();
+
+            if !type_info.properties.contains_key(ser_name) {
+                type_info.properties.insert(
+                    ser_name.to_owned(),
+                    PropInfo {
+                        prop_type: ser_type,
+                    },
+                );
+            }
         }
     }
 
@@ -180,7 +199,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             properties.insert(
                 "Name".to_owned(),
                 PropInfo {
-                    kind: RbxValueType::String,
+                    prop_type: Type::String,
                 },
             );
 
@@ -295,31 +314,18 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
         for (type_name, type_info) in &self.type_infos {
             for (prop_name, prop_info) in &type_info.properties {
-                let value_type = match Type::from_rbx_type(prop_info.kind) {
-                    Some(id) => id,
-                    None => {
-                        log::debug!(
-                            "Prop type {:?} is not supported by rbx_binary, skipping",
-                            prop_info.kind
-                        );
-
-                        // TODO: Make this an error, configurably?
-                        continue;
-                    }
-                };
-
                 log::trace!(
                     "Writing property {}.{} (type {:?})",
                     type_name,
                     prop_name,
-                    prop_info.kind
+                    prop_info.prop_type
                 );
 
                 let mut chunk = ChunkBuilder::new(b"PROP", Compression::Compressed);
 
                 chunk.write_u32::<LittleEndian>(type_info.type_id)?;
                 chunk.write_string(&prop_name)?;
-                chunk.write_u8(value_type as u8)?;
+                chunk.write_u8(prop_info.prop_type as u8)?;
 
                 let tree = &self.tree;
                 let values = type_info.object_ids.iter().map(|id| {
@@ -339,9 +345,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     }
                 });
 
-                match prop_info.kind {
-                    RbxValueType::String => StringType::write_values(&mut chunk, values)?,
-                    RbxValueType::Bool => BoolType::write_values(&mut chunk, values)?,
+                match prop_info.prop_type {
+                    Type::String => StringType::write_values(&mut chunk, values)?,
+                    Type::Bool => BoolType::write_values(&mut chunk, values)?,
                     _ => {
                         // This should be unreachable because we assert that we
                         // have a known binary format type ID above. We might
