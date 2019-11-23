@@ -177,6 +177,17 @@ impl<R: Read> BinaryDeserializer<R> {
 
         // TODO: Check object_format and check for service markers if it's 1?
 
+        for &referent in &referents {
+            self.instances_by_ref.insert(
+                referent,
+                Instance {
+                    type_id,
+                    children: Vec::new(),
+                    properties: Vec::new(),
+                },
+            );
+        }
+
         self.type_infos.insert(
             type_id,
             TypeInfo {
