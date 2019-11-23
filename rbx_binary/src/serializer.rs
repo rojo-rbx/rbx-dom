@@ -11,7 +11,7 @@ use rbx_dom_weak::{RbxId, RbxTree, RbxValue, RbxValueType};
 use crate::{
     chunk::{ChunkBuilder, Compression},
     core::{RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
-    types_new::{BinaryType, BoolType, StringType, Type},
+    types::{BinaryType, BoolType, StringType, Type},
 };
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
