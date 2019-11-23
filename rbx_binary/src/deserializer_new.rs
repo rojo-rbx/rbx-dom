@@ -2,16 +2,19 @@ use std::{
     collections::{HashMap, VecDeque},
     convert::TryInto,
     io::{self, Read},
-    rc::Rc,
     str,
 };
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue};
+use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue, RbxValueType};
+use rbx_reflection::RbxPropertyTypeDescriptor;
 
 use crate::{
     chunk::Chunk,
-    core::{RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
+    core::{
+        find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
+        FILE_VERSION,
+    },
     types_new::Type,
 };
 
@@ -50,6 +53,8 @@ pub fn decode<R: Read>(input: R) -> io::Result<RbxTree> {
             },
         }
     }
+
+    deserializer.construct_tree();
 
     Ok(deserializer.finish())
 }
@@ -120,7 +125,7 @@ struct Instance {
     /// The properties found for this instance so far from the PROP chunk. Using
     /// a Vec preserves order in the unlikely event of a collision and is also
     /// compact storage since we don't need to look up properties by key.
-    properties: Vec<(Rc<String>, RbxValue)>,
+    properties: Vec<(String, RbxValue)>,
 }
 
 impl<R: Read> BinaryDeserializer<R> {
@@ -203,8 +208,45 @@ impl<R: Read> BinaryDeserializer<R> {
             type_id
         );
 
+        let canonical_name;
+        let canonical_type;
+
+        match find_canonical_property_descriptor(&type_info.type_name, &prop_name) {
+            Some(descriptor) => {
+                canonical_name = descriptor.name().to_owned();
+                canonical_type = match descriptor.property_type() {
+                    RbxPropertyTypeDescriptor::Data(ty) => *ty,
+                    RbxPropertyTypeDescriptor::Enum(_) => RbxValueType::Enum,
+                    RbxPropertyTypeDescriptor::UnimplementedType(name) => {
+                        log::info!("Unimplemented data type {}", name);
+
+                        // TODO: Configurable handling of unknown types?
+                        return Ok(());
+                    }
+                };
+            }
+            None => {
+                canonical_name = prop_name;
+                canonical_type = data_type.to_default_rbx_type();
+            }
+        }
+
         match data_type {
-            Type::String => {}
+            Type::String => match canonical_type {
+                RbxValueType::String => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_string()?;
+                        let rbx_value = RbxValue::String { value };
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                RbxValueType::Content => {}
+                RbxValueType::BinaryString => {}
+                _ => panic!("type mismatch"),
+            },
             Type::Bool => {}
             Type::Int32 => {}
             Type::Float32 => {}
@@ -212,8 +254,8 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::UDim => {}
             Type::UDim2 => {}
             Type::Ray => {}
-            Type::Faces => {}
-            Type::Axis => {}
+            // Type::Faces => {}
+            // Type::Axis => {}
             Type::BrickColor => {}
             Type::Color3 => {}
             Type::Vector2 => {}
@@ -276,6 +318,8 @@ impl<R: Read> BinaryDeserializer<R> {
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     fn construct_tree(&mut self) {
+        log::trace!("Constructing tree from deserialized data");
+
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
         // functionality of models we handle.
@@ -316,12 +360,7 @@ impl<R: Read> BinaryDeserializer<R> {
                     panic!("Name property was defined as a non-string type.");
                 }
             } else {
-                // If this is the last instance that needs this prop, we can
-                // take ownership of the refcounted property name and
-                // otherwise clone it.
-                let key = Rc::try_unwrap(prop_key).unwrap_or_else(|prop_key| (*prop_key).clone());
-
-                properties.insert(key, prop_value);
+                properties.insert(prop_key, prop_value);
             }
         }
 

@@ -111,8 +111,10 @@ pub enum Type {
     UDim = 0x06,
     UDim2 = 0x07,
     Ray = 0x08,
-    Faces = 0x09,
-    Axis = 0x0A,
+
+    // Unsupported types in rbx_dom_weak
+    // Faces = 0x09,
+    // Axis = 0x0A,
     BrickColor = 0x0B,
     Color3 = 0x0C,
     Vector2 = 0x0D,
@@ -168,6 +170,40 @@ impl Type {
             _ => return None,
         })
     }
+
+    pub fn to_default_rbx_type(&self) -> RbxValueType {
+        match self {
+            // Since many buffers aren't going to be valid UTF-8, it's safer to
+            // pick BinaryString for unknown property types instead of String.
+            Type::String => RbxValueType::BinaryString,
+            Type::Bool => RbxValueType::Bool,
+            Type::Int32 => RbxValueType::Int32,
+            Type::Float32 => RbxValueType::Float32,
+            Type::Float64 => RbxValueType::Float64,
+            Type::UDim => RbxValueType::UDim,
+            Type::UDim2 => RbxValueType::UDim2,
+            Type::Ray => RbxValueType::Ray,
+
+            // Unimplemented types
+            // Type::Faces => RbxValueType::Faces,
+            // Type::Axis => RbxValueType::Axis,
+            Type::BrickColor => RbxValueType::BrickColor,
+            Type::Color3 => RbxValueType::Color3,
+            Type::Vector2 => RbxValueType::Vector2,
+            Type::Vector3 => RbxValueType::Vector3,
+            Type::CFrame => RbxValueType::CFrame,
+            Type::Enum => RbxValueType::Enum,
+            Type::Ref => RbxValueType::Ref,
+            Type::Vector3int16 => RbxValueType::Vector3int16,
+            Type::NumberSequence => RbxValueType::NumberSequence,
+            Type::ColorSequence => RbxValueType::ColorSequence,
+            Type::NumberRange => RbxValueType::NumberRange,
+            Type::Rect => RbxValueType::Rect,
+            Type::PhysicalProperties => RbxValueType::PhysicalProperties,
+            Type::Color3uint8 => RbxValueType::Color3uint8,
+            Type::Int64 => RbxValueType::Int64,
+        }
+    }
 }
 
 impl TryFrom<u8> for Type {
@@ -185,8 +221,10 @@ impl TryFrom<u8> for Type {
             0x06 => UDim,
             0x07 => UDim2,
             0x08 => Ray,
-            0x09 => Faces,
-            0x0A => Axis,
+
+            // Unsupported:
+            // 0x09 => Faces,
+            // 0x0A => Axis,
             0x0B => BrickColor,
             0x0C => Color3,
             0x0D => Vector2,
