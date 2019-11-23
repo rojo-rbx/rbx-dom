@@ -259,8 +259,26 @@ impl<R: Read> BinaryDeserializer<R> {
                             .push((canonical_name.clone(), rbx_value));
                     }
                 }
-                RbxValueType::Content => {}
-                RbxValueType::BinaryString => {}
+                RbxValueType::Content => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_string()?;
+                        let rbx_value = RbxValue::String { value };
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                RbxValueType::BinaryString => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_string()?;
+                        let rbx_value = RbxValue::String { value };
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
                 _ => panic!("type mismatch"),
             },
             Type::Bool => match canonical_type {
