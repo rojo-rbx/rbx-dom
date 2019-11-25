@@ -15,7 +15,7 @@ use crate::{
         find_serialized_property_descriptor, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
         FILE_VERSION,
     },
-    types::{BinaryType, BoolType, StringType, Type},
+    types::Type,
 };
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
@@ -346,8 +346,32 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 });
 
                 match prop_info.prop_type {
-                    Type::String => StringType::write_values(&mut chunk, values)?,
-                    Type::Bool => BoolType::write_values(&mut chunk, values)?,
+                    Type::String => {
+                        for rbx_value in values {
+                            match rbx_value.as_ref() {
+                                RbxValue::String { value } => {
+                                    chunk.write_string(&value)?;
+                                }
+                                RbxValue::Content { value } => {
+                                    chunk.write_string(&value)?;
+                                }
+                                RbxValue::BinaryString { value } => {
+                                    chunk.write_binary_string(&value)?;
+                                }
+                                _ => panic!("type mismatch"),
+                            }
+                        }
+                    }
+                    Type::Bool => {
+                        for rbx_value in values {
+                            match rbx_value.as_ref() {
+                                RbxValue::Bool { value } => {
+                                    chunk.write_bool(*value)?;
+                                }
+                                _ => panic!("type mismatch"),
+                            }
+                        }
+                    }
                     _ => {
                         // This should be unreachable because we assert that we
                         // have a known binary format type ID above. We might
