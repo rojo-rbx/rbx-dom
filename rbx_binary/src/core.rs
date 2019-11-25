@@ -11,6 +11,24 @@ pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
 pub const FILE_VERSION: u16 = 0;
 
 pub trait RbxReadExt: Read {
+    /// Read a binary "string" in the format that Roblox's model files use.
+    ///
+    /// This function is safer than read_string because Roblox generally makes
+    /// no guarantees about encoding of things it calls strings. rbx_binary
+    /// makes a semantic differentiation between strings and binary buffers,
+    /// which makes it more strict than Roblox but more likely to be correct.
+    fn read_binary_string(&mut self) -> io::Result<Vec<u8>> {
+        let length = self.read_u32::<LittleEndian>()?;
+
+        let mut value = Vec::with_capacity(length as usize);
+        self.take(length as u64).read_to_end(&mut value)?;
+
+        Ok(value)
+    }
+
+    /// Read a UTF-8 encoded string encoded how Roblox model files encode
+    /// strings. This function isn't always appropriate because Roblox's formats
+    /// generally aren't dilligent about data being valid Unicode.
     fn read_string(&mut self) -> io::Result<String> {
         let length = self.read_u32::<LittleEndian>()?;
 
@@ -57,11 +75,15 @@ pub trait RbxReadExt: Read {
 impl<R> RbxReadExt for R where R: Read {}
 
 pub trait RbxWriteExt: Write {
-    fn write_string(&mut self, value: &str) -> io::Result<()> {
+    fn write_binary_string(&mut self, value: &[u8]) -> io::Result<()> {
         self.write_u32::<LittleEndian>(value.len() as u32)?;
-        write!(self, "{}", value)?;
+        self.write_all(value)?;
 
         Ok(())
+    }
+
+    fn write_string(&mut self, value: &str) -> io::Result<()> {
+        self.write_binary_string(value.as_bytes())
     }
 
     fn write_bool(&mut self, value: bool) -> io::Result<()> {

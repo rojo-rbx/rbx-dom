@@ -1,16 +1,16 @@
 ---
 source: rbx_binary/tests/round_trip.rs
-expression: roundtrip_viewed
+expression: initial_viewed
 ---
 - id: id-0
   name: Root Folder
   class_name: Folder
   properties:
     AttributesSerialize:
-      Type: String
+      Type: BinaryString
       Value: ""
     Tags:
-      Type: String
+      Type: BinaryString
       Value: ""
   children:
     - id: id-1
@@ -18,7 +18,7 @@ expression: roundtrip_viewed
       class_name: Script
       properties:
         AttributesSerialize:
-          Type: String
+          Type: BinaryString
           Value: ""
         Disabled:
           Type: Bool
@@ -27,12 +27,12 @@ expression: roundtrip_viewed
           Type: String
           Value: ""
         ScriptGuid:
-          Type: String
-          Value: "{BC000457-E210-4FC1-818E-3BC90260942C}"
+          Type: BinaryString
+          Value: e0JDMDAwNDU3LUUyMTAtNEZDMS04MThFLTNCQzkwMjYwOTQyQ30=
         Source:
           Type: String
           Value: "print(\"Hello, world!\")\n"
         Tags:
-          Type: String
+          Type: BinaryString
           Value: ""
       children: []

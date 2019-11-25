@@ -1,16 +1,16 @@
 ---
 source: rbx_binary/tests/round_trip.rs
-expression: roundtrip_viewed
+expression: initial_viewed
 ---
 - id: id-0
   name: A
   class_name: Folder
   properties:
     AttributesSerialize:
-      Type: String
+      Type: BinaryString
       Value: ""
     Tags:
-      Type: String
+      Type: BinaryString
       Value: ""
   children:
     - id: id-1
@@ -18,10 +18,10 @@ expression: roundtrip_viewed
       class_name: Folder
       properties:
         AttributesSerialize:
-          Type: String
+          Type: BinaryString
           Value: ""
         Tags:
-          Type: String
+          Type: BinaryString
           Value: ""
       children:
         - id: id-2
@@ -32,7 +32,7 @@ expression: roundtrip_viewed
               Type: Bool
               Value: false
             AttributesSerialize:
-              Type: String
+              Type: BinaryString
               Value: ""
             CanCollide:
               Type: Bool
@@ -47,7 +47,7 @@ expression: roundtrip_viewed
               Type: Bool
               Value: false
             Tags:
-              Type: String
+              Type: BinaryString
               Value: ""
           children:
             - id: id-3
@@ -55,7 +55,7 @@ expression: roundtrip_viewed
               class_name: Weld
               properties:
                 AttributesSerialize:
-                  Type: String
+                  Type: BinaryString
                   Value: ""
                 Enabled:
                   Type: Bool
@@ -64,6 +64,6 @@ expression: roundtrip_viewed
                   Type: Bool
                   Value: false
                 Tags:
-                  Type: String
+                  Type: BinaryString
                   Value: ""
               children: []

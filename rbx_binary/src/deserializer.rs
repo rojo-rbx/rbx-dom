@@ -271,8 +271,8 @@ impl<R: Read> BinaryDeserializer<R> {
                 RbxValueType::BinaryString => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = chunk.read_string()?;
-                        let rbx_value = RbxValue::String { value };
+                        let value = chunk.read_binary_string()?;
+                        let rbx_value = RbxValue::BinaryString { value };
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));

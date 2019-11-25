@@ -1,15 +1,15 @@
 ---
 source: rbx_binary/tests/round_trip.rs
-expression: roundtrip_viewed
+expression: initial_viewed
 ---
 - id: id-0
   name: Folder
   class_name: Folder
   properties:
     AttributesSerialize:
-      Type: String
+      Type: BinaryString
       Value: ""
     Tags:
-      Type: String
+      Type: BinaryString
       Value: ""
   children: []
