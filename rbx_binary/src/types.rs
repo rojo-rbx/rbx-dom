@@ -30,6 +30,9 @@ impl BinaryType for StringType {
                 RbxValue::String { value } => {
                     output.write_string(&value)?;
                 }
+                RbxValue::Content { value } => {
+                    output.write_string(&value)?;
+                }
                 RbxValue::BinaryString { value } => {
                     output.write_binary_string(&value)?;
                 }
