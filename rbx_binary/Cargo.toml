@@ -17,3 +17,8 @@ rbx_dom_weak = { version = "1.0.0", path = "../rbx_dom_weak" }
 
 [dev-dependencies]
 env_logger = "0.6.0"
+criterion = "0.3"
+
+[[bench]]
+name = "deserializer"
+harness = false
