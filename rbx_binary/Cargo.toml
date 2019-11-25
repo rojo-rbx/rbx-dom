@@ -22,3 +22,7 @@ criterion = "0.3"
 [[bench]]
 name = "deserializer"
 harness = false
+
+[[bench]]
+name = "serializer"
+harness = false
