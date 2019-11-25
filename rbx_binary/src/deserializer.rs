@@ -106,7 +106,6 @@ struct TypeInfo {
 
     /// A list of the instances described by this file that are this type.
     referents: Vec<i32>,
-    // TODO: Put class descriptor reference for this type here?
 }
 
 /// Contains all the information we need to gather in order to construct an
@@ -412,7 +411,8 @@ impl<R: Read> BinaryDeserializer<R> {
 
         // TODO: Look up default instance name from class descriptor and then
         // fall back to ClassName if the Name property or whole class descriptor
-        // is unknown.
+        // is unknown. This isn't super important since binary files with
+        // instances that have no Name generally don't exist.
         let name = name.unwrap_or_else(|| class_name.clone());
 
         let properties = RbxInstanceProperties {
