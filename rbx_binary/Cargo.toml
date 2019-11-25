@@ -25,3 +25,7 @@ rbx_dom_test = { path = "../rbx_dom_test" }
 [[bench]]
 name = "deserializer"
 harness = false
+
+[[bench]]
+name = "serializer"
+harness = false
