@@ -12,4 +12,7 @@ mod deserializer;
 mod serializer;
 mod types;
 
-pub use crate::{deserializer::decode_compat as decode, serializer::encode};
+pub use crate::{
+    deserializer::{decode_compat as decode, Error as DecodeError},
+    serializer::{encode, Error as EncodeError},
+};

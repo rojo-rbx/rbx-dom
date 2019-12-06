@@ -8,6 +8,7 @@ use std::{
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{RbxId, RbxTree, RbxValue, RbxValueType};
 use rbx_reflection::RbxPropertyTypeDescriptor;
+use snafu::Snafu;
 
 use crate::{
     chunk::{ChunkBuilder, Compression},
@@ -20,7 +21,22 @@ use crate::{
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
-pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> io::Result<()> {
+#[derive(Debug, Snafu)]
+pub struct Error(InnerError);
+
+#[derive(Debug, Snafu)]
+enum InnerError {
+    #[snafu(display("{}", source))]
+    Io { source: io::Error },
+}
+
+impl From<io::Error> for Error {
+    fn from(source: io::Error) -> Self {
+        Error(InnerError::Io { source })
+    }
+}
+
+pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), Error> {
     let mut serializer = BinarySerializer::new(tree, output);
 
     for id in ids {

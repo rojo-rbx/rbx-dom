@@ -8,6 +8,7 @@ use std::{
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue, RbxValueType};
 use rbx_reflection::RbxPropertyTypeDescriptor;
+use snafu::Snafu;
 
 use crate::{
     chunk::Chunk,
@@ -18,9 +19,28 @@ use crate::{
     types::Type,
 };
 
+#[derive(Debug, Snafu)]
+pub struct Error(InnerError);
+
+#[derive(Debug, Snafu)]
+enum InnerError {
+    #[snafu(display("{}", source))]
+    Io { source: io::Error },
+}
+
+impl From<io::Error> for Error {
+    fn from(source: io::Error) -> Self {
+        Error(InnerError::Io { source })
+    }
+}
+
 /// A compatibility shim to expose the new deserializer with the API of the old
 /// deserializer.
-pub fn decode_compat<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -> io::Result<()> {
+pub fn decode_compat<R: Read>(
+    tree: &mut RbxTree,
+    parent_id: RbxId,
+    source: R,
+) -> Result<(), Error> {
     let mut temp_tree = decode(source)?;
     let root_instance = temp_tree.get_instance(temp_tree.get_root_id()).unwrap();
     let root_children = root_instance.get_children_ids().to_vec();
@@ -32,7 +52,7 @@ pub fn decode_compat<R: Read>(tree: &mut RbxTree, parent_id: RbxId, source: R) -
     Ok(())
 }
 
-pub fn decode<R: Read>(input: R) -> io::Result<RbxTree> {
+pub fn decode<R: Read>(input: R) -> Result<RbxTree, Error> {
     let mut deserializer = BinaryDeserializer::new(input)?;
 
     loop {
