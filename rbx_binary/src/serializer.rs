@@ -21,6 +21,7 @@ use crate::{
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
+/// Represents an error that occurred during serialization.
 #[derive(Debug, Snafu)]
 pub struct Error(Box<InnerError>);
 
@@ -42,8 +43,10 @@ impl From<io::Error> for InnerError {
     }
 }
 
-pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], output: W) -> Result<(), Error> {
-    let mut serializer = BinarySerializer::new(tree, output);
+/// Serializes instances from an `RbxTree` into a writer in Roblox's binary
+/// model format.
+pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], writer: W) -> Result<(), Error> {
+    let mut serializer = BinarySerializer::new(tree, writer);
 
     for id in ids {
         serializer.add_instance(*id);

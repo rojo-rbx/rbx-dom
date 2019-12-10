@@ -19,6 +19,7 @@ use crate::{
     types::Type,
 };
 
+/// Represents an error that occurred during deserialization.
 #[derive(Debug, Snafu)]
 pub struct Error(Box<InnerError>);
 
@@ -40,14 +41,20 @@ impl From<io::Error> for InnerError {
     }
 }
 
-/// A compatibility shim to expose the new deserializer with the API of the old
-/// deserializer.
+// A compatibility shim to expose the new deserializer with the API of the old
+// deserializer.
+//
+/// Deserializes instances from a reader containing Roblox's binary model
+/// format.
+///
+/// Top-level instances from the model will be put into the instance with the ID
+/// `parent_id`.
 pub fn decode_compat<R: Read>(
     tree: &mut RbxTree,
     parent_id: RbxId,
-    source: R,
+    reader: R,
 ) -> Result<(), Error> {
-    let mut temp_tree = decode(source)?;
+    let mut temp_tree = decode(reader)?;
     let root_instance = temp_tree.get_instance(temp_tree.get_root_id()).unwrap();
     let root_children = root_instance.get_children_ids().to_vec();
 
@@ -58,8 +65,10 @@ pub fn decode_compat<R: Read>(
     Ok(())
 }
 
-pub fn decode<R: Read>(input: R) -> Result<RbxTree, Error> {
-    let mut deserializer = BinaryDeserializer::new(input)?;
+/// Deserializes instances from a reader containing Roblox's binary model
+/// format.
+pub fn decode<R: Read>(reader: R) -> Result<RbxTree, Error> {
+    let mut deserializer = BinaryDeserializer::new(reader)?;
 
     loop {
         let chunk = Chunk::decode(&mut deserializer.input).context(Io)?;
