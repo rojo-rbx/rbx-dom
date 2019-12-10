@@ -1,11 +1,12 @@
 [package]
 name = "rbx_dom_weak"
 description = "Weakly-typed Roblox DOM implementation for Rust"
+version = "1.10.0"
 license = "MIT"
 documentation = "https://docs.rs/rbx_dom_weak"
-homepage = "https://github.com/LPGhatguy/rbx-dom"
-repository = "https://github.com/LPGhatguy/rbx-dom.git"
-version = "1.10.0"
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom.git"
+readme = "README.md"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 

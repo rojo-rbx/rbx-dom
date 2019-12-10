@@ -1,11 +1,12 @@
 [package]
 name = "rbx_binary"
 description = "Weakly-typed Roblox DOM implementation for Rust"
+version = "0.4.1"
 license = "MIT"
 documentation = "https://docs.rs/rbx_binary"
-homepage = "https://github.com/LPGhatguy/rbx-dom"
-repository = "https://github.com/LPGhatguy/rbx-dom.git"
-version = "0.4.1"
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom.git"
+readme = "README.md"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 

@@ -2,6 +2,8 @@
 [![rbx_xml on crates.io](https://img.shields.io/crates/v/rbx_xml.svg)](https://crates.io/crates/rbx_xml)
 [![rbx_xml docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_xml)
 
+More details about this crate are available on [the rbx-dom GitHub](https://github.com/rojo-rbx/rbx-dom#readme).
+
 Implementation of Roblox's XML model formats, rbxmx and rbxlx for the rbx-dom ecosystem.
 
 ## Coverage
