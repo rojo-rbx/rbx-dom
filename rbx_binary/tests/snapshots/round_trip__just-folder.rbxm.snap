@@ -1,0 +1,15 @@
+---
+source: rbx_binary/tests/round_trip.rs
+expression: initial_viewed
+---
+- id: id-0
+  name: Folder
+  class_name: Folder
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []

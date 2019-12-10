@@ -1,0 +1,38 @@
+---
+source: rbx_binary/tests/round_trip.rs
+expression: initial_viewed
+---
+- id: id-0
+  name: Root Folder
+  class_name: Folder
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children:
+    - id: id-1
+      name: Script
+      class_name: Script
+      properties:
+        AttributesSerialize:
+          Type: BinaryString
+          Value: ""
+        Disabled:
+          Type: Bool
+          Value: true
+        LinkedSource:
+          Type: String
+          Value: ""
+        ScriptGuid:
+          Type: BinaryString
+          Value: e0JDMDAwNDU3LUUyMTAtNEZDMS04MThFLTNCQzkwMjYwOTQyQ30=
+        Source:
+          Type: String
+          Value: "print(\"Hello, world!\")\n"
+        Tags:
+          Type: BinaryString
+          Value: ""
+      children: []

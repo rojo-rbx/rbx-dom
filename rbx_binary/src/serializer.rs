@@ -1,354 +1,464 @@
 use std::{
-    borrow::{Borrow, Cow},
-    collections::HashMap,
-    io::{self, Cursor, Write},
+    borrow::Cow,
+    collections::{BTreeMap, HashMap},
+    io::{self, Write},
     u32,
 };
 
 use byteorder::{LittleEndian, WriteBytesExt};
-use rbx_dom_weak::{RbxId, RbxInstance, RbxTree, RbxValue};
+use rbx_dom_weak::{RbxId, RbxTree, RbxValue, RbxValueType};
+use rbx_reflection::RbxPropertyTypeDescriptor;
+use snafu::Snafu;
 
 use crate::{
-    core::{FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
-    types::{encode_referent_array, BoolType, StringType},
+    chunk::{ChunkBuilder, ChunkCompression},
+    core::{
+        find_serialized_property_descriptor, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
+        FILE_VERSION,
+    },
+    types::Type,
 };
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
-#[derive(Debug)]
-pub enum EncodeError {
-    IoError(io::Error),
-}
+/// Represents an error that occurred during serialization.
+#[derive(Debug, Snafu)]
+pub struct Error(Box<InnerError>);
 
-impl From<io::Error> for EncodeError {
-    fn from(error: io::Error) -> EncodeError {
-        EncodeError::IoError(error)
+impl From<InnerError> for Error {
+    fn from(inner: InnerError) -> Self {
+        Self(Box::new(inner))
     }
 }
 
-/// Serialize the instances denoted by `ids` from `tree` to Roblox's binary
-/// format.
-pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], mut output: W) -> Result<(), EncodeError> {
-    let relevant_instances = gather_instances(tree, ids);
-    let type_infos = generate_type_infos(&relevant_instances);
-    let referents = generate_referents(&relevant_instances);
+#[derive(Debug, Snafu)]
+enum InnerError {
+    #[snafu(display("{}", source))]
+    Io { source: io::Error },
+}
 
-    output.write_all(FILE_MAGIC_HEADER)?;
-    output.write_all(FILE_SIGNATURE)?;
-    output.write_u16::<LittleEndian>(FILE_VERSION)?;
+impl From<io::Error> for InnerError {
+    fn from(source: io::Error) -> Self {
+        InnerError::Io { source }
+    }
+}
 
-    output.write_u32::<LittleEndian>(type_infos.len() as u32)?;
-    output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
-    output.write_u64::<LittleEndian>(0)?;
+/// Serializes instances from an `RbxTree` into a writer in Roblox's binary
+/// model format.
+pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], writer: W) -> Result<(), Error> {
+    let mut serializer = BinarySerializer::new(tree, writer);
 
-    // Type data
-    for (type_name, type_info) in &type_infos {
-        encode_chunk(
-            &mut output,
-            b"INST",
-            Compression::Compressed,
-            |mut output| {
-                output.write_u32::<LittleEndian>(type_info.id)?;
-                StringType::write_binary(&mut output, type_name)?;
-
-                // TODO: Set this flag for services?
-                output.write_u8(0)?; // Flag that no additional data is attached
-
-                output.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
-
-                let type_referents = type_info
-                    .object_ids
-                    .iter()
-                    .map(|id| *referents.get(id).unwrap());
-                encode_referent_array(&mut output, type_referents)?;
-
-                Ok(())
-            },
-        )?;
+    for id in ids {
+        serializer.add_instance(*id);
     }
 
-    // Property data
-    // TODO: This should become an iterator using encode_*_array instead of
-    // individual encode methods to properly support interleaved data.
-    for (_type_name, type_info) in &type_infos {
-        for prop_info in &type_info.properties {
-            encode_chunk(
-                &mut output,
-                b"PROP",
-                Compression::Compressed,
-                |mut output| {
-                    output.write_u32::<LittleEndian>(type_info.id)?;
-                    StringType::write_binary(&mut output, &prop_info.name)?;
-                    output.write_u8(prop_info.kind.id())?;
+    log::debug!("Type info discovered: {:#?}", serializer.type_infos);
 
-                    for instance_id in &type_info.object_ids {
-                        let instance = relevant_instances.get(instance_id).unwrap();
-                        let value = match prop_info.name.as_str() {
-                            "Name" => Cow::Owned(RbxValue::String {
-                                value: instance.name.clone(),
-                            }),
-                            _ => {
-                                // TODO: This is way wrong; we need type information
-                                // to fall back to the correct default value.
-                                let value = instance
-                                    .properties
-                                    .get(&prop_info.name)
-                                    .map(Cow::Borrowed)
-                                    .unwrap_or_else(|| Cow::Owned(prop_info.kind.default_value()));
+    serializer.generate_referents();
 
-                                // For now, we ensure that every instance of a given
-                                // type pinky-promises to have the correct type.
-                                // TODO: Turn this into a real error
-                                assert_eq!(PropKind::from_value(&value), prop_info.kind);
+    log::trace!("Referents constructed: {:#?}", serializer.id_to_referent);
 
-                                value
-                            }
-                        };
-
-                        assert_eq!(PropKind::from_value(&value), prop_info.kind);
-
-                        match value.borrow() {
-                            RbxValue::String { value } => {
-                                StringType::write_binary(&mut output, value)?
-                            }
-                            RbxValue::Bool { value } => {
-                                BoolType::write_binary(&mut output, *value)?
-                            }
-                            _ => unimplemented!(),
-                        }
-                    }
-
-                    Ok(())
-                },
-            )?;
-        }
-    }
-
-    encode_chunk(
-        &mut output,
-        b"PRNT",
-        Compression::Compressed,
-        |mut output| {
-            output.write_u8(0)?; // Parent chunk data, version 0
-            output.write_u32::<LittleEndian>(relevant_instances.len() as u32)?;
-
-            let ids = relevant_instances
-                .keys()
-                .map(|id| *referents.get(id).unwrap());
-
-            let parent_ids = relevant_instances.keys().map(|id| {
-                let instance = relevant_instances.get(id).unwrap();
-                match instance.get_parent_id() {
-                    Some(parent_id) => *referents.get(&parent_id).unwrap_or(&-1),
-                    None => -1,
-                }
-            });
-
-            encode_referent_array(&mut output, ids)?;
-            encode_referent_array(&mut output, parent_ids)?;
-
-            Ok(())
-        },
-    )?;
-
-    encode_chunk(
-        &mut output,
-        b"END\0",
-        Compression::Uncompressed,
-        |mut output| output.write_all(FILE_FOOTER),
-    )?;
+    serializer.write_header()?;
+    serializer.serialize_metadata()?;
+    serializer.serialize_instances()?;
+    serializer.serialize_properties()?;
+    serializer.serialize_parents()?;
+    serializer.serialize_end()?;
 
     Ok(())
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum PropKind {
-    String,
-    Bool,
+/// Represents all of the state during a single serialization session. A new
+/// `BinarySerializer` object should be created every time we want to serialize
+/// a binary model file.
+struct BinarySerializer<'a, W> {
+    /// The tree containing all of the instances that we're serializing.
+    tree: &'a RbxTree,
+
+    /// Where the binary output should be written.
+    output: W,
+
+    /// All of the instances, in a deterministic order, that we're going to be
+    /// serializing.
+    relevant_instances: Vec<RbxId>,
+
+    /// A map from rbx-dom's unique instance ID (RbxId) to the ID space used in
+    /// the binary model format, signed integers.
+    id_to_referent: HashMap<RbxId, i32>,
+
+    /// All of the types of instance discovered by our serializer that we'll be
+    /// writing into the output.
+    ///
+    /// These are stored sorted so that we naturally iterate over them in order
+    /// and improve our chances of being deterministic.
+    type_infos: BTreeMap<String, TypeInfo>,
+
+    /// The next type ID that should be assigned if a type is discovered and
+    /// added to the serializer.
+    next_type_id: u32,
 }
 
-impl PropKind {
-    fn from_value(value: &RbxValue) -> PropKind {
-        match value {
-            RbxValue::String { .. } => PropKind::String,
-            RbxValue::Bool { .. } => PropKind::Bool,
-            _ => unimplemented!(),
-        }
-    }
+/// An instance class that our serializer knows about. We should have one struct
+/// per unique ClassName.
+#[derive(Debug)]
+struct TypeInfo {
+    /// The ID that this serializer will use to refer to this type of instance.
+    type_id: u32,
 
-    // This function requires type information to implement correctly!
-    fn default_value(&self) -> RbxValue {
-        match self {
-            PropKind::String => RbxValue::String {
-                value: String::new(),
-            },
-            PropKind::Bool => RbxValue::Bool { value: false },
-        }
-    }
+    /// Whether this type is considered a service. Only one copy of a given
+    /// service can exist for a given ServiceProvider. DataModel is the only
+    /// ServiceProvider in most projects.
+    is_service: bool,
 
-    fn id(&self) -> u8 {
-        match self {
-            PropKind::String => 0x1,
-            PropKind::Bool => 0x2,
-        }
-    }
+    /// The IDs of all of the instances of this type.
+    object_ids: Vec<RbxId>,
+
+    /// All of the defined properties for this type found on any instance of
+    /// this type.
+    ///
+    /// Stored in a sorted map to try to ensure that we write out properties in
+    /// a deterministic order.
+    properties: BTreeMap<String, PropInfo>,
 }
 
 #[derive(Debug)]
 struct PropInfo {
-    name: String,
-    kind: PropKind,
+    prop_type: Type,
+    // TODO: Should we store the default value for this descriptor here?
 }
 
-#[derive(Debug)]
-struct TypeInfo {
-    id: u32,
-    object_ids: Vec<RbxId>,
-    properties: Vec<PropInfo>,
-}
+impl<'a, W: Write> BinarySerializer<'a, W> {
+    fn new(tree: &'a RbxTree, output: W) -> Self {
+        BinarySerializer {
+            tree,
+            output,
+            relevant_instances: Vec::new(),
+            id_to_referent: HashMap::new(),
+            type_infos: BTreeMap::new(),
+            next_type_id: 0,
+        }
+    }
 
-fn generate_type_infos<'a>(
-    instances: &HashMap<RbxId, &'a RbxInstance>,
-) -> HashMap<&'a str, TypeInfo> {
-    let mut type_infos = HashMap::new();
-    let mut next_type_id = 0;
+    /// Mark the given instance ID and all of its descendants as intended for
+    /// serialization with this serializer.
+    fn add_instance(&mut self, id: RbxId) {
+        self.relevant_instances.push(id);
+        self.collect_type_info(id);
 
-    for instance in instances.values() {
-        let class_name = instance.class_name.as_str();
+        for descendant in self.tree.descendants(id) {
+            self.relevant_instances.push(descendant.get_id());
+            self.collect_type_info(descendant.get_id());
+        }
+    }
 
-        let info = match type_infos.get_mut(class_name) {
-            Some(info) => info,
-            None => {
-                let info = TypeInfo {
-                    id: next_type_id,
-                    object_ids: Vec::new(),
-                    properties: vec![PropInfo {
-                        name: "Name".to_string(),
-                        kind: PropKind::String,
-                    }],
-                };
-                next_type_id += 1;
+    /// Collect information about all the different types of instance and their
+    /// properties.
+    fn collect_type_info(&mut self, id: RbxId) {
+        let instance = self
+            .tree
+            .get_instance(id)
+            .expect("Instance did not exist in tree");
 
-                type_infos.insert(class_name, info);
-                type_infos.get_mut(class_name).unwrap()
-            }
-        };
-
-        info.object_ids.push(instance.get_id());
+        let type_info = self.get_or_create_type_info(&instance.class_name);
+        type_info.object_ids.push(id);
 
         for (prop_name, prop_value) in &instance.properties {
-            if info
-                .properties
-                .iter()
-                .find(|prop| &prop.name == prop_name)
-                .is_none()
-            {
-                let prop_info = PropInfo {
-                    name: prop_name.clone(),
-                    kind: PropKind::from_value(prop_value),
-                };
+            let ser_name;
+            let ser_rbx_type;
 
-                info.properties.push(prop_info);
+            match find_serialized_property_descriptor(&instance.class_name, prop_name) {
+                Some(descriptor) => {
+                    ser_name = descriptor.name();
+                    ser_rbx_type = match descriptor.property_type() {
+                        RbxPropertyTypeDescriptor::Data(ty) => *ty,
+                        RbxPropertyTypeDescriptor::Enum(_) => RbxValueType::Enum,
+                        RbxPropertyTypeDescriptor::UnimplementedType(name) => {
+                            log::info!("Unimplemented data type {}", name);
+
+                            // TODO: Configurable handling of unknown types?
+                            return;
+                        }
+                    };
+                }
+                None => {
+                    ser_name = prop_name.as_str();
+                    ser_rbx_type = prop_value.get_type();
+                }
+            }
+
+            let ser_type = Type::from_rbx_type(ser_rbx_type).unwrap();
+
+            if !type_info.properties.contains_key(ser_name) {
+                type_info.properties.insert(
+                    ser_name.to_owned(),
+                    PropInfo {
+                        prop_type: ser_type,
+                    },
+                );
             }
         }
     }
 
-    type_infos
-}
+    /// Finds the type info from the given class name if it exists, or creates
+    /// one and returns a reference to it if not.
+    fn get_or_create_type_info(&mut self, class_name: &str) -> &mut TypeInfo {
+        if !self.type_infos.contains_key(class_name) {
+            let type_id = self.next_type_id;
+            self.next_type_id += 1;
 
-fn generate_referents(instances: &HashMap<RbxId, &RbxInstance>) -> HashMap<RbxId, i32> {
-    let mut referents = HashMap::new();
-    let mut next_referent = 0;
+            let is_service;
 
-    for instance in instances.values() {
-        referents.insert(instance.get_id(), next_referent);
-        next_referent += 1;
+            if let Some(class_descriptor) = rbx_reflection::get_class_descriptor(class_name) {
+                is_service = class_descriptor.is_service();
+            } else {
+                log::info!("The class {} is not known to rbx_binary", class_name);
+                is_service = false;
+            };
+
+            let mut properties = BTreeMap::new();
+
+            // Every instance has a property named Name. Even though
+            // rbx_dom_weak encodes the name property specially, we still insert
+            // this property into the type info and handle it like a regular
+            // property during encoding.
+            properties.insert(
+                "Name".to_owned(),
+                PropInfo {
+                    prop_type: Type::String,
+                },
+            );
+
+            self.type_infos.insert(
+                class_name.to_owned(),
+                TypeInfo {
+                    type_id,
+                    is_service,
+                    object_ids: Vec::new(),
+                    properties,
+                },
+            );
+        }
+
+        self.type_infos.get_mut(class_name).unwrap()
     }
 
-    referents
-}
+    /// Populate the map from rbx-dom's instance ID space to the IDs that we'll
+    /// be serializing to the model.
+    fn generate_referents(&mut self) {
+        self.id_to_referent.reserve(self.relevant_instances.len());
 
-fn gather_instances<'a>(tree: &'a RbxTree, ids: &[RbxId]) -> HashMap<RbxId, &'a RbxInstance> {
-    let mut output = HashMap::new();
+        let mut next_referent = 0;
 
-    for id in ids {
-        let instance = tree
-            .get_instance(*id)
-            .expect("Given ID didn't exist in the tree");
-        output.insert(*id, instance);
-
-        for descendant in tree.descendants(*id) {
-            output.insert(descendant.get_id(), descendant);
+        for id in &self.relevant_instances {
+            self.id_to_referent.insert(*id, next_referent);
+            next_referent += 1;
         }
     }
 
-    output
-}
+    fn write_header(&mut self) -> Result<(), InnerError> {
+        log::trace!("Writing header");
 
-enum Compression {
-    Compressed,
-    Uncompressed,
-}
+        self.output.write_all(FILE_MAGIC_HEADER)?;
+        self.output.write_all(FILE_SIGNATURE)?;
+        self.output.write_u16::<LittleEndian>(FILE_VERSION)?;
 
-fn encode_chunk<W: Write, F>(
-    output: &mut W,
-    chunk_name: &[u8],
-    compression: Compression,
-    body: F,
-) -> io::Result<()>
-where
-    F: Fn(Cursor<&mut Vec<u8>>) -> io::Result<()>,
-{
-    output.write_all(chunk_name)?;
+        self.output
+            .write_u32::<LittleEndian>(self.type_infos.len() as u32)?;
+        self.output
+            .write_u32::<LittleEndian>(self.relevant_instances.len() as u32)?;
+        self.output.write_u64::<LittleEndian>(0)?;
 
-    let mut buffer = Vec::new();
-    body(Cursor::new(&mut buffer))?;
-
-    match compression {
-        Compression::Compressed => {
-            let compressed = lz4::block::compress(&buffer, None, false)?;
-
-            output.write_u32::<LittleEndian>(compressed.len() as u32)?;
-            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
-            output.write_u32::<LittleEndian>(0)?;
-
-            output.write_all(&compressed)?;
-        }
-        Compression::Uncompressed => {
-            output.write_u32::<LittleEndian>(0)?;
-            output.write_u32::<LittleEndian>(buffer.len() as u32)?;
-            output.write_u32::<LittleEndian>(0)?;
-
-            output.write_all(&buffer)?;
-        }
+        Ok(())
     }
 
-    Ok(())
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    use rbx_dom_weak::RbxInstanceProperties;
-    use std::collections::HashMap;
-
-    fn new_test_tree() -> RbxTree {
-        let instance = RbxInstanceProperties {
-            name: "Folder".to_string(),
-            class_name: "Folder".to_string(),
-            properties: HashMap::new(),
-        };
-
-        RbxTree::new(instance)
+    /// Write out any metadata about this file, stored in a chunk named META.
+    fn serialize_metadata(&mut self) -> Result<(), InnerError> {
+        log::trace!("Writing metadata (currently no-op)");
+        // TODO: There is no concept of metadata in a tree yet.
+        Ok(())
     }
 
-    #[test]
-    fn test_encode() {
-        let _ = env_logger::try_init();
-        let tree = new_test_tree();
+    /// Write out the declarations of all instances, stored in a series of
+    /// chunks named INST.
+    fn serialize_instances(&mut self) -> Result<(), InnerError> {
+        log::trace!("Writing instance chunks");
 
-        let output = Vec::new();
-        encode(&tree, &[tree.get_root_id()], Cursor::new(output)).unwrap();
+        for (type_name, type_info) in &self.type_infos {
+            log::trace!(
+                "Writing chunk for {} ({} instances)",
+                type_name,
+                type_info.object_ids.len()
+            );
+
+            let mut chunk = ChunkBuilder::new(b"INST", ChunkCompression::Compressed);
+
+            chunk.write_u32::<LittleEndian>(type_info.type_id)?;
+            chunk.write_string(type_name)?;
+
+            // It's possible that this integer will be expanded in the future to
+            // be a general version/format field instead of just service vs
+            // non-service.
+            //
+            // At that point, we'll start thinking about it like it's a u8
+            // instead of a bool.
+            chunk.write_bool(type_info.is_service)?;
+
+            chunk.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
+
+            chunk.write_referents(
+                type_info
+                    .object_ids
+                    .iter()
+                    .map(|id| self.id_to_referent[id]),
+            )?;
+
+            if type_info.is_service {
+                // It's unclear what this byte is used for, but when the type is
+                // a service (like Workspace, Lighting, etc), we need to write
+                // the value `1` for every instance in our file of that type.
+                //
+                // In 99.9% of cases, there's only going to be one copy of a
+                // given service, so we're not worried about doing this super
+                // efficiently.
+                for _ in 0..type_info.object_ids.len() {
+                    chunk.write_u8(1)?;
+                }
+            }
+
+            chunk.dump(&mut self.output)?;
+        }
+
+        Ok(())
+    }
+
+    /// Write out batch declarations of property values for the instances
+    /// previously defined in the INST chunks. Property data is contained in
+    /// chunks named PROP.
+    fn serialize_properties(&mut self) -> Result<(), InnerError> {
+        log::trace!("Writing properties");
+
+        for (type_name, type_info) in &self.type_infos {
+            for (prop_name, prop_info) in &type_info.properties {
+                log::trace!(
+                    "Writing property {}.{} (type {:?})",
+                    type_name,
+                    prop_name,
+                    prop_info.prop_type
+                );
+
+                let mut chunk = ChunkBuilder::new(b"PROP", ChunkCompression::Compressed);
+
+                chunk.write_u32::<LittleEndian>(type_info.type_id)?;
+                chunk.write_string(&prop_name)?;
+                chunk.write_u8(prop_info.prop_type as u8)?;
+
+                let tree = &self.tree;
+                let values = type_info.object_ids.iter().map(|id| {
+                    let instance = tree.get_instance(*id).unwrap();
+
+                    // We store the Name property in a different field for
+                    // convenience, but when serializing to the binary model
+                    // format we need to handle it just like other properties.
+                    if prop_name == "Name" {
+                        Cow::Owned(RbxValue::String {
+                            value: instance.name.clone(),
+                        })
+                    } else {
+                        // TODO: Fall back to default value for this property
+                        // descriptor.
+                        Cow::Borrowed(instance.properties.get(prop_name).unwrap())
+                    }
+                });
+
+                match prop_info.prop_type {
+                    Type::String => {
+                        for rbx_value in values {
+                            match rbx_value.as_ref() {
+                                RbxValue::String { value } => {
+                                    chunk.write_string(&value)?;
+                                }
+                                RbxValue::Content { value } => {
+                                    chunk.write_string(&value)?;
+                                }
+                                RbxValue::BinaryString { value } => {
+                                    chunk.write_binary_string(&value)?;
+                                }
+                                _ => panic!("type mismatch"),
+                            }
+                        }
+                    }
+                    Type::Bool => {
+                        for rbx_value in values {
+                            match rbx_value.as_ref() {
+                                RbxValue::Bool { value } => {
+                                    chunk.write_bool(*value)?;
+                                }
+                                _ => panic!("type mismatch"),
+                            }
+                        }
+                    }
+                    _ => {
+                        // This should be unreachable because we assert that we
+                        // have a known binary format type ID above. We might
+                        // hit this panic if we forget to add a case for any
+                        // newly supported types here.
+
+                        unreachable!();
+                    }
+                }
+
+                chunk.dump(&mut self.output)?;
+            }
+        }
+
+        Ok(())
+    }
+
+    /// Write out the hierarchical relations between instances, stored in a
+    /// chunk named PRNT.
+    fn serialize_parents(&mut self) -> Result<(), InnerError> {
+        log::trace!("Writing parent relationships");
+
+        let mut chunk = ChunkBuilder::new(b"PRNT", ChunkCompression::Compressed);
+
+        chunk.write_u8(0)?; // PRNT version 0
+        chunk.write_u32::<LittleEndian>(self.relevant_instances.len() as u32)?;
+
+        let object_referents = self
+            .relevant_instances
+            .iter()
+            .map(|id| self.id_to_referent[id]);
+
+        let parent_referents = self.relevant_instances.iter().map(|id| {
+            let instance = self.tree.get_instance(*id).unwrap();
+
+            // If there's no parent set OR our parent is not one of the
+            // instances we're serializing, we use -1 to represent a null
+            // parent.
+            instance
+                .get_parent_id()
+                .and_then(|parent_id| self.id_to_referent.get(&parent_id).cloned())
+                .unwrap_or(-1)
+        });
+
+        chunk.write_referents(object_referents)?;
+        chunk.write_referents(parent_referents)?;
+
+        chunk.dump(&mut self.output)?;
+
+        Ok(())
+    }
+
+    /// Write the fixed, uncompressed end chunk used to verify that the file
+    /// hasn't been truncated mistakenly. This chunk is named END\0, with a zero
+    /// byte at the end.
+    fn serialize_end(&mut self) -> Result<(), InnerError> {
+        log::trace!("Writing file end");
+
+        let mut end = ChunkBuilder::new(b"END\0", ChunkCompression::Uncompressed);
+        end.write_all(FILE_FOOTER)?;
+        end.dump(&mut self.output)?;
+
+        Ok(())
     }
 }

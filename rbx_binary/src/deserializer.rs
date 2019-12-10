@@ -1,453 +1,512 @@
 use std::{
-    borrow::Cow,
-    collections::HashMap,
-    fmt,
-    io::{self, Cursor, Read},
+    collections::{HashMap, VecDeque},
+    convert::TryInto,
+    io::{self, Read},
     str,
 };
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use log::trace;
-use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue};
+use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue, RbxValueType};
+use rbx_reflection::RbxPropertyTypeDescriptor;
+use snafu::{ResultExt, Snafu};
 
 use crate::{
-    core::{BinaryType, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
-    types::{decode_referent_array, BoolType, StringType},
+    chunk::Chunk,
+    core::{
+        find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
+        FILE_VERSION,
+    },
+    types::Type,
 };
 
-#[derive(Debug)]
-pub enum DecodeError {
-    MissingMagicFileHeader,
-    UnknownVersion,
-    IoError(io::Error),
-}
+/// Represents an error that occurred during deserialization.
+#[derive(Debug, Snafu)]
+pub struct Error(Box<InnerError>);
 
-impl From<io::Error> for DecodeError {
-    fn from(error: io::Error) -> DecodeError {
-        DecodeError::IoError(error)
+impl From<InnerError> for Error {
+    fn from(inner: InnerError) -> Self {
+        Self(Box::new(inner))
     }
 }
 
-/// Decodes source from the given buffer into the instance in the given tree.
+#[derive(Debug, Snafu)]
+enum InnerError {
+    #[snafu(display("{}", source))]
+    Io { source: io::Error },
+}
+
+impl From<io::Error> for InnerError {
+    fn from(source: io::Error) -> Self {
+        InnerError::Io { source }
+    }
+}
+
+// A compatibility shim to expose the new deserializer with the API of the old
+// deserializer.
+//
+/// Deserializes instances from a reader containing Roblox's binary model
+/// format.
 ///
-/// Roblox model files can contain multiple instances at the top level. This
-/// happens in the case of places as well as Studio users choosing multiple
-/// objects when saving a model file.
-pub fn decode<R: Read>(
+/// Top-level instances from the model will be put into the instance with the ID
+/// `parent_id`.
+pub fn decode_compat<R: Read>(
     tree: &mut RbxTree,
     parent_id: RbxId,
-    mut source: R,
-) -> Result<(), DecodeError> {
-    let header = decode_file_header(&mut source)?;
-    trace!("Number of types: {}", header.num_instance_types);
-    trace!("Number of instances: {}", header.num_instances);
+    reader: R,
+) -> Result<(), Error> {
+    let mut temp_tree = decode(reader)?;
+    let root_instance = temp_tree.get_instance(temp_tree.get_root_id()).unwrap();
+    let root_children = root_instance.get_children_ids().to_vec();
 
-    let mut chunk_buffer = Vec::new();
-    let mut metadata: HashMap<String, String> = HashMap::new();
-    let mut instance_types: HashMap<u32, InstanceType> = HashMap::new();
-    let mut instance_props: HashMap<i32, InstanceProps> = HashMap::new();
-    let mut instance_parents: HashMap<i32, i32> = HashMap::new();
+    for id in root_children {
+        temp_tree.move_instance(id, tree, parent_id);
+    }
+
+    Ok(())
+}
+
+/// Deserializes instances from a reader containing Roblox's binary model
+/// format.
+pub fn decode<R: Read>(reader: R) -> Result<RbxTree, Error> {
+    let mut deserializer = BinaryDeserializer::new(reader)?;
 
     loop {
-        let header = decode_chunk(&mut source, &mut chunk_buffer)?;
-        let mut cursor = Cursor::new(&chunk_buffer);
+        let chunk = Chunk::decode(&mut deserializer.input).context(Io)?;
 
-        trace!("Chunk {}", header);
-
-        match &header.name {
-            b"META" => decode_meta_chunk(&mut cursor, &mut metadata)?,
-            b"INST" => decode_inst_chunk(&mut cursor, &mut instance_types)?,
-            b"PROP" => decode_prop_chunk(&mut cursor, &instance_types, &mut instance_props)?,
-            b"PRNT" => decode_prnt_chunk(&mut cursor, &mut instance_parents)?,
-            b"END\0" => break,
-            _ => match str::from_utf8(&header.name) {
-                Ok(name) => trace!("Unknown chunk name {}", name),
-                Err(_) => trace!("Unknown chunk name {:?}", header.name),
+        match &chunk.name {
+            b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
+            b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
+            b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
+            b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
+            b"END\0" => {
+                deserializer.decode_end_chunk(&chunk.data)?;
+                break;
+            }
+            _ => match str::from_utf8(&chunk.name) {
+                Ok(name) => log::info!("Unknown binary chunk name {}", name),
+                Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
             },
         }
-
-        chunk_buffer.clear();
     }
 
-    trace!("Instance types: {:#?}", instance_types);
-    trace!("Instance props: {:#?}", instance_props);
-    trace!("Instance parents: {:#?}", instance_parents);
+    deserializer.construct_tree();
 
-    let mut parents_to_children: HashMap<i32, Vec<i32>> = HashMap::new();
-    for (referent, parent_referent) in &instance_parents {
-        parents_to_children
-            .entry(*parent_referent)
-            .or_default()
-            .push(*referent);
-    }
-
-    if let Some(root_referents) = parents_to_children.get(&-1) {
-        for referent in root_referents {
-            construct_and_parent(
-                tree,
-                parent_id,
-                *referent,
-                &parents_to_children,
-                &instance_types,
-                &instance_props,
-            );
-        }
-    }
-
-    Ok(())
+    Ok(deserializer.finish())
 }
 
-fn construct_and_parent(
-    tree: &mut RbxTree,
-    parent_id: RbxId,
-    referent: i32,
-    parents_to_children: &HashMap<i32, Vec<i32>>,
-    instance_types: &HashMap<u32, InstanceType>,
-    instance_props: &HashMap<i32, InstanceProps>,
-) {
-    let props = instance_props
-        .get(&referent)
-        .expect("Could not find props for referent listed in PRNT chunk");
+struct BinaryDeserializer<R> {
+    /// The input data encoded as a binary model.
+    input: R,
 
-    let type_info = instance_types
-        .get(&props.type_id)
-        .expect("Could not find type information for referent");
+    /// The tree that instances should be written into. Eventually returned to
+    /// the user.
+    tree: RbxTree,
 
-    let mut properties = HashMap::new();
-    for (key, value) in &props.properties {
-        if key != "Name" {
-            properties.insert(key.clone(), value.clone());
-        }
-    }
+    /// The metadata contained in the file, which affects how some constructs
+    /// are interpreted by Roblox.
+    metadata: HashMap<String, String>,
 
-    let name = props
-        .properties
-        .get("Name")
-        .map(|name| match name {
-            RbxValue::String { value } => value.clone(),
-            _ => panic!("Invalid non-string type used for 'Name' property"),
-        })
-        .unwrap_or_else(|| type_info.type_name.clone());
+    /// All of the instance types described by the file so far.
+    type_infos: HashMap<u32, TypeInfo>,
 
-    let instance = RbxInstanceProperties {
-        name,
-        class_name: type_info.type_name.clone(),
-        properties,
-    };
+    /// All of the instances known by the deserializer.
+    instances_by_ref: HashMap<i32, Instance>,
 
-    let id = tree.insert_instance(instance, parent_id);
-
-    if let Some(child_referents) = parents_to_children.get(&referent) {
-        for child_referent in child_referents {
-            construct_and_parent(
-                tree,
-                id,
-                *child_referent,
-                parents_to_children,
-                instance_types,
-                instance_props,
-            );
-        }
-    }
+    /// Referents for all of the instances with no parent, in order they appear
+    /// in the file.
+    root_instance_refs: Vec<i32>,
 }
 
+/// All the information contained in the header before any chunks are read from
+/// the file.
 struct FileHeader {
-    pub num_instance_types: u32,
-    pub num_instances: u32,
+    /// The number of instance types (represented for us as `TypeInfo`) that are
+    /// in this file. Generally useful to pre-size some containers before
+    /// reading the file.
+    num_types: u32,
+
+    /// The total number of instances described by this file.
+    num_instances: u32,
 }
 
-fn decode_file_header<R: Read>(source: &mut R) -> Result<FileHeader, DecodeError> {
-    let mut magic_header = [0; 8];
-    source.read_exact(&mut magic_header)?;
-
-    if &magic_header != FILE_MAGIC_HEADER {
-        return Err(DecodeError::MissingMagicFileHeader);
-    }
-
-    let mut signature = [0; 6];
-    source.read_exact(&mut signature)?;
-
-    if &signature != FILE_SIGNATURE {
-        return Err(DecodeError::MissingMagicFileHeader);
-    }
-
-    let version = source.read_u16::<LittleEndian>()?;
-
-    if version != FILE_VERSION {
-        return Err(DecodeError::UnknownVersion);
-    }
-
-    let num_instance_types = source.read_u32::<LittleEndian>()?;
-    let num_instances = source.read_u32::<LittleEndian>()?;
-
-    let mut reserved = [0; 8];
-    source.read_exact(&mut reserved)?;
-
-    Ok(FileHeader {
-        num_instance_types,
-        num_instances,
-    })
-}
-
-#[derive(Debug)]
-struct ChunkHeader {
-    pub name: [u8; 4],
-    pub compressed_len: u32,
-    pub len: u32,
-    pub reserved: u32,
-}
-
-impl fmt::Display for ChunkHeader {
-    fn fmt(&self, output: &mut fmt::Formatter) -> fmt::Result {
-        let name = if let Ok(name) = str::from_utf8(&self.name) {
-            Cow::Borrowed(name)
-        } else {
-            Cow::Owned(format!("{:?}", self.name))
-        };
-
-        write!(
-            output,
-            "Chunk \"{}\" (compressed: {}, len: {}, reserved: {})",
-            name, self.compressed_len, self.len, self.reserved
-        )
-    }
-}
-
-fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
-    let mut name = [0; 4];
-    source.read_exact(&mut name)?;
-
-    let compressed_len = source.read_u32::<LittleEndian>()?;
-    let len = source.read_u32::<LittleEndian>()?;
-    let reserved = source.read_u32::<LittleEndian>()?;
-
-    Ok(ChunkHeader {
-        name,
-        compressed_len,
-        len,
-        reserved,
-    })
-}
-
-fn decode_chunk<R: Read>(source: &mut R, output: &mut Vec<u8>) -> io::Result<ChunkHeader> {
-    let header = decode_chunk_header(source)?;
-
-    trace!("{}", header);
-
-    if header.compressed_len == 0 {
-        source.take(header.len as u64).read_to_end(output)?;
-    } else {
-        let mut compressed_data = Vec::new();
-        source
-            .take(header.compressed_len as u64)
-            .read_to_end(&mut compressed_data)?;
-
-        let data = lz4::block::decompress(&compressed_data, Some(header.len as i32))?;
-        output.extend_from_slice(&data);
-    }
-
-    assert_eq!(output.len(), header.len as usize);
-
-    Ok(header)
-}
-
-fn decode_meta_chunk<R: Read>(
-    source: &mut R,
-    output: &mut HashMap<String, String>,
-) -> io::Result<()> {
-    let len = source.read_u32::<LittleEndian>()?;
-
-    for _ in 0..len {
-        let key = StringType::read_binary(source)?;
-        let value = StringType::read_binary(source)?;
-
-        output.insert(key, value);
-    }
-
-    Ok(())
-}
-
-#[derive(Debug)]
-struct InstanceType {
+/// Represents a unique instance class. Binary models define all their instance
+/// types up front and give them a short u32 identifier.
+struct TypeInfo {
+    /// The ID given to this type by the current file we're deserializing. This
+    /// ID can be different for different files.
     type_id: u32,
+
+    /// The common name for this type like `Folder` or `UserInputService`.
     type_name: String,
+
+    /// A list of the instances described by this file that are this type.
     referents: Vec<i32>,
 }
 
-fn decode_inst_chunk<R: Read>(
-    source: &mut R,
-    instance_types: &mut HashMap<u32, InstanceType>,
-) -> io::Result<()> {
-    let type_id = source.read_u32::<LittleEndian>()?;
-    let type_name = StringType::read_binary(source)?;
-    let _additional_data = source.read_u8()?;
-    let number_instances = source.read_u32::<LittleEndian>()?;
+/// Contains all the information we need to gather in order to construct an
+/// instance. Incrementally built up by the deserializer as we decode different
+/// chunks.
+struct Instance {
+    /// The type of this instance, given as a type ID defined in the file.
+    type_id: u32,
 
-    let mut referents = vec![0; number_instances as usize];
-    decode_referent_array(source, &mut referents)?;
+    /// Referents for the children of this instance.
+    children: Vec<i32>,
 
-    trace!(
-        "{} instances of type ID {} ({})",
-        number_instances,
-        type_id,
-        type_name
-    );
-    trace!("Referents found: {:?}", referents);
+    /// The properties found for this instance so far from the PROP chunk. Using
+    /// a Vec preserves order in the unlikely event of a collision and is also
+    /// compact storage since we don't need to look up properties by key.
+    properties: Vec<(String, RbxValue)>,
+}
 
-    instance_types.insert(
-        type_id,
-        InstanceType {
+impl<R: Read> BinaryDeserializer<R> {
+    fn new(mut input: R) -> Result<Self, InnerError> {
+        let tree = make_temp_output_tree();
+
+        let header = FileHeader::decode(&mut input)?;
+
+        let type_infos = HashMap::with_capacity(header.num_types as usize);
+        let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
+
+        Ok(BinaryDeserializer {
+            input,
+            tree,
+            metadata: HashMap::new(),
+            type_infos,
+            instances_by_ref,
+            root_instance_refs: Vec::new(),
+        })
+    }
+
+    fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+        let len = chunk.read_u32::<LittleEndian>()?;
+        self.metadata.reserve(len as usize);
+
+        for _ in 0..len {
+            let key = chunk.read_string()?;
+            let value = chunk.read_string()?;
+
+            self.metadata.insert(key, value);
+        }
+
+        Ok(())
+    }
+
+    fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+        let type_id = chunk.read_u32::<LittleEndian>()?;
+        let type_name = chunk.read_string()?;
+        let object_format = chunk.read_u8()?;
+        let number_instances = chunk.read_u32::<LittleEndian>()?;
+
+        log::trace!(
+            "INST chunk (type ID {}, type name {}, format {}, {} instances)",
             type_id,
             type_name,
-            referents,
-        },
-    );
+            object_format,
+            number_instances,
+        );
 
-    Ok(())
-}
+        let mut referents = vec![0; number_instances as usize];
+        chunk.read_referent_array(&mut referents)?;
 
-#[derive(Debug)]
-struct InstanceProps {
-    type_id: u32,
-    referent: i32,
-    properties: HashMap<String, RbxValue>,
-}
+        // TODO: Check object_format and check for service markers if it's 1?
 
-fn decode_prop_chunk<R: Read>(
-    mut source: R,
-    instance_types: &HashMap<u32, InstanceType>,
-    instance_props: &mut HashMap<i32, InstanceProps>,
-) -> io::Result<()> {
-    let type_id = source.read_u32::<LittleEndian>()?;
-    let prop_name = StringType::read_binary(&mut source)?;
-    let data_type = source.read_u8()?;
-
-    trace!("Set prop (type {}) {}.{}", data_type, type_id, prop_name);
-
-    // TODO: Convert to new error type instead of panic
-    let instance_type = instance_types
-        .get(&type_id)
-        .expect("Could not find instance type!");
-
-    match data_type {
-        0x01 => {
-            let values = StringType::read_array(&mut source, instance_type.referents.len())?;
-
-            for (index, value) in values.into_iter().enumerate() {
-                let referent = instance_type.referents[index];
-                let prop_data = instance_props.entry(referent).or_insert(InstanceProps {
+        for &referent in &referents {
+            self.instances_by_ref.insert(
+                referent,
+                Instance {
                     type_id,
-                    referent,
-                    properties: HashMap::new(),
-                });
+                    children: Vec::new(),
+                    properties: Vec::new(),
+                },
+            );
+        }
 
-                prop_data.properties.insert(prop_name.clone(), value);
+        self.type_infos.insert(
+            type_id,
+            TypeInfo {
+                type_id,
+                type_name,
+                referents,
+            },
+        );
+
+        Ok(())
+    }
+
+    fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+        let type_id = chunk.read_u32::<LittleEndian>()?;
+        let prop_name = chunk.read_string()?;
+        let data_type: Type = chunk.read_u8()?.try_into().unwrap();
+
+        // TODO: Gracefully handle error instead of panic
+        let type_info = &self.type_infos[&type_id];
+
+        log::trace!(
+            "PROP chunk ({}.{}, instance type {}, prop type {}",
+            type_info.type_name,
+            prop_name,
+            type_info.type_id,
+            type_id
+        );
+
+        let canonical_name;
+        let canonical_type;
+
+        match find_canonical_property_descriptor(&type_info.type_name, &prop_name) {
+            Some(descriptor) => {
+                canonical_name = descriptor.name().to_owned();
+                canonical_type = match descriptor.property_type() {
+                    RbxPropertyTypeDescriptor::Data(ty) => *ty,
+                    RbxPropertyTypeDescriptor::Enum(_) => RbxValueType::Enum,
+                    RbxPropertyTypeDescriptor::UnimplementedType(name) => {
+                        log::info!("Unimplemented data type {}", name);
+
+                        // TODO: Configurable handling of unknown types?
+                        return Ok(());
+                    }
+                };
+
+                log::trace!(
+                    "Known prop, canonical name {} and type {:?}",
+                    canonical_name,
+                    canonical_type
+                );
+            }
+            None => {
+                canonical_name = prop_name;
+                canonical_type = data_type.to_default_rbx_type();
+
+                log::trace!("Unknown prop, using type {:?}", canonical_type);
             }
         }
-        0x02 => {
-            let values = BoolType::read_array(&mut source, instance_type.referents.len())?;
 
-            for (index, value) in values.into_iter().enumerate() {
-                let referent = instance_type.referents[index];
-                let prop_data = instance_props.entry(referent).or_insert(InstanceProps {
-                    type_id,
-                    referent,
-                    properties: HashMap::new(),
-                });
+        match data_type {
+            Type::String => match canonical_type {
+                RbxValueType::String => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_string()?;
+                        let rbx_value = RbxValue::String { value };
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                RbxValueType::Content => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_string()?;
+                        let rbx_value = RbxValue::String { value };
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                RbxValueType::BinaryString => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_binary_string()?;
+                        let rbx_value = RbxValue::BinaryString { value };
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                _ => panic!("type mismatch"),
+            },
+            Type::Bool => match canonical_type {
+                RbxValueType::Bool => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_bool()?;
+                        let rbx_value = RbxValue::Bool { value };
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                _ => panic!("type mismatch"),
+            },
+            Type::Int32 => {}
+            Type::Float32 => {}
+            Type::Float64 => {}
+            Type::UDim => {}
+            Type::UDim2 => {}
+            Type::Ray => {}
+            // Type::Faces => {}
+            // Type::Axis => {}
+            Type::BrickColor => {}
+            Type::Color3 => {}
+            Type::Vector2 => {}
+            Type::Vector3 => {}
+            Type::CFrame => {}
+            Type::Enum => {}
+            Type::Ref => {}
+            Type::Vector3int16 => {}
+            Type::NumberSequence => {}
+            Type::ColorSequence => {}
+            Type::NumberRange => {}
+            Type::Rect => {}
+            Type::PhysicalProperties => {}
+            Type::Color3uint8 => {}
+            Type::Int64 => {}
+        }
 
-                prop_data.properties.insert(prop_name.clone(), value);
+        Ok(())
+    }
+
+    fn decode_prnt_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+        let version = chunk.read_u8()?;
+
+        if version != 0 {
+            panic!("Unrecognized PRNT chunk version {}, expected 0", version);
+        }
+
+        let number_objects = chunk.read_u32::<LittleEndian>()?;
+
+        log::trace!("PRNT chunk ({} instances)", number_objects);
+
+        let mut subjects = vec![0; number_objects as usize];
+        let mut parents = vec![0; number_objects as usize];
+
+        chunk.read_referent_array(&mut subjects)?;
+        chunk.read_referent_array(&mut parents)?;
+
+        for (id, parent_id) in subjects.iter().copied().zip(parents.iter().copied()) {
+            if parent_id == -1 {
+                self.root_instance_refs.push(id);
+            } else {
+                let instance = self.instances_by_ref.get_mut(&parent_id).unwrap();
+                instance.children.push(id);
             }
         }
-        0x03 => { /* i32 */ }
-        0x04 => { /* f32 */ }
-        0x05 => { /* f64 */ }
-        0x06 => { /* UDim */ }
-        0x07 => { /* UDim2 */ }
-        0x08 => { /* Ray */ }
-        0x09 => { /* Faces */ }
-        0x0A => { /* Axis */ }
-        0x0B => { /* BrickColor */ }
-        0x0C => { /* Color3 */ }
-        0x0D => { /* Vector2 */ }
-        0x0E => { /* Vector3 */ }
-        0x10 => { /* CFrame */ }
-        0x12 => { /* Enum */ }
-        0x13 => { /* Referent */ }
-        0x14 => { /* Vector3int16 */ }
-        0x15 => { /* NumberSequence */ }
-        0x16 => { /* ColorSequence */ }
-        0x17 => { /* NumberRange */ }
-        0x18 => { /* Rect2D */ }
-        0x19 => { /* PhysicalProperties */ }
-        0x1A => { /* Color3uint8 */ }
-        0x1B => { /* Int64 */ }
-        _ => {
-            trace!("Unknown prop type {} named {}", data_type, prop_name);
+
+        Ok(())
+    }
+
+    fn decode_end_chunk(&mut self, _chunk: &[u8]) -> Result<(), InnerError> {
+        log::trace!("END chunk");
+
+        // We don't do any validation on the END chunk. There's no useful
+        // information for us here as it just signals that the file hasn't been
+        // truncated.
+
+        Ok(())
+    }
+
+    /// Combines together all the decoded information to build and emplace
+    /// instances in our tree.
+    fn construct_tree(&mut self) {
+        log::trace!("Constructing tree from deserialized data");
+
+        // Track all the instances we need to construct. Order of construction
+        // is important to preserve for both determinism and sometimes
+        // functionality of models we handle.
+        let mut instances_to_construct = VecDeque::new();
+
+        // Any instance with a parent of -1 will be at the top level of the
+        // tree. Because of the way rbx_dom_weak generally works, we need to
+        // start at the top of the tree to begin construction.
+        let root_id = self.tree.get_root_id();
+        for &referent in &self.root_instance_refs {
+            instances_to_construct.push_back((referent, root_id));
+        }
+
+        while let Some((referent, parent_id)) = instances_to_construct.pop_front() {
+            let id = self.construct_and_insert_instance(referent, parent_id);
+
+            if let Some(instance) = self.instances_by_ref.get(&referent) {
+                for &referent in &instance.children {
+                    instances_to_construct.push_back((referent, id));
+                }
+            }
         }
     }
 
-    Ok(())
-}
+    fn construct_and_insert_instance(&mut self, referent: i32, parent_id: RbxId) -> RbxId {
+        let instance = self.instances_by_ref.get_mut(&referent).unwrap();
+        let type_info = &self.type_infos[&instance.type_id];
 
-fn decode_prnt_chunk<R: Read>(
-    source: &mut R,
-    instance_parents: &mut HashMap<i32, i32>,
-) -> io::Result<()> {
-    let version = source.read_u8()?;
+        let class_name = type_info.type_name.clone();
+        let mut name = None;
+        let mut properties = HashMap::new();
 
-    if version != 0 {
-        // TODO: Warn for version mismatch?
-        return Ok(());
-    }
+        for (prop_key, prop_value) in instance.properties.drain(..) {
+            if prop_key.as_str() == "Name" {
+                if let RbxValue::String { value } = prop_value {
+                    name = Some(value);
+                } else {
+                    panic!("Name property was defined as a non-string type.");
+                }
+            } else {
+                properties.insert(prop_key, prop_value);
+            }
+        }
 
-    let number_objects = source.read_u32::<LittleEndian>()?;
+        // TODO: Look up default instance name from class descriptor and then
+        // fall back to ClassName if the Name property or whole class descriptor
+        // is unknown. This isn't super important since binary files with
+        // instances that have no Name generally don't exist.
+        let name = name.unwrap_or_else(|| class_name.clone());
 
-    trace!("{} objects with parents", number_objects);
-
-    let mut instance_ids = vec![0; number_objects as usize];
-    let mut parent_ids = vec![0; number_objects as usize];
-
-    decode_referent_array(source, &mut instance_ids)?;
-    decode_referent_array(source, &mut parent_ids)?;
-
-    for (id, parent_id) in instance_ids.iter().zip(&parent_ids) {
-        instance_parents.insert(*id, *parent_id);
-    }
-
-    Ok(())
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    use std::collections::HashMap;
-
-    static MODEL_A: &[u8] = include_bytes!("../test-files/model-a.rbxm");
-    static MODEL_B: &[u8] = include_bytes!("../test-files/model-b.rbxm");
-    static MODEL_C: &[u8] = include_bytes!("../test-files/model-c.rbxm");
-
-    fn new_test_tree() -> RbxTree {
-        let root = RbxInstanceProperties {
-            name: "Folder".to_string(),
-            class_name: "Folder".to_string(),
-            properties: HashMap::new(),
+        let properties = RbxInstanceProperties {
+            class_name,
+            name,
+            properties,
         };
 
-        RbxTree::new(root)
+        self.tree.insert_instance(properties, parent_id)
     }
 
-    #[test]
-    fn test_decode() {
-        let _ = env_logger::try_init();
+    fn finish(self) -> RbxTree {
+        self.tree
+    }
+}
 
-        for model_source in &[MODEL_A, MODEL_B, MODEL_C] {
-            let mut tree = new_test_tree();
-            let root_id = tree.get_root_id();
+impl FileHeader {
+    fn decode<R: Read>(mut source: R) -> Result<Self, InnerError> {
+        let mut magic_header = [0; 8];
+        source.read_exact(&mut magic_header)?;
 
-            print!("\n");
-            trace!("Model:");
-            decode(&mut tree, root_id, *model_source).unwrap();
+        if &magic_header != FILE_MAGIC_HEADER {
+            panic!("Mismatched magic header");
         }
+
+        let mut signature = [0; 6];
+        source.read_exact(&mut signature)?;
+
+        if &signature != FILE_SIGNATURE {
+            panic!("Mismatched file signature");
+        }
+
+        let version = source.read_u16::<LittleEndian>()?;
+
+        if version != FILE_VERSION {
+            panic!("Unknown file version");
+        }
+
+        let num_types = source.read_u32::<LittleEndian>()?;
+        let num_instances = source.read_u32::<LittleEndian>()?;
+
+        let mut reserved = [0; 8];
+        source.read_exact(&mut reserved)?;
+
+        if reserved != [0; 8] {
+            panic!("Invalid reserved bytes");
+        }
+
+        Ok(Self {
+            num_types,
+            num_instances,
+        })
     }
+}
+
+fn make_temp_output_tree() -> RbxTree {
+    RbxTree::new(RbxInstanceProperties {
+        name: "ROOT".to_owned(),
+        class_name: "DataModel".to_owned(),
+        properties: HashMap::new(),
+    })
 }
