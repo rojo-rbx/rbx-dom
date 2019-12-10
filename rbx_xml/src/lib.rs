@@ -140,7 +140,7 @@ use crate::{deserializer::decode_internal, serializer::encode_internal};
 pub use crate::{
     deserializer::{DecodeOptions, DecodePropertyBehavior},
     error::{DecodeError, EncodeError},
-    serializer::{EncodeOptions, EncodePropertyBehavior},
+    serializer::{EncodeOptions, EncodeOutput, EncodePropertyBehavior},
 };
 
 /// Decodes an XML-format model or place from something that implements the
@@ -173,7 +173,7 @@ pub fn to_writer<W: Write>(
     tree: &RbxTree,
     ids: &[RbxId],
     options: EncodeOptions,
-) -> Result<(), EncodeError> {
+) -> Result<EncodeOutput, EncodeError> {
     encode_internal(writer, tree, ids, options)
 }
 
@@ -184,6 +184,6 @@ pub fn to_writer_default<W: Write>(
     writer: W,
     tree: &RbxTree,
     ids: &[RbxId],
-) -> Result<(), EncodeError> {
+) -> Result<EncodeOutput, EncodeError> {
     encode_internal(writer, tree, ids, EncodeOptions::default())
 }

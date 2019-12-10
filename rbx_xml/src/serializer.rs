@@ -16,7 +16,7 @@ pub fn encode_internal<W: Write>(
     tree: &RbxTree,
     ids: &[RbxId],
     options: EncodeOptions,
-) -> Result<(), NewEncodeError> {
+) -> Result<EncodeOutput, NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
     let mut state = EmitState::new(options);
 
@@ -31,7 +31,11 @@ pub fn encode_internal<W: Write>(
 
     writer.write(XmlWriteEvent::end_element())?;
 
-    Ok(())
+    let output = EncodeOutput {
+        referent_map: state.referent_map,
+    };
+
+    Ok(output)
 }
 
 /// Describes the strategy that rbx_xml should use when serializing properties.
@@ -99,6 +103,32 @@ impl EncodeOptions {
 impl Default for EncodeOptions {
     fn default() -> EncodeOptions {
         EncodeOptions::new()
+    }
+}
+
+/// Contains information about the encoding process that occurred like the
+/// referents written to the file. This information can be used to generate
+/// supplementary data like sourcemaps.
+#[derive(Debug, Clone)]
+pub struct EncodeOutput {
+    referent_map: HashMap<RbxId, u32>,
+}
+
+impl EncodeOutput {
+    /// Gets the referent used in the serialized model for the instance with the
+    /// given ID.
+    ///
+    /// Returns `None` if the ID wasn't part of the model.
+    #[inline]
+    pub fn get_referent(&self, id: RbxId) -> Option<u32> {
+        self.referent_map.get(&id).copied()
+    }
+
+    /// Returns an iterator over all of the IDs and referents that were
+    /// serialized.
+    #[inline]
+    pub fn iter_referents(&self) -> impl Iterator<Item = (RbxId, u32)> + '_ {
+        self.referent_map.iter().map(|(&key, &value)| (key, value))
     }
 }
 
