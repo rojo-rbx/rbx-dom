@@ -20,7 +20,13 @@ use crate::{
 };
 
 #[derive(Debug, Snafu)]
-pub struct Error(InnerError);
+pub struct Error(Box<InnerError>);
+
+impl From<InnerError> for Error {
+    fn from(inner: InnerError) -> Self {
+        Self(Box::new(inner))
+    }
+}
 
 #[derive(Debug, Snafu)]
 enum InnerError {
