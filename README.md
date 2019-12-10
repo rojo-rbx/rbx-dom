@@ -13,7 +13,7 @@ Weakly-typed Roblox DOM implementation. Defines types for representing instances
 
 ## [rbx_dom_lua](rbx_dom_lua)
 
-Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside Roblox. Uses a data format that's compatible with rbx\_dom\_weak to facilitate communication with applications outside Roblox about instances.
+Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside Roblox. Uses a data format that's compatible with rbx_dom_weak to facilitate communication with applications outside Roblox about instances.
 
 ## [rbx_xml](rbx_xml)
 [![rbx_xml on crates.io](https://img.shields.io/crates/v/rbx_xml.svg)](https://crates.io/crates/rbx_xml)
@@ -35,7 +35,7 @@ Roblox reflection information for working with Instances in external tooling.
 
 ## Property Type Coverage
 
-| Property Type      | Example Property                | rbx\_dom\_weak | rbx\_dom\_lua | rbx\_xml | rbx\_binary
+| Property Type      | Example Property                | rbx_dom_weak | rbx_dom_lua | rbx_xml | rbx_binary
 |:------------------ |:------------------------------- |:--:|:--:|:--:|:--:|
 | Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ | ❌ |
 | BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ❌ |

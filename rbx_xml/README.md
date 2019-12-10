@@ -7,6 +7,6 @@ More details about this crate are available on [the rbx-dom GitHub](https://gith
 Implementation of Roblox's XML model formats, rbxmx and rbxlx for the rbx-dom ecosystem.
 
 ## Coverage
-rbx\_xml aims to support all property types from rbx\_dom\_weak.
+rbx_xml aims to support all property types from rbx_dom_weak.
 
 Some properties serialize with different names in XML than the names exposed via Roblox's API dump or via the Lua API. In those cases, rbx_xml keeps a mapping that needs to be kept up to date. These cases are pretty uncommon, so that table is small.

@@ -1,4 +1,4 @@
-# generate\_rbx\_reflection
+# generate_rbx_reflection
 Generates the source code to `rbx_reflection`. This crate is not intended to be published anywhere and is a tool internal to rbx-dom.
 
 ## Requirements

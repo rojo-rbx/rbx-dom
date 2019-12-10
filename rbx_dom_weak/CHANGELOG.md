@@ -1,4 +1,4 @@
-# rbx\_dom\_weak Changelog
+# rbx_dom_weak Changelog
 
 ## Unreleased Changes
 
