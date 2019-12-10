@@ -7,8 +7,6 @@ rbx-dom is a collection of crates to help represent, serialize, and deserialize 
 [![rbx_dom_weak on crates.io](https://img.shields.io/crates/v/rbx_dom_weak.svg)](https://crates.io/crates/rbx_dom_weak)
 [![rbx_dom_weak docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_dom_weak)
 
-**This crate was recently renamed from `rbx_tree` to `rbx_dom_weak`.**
-
 Weakly-typed Roblox DOM implementation. Defines types for representing instances and properties on them.
 
 ## [rbx_dom_lua](rbx_dom_lua)
