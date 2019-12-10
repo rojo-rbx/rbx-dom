@@ -11,7 +11,7 @@ use rbx_reflection::RbxPropertyTypeDescriptor;
 use snafu::Snafu;
 
 use crate::{
-    chunk::{ChunkBuilder, Compression},
+    chunk::{ChunkBuilder, ChunkCompression},
     core::{
         find_serialized_property_descriptor, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
         FILE_VERSION,
@@ -287,7 +287,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 type_info.object_ids.len()
             );
 
-            let mut chunk = ChunkBuilder::new(b"INST", Compression::Compressed);
+            let mut chunk = ChunkBuilder::new(b"INST", ChunkCompression::Compressed);
 
             chunk.write_u32::<LittleEndian>(type_info.type_id)?;
             chunk.write_string(type_name)?;
@@ -343,7 +343,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     prop_info.prop_type
                 );
 
-                let mut chunk = ChunkBuilder::new(b"PROP", Compression::Compressed);
+                let mut chunk = ChunkBuilder::new(b"PROP", ChunkCompression::Compressed);
 
                 chunk.write_u32::<LittleEndian>(type_info.type_id)?;
                 chunk.write_string(&prop_name)?;
@@ -416,7 +416,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     fn serialize_parents(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing parent relationships");
 
-        let mut chunk = ChunkBuilder::new(b"PRNT", Compression::Compressed);
+        let mut chunk = ChunkBuilder::new(b"PRNT", ChunkCompression::Compressed);
 
         chunk.write_u8(0)?; // PRNT version 0
         chunk.write_u32::<LittleEndian>(self.relevant_instances.len() as u32)?;
@@ -452,7 +452,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     fn serialize_end(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing file end");
 
-        let mut end = ChunkBuilder::new(b"END\0", Compression::Uncompressed);
+        let mut end = ChunkBuilder::new(b"END\0", ChunkCompression::Uncompressed);
         end.write_all(FILE_FOOTER)?;
         end.dump(&mut self.output)?;
 
