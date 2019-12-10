@@ -38,12 +38,12 @@ Roblox reflection information for working with Instances in external tooling.
 | Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ | ❌ |
 | BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ❌ |
 | Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
-| BrickColor         | `Part.BrickColor`               | ✔ | ❌ | ✔ | ❌ |
+| BrickColor         | `Part.BrickColor`               | ✔ | ✔ | ✔ | ❌ |
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ❌ |
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ❌ |
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
 | ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
-| Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ❌ |
+| Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ❌ |
 | Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ | ❌ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ❌ |
@@ -53,7 +53,7 @@ Roblox reflection information for working with Instances in external tooling.
 | NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ❌ |
 | NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ❌ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ❌ |
-| ProtectedString    | `ModuleScript.Source`           | ✔¹ | ✔ | ✔¹ | ❌ |
+| ProtectedString    | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
 | Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ | ❌ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
@@ -71,8 +71,6 @@ Roblox reflection information for working with Instances in external tooling.
 | QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ | ⛔ |
 
 ✔ Implemented | ❌ Unimplemented | ➖ Partially Implemented | ⛔ Never
-
-1. ProtectedString is deserialized as String, which is technically lossy but does not change semantics in practice
 
 ## Outcome
 This project has unveiled a handful of interesting bugs and quirks in Roblox!
