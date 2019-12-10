@@ -1,7 +1,7 @@
 # rbx-dom
 [![GitHub Actions](https://github.com/rojo-rbx/rbx-dom/workflows/CI/badge.svg)](https://github.com/rojo-rbx/rbx-dom/actions)
 
-rbx-dom is a collection of crates to help represent, serialize, and deserialize Roblox DOMs. The goal of rbx-dom is to have a common format that projects like [Rojo](https://github.com/LPGhatguy/rojo) can use for handling Instances efficiently.
+rbx-dom is a collection of crates to help represent, serialize, and deserialize Roblox DOMs. The goal of rbx-dom is to have a common representation that projects like [Rojo](https://github.com/rojo-rbx/rojo) can use for handling Instances efficiently.
 
 ## [rbx_dom_weak](rbx_dom_weak)
 [![rbx_dom_weak on crates.io](https://img.shields.io/crates/v/rbx_dom_weak.svg)](https://crates.io/crates/rbx_dom_weak)
