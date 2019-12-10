@@ -22,7 +22,13 @@ use crate::{
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
 #[derive(Debug, Snafu)]
-pub struct Error(InnerError);
+pub struct Error(Box<InnerError>);
+
+impl From<InnerError> for Error {
+    fn from(inner: InnerError) -> Self {
+        Self(Box::new(inner))
+    }
+}
 
 #[derive(Debug, Snafu)]
 enum InnerError {
@@ -30,9 +36,9 @@ enum InnerError {
     Io { source: io::Error },
 }
 
-impl From<io::Error> for Error {
+impl From<io::Error> for InnerError {
     fn from(source: io::Error) -> Self {
-        Error(InnerError::Io { source })
+        InnerError::Io { source }
     }
 }
 
@@ -246,7 +252,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         }
     }
 
-    fn write_header(&mut self) -> io::Result<()> {
+    fn write_header(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing header");
 
         self.output.write_all(FILE_MAGIC_HEADER)?;
@@ -263,7 +269,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     }
 
     /// Write out any metadata about this file, stored in a chunk named META.
-    fn serialize_metadata(&mut self) -> io::Result<()> {
+    fn serialize_metadata(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing metadata (currently no-op)");
         // TODO: There is no concept of metadata in a tree yet.
         Ok(())
@@ -271,7 +277,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Write out the declarations of all instances, stored in a series of
     /// chunks named INST.
-    fn serialize_instances(&mut self) -> io::Result<()> {
+    fn serialize_instances(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing instance chunks");
 
         for (type_name, type_info) in &self.type_infos {
@@ -325,7 +331,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write out batch declarations of property values for the instances
     /// previously defined in the INST chunks. Property data is contained in
     /// chunks named PROP.
-    fn serialize_properties(&mut self) -> io::Result<()> {
+    fn serialize_properties(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing properties");
 
         for (type_name, type_info) in &self.type_infos {
@@ -407,7 +413,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Write out the hierarchical relations between instances, stored in a
     /// chunk named PRNT.
-    fn serialize_parents(&mut self) -> io::Result<()> {
+    fn serialize_parents(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing parent relationships");
 
         let mut chunk = ChunkBuilder::new(b"PRNT", Compression::Compressed);
@@ -443,7 +449,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write the fixed, uncompressed end chunk used to verify that the file
     /// hasn't been truncated mistakenly. This chunk is named END\0, with a zero
     /// byte at the end.
-    fn serialize_end(&mut self) -> io::Result<()> {
+    fn serialize_end(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing file end");
 
         let mut end = ChunkBuilder::new(b"END\0", Compression::Uncompressed);
