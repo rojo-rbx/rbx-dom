@@ -8,7 +8,7 @@ use std::{
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue, RbxValueType};
 use rbx_reflection::RbxPropertyTypeDescriptor;
-use snafu::Snafu;
+use snafu::{ResultExt, Snafu};
 
 use crate::{
     chunk::Chunk,
@@ -28,9 +28,9 @@ enum InnerError {
     Io { source: io::Error },
 }
 
-impl From<io::Error> for Error {
+impl From<io::Error> for InnerError {
     fn from(source: io::Error) -> Self {
-        Error(InnerError::Io { source })
+        InnerError::Io { source }
     }
 }
 
@@ -56,7 +56,7 @@ pub fn decode<R: Read>(input: R) -> Result<RbxTree, Error> {
     let mut deserializer = BinaryDeserializer::new(input)?;
 
     loop {
-        let chunk = Chunk::decode(&mut deserializer.input)?;
+        let chunk = Chunk::decode(&mut deserializer.input).context(Io)?;
 
         match &chunk.name {
             b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
@@ -145,7 +145,7 @@ struct Instance {
 }
 
 impl<R: Read> BinaryDeserializer<R> {
-    fn new(mut input: R) -> io::Result<Self> {
+    fn new(mut input: R) -> Result<Self, InnerError> {
         let tree = make_temp_output_tree();
 
         let header = FileHeader::decode(&mut input)?;
@@ -163,7 +163,7 @@ impl<R: Read> BinaryDeserializer<R> {
         })
     }
 
-    fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> io::Result<()> {
+    fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let len = chunk.read_u32::<LittleEndian>()?;
         self.metadata.reserve(len as usize);
 
@@ -177,7 +177,7 @@ impl<R: Read> BinaryDeserializer<R> {
         Ok(())
     }
 
-    fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> io::Result<()> {
+    fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_u32::<LittleEndian>()?;
         let type_name = chunk.read_string()?;
         let object_format = chunk.read_u8()?;
@@ -219,7 +219,7 @@ impl<R: Read> BinaryDeserializer<R> {
         Ok(())
     }
 
-    fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> io::Result<()> {
+    fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_u32::<LittleEndian>()?;
         let prop_name = chunk.read_string()?;
         let data_type: Type = chunk.read_u8()?.try_into().unwrap();
@@ -341,7 +341,7 @@ impl<R: Read> BinaryDeserializer<R> {
         Ok(())
     }
 
-    fn decode_prnt_chunk(&mut self, mut chunk: &[u8]) -> io::Result<()> {
+    fn decode_prnt_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_u8()?;
 
         if version != 0 {
@@ -370,7 +370,7 @@ impl<R: Read> BinaryDeserializer<R> {
         Ok(())
     }
 
-    fn decode_end_chunk(&mut self, _chunk: &[u8]) -> io::Result<()> {
+    fn decode_end_chunk(&mut self, _chunk: &[u8]) -> Result<(), InnerError> {
         log::trace!("END chunk");
 
         // We don't do any validation on the END chunk. There's no useful
@@ -450,7 +450,7 @@ impl<R: Read> BinaryDeserializer<R> {
 }
 
 impl FileHeader {
-    fn decode<R: Read>(mut source: R) -> io::Result<Self> {
+    fn decode<R: Read>(mut source: R) -> Result<Self, InnerError> {
         let mut magic_header = [0; 8];
         source.read_exact(&mut magic_header)?;
 
