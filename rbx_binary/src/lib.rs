@@ -12,6 +12,12 @@ mod deserializer;
 mod serializer;
 mod types;
 
+#[cfg(test)]
+mod debug_deserializer;
+
+#[cfg(test)]
+mod tests;
+
 pub use {
     deserializer::{decode_compat as decode, Error as DecodeError},
     serializer::{encode, Error as EncodeError},
