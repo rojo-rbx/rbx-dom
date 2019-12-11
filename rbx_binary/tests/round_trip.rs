@@ -1,7 +1,6 @@
-use std::{collections::HashMap, fs, path::Path};
+use std::{fs, path::Path};
 
-use rbx_dom_test::TreeViewer;
-use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
+use rbx_dom_test::{InstanceBuilder, TreeViewer};
 
 use rbx_binary::{decode, encode};
 
@@ -27,7 +26,7 @@ fn test_round_trip(test_name: &str) {
     let input_path = Path::new("test-files").join(test_name);
     let initial_contents = fs::read(&input_path).unwrap();
 
-    let mut initial_tree = new_test_tree();
+    let mut initial_tree = InstanceBuilder::new("Folder").build();
 
     let root_id = initial_tree.get_root_id();
     decode(&mut initial_tree, root_id, initial_contents.as_slice()).unwrap();
@@ -40,21 +39,11 @@ fn test_round_trip(test_name: &str) {
     let mut roundtrip_contents = Vec::new();
     encode(&initial_tree, root_children, &mut roundtrip_contents).unwrap();
 
-    let mut roundtrip_tree = new_test_tree();
+    let mut roundtrip_tree = InstanceBuilder::new("Folder").build();
 
     let root_id = roundtrip_tree.get_root_id();
     decode(&mut roundtrip_tree, root_id, roundtrip_contents.as_slice()).unwrap();
 
     let roundtrip_viewed = TreeViewer::new().view_children(&roundtrip_tree);
     insta::assert_yaml_snapshot!(test_name, roundtrip_viewed);
-}
-
-fn new_test_tree() -> RbxTree {
-    let root = RbxInstanceProperties {
-        name: "Folder".to_string(),
-        class_name: "Folder".to_string(),
-        properties: HashMap::new(),
-    };
-
-    RbxTree::new(root)
 }
