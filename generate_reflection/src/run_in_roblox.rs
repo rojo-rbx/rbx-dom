@@ -37,7 +37,7 @@ use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
 // Aren't futures great?
-type HyperResponse = Box<Future<Item = Response<Body>, Error = hyper::Error> + Send>;
+type HyperResponse = Box<dyn Future<Item = Response<Body>, Error = hyper::Error> + Send>;
 
 const PORT: u16 = 54023;
 
