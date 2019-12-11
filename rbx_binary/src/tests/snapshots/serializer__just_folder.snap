@@ -1,0 +1,14 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Inst:
+      contents: AAAAAAYAAABGb2xkZXIAAQAAAAAAAAA=
+  - Prop:
+      contents: AAAAAAQAAABOYW1lAQYAAABGb2xkZXI=
+  - Prnt:
+      contents: AAEAAAAAAAAAAAAAAQ==
+  - End

@@ -4,7 +4,7 @@
 
 use std::io::Read;
 
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 use crate::{chunk::Chunk, deserializer::FileHeader};
 
@@ -79,6 +79,8 @@ pub enum DecodedChunk {
     Unknown { name: String },
 }
 
+/// Contains data that we haven't decoded for a chunk. Using `UnknownBuffer`
+/// should generally be a placeholder since it's results are opaque, but stable.
 #[derive(Debug)]
 pub struct UnknownBuffer {
     contents: Vec<u8>,
@@ -91,9 +93,25 @@ impl From<Vec<u8>> for UnknownBuffer {
 }
 
 impl Serialize for UnknownBuffer {
-    // TODO
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.collect_str(&base64::display::Base64Display::with_config(
+            &self.contents,
+            base64::STANDARD,
+        ))
+    }
 }
 
-impl Deserialize for UnknownBuffer {
-    // TODO
+impl<'de> Deserialize<'de> for UnknownBuffer {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let encoded = <&str>::deserialize(deserializer)?;
+        let contents = base64::decode(encoded).map_err(serde::de::Error::custom)?;
+
+        Ok(UnknownBuffer { contents })
+    }
 }
