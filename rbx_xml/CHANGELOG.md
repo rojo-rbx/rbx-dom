@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.11.3 (2019-12-11)
 * Empty BinaryStrings will now serialize without an empty CDATA tag ([#76](https://github.com/rojo-rbx/rbx-dom/pull/76)).
 * Fixed SharedString entries with CRLF line endings causing obscure errors ([#84](https://github.com/rojo-rbx/rbx-dom/pull/84))
 
