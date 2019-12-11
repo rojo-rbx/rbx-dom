@@ -221,6 +221,21 @@ impl<R: Read> XmlEventReader<R> {
         Ok(buffer)
     }
 
+    /// Reads characters from the head of the deserializer and attempts to parse
+    /// them as base64 and turn them into a buffer of bytes.
+    ///
+    /// In Roblox XML model files, binary data is base64 encoded and
+    /// line-wrapped, meaning we have to be careful to ignore whitespace.
+    pub fn read_base64_characters(&mut self) -> Result<Vec<u8>, NewDecodeError> {
+        let contents: String = self
+            .read_characters()?
+            .chars()
+            .filter(|c| !c.is_whitespace())
+            .collect();
+
+        base64::decode(&contents).map_err(|e| self.error(e))
+    }
+
     /// Reads a tag completely and returns its text content. This is intended
     /// for parsing simple tags where we don't care about the attributes or
     /// children, only the text value, for Vector3s and such, which are encoded

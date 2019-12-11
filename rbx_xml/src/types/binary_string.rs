@@ -29,13 +29,9 @@ impl XmlType<[u8]> for BinaryStringType {
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
-        let contents = reader.read_tag_contents(Self::XML_TAG_NAME)?;
-
-        // Roblox wraps base64 BinaryString data at the 72 byte mark. The base64
-        // crate doesn't accept whitespace.
-        let contents: String = contents.chars().filter(|c| !c.is_whitespace()).collect();
-
-        let value = base64::decode(&contents).map_err(|e| reader.error(e))?;
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
+        let value = reader.read_base64_characters()?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(RbxValue::BinaryString { value })
     }

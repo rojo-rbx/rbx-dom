@@ -387,9 +387,7 @@ fn deserialize_shared_string<R: Read>(
     let md5_hash =
         md5_hash.ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("md5")))?;
 
-    let encoded_buffer = reader.read_characters()?.replace("\n", "");
-
-    let buffer = base64::decode(&encoded_buffer).map_err(|e| reader.error(e))?;
+    let buffer = reader.read_base64_characters()?;
 
     let value = SharedString::new(buffer);
 
