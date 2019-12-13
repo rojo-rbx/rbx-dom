@@ -24,26 +24,10 @@ impl DecodedModel {
             let chunk = Chunk::decode(&mut reader).expect("invalid chunk");
 
             match &chunk.name {
-                b"META" => {
-                    chunks.push(DecodedChunk::Meta {
-                        contents: chunk.data.into(),
-                    });
-                }
-                b"INST" => {
-                    chunks.push(DecodedChunk::Inst {
-                        contents: chunk.data.into(),
-                    });
-                }
-                b"PROP" => {
-                    chunks.push(DecodedChunk::Prop {
-                        contents: chunk.data.into(),
-                    });
-                }
-                b"PRNT" => {
-                    chunks.push(DecodedChunk::Prnt {
-                        contents: chunk.data.into(),
-                    });
-                }
+                b"META" => chunks.push(decode_meta_chunk(chunk.data)),
+                b"INST" => chunks.push(decode_inst_chunk(chunk.data)),
+                b"PROP" => chunks.push(decode_prop_chunk(chunk.data)),
+                b"PRNT" => chunks.push(decode_prnt_chunk(chunk.data)),
                 b"END\0" => {
                     chunks.push(DecodedChunk::End);
                     break;
@@ -61,6 +45,30 @@ impl DecodedModel {
             num_instances: header.num_instances,
             chunks,
         }
+    }
+}
+
+fn decode_meta_chunk(data: Vec<u8>) -> DecodedChunk {
+    DecodedChunk::Meta {
+        contents: data.into(),
+    }
+}
+
+fn decode_inst_chunk(data: Vec<u8>) -> DecodedChunk {
+    DecodedChunk::Inst {
+        contents: data.into(),
+    }
+}
+
+fn decode_prop_chunk(data: Vec<u8>) -> DecodedChunk {
+    DecodedChunk::Prop {
+        contents: data.into(),
+    }
+}
+
+fn decode_prnt_chunk(data: Vec<u8>) -> DecodedChunk {
+    DecodedChunk::Prnt {
+        contents: data.into(),
     }
 }
 
