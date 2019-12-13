@@ -18,11 +18,20 @@ chunks:
         - 0
       remaining: ""
   - Prop:
-      remaining: AAAAABMAAABBdHRyaWJ1dGVzU2VyaWFsaXplAQAAAAA=
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: 1
+      remaining: AAAAAA==
   - Prop:
-      remaining: AAAAAAQAAABOYW1lAQYAAABGb2xkZXI=
+      type_id: 0
+      prop_name: Name
+      prop_type: 1
+      remaining: BgAAAEZvbGRlcg==
   - Prop:
-      remaining: AAAAAAQAAABUYWdzAQAAAAA=
+      type_id: 0
+      prop_name: Tags
+      prop_type: 1
+      remaining: AAAAAA==
   - Prnt:
       remaining: AAEAAAAAAAAAAAAAAQ==
   - End

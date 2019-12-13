@@ -27,7 +27,7 @@ impl DecodedModel {
             match &chunk.name {
                 b"META" => chunks.push(decode_meta_chunk(chunk.data.as_slice())),
                 b"INST" => chunks.push(decode_inst_chunk(chunk.data.as_slice())),
-                b"PROP" => chunks.push(decode_prop_chunk(&chunk.data)),
+                b"PROP" => chunks.push(decode_prop_chunk(chunk.data.as_slice())),
                 b"PRNT" => chunks.push(decode_prnt_chunk(&chunk.data)),
                 b"END\0" => {
                     chunks.push(DecodedChunk::End);
@@ -89,9 +89,19 @@ fn decode_inst_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     }
 }
 
-fn decode_prop_chunk(data: &[u8]) -> DecodedChunk {
+fn decode_prop_chunk<R: Read>(mut reader: R) -> DecodedChunk {
+    let type_id = reader.read_u32::<LittleEndian>().unwrap();
+    let prop_name = reader.read_string().unwrap();
+    let prop_type = reader.read_u8().unwrap();
+
+    let mut remaining = Vec::new();
+    reader.read_to_end(&mut remaining).unwrap();
+
     DecodedChunk::Prop {
-        remaining: data.into(),
+        type_id,
+        prop_name,
+        prop_type,
+        remaining: remaining.into(),
     }
 }
 
@@ -117,6 +127,9 @@ pub enum DecodedChunk {
     },
 
     Prop {
+        type_id: u32,
+        prop_name: String,
+        prop_type: u8,
         remaining: UnknownBuffer,
     },
 

@@ -13,7 +13,10 @@ chunks:
         - 0
       remaining: ""
   - Prop:
-      remaining: AAAAAAQAAABOYW1lAQYAAABGb2xkZXI=
+      type_id: 0
+      prop_name: Name
+      prop_type: 1
+      remaining: BgAAAEZvbGRlcg==
   - Prnt:
       remaining: AAEAAAAAAAAAAAAAAQ==
   - End
