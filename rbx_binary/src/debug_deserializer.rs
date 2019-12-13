@@ -36,6 +36,7 @@ impl DecodedModel {
                 _ => {
                     chunks.push(DecodedChunk::Unknown {
                         name: String::from_utf8_lossy(&chunk.name[..]).to_string(),
+                        contents: chunk.data,
                     });
                 }
             }
@@ -164,6 +165,8 @@ pub enum DecodedChunk {
 
     Unknown {
         name: String,
+        #[serde(with = "unknown_buffer")]
+        contents: Vec<u8>,
     },
 }
 
