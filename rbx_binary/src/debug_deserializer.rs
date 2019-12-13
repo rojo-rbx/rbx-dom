@@ -5,7 +5,7 @@
 use std::io::Read;
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use serde::{Deserialize, Deserializer, Serialize, Serializer};
+use serde::{Deserialize, Serialize};
 
 use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader};
 
@@ -62,10 +62,7 @@ fn decode_meta_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     let mut remaining = Vec::new();
     reader.read_to_end(&mut remaining).unwrap();
 
-    DecodedChunk::Meta {
-        entries,
-        remaining: remaining.into(),
-    }
+    DecodedChunk::Meta { entries, remaining }
 }
 
 fn decode_inst_chunk<R: Read>(mut reader: R) -> DecodedChunk {
@@ -85,7 +82,7 @@ fn decode_inst_chunk<R: Read>(mut reader: R) -> DecodedChunk {
         type_name,
         object_format,
         referents,
-        remaining: remaining.into(),
+        remaining,
     }
 }
 
@@ -101,7 +98,7 @@ fn decode_prop_chunk<R: Read>(mut reader: R) -> DecodedChunk {
         type_id,
         prop_name,
         prop_type,
-        remaining: remaining.into(),
+        remaining,
     }
 }
 
@@ -127,7 +124,7 @@ fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     DecodedChunk::Prnt {
         version,
         links,
-        remaining: remaining.into(),
+        remaining,
     }
 }
 
@@ -135,7 +132,8 @@ fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
 pub enum DecodedChunk {
     Meta {
         entries: Vec<(String, String)>,
-        remaining: UnknownBuffer,
+        #[serde(with = "unknown_buffer")]
+        remaining: Vec<u8>,
     },
 
     Inst {
@@ -143,20 +141,23 @@ pub enum DecodedChunk {
         type_name: String,
         object_format: u8,
         referents: Vec<i32>,
-        remaining: UnknownBuffer,
+        #[serde(with = "unknown_buffer")]
+        remaining: Vec<u8>,
     },
 
     Prop {
         type_id: u32,
         prop_name: String,
         prop_type: u8,
-        remaining: UnknownBuffer,
+        #[serde(with = "unknown_buffer")]
+        remaining: Vec<u8>,
     },
 
     Prnt {
         version: u8,
         links: Vec<(i32, i32)>,
-        remaining: UnknownBuffer,
+        #[serde(with = "unknown_buffer")]
+        remaining: Vec<u8>,
     },
 
     End,
@@ -166,47 +167,28 @@ pub enum DecodedChunk {
     },
 }
 
-/// Contains data that we haven't decoded for a chunk. Using `UnknownBuffer`
+/// Contains data that we haven't decoded for a chunk. Using `unknown_buffer`
 /// should generally be a placeholder since it's results are opaque, but stable.
-#[derive(Debug)]
-pub struct UnknownBuffer {
-    contents: Vec<u8>,
-}
+mod unknown_buffer {
+    use serde::{Deserialize, Deserializer, Serializer};
 
-impl From<Vec<u8>> for UnknownBuffer {
-    fn from(contents: Vec<u8>) -> Self {
-        Self { contents }
-    }
-}
-
-impl From<&[u8]> for UnknownBuffer {
-    fn from(contents: &[u8]) -> Self {
-        Self {
-            contents: contents.to_vec(),
-        }
-    }
-}
-
-impl Serialize for UnknownBuffer {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    pub fn serialize<S>(value: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
         serializer.collect_str(&base64::display::Base64Display::with_config(
-            &self.contents,
+            &value,
             base64::STANDARD,
         ))
     }
-}
 
-impl<'de> Deserialize<'de> for UnknownBuffer {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
     where
         D: Deserializer<'de>,
     {
         let encoded = <&str>::deserialize(deserializer)?;
         let contents = base64::decode(encoded).map_err(serde::de::Error::custom)?;
 
-        Ok(UnknownBuffer { contents })
+        Ok(contents)
     }
 }
