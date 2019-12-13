@@ -13,10 +13,8 @@ pub enum Type {
     UDim = 0x06,
     UDim2 = 0x07,
     Ray = 0x08,
-
-    // Unsupported types in rbx_dom_weak
-    // Faces = 0x09,
-    // Axis = 0x0A,
+    Faces = 0x09,
+    Axis = 0x0A,
     BrickColor = 0x0B,
     Color3 = 0x0C,
     Vector2 = 0x0D,
@@ -73,8 +71,8 @@ impl Type {
         })
     }
 
-    pub fn to_default_rbx_type(&self) -> RbxValueType {
-        match self {
+    pub fn to_default_rbx_type(&self) -> Option<RbxValueType> {
+        Some(match self {
             // Since many buffers aren't going to be valid UTF-8, it's safer to
             // pick BinaryString for unknown property types instead of String.
             Type::String => RbxValueType::BinaryString,
@@ -85,10 +83,8 @@ impl Type {
             Type::UDim => RbxValueType::UDim,
             Type::UDim2 => RbxValueType::UDim2,
             Type::Ray => RbxValueType::Ray,
-
-            // Unimplemented types
-            // Type::Faces => RbxValueType::Faces,
-            // Type::Axis => RbxValueType::Axis,
+            Type::Faces => return None,
+            Type::Axis => return None,
             Type::BrickColor => RbxValueType::BrickColor,
             Type::Color3 => RbxValueType::Color3,
             Type::Vector2 => RbxValueType::Vector2,
@@ -104,7 +100,7 @@ impl Type {
             Type::PhysicalProperties => RbxValueType::PhysicalProperties,
             Type::Color3uint8 => RbxValueType::Color3uint8,
             Type::Int64 => RbxValueType::Int64,
-        }
+        })
     }
 }
 
@@ -125,8 +121,8 @@ impl TryFrom<u8> for Type {
             0x08 => Ray,
 
             // Unsupported:
-            // 0x09 => Faces,
-            // 0x0A => Axis,
+            0x09 => Faces,
+            0x0A => Axis,
             0x0B => BrickColor,
             0x0C => Color3,
             0x0D => Vector2,

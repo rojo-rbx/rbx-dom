@@ -275,7 +275,15 @@ impl<R: Read> BinaryDeserializer<R> {
             }
             None => {
                 canonical_name = prop_name;
-                canonical_type = data_type.to_default_rbx_type();
+
+                match data_type.to_default_rbx_type() {
+                    Some(rbx_type) => canonical_type = rbx_type,
+                    None => {
+                        log::warn!("Unsupported prop type {:?}, skipping property", data_type);
+
+                        return Ok(());
+                    }
+                }
 
                 log::trace!("Unknown prop, using type {:?}", canonical_type);
             }
@@ -334,8 +342,8 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::UDim => {}
             Type::UDim2 => {}
             Type::Ray => {}
-            // Type::Faces => {}
-            // Type::Axis => {}
+            Type::Faces => {}
+            Type::Axis => {}
             Type::BrickColor => {}
             Type::Color3 => {}
             Type::Vector2 => {}
