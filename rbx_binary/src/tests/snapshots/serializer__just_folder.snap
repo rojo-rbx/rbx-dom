@@ -1,0 +1,24 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: 1
+      remaining: BgAAAEZvbGRlcg==
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End

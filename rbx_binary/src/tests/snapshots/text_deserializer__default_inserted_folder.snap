@@ -1,0 +1,38 @@
+---
+source: rbx_binary/src/tests/text_deserializer.rs
+expression: decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: 1
+      remaining: AAAAAA==
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: 1
+      remaining: BgAAAEZvbGRlcg==
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: 1
+      remaining: AAAAAA==
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End

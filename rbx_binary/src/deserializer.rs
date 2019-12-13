@@ -30,7 +30,7 @@ impl From<InnerError> for Error {
 }
 
 #[derive(Debug, Snafu)]
-enum InnerError {
+pub(crate) enum InnerError {
     #[snafu(display("{}", source))]
     Io { source: io::Error },
 }
@@ -119,14 +119,14 @@ struct BinaryDeserializer<R> {
 
 /// All the information contained in the header before any chunks are read from
 /// the file.
-struct FileHeader {
+pub(crate) struct FileHeader {
     /// The number of instance types (represented for us as `TypeInfo`) that are
     /// in this file. Generally useful to pre-size some containers before
     /// reading the file.
-    num_types: u32,
+    pub(crate) num_types: u32,
 
     /// The total number of instances described by this file.
-    num_instances: u32,
+    pub(crate) num_instances: u32,
 }
 
 /// Represents a unique instance class. Binary models define all their instance
@@ -465,7 +465,7 @@ impl<R: Read> BinaryDeserializer<R> {
 }
 
 impl FileHeader {
-    fn decode<R: Read>(mut source: R) -> Result<Self, InnerError> {
+    pub(crate) fn decode<R: Read>(mut source: R) -> Result<Self, InnerError> {
         let mut magic_header = [0; 8];
         source.read_exact(&mut magic_header)?;
 
