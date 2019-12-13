@@ -1,5 +1,5 @@
 ---
-source: rbx_binary/src/tests/serializer.rs
+source: rbx_binary/src/tests/text_deserializer.rs
 expression: decoded
 ---
 num_types: 1
