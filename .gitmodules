@@ -1,3 +1,6 @@
 [submodule "rbx_dom_lua/modules/testez"]
 	path = rbx_dom_lua/modules/testez
 	url = https://github.com/Roblox/testez.git
+[submodule "rbx-test-files"]
+	path = rbx-test-files
+	url = https://github.com/rojo-rbx/rbx-test-files.git
