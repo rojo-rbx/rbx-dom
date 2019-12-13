@@ -6,7 +6,7 @@ use rbx_binary::{decode, encode};
 
 #[test]
 fn just_folder() {
-    test_round_trip("just-folder.rbxm");
+    test_round_trip("from-studio/default-inserted-folder.rbxm");
 }
 
 #[test]
@@ -20,10 +20,12 @@ fn hierarchy_with_refs() {
 }
 
 /// Helper method to test both reading and writing using only rbx_binary.
-fn test_round_trip(test_name: &str) {
+fn test_round_trip(test_path: &str) {
     let _ = env_logger::try_init();
 
-    let input_path = Path::new("test-files").join(test_name);
+    let input_path = Path::new("test-files").join(test_path);
+    let test_name = input_path.file_name().unwrap().to_str().unwrap();
+
     let initial_contents = fs::read(&input_path).unwrap();
 
     let mut initial_tree = InstanceBuilder::new("Folder").build();
