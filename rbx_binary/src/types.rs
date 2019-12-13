@@ -123,8 +123,6 @@ impl TryFrom<u8> for Type {
             0x06 => UDim,
             0x07 => UDim2,
             0x08 => Ray,
-
-            // Unsupported:
             0x09 => Faces,
             0x0A => Axis,
             0x0B => BrickColor,
