@@ -21,17 +21,26 @@ chunks:
       type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
-      remaining: AAAAAAAAAAAAAAAA
+      values:
+        - ""
+        - ""
+        - ""
   - Prop:
       type_id: 0
       prop_name: Name
       prop_type: String
-      remaining: CwAAAEdyYW5kcGFyZW50BgAAAFBhcmVudAUAAABDaGlsZA==
+      values:
+        - Grandparent
+        - Parent
+        - Child
   - Prop:
       type_id: 0
       prop_name: Tags
       prop_type: String
-      remaining: AAAAAAAAAAAAAAAA
+      values:
+        - ""
+        - ""
+        - ""
   - Prnt:
       version: 0
       links:

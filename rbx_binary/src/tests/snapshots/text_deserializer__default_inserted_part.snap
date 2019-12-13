@@ -19,12 +19,14 @@ chunks:
       type_id: 0
       prop_name: Anchored
       prop_type: Bool
-      remaining: AA==
+      values:
+        - false
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
-      remaining: AAAAAA==
+      values:
+        - ""
   - Prop:
       type_id: 0
       prop_name: BackParamA
@@ -74,12 +76,14 @@ chunks:
       type_id: 0
       prop_name: CanCollide
       prop_type: Bool
-      remaining: AQ==
+      values:
+        - true
   - Prop:
       type_id: 0
       prop_name: CastShadow
       prop_type: Bool
-      remaining: AQ==
+      values:
+        - true
   - Prop:
       type_id: 0
       prop_name: CollisionGroupId
@@ -139,12 +143,14 @@ chunks:
       type_id: 0
       prop_name: Locked
       prop_type: Bool
-      remaining: AA==
+      values:
+        - false
   - Prop:
       type_id: 0
       prop_name: Massless
       prop_type: Bool
-      remaining: AA==
+      values:
+        - false
   - Prop:
       type_id: 0
       prop_name: Material
@@ -154,7 +160,8 @@ chunks:
       type_id: 0
       prop_name: Name
       prop_type: String
-      remaining: BAAAAFBhcnQ=
+      values:
+        - Part
   - Prop:
       type_id: 0
       prop_name: Reflectance
@@ -194,7 +201,8 @@ chunks:
       type_id: 0
       prop_name: Tags
       prop_type: String
-      remaining: AAAAAA==
+      values:
+        - ""
   - Prop:
       type_id: 0
       prop_name: TopParamA

@@ -110,14 +110,19 @@ fn decode_prop_chunk<R: Read>(
     let prop_name = reader.read_string().unwrap();
 
     let prop_type_value = reader.read_u8().unwrap();
-    let prop_type = match prop_type_value.try_into() {
-        Ok(known) => PropType::Known(known),
-        Err(_) => PropType::Unknown(prop_type_value),
-    };
+    let (prop_type, values) = match prop_type_value.try_into() {
+        Ok(prop_type) => {
+            // If this type ID is unknown, we'll default to assuming that type
+            // has no members and thus has no values of this property.
+            let values = count_by_type_id
+                .get(&type_id)
+                .map(|&prop_count| DecodedValues::decode(&mut reader, prop_count, prop_type))
+                .unwrap_or(None);
 
-    // If this type ID is unknown, we'll default to saying that type has no
-    // members.
-    let prop_count = count_by_type_id.get(&type_id).copied().unwrap_or(0);
+            (DecodedPropType::Known(prop_type), values)
+        }
+        Err(_) => (DecodedPropType::Unknown(prop_type_value), None),
+    };
 
     let mut remaining = Vec::new();
     reader.read_to_end(&mut remaining).unwrap();
@@ -126,7 +131,7 @@ fn decode_prop_chunk<R: Read>(
         type_id,
         prop_name,
         prop_type,
-        values: None,
+        values,
         remaining,
     }
 }
@@ -158,14 +163,41 @@ fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum DecodedValues {
     String(Vec<RobloxString>),
     Bool(Vec<bool>),
 }
 
+impl DecodedValues {
+    fn decode<R: Read>(mut reader: R, prop_count: usize, prop_type: Type) -> Option<Self> {
+        match prop_type {
+            Type::String => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    values.push(reader.read_binary_string().unwrap().into());
+                }
+
+                Some(DecodedValues::String(values))
+            }
+            Type::Bool => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    values.push(reader.read_bool().unwrap());
+                }
+
+                Some(DecodedValues::Bool(values))
+            }
+            _ => None,
+        }
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum PropType {
+pub enum DecodedPropType {
     Known(Type),
     Unknown(u8),
 }
@@ -177,6 +209,15 @@ pub enum PropType {
 pub enum RobloxString {
     String(String),
     BinaryString(#[serde(with = "unknown_buffer")] Vec<u8>),
+}
+
+impl From<Vec<u8>> for RobloxString {
+    fn from(value: Vec<u8>) -> Self {
+        match String::from_utf8(value) {
+            Ok(string) => RobloxString::String(string),
+            Err(err) => RobloxString::BinaryString(err.into_bytes()),
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -201,7 +242,7 @@ pub enum DecodedChunk {
     Prop {
         type_id: u32,
         prop_name: String,
-        prop_type: PropType,
+        prop_type: DecodedPropType,
 
         #[serde(skip_serializing_if = "Option::is_none")]
         values: Option<DecodedValues>,

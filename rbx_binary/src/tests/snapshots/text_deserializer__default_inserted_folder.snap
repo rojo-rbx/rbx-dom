@@ -19,17 +19,20 @@ chunks:
       type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
-      remaining: AAAAAA==
+      values:
+        - ""
   - Prop:
       type_id: 0
       prop_name: Name
       prop_type: String
-      remaining: BgAAAEZvbGRlcg==
+      values:
+        - Folder
   - Prop:
       type_id: 0
       prop_name: Tags
       prop_type: String
-      remaining: AAAAAA==
+      values:
+        - ""
   - Prnt:
       version: 0
       links:

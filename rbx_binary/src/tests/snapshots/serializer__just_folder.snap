@@ -15,7 +15,8 @@ chunks:
       type_id: 0
       prop_name: Name
       prop_type: String
-      remaining: BgAAAEZvbGRlcg==
+      values:
+        - Folder
   - Prnt:
       version: 0
       links:
