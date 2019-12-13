@@ -13,7 +13,7 @@ mod serializer;
 mod types;
 
 #[cfg(test)]
-mod debug_deserializer;
+mod text_deserializer;
 
 #[cfg(test)]
 mod tests;

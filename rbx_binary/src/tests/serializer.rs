@@ -1,6 +1,6 @@
 use rbx_dom_test::InstanceBuilder;
 
-use crate::{debug_deserializer::DecodedModel, encode};
+use crate::{encode, text_deserializer::DecodedModel};
 
 #[test]
 fn just_folder() {

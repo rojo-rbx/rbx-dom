@@ -1,4 +1,4 @@
-use crate::debug_deserializer::DecodedModel;
+use crate::text_deserializer::DecodedModel;
 
 static FOLDER: &[u8] = include_bytes!("../../test-files/from-studio/default-inserted-folder.rbxm");
 static PART: &[u8] = include_bytes!("../../test-files/from-studio/default-inserted-part.rbxm");
