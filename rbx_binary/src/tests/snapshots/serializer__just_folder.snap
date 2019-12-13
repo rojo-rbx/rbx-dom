@@ -14,7 +14,7 @@ chunks:
   - Prop:
       type_id: 0
       prop_name: Name
-      prop_type: 1
+      prop_type: String
       remaining: BgAAAEZvbGRlcg==
   - Prnt:
       version: 0

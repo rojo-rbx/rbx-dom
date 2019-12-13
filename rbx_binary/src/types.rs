@@ -1,8 +1,12 @@
 use std::{convert::TryFrom, fmt};
 
+#[cfg(test)]
+use serde::{Deserialize, Serialize};
+
 use rbx_dom_weak::RbxValueType;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(test, derive(Serialize, Deserialize))]
 #[repr(u8)]
 pub enum Type {
     String = 0x01,

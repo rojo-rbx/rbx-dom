@@ -20,17 +20,17 @@ chunks:
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
-      prop_type: 1
+      prop_type: String
       remaining: AAAAAAAAAAAAAAAA
   - Prop:
       type_id: 0
       prop_name: Name
-      prop_type: 1
+      prop_type: String
       remaining: CwAAAEdyYW5kcGFyZW50BgAAAFBhcmVudAUAAABDaGlsZA==
   - Prop:
       type_id: 0
       prop_name: Tags
-      prop_type: 1
+      prop_type: String
       remaining: AAAAAAAAAAAAAAAA
   - Prnt:
       version: 0

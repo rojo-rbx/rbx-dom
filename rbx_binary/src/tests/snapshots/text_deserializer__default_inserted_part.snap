@@ -18,227 +18,227 @@ chunks:
   - Prop:
       type_id: 0
       prop_name: Anchored
-      prop_type: 2
+      prop_type: Bool
       remaining: AA==
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
-      prop_type: 1
+      prop_type: String
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: BackParamA
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAQ==
   - Prop:
       type_id: 0
       prop_name: BackParamB
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAA==
   - Prop:
       type_id: 0
       prop_name: BackSurface
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: BackSurfaceInput
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: BottomParamA
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAQ==
   - Prop:
       type_id: 0
       prop_name: BottomParamB
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAA==
   - Prop:
       type_id: 0
       prop_name: BottomSurface
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: BottomSurfaceInput
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: CFrame
-      prop_type: 16
+      prop_type: CFrame
       remaining: AoGAAAF+AAAggoAAAQ==
   - Prop:
       type_id: 0
       prop_name: CanCollide
-      prop_type: 2
+      prop_type: Bool
       remaining: AQ==
   - Prop:
       type_id: 0
       prop_name: CastShadow
-      prop_type: 2
+      prop_type: Bool
       remaining: AQ==
   - Prop:
       type_id: 0
       prop_name: CollisionGroupId
-      prop_type: 3
+      prop_type: Int32
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: Color3uint8
-      prop_type: 26
+      prop_type: Color3uint8
       remaining: o6Kl
   - Prop:
       type_id: 0
       prop_name: CustomPhysicalProperties
-      prop_type: 25
+      prop_type: PhysicalProperties
       remaining: AA==
   - Prop:
       type_id: 0
       prop_name: FrontParamA
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAQ==
   - Prop:
       type_id: 0
       prop_name: FrontParamB
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAA==
   - Prop:
       type_id: 0
       prop_name: FrontSurface
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: FrontSurfaceInput
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: LeftParamA
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAQ==
   - Prop:
       type_id: 0
       prop_name: LeftParamB
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAA==
   - Prop:
       type_id: 0
       prop_name: LeftSurface
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: LeftSurfaceInput
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: Locked
-      prop_type: 2
+      prop_type: Bool
       remaining: AA==
   - Prop:
       type_id: 0
       prop_name: Massless
-      prop_type: 2
+      prop_type: Bool
       remaining: AA==
   - Prop:
       type_id: 0
       prop_name: Material
-      prop_type: 18
+      prop_type: Enum
       remaining: AAABAA==
   - Prop:
       type_id: 0
       prop_name: Name
-      prop_type: 1
+      prop_type: String
       remaining: BAAAAFBhcnQ=
   - Prop:
       type_id: 0
       prop_name: Reflectance
-      prop_type: 4
+      prop_type: Float32
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: RightParamA
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAQ==
   - Prop:
       type_id: 0
       prop_name: RightParamB
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAA==
   - Prop:
       type_id: 0
       prop_name: RightSurface
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: RightSurfaceInput
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: RootPriority
-      prop_type: 3
+      prop_type: Int32
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: RotVelocity
-      prop_type: 14
+      prop_type: Vector3
       remaining: AAAAAAAAAAAAAAAA
   - Prop:
       type_id: 0
       prop_name: Tags
-      prop_type: 1
+      prop_type: String
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: TopParamA
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAQ==
   - Prop:
       type_id: 0
       prop_name: TopParamB
-      prop_type: 4
+      prop_type: Float32
       remaining: fgAAAA==
   - Prop:
       type_id: 0
       prop_name: TopSurface
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: TopSurfaceInput
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: Transparency
-      prop_type: 4
+      prop_type: Float32
       remaining: AAAAAA==
   - Prop:
       type_id: 0
       prop_name: Velocity
-      prop_type: 14
+      prop_type: Vector3
       remaining: AAAAAAAAAAAAAAAA
   - Prop:
       type_id: 0
       prop_name: formFactorRaw
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAQ==
   - Prop:
       type_id: 0
       prop_name: shape
-      prop_type: 18
+      prop_type: Enum
       remaining: AAAAAQ==
   - Prop:
       type_id: 0
       prop_name: size
-      prop_type: 14
+      prop_type: Vector3
       remaining: gQAAAH8AAACAAAAA
   - Prnt:
       version: 0

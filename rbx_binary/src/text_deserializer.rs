@@ -2,12 +2,12 @@
 //! It's intended to be used to snapshot test the binary serializer without
 //! suffering from same-inverse-bug problems.
 
-use std::io::Read;
+use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use serde::{Deserialize, Serialize};
 
-use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader};
+use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DecodedModel {
@@ -21,13 +21,23 @@ impl DecodedModel {
         let header = FileHeader::decode(&mut reader).expect("invalid file header");
         let mut chunks = Vec::new();
 
+        // The number of instance with a given type ID. Used to correctly decode
+        // lists of properties from the PROP chunk.
+        let mut count_by_type_id = HashMap::new();
+
         loop {
             let chunk = Chunk::decode(&mut reader).expect("invalid chunk");
 
             match &chunk.name {
                 b"META" => chunks.push(decode_meta_chunk(chunk.data.as_slice())),
-                b"INST" => chunks.push(decode_inst_chunk(chunk.data.as_slice())),
-                b"PROP" => chunks.push(decode_prop_chunk(chunk.data.as_slice())),
+                b"INST" => chunks.push(decode_inst_chunk(
+                    chunk.data.as_slice(),
+                    &mut count_by_type_id,
+                )),
+                b"PROP" => chunks.push(decode_prop_chunk(
+                    chunk.data.as_slice(),
+                    &mut count_by_type_id,
+                )),
                 b"PRNT" => chunks.push(decode_prnt_chunk(chunk.data.as_slice())),
                 b"END\0" => {
                     chunks.push(DecodedChunk::End);
@@ -66,11 +76,16 @@ fn decode_meta_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     DecodedChunk::Meta { entries, remaining }
 }
 
-fn decode_inst_chunk<R: Read>(mut reader: R) -> DecodedChunk {
+fn decode_inst_chunk<R: Read>(
+    mut reader: R,
+    count_by_type_id: &mut HashMap<u32, usize>,
+) -> DecodedChunk {
     let type_id = reader.read_u32::<LittleEndian>().unwrap();
     let type_name = reader.read_string().unwrap();
     let object_format = reader.read_u8().unwrap();
     let num_instances = reader.read_u32::<LittleEndian>().unwrap();
+
+    count_by_type_id.insert(type_id, num_instances as usize);
 
     let mut referents = vec![0; num_instances as usize];
     reader.read_referent_array(&mut referents).unwrap();
@@ -87,10 +102,22 @@ fn decode_inst_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     }
 }
 
-fn decode_prop_chunk<R: Read>(mut reader: R) -> DecodedChunk {
+fn decode_prop_chunk<R: Read>(
+    mut reader: R,
+    count_by_type_id: &mut HashMap<u32, usize>,
+) -> DecodedChunk {
     let type_id = reader.read_u32::<LittleEndian>().unwrap();
     let prop_name = reader.read_string().unwrap();
-    let prop_type = reader.read_u8().unwrap();
+
+    let prop_type_value = reader.read_u8().unwrap();
+    let prop_type = match prop_type_value.try_into() {
+        Ok(known) => PropType::Known(known),
+        Err(_) => PropType::Unknown(prop_type_value),
+    };
+
+    // If this type ID is unknown, we'll default to saying that type has no
+    // members.
+    let prop_count = count_by_type_id.get(&type_id).copied().unwrap_or(0);
 
     let mut remaining = Vec::new();
     reader.read_to_end(&mut remaining).unwrap();
@@ -99,6 +126,7 @@ fn decode_prop_chunk<R: Read>(mut reader: R) -> DecodedChunk {
         type_id,
         prop_name,
         prop_type,
+        values: None,
         remaining,
     }
 }
@@ -130,6 +158,28 @@ fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+pub enum DecodedValues {
+    String(Vec<RobloxString>),
+    Bool(Vec<bool>),
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PropType {
+    Known(Type),
+    Unknown(u8),
+}
+
+/// Holds a string with the same semantics as Roblox does. It can be UTF-8, but
+/// might not be.
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RobloxString {
+    String(String),
+    BinaryString(#[serde(with = "unknown_buffer")] Vec<u8>),
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub enum DecodedChunk {
     Meta {
         entries: Vec<(String, String)>,
@@ -151,7 +201,10 @@ pub enum DecodedChunk {
     Prop {
         type_id: u32,
         prop_name: String,
-        prop_type: u8,
+        prop_type: PropType,
+
+        #[serde(skip_serializing_if = "Option::is_none")]
+        values: Option<DecodedValues>,
 
         #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
         remaining: Vec<u8>,
