@@ -4,6 +4,7 @@
 
 use std::io::Read;
 
+use byteorder::{LittleEndian, ReadBytesExt};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 use crate::{chunk::Chunk, deserializer::FileHeader};
@@ -24,10 +25,10 @@ impl DecodedModel {
             let chunk = Chunk::decode(&mut reader).expect("invalid chunk");
 
             match &chunk.name {
-                b"META" => chunks.push(decode_meta_chunk(chunk.data)),
-                b"INST" => chunks.push(decode_inst_chunk(chunk.data)),
-                b"PROP" => chunks.push(decode_prop_chunk(chunk.data)),
-                b"PRNT" => chunks.push(decode_prnt_chunk(chunk.data)),
+                b"META" => chunks.push(decode_meta_chunk(chunk.data.as_slice())),
+                b"INST" => chunks.push(decode_inst_chunk(&chunk.data)),
+                b"PROP" => chunks.push(decode_prop_chunk(&chunk.data)),
+                b"PRNT" => chunks.push(decode_prnt_chunk(&chunk.data)),
                 b"END\0" => {
                     chunks.push(DecodedChunk::End);
                     break;
@@ -48,43 +49,60 @@ impl DecodedModel {
     }
 }
 
-fn decode_meta_chunk(data: Vec<u8>) -> DecodedChunk {
+fn decode_meta_chunk<R: Read>(mut reader: R) -> DecodedChunk {
+    let num_entries = reader.read_u32::<LittleEndian>().unwrap();
+
+    let mut remaining = Vec::new();
+    reader.read_to_end(&mut remaining).unwrap();
+
     DecodedChunk::Meta {
-        contents: data.into(),
+        num_entries,
+        remaining: remaining.into(),
     }
 }
 
-fn decode_inst_chunk(data: Vec<u8>) -> DecodedChunk {
+fn decode_inst_chunk(data: &[u8]) -> DecodedChunk {
     DecodedChunk::Inst {
-        contents: data.into(),
+        remaining: data.into(),
     }
 }
 
-fn decode_prop_chunk(data: Vec<u8>) -> DecodedChunk {
+fn decode_prop_chunk(data: &[u8]) -> DecodedChunk {
     DecodedChunk::Prop {
-        contents: data.into(),
+        remaining: data.into(),
     }
 }
 
-fn decode_prnt_chunk(data: Vec<u8>) -> DecodedChunk {
+fn decode_prnt_chunk(data: &[u8]) -> DecodedChunk {
     DecodedChunk::Prnt {
-        contents: data.into(),
+        remaining: data.into(),
     }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum DecodedChunk {
-    Meta { contents: UnknownBuffer },
+    Meta {
+        num_entries: u32,
+        remaining: UnknownBuffer,
+    },
 
-    Inst { contents: UnknownBuffer },
+    Inst {
+        remaining: UnknownBuffer,
+    },
 
-    Prop { contents: UnknownBuffer },
+    Prop {
+        remaining: UnknownBuffer,
+    },
 
-    Prnt { contents: UnknownBuffer },
+    Prnt {
+        remaining: UnknownBuffer,
+    },
 
     End,
 
-    Unknown { name: String },
+    Unknown {
+        name: String,
+    },
 }
 
 /// Contains data that we haven't decoded for a chunk. Using `UnknownBuffer`
@@ -97,6 +115,14 @@ pub struct UnknownBuffer {
 impl From<Vec<u8>> for UnknownBuffer {
     fn from(contents: Vec<u8>) -> Self {
         Self { contents }
+    }
+}
+
+impl From<&[u8]> for UnknownBuffer {
+    fn from(contents: &[u8]) -> Self {
+        Self {
+            contents: contents.to_vec(),
+        }
     }
 }
 

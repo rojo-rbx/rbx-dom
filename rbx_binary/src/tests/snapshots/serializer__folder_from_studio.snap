@@ -5,10 +5,17 @@ expression: decoded
 num_types: 1
 num_instances: 1
 chunks:
+  - Meta:
+      num_entries: 1
+      remaining: EgAAAEV4cGxpY2l0QXV0b0pvaW50cwQAAAB0cnVl
   - Inst:
       remaining: AAAAAAYAAABGb2xkZXIAAQAAAAAAAAA=
   - Prop:
+      remaining: AAAAABMAAABBdHRyaWJ1dGVzU2VyaWFsaXplAQAAAAA=
+  - Prop:
       remaining: AAAAAAQAAABOYW1lAQYAAABGb2xkZXI=
+  - Prop:
+      remaining: AAAAAAQAAABUYWdzAQAAAAA=
   - Prnt:
       remaining: AAEAAAAAAAAAAAAAAQ==
   - End
