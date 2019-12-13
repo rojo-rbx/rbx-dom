@@ -28,7 +28,7 @@ impl DecodedModel {
                 b"META" => chunks.push(decode_meta_chunk(chunk.data.as_slice())),
                 b"INST" => chunks.push(decode_inst_chunk(chunk.data.as_slice())),
                 b"PROP" => chunks.push(decode_prop_chunk(chunk.data.as_slice())),
-                b"PRNT" => chunks.push(decode_prnt_chunk(&chunk.data)),
+                b"PRNT" => chunks.push(decode_prnt_chunk(chunk.data.as_slice())),
                 b"END\0" => {
                     chunks.push(DecodedChunk::End);
                     break;
@@ -105,9 +105,29 @@ fn decode_prop_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     }
 }
 
-fn decode_prnt_chunk(data: &[u8]) -> DecodedChunk {
+fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
+    let version = reader.read_u8().unwrap();
+    let num_referents = reader.read_u32::<LittleEndian>().unwrap();
+
+    let mut subjects = vec![0; num_referents as usize];
+    let mut parents = vec![0; num_referents as usize];
+
+    reader.read_referent_array(&mut subjects).unwrap();
+    reader.read_referent_array(&mut parents).unwrap();
+
+    let links = subjects
+        .iter()
+        .copied()
+        .zip(parents.iter().copied())
+        .collect();
+
+    let mut remaining = Vec::new();
+    reader.read_to_end(&mut remaining).unwrap();
+
     DecodedChunk::Prnt {
-        remaining: data.into(),
+        version,
+        links,
+        remaining: remaining.into(),
     }
 }
 
@@ -134,6 +154,8 @@ pub enum DecodedChunk {
     },
 
     Prnt {
+        version: u8,
+        links: Vec<(i32, i32)>,
         remaining: UnknownBuffer,
     },
 
