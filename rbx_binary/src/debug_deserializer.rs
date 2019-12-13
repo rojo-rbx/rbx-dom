@@ -133,7 +133,8 @@ fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
 pub enum DecodedChunk {
     Meta {
         entries: Vec<(String, String)>,
-        #[serde(with = "unknown_buffer")]
+
+        #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
         remaining: Vec<u8>,
     },
 
@@ -142,7 +143,8 @@ pub enum DecodedChunk {
         type_name: String,
         object_format: u8,
         referents: Vec<i32>,
-        #[serde(with = "unknown_buffer")]
+
+        #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
         remaining: Vec<u8>,
     },
 
@@ -150,14 +152,16 @@ pub enum DecodedChunk {
         type_id: u32,
         prop_name: String,
         prop_type: u8,
-        #[serde(with = "unknown_buffer")]
+
+        #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
         remaining: Vec<u8>,
     },
 
     Prnt {
         version: u8,
         links: Vec<(i32, i32)>,
-        #[serde(with = "unknown_buffer")]
+
+        #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
         remaining: Vec<u8>,
     },
 
@@ -165,6 +169,7 @@ pub enum DecodedChunk {
 
     Unknown {
         name: String,
+
         #[serde(with = "unknown_buffer")]
         contents: Vec<u8>,
     },

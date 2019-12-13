@@ -9,14 +9,12 @@ chunks:
       entries:
         - - ExplicitAutoJoints
           - "true"
-      remaining: ""
   - Inst:
       type_id: 0
       type_name: Folder
       object_format: 0
       referents:
         - 0
-      remaining: ""
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
@@ -37,5 +35,4 @@ chunks:
       links:
         - - 0
           - -1
-      remaining: ""
   - End
