@@ -6,7 +6,12 @@ num_types: 1
 num_instances: 1
 chunks:
   - Inst:
-      remaining: AAAAAAYAAABGb2xkZXIAAQAAAAAAAAA=
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+      remaining: ""
   - Prop:
       remaining: AAAAAAQAAABOYW1lAQYAAABGb2xkZXI=
   - Prnt:

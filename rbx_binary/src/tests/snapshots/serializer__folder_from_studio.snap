@@ -6,10 +6,17 @@ num_types: 1
 num_instances: 1
 chunks:
   - Meta:
-      num_entries: 1
-      remaining: EgAAAEV4cGxpY2l0QXV0b0pvaW50cwQAAAB0cnVl
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+      remaining: ""
   - Inst:
-      remaining: AAAAAAYAAABGb2xkZXIAAQAAAAAAAAA=
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+      remaining: ""
   - Prop:
       remaining: AAAAABMAAABBdHRyaWJ1dGVzU2VyaWFsaXplAQAAAAA=
   - Prop:
