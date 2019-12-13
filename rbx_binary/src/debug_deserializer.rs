@@ -7,7 +7,7 @@ use std::io::Read;
 use byteorder::{LittleEndian, ReadBytesExt};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-use crate::{chunk::Chunk, deserializer::FileHeader};
+use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DecodedModel {
@@ -51,12 +51,19 @@ impl DecodedModel {
 
 fn decode_meta_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     let num_entries = reader.read_u32::<LittleEndian>().unwrap();
+    let mut entries = Vec::with_capacity(num_entries as usize);
+
+    for _ in 0..num_entries {
+        let key = reader.read_string().unwrap();
+        let value = reader.read_string().unwrap();
+        entries.push((key, value));
+    }
 
     let mut remaining = Vec::new();
     reader.read_to_end(&mut remaining).unwrap();
 
     DecodedChunk::Meta {
-        num_entries,
+        entries,
         remaining: remaining.into(),
     }
 }
@@ -82,7 +89,7 @@ fn decode_prnt_chunk(data: &[u8]) -> DecodedChunk {
 #[derive(Debug, Serialize, Deserialize)]
 pub enum DecodedChunk {
     Meta {
-        num_entries: u32,
+        entries: Vec<(String, String)>,
         remaining: UnknownBuffer,
     },
 
