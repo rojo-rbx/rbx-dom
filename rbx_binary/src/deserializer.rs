@@ -54,6 +54,9 @@ pub(crate) enum InnerError {
         valid_type_names: &'static str,
         actual_type_name: String,
     },
+
+    #[snafu(display("File referred to type ID {}, which was not declared", type_id))]
+    InvalidTypeId { type_id: u32 },
 }
 
 impl From<io::Error> for InnerError {
@@ -260,8 +263,10 @@ impl<R: Read> BinaryDeserializer<R> {
         let prop_name = chunk.read_string()?;
         let data_type: Type = chunk.read_u8()?.try_into().unwrap();
 
-        // TODO: Gracefully handle error instead of panic
-        let type_info = &self.type_infos[&type_id];
+        let type_info = self
+            .type_infos
+            .get(&type_id)
+            .ok_or(InnerError::InvalidTypeId { type_id })?;
 
         log::trace!(
             "PROP chunk ({}.{}, instance type {}, prop type {}",
