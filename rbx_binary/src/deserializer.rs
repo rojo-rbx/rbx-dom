@@ -31,8 +31,15 @@ impl From<InnerError> for Error {
 
 #[derive(Debug, Snafu)]
 pub(crate) enum InnerError {
+    /// A general I/O error occurred.
     #[snafu(display("{}", source))]
     Io { source: io::Error },
+
+    #[snafu(display("Invalid rbxl/rbxm file header"))]
+    BadHeader,
+
+    #[snafu(display("Unknown rbxl/rbxm file version {}. Valid versions are: 0", version))]
+    UnknownVersion { version: u16 },
 }
 
 impl From<io::Error> for InnerError {
@@ -478,20 +485,20 @@ impl FileHeader {
         source.read_exact(&mut magic_header)?;
 
         if &magic_header != FILE_MAGIC_HEADER {
-            panic!("Mismatched magic header");
+            return Err(InnerError::BadHeader);
         }
 
         let mut signature = [0; 6];
         source.read_exact(&mut signature)?;
 
         if &signature != FILE_SIGNATURE {
-            panic!("Mismatched file signature");
+            return Err(InnerError::BadHeader);
         }
 
         let version = source.read_u16::<LittleEndian>()?;
 
         if version != FILE_VERSION {
-            panic!("Unknown file version");
+            return Err(InnerError::UnknownVersion { version });
         }
 
         let num_types = source.read_u32::<LittleEndian>()?;
@@ -501,7 +508,7 @@ impl FileHeader {
         source.read_exact(&mut reserved)?;
 
         if reserved != [0; 8] {
-            panic!("Invalid reserved bytes");
+            return Err(InnerError::BadHeader);
         }
 
         Ok(Self {
