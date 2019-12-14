@@ -48,7 +48,7 @@ pub(crate) enum InnerError {
     },
 
     #[snafu(display(
-        "Type mismatch: Property {}.{} should be one of {}, but it was {}",
+        "Type mismatch: Property {}.{} should be {}, but it was {}",
         type_name,
         prop_name,
         valid_type_names,

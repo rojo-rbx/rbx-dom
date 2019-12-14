@@ -35,6 +35,15 @@ impl From<InnerError> for Error {
 enum InnerError {
     #[snafu(display("{}", source))]
     Io { source: io::Error },
+
+    #[snafu(display("Property type mismatch: Expected {}.{} to be of type {}, but it was of type {} on instance {}", type_name, prop_name, valid_type_names, actual_type_name, instance_full_name))]
+    PropTypeMismatch {
+        type_name: String,
+        prop_name: String,
+        valid_type_names: &'static str,
+        actual_type_name: String,
+        instance_full_name: String,
+    },
 }
 
 impl From<io::Error> for InnerError {
@@ -353,26 +362,43 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
                 let tree = &self.tree;
-                let values = type_info.object_ids.iter().map(|id| {
-                    let instance = tree.get_instance(*id).unwrap();
+                let values = type_info
+                    .object_ids
+                    .iter()
+                    .map(|id| {
+                        let instance = tree.get_instance(*id).unwrap();
 
-                    // We store the Name property in a different field for
-                    // convenience, but when serializing to the binary model
-                    // format we need to handle it just like other properties.
-                    if prop_name == "Name" {
-                        Cow::Owned(RbxValue::String {
-                            value: instance.name.clone(),
+                        // We store the Name property in a different field for
+                        // convenience, but when serializing to the binary model
+                        // format we need to handle it just like other properties.
+                        if prop_name == "Name" {
+                            Cow::Owned(RbxValue::String {
+                                value: instance.name.clone(),
+                            })
+                        } else {
+                            // TODO: Fall back to default value for this property
+                            // descriptor.
+                            Cow::Borrowed(instance.properties.get(prop_name).unwrap())
+                        }
+                    })
+                    .enumerate();
+
+                // Helper to generate a type mismatch error with context from
+                // this chunk.
+                let type_mismatch =
+                    |i: usize, bad_value: &RbxValue, valid_type_names: &'static str| {
+                        Err(InnerError::PropTypeMismatch {
+                            type_name: type_name.clone(),
+                            prop_name: prop_name.clone(),
+                            valid_type_names,
+                            actual_type_name: format!("{:?}", bad_value.get_type()),
+                            instance_full_name: self.full_name_for(type_info.object_ids[i]),
                         })
-                    } else {
-                        // TODO: Fall back to default value for this property
-                        // descriptor.
-                        Cow::Borrowed(instance.properties.get(prop_name).unwrap())
-                    }
-                });
+                    };
 
                 match prop_info.prop_type {
                     Type::String => {
-                        for rbx_value in values {
+                        for (i, rbx_value) in values {
                             match rbx_value.as_ref() {
                                 RbxValue::String { value } => {
                                     chunk.write_string(&value)?;
@@ -383,17 +409,25 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                                 RbxValue::BinaryString { value } => {
                                     chunk.write_binary_string(&value)?;
                                 }
-                                _ => panic!("type mismatch"),
+                                _ => {
+                                    return type_mismatch(
+                                        i,
+                                        &rbx_value,
+                                        "String, Content, or BinaryString",
+                                    );
+                                }
                             }
                         }
                     }
                     Type::Bool => {
-                        for rbx_value in values {
+                        for (i, rbx_value) in values {
                             match rbx_value.as_ref() {
                                 RbxValue::Bool { value } => {
                                     chunk.write_bool(*value)?;
                                 }
-                                _ => panic!("type mismatch"),
+                                _ => {
+                                    return type_mismatch(i, &rbx_value, "Bool");
+                                }
                             }
                         }
                     }
@@ -460,5 +494,26 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         end.dump(&mut self.output)?;
 
         Ok(())
+    }
+
+    /// Equivalent to Instance:GetFullName() from Roblox.
+    fn full_name_for(&self, subject_id: RbxId) -> String {
+        let mut components = Vec::new();
+        let mut current_id = Some(subject_id);
+
+        while let Some(id) = current_id {
+            let instance = self.tree.get_instance(id).unwrap();
+            components.push(instance.name.as_str());
+            current_id = instance.get_parent_id();
+        }
+
+        let mut name = String::new();
+        for component in components.iter().rev() {
+            name.push_str(component);
+            name.push('.');
+        }
+        name.pop();
+
+        name
     }
 }
