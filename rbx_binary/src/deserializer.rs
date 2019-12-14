@@ -35,11 +35,25 @@ pub(crate) enum InnerError {
     #[snafu(display("{}", source))]
     Io { source: io::Error },
 
-    #[snafu(display("Invalid rbxl/rbxm file header"))]
+    #[snafu(display("Invalid file header"))]
     BadHeader,
 
-    #[snafu(display("Unknown rbxl/rbxm file version {}. Valid versions are: 0", version))]
+    #[snafu(display("Unknown file version {}. Known versions are: 0", version))]
     UnknownVersion { version: u16 },
+
+    #[snafu(display(
+        "Type mismatch: Property {}.{} should be one of {}, but it was {}",
+        type_name,
+        prop_name,
+        valid_type_names,
+        actual_type_name
+    ))]
+    PropTypeMismatch {
+        type_name: String,
+        prop_name: String,
+        valid_type_names: &'static str,
+        actual_type_name: String,
+    },
 }
 
 impl From<io::Error> for InnerError {
@@ -281,7 +295,7 @@ impl<R: Read> BinaryDeserializer<R> {
                 );
             }
             None => {
-                canonical_name = prop_name;
+                canonical_name = prop_name.clone();
 
                 match data_type.to_default_rbx_type() {
                     Some(rbx_type) => canonical_type = rbx_type,
@@ -328,7 +342,15 @@ impl<R: Read> BinaryDeserializer<R> {
                             .push((canonical_name.clone(), rbx_value));
                     }
                 }
-                _ => panic!("type mismatch"),
+                invalid_type => {
+                    PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "String, Content, or BinaryString",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    }
+                    .fail()?;
+                }
             },
             Type::Bool => match canonical_type {
                 RbxValueType::Bool => {
@@ -341,7 +363,15 @@ impl<R: Read> BinaryDeserializer<R> {
                             .push((canonical_name.clone(), rbx_value));
                     }
                 }
-                _ => panic!("type mismatch"),
+                invalid_type => {
+                    PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Bool",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    }
+                    .fail()?;
+                }
             },
             Type::Int32 => {}
             Type::Float32 => {}
