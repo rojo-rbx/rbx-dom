@@ -39,7 +39,13 @@ pub(crate) enum InnerError {
     BadHeader,
 
     #[snafu(display("Unknown file version {}. Known versions are: 0", version))]
-    UnknownVersion { version: u16 },
+    UnknownFileVersion { version: u16 },
+
+    #[snafu(display("Unknown version {} for chunk {}", version, chunk_name))]
+    UnknownChunkVersion {
+        chunk_name: &'static str,
+        version: u8,
+    },
 
     #[snafu(display(
         "Type mismatch: Property {}.{} should be one of {}, but it was {}",
@@ -410,7 +416,10 @@ impl<R: Read> BinaryDeserializer<R> {
         let version = chunk.read_u8()?;
 
         if version != 0 {
-            panic!("Unrecognized PRNT chunk version {}, expected 0", version);
+            return Err(InnerError::UnknownChunkVersion {
+                chunk_name: "PRNT",
+                version,
+            });
         }
 
         let number_objects = chunk.read_u32::<LittleEndian>()?;
@@ -533,7 +542,7 @@ impl FileHeader {
         let version = source.read_u16::<LittleEndian>()?;
 
         if version != FILE_VERSION {
-            return Err(InnerError::UnknownVersion { version });
+            return Err(InnerError::UnknownFileVersion { version });
         }
 
         let num_types = source.read_u32::<LittleEndian>()?;
