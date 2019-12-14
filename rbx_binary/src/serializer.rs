@@ -36,13 +36,32 @@ enum InnerError {
     #[snafu(display("{}", source))]
     Io { source: io::Error },
 
-    #[snafu(display("Property type mismatch: Expected {}.{} to be of type {}, but it was of type {} on instance {}", type_name, prop_name, valid_type_names, actual_type_name, instance_full_name))]
+    #[snafu(display(
+        "Property type mismatch: Expected {}.{} to be of type {}, but it was of type {} on instance {}",
+        type_name,
+        prop_name,
+        valid_type_names,
+        actual_type_name,
+        instance_full_name,
+    ))]
     PropTypeMismatch {
         type_name: String,
         prop_name: String,
         valid_type_names: &'static str,
         actual_type_name: String,
         instance_full_name: String,
+    },
+
+    #[snafu(display(
+        "Unsupported property type: {}.{} is of type {:?}",
+        type_name,
+        prop_name,
+        prop_type
+    ))]
+    UnsupportedPropType {
+        type_name: String,
+        prop_name: String,
+        prop_type: Type,
     },
 }
 
@@ -432,12 +451,11 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         }
                     }
                     _ => {
-                        // This should be unreachable because we assert that we
-                        // have a known binary format type ID above. We might
-                        // hit this panic if we forget to add a case for any
-                        // newly supported types here.
-
-                        unreachable!();
+                        return Err(InnerError::UnsupportedPropType {
+                            type_name: type_name.clone(),
+                            prop_name: prop_name.clone(),
+                            prop_type: prop_info.prop_type,
+                        });
                     }
                 }
 
