@@ -1,6 +1,6 @@
 ---
-source: rbx_binary/src/tests/text_deserializer.rs
-expression: decoded
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
 ---
 num_types: 1
 num_instances: 1
@@ -11,7 +11,7 @@ chunks:
           - "true"
   - Inst:
       type_id: 0
-      type_name: Folder
+      type_name: ModuleScript
       object_format: 0
       referents:
         - 0
@@ -23,10 +23,28 @@ chunks:
         - ""
   - Prop:
       type_id: 0
+      prop_name: LinkedSource
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
       prop_name: Name
       prop_type: String
       values:
-        - Folder
+        - ModuleScript
+  - Prop:
+      type_id: 0
+      prop_name: ScriptGuid
+      prop_type: String
+      values:
+        - "{27E39FEB-27B7-43EC-9398-04115CF856B2}"
+  - Prop:
+      type_id: 0
+      prop_name: Source
+      prop_type: String
+      values:
+        - "local module = {}\n\nreturn module\n"
   - Prop:
       type_id: 0
       prop_name: Tags

@@ -1,0 +1,24 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- id: id-0
+  name: ModuleScript
+  class_name: ModuleScript
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    LinkedSource:
+      Type: String
+      Value: ""
+    ScriptGuid:
+      Type: BinaryString
+      Value: ezI3RTM5RkVCLTI3QjctNDNFQy05Mzk4LTA0MTE1Q0Y4NTZCMn0=
+    Source:
+      Type: String
+      Value: "local module = {}\n\nreturn module\n"
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []

@@ -1,6 +1,6 @@
 ---
-source: rbx_binary/tests/round_trip.rs
-expression: initial_viewed
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
 ---
 - id: id-0
   name: Folder
