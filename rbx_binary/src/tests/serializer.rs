@@ -1,5 +1,5 @@
 use rbx_dom_test::InstanceBuilder;
-use rbx_dom_weak::RbxValue;
+use rbx_dom_weak::{RbxId, RbxValue};
 
 use crate::{encode, text_deserializer::DecodedModel};
 
@@ -95,6 +95,18 @@ fn unimplemented_type_unknown_property() {
 
     let mut buffer = Vec::new();
     let result = encode(&tree, &[tree.get_root_id()], &mut buffer);
+
+    assert!(result.is_err());
+}
+
+/// Ensures that the serializer returns an error instead of panicking if we give
+/// it an ID not present in the tree.
+#[test]
+fn unknown_id() {
+    let tree = InstanceBuilder::new("Folder").build();
+
+    let mut buffer = Vec::new();
+    let result = encode(&tree, &[RbxId::new()], &mut buffer);
 
     assert!(result.is_err());
 }

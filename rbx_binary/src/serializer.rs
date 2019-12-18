@@ -63,6 +63,9 @@ enum InnerError {
         prop_name: String,
         prop_type: String,
     },
+
+    #[snafu(display("The instance with ID {} was not present in the tree.", id))]
+    InvalidInstanceId { id: RbxId },
 }
 
 impl From<io::Error> for InnerError {
@@ -191,7 +194,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         let instance = self
             .tree
             .get_instance(id)
-            .expect("Instance did not exist in tree");
+            .ok_or_else(|| InnerError::InvalidInstanceId { id })?;
 
         let type_info = self.get_or_create_type_info(&instance.class_name);
         type_info.object_ids.push(id);
