@@ -53,7 +53,7 @@ enum InnerError {
     },
 
     #[snafu(display(
-        "Unsupported property type: {}.{} is of type {:?}",
+        "Unsupported property type: {}.{} is of type {}",
         type_name,
         prop_name,
         prop_type
@@ -61,7 +61,7 @@ enum InnerError {
     UnsupportedPropType {
         type_name: String,
         prop_name: String,
-        prop_type: Type,
+        prop_type: String,
     },
 }
 
@@ -77,7 +77,7 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], writer: W) -> Result<(), 
     let mut serializer = BinarySerializer::new(tree, writer);
 
     for id in ids {
-        serializer.add_instance(*id);
+        serializer.add_instance(*id)?;
     }
 
     log::debug!("Type info discovered: {:#?}", serializer.type_infos);
@@ -173,19 +173,21 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Mark the given instance ID and all of its descendants as intended for
     /// serialization with this serializer.
-    fn add_instance(&mut self, id: RbxId) {
+    fn add_instance(&mut self, id: RbxId) -> Result<(), InnerError> {
         self.relevant_instances.push(id);
-        self.collect_type_info(id);
+        self.collect_type_info(id)?;
 
         for descendant in self.tree.descendants(id) {
             self.relevant_instances.push(descendant.get_id());
-            self.collect_type_info(descendant.get_id());
+            self.collect_type_info(descendant.get_id())?;
         }
+
+        Ok(())
     }
 
     /// Collect information about all the different types of instance and their
     /// properties.
-    fn collect_type_info(&mut self, id: RbxId) {
+    fn collect_type_info(&mut self, id: RbxId) -> Result<(), InnerError> {
         let instance = self
             .tree
             .get_instance(id)
@@ -205,10 +207,14 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         RbxPropertyTypeDescriptor::Data(ty) => *ty,
                         RbxPropertyTypeDescriptor::Enum(_) => RbxValueType::Enum,
                         RbxPropertyTypeDescriptor::UnimplementedType(name) => {
-                            log::info!("Unimplemented data type {}", name);
-
-                            // TODO: Configurable handling of unknown types?
-                            return;
+                            // This type wasn't implemented by rbx_dom_weak at
+                            // the time that our reflection database was
+                            // generated.
+                            return Err(InnerError::UnsupportedPropType {
+                                type_name: instance.class_name.clone(),
+                                prop_name: prop_name.clone(),
+                                prop_type: name.to_string(),
+                            });
                         }
                     };
                 }
@@ -218,15 +224,32 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 }
             }
 
-            let ser_type = Type::from_rbx_type(ser_rbx_type).unwrap();
-
-            let default_value: Cow<'static, RbxValue> = type_info
-                .class_descriptor
-                .and_then(|class| class.get_default_value(prop_name).map(Cow::Borrowed))
-                .or_else(|| Self::fallback_default_value(ser_rbx_type).map(Cow::Owned))
-                .unwrap();
-
             if !type_info.properties.contains_key(ser_name) {
+                let default_value = type_info
+                    .class_descriptor
+                    .and_then(|class| class.get_default_value(prop_name).map(Cow::Borrowed))
+                    .or_else(|| Self::fallback_default_value(ser_rbx_type).map(Cow::Owned))
+                    .ok_or_else(|| {
+                        // Since we don't know how to generate the default value for
+                        // this property, we consider it unsupported.
+                        InnerError::UnsupportedPropType {
+                            type_name: instance.class_name.clone(),
+                            prop_name: prop_name.clone(),
+                            prop_type: format!("{:?}", ser_rbx_type),
+                        }
+                    })?;
+
+                let ser_type = Type::from_rbx_type(ser_rbx_type).ok_or_else(|| {
+                    // This is a known value type, but rbx_binary doesn't have a
+                    // binary type value for it. rbx_binary might be out of
+                    // date?
+                    InnerError::UnsupportedPropType {
+                        type_name: instance.class_name.clone(),
+                        prop_name: prop_name.clone(),
+                        prop_type: format!("{:?}", ser_rbx_type),
+                    }
+                })?;
+
                 type_info.properties.insert(
                     ser_name.to_owned(),
                     PropInfo {
@@ -236,6 +259,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 );
             }
         }
+
+        Ok(())
     }
 
     /// Finds the type info from the given class name if it exists, or creates
@@ -480,7 +505,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
                             prop_name: prop_name.clone(),
-                            prop_type: prop_info.prop_type,
+                            prop_type: format!("binary type {:?}", prop_info.prop_type),
                         });
                     }
                 }
