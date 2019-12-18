@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+## 1.10.1 (2019-12-18)
+* Updated `base64`, `md5`, and `uuid` dependencies
+
 ## 1.10.0 (2019-09-15)
 * Added `RbxTree::set_parent`, for moving instances within a single tree.
 
