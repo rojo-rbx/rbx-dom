@@ -1,5 +1,5 @@
 use std::{
-    borrow::Cow,
+    borrow::{Borrow, Cow},
     collections::{BTreeMap, HashMap},
     io::{self, Write},
     u32,
@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{RbxId, RbxTree, RbxValue, RbxValueType};
-use rbx_reflection::RbxPropertyTypeDescriptor;
+use rbx_reflection::{RbxClassDescriptor, RbxPropertyTypeDescriptor};
 use snafu::Snafu;
 
 use crate::{
@@ -147,12 +147,16 @@ struct TypeInfo {
     /// Stored in a sorted map to try to ensure that we write out properties in
     /// a deterministic order.
     properties: BTreeMap<String, PropInfo>,
+
+    /// A reference to the type's class descriptor from rbx_reflection, if this
+    /// is a known class.
+    class_descriptor: Option<&'static RbxClassDescriptor>,
 }
 
 #[derive(Debug)]
 struct PropInfo {
     prop_type: Type,
-    // TODO: Should we store the default value for this descriptor here?
+    default_value: Cow<'static, RbxValue>,
 }
 
 impl<'a, W: Write> BinarySerializer<'a, W> {
@@ -216,11 +220,18 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
             let ser_type = Type::from_rbx_type(ser_rbx_type).unwrap();
 
+            let default_value: Cow<'static, RbxValue> = type_info
+                .class_descriptor
+                .and_then(|class| class.get_default_value(prop_name).map(Cow::Borrowed))
+                .or_else(|| Self::fallback_default_value(ser_rbx_type).map(Cow::Owned))
+                .unwrap();
+
             if !type_info.properties.contains_key(ser_name) {
                 type_info.properties.insert(
                     ser_name.to_owned(),
                     PropInfo {
                         prop_type: ser_type,
+                        default_value,
                     },
                 );
             }
@@ -234,10 +245,11 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let is_service;
+            let class_descriptor = rbx_reflection::get_class_descriptor(class_name);
 
-            if let Some(class_descriptor) = rbx_reflection::get_class_descriptor(class_name) {
-                is_service = class_descriptor.is_service();
+            let is_service;
+            if let Some(descriptor) = &class_descriptor {
+                is_service = descriptor.is_service();
             } else {
                 log::info!("The class {} is not known to rbx_binary", class_name);
                 is_service = false;
@@ -249,10 +261,16 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             // rbx_dom_weak encodes the name property specially, we still insert
             // this property into the type info and handle it like a regular
             // property during encoding.
+            //
+            // We can use a dummy default_value here because instances from
+            // rbx_dom_weak always have a name set.
             properties.insert(
                 "Name".to_owned(),
                 PropInfo {
                     prop_type: Type::String,
+                    default_value: Cow::Owned(RbxValue::String {
+                        value: String::new(),
+                    }),
                 },
             );
 
@@ -263,10 +281,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     is_service,
                     object_ids: Vec::new(),
                     properties,
+                    class_descriptor,
                 },
             );
         }
 
+        // This unwrap will not panic because we always insert this key into
+        // type_infos in this function.
         self.type_infos.get_mut(class_name).unwrap()
     }
 
@@ -385,6 +406,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     .object_ids
                     .iter()
                     .map(|id| {
+                        // This unwrap will not panic because we uphold the
+                        // invariant that any ID in object_ids must be part of
+                        // this tree.
                         let instance = tree.get_instance(*id).unwrap();
 
                         // We store the Name property in a different field for
@@ -395,9 +419,11 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                                 value: instance.name.clone(),
                             })
                         } else {
-                            // TODO: Fall back to default value for this property
-                            // descriptor.
-                            Cow::Borrowed(instance.properties.get(prop_name).unwrap())
+                            instance
+                                .properties
+                                .get(prop_name)
+                                .map(Cow::Borrowed)
+                                .unwrap_or(Cow::Borrowed(prop_info.default_value.borrow()))
                         }
                     })
                     .enumerate();
@@ -533,5 +559,16 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         name.pop();
 
         name
+    }
+
+    fn fallback_default_value(rbx_type: RbxValueType) -> Option<RbxValue> {
+        Some(match rbx_type {
+            RbxValueType::String => RbxValue::String {
+                value: String::new(),
+            },
+            RbxValueType::BinaryString => RbxValue::BinaryString { value: Vec::new() },
+            RbxValueType::Bool => RbxValue::Bool { value: false },
+            _ => return None,
+        })
     }
 }

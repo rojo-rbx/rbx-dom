@@ -1,0 +1,36 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 1
+num_instances: 2
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: StringValue
+      object_format: 0
+      referents:
+        - 0
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - StringValue
+        - StringValue
+  - Prop:
+      type_id: 0
+      prop_name: Value
+      prop_type: String
+      values:
+        - Hello
+        - ""
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+  - End
