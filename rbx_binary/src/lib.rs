@@ -1,10 +1,11 @@
-//! Super early, unstable binary format (rbxm and rbxl) serializer and
-//! deserializer for rbx-dom.
+//! Implementation of Roblox's binary model (rbxm) and place (rbxl) file
+//! formats.
 //!
-//! Both the serializer and deserializer are functioning for limited property
-//! types. `String` and `Bool` (from the `rbx_dom_weak` crate) are the only
-//! supported values. Unrecognized values will be ignored when deserializing,
-//! and cause a panic when serializing.
+//! rbx_binary has limited property support. See [the rbx-dom
+//! homepage](https://github.com/rojo-rbx/rbx-dom#readme) for details on what
+//! support rbx_binary and its sibling crates have.
+
+#![deny(missing_docs)]
 
 mod chunk;
 mod core;
