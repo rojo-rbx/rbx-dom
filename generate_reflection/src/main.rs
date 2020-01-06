@@ -61,9 +61,9 @@ struct DescriptorPatch {
     clippy::cyclomatic_complexity, // TODO
 )]
 fn main() -> Result<(), Box<dyn Error>> {
-    let dump = Dump::read()?;
+    let mut database = ReflectionDatabase::new();
 
-    let mut classes: HashMap<Cow<'static, str>, RbxClassDescriptor> = HashMap::new();
+    let dump = Dump::read()?;
 
     for dump_class in &dump.classes {
         let superclass = if dump_class.superclass == "<<<ROOT>>>" {
@@ -115,13 +115,16 @@ fn main() -> Result<(), Box<dyn Error>> {
             default_properties: HashMap::new(),
         };
 
-        classes.insert(Cow::Owned(dump_class.name.clone()), class);
+        database
+            .classes
+            .insert(Cow::Owned(dump_class.name.clone()), class);
     }
 
     let property_patches = load_property_patches();
 
     for (class_name, class_changes) in &property_patches.change {
-        let class = classes
+        let class = database
+            .classes
             .get_mut(class_name.as_str())
             .unwrap_or_else(|| panic!("Class {} defined in patch file wasn't present", class_name));
 
@@ -153,7 +156,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     for (class_name, class_adds) in &property_patches.add {
-        let class = classes
+        let class = database
+            .classes
             .get_mut(class_name.as_str())
             .unwrap_or_else(|| panic!("Class {} defined in patch file wasn't present", class_name));
 
@@ -193,7 +197,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 
-    for (class_name, class) in &classes {
+    for (class_name, class) in &database.classes {
         for (property_name, property) in &class.properties {
             if let Some(canonical_name) = &property.canonical_name {
                 let canonical_property = match class.properties.get(canonical_name) {
@@ -240,11 +244,6 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
         }
     }
-
-    let mut database = ReflectionDatabase {
-        studio_version: [0, 0, 0, 0],
-        classes,
-    };
 
     let plugin = {
         let mut plugin = RbxTree::new(RbxInstanceProperties {
