@@ -242,7 +242,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     let mut database = ReflectionDatabase {
-        dump,
         studio_version: [0, 0, 0, 0],
         classes,
     };
@@ -347,7 +346,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     {
         let enums_path = rust_output_dir.join("enums.rs");
         let mut enums_file = BufWriter::new(File::create(enums_path)?);
-        emitter_rust::emit_enums(&mut enums_file, &database)?;
+        emitter_rust::emit_enums(&mut enums_file, &dump)?;
         enums_file.flush()?;
     }
 

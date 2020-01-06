@@ -39,8 +39,8 @@ pub fn emit_classes<W: Write>(output: &mut W, database: &ReflectionDatabase) -> 
     write!(output, "{}", classes)
 }
 
-pub fn emit_enums<W: Write>(output: &mut W, database: &ReflectionDatabase) -> io::Result<()> {
-    let enums = generate_enums(&database.dump);
+pub fn emit_enums<W: Write>(output: &mut W, dump: &Dump) -> io::Result<()> {
+    let enums = generate_enums(dump);
     writeln!(output, "// This file is automatically @generated.")?;
     write!(output, "{}", enums)
 }
