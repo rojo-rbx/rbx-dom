@@ -14,7 +14,7 @@ use std::{
     collections::HashMap,
     error::Error,
     fs::{self, File},
-    io::{BufWriter, Write},
+    io::{self, BufWriter, Write},
     path::PathBuf,
     str,
 };
@@ -53,10 +53,6 @@ struct DescriptorPatch {
     scriptability: Option<RbxPropertyScriptability>,
 }
 
-#[allow(
-    clippy::useless_let_if_seq, // https://github.com/rust-lang/rust-clippy/issues/3769
-    clippy::cyclomatic_complexity, // TODO
-)]
 fn main() -> Result<(), Box<dyn Error>> {
     let mut database = ReflectionDatabase::new();
 
@@ -71,45 +67,13 @@ fn main() -> Result<(), Box<dyn Error>> {
     let plugin = create_plugin(&database);
     let messages = run_in_roblox(&plugin);
 
-    for message in &messages {
-        let deserialized = match serde_json::from_slice(&message) {
-            Ok(v) => v,
-            Err(e) => {
-                panic!(
-                    "Couldn't deserialize message: {}\n{}",
-                    e,
-                    str::from_utf8(message).unwrap()
-                );
-            }
-        };
+    process_plugin_messages(&mut database, &messages);
+    emit_source(&database, &dump)?;
 
-        match deserialized {
-            PluginMessage::Version { version } => {
-                database.studio_version = version;
-            }
-            PluginMessage::PatchDescriptors {
-                class_name,
-                descriptors,
-            } => {
-                if let Some(class) = database.classes.get_mut(class_name.as_str()) {
-                    for (property_name, patch) in descriptors {
-                        if let Some(default_value) = patch.default_value {
-                            class
-                                .default_properties
-                                .insert(property_name.clone(), default_value.clone());
-                        }
+    Ok(())
+}
 
-                        if let Some(descriptor) = class.properties.get_mut(&property_name) {
-                            if let Some(scriptability) = patch.scriptability {
-                                descriptor.scriptability = scriptability;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
+fn emit_source(database: &ReflectionDatabase, dump: &Dump) -> io::Result<()> {
     let rust_output_dir = {
         let mut rust_output_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         rust_output_dir.pop();
@@ -156,6 +120,47 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     Ok(())
+}
+
+fn process_plugin_messages(database: &mut ReflectionDatabase, messages: &[Vec<u8>]) {
+    for message in messages {
+        let deserialized = match serde_json::from_slice(&message) {
+            Ok(v) => v,
+            Err(e) => {
+                panic!(
+                    "Couldn't deserialize message: {}\n{}",
+                    e,
+                    str::from_utf8(message).unwrap()
+                );
+            }
+        };
+
+        match deserialized {
+            PluginMessage::Version { version } => {
+                database.studio_version = version;
+            }
+            PluginMessage::PatchDescriptors {
+                class_name,
+                descriptors,
+            } => {
+                if let Some(class) = database.classes.get_mut(class_name.as_str()) {
+                    for (property_name, patch) in descriptors {
+                        if let Some(default_value) = patch.default_value {
+                            class
+                                .default_properties
+                                .insert(property_name.clone(), default_value.clone());
+                        }
+
+                        if let Some(descriptor) = class.properties.get_mut(&property_name) {
+                            if let Some(scriptability) = patch.scriptability {
+                                descriptor.scriptability = scriptability;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 fn create_plugin(database: &ReflectionDatabase) -> RbxTree {
