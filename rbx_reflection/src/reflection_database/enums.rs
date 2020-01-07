@@ -2,7 +2,7 @@
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
-    let mut output = HashMap::with_capacity(198);
+    let mut output = HashMap::with_capacity(199);
     output.insert(
         Cow::Borrowed("ActionType"),
         RbxEnumDescriptor {
@@ -717,6 +717,18 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("GetSortedAsync"), 3);
                 items.insert(Cow::Borrowed("SetIncrementSortedAsync"), 4);
                 items.insert(Cow::Borrowed("OnUpdate"), 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("DateTimeKind"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("DateTimeKind"),
+            items: {
+                let mut items = HashMap::with_capacity(2);
+                items.insert(Cow::Borrowed("Utc"), 0);
+                items.insert(Cow::Borrowed("Local"), 1);
                 items
             },
         },

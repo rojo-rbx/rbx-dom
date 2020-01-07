@@ -2308,6 +2308,7 @@ return {
 		properties = {
 		},
 		defaults = {
+			Name = "Instance",
 		},
 	},
 	CFrameValue = {
@@ -3357,15 +3358,6 @@ return {
 				serializedName = nil,
 				scriptability = "Read",
 				serializes = false,
-			},
-			EnableScriptCollabOnLoad = {
-				name = "EnableScriptCollabOnLoad",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
 			},
 			GameId = {
 				name = "GameId",
@@ -8382,6 +8374,15 @@ return {
 		name = "ModuleScript",
 		superclass = "LuaSourceContainer",
 		properties = {
+			CoreScriptModified = {
+				name = "CoreScriptModified",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = false,
+			},
 			LinkedSource = {
 				name = "LinkedSource",
 				type = {type = "Data", name = "Content"},
@@ -8834,6 +8835,24 @@ return {
 				scriptability = "Read",
 				serializes = false,
 			},
+			HttpProxyEnabled = {
+				name = "HttpProxyEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			HttpProxyURL = {
+				name = "HttpProxyURL",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			IncommingReplicationLag = {
 				name = "IncommingReplicationLag",
 				type = {type = "Data", name = "Float64"},
@@ -8981,24 +9000,6 @@ return {
 			PrintTouches = {
 				name = "PrintTouches",
 				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			ProxyEnabled = {
-				name = "ProxyEnabled",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			ProxyURL = {
-				name = "ProxyURL",
-				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -10428,6 +10429,32 @@ return {
 			userId = {
 				name = "userId",
 				type = {type = "Data", name = "Int32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
+		},
+		defaults = {
+		},
+	},
+	PlayerEmulatorService = {
+		name = "PlayerEmulatorService",
+		superclass = "Instance",
+		properties = {
+			PlayerEmulationEnabled = {
+				name = "PlayerEmulationEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
+			StudioEmulatedCountryRegionCode = {
+				name = "StudioEmulatedCountryRegionCode",
+				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14653,6 +14680,15 @@ return {
 		name = "StudioData",
 		superclass = "Instance",
 		properties = {
+			EnableScriptCollabOnLoad = {
+				name = "EnableScriptCollabOnLoad",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			SrcPlaceId = {
 				name = "SrcPlaceId",
 				type = {type = "Data", name = "Int32"},
@@ -14673,6 +14709,8 @@ return {
 			},
 		},
 		defaults = {
+			EnableScriptCollabOnLoad = false,
+			Name = "StudioData",
 		},
 	},
 	StudioService = {
@@ -15094,6 +15132,15 @@ return {
 		name = "Terrain",
 		superclass = "BasePart",
 		properties = {
+			Decoration = {
+				name = "Decoration",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
 			IsSmooth = {
 				name = "IsSmooth",
 				type = {type = "Data", name = "Bool"},
@@ -16798,6 +16845,55 @@ return {
 		defaults = {
 		},
 	},
+	UIGradient = {
+		name = "UIGradient",
+		superclass = "UIComponent",
+		properties = {
+			Color = {
+				name = "Color",
+				type = {type = "Data", name = "ColorSequence"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Offset = {
+				name = "Offset",
+				type = {type = "Data", name = "Vector2"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Rotation = {
+				name = "Rotation",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Transparency = {
+				name = "Transparency",
+				type = {type = "Data", name = "NumberSequence"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+			Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))}),
+			Name = "UIGradient",
+			Offset = Vector2.new(0, 0),
+			Rotation = 0,
+			Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0, 0, 0), NumberSequenceKeypoint.new(1, 0, 0)}),
+		},
+	},
 	UIGridLayout = {
 		name = "UIGridLayout",
 		superclass = "UIGridStyleLayout",
@@ -18498,7 +18594,7 @@ return {
 	},
 	Workspace = {
 		name = "Workspace",
-		superclass = "Model",
+		superclass = "WorldRoot",
 		properties = {
 			AllowThirdPartySales = {
 				name = "AllowThirdPartySales",
@@ -18628,6 +18724,24 @@ return {
 			Name = "Workspace",
 			PrimaryPart = nil,
 			StreamingEnabled = false,
+		},
+	},
+	WorldModel = {
+		name = "WorldModel",
+		superclass = "WorldRoot",
+		properties = {
+		},
+		defaults = {
+			Name = "WorldModel",
+			PrimaryPart = nil,
+		},
+	},
+	WorldRoot = {
+		name = "WorldRoot",
+		superclass = "Model",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 }
