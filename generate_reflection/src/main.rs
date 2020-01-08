@@ -13,6 +13,7 @@ use std::{
     borrow::Cow,
     collections::HashMap,
     error::Error,
+    fmt::{self, Write as _},
     fs::{self, File},
     io::{self, BufWriter, Write},
     path::PathBuf,
@@ -59,6 +60,11 @@ fn main() -> Result<(), Box<dyn Error>> {
     let dump = Dump::read()?;
     database.populate_from_dump(&dump)?;
 
+    let fixture = generate_fixture_place(&database);
+    fs::write("test.rbxlx", fixture)?;
+
+    return Ok(());
+
     let property_patches = load_property_patches();
     database.populate_from_patches(&property_patches)?;
 
@@ -71,6 +77,89 @@ fn main() -> Result<(), Box<dyn Error>> {
     emit_source(&database, &dump)?;
 
     Ok(())
+}
+
+fn generate_fixture_place(database: &ReflectionDatabase) -> String {
+    struct Instance<'a> {
+        name: &'a str,
+        children: Vec<Instance<'a>>,
+    }
+
+    impl<'a> Instance<'a> {
+        fn named(name: &'a str) -> Self {
+            Self {
+                name,
+                children: Vec::new(),
+            }
+        }
+    }
+
+    impl fmt::Display for Instance<'_> {
+        fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+            writeln!(
+                formatter,
+                "<Item class=\"{}\" reference=\"{}\">",
+                &self.name, &self.name
+            )?;
+
+            for child in &self.children {
+                write!(formatter, "{}", child)?;
+            }
+
+            writeln!(formatter, "</Item>")?;
+
+            Ok(())
+        }
+    }
+
+    let mut output = String::new();
+
+    writeln!(&mut output, "<roblox version=\"4\">").unwrap();
+
+    for descriptor in database.classes.values() {
+        let mut instance = Instance::named(&descriptor.name);
+
+        match &*descriptor.name {
+            // These types can't be put into place files by default.
+            "DebuggerWatch" | "DebuggerBreakpoint" | "AdvancedDragger" | "Dragger"
+            | "ScriptDebugger" | "PackageLink" => continue,
+
+            // These types have specific parenting restrictions handled
+            // elsewhere.
+            "Terrain"
+            | "Attachment"
+            | "Animator"
+            | "StarterPlayerScripts"
+            | "StarterCharacterScripts" => continue,
+
+            // WorldModel is not yet enabled.
+            "WorldModel" => continue,
+
+            "StarterPlayer" => {
+                instance
+                    .children
+                    .push(Instance::named("StarterPlayerScripts"));
+                instance
+                    .children
+                    .push(Instance::named("StarterCharacterScripts"));
+            }
+            "Workspace" => {
+                instance.children.push(Instance::named("Terrain"));
+            }
+            "Part" => {
+                instance.children.push(Instance::named("Attachment"));
+            }
+            "Humanoid" => {
+                instance.children.push(Instance::named("Animator"));
+            }
+            _ => {}
+        }
+
+        write!(output, "{}", instance).unwrap();
+    }
+
+    writeln!(&mut output, "</roblox>").unwrap();
+    output
 }
 
 fn emit_source(database: &ReflectionDatabase, dump: &Dump) -> io::Result<()> {
