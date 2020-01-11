@@ -15,13 +15,20 @@ use std::{
     error::Error,
     fmt::{self, Write as _},
     fs::{self, File},
-    io::{self, BufWriter, Write},
+    io::{self, BufReader, BufWriter, Write},
     path::PathBuf,
+    process::Command,
     str,
+    sync::mpsc,
+    thread,
+    time::Duration,
 };
 
+use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::{RbxInstanceProperties, RbxTree, RbxValue};
+use roblox_install::RobloxStudio;
 use serde_derive::Deserialize;
+use tempfile::tempdir;
 
 use crate::{
     api_dump::Dump,
@@ -60,23 +67,66 @@ fn main() -> Result<(), Box<dyn Error>> {
     let dump = Dump::read()?;
     database.populate_from_dump(&dump)?;
 
-    let fixture = generate_fixture_place(&database);
-    fs::write("test.rbxlx", fixture)?;
-
-    return Ok(());
+    let tree = roundtrip_place_through_studio(&database)?;
+    collect_defaults_from_place(&mut database, &tree);
 
     let property_patches = load_property_patches();
     database.populate_from_patches(&property_patches)?;
 
+    // let plugin = create_plugin(&database);
+    // let messages = run_in_roblox(&plugin);
+    // process_plugin_messages(&mut database, &messages);
+
     database.validate();
 
-    let plugin = create_plugin(&database);
-    let messages = run_in_roblox(&plugin);
-
-    process_plugin_messages(&mut database, &messages);
     emit_source(&database, &dump)?;
 
     Ok(())
+}
+
+fn collect_defaults_from_place(database: &mut ReflectionDatabase, tree: &RbxTree) {}
+
+fn roundtrip_place_through_studio(
+    database: &ReflectionDatabase,
+) -> Result<RbxTree, Box<dyn Error>> {
+    let fixture = generate_fixture_place(&database);
+
+    let output_dir = tempdir()?;
+    let output_path = output_dir.path().join("roundtrip.rbxlx");
+    fs::write(&output_path, fixture)?;
+
+    println!("Generating place at {}", output_path.display());
+
+    let studio_install = RobloxStudio::locate()?;
+
+    let mut studio_process = Command::new(studio_install.application_path())
+        .arg(output_path.display().to_string())
+        .spawn()?;
+
+    let (tx, rx) = mpsc::channel();
+    let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
+    watcher.watch(&output_path, notify::RecursiveMode::NonRecursive)?;
+
+    println!("Waiting to resave place...");
+
+    loop {
+        match rx.recv()? {
+            DebouncedEvent::Write(_) => break,
+            _ => {}
+        }
+    }
+
+    println!("Got it!");
+
+    studio_process.kill()?;
+
+    let mut file = BufReader::new(File::open(output_path)?);
+
+    let decode_options = rbx_xml::DecodeOptions::new()
+        .property_behavior(rbx_xml::DecodePropertyBehavior::NoReflection);
+    let tree = rbx_xml::from_reader(&mut file, decode_options)?;
+
+    Ok(tree)
 }
 
 fn generate_fixture_place(database: &ReflectionDatabase) -> String {
