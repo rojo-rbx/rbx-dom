@@ -12,7 +12,7 @@ use std::{
 };
 
 use heck::SnakeCase;
-use proc_macro2::{Ident, Literal, Span, TokenStream};
+use proc_macro2::{Ident, Literal, Span, TokenStream, TokenTree};
 use quote::quote;
 use rbx_dom_weak::RbxValue;
 
@@ -290,11 +290,11 @@ impl AsRust for RbxValue {
                 quote!(RbxValue::Int64 { value: #value_literal })
             }
             RbxValue::Float32 { value } => {
-                let value_literal = Literal::f32_unsuffixed(*value);
+                let value_literal = value.as_rust();
                 quote!(RbxValue::Float32 { value: #value_literal })
             }
             RbxValue::Float64 { value } => {
-                let value_literal = Literal::f64_unsuffixed(*value);
+                let value_literal = value.as_rust();
                 quote!(RbxValue::Float64 { value: #value_literal })
             }
             RbxValue::Bool { value } => {
@@ -307,15 +307,15 @@ impl AsRust for RbxValue {
             }
             RbxValue::Ref { .. } => quote!(RbxValue::Ref { value: None }),
             RbxValue::Vector2 { value } => {
-                let x_literal = Literal::f32_unsuffixed(value[0]);
-                let y_literal = Literal::f32_unsuffixed(value[1]);
+                let x_literal = value[0].as_rust();
+                let y_literal = value[1].as_rust();
 
                 quote!(RbxValue::Vector2 { value: [#x_literal, #y_literal] })
             }
             RbxValue::Vector3 { value } => {
-                let x_literal = Literal::f32_unsuffixed(value[0]);
-                let y_literal = Literal::f32_unsuffixed(value[1]);
-                let z_literal = Literal::f32_unsuffixed(value[2]);
+                let x_literal = value[0].as_rust();
+                let y_literal = value[1].as_rust();
+                let z_literal = value[2].as_rust();
 
                 quote!(RbxValue::Vector3 { value: [#x_literal, #y_literal, #z_literal] })
             }
@@ -333,9 +333,9 @@ impl AsRust for RbxValue {
                 quote!(RbxValue::Vector3int16 { value: [#x_literal, #y_literal, #z_literal] })
             }
             RbxValue::Color3 { value } => {
-                let r_literal = Literal::f32_unsuffixed(value[0]);
-                let g_literal = Literal::f32_unsuffixed(value[1]);
-                let b_literal = Literal::f32_unsuffixed(value[2]);
+                let r_literal = value[0].as_rust();
+                let g_literal = value[1].as_rust();
+                let b_literal = value[2].as_rust();
 
                 quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
             }
@@ -369,7 +369,7 @@ impl AsRust for RbxValue {
                 quote!(RbxValue::PhysicalProperties { value: #value_literal })
             }
             RbxValue::UDim { value } => {
-                let literal_scale = Literal::f32_unsuffixed(value.0);
+                let literal_scale = value.0.as_rust();
                 let literal_offset = Literal::i32_unsuffixed(value.1);
 
                 quote!(RbxValue::UDim {
@@ -377,9 +377,9 @@ impl AsRust for RbxValue {
                 })
             }
             RbxValue::UDim2 { value } => {
-                let literal_x_scale = Literal::f32_unsuffixed(value.0);
+                let literal_x_scale = value.0.as_rust();
                 let literal_x_offset = Literal::i32_unsuffixed(value.1);
-                let literal_y_scale = Literal::f32_unsuffixed(value.2);
+                let literal_y_scale = value.2.as_rust();
                 let literal_y_offset = Literal::i32_unsuffixed(value.3);
 
                 quote!(RbxValue::UDim2 {
@@ -395,10 +395,10 @@ impl AsRust for RbxValue {
             }
             RbxValue::ColorSequence { value } => {
                 let literal_keypoints = value.keypoints.iter().map(|keypoint| {
-                    let time_literal = Literal::f32_unsuffixed(keypoint.time);
-                    let color_r_literal = Literal::f32_unsuffixed(keypoint.color[0]);
-                    let color_g_literal = Literal::f32_unsuffixed(keypoint.color[1]);
-                    let color_b_literal = Literal::f32_unsuffixed(keypoint.color[2]);
+                    let time_literal = keypoint.time.as_rust();
+                    let color_r_literal = keypoint.color[0].as_rust();
+                    let color_g_literal = keypoint.color[1].as_rust();
+                    let color_b_literal = keypoint.color[2].as_rust();
 
                     quote!(ColorSequenceKeypoint {
                         time: #time_literal,
@@ -416,9 +416,9 @@ impl AsRust for RbxValue {
             }
             RbxValue::NumberSequence { value } => {
                 let literal_keypoints = value.keypoints.iter().map(|keypoint| {
-                    let time_literal = Literal::f32_unsuffixed(keypoint.time);
-                    let value_literal = Literal::f32_unsuffixed(keypoint.value);
-                    let envelope_literal = Literal::f32_unsuffixed(keypoint.envelope);
+                    let time_literal = keypoint.time.as_rust();
+                    let value_literal = keypoint.value.as_rust();
+                    let envelope_literal = keypoint.envelope.as_rust();
 
                     quote!(NumberSequenceKeypoint {
                         time: #time_literal,
@@ -436,10 +436,10 @@ impl AsRust for RbxValue {
                 })
             }
             RbxValue::Rect { value } => {
-                let min_x_literal = Literal::f32_unsuffixed(value.min.0);
-                let min_y_literal = Literal::f32_unsuffixed(value.min.1);
-                let max_x_literal = Literal::f32_unsuffixed(value.max.0);
-                let max_y_literal = Literal::f32_unsuffixed(value.max.1);
+                let min_x_literal = value.min.0.as_rust();
+                let min_y_literal = value.min.1.as_rust();
+                let max_x_literal = value.max.0.as_rust();
+                let max_y_literal = value.max.1.as_rust();
 
                 quote!(RbxValue::Rect {
                     value: Rect {
@@ -449,8 +449,8 @@ impl AsRust for RbxValue {
                 })
             }
             RbxValue::NumberRange { value } => {
-                let min_literal = Literal::f32_unsuffixed(value.0);
-                let max_literal = Literal::f32_unsuffixed(value.1);
+                let min_literal = value.0.as_rust();
+                let max_literal = value.1.as_rust();
 
                 quote!(RbxValue::NumberRange {
                     value: (#min_literal, #max_literal),
@@ -465,6 +465,18 @@ impl AsRust for RbxValue {
             }
             _ => unimplemented!("emitting Rust type {:?}", self.get_type()),
         }
+    }
+}
+
+impl AsRust for f32 {
+    fn as_rust(&self) -> TokenStream {
+        TokenTree::Literal(Literal::f32_unsuffixed(*self)).into()
+    }
+}
+
+impl AsRust for f64 {
+    fn as_rust(&self) -> TokenStream {
+        TokenTree::Literal(Literal::f64_unsuffixed(*self)).into()
     }
 }
 
