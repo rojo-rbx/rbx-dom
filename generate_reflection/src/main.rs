@@ -174,6 +174,18 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             "DebuggerWatch" | "DebuggerBreakpoint" | "AdvancedDragger" | "Dragger"
             | "ScriptDebugger" | "PackageLink" => continue,
 
+            // rbx_xml does not currently support Ray values.
+            // https://github.com/rojo-rbx/rbx-dom/issues/87
+            "RayValue" => continue,
+
+            // rbx_xml does not currently support Faces values.
+            // https://github.com/rojo-rbx/rbx-dom/issues/88
+            "Handles" => continue,
+
+            // rbx_xml does not currently support Axes values.
+            // https://github.com/rojo-rbx/rbx-dom/issues/89
+            "ArcHandles" => continue,
+
             // These types have specific parenting restrictions handled
             // elsewhere.
             "Terrain"
