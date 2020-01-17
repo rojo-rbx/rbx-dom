@@ -98,3 +98,51 @@ pub struct NumberSequenceKeypoint {
     pub value: f32,
     pub envelope: f32,
 }
+
+bitflags::bitflags! {
+    // TODO: Validate these flag values
+    struct FaceFlags: u8 {
+        const TOP = 0b00000001;
+        const BOTTOM = 0b00000010;
+        const LEFT = 0b00000100;
+        const RIGHT = 0b00001000;
+        const BACK = 0b00010000;
+        const FRONT = 0b00100000;
+    }
+}
+
+pub struct Faces {
+    flags: FaceFlags,
+}
+
+impl Faces {
+    pub fn empty() -> Self {
+        Self {
+            flags: FaceFlags::empty(),
+        }
+    }
+
+    pub fn has_top(&self) -> bool {
+        self.flags.contains(FaceFlags::TOP)
+    }
+
+    pub fn has_bottom(&self) -> bool {
+        self.flags.contains(FaceFlags::BOTTOM)
+    }
+
+    pub fn has_left(&self) -> bool {
+        self.flags.contains(FaceFlags::LEFT)
+    }
+
+    pub fn has_right(&self) -> bool {
+        self.flags.contains(FaceFlags::RIGHT)
+    }
+
+    pub fn has_back(&self) -> bool {
+        self.flags.contains(FaceFlags::BACK)
+    }
+
+    pub fn has_front(&self) -> bool {
+        self.flags.contains(FaceFlags::FRONT)
+    }
+}
