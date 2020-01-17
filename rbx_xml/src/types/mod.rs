@@ -18,6 +18,7 @@ mod number_range;
 mod number_sequence;
 mod numbers;
 mod physical_properties;
+mod ray;
 mod rect;
 mod referent;
 mod shared_string;
@@ -116,6 +117,7 @@ declare_rbx_types! {
     self::numbers::Int32Type => Int32,
     self::numbers::Int64Type => Int64,
     self::physical_properties::PhysicalPropertiesType => PhysicalProperties,
+    self::ray::RayType => Ray,
     self::rect::RectType => Rect,
     self::strings::StringType => String,
     self::udims::UDim2Type => UDim2,
