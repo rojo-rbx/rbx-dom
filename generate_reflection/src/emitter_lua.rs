@@ -258,7 +258,7 @@ impl AsLua for RbxValue {
             },
             Ref { value } => {
                 if value.is_some() {
-                    panic!("Can't serialize non-None Ref");
+                    log::warn!("Can't serialize non-None Ref, writing None...");
                 }
 
                 write!(output, "nil")
@@ -338,6 +338,15 @@ impl<T: AsLua> fmt::Display for Lua<T> {
         // fully understand io::Write vs fmt::Write.
         let mut buffer = Vec::new();
         self.0.as_lua(&mut buffer).unwrap();
-        write!(output, "{}", str::from_utf8(&buffer).unwrap())
+
+        match str::from_utf8(&buffer) {
+            Ok(converted) => write!(output, "{}", converted),
+            Err(e) => {
+                let lossy = String::from_utf8_lossy(&buffer);
+                log::warn!("Bad Unicode: {}", lossy);
+
+                write!(output, "{}", lossy)
+            }
+        }
     }
 }

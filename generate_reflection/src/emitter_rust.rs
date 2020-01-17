@@ -9,6 +9,7 @@ use std::{
     collections::HashMap,
     hash::Hash,
     io::{self, Write},
+    num::FpCategory,
 };
 
 use heck::SnakeCase;
@@ -279,7 +280,7 @@ impl AsRust for RbxValue {
             }
             RbxValue::BinaryString { value } => {
                 let value_literal = Literal::byte_string(value);
-                quote!(RbxValue::BinaryString { value: #value_literal.into() })
+                quote!(RbxValue::BinaryString { value: Vec::from(&#value_literal[..]) })
             }
             RbxValue::Int32 { value } => {
                 let value_literal = Literal::i32_unsuffixed(*value);
@@ -344,7 +345,7 @@ impl AsRust for RbxValue {
                 let g_literal = Literal::u8_unsuffixed(value[1]);
                 let b_literal = Literal::u8_unsuffixed(value[2]);
 
-                quote!(RbxValue::Color3 { value: [#r_literal, #g_literal, #b_literal] })
+                quote!(RbxValue::Color3uint8 { value: [#r_literal, #g_literal, #b_literal] })
             }
             RbxValue::CFrame { value } => {
                 let literals = value.iter().cloned().map(Literal::f32_unsuffixed);
@@ -470,7 +471,19 @@ impl AsRust for RbxValue {
 
 impl AsRust for f32 {
     fn as_rust(&self) -> TokenStream {
-        TokenTree::Literal(Literal::f32_unsuffixed(*self)).into()
+        use std::f32::{INFINITY, NEG_INFINITY};
+
+        match self.classify() {
+            FpCategory::Infinite => {
+                if *self > 0.0 {
+                    quote!(std::f32::INFINITY)
+                } else {
+                    quote!(std::f32::NEG_INFINITY)
+                }
+            }
+            FpCategory::Nan => quote!(std::f32::NAN),
+            _ => TokenTree::Literal(Literal::f32_unsuffixed(*self)).into(),
+        }
     }
 }
 

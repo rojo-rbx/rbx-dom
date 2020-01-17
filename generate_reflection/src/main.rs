@@ -11,7 +11,7 @@ mod run_in_roblox;
 
 use std::{
     borrow::Cow,
-    collections::HashMap,
+    collections::{HashMap, HashSet, VecDeque},
     error::Error,
     fmt::{self, Write as _},
     fs::{self, File},
@@ -25,7 +25,7 @@ use std::{
 };
 
 use notify::{DebouncedEvent, Watcher};
-use rbx_dom_weak::{RbxInstanceProperties, RbxTree, RbxValue};
+use rbx_dom_weak::{RbxInstanceProperties, RbxTree, RbxValue, RbxValueType};
 use roblox_install::RobloxStudio;
 use serde_derive::Deserialize;
 use tempfile::tempdir;
@@ -84,7 +84,52 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-fn collect_defaults_from_place(database: &mut ReflectionDatabase, tree: &RbxTree) {}
+fn collect_defaults_from_place(database: &mut ReflectionDatabase, tree: &RbxTree) {
+    // Perform a breadth-first search to find the instance shallowest in the
+    // tree of each class.
+
+    let mut found_classes = HashSet::new();
+    let mut to_visit = VecDeque::new();
+
+    let root_instance = tree.get_instance(tree.get_root_id()).unwrap();
+    to_visit.extend(root_instance.get_children_ids());
+
+    while let Some(id) = to_visit.pop_front() {
+        let instance = tree.get_instance(id).unwrap();
+
+        to_visit.extend(instance.get_children_ids());
+
+        if found_classes.contains(&instance.class_name) {
+            continue;
+        }
+
+        found_classes.insert(instance.class_name.clone());
+
+        let descriptor = match database.classes.get_mut(instance.class_name.as_str()) {
+            Some(descriptor) => descriptor,
+            None => {
+                log::warn!(
+                    "Class {} found in default place but not API dump!",
+                    instance.class_name
+                );
+                continue;
+            }
+        };
+
+        for (prop_name, prop_value) in &instance.properties {
+            match prop_value.get_type() {
+                // We don't support emitting SharedString values yet.
+                RbxValueType::SharedString => {}
+
+                _ => {
+                    descriptor
+                        .default_properties
+                        .insert(Cow::Owned(prop_name.clone()), prop_value.clone());
+                }
+            }
+        }
+    }
+}
 
 fn roundtrip_place_through_studio(
     database: &ReflectionDatabase,
