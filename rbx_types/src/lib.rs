@@ -100,14 +100,13 @@ pub struct NumberSequenceKeypoint {
 }
 
 bitflags::bitflags! {
-    // TODO: Validate these flag values
     struct FaceFlags: u8 {
-        const TOP = 0b00000001;
-        const BOTTOM = 0b00000010;
-        const LEFT = 0b00000100;
-        const RIGHT = 0b00001000;
-        const BACK = 0b00010000;
-        const FRONT = 0b00100000;
+        const RIGHT = 1;
+        const TOP = 2;
+        const BACK = 4;
+        const LEFT = 8;
+        const BOTTOM = 16;
+        const FRONT = 32;
     }
 }
 
@@ -144,5 +143,37 @@ impl Faces {
 
     pub fn has_front(&self) -> bool {
         self.flags.contains(FaceFlags::FRONT)
+    }
+}
+
+bitflags::bitflags! {
+    struct AxisFlags: u8 {
+        const X = 1;
+        const Y = 2;
+        const Z = 4;
+    }
+}
+
+pub struct Axes {
+    axes: AxisFlags,
+}
+
+impl Axes {
+    pub fn empty() -> Self {
+        Self {
+            axes: AxisFlags::empty(),
+        }
+    }
+
+    pub fn has_x(&self) -> bool {
+        self.axes.contains(AxisFlags::X)
+    }
+
+    pub fn has_y(&self) -> bool {
+        self.axes.contains(AxisFlags::Y)
+    }
+
+    pub fn has_z(&self) -> bool {
+        self.axes.contains(AxisFlags::Z)
     }
 }
