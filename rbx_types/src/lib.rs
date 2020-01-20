@@ -116,14 +116,32 @@ pub struct Region3 {
     pub max: Vector3,
 }
 
+impl Region3 {
+    pub fn new(min: Vector3, max: Vector3) -> Self {
+        Self { min, max }
+    }
+}
+
 pub struct Region3int16 {
     pub min: Vector3int16,
     pub max: Vector3int16,
 }
 
+impl Region3int16 {
+    pub fn new(min: Vector3int16, max: Vector3int16) -> Self {
+        Self { min, max }
+    }
+}
+
 pub struct Rect {
     pub min: Vector2,
     pub max: Vector2,
+}
+
+impl Rect {
+    pub fn new(min: Vector2, max: Vector2) -> Self {
+        Self { min, max }
+    }
 }
 
 pub struct UDim {
@@ -142,6 +160,12 @@ pub struct UDim2 {
     pub y: UDim,
 }
 
+impl UDim2 {
+    pub fn new(x: UDim, y: UDim) -> Self {
+        Self { x, y }
+    }
+}
+
 pub struct PhysicalProperties {
     pub density: f32,
     pub friction: f32,
@@ -155,6 +179,12 @@ pub struct NumberRange {
     pub max: f32,
 }
 
+impl NumberRange {
+    pub fn new(min: f32, max: f32) -> Self {
+        Self { min, max }
+    }
+}
+
 pub struct ColorSequence {
     pub keypoints: Vec<ColorSequenceKeypoint>,
 }
@@ -162,6 +192,12 @@ pub struct ColorSequence {
 pub struct ColorSequenceKeypoint {
     pub time: f32,
     pub color: Color3,
+}
+
+impl ColorSequenceKeypoint {
+    pub fn new(time: f32, color: Color3) -> Self {
+        Self { time, color }
+    }
 }
 
 pub struct NumberSequence {
@@ -172,6 +208,16 @@ pub struct NumberSequenceKeypoint {
     pub time: f32,
     pub value: f32,
     pub envelope: f32,
+}
+
+impl NumberSequenceKeypoint {
+    pub fn new(time: f32, value: f32, envelope: f32) -> Self {
+        Self {
+            time,
+            value,
+            envelope,
+        }
+    }
 }
 
 bitflags::bitflags! {
