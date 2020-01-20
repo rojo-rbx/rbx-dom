@@ -1,3 +1,10 @@
+mod lister;
+
+use std::fmt;
+
+use lister::Lister;
+
+#[derive(Debug, Clone, Copy)]
 pub struct Vector2 {
     pub x: f32,
     pub y: f32,
@@ -9,6 +16,7 @@ impl Vector2 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Vector2int16 {
     pub x: i16,
     pub y: i16,
@@ -20,6 +28,7 @@ impl Vector2int16 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Vector3 {
     pub x: f32,
     pub y: f32,
@@ -32,6 +41,7 @@ impl Vector3 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Vector3int16 {
     pub x: i16,
     pub y: i16,
@@ -44,6 +54,7 @@ impl Vector3int16 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct CFrame {
     pub position: Vector3,
     pub orientation: Matrix3,
@@ -60,6 +71,7 @@ impl CFrame {
 
 /// Used to represent the `orientation` field of `CFrame` and not a standalone
 /// type in Roblox.
+#[derive(Debug, Clone, Copy)]
 pub struct Matrix3 {
     pub x: Vector3,
     pub y: Vector3,
@@ -76,6 +88,7 @@ impl Matrix3 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Color3 {
     pub r: f32,
     pub g: f32,
@@ -88,6 +101,7 @@ impl Color3 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Color3uint8 {
     pub r: u8,
     pub g: u8,
@@ -100,6 +114,7 @@ impl Color3uint8 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Ray {
     pub origin: Vector3,
     pub direction: Vector3,
@@ -111,6 +126,7 @@ impl Ray {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Region3 {
     pub min: Vector3,
     pub max: Vector3,
@@ -122,6 +138,7 @@ impl Region3 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Region3int16 {
     pub min: Vector3int16,
     pub max: Vector3int16,
@@ -133,6 +150,7 @@ impl Region3int16 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Rect {
     pub min: Vector2,
     pub max: Vector2,
@@ -144,6 +162,7 @@ impl Rect {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct UDim {
     pub scale: f32,
     pub offset: i32,
@@ -155,6 +174,7 @@ impl UDim {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct UDim2 {
     pub x: UDim,
     pub y: UDim,
@@ -166,6 +186,7 @@ impl UDim2 {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct PhysicalProperties {
     pub density: f32,
     pub friction: f32,
@@ -174,6 +195,7 @@ pub struct PhysicalProperties {
     pub elasticity_weight: f32,
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct NumberRange {
     pub min: f32,
     pub max: f32,
@@ -185,10 +207,12 @@ impl NumberRange {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct ColorSequence {
     pub keypoints: Vec<ColorSequenceKeypoint>,
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct ColorSequenceKeypoint {
     pub time: f32,
     pub color: Color3,
@@ -200,10 +224,12 @@ impl ColorSequenceKeypoint {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct NumberSequence {
     pub keypoints: Vec<NumberSequenceKeypoint>,
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct NumberSequenceKeypoint {
     pub time: f32,
     pub value: f32,
@@ -231,8 +257,35 @@ bitflags::bitflags! {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Faces {
     flags: FaceFlags,
+}
+
+impl Faces {
+    pub const RIGHT: Self = Self {
+        flags: FaceFlags::RIGHT,
+    };
+
+    pub const TOP: Self = Self {
+        flags: FaceFlags::TOP,
+    };
+
+    pub const BACK: Self = Self {
+        flags: FaceFlags::BACK,
+    };
+
+    pub const LEFT: Self = Self {
+        flags: FaceFlags::LEFT,
+    };
+
+    pub const BOTTOM: Self = Self {
+        flags: FaceFlags::BOTTOM,
+    };
+
+    pub const FRONT: Self = Self {
+        flags: FaceFlags::FRONT,
+    };
 }
 
 impl Faces {
@@ -242,28 +295,48 @@ impl Faces {
         }
     }
 
-    pub fn has_top(&self) -> bool {
-        self.flags.contains(FaceFlags::TOP)
+    pub fn all() -> Self {
+        Self {
+            flags: FaceFlags::all(),
+        }
     }
 
-    pub fn has_bottom(&self) -> bool {
-        self.flags.contains(FaceFlags::BOTTOM)
+    pub fn contains(self, other: Self) -> bool {
+        self.flags.contains(other.flags)
     }
+}
 
-    pub fn has_left(&self) -> bool {
-        self.flags.contains(FaceFlags::LEFT)
-    }
+impl fmt::Display for Faces {
+    fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
+        let mut list = Lister::new();
 
-    pub fn has_right(&self) -> bool {
-        self.flags.contains(FaceFlags::RIGHT)
-    }
+        write!(out, "Faces(")?;
 
-    pub fn has_back(&self) -> bool {
-        self.flags.contains(FaceFlags::BACK)
-    }
+        if self.contains(Faces::RIGHT) {
+            list.write(out, "Right")?;
+        }
 
-    pub fn has_front(&self) -> bool {
-        self.flags.contains(FaceFlags::FRONT)
+        if self.contains(Faces::TOP) {
+            list.write(out, "Top")?;
+        }
+
+        if self.contains(Faces::BACK) {
+            list.write(out, "Back")?;
+        }
+
+        if self.contains(Faces::LEFT) {
+            list.write(out, "Left")?;
+        }
+
+        if self.contains(Faces::BOTTOM) {
+            list.write(out, "Bottom")?;
+        }
+
+        if self.contains(Faces::FRONT) {
+            list.write(out, "Front")?;
+        }
+
+        write!(out, ")")
     }
 }
 
@@ -275,26 +348,61 @@ bitflags::bitflags! {
     }
 }
 
+#[derive(Clone, Copy)]
 pub struct Axes {
-    axes: AxisFlags,
+    flags: AxisFlags,
+}
+
+impl Axes {
+    pub const X: Self = Self {
+        flags: AxisFlags::X,
+    };
+
+    pub const Y: Self = Self {
+        flags: AxisFlags::Y,
+    };
+
+    pub const Z: Self = Self {
+        flags: AxisFlags::Z,
+    };
 }
 
 impl Axes {
     pub fn empty() -> Self {
         Self {
-            axes: AxisFlags::empty(),
+            flags: AxisFlags::empty(),
         }
     }
 
-    pub fn has_x(&self) -> bool {
-        self.axes.contains(AxisFlags::X)
+    pub fn all() -> Self {
+        Self {
+            flags: AxisFlags::all(),
+        }
     }
 
-    pub fn has_y(&self) -> bool {
-        self.axes.contains(AxisFlags::Y)
+    pub fn contains(self, other: Self) -> bool {
+        self.flags.contains(other.flags)
     }
+}
 
-    pub fn has_z(&self) -> bool {
-        self.axes.contains(AxisFlags::Z)
+impl fmt::Debug for Axes {
+    fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
+        let mut list = Lister::new();
+
+        write!(out, "Axes(")?;
+
+        if self.contains(Self::X) {
+            list.write(out, "X")?;
+        }
+
+        if self.contains(Self::Y) {
+            list.write(out, "Y")?;
+        }
+
+        if self.contains(Self::Z) {
+            list.write(out, "Z")?;
+        }
+
+        write!(out, ")")
     }
 }
