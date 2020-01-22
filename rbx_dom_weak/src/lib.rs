@@ -68,16 +68,21 @@
 //! [`RbxInstanceProperties`]: struct.RbxInstanceProperties.html
 //! [maplit]: https://crates.io/crates/maplit
 
+mod axes;
 mod brick_color;
+mod faces;
 mod id;
 mod instance;
+mod lister;
 mod shared_string;
 mod tree;
 mod unresolved_value;
 mod value;
 
 pub use crate::{
+    axes::Axes,
     brick_color::BrickColor,
+    faces::Faces,
     id::RbxId,
     instance::{RbxInstance, RbxInstanceProperties},
     shared_string::SharedString,
