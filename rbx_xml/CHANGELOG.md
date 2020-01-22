@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Added support for serializing the `Ray` type, used in the `RayValue` instance.
 
 ## 0.11.4 (2019-12-18)
 * Updated `base64` dependency

@@ -54,7 +54,7 @@ Roblox reflection information for working with Instances in external tooling.
 | NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ❌ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ❌ |
 | ProtectedString    | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
-| Ray                | `RayValue.Value`                | ✔ | ❌ | ❌ | ❌ |
+| Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ❌ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
 | Region3            | `N/A`                           | ❌ | ✔ | ❌ | ❌ |
