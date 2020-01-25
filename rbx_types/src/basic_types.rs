@@ -1,3 +1,6 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 #[derive(Debug, Clone, Copy)]
 #[non_exhaustive]
 pub struct Ref;
@@ -200,6 +203,8 @@ impl UDim2 {
 }
 
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(rename_all = "PascalCase"))]
 pub struct PhysicalProperties {
     pub density: f32,
     pub friction: f32,
@@ -270,6 +275,8 @@ serde_tuple! {
     Color3uint8(r: u8, g: u8, b: u8),
 
     UDim(scale: f32, offset: i32),
+
+    NumberRange(min: f32, max: f32),
 }
 
 #[cfg(all(test, feature = "serde"))]
