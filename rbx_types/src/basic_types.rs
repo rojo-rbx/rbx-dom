@@ -204,8 +204,16 @@ impl UDim2 {
 
 #[derive(Debug, Clone, Copy)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(untagged))]
+pub enum PhysicalProperties {
+    Default,
+    Custom(CustomPhysicalProperties),
+}
+
+#[derive(Debug, Clone, Copy)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "serde", serde(rename_all = "PascalCase"))]
-pub struct PhysicalProperties {
+pub struct CustomPhysicalProperties {
     pub density: f32,
     pub friction: f32,
     pub elasticity: f32,
@@ -288,5 +296,26 @@ mod serde_test {
         let out = serde_json::to_string(&Vector2 { x: 2.0, y: 3.5 }).unwrap();
 
         assert_eq!(out, "[2.0,3.5]");
+    }
+
+    #[test]
+    fn physical_properties() {
+        let custom = serde_json::to_string(&PhysicalProperties::Custom(CustomPhysicalProperties {
+            density: 1.0,
+            friction: 0.5,
+            elasticity: 0.0,
+            elasticity_weight: 5.0,
+            friction_weight: 6.0,
+        }))
+        .unwrap();
+
+        assert_eq!(custom, "{\"Density\":1.0,\"Friction\":0.5,\"Elasticity\":0.0,\"FrictionWeight\":6.0,\"ElasticityWeight\":5.0}");
+
+        let _default = serde_json::to_string(&PhysicalProperties::Default).unwrap();
+
+        // TODO: Manually implement Serialize/Deserialize to ensure this is the
+        // result. Currently, we get "null", which is unintuitive.
+
+        // assert_eq!(default, "\"Default\"");
     }
 }
