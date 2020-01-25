@@ -1,7 +1,7 @@
 use crate::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, EnumValue, Faces, NumberRange,
-    NumberSequence, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Vector2, Vector2int16,
-    Vector3, Vector3int16,
+    NumberSequence, PhysicalProperties, Ray, Rect, Ref, SharedString, UDim, UDim2, Vector2,
+    Vector2int16, Vector3, Vector3int16,
 };
 
 /// Represents any Roblox type. Useful for operating generically on Roblox
@@ -22,7 +22,7 @@ pub enum Variant {
     Color3(Color3),
     Color3uint8(Color3uint8),
     ColorSequence(ColorSequence),
-    // Content,
+    Content(String),
     Enum(EnumValue),
     Faces(Faces),
     Float32(f32),
@@ -35,7 +35,7 @@ pub enum Variant {
     Ray(Ray),
     Rect(Rect),
     Ref(Ref),
-    // SharedString,
+    SharedString(SharedString),
     String(String),
     UDim(UDim),
     UDim2(UDim2),
