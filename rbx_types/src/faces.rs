@@ -13,7 +13,7 @@ bitflags::bitflags! {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Clone, Copy)]
 pub struct Faces {
     flags: FaceFlags,
 }
@@ -70,7 +70,7 @@ impl Faces {
     }
 }
 
-impl fmt::Display for Faces {
+impl fmt::Debug for Faces {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         let mut list = Lister::new();
 
