@@ -258,3 +258,28 @@ impl NumberSequenceKeypoint {
         }
     }
 }
+
+#[cfg(feature = "serde")]
+serde_tuple! {
+    Vector2(x: f32, y: f32),
+    Vector2int16(x: i16, y: i16),
+    Vector3(x: f32, y: f32, z: f32),
+    Vector3int16(x: i16, y: i16, z: i16),
+
+    Color3(r: f32, g: f32, b: f32),
+    Color3uint8(r: u8, g: u8, b: u8),
+
+    UDim(scale: f32, offset: i32),
+}
+
+#[cfg(all(test, feature = "serde"))]
+mod serde_test {
+    use super::*;
+
+    #[test]
+    fn vec2_json() {
+        let out = serde_json::to_string(&Vector2 { x: 2.0, y: 3.5 }).unwrap();
+
+        assert_eq!(out, "[2.0,3.5]");
+    }
+}

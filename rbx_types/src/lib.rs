@@ -1,3 +1,7 @@
+#[cfg(feature = "serde")]
+#[macro_use]
+mod serde_util;
+
 mod axes;
 mod basic_types;
 mod brick_color;
