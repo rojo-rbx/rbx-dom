@@ -30,20 +30,28 @@ impl Axes {
 }
 
 impl Axes {
-    pub fn empty() -> Self {
+    pub const fn empty() -> Self {
         Self {
             flags: AxisFlags::empty(),
         }
     }
 
-    pub fn all() -> Self {
+    pub const fn all() -> Self {
         Self {
             flags: AxisFlags::all(),
         }
     }
 
-    pub fn contains(self, other: Self) -> bool {
+    pub const fn contains(self, other: Self) -> bool {
         self.flags.contains(other.flags)
+    }
+
+    pub const fn bits(self) -> u8 {
+        self.flags.bits()
+    }
+
+    pub fn from_bits(bits: u8) -> Option<Self> {
+        AxisFlags::from_bits(bits).map(|flags| Self { flags })
     }
 }
 
