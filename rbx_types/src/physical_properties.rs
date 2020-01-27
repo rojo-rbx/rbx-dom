@@ -14,6 +14,12 @@ pub enum PhysicalProperties {
     Custom(CustomPhysicalProperties),
 }
 
+impl From<CustomPhysicalProperties> for PhysicalProperties {
+    fn from(value: CustomPhysicalProperties) -> Self {
+        Self::Custom(value)
+    }
+}
+
 /// Custom physics properties that can be given to parts.
 ///
 /// Documentation for what these do can be found on the
