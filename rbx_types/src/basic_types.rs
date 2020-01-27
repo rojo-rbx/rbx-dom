@@ -1,6 +1,3 @@
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
-
 #[derive(Debug, Clone, Copy)]
 #[non_exhaustive]
 pub struct Ref;

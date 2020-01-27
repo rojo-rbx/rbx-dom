@@ -12,6 +12,7 @@ serde = { version = "1.0.104", features = ["derive"], optional = true }
 
 [dev-dependencies]
 serde_json = "1.0.45"
+bincode = "1.2.1"
 
 [features]
 default = []
