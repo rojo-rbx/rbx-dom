@@ -1,7 +1,15 @@
+/// A reference to a Roblox instance.
 #[derive(Debug, Clone, Copy)]
 #[non_exhaustive]
 pub struct Ref;
 
+/// Represents any Roblox enum value.
+///
+/// Roblox enums are not strongly typed, so the meaning of a value depends on
+/// where they're assigned.
+///
+/// A list of all enums and their values are available [on the Roblox Developer
+/// Hub](https://developer.roblox.com/en-us/api-reference/enum).
 #[derive(Debug, Clone, Copy)]
 pub struct EnumValue {
     value: u32,
@@ -20,8 +28,8 @@ impl EnumValue {
 /// The standard 2D vector type used in Roblox.
 ///
 /// ## See Also
-/// [`Vector2int16`][struct.Vector2int16.html]
-/// [Vector2 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector2)
+/// * [`Vector2int16`][struct.Vector2int16.html]
+/// * [Vector2 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector2)
 #[derive(Debug, Clone, Copy)]
 pub struct Vector2 {
     pub x: f32,
@@ -38,8 +46,8 @@ impl Vector2 {
 /// integers.
 ///
 /// ## See Also
-/// [`Vector2`][Vector2], which is used for most values.
-/// [Vector2int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector2int16)
+/// * [`Vector2`][Vector2], which is used for most values.
+/// * [Vector2int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector2int16)
 ///
 /// [Vector2]: struct.Vector2.html
 #[derive(Debug, Clone, Copy)]
@@ -57,8 +65,8 @@ impl Vector2int16 {
 /// The standard 3D vector type used in Roblox.
 ///
 /// ## See Also
-/// [`Vector3int16`][struct.Vector3int16.html]
-/// [Vector3 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector3)
+/// * [`Vector3int16`][struct.Vector3int16.html]
+/// * [Vector3 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector3)
 #[derive(Debug, Clone, Copy)]
 pub struct Vector3 {
     pub x: f32,
@@ -76,8 +84,8 @@ impl Vector3 {
 /// integers. `Vector3int16` is often used when working with Terrain.
 ///
 /// ## See Also
-/// [`Vector3`][Vector3], which is used for most values.
-/// [Vector3int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector3int16)
+/// * [`Vector3`][Vector3], which is used for most values.
+/// * [Vector3int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector3int16)
 ///
 /// [Vector3]: struct.Vector3.html
 #[derive(Debug, Clone, Copy)]
@@ -96,7 +104,7 @@ impl Vector3int16 {
 /// Represents a position and orientation in 3D space.
 ///
 /// ## See Also
-/// [CFrame on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/CFrame)
+/// * [CFrame on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/CFrame)
 #[derive(Debug, Clone, Copy)]
 pub struct CFrame {
     pub position: Vector3,
