@@ -180,7 +180,7 @@ mod serde_test {
     use super::*;
 
     #[test]
-    fn de_human() {
+    fn human_de() {
         let empty: Axes = serde_json::from_str("[]").unwrap();
         assert_eq!(empty, Axes::empty());
 
@@ -192,7 +192,7 @@ mod serde_test {
     }
 
     #[test]
-    fn se_human() {
+    fn human_ser() {
         let empty = serde_json::to_string(&Axes::empty()).unwrap();
         assert_eq!(empty, "[]");
 
@@ -201,5 +201,36 @@ mod serde_test {
 
         let all = serde_json::to_string(&Axes::all()).unwrap();
         assert_eq!(all, r#"["X","Y","Z"]"#);
+    }
+
+    #[test]
+    fn human_duplicate() {
+        let x: Axes = serde_json::from_str(r#"["X", "X", "X", "X"]"#).unwrap();
+        assert_eq!(x, Axes::X);
+    }
+
+    #[test]
+    fn human_invalid() {
+        // pizza is not an axis in 3D space.
+        let invalid = serde_json::from_str::<Axes>(r#"["pizza"]"#);
+        assert!(invalid.is_err());
+    }
+
+    #[test]
+    fn non_human() {
+        let empty = Axes::empty();
+        let ser_empty = bincode::serialize(&empty).unwrap();
+        let de_empty = bincode::deserialize(&ser_empty).unwrap();
+        assert_eq!(empty, de_empty);
+
+        let x = Axes::X;
+        let ser_x = bincode::serialize(&x).unwrap();
+        let de_x = bincode::deserialize(&ser_x).unwrap();
+        assert_eq!(x, de_x);
+
+        let all = Axes::all();
+        let ser_all = bincode::serialize(&all).unwrap();
+        let de_all = bincode::deserialize(&ser_all).unwrap();
+        assert_eq!(all, de_all);
     }
 }
