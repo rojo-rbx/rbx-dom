@@ -57,6 +57,12 @@ impl Axes {
     pub fn from_bits(bits: u8) -> Option<Self> {
         AxisFlags::from_bits(bits).map(|flags| Self { flags })
     }
+
+    fn len(self) -> usize {
+        self.contains(Self::X) as usize
+            + self.contains(Self::Y) as usize
+            + self.contains(Self::Z) as usize
+    }
 }
 
 impl fmt::Debug for Axes {
@@ -78,5 +84,122 @@ impl fmt::Debug for Axes {
         }
 
         write!(out, ")")
+    }
+}
+
+#[cfg(feature = "serde")]
+mod serde_impl {
+    use super::*;
+
+    use std::fmt;
+
+    use serde::{
+        de::{self, Error as _, SeqAccess, Visitor},
+        ser::SerializeSeq,
+        Deserialize, Deserializer, Serialize, Serializer,
+    };
+
+    impl Serialize for Axes {
+        fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+            if serializer.is_human_readable() {
+                let mut seq = serializer.serialize_seq(Some(self.len()))?;
+
+                if self.contains(Self::X) {
+                    seq.serialize_element("X")?;
+                }
+
+                if self.contains(Self::Y) {
+                    seq.serialize_element("Y")?;
+                }
+
+                if self.contains(Self::Z) {
+                    seq.serialize_element("Z")?;
+                }
+
+                seq.end()
+            } else {
+                serializer.serialize_u8(self.bits())
+            }
+        }
+    }
+
+    struct HumanVisitor;
+
+    impl<'de> Visitor<'de> for HumanVisitor {
+        type Value = Axes;
+
+        fn expecting(&self, out: &mut fmt::Formatter) -> fmt::Result {
+            write!(out, "a list of strings representing axes")
+        }
+
+        fn visit_seq<A: SeqAccess<'de>>(self, mut seq: A) -> Result<Self::Value, A::Error> {
+            let mut flags = AxisFlags::empty();
+
+            while let Some(axis_str) = seq.next_element::<&str>()? {
+                match axis_str {
+                    "X" => flags |= AxisFlags::X,
+                    "Y" => flags |= AxisFlags::Y,
+                    "Z" => flags |= AxisFlags::Z,
+                    _ => {
+                        return Err(A::Error::custom(format!("invalid axis '{}'", axis_str)));
+                    }
+                }
+            }
+
+            Ok(Axes { flags })
+        }
+    }
+
+    struct NonHumanVisitor;
+
+    impl<'de> Visitor<'de> for NonHumanVisitor {
+        type Value = Axes;
+
+        fn expecting(&self, out: &mut fmt::Formatter) -> fmt::Result {
+            write!(out, "a u8 bitmask representing a set of axes")
+        }
+
+        fn visit_u8<E: de::Error>(self, value: u8) -> Result<Self::Value, E> {
+            Axes::from_bits(value).ok_or_else(|| E::custom("value must a u8 bitmask of axes"))
+        }
+    }
+
+    impl<'de> Deserialize<'de> for Axes {
+        fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+            if deserializer.is_human_readable() {
+                deserializer.deserialize_seq(HumanVisitor)
+            } else {
+                deserializer.deserialize_u8(NonHumanVisitor)
+            }
+        }
+    }
+}
+
+#[cfg(all(test, feature = "serde"))]
+mod serde_test {
+    use super::*;
+
+    #[test]
+    fn de_human() {
+        let empty: Axes = serde_json::from_str("[]").unwrap();
+        assert_eq!(empty, Axes::empty());
+
+        let x: Axes = serde_json::from_str(r#"["X"]"#).unwrap();
+        assert_eq!(x, Axes::X);
+
+        let all: Axes = serde_json::from_str(r#"["X", "Y", "Z"]"#).unwrap();
+        assert_eq!(all, Axes::all());
+    }
+
+    #[test]
+    fn se_human() {
+        let empty = serde_json::to_string(&Axes::empty()).unwrap();
+        assert_eq!(empty, "[]");
+
+        let x = serde_json::to_string(&Axes::X).unwrap();
+        assert_eq!(x, r#"["X"]"#);
+
+        let all = serde_json::to_string(&Axes::all()).unwrap();
+        assert_eq!(all, r#"["X","Y","Z"]"#);
     }
 }
