@@ -23,7 +23,7 @@ pub enum Variant {
     Color3uint8(Color3uint8),
     ColorSequence(ColorSequence),
     Content(String),
-    Enum(EnumValue),
+    EnumValue(EnumValue),
     Faces(Faces),
     Float32(f32),
     Float64(f64),
@@ -60,16 +60,21 @@ macro_rules! trivial_variant_from {
 }
 
 trivial_variant_from! {
+    Axes,
     BrickColor,
     CFrame,
     Color3,
     Color3uint8,
     ColorSequence,
+    EnumValue,
+    Faces,
     NumberRange,
     NumberSequence,
     PhysicalProperties,
     Ray,
     Rect,
+    Ref,
+    SharedString,
     UDim,
     UDim2,
     Vector2,
@@ -81,7 +86,7 @@ trivial_variant_from! {
 /// Implement conversions from common Rust types into their equivalent `Variant`
 /// value.
 macro_rules! primitive_variant_from {
-    ( $( $prim_type: ident => $rbx_type: ident, )* ) => {
+    ( $( $prim_type: ty => $rbx_type: ident, )* ) => {
         $(
             impl From<$prim_type> for Variant {
                 fn from(value: $prim_type) -> Self {
@@ -98,4 +103,6 @@ primitive_variant_from! {
     f64 => Float64,
     i32 => Int32,
     i64 => Int64,
+    String => String,
+    Vec<u8> => BinaryString,
 }
