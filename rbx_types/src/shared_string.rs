@@ -94,6 +94,28 @@ impl Drop for SharedString {
     }
 }
 
+#[cfg(feature = "serde")]
+mod serde_impl {
+    use super::*;
+
+    use serde::{Deserialize, Deserializer, Serialize, Serializer};
+
+    // Mock implementations of traits to get things compiling. We'll need to
+    // decide how to actuall serialize SharedString at some point.
+
+    impl Serialize for SharedString {
+        fn serialize<S: Serializer>(&self, _serializer: S) -> Result<S::Ok, S::Error> {
+            unimplemented!();
+        }
+    }
+
+    impl<'de> Deserialize<'de> for SharedString {
+        fn deserialize<D: Deserializer<'de>>(_deserializer: D) -> Result<Self, D::Error> {
+            unimplemented!();
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
