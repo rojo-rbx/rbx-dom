@@ -1,13 +1,3 @@
-/// A reference to a Roblox instance.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Ref([u8; 16]);
-
-impl Ref {
-    pub fn new() -> Self {
-        Ref(rand::random())
-    }
-}
-
 /// Represents any Roblox enum value.
 ///
 /// Roblox enums are not strongly typed, so the meaning of a value depends on
