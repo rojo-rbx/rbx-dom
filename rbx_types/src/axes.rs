@@ -58,6 +58,7 @@ impl Axes {
         AxisFlags::from_bits(bits).map(|flags| Self { flags })
     }
 
+    #[cfg(feature = "serde")]
     fn len(self) -> usize {
         self.contains(Self::X) as usize
             + self.contains(Self::Y) as usize
