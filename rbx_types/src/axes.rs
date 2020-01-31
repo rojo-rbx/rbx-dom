@@ -93,7 +93,7 @@ mod serde_impl {
     use std::fmt;
 
     use serde::{
-        de::{self, Error as _, SeqAccess, Visitor},
+        de::{Error as _, SeqAccess, Visitor},
         ser::SerializeSeq,
         Deserialize, Deserializer, Serialize, Serializer,
     };
@@ -149,26 +149,15 @@ mod serde_impl {
         }
     }
 
-    struct NonHumanVisitor;
-
-    impl<'de> Visitor<'de> for NonHumanVisitor {
-        type Value = Axes;
-
-        fn expecting(&self, out: &mut fmt::Formatter) -> fmt::Result {
-            write!(out, "a u8 bitmask representing a set of axes")
-        }
-
-        fn visit_u8<E: de::Error>(self, value: u8) -> Result<Self::Value, E> {
-            Axes::from_bits(value).ok_or_else(|| E::custom("value must a u8 bitmask of axes"))
-        }
-    }
-
     impl<'de> Deserialize<'de> for Axes {
         fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
             if deserializer.is_human_readable() {
                 deserializer.deserialize_seq(HumanVisitor)
             } else {
-                deserializer.deserialize_u8(NonHumanVisitor)
+                let value = u8::deserialize(deserializer)?;
+
+                Axes::from_bits(value)
+                    .ok_or_else(|| D::Error::custom("value must a u8 bitmask of axes"))
             }
         }
     }
