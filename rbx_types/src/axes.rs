@@ -60,9 +60,7 @@ impl Axes {
 
     #[cfg(feature = "serde")]
     fn len(self) -> usize {
-        self.contains(Self::X) as usize
-            + self.contains(Self::Y) as usize
-            + self.contains(Self::Z) as usize
+        self.bits().count_ones() as usize
     }
 }
 
