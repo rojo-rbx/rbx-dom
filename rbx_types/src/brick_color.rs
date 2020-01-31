@@ -17,6 +17,7 @@ macro_rules! make_brick_color {
         /// support older models.
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         #[repr(u16)]
+        #[non_exhaustive]
         pub enum BrickColor {
             $($enum = $value,)+
         }
@@ -69,6 +70,38 @@ macro_rules! make_brick_color {
                     $(
                         BrickColor::$enum => write!(writer, $name),
                     )+
+                }
+            }
+        }
+
+        #[cfg(feature = "serde")]
+        mod serde_impl {
+            use super::*;
+
+            use serde::{
+                de::Error,
+                Deserialize, Deserializer, Serialize, Serializer,
+            };
+
+            impl Serialize for BrickColor {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: Serializer,
+                {
+                    serializer.serialize_u16(*self as u16)
+                }
+            }
+
+            impl<'de> Deserialize<'de> for BrickColor {
+                fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+                where
+                    D: Deserializer<'de>,
+                {
+                    let value = u16::deserialize(deserializer)?;
+
+                    BrickColor::from_number(value).ok_or_else(|| {
+                        D::Error::custom(format!("{} is not a valid BrickColor number", value))
+                    })
                 }
             }
         }
@@ -301,5 +334,34 @@ mod tests {
     #[test]
     fn from_number() {
         assert_eq!(BrickColor::from_number(1030), Some(BrickColor::PastelBrown));
+    }
+}
+
+#[cfg(all(test, feature = "serde"))]
+mod serde_test {
+    use super::*;
+
+    #[test]
+    fn human_ser() {
+        let value = BrickColor::Gold2;
+        let ser = serde_json::to_string(&value).unwrap();
+
+        assert_eq!(ser, "333");
+    }
+
+    #[test]
+    fn human_de() {
+        let value: BrickColor = serde_json::from_str("1021").unwrap();
+        assert_eq!(value, BrickColor::Camo);
+    }
+
+    #[test]
+    fn non_human() {
+        let value = BrickColor::Cork;
+
+        let ser = bincode::serialize(&value).unwrap();
+        let de: BrickColor = bincode::deserialize(&ser).unwrap();
+
+        assert_eq!(de, value);
     }
 }
