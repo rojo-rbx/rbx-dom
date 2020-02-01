@@ -6,6 +6,11 @@
 /// A list of all enums and their values are available [on the Roblox Developer
 /// Hub](https://developer.roblox.com/en-us/api-reference/enum).
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(transparent)
+)]
 pub struct EnumValue {
     value: u32,
 }
