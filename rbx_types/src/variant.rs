@@ -4,21 +4,56 @@ use crate::{
     Vector2, Vector2int16, Vector3, Vector3int16,
 };
 
-/// Represents any Roblox type. Useful for operating generically on Roblox
-/// instances.
-///
-/// ## Stability
-///
-/// New variants may be added to `Variant` in minor releases. As
-/// such, it is marked `#[non_exhaustive]`.
-#[derive(Debug, Clone, PartialEq)]
-#[non_exhaustive]
-#[cfg_attr(
-    feature = "serde",
-    derive(serde::Serialize, serde::Deserialize),
-    serde(tag = "Type", content = "Value")
-)]
-pub enum Variant {
+/// Reduces boilerplate from listing different values of Variant by wrapping
+/// them into a macro.
+macro_rules! make_variant {
+    ( $( $variant_name: ident($inner_type: ty), )* ) => {
+        /// Represents any Roblox type. Useful for operating generically on Roblox
+        /// instances.
+        ///
+        /// ## Stability
+        ///
+        /// New variants may be added to `Variant` in minor releases. As
+        /// such, it is marked `#[non_exhaustive]`.
+        #[derive(Debug, Clone, PartialEq)]
+        #[non_exhaustive]
+        #[cfg_attr(
+            feature = "serde",
+            derive(serde::Serialize, serde::Deserialize),
+            serde(tag = "Type", content = "Value")
+        )]
+        pub enum Variant {
+            $(
+                $variant_name($inner_type),
+            )*
+        }
+
+        impl Variant {
+            pub fn ty(&self) -> VariantType {
+                match self {
+                    $(
+                        Variant::$variant_name(_) => VariantType::$variant_name,
+                    )*
+                }
+            }
+        }
+
+        /// Represents a type that can be held in a `Variant`.
+        #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+        #[non_exhaustive]
+        #[cfg_attr(
+            feature = "serde",
+            derive(serde::Serialize, serde::Deserialize),
+        )]
+        pub enum VariantType {
+            $(
+                $variant_name,
+            )*
+        }
+    };
+}
+
+make_variant! {
     Axes(Axes),
     BinaryString(BinaryString),
     BrickColor(BrickColor),
