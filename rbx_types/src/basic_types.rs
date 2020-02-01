@@ -106,6 +106,11 @@ impl Vector3int16 {
 /// ## See Also
 /// * [CFrame on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/CFrame)
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "PascalCase")
+)]
 pub struct CFrame {
     pub position: Vector3,
     pub orientation: Matrix3,
@@ -408,6 +413,8 @@ serde_tuple! {
     Rect(min: Vector2, max: Vector2),
     Region3(min: Vector3, max: Vector3),
     Region3int16(min: Vector3int16, max: Vector3int16),
+
+    Matrix3(x: Vector3, y: Vector3, z: Vector3),
 }
 
 #[cfg(all(test, feature = "serde"))]
