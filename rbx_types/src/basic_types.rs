@@ -185,6 +185,11 @@ impl Color3uint8 {
 ///
 /// [FindPartOnRay]: https://developer.roblox.com/en-us/api-reference/function/WorldRoot/FindPartOnRay
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "PascalCase")
+)]
 pub struct Ray {
     pub origin: Vector3,
     pub direction: Vector3,
@@ -304,6 +309,11 @@ impl NumberRange {
 /// ## See Also
 /// * [ColorSequence on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/ColorSequence)
 #[derive(Debug, Clone)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "PascalCase")
+)]
 pub struct ColorSequence {
     pub keypoints: Vec<ColorSequenceKeypoint>,
 }
@@ -315,6 +325,11 @@ pub struct ColorSequence {
 ///
 /// [ColorSequence]: struct.ColorSequence.html
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "PascalCase")
+)]
 pub struct ColorSequenceKeypoint {
     pub time: f32,
     pub color: Color3,
@@ -332,6 +347,11 @@ impl ColorSequenceKeypoint {
 /// ## See Also
 /// * [NumberSequence on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/NumberSequence)
 #[derive(Debug, Clone)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "PascalCase")
+)]
 pub struct NumberSequence {
     pub keypoints: Vec<NumberSequenceKeypoint>,
 }
@@ -344,6 +364,11 @@ pub struct NumberSequence {
 ///
 /// [NumberSequence]: struct.NumberSequence.html
 #[derive(Debug, Clone, Copy)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "PascalCase")
+)]
 pub struct NumberSequenceKeypoint {
     pub time: f32,
     pub value: f32,
@@ -371,8 +396,13 @@ serde_tuple! {
     Color3uint8(r: u8, g: u8, b: u8),
 
     UDim(scale: f32, offset: i32),
+    UDim2(x: UDim, y: UDim),
 
     NumberRange(min: f32, max: f32),
+
+    Rect(min: Vector2, max: Vector2),
+    Region3(min: Vector3, max: Vector3),
+    Region3int16(min: Vector3int16, max: Vector3int16),
 }
 
 #[cfg(all(test, feature = "serde"))]
