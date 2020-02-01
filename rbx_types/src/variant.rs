@@ -1,7 +1,7 @@
 use crate::{
-    Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, EnumValue, Faces, NumberRange,
-    NumberSequence, PhysicalProperties, Ray, Rect, Ref, SharedString, UDim, UDim2, Vector2,
-    Vector2int16, Vector3, Vector3int16,
+    Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, EnumValue, Faces,
+    NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, SharedString, UDim, UDim2,
+    Vector2, Vector2int16, Vector3, Vector3int16,
 };
 
 /// Represents any Roblox type. Useful for operating generically on Roblox
@@ -15,7 +15,7 @@ use crate::{
 #[non_exhaustive]
 pub enum Variant {
     Axes(Axes),
-    BinaryString(Vec<u8>),
+    BinaryString(BinaryString),
     BrickColor(BrickColor),
     Bool(bool),
     CFrame(CFrame),
@@ -61,6 +61,7 @@ macro_rules! trivial_variant_from {
 
 trivial_variant_from! {
     Axes,
+    BinaryString,
     BrickColor,
     CFrame,
     Color3,
@@ -104,5 +105,4 @@ primitive_variant_from! {
     i32 => Int32,
     i64 => Int64,
     String => String,
-    Vec<u8> => BinaryString,
 }

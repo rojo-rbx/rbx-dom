@@ -4,6 +4,7 @@ mod serde_util;
 
 mod axes;
 mod basic_types;
+mod binary_string;
 mod brick_color;
 mod faces;
 mod lister;
@@ -14,6 +15,7 @@ mod variant;
 
 pub use axes::*;
 pub use basic_types::*;
+pub use binary_string::*;
 pub use brick_color::*;
 pub use faces::*;
 pub use physical_properties::*;
