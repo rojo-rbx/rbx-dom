@@ -68,6 +68,14 @@ impl SharedString {
     }
 }
 
+impl PartialEq for SharedString {
+    fn eq(&self, other: &Self) -> bool {
+        self.hash == other.hash
+    }
+}
+
+impl Eq for SharedString {}
+
 impl AsRef<[u8]> for SharedString {
     fn as_ref(&self) -> &[u8] {
         self.data()
