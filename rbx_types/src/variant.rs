@@ -180,6 +180,12 @@ primitive_variant_from! {
     String => String,
 }
 
+impl From<&'_ str> for Variant {
+    fn from(value: &str) -> Self {
+        Self::String(value.to_owned())
+    }
+}
+
 #[cfg(all(test, feature = "serde"))]
 mod serde_test {
     use super::*;
