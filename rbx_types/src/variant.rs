@@ -58,29 +58,13 @@ macro_rules! make_variant {
             /// This test makes sure that every type represented in `Variant`
             /// can be converted via `Into` into Variant.
             ///
-            /// Because we're just asserting that some code compiles, we don't
-            /// need a #[test] annotation, but we do need to indicate that we
-            /// don't care that it's unused.
-            ///
             /// If we forget to impl From when new types are added to Variant,
             /// this test will start failing.
             #[allow(dead_code)]
             fn conversions_are_exhaustive() {
-                /// A dummy trait that lets us lie and say we can construct any
-                /// type we want.
-                trait FakeConstructable {
-                    fn new() -> Self;
-                }
+                fn trait_test<T: Into<Variant>>() {}
 
-                impl<T> FakeConstructable for T {
-                    fn new() -> Self {
-                        unreachable!()
-                    }
-                }
-
-                $(
-                    let _: Variant = <$inner_type as FakeConstructable>::new().into();
-                )*
+                $( trait_test::<$inner_type>(); )*
             }
         }
     };
