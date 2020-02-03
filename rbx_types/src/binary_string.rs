@@ -3,7 +3,7 @@
 /// `BinaryString` is used in cases where the type of the underlying data is
 /// unknown or unimplemented. Where possible, stronger types that interpret the
 /// underlying bytes should be preferred.
-#[derive(Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct BinaryString {
     buffer: Vec<u8>,
 }
