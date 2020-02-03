@@ -8,8 +8,8 @@ use crate::{
 /// them into a macro.
 macro_rules! make_variant {
     ( $( $variant_name: ident($inner_type: ty), )* ) => {
-        /// Represents any Roblox type. Useful for operating generically on Roblox
-        /// instances.
+        /// Represents any Roblox type. Useful for operating generically on
+        /// Roblox instances.
         ///
         /// ## Stability
         ///
@@ -38,7 +38,7 @@ macro_rules! make_variant {
             }
         }
 
-        /// Represents a type that can be held in a `Variant`.
+        /// Represents any type that can be held in a `Variant`.
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         #[non_exhaustive]
         #[cfg_attr(
