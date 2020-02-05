@@ -9,6 +9,12 @@ rbx-dom is a collection of crates to help represent, serialize, and deserialize 
 
 Weakly-typed Roblox DOM implementation. Defines types for representing instances and properties on them.
 
+## [rbx_types](rbx_types)
+[![rbx_types on crates.io](https://img.shields.io/crates/v/rbx_types.svg)](https://crates.io/crates/rbx_types)
+[![rbx_types docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_types)
+
+Contains Roblox's value types like `Vector3` and `NumberSequence`. Will be used by crates like rbx_dom_weak and a future rbx_dom_strong crate to let them share types and conversions.
+
 ## [rbx_dom_lua](rbx_dom_lua)
 
 Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside Roblox. Uses a data format that's compatible with rbx_dom_weak to facilitate communication with applications outside Roblox about instances.
