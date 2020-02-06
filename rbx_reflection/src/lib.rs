@@ -1,3 +1,6 @@
+#[macro_use]
+mod tag_util;
+
 mod serde_util;
 
 use std::{borrow::Cow, collections::HashMap, str::FromStr};
@@ -8,8 +11,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
 pub struct ReflectionDatabase<'a> {
+    /// The Roblox release that this reflection database was generated from.
     pub version: [u32; 4],
 
+    /// All of the the known classes in the database.
     #[serde(serialize_with = "serde_util::ordered_map")]
     pub classes: HashMap<Cow<'a, str>, ClassDescriptor<'a>>,
 }
@@ -54,13 +59,28 @@ impl<'a> ClassDescriptor<'a> {
 pub struct PropertyDescriptor<'a> {
     pub name: Cow<'a, str>,
     pub scriptability: Scriptability,
+    pub value_type: PropertyType<'a>,
+    pub tags: PropertyTags,
+
+    pub serializes: bool,
+
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub alias_for: Option<Cow<'a, str>>,
+
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub serializes_as: Option<Cow<'a, str>>,
 }
 
 impl<'a> PropertyDescriptor<'a> {
-    pub fn new<S: Into<Cow<'a, str>>>(name: S) -> Self {
+    pub fn new<S: Into<Cow<'a, str>>>(name: S, value_type: PropertyType<'a>) -> Self {
         Self {
             name: name.into(),
             scriptability: Scriptability::None,
+            value_type,
+            tags: PropertyTags::empty(),
+            serializes: true,
+            alias_for: None,
+            serializes_as: None,
         }
     }
 }
@@ -95,55 +115,6 @@ pub enum Scriptability {
     /// A common example is the `Tags` property, which is writable through
     /// methods on `CollectionService`.
     Custom,
-}
-
-/// The bitflags crate doesn't support iterating over the bits that are set in
-/// the flag. In order to generate lists of flag names, we create a macro that
-/// abstracts over the bitflags macro and additionally implements IntoIterator
-/// on the type.
-///
-/// To avoid pulling in a dependency on either the `paste!` or `concat_idents!`
-/// macros, the caller has to pass inthe name of the iterator type to define.
-macro_rules! bitterflag {
-    ($struct_name: ident + $iter_name: ident : $width: ident { $(const $const_name: ident = $const_value: expr;)* }) => {
-        bitflags::bitflags! {
-            pub struct $struct_name: $width {
-                $(const $const_name = $const_value;)*
-            }
-        }
-
-        pub struct $iter_name {
-            inner: Box<dyn Iterator<Item = $struct_name>>,
-        }
-
-        impl Iterator for $iter_name {
-            type Item = $struct_name;
-
-            fn next(&mut self) -> Option<Self::Item> {
-                self.inner.next()
-            }
-        }
-
-        impl IntoIterator for $struct_name {
-            type Item = Self;
-            type IntoIter = $iter_name;
-
-            fn into_iter(self) -> Self::IntoIter {
-                static ALL_TAGS: &[$struct_name] = &[
-                    $($struct_name::$const_name,)*
-                ];
-
-                $iter_name {
-                    inner: Box::new(
-                        ALL_TAGS
-                            .iter()
-                            .cloned()
-                            .filter(move |flag| self.contains(*flag)),
-                    ),
-                }
-            }
-        }
-    };
 }
 
 // Tags found via:
