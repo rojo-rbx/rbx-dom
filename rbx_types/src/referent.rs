@@ -1,10 +1,33 @@
-/// A reference to a Roblox instance.
+use std::num::NonZeroU128;
+
+/// An universally unique, optional reference to a Roblox instance.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct Ref(u128);
+pub struct Ref(Option<NonZeroU128>);
 
 impl Ref {
+    /// Generate a new random `Ref`.
+    #[inline]
     pub fn new() -> Self {
-        Ref(rand::random())
+        Ref(Some(rand::random()))
+    }
+
+    /// Generate a `Ref` that points to nothing.
+    #[inline]
+    pub fn none() -> Self {
+        Ref(None)
+    }
+
+    /// Tells whether this `Ref` points to nothing.
+    #[inline]
+    pub fn is_none(&self) -> bool {
+        self.0.is_none()
+    }
+
+    fn value(&self) -> u128 {
+        match self.0 {
+            Some(value) => value.get(),
+            None => 0,
+        }
     }
 }
 
@@ -25,9 +48,9 @@ mod serde_impl {
             S: Serializer,
         {
             if serializer.is_human_readable() {
-                serializer.serialize_str(&format!("{:x}", self.0))
+                serializer.serialize_str(&format!("{:032x}", self.value()))
             } else {
-                serializer.serialize_u128(self.0)
+                serializer.serialize_u128(self.value())
             }
         }
     }
@@ -42,12 +65,12 @@ mod serde_impl {
         }
 
         fn visit_u128<E: Error>(self, value: u128) -> Result<Self::Value, E> {
-            Ok(Ref(value))
+            Ok(Ref(NonZeroU128::new(value)))
         }
 
         fn visit_str<E: Error>(self, ref_str: &str) -> Result<Self::Value, E> {
             let ref_value = u128::from_str_radix(ref_str, 16).map_err(E::custom)?;
-            Ok(Ref(ref_value))
+            Ok(Ref(NonZeroU128::new(ref_value)))
         }
     }
 
@@ -70,6 +93,18 @@ mod serde_test {
     use super::*;
 
     #[test]
+    fn human_none() {
+        let value = Ref::none();
+
+        let ser = serde_json::to_string(&value).unwrap();
+        assert_eq!(ser, "\"00000000000000000000000000000000\"");
+
+        let de: Ref = serde_json::from_str(&ser).unwrap();
+
+        assert_eq!(value, de);
+    }
+
+    #[test]
     fn human() {
         let value = Ref::new();
 
@@ -87,5 +122,10 @@ mod serde_test {
         let de = bincode::deserialize(&ser).unwrap();
 
         assert_eq!(value, de);
+    }
+
+    #[test]
+    fn size() {
+        assert_eq!(std::mem::size_of::<Ref>(), std::mem::size_of::<u128>());
     }
 }
