@@ -15,4 +15,4 @@ authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
-rbx_types = { path = "../rbx_types", features = ["serde"] }
+rbx_types = { path = "../rbx_types" }
