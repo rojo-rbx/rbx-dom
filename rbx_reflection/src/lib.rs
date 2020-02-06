@@ -1,3 +1,5 @@
+mod serde_util;
+
 use std::{borrow::Cow, collections::HashMap, str::FromStr};
 
 use rbx_types::{Variant, VariantType};
@@ -7,6 +9,8 @@ use serde::{Deserialize, Serialize};
 #[non_exhaustive]
 pub struct ReflectionDatabase<'a> {
     pub version: [u32; 4],
+
+    #[serde(serialize_with = "serde_util::ordered_map")]
     pub classes: HashMap<Cow<'a, str>, ClassDescriptor<'a>>,
 }
 
@@ -27,7 +31,10 @@ pub struct ClassDescriptor<'a> {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub superclass: Option<Cow<'a, str>>,
 
+    #[serde(serialize_with = "serde_util::ordered_map")]
     pub properties: HashMap<Cow<'a, str>, PropertyDescriptor<'a>>,
+
+    #[serde(serialize_with = "serde_util::ordered_map")]
     pub default_properties: HashMap<Cow<'a, str>, Variant>,
 }
 
