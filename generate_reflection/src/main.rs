@@ -57,12 +57,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let property_patches = load_property_patches();
     database.populate_from_patches(&property_patches)?;
 
+    // let plugin = create_plugin(&database);
+    // let messages = run_in_roblox(&plugin);
+    // process_plugin_messages(&mut database, &messages);
+
     database.validate();
 
-    let plugin = create_plugin(&database);
-    let messages = run_in_roblox(&plugin);
-
-    process_plugin_messages(&mut database, &messages);
     emit_database(&database)?;
 
     Ok(())

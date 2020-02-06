@@ -1,6 +1,8 @@
 use std::{borrow::Cow, collections::HashMap};
 
-use rbx_reflection::ClassDescriptor;
+use rbx_reflection::{
+    ClassDescriptor, InstanceTags, PropertyDescriptor, PropertyTags, Scriptability,
+};
 use serde::{Deserialize, Serialize};
 use snafu::Snafu;
 
@@ -26,59 +28,65 @@ impl ReflectionDatabase {
     /// Adds all of the classes from the given API dump to the reflection
     /// database.
     pub fn populate_from_dump(&mut self, dump: &Dump) -> Result<(), Error> {
-        // for dump_class in &dump.classes {
-        //     let superclass = if dump_class.superclass == "<<<ROOT>>>" {
-        //         None
-        //     } else {
-        //         Some(Cow::Owned(dump_class.superclass.clone()))
-        //     };
+        for dump_class in &dump.classes {
+            let superclass = if dump_class.superclass == "<<<ROOT>>>" {
+                None
+            } else {
+                Some(Cow::Owned(dump_class.superclass.clone()))
+            };
 
-        //     let tags = RbxInstanceTags::from_dump_tags(&dump_class.tags);
+            let mut tags = InstanceTags::empty();
+            for dump_tag in &dump_class.tags {
+                tags &= dump_tag.parse().unwrap();
+            }
 
-        //     let mut properties = HashMap::new();
+            let mut properties = HashMap::new();
 
-        //     for member in &dump_class.members {
-        //         if let DumpClassMember::Property(dump_property) = member {
-        //             let tags = RbxPropertyTags::from_dump_tags(&dump_property.tags);
+            for member in &dump_class.members {
+                if let DumpClassMember::Property(dump_property) = member {
+                    let mut tags = PropertyTags::empty();
+                    for dump_tag in &dump_property.tags {
+                        tags &= dump_tag.parse().unwrap();
+                    }
 
-        //             let scriptability = if tags.contains(RbxPropertyTags::NOT_SCRIPTABLE) {
-        //                 RbxPropertyScriptability::None
-        //             } else if tags.contains(RbxPropertyTags::READ_ONLY) {
-        //                 RbxPropertyScriptability::Read
-        //             } else {
-        //                 RbxPropertyScriptability::ReadWrite
-        //             };
+                    let scriptability = if tags.contains(PropertyTags::NOT_SCRIPTABLE) {
+                        Scriptability::None
+                    } else if tags.contains(PropertyTags::READ_ONLY) {
+                        Scriptability::Read
+                    } else {
+                        Scriptability::ReadWrite
+                    };
 
-        //             let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
-        //                 && dump_property.serialization.can_save;
+                    let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
+                        && dump_property.serialization.can_save;
 
-        //             let property = RbxPropertyDescriptor {
-        //                 name: Cow::Owned(dump_property.name.clone()),
-        //                 value_type: RbxPropertyTypeDescriptor::from(&dump_property.value_type),
-        //                 tags,
+                    let property = PropertyDescriptor {
+                        name: Cow::Owned(dump_property.name.clone()),
+                        // value_type: RbxPropertyTypeDescriptor::from(&dump_property.value_type),
+                        // tags,
 
-        //                 is_canonical: true,
-        //                 canonical_name: None,
-        //                 serialized_name: None,
-        //                 scriptability,
-        //                 serializes,
-        //             };
+                        // is_canonical: true,
+                        // canonical_name: None,
+                        // serialized_name: None,
+                        scriptability,
+                        // serializes,
+                    };
 
-        //             properties.insert(Cow::Owned(dump_property.name.clone()), property);
-        //         }
-        //     }
+                    properties.insert(Cow::Owned(dump_property.name.clone()), property);
+                }
+            }
 
-        //     let class = RbxClassDescriptor {
-        //         name: Cow::Owned(dump_class.name.clone()),
-        //         superclass,
-        //         tags,
-        //         properties,
-        //         default_properties: HashMap::new(),
-        //     };
+            let class = ClassDescriptor {
+                name: Cow::Owned(dump_class.name.clone()),
+                superclass,
+                // tags,
+                properties,
+                default_properties: HashMap::new(),
+            };
 
-        //     self.classes
-        //         .insert(Cow::Owned(dump_class.name.clone()), class);
-        // }
+            self.classes
+                .insert(Cow::Owned(dump_class.name.clone()), class);
+        }
 
         Ok(())
     }
@@ -159,7 +167,7 @@ impl ReflectionDatabase {
         //             scriptability,
         //             serializes,
 
-        //             tags: RbxPropertyTags::empty(),
+        //             tags: PropertyTags::empty(),
         //         };
 
         //         class
