@@ -9,6 +9,7 @@ use rbx_types::{Variant, VariantType};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 #[non_exhaustive]
 pub struct ReflectionDatabase<'a> {
     /// The Roblox release that this reflection database was generated from.
@@ -29,6 +30,7 @@ impl<'a> ReflectionDatabase<'a> {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 #[non_exhaustive]
 pub struct ClassDescriptor<'a> {
     pub name: Cow<'a, str>,
@@ -55,6 +57,7 @@ impl<'a> ClassDescriptor<'a> {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 #[non_exhaustive]
 pub struct PropertyDescriptor<'a> {
     pub name: Cow<'a, str>,
@@ -86,6 +89,7 @@ impl<'a> PropertyDescriptor<'a> {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "Type", content = "Name")]
 #[non_exhaustive]
 pub enum PropertyType<'a> {
     /// The property is a regular value of the given type.
@@ -121,14 +125,14 @@ pub enum Scriptability {
 // jq '[.Classes | .[] | .Tags // empty] | add | unique' api-dump.json
 bitterflag! {
     InstanceTags + InstanceTagsIntoIter: u32 {
-        const DEPRECATED = 0x1;
-        const NOT_BROWSABLE = 0x2;
-        const NOT_CREATABLE = 0x4;
-        const NOT_REPLICATED = 0x8;
-        const PLAYER_REPLICATED = 0x10;
-        const SERVICE = 0x20;
-        const SETTINGS = 0x40;
-        const USER_SETTINGS = 0x80;
+        const DEPRECATED = 1;
+        const NOT_BROWSABLE = 2;
+        const NOT_CREATABLE = 4;
+        const NOT_REPLICATED = 8;
+        const PLAYER_REPLICATED = 16;
+        const SERVICE = 32;
+        const SETTINGS = 64;
+        const USER_SETTINGS = 128;
     }
 }
 
@@ -157,12 +161,12 @@ impl FromStr for InstanceTags {
 // jq '[.Classes | .[] | .Members | .[] | select(.MemberType == "Property") | .Tags // empty] | add | unique' api-dump.json
 bitterflag! {
     PropertyTags + PropertyTagsIntoIter: u32 {
-        const DEPRECATED = 0x1;
-        const HIDDEN = 0x2;
-        const NOT_BROWSABLE = 0x4;
-        const NOT_REPLICATED = 0x8;
-        const NOT_SCRIPTABLE = 0x10;
-        const READ_ONLY = 0x20;
+        const DEPRECATED = 1;
+        const HIDDEN = 2;
+        const NOT_BROWSABLE = 4;
+        const NOT_REPLICATED = 8;
+        const NOT_SCRIPTABLE = 16;
+        const READ_ONLY = 32;
     }
 }
 
