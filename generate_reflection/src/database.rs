@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 use snafu::Snafu;
 
 use crate::{
-    api_dump::{Dump, DumpClassMember, ValueCategory, ValueType},
+    api_dump::{Dump, DumpClassMember, ValueCategory},
     property_patches::PropertyPatches,
 };
 
@@ -73,7 +73,7 @@ impl ReflectionDatabase {
                         PropertyDescriptor::new(dump_property.name.clone(), value_type);
                     property.scriptability = scriptability;
                     property.tags = tags;
-                    property.serializes = true;
+                    property.serializes = serializes;
 
                     properties.insert(Cow::Owned(dump_property.name.clone()), property);
                 }
