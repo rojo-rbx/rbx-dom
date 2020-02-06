@@ -1,7 +1,7 @@
 use crate::{
     Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue,
-    Faces, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, SharedString, UDim,
-    UDim2, Vector2, Vector2int16, Vector3, Vector3int16,
+    Faces, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, Region3, Region3int16,
+    SharedString, UDim, UDim2, Vector2, Vector2int16, Vector3, Vector3int16,
 };
 
 /// Reduces boilerplate from listing different values of Variant by wrapping
@@ -81,8 +81,8 @@ macro_rules! make_variant {
 make_variant! {
     Axes(Axes),
     BinaryString(BinaryString),
-    BrickColor(BrickColor),
     Bool(bool),
+    BrickColor(BrickColor),
     CFrame(CFrame),
     Color3(Color3),
     Color3uint8(Color3uint8),
@@ -100,6 +100,8 @@ make_variant! {
     Ray(Ray),
     Rect(Rect),
     Ref(Ref),
+    Region3(Region3),
+    Region3int16(Region3int16),
     SharedString(SharedString),
     String(String),
     UDim(UDim),
