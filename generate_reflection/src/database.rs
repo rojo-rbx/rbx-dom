@@ -60,12 +60,11 @@ impl ReflectionDatabase {
                     let type_name = &dump_property.value_type.name;
                     let value_type = match dump_property.value_type.category {
                         ValueCategory::Enum => PropertyType::Enum(type_name.clone().into()),
-                        ValueCategory::Primitive
-                        | ValueCategory::DataType
-                        | ValueCategory::Class => {
+                        ValueCategory::Primitive | ValueCategory::DataType => {
                             let variant_type = variant_type_from_str(type_name);
                             PropertyType::Data(variant_type)
                         }
+                        ValueCategory::Class => PropertyType::Data(VariantType::Ref),
                     };
 
                     let mut property =
@@ -249,6 +248,8 @@ fn variant_type_from_str(value: &str) -> VariantType {
         "Vector2int16" => VariantType::Vector2int16,
         "Vector3" => VariantType::Vector3,
         "Vector3int16" => VariantType::Vector3int16,
+
+        "ProtectedString" => VariantType::String,
 
         _ => panic!("Unknown type {}", value),
     }
