@@ -61,8 +61,10 @@ impl ReflectionDatabase {
                     let value_type = match dump_property.value_type.category {
                         ValueCategory::Enum => PropertyType::Enum(type_name.clone().into()),
                         ValueCategory::Primitive | ValueCategory::DataType => {
-                            let variant_type = variant_type_from_str(type_name);
-                            PropertyType::Data(variant_type)
+                            match variant_type_from_str(type_name) {
+                                Some(variant_type) => PropertyType::Data(variant_type),
+                                None => continue,
+                            }
                         }
                         ValueCategory::Class => PropertyType::Data(VariantType::Ref),
                     };
@@ -220,39 +222,48 @@ impl ReflectionDatabase {
     }
 }
 
-fn variant_type_from_str(value: &str) -> VariantType {
-    match value {
+fn variant_type_from_str(value: &str) -> Option<VariantType> {
+    Some(match value {
         "Axes" => VariantType::Axes,
         "BinaryString" => VariantType::BinaryString,
         "BrickColor" => VariantType::BrickColor,
-        "bool" => VariantType::Bool,
         "CFrame" => VariantType::CFrame,
         "Color3" => VariantType::Color3,
         "ColorSequence" => VariantType::ColorSequence,
         "Content" => VariantType::Content,
         "Faces" => VariantType::Faces,
-        "float" => VariantType::Float32,
-        "double" => VariantType::Float64,
-        "int" => VariantType::Int32,
-        "int64" => VariantType::Int64,
+        "Instance" => VariantType::Ref,
         "NumberRange" => VariantType::NumberRange,
         "NumberSequence" => VariantType::NumberSequence,
         "PhysicalProperties" => VariantType::PhysicalProperties,
         "Ray" => VariantType::Ray,
         "Rect" => VariantType::Rect,
-        "Instance" => VariantType::Ref,
-        "string" => VariantType::String,
+        "Region3" => VariantType::Region3,
+        "Region3int16" => VariantType::Region3int16,
         "UDim" => VariantType::UDim,
         "UDim2" => VariantType::UDim2,
         "Vector2" => VariantType::Vector2,
         "Vector2int16" => VariantType::Vector2int16,
         "Vector3" => VariantType::Vector3,
         "Vector3int16" => VariantType::Vector3int16,
+        "bool" => VariantType::Bool,
+        "double" => VariantType::Float64,
+        "float" => VariantType::Float32,
+        "int" => VariantType::Int32,
+        "int64" => VariantType::Int64,
+        "string" => VariantType::String,
 
+        // ProtectedString is handled as the same as string
         "ProtectedString" => VariantType::String,
 
+        // TweenInfo is not supported by rbx_types yet
+        "TweenInfo" => return None,
+
+        // These types are not generally implemented right now.
+        "QDir" | "QFont" => return None,
+
         _ => panic!("Unknown type {}", value),
-    }
+    })
 }
 
 #[derive(Debug, Snafu)]
