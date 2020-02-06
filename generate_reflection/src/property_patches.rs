@@ -5,9 +5,8 @@
 
 use std::{borrow::Cow, collections::HashMap};
 
+use rbx_reflection::{PropertyType, Scriptability};
 use serde_derive::Deserialize;
-
-use crate::reflection_types::{RbxPropertyScriptability, RbxPropertyTypeDescriptor};
 
 static PATCH_SOURCE: &str = include_str!("../property-patches.toml");
 
@@ -21,16 +20,16 @@ pub struct PropertyPatches {
 pub struct PropertyChange {
     pub serialized_name: Option<Cow<'static, str>>,
     pub canonical_name: Option<Cow<'static, str>>,
-    pub scriptability: Option<RbxPropertyScriptability>,
+    pub scriptability: Option<Scriptability>,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct PropertyAdd {
     #[serde(rename = "type")]
-    pub property_type: RbxPropertyTypeDescriptor,
+    pub property_type: PropertyType<'static>,
     pub serialized_name: Option<Cow<'static, str>>,
     pub canonical_name: Option<Cow<'static, str>>,
-    pub scriptability: RbxPropertyScriptability,
+    pub scriptability: Scriptability,
     pub serializes: bool,
 }
 

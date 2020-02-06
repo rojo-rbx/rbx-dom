@@ -1,12 +1,6 @@
-// Our use of quote! hits the recursion limit, oops.
-#![recursion_limit = "128"]
-
 mod api_dump;
 mod database;
-mod emitter_lua;
-mod emitter_rust;
 mod property_patches;
-mod reflection_types;
 mod run_in_roblox;
 
 use std::{
@@ -20,13 +14,14 @@ use std::{
 };
 
 use rbx_dom_weak::{RbxInstanceProperties, RbxTree, RbxValue};
+use rbx_reflection::Scriptability;
+use rbx_types::Variant;
 use serde_derive::Deserialize;
 
 use crate::{
     api_dump::Dump,
     database::ReflectionDatabase,
     property_patches::load_property_patches,
-    reflection_types::RbxPropertyScriptability,
     run_in_roblox::{inject_plugin_main, run_in_roblox},
 };
 
@@ -49,8 +44,8 @@ enum PluginMessage {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct DescriptorPatch {
-    default_value: Option<RbxValue>,
-    scriptability: Option<RbxPropertyScriptability>,
+    default_value: Option<Variant>,
+    scriptability: Option<Scriptability>,
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -68,56 +63,25 @@ fn main() -> Result<(), Box<dyn Error>> {
     let messages = run_in_roblox(&plugin);
 
     process_plugin_messages(&mut database, &messages);
-    emit_source(&database, &dump)?;
+    emit_database(&database)?;
 
     Ok(())
 }
 
-fn emit_source(database: &ReflectionDatabase, dump: &Dump) -> io::Result<()> {
-    let rust_output_dir = {
-        let mut rust_output_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        rust_output_dir.pop();
-        rust_output_dir.push("rbx_reflection/src/reflection_database");
-        rust_output_dir
+fn emit_database(database: &ReflectionDatabase) -> io::Result<()> {
+    let rust_output = {
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.pop();
+        path.push("rbx_reflection_database/database.msgpack");
+        path
     };
 
-    let lua_output_dir = {
-        let mut lua_output_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        lua_output_dir.pop();
-        lua_output_dir.push("rbx_dom_lua/src/ReflectionDatabase");
-        lua_output_dir
+    let lua_output = {
+        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        path.pop();
+        path.push("rbx_dom_lua/src/database-json.txt");
+        path
     };
-
-    fs::create_dir_all(&rust_output_dir)?;
-    fs::create_dir_all(&lua_output_dir)?;
-
-    {
-        let classes_path = rust_output_dir.join("classes.rs");
-        let mut classes_file = BufWriter::new(File::create(classes_path)?);
-        emitter_rust::emit_classes(&mut classes_file, &database)?;
-        classes_file.flush()?;
-    }
-
-    {
-        let enums_path = rust_output_dir.join("enums.rs");
-        let mut enums_file = BufWriter::new(File::create(enums_path)?);
-        emitter_rust::emit_enums(&mut enums_file, &dump)?;
-        enums_file.flush()?;
-    }
-
-    {
-        let version_path = rust_output_dir.join("version.rs");
-        let mut version_file = BufWriter::new(File::create(version_path)?);
-        emitter_rust::emit_version(&mut version_file, &database)?;
-        version_file.flush()?;
-    }
-
-    {
-        let classes_path = lua_output_dir.join("classes.lua");
-        let mut classes_file = BufWriter::new(File::create(classes_path)?);
-        emitter_lua::emit_classes(&mut classes_file, &database)?;
-        classes_file.flush()?;
-    }
 
     Ok(())
 }
@@ -211,8 +175,8 @@ fn inject_reflection_classes(plugin: &mut RbxTree, database: &ReflectionDatabase
     let root_id = plugin.get_root_id();
 
     let mut classes_buffer = Vec::new();
-    emitter_lua::emit_classes(&mut classes_buffer, database)
-        .expect("Couldn't emit Lua class database");
+    // emitter_lua::emit_classes(&mut classes_buffer, database)
+    //     .expect("Couldn't emit Lua class database");
 
     let classes_source =
         String::from_utf8(classes_buffer).expect("Lua class database wasn't valid UTF-8");

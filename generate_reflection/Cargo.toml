@@ -6,6 +6,11 @@ edition = "2018"
 publish = false
 
 [dependencies]
+rbx_types = { path = "../rbx_types" }
+rbx_reflection = { path = "../rbx_reflection" }
+rbx_dom_weak = "1.10.0"
+rbx_xml = "0.11.4"
+
 bitflags = "1.0.4"
 futures = "0.1"
 heck = "0.3.1"
@@ -14,8 +19,6 @@ lazy_static = "1.3.0"
 log = "0.4.6"
 proc-macro2 = "1.0.6"
 quote = "1.0.2"
-rbx_dom_weak = { path = "../rbx_dom_weak" }
-rbx_xml = { path = "../rbx_xml" }
 regex = "1.1.2"
 roblox_install = "0.2.1"
 serde = "1"
