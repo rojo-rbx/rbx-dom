@@ -1,7 +1,8 @@
 use std::{borrow::Cow, collections::HashMap};
 
 use rbx_reflection::{
-    ClassDescriptor, InstanceTags, PropertyDescriptor, PropertyTags, Scriptability,
+    ClassDescriptor, InstanceTags, PropertyDescriptor, PropertyTags,
+    ReflectionDatabase as Database, Scriptability,
 };
 use serde::{Deserialize, Serialize};
 use snafu::Snafu;
@@ -12,17 +13,12 @@ use crate::{
 };
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ReflectionDatabase {
-    pub studio_version: [u32; 4],
-    pub classes: HashMap<Cow<'static, str>, ClassDescriptor<'static>>,
-}
+#[serde(transparent)]
+pub struct ReflectionDatabase(pub Database<'static>);
 
 impl ReflectionDatabase {
     pub fn new() -> Self {
-        Self {
-            studio_version: [0, 0, 0, 0],
-            classes: HashMap::new(),
-        }
+        Self(Database::new())
     }
 
     /// Adds all of the classes from the given API dump to the reflection
@@ -60,31 +56,28 @@ impl ReflectionDatabase {
                     let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
                         && dump_property.serialization.can_save;
 
-                    let property = PropertyDescriptor {
-                        name: Cow::Owned(dump_property.name.clone()),
-                        // value_type: RbxPropertyTypeDescriptor::from(&dump_property.value_type),
-                        // tags,
+                    let mut property = PropertyDescriptor::new(dump_property.name.clone());
+                    property.scriptability = scriptability;
 
-                        // is_canonical: true,
-                        // canonical_name: None,
-                        // serialized_name: None,
-                        scriptability,
-                        // serializes,
-                    };
+                    // value_type: RbxPropertyTypeDescriptor::from(&dump_property.value_type),
+                    // tags,
+                    // is_canonical: true,
+                    // canonical_name: None,
+                    // serialized_name: None,
+                    // serializes,
 
                     properties.insert(Cow::Owned(dump_property.name.clone()), property);
                 }
             }
 
-            let class = ClassDescriptor {
-                name: Cow::Owned(dump_class.name.clone()),
-                superclass,
-                // tags,
-                properties,
-                default_properties: HashMap::new(),
-            };
+            let mut class = ClassDescriptor::new(dump_class.name.clone());
+            class.superclass = superclass;
+            class.properties = properties;
 
-            self.classes
+            // tags
+
+            self.0
+                .classes
                 .insert(Cow::Owned(dump_class.name.clone()), class);
         }
 
@@ -99,6 +92,7 @@ impl ReflectionDatabase {
     ) -> Result<(), Error> {
         for (class_name, class_changes) in &property_patches.change {
             let class = self
+                .0
                 .classes
                 .get_mut(class_name.as_str())
                 .unwrap_or_else(|| {
@@ -134,6 +128,7 @@ impl ReflectionDatabase {
 
         for (class_name, class_adds) in &property_patches.add {
             let class = self
+                .0
                 .classes
                 .get_mut(class_name.as_str())
                 .unwrap_or_else(|| {
@@ -158,16 +153,14 @@ impl ReflectionDatabase {
                 let scriptability = property_add.scriptability;
                 let serializes = property_add.serializes;
 
-                let property = PropertyDescriptor {
-                    name,
-                    // value_type,
-                    // is_canonical,
-                    // canonical_name,
-                    // serialized_name,
-                    scriptability,
-                    // serializes,
-                    // tags: PropertyTags::empty(),
-                };
+                let mut property = PropertyDescriptor::new(name);
+                property.scriptability = scriptability;
+
+                // value_type,
+                // is_canonical,
+                // canonical_name,
+                // serialized_name,
+                // serializes,
 
                 class
                     .properties

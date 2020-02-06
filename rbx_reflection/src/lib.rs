@@ -4,19 +4,58 @@ use rbx_types::{Variant, VariantType};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-// #[non_exhaustive]
+#[non_exhaustive]
+pub struct ReflectionDatabase<'a> {
+    pub version: [u32; 4],
+    pub classes: HashMap<Cow<'a, str>, ClassDescriptor<'a>>,
+}
+
+impl<'a> ReflectionDatabase<'a> {
+    pub fn new() -> Self {
+        Self {
+            version: [0, 0, 0, 0],
+            classes: HashMap::new(),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[non_exhaustive]
 pub struct ClassDescriptor<'a> {
     pub name: Cow<'a, str>,
+
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub superclass: Option<Cow<'a, str>>,
+
     pub properties: HashMap<Cow<'a, str>, PropertyDescriptor<'a>>,
     pub default_properties: HashMap<Cow<'a, str>, Variant>,
 }
 
+impl<'a> ClassDescriptor<'a> {
+    pub fn new<S: Into<Cow<'a, str>>>(name: S) -> Self {
+        Self {
+            name: name.into(),
+            superclass: None,
+            properties: HashMap::new(),
+            default_properties: HashMap::new(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
-// #[non_exhaustive]
+#[non_exhaustive]
 pub struct PropertyDescriptor<'a> {
     pub name: Cow<'a, str>,
     pub scriptability: Scriptability,
+}
+
+impl<'a> PropertyDescriptor<'a> {
+    pub fn new<S: Into<Cow<'a, str>>>(name: S) -> Self {
+        Self {
+            name: name.into(),
+            scriptability: Scriptability::None,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

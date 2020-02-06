@@ -107,13 +107,13 @@ fn process_plugin_messages(database: &mut ReflectionDatabase, messages: &[Vec<u8
 
         match deserialized {
             PluginMessage::Version { version } => {
-                database.studio_version = version;
+                database.0.version = version;
             }
             PluginMessage::PatchDescriptors {
                 class_name,
                 descriptors,
             } => {
-                if let Some(class) = database.classes.get_mut(class_name.as_str()) {
+                if let Some(class) = database.0.classes.get_mut(class_name.as_str()) {
                     for (property_name, patch) in descriptors {
                         if let Some(default_value) = patch.default_value {
                             class
