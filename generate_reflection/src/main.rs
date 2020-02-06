@@ -7,7 +7,7 @@ use std::{
     borrow::Cow,
     collections::HashMap,
     error::Error,
-    fs::{self, File},
+    fs,
     io::{self, BufWriter, Write},
     path::PathBuf,
     str,
@@ -76,12 +76,18 @@ fn emit_database(database: &ReflectionDatabase) -> io::Result<()> {
         path
     };
 
+    let encoded = rmp_serde::to_vec(database).unwrap();
+    fs::write(&rust_output, encoded)?;
+
     let lua_output = {
         let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         path.pop();
         path.push("rbx_dom_lua/src/database-json.txt");
         path
     };
+
+    let encoded = serde_json::to_string(database).unwrap();
+    fs::write(&lua_output, encoded)?;
 
     Ok(())
 }

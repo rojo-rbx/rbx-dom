@@ -29,7 +29,7 @@ pub enum PropertyType<'a> {
     Enum(Cow<'a, str>),
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 #[non_exhaustive]
 pub enum Scriptability {
     /// The property is not scriptable at all.
@@ -111,11 +111,12 @@ bitterflag! {
         const PLAYER_REPLICATED = 0x10;
         const SERVICE = 0x20;
         const SETTINGS = 0x40;
+        const USER_SETTINGS = 0x80;
     }
 }
 
 #[derive(Debug)]
-pub struct InstanceTagsFromStrError;
+pub struct InstanceTagsFromStrError(String);
 
 impl FromStr for InstanceTags {
     type Err = InstanceTagsFromStrError;
@@ -129,7 +130,8 @@ impl FromStr for InstanceTags {
             "PlayerReplicated" => Self::PLAYER_REPLICATED,
             "Service" => Self::SERVICE,
             "Settings" => Self::SETTINGS,
-            _ => return Err(InstanceTagsFromStrError),
+            "UserSettings" => Self::USER_SETTINGS,
+            _ => return Err(InstanceTagsFromStrError(value.to_owned())),
         })
     }
 }
@@ -148,7 +150,7 @@ bitterflag! {
 }
 
 #[derive(Debug)]
-pub struct PropertyTagsFromStrError;
+pub struct PropertyTagsFromStrError(String);
 
 impl FromStr for PropertyTags {
     type Err = PropertyTagsFromStrError;
@@ -161,7 +163,7 @@ impl FromStr for PropertyTags {
             "NotReplicated" => Self::NOT_REPLICATED,
             "NotScriptable" => Self::NOT_SCRIPTABLE,
             "ReadOnly" => Self::READ_ONLY,
-            _ => return Err(PropertyTagsFromStrError),
+            _ => return Err(PropertyTagsFromStrError(value.to_owned())),
         })
     }
 }
