@@ -34,7 +34,7 @@ impl ReflectionDatabase {
 
             let mut tags = InstanceTags::empty();
             for dump_tag in &dump_class.tags {
-                tags &= dump_tag.parse().unwrap();
+                tags |= dump_tag.parse().unwrap();
             }
 
             let mut properties = HashMap::new();
@@ -43,7 +43,7 @@ impl ReflectionDatabase {
                 if let DumpClassMember::Property(dump_property) = member {
                     let mut tags = PropertyTags::empty();
                     for dump_tag in &dump_property.tags {
-                        tags &= dump_tag.parse().unwrap();
+                        tags |= dump_tag.parse().unwrap();
                     }
 
                     let scriptability = if tags.contains(PropertyTags::NOT_SCRIPTABLE) {
