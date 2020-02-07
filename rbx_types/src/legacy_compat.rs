@@ -2,9 +2,9 @@
 
 use std::convert::TryFrom;
 
-use rbx_dom_weak::{RbxValue, RbxValueType};
+use rbx_dom_weak::{BrickColor as LegacyBrickColor, RbxValue, RbxValueType};
 
-use crate::{Variant, VariantType};
+use crate::{BrickColor, Variant, VariantType};
 
 impl TryFrom<RbxValue> for Variant {
     type Error = String;
@@ -19,8 +19,10 @@ impl TryFrom<RbxValue> for Variant {
             RbxValue::Float64 { value } => value.into(),
 
             RbxValue::BinaryString { value } => Variant::BinaryString(value.into()),
+            RbxValue::BrickColor { value } => {
+                Variant::BrickColor(BrickColor::from_number(value as u16).unwrap())
+            }
 
-            // RbxValue::BrickColor { value } => Variant::BrickColor(value),
             // RbxValue::CFrame { value } => Variant::CFrame(value),
             // RbxValue::Color3 { value } => Variant::Color3(value),
             // RbxValue::Color3uint8 { value } => Variant::Color3uint8(value),
@@ -57,7 +59,14 @@ impl TryFrom<Variant> for RbxValue {
             Variant::Float32(value) => RbxValue::Float32 { value },
             Variant::Float64(value) => RbxValue::Float64 { value },
 
-            // RbxValue::BrickColor { value } => Variant::BrickColor(value),
+            Variant::BinaryString(value) => RbxValue::BinaryString {
+                value: value.into(),
+            },
+
+            Variant::BrickColor(value) => RbxValue::BrickColor {
+                value: LegacyBrickColor::from_number(value as u16).unwrap(),
+            },
+
             // RbxValue::CFrame { value } => Variant::CFrame(value),
             // RbxValue::Color3 { value } => Variant::Color3(value),
             // RbxValue::Color3uint8 { value } => Variant::Color3uint8(value),
