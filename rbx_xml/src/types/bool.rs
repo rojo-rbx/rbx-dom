@@ -52,11 +52,11 @@ mod test {
 
     #[test]
     fn round_trip_true() {
-        test_util::test_xml_round_trip::<BoolType, _>(&true, RbxValue::Bool { value: true });
+        test_util::test_xml_round_trip(&true);
     }
 
     #[test]
     fn round_trip_false() {
-        test_util::test_xml_round_trip::<BoolType, _>(&false, RbxValue::Bool { value: false });
+        test_util::test_xml_round_trip(&false);
     }
 }

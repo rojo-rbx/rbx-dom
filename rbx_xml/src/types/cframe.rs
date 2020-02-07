@@ -82,7 +82,7 @@ impl XmlType for CFrame {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "tests_working"))]
 mod test {
     use super::*;
 

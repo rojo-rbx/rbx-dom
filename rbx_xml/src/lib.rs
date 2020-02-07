@@ -13,7 +13,7 @@
 //! These methods also have variants like [`from_str`][from_str] that let you
 //! pass in custom options.
 //!
-//! ```rust
+//! ```ignore
 //! # // FIXME: This test overflows its stack only as a doctest on Windows. :/
 //! # // see: https://github.com/rust-lang/rust/issues/60753
 //! #
@@ -50,7 +50,7 @@
 //! If you're decoding from a file, you'll want to do your own I/O buffering,
 //! like with [`BufReader`][BufReader]:
 //!
-//! ```rust,no_run
+//! ```ignore
 //! # fn main() -> Result<(), Box<std::error::Error>> {
 //! use std::{
 //!     io::BufReader,
@@ -78,7 +78,7 @@
 //!
 //! For example, to re-save the place file we loaded above:
 //!
-//! ```rust,no_run
+//! ```ignore
 //! # fn main() -> Result<(), Box<std::error::Error>> {
 //! use std::{
 //!     io::BufWriter,

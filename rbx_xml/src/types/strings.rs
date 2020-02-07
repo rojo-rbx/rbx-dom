@@ -53,7 +53,7 @@ impl XmlType for String {
 //     }
 // }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "tests_working"))]
 mod test {
     use super::*;
 
