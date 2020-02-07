@@ -2,9 +2,15 @@
 
 use std::convert::TryFrom;
 
-use rbx_dom_weak::{BrickColor as LegacyBrickColor, RbxValue, RbxValueType};
+use rbx_dom_weak::{
+    BrickColor as LegacyBrickColor, ColorSequence as LegacyColorSequence,
+    ColorSequenceKeypoint as LegacyColorSequenceKeypoint, RbxValue,
+};
 
-use crate::{BrickColor, CFrame, Color3, Color3uint8, Matrix3, Variant, VariantType, Vector3};
+use crate::{
+    BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint, EnumValue,
+    Matrix3, Variant, Vector3,
+};
 
 impl TryFrom<RbxValue> for Variant {
     type Error = String;
@@ -39,15 +45,28 @@ impl TryFrom<RbxValue> for Variant {
                 Variant::Color3uint8(Color3uint8::new(value[0], value[1], value[2]))
             }
 
-            // RbxValue::ColorSequence { value } => Variant::ColorSequence(value),
-            // RbxValue::Content { value } => Variant::Content(value),
-            // RbxValue::Enum { value } => Variant::EnumValue(value),
+            RbxValue::ColorSequence { value } => {
+                let keypoints = value
+                    .keypoints
+                    .into_iter()
+                    .map(|keypoint| {
+                        ColorSequenceKeypoint::new(
+                            keypoint.time,
+                            Color3::new(keypoint.color[0], keypoint.color[1], keypoint.color[2]),
+                        )
+                    })
+                    .collect();
+
+                Variant::ColorSequence(ColorSequence { keypoints })
+            }
+
+            RbxValue::Content { value } => Variant::Content(value.into()),
+            RbxValue::Enum { value } => Variant::EnumValue(EnumValue::from_u32(value)),
             // RbxValue::NumberRange { value } => Variant::NumberRange(value),
             // RbxValue::NumberSequence { value } => Variant::NumberSequence(value),
             // RbxValue::PhysicalProperties { value } => Variant::PhysicalProperties(value),
             // RbxValue::Ray { value } => Variant::Ray(value),
             // RbxValue::Rect { value } => Variant::Rect(value),
-            // RbxValue::Ref { value } => Variant::Ref(value),
             // RbxValue::SharedString { value } => Variant::SharedString(value),
             // RbxValue::UDim { value } => Variant::UDim(value),
             // RbxValue::UDim2 { value } => Variant::UDim2(value),
@@ -104,15 +123,32 @@ impl TryFrom<Variant> for RbxValue {
                 value: [value.r, value.g, value.b],
             },
 
-            // Variant::ColorSequence(value) => RbxValue::ColorSequence { value },
-            // Variant::Content(value) => RbxValue::Content { value },
-            // Variant::Enum(value) => RbxValue::EnumValue { value },
+            Variant::ColorSequence(value) => {
+                let keypoints = value
+                    .keypoints
+                    .into_iter()
+                    .map(|keypoint| LegacyColorSequenceKeypoint {
+                        time: keypoint.time,
+                        color: [keypoint.color.r, keypoint.color.g, keypoint.color.b],
+                    })
+                    .collect();
+
+                RbxValue::ColorSequence {
+                    value: LegacyColorSequence { keypoints },
+                }
+            }
+
+            Variant::Content(value) => RbxValue::Content {
+                value: value.into_string(),
+            },
+            Variant::EnumValue(value) => RbxValue::Enum {
+                value: value.to_u32(),
+            },
             // Variant::NumberRange(value) => RbxValue::NumberRange { value },
             // Variant::NumberSequence(value) => RbxValue::NumberSequence { value },
             // Variant::PhysicalProperties(value) => RbxValue::PhysicalProperties { value },
             // Variant::Ray(value) => RbxValue::Ray { value },
             // Variant::Rect(value) => RbxValue::Rect { value },
-            // Variant::Ref(value) => RbxValue::Ref { value },
             // Variant::SharedString(value) => RbxValue::SharedString { value },
             // Variant::UDim(value) => RbxValue::UDim { value },
             // Variant::UDim2(value) => RbxValue::UDim2 { value },
