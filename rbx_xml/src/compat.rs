@@ -10,7 +10,7 @@ pub enum TodoValueConversionType {
 
 pub trait TodoValueConversion {
     fn try_convert_ref(&self, target_type: VariantType) -> TodoValueConversionType {
-        unimplemented!();
+        TodoValueConversionType::Unnecessary
     }
 }
 
