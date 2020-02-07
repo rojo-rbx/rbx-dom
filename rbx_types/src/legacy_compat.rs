@@ -4,7 +4,7 @@ use std::convert::TryFrom;
 
 use rbx_dom_weak::{BrickColor as LegacyBrickColor, RbxValue, RbxValueType};
 
-use crate::{BrickColor, Variant, VariantType};
+use crate::{BrickColor, CFrame, Color3, Color3uint8, Matrix3, Variant, VariantType, Vector3};
 
 impl TryFrom<RbxValue> for Variant {
     type Error = String;
@@ -23,9 +23,22 @@ impl TryFrom<RbxValue> for Variant {
                 Variant::BrickColor(BrickColor::from_number(value as u16).unwrap())
             }
 
-            // RbxValue::CFrame { value } => Variant::CFrame(value),
-            // RbxValue::Color3 { value } => Variant::Color3(value),
-            // RbxValue::Color3uint8 { value } => Variant::Color3uint8(value),
+            RbxValue::CFrame { value } => Variant::CFrame(CFrame::new(
+                Vector3::new(value[0], value[1], value[2]),
+                Matrix3 {
+                    x: Vector3::new(value[3], value[4], value[5]),
+                    y: Vector3::new(value[6], value[7], value[8]),
+                    z: Vector3::new(value[9], value[10], value[11]),
+                },
+            )),
+
+            RbxValue::Color3 { value } => {
+                Variant::Color3(Color3::new(value[0], value[1], value[2]))
+            }
+            RbxValue::Color3uint8 { value } => {
+                Variant::Color3uint8(Color3uint8::new(value[0], value[1], value[2]))
+            }
+
             // RbxValue::ColorSequence { value } => Variant::ColorSequence(value),
             // RbxValue::Content { value } => Variant::Content(value),
             // RbxValue::Enum { value } => Variant::EnumValue(value),
@@ -67,25 +80,46 @@ impl TryFrom<Variant> for RbxValue {
                 value: LegacyBrickColor::from_number(value as u16).unwrap(),
             },
 
-            // RbxValue::CFrame { value } => Variant::CFrame(value),
-            // RbxValue::Color3 { value } => Variant::Color3(value),
-            // RbxValue::Color3uint8 { value } => Variant::Color3uint8(value),
-            // RbxValue::ColorSequence { value } => Variant::ColorSequence(value),
-            // RbxValue::Content { value } => Variant::Content(value),
-            // RbxValue::Enum { value } => Variant::EnumValue(value),
-            // RbxValue::NumberRange { value } => Variant::NumberRange(value),
-            // RbxValue::NumberSequence { value } => Variant::NumberSequence(value),
-            // RbxValue::PhysicalProperties { value } => Variant::PhysicalProperties(value),
-            // RbxValue::Ray { value } => Variant::Ray(value),
-            // RbxValue::Rect { value } => Variant::Rect(value),
-            // RbxValue::Ref { value } => Variant::Ref(value),
-            // RbxValue::SharedString { value } => Variant::SharedString(value),
-            // RbxValue::UDim { value } => Variant::UDim(value),
-            // RbxValue::UDim2 { value } => Variant::UDim2(value),
-            // RbxValue::Vector2 { value } => Variant::Vector2(value),
-            // RbxValue::Vector2int16 { value } => Variant::Vector2int16(value),
-            // RbxValue::Vector3 { value } => Variant::Vector3(value),
-            // RbxValue::Vector3int16 { value } => Variant::Vector3int16(value),
+            Variant::CFrame(value) => RbxValue::CFrame {
+                value: [
+                    value.position.x,
+                    value.position.y,
+                    value.position.z,
+                    value.orientation.x.x,
+                    value.orientation.x.y,
+                    value.orientation.x.z,
+                    value.orientation.y.x,
+                    value.orientation.y.y,
+                    value.orientation.y.z,
+                    value.orientation.z.x,
+                    value.orientation.z.y,
+                    value.orientation.z.z,
+                ],
+            },
+
+            Variant::Color3(value) => RbxValue::Color3 {
+                value: [value.r, value.g, value.b],
+            },
+            Variant::Color3uint8(value) => RbxValue::Color3uint8 {
+                value: [value.r, value.g, value.b],
+            },
+
+            // Variant::ColorSequence(value) => RbxValue::ColorSequence { value },
+            // Variant::Content(value) => RbxValue::Content { value },
+            // Variant::Enum(value) => RbxValue::EnumValue { value },
+            // Variant::NumberRange(value) => RbxValue::NumberRange { value },
+            // Variant::NumberSequence(value) => RbxValue::NumberSequence { value },
+            // Variant::PhysicalProperties(value) => RbxValue::PhysicalProperties { value },
+            // Variant::Ray(value) => RbxValue::Ray { value },
+            // Variant::Rect(value) => RbxValue::Rect { value },
+            // Variant::Ref(value) => RbxValue::Ref { value },
+            // Variant::SharedString(value) => RbxValue::SharedString { value },
+            // Variant::UDim(value) => RbxValue::UDim { value },
+            // Variant::UDim2(value) => RbxValue::UDim2 { value },
+            // Variant::Vector2(value) => RbxValue::Vector2 { value },
+            // Variant::Vector2int16(value) => RbxValue::Vector2int16 { value },
+            // Variant::Vector3(value) => RbxValue::Vector3 { value },
+            // Variant::Vector3int16(value) => RbxValue::Vector3int16 { value },
             _ => return Err(format!("Cannot convert Variant {:?} to RbxValue", value)),
         })
     }
