@@ -80,10 +80,9 @@ impl ReflectionDatabase {
             }
 
             let mut class = ClassDescriptor::new(dump_class.name.clone());
+            class.tags = tags;
             class.superclass = superclass;
             class.properties = properties;
-
-            // tags
 
             self.0
                 .classes

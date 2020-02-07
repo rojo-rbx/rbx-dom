@@ -35,6 +35,8 @@ impl<'a> ReflectionDatabase<'a> {
 pub struct ClassDescriptor<'a> {
     pub name: Cow<'a, str>,
 
+    pub tags: InstanceTags,
+
     #[serde(default)]
     pub superclass: Option<Cow<'a, str>>,
 
@@ -49,6 +51,7 @@ impl<'a> ClassDescriptor<'a> {
     pub fn new<S: Into<Cow<'a, str>>>(name: S) -> Self {
         Self {
             name: name.into(),
+            tags: InstanceTags::empty(),
             superclass: None,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
