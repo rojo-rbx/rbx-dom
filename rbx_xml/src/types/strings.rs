@@ -1,7 +1,5 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::RbxValue;
-
 use crate::{
     core::XmlType,
     deserializer_core::XmlEventReader,
@@ -9,53 +7,51 @@ use crate::{
     serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
-pub struct StringType;
-
-impl XmlType<str> for StringType {
+impl XmlType for String {
     const XML_TAG_NAME: &'static str = "string";
 
     fn write_xml<W: Write>(
+        &self,
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: &str,
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write_string(value)?;
+        writer.write_string(self)?;
         writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
-    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
-        let value = reader.read_tag_contents(Self::XML_TAG_NAME)?;
-
-        Ok(RbxValue::String { value })
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
+        Ok(reader.read_tag_contents(Self::XML_TAG_NAME)?)
     }
 }
 
-pub struct ProtectedStringType;
+// FIXME: Support ProtectedString again:
 
-impl XmlType<str> for ProtectedStringType {
-    const XML_TAG_NAME: &'static str = "ProtectedString";
+// pub struct ProtectedStringType;
 
-    fn write_xml<W: Write>(
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-        value: &str,
-    ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write_string(value)?;
-        writer.write(XmlWriteEvent::end_element())?;
+// impl XmlType<str> for ProtectedStringType {
+//     const XML_TAG_NAME: &'static str = "ProtectedString";
 
-        Ok(())
-    }
+//     fn write_xml<W: Write>(
+//         writer: &mut XmlEventWriter<W>,
+//         name: &str,
+//         value: &str,
+//     ) -> Result<(), EncodeError> {
+//         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
+//         writer.write_string(value)?;
+//         writer.write(XmlWriteEvent::end_element())?;
 
-    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
-        let value = reader.read_tag_contents(Self::XML_TAG_NAME)?;
+//         Ok(())
+//     }
 
-        Ok(RbxValue::String { value })
-    }
-}
+//     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
+//         let value = reader.read_tag_contents(Self::XML_TAG_NAME)?;
+
+//         Ok(RbxValue::String { value })
+//     }
+// }
 
 #[cfg(test)]
 mod test {
