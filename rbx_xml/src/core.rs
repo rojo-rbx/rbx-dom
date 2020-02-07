@@ -1,6 +1,5 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::Variant;
 use rbx_reflection::PropertyDescriptor;
 
 use crate::{
@@ -9,16 +8,16 @@ use crate::{
     serializer_core::XmlEventWriter,
 };
 
-pub trait XmlType<T: ?Sized> {
+pub trait XmlType: Sized {
     const XML_TAG_NAME: &'static str;
 
     fn write_xml<W: Write>(
+        &self,
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: &T,
     ) -> Result<(), EncodeError>;
 
-    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Variant, DecodeError>;
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError>;
 }
 
 pub fn find_canonical_property_descriptor(

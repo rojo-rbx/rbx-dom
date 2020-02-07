@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::Variant;
+use rbx_dom_weak::types::{BinaryString, Variant};
 
 use crate::{
     core::XmlType,
@@ -9,31 +9,33 @@ use crate::{
     serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
-pub struct BinaryStringType;
-
-impl XmlType<[u8]> for BinaryStringType {
+impl XmlType for BinaryString {
     const XML_TAG_NAME: &'static str = "BinaryString";
 
     fn write_xml<W: Write>(
+        &self,
         writer: &mut XmlEventWriter<W>,
         name: &str,
-        value: &[u8],
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        if !value.is_empty() {
-            writer.write(XmlWriteEvent::cdata(&base64::encode(value)))?;
+
+        // FIXME: BinaryString should have an is_empty method.
+        let contents: &[u8] = self.as_ref();
+        if !contents.is_empty() {
+            writer.write(XmlWriteEvent::cdata(&base64::encode(self)))?;
         }
+
         writer.end_element()?;
 
         Ok(())
     }
 
-    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Variant, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<BinaryString, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
         let value = reader.read_base64_characters()?;
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(Variant::BinaryString(value.into()))
+        Ok(value.into())
     }
 }
 

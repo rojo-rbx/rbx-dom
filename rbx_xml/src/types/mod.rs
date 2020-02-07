@@ -7,7 +7,7 @@
 //! 2. Add a 'mod' statement immediately below this comment
 //! 3. Add the type(s) to the declare_rbx_types! macro invocation
 
-// mod binary_string;
+mod binary_string;
 // mod bool;
 // mod cframe;
 // mod color_sequence;
@@ -28,7 +28,7 @@
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{Ref, Variant};
+use rbx_dom_weak::types::{BinaryString, Ref, Variant};
 
 use crate::{
     core::XmlType,
@@ -48,7 +48,7 @@ use crate::{
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
 /// `write_value_xml`.
 macro_rules! declare_rbx_types {
-    { $($typedef: path => $rbx_type: ident),* } => {
+    { $($rbx_type: ident,)* } => {
 
         /// Reads a Roblox property value with the given type from the XML event
         /// stream.
@@ -60,7 +60,7 @@ macro_rules! declare_rbx_types {
             property_name: &str,
         ) -> Result<Variant, DecodeError> {
             match xml_type_name {
-                $(<$typedef>::XML_TAG_NAME => <$typedef>::read_xml(reader),)*
+                $(<$rbx_type>::XML_TAG_NAME => Ok(Variant::$rbx_type(<$rbx_type>::read_xml(reader)?)),)*
 
                 // Protected strings are only read, never written
                 // self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
@@ -83,7 +83,7 @@ macro_rules! declare_rbx_types {
             value: &Variant,
         ) -> Result<(), EncodeError> {
             match value {
-                $(Variant::$rbx_type(value) => <$typedef>::write_xml(writer, xml_property_name, value),)*
+                $(Variant::$rbx_type(value) => value.write_xml(writer, xml_property_name),)*
 
                 // BrickColor values just encode as 32-bit ints, and have no
                 // unique appearance for reading.
@@ -102,7 +102,7 @@ macro_rules! declare_rbx_types {
 }
 
 declare_rbx_types! {
-    // self::binary_string::BinaryStringType => BinaryString,
+    BinaryString,
     // self::bool::BoolType => Bool,
     // self::cframe::CFrameType => CFrame,
     // self::color_sequence::ColorSequenceType => ColorSequence,
