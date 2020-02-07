@@ -1,7 +1,7 @@
 use std::{borrow::Cow, collections::HashMap};
 
 use rbx_reflection::{
-    ClassDescriptor, InstanceTags, PropertyDescriptor, PropertyTags, PropertyType,
+    ClassDescriptor, ClassTags, PropertyDescriptor, PropertyTags, PropertyType,
     ReflectionDatabase as Database, Scriptability,
 };
 use rbx_types::VariantType;
@@ -32,7 +32,7 @@ impl ReflectionDatabase {
                 Some(Cow::Owned(dump_class.superclass.clone()))
             };
 
-            let mut tags = InstanceTags::empty();
+            let mut tags = ClassTags::empty();
             for dump_tag in &dump_class.tags {
                 tags |= dump_tag.parse().unwrap();
             }

@@ -35,7 +35,7 @@ impl<'a> ReflectionDatabase<'a> {
 pub struct ClassDescriptor<'a> {
     pub name: Cow<'a, str>,
 
-    pub tags: InstanceTags,
+    pub tags: ClassTags,
 
     #[serde(default)]
     pub superclass: Option<Cow<'a, str>>,
@@ -51,7 +51,7 @@ impl<'a> ClassDescriptor<'a> {
     pub fn new<S: Into<Cow<'a, str>>>(name: S) -> Self {
         Self {
             name: name.into(),
-            tags: InstanceTags::empty(),
+            tags: ClassTags::empty(),
             superclass: None,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
@@ -127,7 +127,7 @@ pub enum Scriptability {
 // Tags found via:
 // jq '[.Classes | .[] | .Tags // empty] | add | unique' api-dump.json
 bitterflag! {
-    InstanceTags + InstanceTagsIntoIter: u32 {
+    ClassTags + ClassTagsIntoIter: u32 {
         const DEPRECATED = 1;
         const NOT_BROWSABLE = 2;
         const NOT_CREATABLE = 4;
@@ -140,10 +140,10 @@ bitterflag! {
 }
 
 #[derive(Debug)]
-pub struct InstanceTagsFromStrError(String);
+pub struct ClassTagsFromStrError(String);
 
-impl FromStr for InstanceTags {
-    type Err = InstanceTagsFromStrError;
+impl FromStr for ClassTags {
+    type Err = ClassTagsFromStrError;
 
     fn from_str(value: &str) -> Result<Self, Self::Err> {
         Ok(match value {
@@ -155,7 +155,7 @@ impl FromStr for InstanceTags {
             "Service" => Self::SERVICE,
             "Settings" => Self::SETTINGS,
             "UserSettings" => Self::USER_SETTINGS,
-            _ => return Err(InstanceTagsFromStrError(value.to_owned())),
+            _ => return Err(ClassTagsFromStrError(value.to_owned())),
         })
     }
 }
