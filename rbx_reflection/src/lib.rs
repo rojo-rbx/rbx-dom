@@ -35,7 +35,7 @@ impl<'a> ReflectionDatabase<'a> {
 pub struct ClassDescriptor<'a> {
     pub name: Cow<'a, str>,
 
-    #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub superclass: Option<Cow<'a, str>>,
 
     #[serde(serialize_with = "serde_util::ordered_map")]
@@ -67,10 +67,10 @@ pub struct PropertyDescriptor<'a> {
 
     pub serializes: bool,
 
-    #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub alias_for: Option<Cow<'a, str>>,
 
-    #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub serializes_as: Option<Cow<'a, str>>,
 }
 
