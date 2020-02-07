@@ -67,7 +67,7 @@ impl WeakDom {
         self.instances.get_mut(&referent)
     }
 
-    pub fn insert(&mut self, parent_ref: Ref, builder: InstanceBuilder) {
+    pub fn insert(&mut self, parent_ref: Ref, builder: InstanceBuilder) -> Ref {
         let referent = builder.referent;
 
         self.instances.insert(
@@ -92,6 +92,8 @@ impl WeakDom {
         for child in builder.children {
             self.insert(referent, child);
         }
+
+        referent
     }
 
     pub fn destroy(&mut self, referent: Ref) {
