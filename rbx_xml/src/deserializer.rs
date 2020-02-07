@@ -417,9 +417,6 @@ fn deserialize_instance<R: Read>(
     let builder = InstanceBuilder::new(class_name);
     let instance_id = state.tree.insert(parent_id, builder);
 
-    // FIXME: Need access to instance ID we just inserted into WeakDom.
-    let instance_id = Ref::none();
-
     if let Some(referent) = referent {
         state.referents_to_ids.insert(referent, instance_id);
     }
