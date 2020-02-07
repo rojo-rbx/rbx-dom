@@ -8,7 +8,7 @@
 //! 3. Add the type(s) to the declare_rbx_types! macro invocation
 
 mod binary_string;
-// mod bool;
+mod bool;
 // mod cframe;
 // mod color_sequence;
 // mod colors;
@@ -48,7 +48,7 @@ use crate::{
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
 /// `write_value_xml`.
 macro_rules! declare_rbx_types {
-    { $($rbx_type: ident,)* } => {
+    { $($variant_name: ident : $inner_type: ident,)* } => {
 
         /// Reads a Roblox property value with the given type from the XML event
         /// stream.
@@ -60,7 +60,7 @@ macro_rules! declare_rbx_types {
             property_name: &str,
         ) -> Result<Variant, DecodeError> {
             match xml_type_name {
-                $(<$rbx_type>::XML_TAG_NAME => Ok(Variant::$rbx_type(<$rbx_type>::read_xml(reader)?)),)*
+                $(<$inner_type>::XML_TAG_NAME => Ok(Variant::$variant_name(<$inner_type>::read_xml(reader)?)),)*
 
                 // Protected strings are only read, never written
                 // self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
@@ -83,7 +83,7 @@ macro_rules! declare_rbx_types {
             value: &Variant,
         ) -> Result<(), EncodeError> {
             match value {
-                $(Variant::$rbx_type(value) => value.write_xml(writer, xml_property_name),)*
+                $(Variant::$variant_name(value) => value.write_xml(writer, xml_property_name),)*
 
                 // BrickColor values just encode as 32-bit ints, and have no
                 // unique appearance for reading.
@@ -102,8 +102,8 @@ macro_rules! declare_rbx_types {
 }
 
 declare_rbx_types! {
-    BinaryString,
-    // self::bool::BoolType => Bool,
+    BinaryString: BinaryString,
+    Bool: bool,
     // self::cframe::CFrameType => CFrame,
     // self::color_sequence::ColorSequenceType => ColorSequence,
     // self::colors::Color3Type => Color3,

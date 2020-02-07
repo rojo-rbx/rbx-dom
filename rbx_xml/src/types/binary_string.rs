@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{BinaryString, Variant};
+use rbx_dom_weak::types::BinaryString;
 
 use crate::{
     core::XmlType,
