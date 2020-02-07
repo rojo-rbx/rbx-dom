@@ -2,13 +2,26 @@ mod api_dump;
 mod database;
 mod property_patches;
 
-use std::{error::Error, fs, io, path::PathBuf};
+use std::{error::Error, fs, path::PathBuf};
+
+use structopt::StructOpt;
 
 use crate::{
     api_dump::Dump, database::ReflectionDatabase, property_patches::load_property_patches,
 };
 
+#[derive(Debug, StructOpt)]
+struct Options {
+    #[structopt(long = "json")]
+    json_path: Option<PathBuf>,
+
+    #[structopt(long = "msgpack")]
+    msgpack_path: Option<PathBuf>,
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
+    let options = Options::from_args();
+
     let mut database = ReflectionDatabase::new();
 
     let dump = Dump::read()?;
@@ -19,31 +32,15 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     database.validate();
 
-    emit_database(&database)?;
+    if let Some(path) = &options.msgpack_path {
+        let encoded = rmp_serde::to_vec(&database).unwrap();
+        fs::write(path, encoded)?;
+    }
 
-    Ok(())
-}
-
-fn emit_database(database: &ReflectionDatabase) -> io::Result<()> {
-    let rust_output = {
-        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        path.pop();
-        path.push("rbx_reflection_database/database.msgpack");
-        path
-    };
-
-    let encoded = rmp_serde::to_vec(database).unwrap();
-    fs::write(&rust_output, encoded)?;
-
-    let lua_output = {
-        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        path.pop();
-        path.push("rbx_dom_lua/src/database-json.txt");
-        path
-    };
-
-    let encoded = serde_json::to_string(database).unwrap();
-    fs::write(&lua_output, encoded)?;
+    if let Some(path) = &options.json_path {
+        let encoded = serde_json::to_string(&database).unwrap();
+        fs::write(&path, encoded)?;
+    }
 
     Ok(())
 }
