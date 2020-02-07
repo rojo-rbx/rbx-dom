@@ -118,7 +118,7 @@ impl ReflectionDatabase {
                         )
                     });
 
-                println!("{}.{} changed", class_name, property_name);
+                log::debug!("{}.{} changed", class_name, property_name);
 
                 if let Some(canonical_name) = &property_change.canonical_name {
                     existing_property.alias_for = Some(canonical_name.clone());
@@ -149,7 +149,7 @@ impl ReflectionDatabase {
                     );
                 }
 
-                println!("{}.{} added", class_name, property_name);
+                log::debug!("{}.{} added", class_name, property_name);
 
                 let name = Cow::Owned(property_name.clone());
                 let value_type = property_add.property_type.clone();

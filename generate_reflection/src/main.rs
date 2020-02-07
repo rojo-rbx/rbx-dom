@@ -8,7 +8,8 @@ use std::{error::Error, fs, path::PathBuf};
 use structopt::StructOpt;
 
 use crate::{
-    api_dump::Dump, database::ReflectionDatabase, property_patches::load_property_patches,
+    api_dump::Dump, database::ReflectionDatabase, defaults_place::measure_default_properties,
+    property_patches::load_property_patches,
 };
 
 #[derive(Debug, StructOpt)]
@@ -27,6 +28,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let dump = Dump::read()?;
     database.populate_from_dump(&dump)?;
+
+    measure_default_properties(&mut database)?;
 
     let property_patches = load_property_patches();
     database.populate_from_patches(&property_patches)?;

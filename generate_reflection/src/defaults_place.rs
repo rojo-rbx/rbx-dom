@@ -1,8 +1,142 @@
-use std::fmt::{self, Write};
+//! Collects default property values by generated a place file every kind of
+//! instance in it, then uses Roblox Studio to re-save it with default property
+//! information encoded in it.
+
+use std::{
+    collections::{HashSet, VecDeque},
+    error::Error,
+    fmt::{self, Write},
+    fs::{self, File},
+    io::BufReader,
+    process::Command,
+    sync::mpsc,
+    time::Duration,
+};
+
+use notify::{DebouncedEvent, Watcher};
+use rbx_dom_weak::{RbxTree, RbxValueType};
+use roblox_install::RobloxStudio;
+use tempfile::tempdir;
 
 use crate::database::ReflectionDatabase;
 
+/// Use Roblox Studio to populate the reflection database with default values
+/// for as many properties as possible.
+pub fn measure_default_properties(database: &mut ReflectionDatabase) -> Result<(), Box<dyn Error>> {
+    let fixture_place = generate_fixture_place(database);
+    let tree = roundtrip_place_through_studio(&fixture_place)?;
+
+    apply_defaults_from_fixture_place(database, &tree);
+
+    Ok(())
+}
+
+fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &RbxTree) {
+    // Perform a breadth-first search to find the instance shallowest in the
+    // tree of each class.
+
+    let mut found_classes = HashSet::new();
+    let mut to_visit = VecDeque::new();
+
+    let root_instance = tree.get_instance(tree.get_root_id()).unwrap();
+    to_visit.extend(root_instance.get_children_ids());
+
+    while let Some(id) = to_visit.pop_front() {
+        let instance = tree.get_instance(id).unwrap();
+
+        to_visit.extend(instance.get_children_ids());
+
+        if found_classes.contains(&instance.class_name) {
+            continue;
+        }
+
+        found_classes.insert(instance.class_name.clone());
+
+        let descriptor = match database.0.classes.get_mut(instance.class_name.as_str()) {
+            Some(descriptor) => descriptor,
+            None => {
+                log::warn!(
+                    "Class {} found in default place but not API dump!",
+                    instance.class_name
+                );
+                continue;
+            }
+        };
+
+        for (prop_name, prop_value) in &instance.properties {
+            match prop_value.get_type() {
+                // We don't support emitting SharedString values yet.
+                RbxValueType::SharedString => {}
+
+                _ => {
+                    // FIXME: Do we need to convert these types into rbx_types
+                    // values?
+
+                    // descriptor
+                    //     .default_properties
+                    //     .insert(Cow::Owned(prop_name.clone()), prop_value.clone());
+                }
+            }
+        }
+    }
+}
+
+/// Generate a new fixture place from the given reflection database, open it in
+/// Studio, coax Studio to re-save it, and reads back the resulting place.
+fn roundtrip_place_through_studio(place_contents: &str) -> Result<RbxTree, Box<dyn Error>> {
+    let output_dir = tempdir()?;
+    let output_path = output_dir.path().join("roundtrip.rbxlx");
+    fs::write(&output_path, place_contents)?;
+
+    log::info!("Generating place at {}", output_path.display());
+
+    let studio_install = RobloxStudio::locate()?;
+
+    log::info!("Starting Roblox Studio...");
+
+    let mut studio_process = Command::new(studio_install.application_path())
+        .arg(output_path.display().to_string())
+        .spawn()?;
+
+    let (tx, rx) = mpsc::channel();
+    let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
+    watcher.watch(&output_path, notify::RecursiveMode::NonRecursive)?;
+
+    log::info!("Waiting for Roblox Studio to re-save place...");
+    println!("Please save the opened place in Roblox Studio (ctrl+s).");
+
+    // TODO: User currently has to manually save the place. We could use a crate
+    // like enigo or maybe raw input calls to do this for them.
+
+    loop {
+        match rx.recv()? {
+            DebouncedEvent::Write(_) => break,
+            _ => {}
+        }
+    }
+
+    log::info!("Place saved, killing Studio...");
+    studio_process.kill()?;
+
+    log::info!("Reading back place file...");
+
+    let mut file = BufReader::new(File::open(output_path)?);
+
+    let decode_options = rbx_xml::DecodeOptions::new()
+        .property_behavior(rbx_xml::DecodePropertyBehavior::NoReflection);
+    let tree = rbx_xml::from_reader(&mut file, decode_options)?;
+
+    Ok(tree)
+}
+
+/// Create a place file that contains a copy of every Roblox class and no
+/// properties defined.
+///
+/// When this place is re-saved by Roblox Studio, it'll contain default values
+/// for every property.
 fn generate_fixture_place(database: &ReflectionDatabase) -> String {
+    log::info!("Generating place with every instance...");
+
     let mut output = String::new();
 
     writeln!(&mut output, "<roblox version=\"4\">").unwrap();
@@ -39,21 +173,17 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             "WorldModel" => continue,
 
             "StarterPlayer" => {
-                instance
-                    .children
-                    .push(FixtureInstance::named("StarterPlayerScripts"));
-                instance
-                    .children
-                    .push(FixtureInstance::named("StarterCharacterScripts"));
+                instance.add_child(FixtureInstance::named("StarterPlayerScripts"));
+                instance.add_child(FixtureInstance::named("StarterCharacterScripts"));
             }
             "Workspace" => {
-                instance.children.push(FixtureInstance::named("Terrain"));
+                instance.add_child(FixtureInstance::named("Terrain"));
             }
             "Part" => {
-                instance.children.push(FixtureInstance::named("Attachment"));
+                instance.add_child(FixtureInstance::named("Attachment"));
             }
             "Humanoid" => {
-                instance.children.push(FixtureInstance::named("Animator"));
+                instance.add_child(FixtureInstance::named("Animator"));
             }
             _ => {}
         }
@@ -76,6 +206,10 @@ impl<'a> FixtureInstance<'a> {
             name,
             children: Vec::new(),
         }
+    }
+
+    fn add_child(&mut self, child: FixtureInstance<'a>) {
+        self.children.push(child);
     }
 }
 
