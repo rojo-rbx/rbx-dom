@@ -82,7 +82,7 @@ impl XmlType for CFrame {
     }
 }
 
-#[cfg(all(test, feature = "tests_working"))]
+#[cfg(test)]
 mod test {
     use super::*;
 
@@ -90,13 +90,15 @@ mod test {
 
     #[test]
     fn round_trip() {
-        let test_input: [f32; 12] = [
-            123.0, 456.0, 789.0, 987.0, 654.0, 432.0, 210.0, 0.0, -12345.0, 765.0, 234.0, 123123.0,
-        ];
-
-        test_util::test_xml_round_trip::<CFrameType, _>(
-            &test_input,
-            RbxValue::CFrame { value: test_input },
+        let test_input = CFrame::new(
+            Vector3::new(123.0, 456.0, 789.0),
+            Matrix3 {
+                x: Vector3::new(987.0, 654.0, 432.0),
+                y: Vector3::new(210.0, 0.0, -12345.0),
+                z: Vector3::new(765.0, 234.0, 123123.0),
+            },
         );
+
+        test_util::test_xml_round_trip(&test_input);
     }
 }
