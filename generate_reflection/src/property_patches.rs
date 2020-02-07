@@ -6,7 +6,7 @@
 use std::{borrow::Cow, collections::HashMap};
 
 use rbx_reflection::{PropertyType, Scriptability};
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 static PATCH_SOURCE: &str = include_str!("../property-patches.toml");
 

@@ -4,7 +4,7 @@
 use std::{fs, io, process::Command};
 
 use roblox_install::RobloxStudio;
-use serde_derive::Deserialize;
+use serde::Deserialize;
 use tempfile::tempdir;
 
 #[derive(Debug, Deserialize)]

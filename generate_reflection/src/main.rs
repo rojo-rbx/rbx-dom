@@ -1,5 +1,6 @@
 mod api_dump;
 mod database;
+mod defaults_place;
 mod property_patches;
 
 use std::{error::Error, fs, path::PathBuf};
