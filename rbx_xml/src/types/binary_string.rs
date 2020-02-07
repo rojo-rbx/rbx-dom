@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::RbxValue;
+use rbx_dom_weak::types::Variant;
 
 use crate::{
     core::XmlType,
@@ -28,12 +28,12 @@ impl XmlType<[u8]> for BinaryStringType {
         Ok(())
     }
 
-    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Variant, DecodeError> {
         reader.expect_start_with_name(Self::XML_TAG_NAME)?;
         let value = reader.read_base64_characters()?;
         reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
-        Ok(RbxValue::BinaryString { value })
+        Ok(Variant::BinaryString(value.into()))
     }
 }
 
