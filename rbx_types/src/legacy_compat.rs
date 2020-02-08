@@ -6,14 +6,15 @@ use rbx_dom_weak::{
     BrickColor as LegacyBrickColor, ColorSequence as LegacyColorSequence,
     ColorSequenceKeypoint as LegacyColorSequenceKeypoint, NumberSequence as LegacyNumberSequence,
     NumberSequenceKeypoint as LegacyNumberSequenceKeypoint,
-    PhysicalProperties as LegacyPhysicalProperties, Ray as LegacyRay, RbxValue,
+    PhysicalProperties as LegacyPhysicalProperties, Ray as LegacyRay, RbxValue, Rect as LegacyRect,
     SharedString as LegacySharedString,
 };
 
 use crate::{
     BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, EnumValue, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Ray, SharedString, Variant, Vector3,
+    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Variant,
+    Vector2, Vector2int16, Vector3, Vector3int16,
 };
 
 impl TryFrom<RbxValue> for Variant {
@@ -110,17 +111,33 @@ impl TryFrom<RbxValue> for Variant {
                 Variant::Ray(Ray { origin, direction })
             }
 
-            // RbxValue::Rect { value } => Variant::Rect(value),
+            RbxValue::Rect { value } => Variant::Rect(Rect {
+                min: Vector2::new(value.min.0, value.min.1),
+                max: Vector2::new(value.max.0, value.max.1),
+            }),
+
             RbxValue::SharedString { value } => {
                 Variant::SharedString(SharedString::new(value.data().to_vec()))
             }
 
-            // RbxValue::UDim { value } => Variant::UDim(value),
-            // RbxValue::UDim2 { value } => Variant::UDim2(value),
-            // RbxValue::Vector2 { value } => Variant::Vector2(value),
-            // RbxValue::Vector2int16 { value } => Variant::Vector2int16(value),
-            // RbxValue::Vector3 { value } => Variant::Vector3(value),
-            // RbxValue::Vector3int16 { value } => Variant::Vector3int16(value),
+            RbxValue::UDim { value } => Variant::UDim(UDim::new(value.0, value.1)),
+
+            RbxValue::UDim2 { value } => Variant::UDim2(UDim2::new(
+                UDim::new(value.0, value.1),
+                UDim::new(value.2, value.3),
+            )),
+
+            RbxValue::Vector2 { value } => Variant::Vector2(Vector2::new(value[0], value[1])),
+            RbxValue::Vector2int16 { value } => {
+                Variant::Vector2int16(Vector2int16::new(value[0], value[1]))
+            }
+            RbxValue::Vector3 { value } => {
+                Variant::Vector3(Vector3::new(value[0], value[1], value[2]))
+            }
+            RbxValue::Vector3int16 { value } => {
+                Variant::Vector3int16(Vector3int16::new(value[0], value[1], value[2]))
+            }
+
             _ => return Err(format!("Cannot convert RbxValue {:?} to Variant", value)),
         })
     }
@@ -232,17 +249,38 @@ impl TryFrom<Variant> for RbxValue {
                 },
             },
 
-            // Variant::Rect(value) => RbxValue::Rect { value },
+            Variant::Rect(value) => RbxValue::Rect {
+                value: LegacyRect {
+                    min: (value.min.x, value.min.y),
+                    max: (value.max.x, value.max.y),
+                },
+            },
+
             Variant::SharedString(value) => RbxValue::SharedString {
                 value: LegacySharedString::new(value.data().to_vec()),
             },
 
-            // Variant::UDim(value) => RbxValue::UDim { value },
-            // Variant::UDim2(value) => RbxValue::UDim2 { value },
-            // Variant::Vector2(value) => RbxValue::Vector2 { value },
-            // Variant::Vector2int16(value) => RbxValue::Vector2int16 { value },
-            // Variant::Vector3(value) => RbxValue::Vector3 { value },
-            // Variant::Vector3int16(value) => RbxValue::Vector3int16 { value },
+            Variant::UDim(value) => RbxValue::UDim {
+                value: (value.scale, value.offset),
+            },
+
+            Variant::UDim2(value) => RbxValue::UDim2 {
+                value: (value.x.scale, value.x.offset, value.y.scale, value.y.offset),
+            },
+
+            Variant::Vector2(value) => RbxValue::Vector2 {
+                value: [value.x, value.y],
+            },
+            Variant::Vector2int16(value) => RbxValue::Vector2int16 {
+                value: [value.x, value.y],
+            },
+            Variant::Vector3(value) => RbxValue::Vector3 {
+                value: [value.x, value.y, value.z],
+            },
+            Variant::Vector3int16(value) => RbxValue::Vector3int16 {
+                value: [value.x, value.y, value.z],
+            },
+
             _ => return Err(format!("Cannot convert Variant {:?} to RbxValue", value)),
         })
     }
