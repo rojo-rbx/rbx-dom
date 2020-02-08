@@ -23,6 +23,7 @@ struct Options {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let options = Options::from_args();
+    env_logger::init();
 
     let mut database = ReflectionDatabase::new();
 
