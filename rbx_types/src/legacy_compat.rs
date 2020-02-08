@@ -4,12 +4,15 @@ use std::convert::TryFrom;
 
 use rbx_dom_weak::{
     BrickColor as LegacyBrickColor, ColorSequence as LegacyColorSequence,
-    ColorSequenceKeypoint as LegacyColorSequenceKeypoint, RbxValue,
+    ColorSequenceKeypoint as LegacyColorSequenceKeypoint, NumberSequence as LegacyNumberSequence,
+    NumberSequenceKeypoint as LegacyNumberSequenceKeypoint,
+    PhysicalProperties as LegacyPhysicalProperties, RbxValue,
 };
 
 use crate::{
-    BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint, EnumValue,
-    Matrix3, Variant, Vector3,
+    BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
+    CustomPhysicalProperties, EnumValue, Matrix3, NumberRange, NumberSequence,
+    NumberSequenceKeypoint, PhysicalProperties, Variant, Vector3,
 };
 
 impl TryFrom<RbxValue> for Variant {
@@ -62,9 +65,42 @@ impl TryFrom<RbxValue> for Variant {
 
             RbxValue::Content { value } => Variant::Content(value.into()),
             RbxValue::Enum { value } => Variant::EnumValue(EnumValue::from_u32(value)),
-            // RbxValue::NumberRange { value } => Variant::NumberRange(value),
-            // RbxValue::NumberSequence { value } => Variant::NumberSequence(value),
-            // RbxValue::PhysicalProperties { value } => Variant::PhysicalProperties(value),
+            RbxValue::NumberRange { value } => Variant::NumberRange(NumberRange {
+                min: value.0,
+                max: value.1,
+            }),
+            RbxValue::NumberSequence { value } => {
+                let keypoints = value
+                    .keypoints
+                    .into_iter()
+                    .map(|keypoint| {
+                        NumberSequenceKeypoint::new(
+                            keypoint.time,
+                            keypoint.value,
+                            keypoint.envelope,
+                        )
+                    })
+                    .collect();
+
+                Variant::NumberSequence(NumberSequence { keypoints })
+            }
+
+            RbxValue::PhysicalProperties { value } => {
+                if let Some(properties) = value {
+                    Variant::PhysicalProperties(PhysicalProperties::Custom(
+                        CustomPhysicalProperties {
+                            density: properties.density,
+                            friction: properties.friction,
+                            elasticity: properties.elasticity,
+                            friction_weight: properties.friction_weight,
+                            elasticity_weight: properties.elasticity_weight,
+                        },
+                    ))
+                } else {
+                    Variant::PhysicalProperties(PhysicalProperties::Default)
+                }
+            }
+
             // RbxValue::Ray { value } => Variant::Ray(value),
             // RbxValue::Rect { value } => Variant::Rect(value),
             // RbxValue::SharedString { value } => Variant::SharedString(value),
@@ -144,9 +180,40 @@ impl TryFrom<Variant> for RbxValue {
             Variant::EnumValue(value) => RbxValue::Enum {
                 value: value.to_u32(),
             },
-            // Variant::NumberRange(value) => RbxValue::NumberRange { value },
-            // Variant::NumberSequence(value) => RbxValue::NumberSequence { value },
-            // Variant::PhysicalProperties(value) => RbxValue::PhysicalProperties { value },
+            Variant::NumberRange(value) => RbxValue::NumberRange {
+                value: (value.min, value.max),
+            },
+            Variant::NumberSequence(value) => {
+                let keypoints = value
+                    .keypoints
+                    .into_iter()
+                    .map(|keypoint| LegacyNumberSequenceKeypoint {
+                        time: keypoint.time,
+                        value: keypoint.time,
+                        envelope: keypoint.envelope,
+                    })
+                    .collect();
+
+                RbxValue::NumberSequence {
+                    value: LegacyNumberSequence { keypoints },
+                }
+            }
+
+            Variant::PhysicalProperties(value) => {
+                let new_value = match value {
+                    PhysicalProperties::Custom(properties) => Some(LegacyPhysicalProperties {
+                        density: properties.density,
+                        friction: properties.friction,
+                        elasticity: properties.elasticity,
+                        friction_weight: properties.friction_weight,
+                        elasticity_weight: properties.elasticity_weight,
+                    }),
+                    PhysicalProperties::Default => None,
+                };
+
+                RbxValue::PhysicalProperties { value: new_value }
+            }
+
             // Variant::Ray(value) => RbxValue::Ray { value },
             // Variant::Rect(value) => RbxValue::Rect { value },
             // Variant::SharedString(value) => RbxValue::SharedString { value },
