@@ -3,7 +3,9 @@
 //! information encoded in it.
 
 use std::{
+    borrow::Cow,
     collections::{HashSet, VecDeque},
+    convert::TryInto,
     error::Error,
     fmt::{self, Write},
     fs::{self, File},
@@ -65,16 +67,14 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
 
         for (prop_name, prop_value) in &instance.properties {
             match prop_value.get_type() {
-                // We don't support emitting SharedString values yet.
-                RbxValueType::SharedString => {}
+                // We don't support usefully emitting these types yet.
+                RbxValueType::Ref | RbxValueType::SharedString => {}
 
                 _ => {
-                    // FIXME: Do we need to convert these types into rbx_types
-                    // values?
-
-                    // descriptor
-                    //     .default_properties
-                    //     .insert(Cow::Owned(prop_name.clone()), prop_value.clone());
+                    descriptor.default_properties.insert(
+                        Cow::Owned(prop_name.clone()),
+                        prop_value.clone().try_into().unwrap(),
+                    );
                 }
             }
         }
