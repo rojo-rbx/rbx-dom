@@ -6,13 +6,14 @@ use rbx_dom_weak::{
     BrickColor as LegacyBrickColor, ColorSequence as LegacyColorSequence,
     ColorSequenceKeypoint as LegacyColorSequenceKeypoint, NumberSequence as LegacyNumberSequence,
     NumberSequenceKeypoint as LegacyNumberSequenceKeypoint,
-    PhysicalProperties as LegacyPhysicalProperties, RbxValue,
+    PhysicalProperties as LegacyPhysicalProperties, Ray as LegacyRay, RbxValue,
+    SharedString as LegacySharedString,
 };
 
 use crate::{
     BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, EnumValue, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Variant, Vector3,
+    NumberSequenceKeypoint, PhysicalProperties, Ray, SharedString, Variant, Vector3,
 };
 
 impl TryFrom<RbxValue> for Variant {
@@ -101,9 +102,19 @@ impl TryFrom<RbxValue> for Variant {
                 }
             }
 
-            // RbxValue::Ray { value } => Variant::Ray(value),
+            RbxValue::Ray { value } => {
+                let origin = Vector3::new(value.origin[0], value.origin[1], value.origin[2]);
+                let direction =
+                    Vector3::new(value.direction[0], value.direction[1], value.direction[2]);
+
+                Variant::Ray(Ray { origin, direction })
+            }
+
             // RbxValue::Rect { value } => Variant::Rect(value),
-            // RbxValue::SharedString { value } => Variant::SharedString(value),
+            RbxValue::SharedString { value } => {
+                Variant::SharedString(SharedString::new(value.data().to_vec()))
+            }
+
             // RbxValue::UDim { value } => Variant::UDim(value),
             // RbxValue::UDim2 { value } => Variant::UDim2(value),
             // RbxValue::Vector2 { value } => Variant::Vector2(value),
@@ -214,9 +225,18 @@ impl TryFrom<Variant> for RbxValue {
                 RbxValue::PhysicalProperties { value: new_value }
             }
 
-            // Variant::Ray(value) => RbxValue::Ray { value },
+            Variant::Ray(value) => RbxValue::Ray {
+                value: LegacyRay {
+                    origin: [value.origin.x, value.origin.y, value.origin.z],
+                    direction: [value.direction.x, value.direction.y, value.direction.z],
+                },
+            },
+
             // Variant::Rect(value) => RbxValue::Rect { value },
-            // Variant::SharedString(value) => RbxValue::SharedString { value },
+            Variant::SharedString(value) => RbxValue::SharedString {
+                value: LegacySharedString::new(value.data().to_vec()),
+            },
+
             // Variant::UDim(value) => RbxValue::UDim { value },
             // Variant::UDim2(value) => RbxValue::UDim2 { value },
             // Variant::Vector2(value) => RbxValue::Vector2 { value },
