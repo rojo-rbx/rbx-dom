@@ -53,7 +53,7 @@ impl XmlType for String {
 //     }
 // }
 
-#[cfg(all(test, feature = "tests_working"))]
+#[cfg(test)]
 mod test {
     use super::*;
 
@@ -61,67 +61,54 @@ mod test {
 
     #[test]
     fn round_trip_string() {
-        let test_value = "Hello,\n\tworld!\n";
-        let expected_value = RbxValue::String {
-            value: test_value.to_owned(),
-        };
-
-        test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
+        test_util::test_xml_round_trip(&"Hello,\n\tworld!\n".to_owned());
     }
 
     #[test]
     fn round_trip_empty_string() {
-        let test_value = "";
-        let expected_value = RbxValue::String {
-            value: test_value.to_owned(),
-        };
-
-        test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
+        test_util::test_xml_round_trip(&String::new());
     }
 
     #[test]
     fn serialize_simple_string() {
-        test_util::test_xml_serialize::<StringType, _>(
+        test_util::test_xml_serialize(
             r#"
                 <string name="foo">Hello!</string>
             "#,
-            "Hello!",
+            &"Hello!".to_owned(),
         );
     }
 
     #[test]
     fn serialize_sensitive_whitespace_string() {
-        test_util::test_xml_serialize::<StringType, _>(
+        test_util::test_xml_serialize(
             "<string name=\"foo\"><![CDATA[hello\n]]></string>",
-            "hello\n",
+            &"hello\n".to_owned(),
         );
     }
 
     #[test]
     fn round_trip_just_whitespace_string() {
-        let test_value = "\n\t";
-        let expected_value = RbxValue::String {
-            value: test_value.to_owned(),
-        };
-
-        test_util::test_xml_round_trip::<StringType, _>(test_value, expected_value);
+        test_util::test_xml_round_trip(&"\n\t".to_owned());
     }
 
-    #[test]
-    fn de_protected_string() {
-        let test_value = "Hello,\n\tworld!\n";
-        let test_source = format!(
-            r#"
-            <ProtectedString name="something">{}</ProtectedString>
-        "#,
-            test_value
-        );
+    // FIXME: We need to put ProtectedString support back in.
 
-        test_util::test_xml_deserialize::<ProtectedStringType, _>(
-            &test_source,
-            RbxValue::String {
-                value: test_value.to_owned(),
-            },
-        );
-    }
+    // #[test]
+    // fn de_protected_string() {
+    //     let test_value = "Hello,\n\tworld!\n";
+    //     let test_source = format!(
+    //         r#"
+    //         <ProtectedString name="something">{}</ProtectedString>
+    //     "#,
+    //         test_value
+    //     );
+
+    //     test_util::test_xml_deserialize::<ProtectedStringType, _>(
+    //         &test_source,
+    //         RbxValue::String {
+    //             value: test_value.to_owned(),
+    //         },
+    //     );
+    // }
 }
