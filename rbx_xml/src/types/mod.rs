@@ -19,7 +19,7 @@ mod number_sequence;
 mod numbers;
 mod physical_properties;
 mod ray;
-// mod rect;
+mod rect;
 mod referent;
 // mod shared_string;
 mod strings;
@@ -30,7 +30,7 @@ use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
     BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue, NumberRange,
-    NumberSequence, PhysicalProperties, Ray, Ref, Variant, Vector2, Vector2int16, Vector3,
+    NumberSequence, PhysicalProperties, Ray, Rect, Ref, Variant, Vector2, Vector2int16, Vector3,
     Vector3int16,
 };
 
@@ -120,8 +120,7 @@ declare_rbx_types! {
     Int64: i64,
     PhysicalProperties: PhysicalProperties,
     Ray: Ray,
-    // self::rect::RectType => Rect,
-    // self::strings::StringType => String,
+    Rect: Rect,
     // self::udims::UDim2Type => UDim2,
     // self::udims::UDimType => UDim,
     Vector2: Vector2,
