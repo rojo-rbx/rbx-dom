@@ -28,9 +28,9 @@ impl XmlType for Color3 {
         // <R>, <G>, and <B> tags with floating-point values inside them.
         // First we have to find out if we have a packed int in.
         let value = if contents.is_empty() {
-            let r: f32 = reader.read_tag_contents_f32("R")?;
-            let g: f32 = reader.read_tag_contents_f32("G")?;
-            let b: f32 = reader.read_tag_contents_f32("B")?;
+            let r: f32 = reader.read_value_in_tag("R")?;
+            let g: f32 = reader.read_value_in_tag("G")?;
+            let b: f32 = reader.read_value_in_tag("B")?;
 
             Color3::new(r, g, b)
         } else {
