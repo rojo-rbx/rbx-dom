@@ -18,7 +18,7 @@ mod number_range;
 mod number_sequence;
 mod numbers;
 mod physical_properties;
-// mod ray;
+mod ray;
 // mod rect;
 mod referent;
 // mod shared_string;
@@ -29,8 +29,9 @@ mod vectors;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue,
-    PhysicalProperties, Ref, Variant, Vector2, Vector2int16, Vector3, Vector3int16,
+    BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue, NumberRange,
+    NumberSequence, PhysicalProperties, Ray, Ref, Variant, Vector2, Vector2int16, Vector3,
+    Vector3int16,
 };
 
 use crate::{
@@ -111,14 +112,14 @@ declare_rbx_types! {
     Color3uint8: Color3uint8,
     Content: Content,
     EnumValue: EnumValue,
-    // self::number_range::NumberRangeType => NumberRange,
-    // self::number_sequence::NumberSequenceType => NumberSequence,
+    NumberRange: NumberRange,
+    NumberSequence: NumberSequence,
     Float32: f32,
     Float64: f64,
     Int32: i32,
     Int64: i64,
     PhysicalProperties: PhysicalProperties,
-    // self::ray::RayType => Ray,
+    Ray: Ray,
     // self::rect::RectType => Rect,
     // self::strings::StringType => String,
     // self::udims::UDim2Type => UDim2,
