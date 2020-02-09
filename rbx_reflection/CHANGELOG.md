@@ -2,14 +2,17 @@
 
 ## Unreleased Changes
 
+## 3.3.418 (2020-02-08)
+* Updated reflection database to client 0.418.1.380321
+
 ## 3.3.408 (2019-11-05)
-* Updated reflection database to client 0.408.357216
+* Updated reflection database to client 0.408.0.357216
 * Improved accuracy of `scriptability` property on class descriptors.
 * Removed default property values for properties only accessible by built-in plugins.
 	* This was required by a recent security change in Roblox Studio.
 
 ## 3.2.404 (2019-10-04)
-* Updated reflection database to client 0.404.346082
+* Updated reflection database to client 0.404.0.346082
 * Added `Workspace.CollisionGroups` descriptor to improving ergonomics of Rojo.
 
 ## 3.2.399 (2019-09-03)

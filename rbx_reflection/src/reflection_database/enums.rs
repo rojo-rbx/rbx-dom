@@ -2,7 +2,7 @@
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
-    let mut output = HashMap::with_capacity(199);
+    let mut output = HashMap::with_capacity(200);
     output.insert(
         Cow::Borrowed("ActionType"),
         RbxEnumDescriptor {
@@ -514,15 +514,29 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("CollisionsMode"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("CollisionsMode"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("NoCollisions"), 0);
+                items.insert(Cow::Borrowed("OtherMechanismsAnchored"), 1);
+                items.insert(Cow::Borrowed("IncludeContactedMechanisms"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("ComputerCameraMovementMode"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("ComputerCameraMovementMode"),
             items: {
-                let mut items = HashMap::with_capacity(4);
+                let mut items = HashMap::with_capacity(5);
                 items.insert(Cow::Borrowed("Default"), 0);
                 items.insert(Cow::Borrowed("Follow"), 2);
                 items.insert(Cow::Borrowed("Classic"), 1);
                 items.insert(Cow::Borrowed("Orbital"), 3);
+                items.insert(Cow::Borrowed("CameraToggle"), 4);
                 items
             },
         },
@@ -750,11 +764,12 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("DevComputerCameraMovementMode"),
             items: {
-                let mut items = HashMap::with_capacity(4);
+                let mut items = HashMap::with_capacity(5);
                 items.insert(Cow::Borrowed("UserChoice"), 0);
                 items.insert(Cow::Borrowed("Classic"), 1);
                 items.insert(Cow::Borrowed("Follow"), 2);
                 items.insert(Cow::Borrowed("Orbital"), 3);
+                items.insert(Cow::Borrowed("CameraToggle"), 4);
                 items
             },
         },
@@ -905,10 +920,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("DraftStatusCode"),
             items: {
-                let mut items = HashMap::with_capacity(3);
+                let mut items = HashMap::with_capacity(4);
                 items.insert(Cow::Borrowed("OK"), 0);
                 items.insert(Cow::Borrowed("DraftOutdated"), 1);
                 items.insert(Cow::Borrowed("ScriptRemoved"), 2);
+                items.insert(Cow::Borrowed("DraftCommitted"), 3);
                 items
             },
         },
@@ -2705,7 +2721,7 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("StudioStyleGuideColor"),
             items: {
-                let mut items = HashMap::with_capacity(92);
+                let mut items = HashMap::with_capacity(89);
                 items.insert(Cow::Borrowed("MainBackground"), 0);
                 items.insert(Cow::Borrowed("Titlebar"), 1);
                 items.insert(Cow::Borrowed("Dropdown"), 2);
@@ -2795,9 +2811,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("DialogButtonBorder"), 86);
                 items.insert(Cow::Borrowed("DialogMainButton"), 87);
                 items.insert(Cow::Borrowed("DialogMainButtonText"), 88);
-                items.insert(Cow::Borrowed("Merge3HighlightOriginal"), 89);
-                items.insert(Cow::Borrowed("Merge3HighlightMine"), 90);
-                items.insert(Cow::Borrowed("Merge3HighlightTheirs"), 91);
                 items
             },
         },
