@@ -13,7 +13,7 @@ mod cframe;
 mod color_sequence;
 mod colors;
 mod content;
-// mod enumeration;
+mod enumeration;
 // mod number_range;
 // mod number_sequence;
 // mod numbers;
@@ -29,7 +29,7 @@ mod strings;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, Ref, Variant,
+    BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue, Ref, Variant,
 };
 
 use crate::{
@@ -112,7 +112,7 @@ declare_rbx_types! {
     Color3: Color3,
     Color3uint8: Color3uint8,
     Content: Content,
-    // self::enumeration::EnumType => Enum,
+    EnumValue: EnumValue,
     // self::number_range::NumberRangeType => NumberRange,
     // self::number_sequence::NumberSequenceType => NumberSequence,
     // self::numbers::Float32Type => Float32,
