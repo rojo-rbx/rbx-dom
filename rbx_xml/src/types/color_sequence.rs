@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{Color3, ColorSequence, ColorSequenceKeypoint, Variant};
+use rbx_dom_weak::types::{Color3, ColorSequence, ColorSequenceKeypoint};
 
 use crate::{
     core::XmlType,

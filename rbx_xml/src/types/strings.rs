@@ -55,8 +55,6 @@ impl XmlType for String {
 
 #[cfg(test)]
 mod test {
-    use super::*;
-
     use crate::test_util;
 
     #[test]

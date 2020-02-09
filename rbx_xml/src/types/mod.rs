@@ -11,7 +11,7 @@ mod binary_string;
 mod bool;
 mod cframe;
 mod color_sequence;
-// mod colors;
+mod colors;
 // mod content;
 // mod enumeration;
 // mod number_range;
@@ -28,7 +28,7 @@ mod strings;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{BinaryString, CFrame, ColorSequence, Ref, Variant};
+use rbx_dom_weak::types::{BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Ref, Variant};
 
 use crate::{
     core::XmlType,
@@ -107,8 +107,8 @@ declare_rbx_types! {
     CFrame: CFrame,
     String: String,
     ColorSequence: ColorSequence,
-    // self::colors::Color3Type => Color3,
-    // self::colors::Color3uint8Type => Color3uint8,
+    Color3: Color3,
+    Color3uint8: Color3uint8,
     // self::content::ContentType => Content,
     // self::enumeration::EnumType => Enum,
     // self::number_range::NumberRangeType => NumberRange,

@@ -46,8 +46,6 @@ impl XmlType for bool {
 
 #[cfg(test)]
 mod test {
-    use super::*;
-
     use crate::test_util;
 
     #[test]
