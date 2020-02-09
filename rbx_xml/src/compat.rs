@@ -1,5 +1,7 @@
 //! Shim module to get rbx_xml compiling against rbx_dom_weak 2.0
 
+#![allow(unused)]
+
 use rbx_dom_weak::types::{Variant, VariantType};
 
 pub enum TodoValueConversionType {
