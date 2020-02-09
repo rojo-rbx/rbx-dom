@@ -5,7 +5,7 @@ use rbx_reflection::PropertyDescriptor;
 use crate::{
     deserializer_core::XmlEventReader,
     error::{DecodeError, EncodeError},
-    serializer_core::XmlEventWriter,
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub trait XmlType: Sized {
@@ -18,6 +18,28 @@ pub trait XmlType: Sized {
     ) -> Result<(), EncodeError>;
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError>;
+
+    fn write_outer_xml<W: Write>(
+        &self,
+        name: &str,
+        writer: &mut XmlEventWriter<W>,
+    ) -> Result<(), EncodeError> {
+        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
+
+        self.write_xml(writer, name)?;
+
+        writer.write(XmlWriteEvent::end_element())
+    }
+
+    fn read_outer_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
+
+        let value = Self::read_xml(reader)?;
+
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
+
+        Ok(value)
+    }
 }
 
 pub fn find_canonical_property_descriptor(
