@@ -20,7 +20,7 @@ mod enumeration;
 // mod physical_properties;
 // mod ray;
 // mod rect;
-// mod referent;
+mod referent;
 // mod shared_string;
 mod strings;
 // mod udims;
@@ -41,10 +41,7 @@ use crate::{
     serializer_core::XmlEventWriter,
 };
 
-// use self::{
-//     referent::{read_ref, write_ref},
-//     shared_string::{read_shared_string, write_shared_string},
-// };
+use self::referent::{read_ref, write_ref};
 
 /// The `declare_rbx_types` macro generates the two big match statements that
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
@@ -67,7 +64,7 @@ macro_rules! declare_rbx_types {
                 // Protected strings are only read, never written
                 // self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
 
-                // self::referent::XML_TAG_NAME => read_ref(reader, instance_id, property_name, state),
+                self::referent::XML_TAG_NAME => Ok(Variant::Ref(read_ref(reader, instance_id, property_name, state)?)),
                 // self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state),
 
                 _ => {
@@ -92,7 +89,7 @@ macro_rules! declare_rbx_types {
                 // Variant::BrickColor(value) =>
                 //     self::numbers::Int32Type::write_xml(writer, xml_property_name, &(*value as i32)),
 
-                // Variant::Ref(value) => write_ref(writer, xml_property_name, value, state),
+                Variant::Ref(value) => write_ref(writer, xml_property_name, *value, state),
                 // Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
 
                 unknown => {
