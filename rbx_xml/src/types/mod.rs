@@ -23,7 +23,7 @@ mod rect;
 mod referent;
 // mod shared_string;
 mod strings;
-// mod udims;
+mod udims;
 mod vectors;
 
 use std::io::{Read, Write};
