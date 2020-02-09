@@ -8,7 +8,7 @@ use crate::{
 };
 
 macro_rules! float_type {
-    ($rbx_type: ident, $rust_type: ident, $xml_name: expr) => {
+    ($rust_type: ident, $xml_name: expr) => {
         impl XmlType for $rust_type {
             const XML_TAG_NAME: &'static str = $xml_name;
 
@@ -42,7 +42,7 @@ macro_rules! float_type {
 }
 
 macro_rules! int_type {
-    ($rbx_type: ident, $rust_type: ty, $xml_name: expr) => {
+    ($rust_type: ty, $xml_name: expr) => {
         impl XmlType for $rust_type {
             const XML_TAG_NAME: &'static str = $xml_name;
 
@@ -63,10 +63,14 @@ macro_rules! int_type {
     };
 }
 
-float_type!(Float32, f32, "float");
-float_type!(Float64, f64, "double");
-int_type!(Int32, i32, "int");
-int_type!(Int64, i64, "int64");
+float_type!(f32, "float");
+float_type!(f64, "double");
+int_type!(i32, "int");
+int_type!(i64, "int64");
+
+// Convenience implementations for other types.
+// FIXME: This feels weird to bundle into the XmlType trait.
+int_type!(i16, "<NOT A REAL TYPE>");
 
 #[cfg(test)]
 mod test {

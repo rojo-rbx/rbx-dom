@@ -24,12 +24,13 @@ mod referent;
 // mod shared_string;
 mod strings;
 // mod udims;
-// mod vectors;
+mod vectors;
 
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
     BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue, Ref, Variant,
+    Vector2, Vector2int16, Vector3, Vector3int16,
 };
 
 use crate::{
@@ -122,8 +123,8 @@ declare_rbx_types! {
     // self::strings::StringType => String,
     // self::udims::UDim2Type => UDim2,
     // self::udims::UDimType => UDim,
-    // self::vectors::Vector2Type => Vector2,
-    // self::vectors::Vector2int16Type => Vector2int16,
-    // self::vectors::Vector3Type => Vector3,
-    // self::vectors::Vector3int16Type => Vector3int16
+    Vector2: Vector2,
+    Vector2int16: Vector2int16,
+    Vector3: Vector3,
+    Vector3int16: Vector3int16,
 }
