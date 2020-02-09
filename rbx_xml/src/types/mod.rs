@@ -10,7 +10,7 @@
 mod binary_string;
 mod bool;
 mod cframe;
-// mod color_sequence;
+mod color_sequence;
 // mod colors;
 // mod content;
 // mod enumeration;
@@ -28,7 +28,7 @@ mod strings;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{BinaryString, CFrame, Ref, Variant};
+use rbx_dom_weak::types::{BinaryString, CFrame, ColorSequence, Ref, Variant};
 
 use crate::{
     core::XmlType,
@@ -106,7 +106,7 @@ declare_rbx_types! {
     Bool: bool,
     CFrame: CFrame,
     String: String,
-    // self::color_sequence::ColorSequenceType => ColorSequence,
+    ColorSequence: ColorSequence,
     // self::colors::Color3Type => Color3,
     // self::colors::Color3uint8Type => Color3uint8,
     // self::content::ContentType => Content,
