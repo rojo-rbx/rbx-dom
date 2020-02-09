@@ -16,7 +16,7 @@ mod content;
 mod enumeration;
 // mod number_range;
 // mod number_sequence;
-// mod numbers;
+mod numbers;
 // mod physical_properties;
 // mod ray;
 // mod rect;
@@ -112,10 +112,10 @@ declare_rbx_types! {
     EnumValue: EnumValue,
     // self::number_range::NumberRangeType => NumberRange,
     // self::number_sequence::NumberSequenceType => NumberSequence,
-    // self::numbers::Float32Type => Float32,
-    // self::numbers::Float64Type => Float64,
-    // self::numbers::Int32Type => Int32,
-    // self::numbers::Int64Type => Int64,
+    Float32: f32,
+    Float64: f64,
+    Int32: i32,
+    Int64: i64,
     // self::physical_properties::PhysicalPropertiesType => PhysicalProperties,
     // self::ray::RayType => Ray,
     // self::rect::RectType => Rect,
