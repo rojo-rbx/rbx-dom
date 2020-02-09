@@ -14,7 +14,7 @@ mod color_sequence;
 mod colors;
 mod content;
 mod enumeration;
-// mod number_range;
+mod number_range;
 // mod number_sequence;
 mod numbers;
 // mod physical_properties;
