@@ -15,19 +15,13 @@ impl XmlType for bool {
         writer: &mut XmlEventWriter<W>,
         name: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-
         let value_as_str = if *self { "true" } else { "false" };
-
         writer.write(XmlWriteEvent::characters(value_as_str))?;
-        writer.end_element()?;
 
         Ok(())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-
         let content = reader.read_characters()?;
 
         let value = match content.as_str() {
@@ -37,8 +31,6 @@ impl XmlType for bool {
                 return Err(reader.error(DecodeErrorKind::InvalidContent("expected true or false")))
             }
         };
-
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(value)
     }

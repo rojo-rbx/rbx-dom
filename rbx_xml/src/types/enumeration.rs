@@ -6,7 +6,7 @@ use crate::{
     core::XmlType,
     deserializer_core::XmlEventReader,
     error::{DecodeError, EncodeError},
-    serializer_core::{XmlEventWriter, XmlWriteEvent},
+    serializer_core::XmlEventWriter,
 };
 
 impl XmlType for EnumValue {
@@ -17,16 +17,12 @@ impl XmlType for EnumValue {
         writer: &mut XmlEventWriter<W>,
         name: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write_characters(self.to_u32())?;
-        writer.write(XmlWriteEvent::end_element())?;
-
-        Ok(())
+        writer.write_characters(self.to_u32())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
         let value: u32 = reader
-            .read_tag_contents(Self::XML_TAG_NAME)?
+            .read_characters()?
             .parse()
             .map_err(|e| reader.error(e))?;
 

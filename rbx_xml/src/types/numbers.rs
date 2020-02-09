@@ -4,11 +4,11 @@ use crate::{
     core::XmlType,
     deserializer_core::XmlEventReader,
     error::{DecodeError, EncodeError},
-    serializer_core::{XmlEventWriter, XmlWriteEvent},
+    serializer_core::XmlEventWriter,
 };
 
 macro_rules! float_type {
-    ($rbx_type: ident, $rust_type: ty, $xml_name: expr, $reader_method: ident) => {
+    ($rbx_type: ident, $rust_type: ident, $xml_name: expr, $reader_method: ident) => {
         impl XmlType for $rust_type {
             const XML_TAG_NAME: &'static str = $xml_name;
 
@@ -17,16 +17,18 @@ macro_rules! float_type {
                 writer: &mut XmlEventWriter<W>,
                 name: &str,
             ) -> Result<(), EncodeError> {
-                writer
-                    .write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-                writer.write_characters_f64(*self as f64)?;
-                writer.write(XmlWriteEvent::end_element())?;
-
-                Ok(())
+                writer.write_characters_f64(*self as f64)
             }
 
             fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-                reader.$reader_method(Self::XML_TAG_NAME)
+                let contents = reader.read_characters()?;
+
+                Ok(match contents.as_str() {
+                    "INF" => std::$rust_type::INFINITY,
+                    "-INF" => std::$rust_type::NEG_INFINITY,
+                    "NAN" => std::$rust_type::NAN,
+                    number => number.parse().map_err(|e| reader.error(e))?,
+                })
             }
         }
     };
@@ -42,17 +44,12 @@ macro_rules! int_type {
                 writer: &mut XmlEventWriter<W>,
                 name: &str,
             ) -> Result<(), EncodeError> {
-                writer
-                    .write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-                writer.write_characters(*self)?;
-                writer.write(XmlWriteEvent::end_element())?;
-
-                Ok(())
+                writer.write_characters(*self)
             }
 
             fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
                 reader
-                    .read_tag_contents(Self::XML_TAG_NAME)?
+                    .read_characters()?
                     .parse()
                     .map_err(|e| reader.error(e))
             }
@@ -103,7 +100,7 @@ mod test {
         // Can't just use test_util::test_xml_deserialize, because NaN != NaN!
         let mut reader = XmlEventReader::from_source(r#"<float name="foo">NAN</float>"#.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
-        let value = f32::read_xml(&mut reader).unwrap();
+        let value = f32::read_outer_xml(&mut reader).unwrap();
         assert!(value.is_nan());
     }
 

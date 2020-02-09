@@ -20,8 +20,6 @@ impl XmlType for Content {
         writer: &mut XmlEventWriter<W>,
         name: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-
         // FIXME: Content should have a method for this
         let as_str: &str = self.as_ref();
 
@@ -35,14 +33,10 @@ impl XmlType for Content {
             writer.write(XmlWriteEvent::end_element())?;
         }
 
-        writer.write(XmlWriteEvent::end_element())?;
-
         Ok(())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-
         let value = match reader.expect_next()? {
             XmlReadEvent::StartElement {
                 name,
@@ -71,8 +65,6 @@ impl XmlType for Content {
             },
             unexpected => return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(unexpected))),
         };
-
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(Content::from(value))
     }

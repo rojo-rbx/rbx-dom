@@ -11,14 +11,14 @@ where
     let mut buffer = Vec::new();
     let mut writer = XmlEventWriter::from_output(&mut buffer);
 
-    test_value.write_xml(&mut writer, "foo").unwrap();
+    test_value.write_outer_xml("foo", &mut writer).unwrap();
 
     println!("{}", std::str::from_utf8(&buffer).unwrap());
 
     let mut reader = XmlEventReader::from_source(buffer.as_slice());
     reader.next().unwrap().unwrap(); // Eat StartDocument event
 
-    let value = T::read_xml(&mut reader).unwrap();
+    let value = T::read_outer_xml(&mut reader).unwrap();
 
     assert_eq!(&value, test_value);
 }
@@ -32,7 +32,7 @@ where
     let mut buffer = Vec::new();
     let mut writer = XmlEventWriter::from_output(&mut buffer);
 
-    test_value.write_xml(&mut writer, "foo").unwrap();
+    test_value.write_outer_xml("foo", &mut writer).unwrap();
 
     let mut expected_events = XmlEventReader::from_source(expected_source.as_bytes());
     let mut actual_events = XmlEventReader::from_source(buffer.as_slice());
@@ -74,7 +74,7 @@ where
 
     let mut reader = XmlEventReader::from_source(source.as_bytes());
     reader.next().unwrap().unwrap(); // Eat StartDocument event
-    let value = T::read_xml(&mut reader).unwrap();
+    let value = T::read_outer_xml(&mut reader).unwrap();
 
     assert_eq!(&value, expected_value);
 }

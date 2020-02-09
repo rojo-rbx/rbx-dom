@@ -17,24 +17,17 @@ impl XmlType for BinaryString {
         writer: &mut XmlEventWriter<W>,
         name: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-
         // FIXME: BinaryString should have an is_empty method.
         let contents: &[u8] = self.as_ref();
         if !contents.is_empty() {
             writer.write(XmlWriteEvent::cdata(&base64::encode(self)))?;
         }
 
-        writer.end_element()?;
-
         Ok(())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<BinaryString, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
         let value = reader.read_base64_characters()?;
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
-
         Ok(value.into())
     }
 }

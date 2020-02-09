@@ -17,18 +17,14 @@ impl XmlType for Color3 {
         writer: &mut XmlEventWriter<W>,
         name: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
         writer.write_tag_characters_f32("R", self.r)?;
         writer.write_tag_characters_f32("G", self.g)?;
         writer.write_tag_characters_f32("B", self.b)?;
-        writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-
         let contents = reader.read_characters()?;
 
         // Color3s have two possibilities:
@@ -52,8 +48,6 @@ impl XmlType for Color3 {
                 f32::from(unpacked.b) / 255.0,
             )
         };
-
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(value)
     }

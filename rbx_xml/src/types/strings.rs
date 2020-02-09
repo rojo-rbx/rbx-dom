@@ -4,7 +4,7 @@ use crate::{
     core::XmlType,
     deserializer_core::XmlEventReader,
     error::{DecodeError, EncodeError},
-    serializer_core::{XmlEventWriter, XmlWriteEvent},
+    serializer_core::XmlEventWriter,
 };
 
 impl XmlType for String {
@@ -15,15 +15,11 @@ impl XmlType for String {
         writer: &mut XmlEventWriter<W>,
         name: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-        writer.write_string(self)?;
-        writer.write(XmlWriteEvent::end_element())?;
-
-        Ok(())
+        writer.write_string(self)
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        Ok(reader.read_tag_contents(Self::XML_TAG_NAME)?)
+        reader.read_characters()
     }
 }
 

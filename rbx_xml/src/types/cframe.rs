@@ -6,7 +6,7 @@ use crate::{
     core::XmlType,
     deserializer_core::XmlEventReader,
     error::{DecodeError, EncodeError},
-    serializer_core::{XmlEventWriter, XmlWriteEvent},
+    serializer_core::XmlEventWriter,
 };
 
 static TAG_NAMES: [&str; 12] = [
@@ -21,8 +21,6 @@ impl XmlType for CFrame {
         writer: &mut XmlEventWriter<W>,
         name: &str,
     ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-
         // FIXME: Should this be built into rbx_types?
         let as_slice = &[
             self.position.x,
@@ -41,14 +39,10 @@ impl XmlType for CFrame {
 
         writer.write_tag_array(as_slice, &TAG_NAMES)?;
 
-        writer.end_element()?;
-
         Ok(())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-
         let mut value = CFrame::new(Vector3::new(0.0, 0.0, 0.0), Matrix3::identity());
 
         for index in 0..12 {
@@ -75,8 +69,6 @@ impl XmlType for CFrame {
                 _ => unreachable!(),
             }
         }
-
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(value)
     }

@@ -59,7 +59,7 @@ macro_rules! declare_rbx_types {
             property_name: &str,
         ) -> Result<Variant, DecodeError> {
             match xml_type_name {
-                $(<$inner_type>::XML_TAG_NAME => Ok(Variant::$variant_name(<$inner_type>::read_xml(reader)?)),)*
+                $(<$inner_type>::XML_TAG_NAME => Ok(Variant::$variant_name(<$inner_type>::read_outer_xml(reader)?)),)*
 
                 // Protected strings are only read, never written
                 // self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
@@ -82,7 +82,7 @@ macro_rules! declare_rbx_types {
             value: &Variant,
         ) -> Result<(), EncodeError> {
             match value {
-                $(Variant::$variant_name(value) => value.write_xml(writer, xml_property_name),)*
+                $(Variant::$variant_name(value) => value.write_outer_xml(xml_property_name, writer),)*
 
                 // BrickColor values just encode as 32-bit ints, and have no
                 // unique appearance for reading.
