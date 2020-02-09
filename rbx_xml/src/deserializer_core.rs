@@ -1,4 +1,4 @@
-use std::{io::Read, str::FromStr};
+use std::io::Read;
 
 use log::trace;
 use xml::{attribute::OwnedAttribute, reader::ParserConfig};
@@ -255,18 +255,6 @@ impl<R: Read> XmlEventReader<R> {
         self.expect_end_with_name(expected_name)?;
 
         Ok(contents)
-    }
-
-    pub(crate) fn read_tag_contents_parse<T>(
-        &mut self,
-        expected_name: &str,
-    ) -> Result<T, NewDecodeError>
-    where
-        T: FromStr,
-        <T as FromStr>::Err: Into<DecodeErrorKind>,
-    {
-        let contents = self.read_tag_contents(expected_name)?;
-        contents.parse().map_err(|e| self.error(e))
     }
 
     /// Read a value that implements XmlType.

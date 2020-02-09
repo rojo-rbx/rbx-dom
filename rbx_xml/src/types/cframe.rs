@@ -43,7 +43,7 @@ impl XmlType for CFrame {
 
         for index in 0..12 {
             let tag_name = TAG_NAMES[index];
-            let component = reader.read_tag_contents_parse(tag_name)?;
+            let component: f32 = reader.read_value_in_tag(tag_name)?;
 
             match tag_name {
                 "X" => value.position.x = component,

@@ -13,9 +13,9 @@ impl XmlType for Color3 {
     const XML_TAG_NAME: &'static str = "Color3";
 
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
-        writer.write_tag_characters_f32("R", self.r)?;
-        writer.write_tag_characters_f32("G", self.g)?;
-        writer.write_tag_characters_f32("B", self.b)?;
+        writer.write_value_in_tag(&self.r, "R")?;
+        writer.write_value_in_tag(&self.g, "G")?;
+        writer.write_value_in_tag(&self.b, "B")?;
 
         Ok(())
     }

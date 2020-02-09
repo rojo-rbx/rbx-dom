@@ -16,7 +16,15 @@ macro_rules! float_type {
                 &self,
                 writer: &mut XmlEventWriter<W>,
             ) -> Result<(), EncodeError> {
-                writer.write_characters_f64(*self as f64)
+                if *self == std::$rust_type::INFINITY {
+                    writer.write_characters("INF")
+                } else if *self == std::$rust_type::NEG_INFINITY {
+                    writer.write_characters("-INF")
+                } else if self.is_nan() {
+                    writer.write_characters("NAN")
+                } else {
+                    writer.write_characters(self)
+                }
             }
 
             fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
