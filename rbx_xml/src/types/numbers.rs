@@ -8,7 +8,7 @@ use crate::{
 };
 
 macro_rules! float_type {
-    ($rbx_type: ident, $rust_type: ident, $xml_name: expr, $reader_method: ident) => {
+    ($rbx_type: ident, $rust_type: ident, $xml_name: expr) => {
         impl XmlType for $rust_type {
             const XML_TAG_NAME: &'static str = $xml_name;
 
@@ -55,8 +55,8 @@ macro_rules! int_type {
     };
 }
 
-float_type!(Float32, f32, "float", read_tag_contents_f32);
-float_type!(Float64, f64, "double", read_tag_contents_f64);
+float_type!(Float32, f32, "float");
+float_type!(Float64, f64, "double");
 int_type!(Int32, i32, "int");
 int_type!(Int64, i64, "int64");
 
