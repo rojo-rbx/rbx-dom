@@ -12,11 +12,7 @@ use crate::{
 impl XmlType for EnumValue {
     const XML_TAG_NAME: &'static str = "token";
 
-    fn write_xml<W: Write>(
-        &self,
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-    ) -> Result<(), EncodeError> {
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         writer.write_characters(self.to_u32())
     }
 

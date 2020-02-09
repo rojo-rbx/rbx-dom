@@ -8,16 +8,25 @@ use crate::{
     serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
+/// Trait that defines how to read and write a given type into the XML model
+/// format.
+///
+/// This trait is based on the assumption that any given type has only one
+/// representation in the format. For cases where that isn't the case, newtype
+/// wrappers are the expected solution.
 pub trait XmlType: Sized {
     const XML_TAG_NAME: &'static str;
 
-    fn write_xml<W: Write>(
-        &self,
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-    ) -> Result<(), EncodeError>;
-
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError>;
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError>;
+
+    fn read_outer_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
+        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
+        let value = Self::read_xml(reader)?;
+        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
+
+        Ok(value)
+    }
 
     fn write_outer_xml<W: Write>(
         &self,
@@ -25,20 +34,8 @@ pub trait XmlType: Sized {
         writer: &mut XmlEventWriter<W>,
     ) -> Result<(), EncodeError> {
         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-
-        self.write_xml(writer, name)?;
-
+        self.write_xml(writer)?;
         writer.write(XmlWriteEvent::end_element())
-    }
-
-    fn read_outer_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-
-        let value = Self::read_xml(reader)?;
-
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
-
-        Ok(value)
     }
 }
 

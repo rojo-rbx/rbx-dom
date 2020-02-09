@@ -10,11 +10,7 @@ use crate::{
 impl XmlType for bool {
     const XML_TAG_NAME: &'static str = "bool";
 
-    fn write_xml<W: Write>(
-        &self,
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-    ) -> Result<(), EncodeError> {
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         let value_as_str = if *self { "true" } else { "false" };
         writer.write(XmlWriteEvent::characters(value_as_str))?;
 

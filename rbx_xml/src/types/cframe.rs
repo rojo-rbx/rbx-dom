@@ -16,11 +16,7 @@ static TAG_NAMES: [&str; 12] = [
 impl XmlType for CFrame {
     const XML_TAG_NAME: &'static str = "CoordinateFrame";
 
-    fn write_xml<W: Write>(
-        &self,
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-    ) -> Result<(), EncodeError> {
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         // FIXME: Should this be built into rbx_types?
         let as_slice = &[
             self.position.x,

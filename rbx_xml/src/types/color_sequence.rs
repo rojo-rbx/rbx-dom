@@ -12,11 +12,7 @@ use crate::{
 impl XmlType for ColorSequence {
     const XML_TAG_NAME: &'static str = "ColorSequence";
 
-    fn write_xml<W: Write>(
-        &self,
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-    ) -> Result<(), EncodeError> {
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         for keypoint in &self.keypoints {
             writer.write_characters(keypoint.time)?;
             writer.write(XmlWriteEvent::characters(" "))?;

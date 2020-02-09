@@ -15,11 +15,7 @@ use crate::{
 impl XmlType for Content {
     const XML_TAG_NAME: &'static str = "Content";
 
-    fn write_xml<W: Write>(
-        &self,
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-    ) -> Result<(), EncodeError> {
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         // FIXME: Content should have a method for this
         let as_str: &str = self.as_ref();
 

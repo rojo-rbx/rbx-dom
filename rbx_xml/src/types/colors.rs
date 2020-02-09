@@ -12,11 +12,7 @@ use crate::{
 impl XmlType for Color3 {
     const XML_TAG_NAME: &'static str = "Color3";
 
-    fn write_xml<W: Write>(
-        &self,
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-    ) -> Result<(), EncodeError> {
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         writer.write_tag_characters_f32("R", self.r)?;
         writer.write_tag_characters_f32("G", self.g)?;
         writer.write_tag_characters_f32("B", self.b)?;
@@ -56,31 +52,19 @@ impl XmlType for Color3 {
 impl XmlType for Color3uint8 {
     const XML_TAG_NAME: &'static str = "Color3uint8";
 
-    fn write_xml<W: Write>(
-        &self,
-        writer: &mut XmlEventWriter<W>,
-        name: &str,
-    ) -> Result<(), EncodeError> {
-        writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         let encoded = encode_packed_color3(*self);
         writer.write(XmlWriteEvent::characters(&encoded.to_string()))?;
-
-        writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        reader.expect_start_with_name(Self::XML_TAG_NAME)?;
-
         // Color3uint8s are stored as packed u32s.
         let content = reader.read_characters()?;
         let packed_value: u32 = content.parse().map_err(|e| reader.error(e))?;
 
         let value = decode_packed_color3(packed_value)?;
-
-        reader.expect_end_with_name(Self::XML_TAG_NAME)?;
 
         Ok(value)
     }

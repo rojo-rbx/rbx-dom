@@ -15,7 +15,6 @@ macro_rules! float_type {
             fn write_xml<W: Write>(
                 &self,
                 writer: &mut XmlEventWriter<W>,
-                name: &str,
             ) -> Result<(), EncodeError> {
                 writer.write_characters_f64(*self as f64)
             }
@@ -42,7 +41,6 @@ macro_rules! int_type {
             fn write_xml<W: Write>(
                 &self,
                 writer: &mut XmlEventWriter<W>,
-                name: &str,
             ) -> Result<(), EncodeError> {
                 writer.write_characters(*self)
             }
