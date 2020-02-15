@@ -31,7 +31,7 @@ serializes = true
 # Default^0^1
 [add.Workspace.CollisionGroups]
 type = { Data = "String" }
-scriptability = "Custom"
+scriptability = "None"
 serializes = true
 
 # 'Contents' is the name of the field in the Roblox file formats, so it makes
