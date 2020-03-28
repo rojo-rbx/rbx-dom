@@ -305,6 +305,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			ReactionTorqueEnabled = {
+				name = "ReactionTorqueEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			RelativeTo = {
 				name = "RelativeTo",
 				type = {type = "Enum", name = "ActuatorRelativeTo"},
@@ -323,6 +332,7 @@ return {
 			Enabled = true,
 			MaxTorque = 0,
 			Name = "AngularVelocity",
+			ReactionTorqueEnabled = false,
 			RelativeTo = 2,
 			Visible = false,
 		},
@@ -482,6 +492,14 @@ return {
 			Name = "ArcHandles",
 			Transparency = 0,
 			Visible = true,
+		},
+	},
+	AssetManagerService = {
+		name = "AssetManagerService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 	AssetService = {
@@ -679,6 +697,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			MaxFrictionTorque = {
+				name = "MaxFrictionTorque",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			Radius = {
 				name = "Radius",
 				type = {type = "Data", name = "Float32"},
@@ -740,6 +767,7 @@ return {
 			Color = BrickColor.new(1009),
 			Enabled = true,
 			LimitsEnabled = false,
+			MaxFrictionTorque = 1158977800000000000000000,
 			Name = "BallSocketConstraint",
 			Radius = 0.15,
 			Restitution = 0,
@@ -1032,6 +1060,15 @@ return {
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = true,
+			},
+			Mass = {
+				name = "Mass",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
 			},
 			Massless = {
 				name = "Massless",
@@ -2309,6 +2346,14 @@ return {
 		},
 		defaults = {
 			Name = "Instance",
+		},
+	},
+	BulkImportService = {
+		name = "BulkImportService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 	CFrameValue = {
@@ -4212,6 +4257,14 @@ return {
 			Priority = 0,
 		},
 	},
+	EventIngestService = {
+		name = "EventIngestService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+		},
+	},
 	Explosion = {
 		name = "Explosion",
 		superclass = "Instance",
@@ -6085,6 +6138,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			DisplayName = {
+				name = "DisplayName",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			FloorMaterial = {
 				name = "FloorMaterial",
 				type = {type = "Enum", name = "Material"},
@@ -6220,6 +6282,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
+			RequiresNeck = {
+				name = "RequiresNeck",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			RigType = {
 				name = "RigType",
 				type = {type = "Enum", name = "HumanoidRigType"},
@@ -6337,6 +6408,7 @@ return {
 			CameraOffset = Vector3.new(0, 0, 0),
 			CollisionType = 0,
 			DisplayDistanceType = 0,
+			DisplayName = "",
 			Health = 100,
 			HealthDisplayDistance = 100,
 			HealthDisplayType = 0,
@@ -6351,6 +6423,7 @@ return {
 			NameDisplayDistance = 100,
 			NameOcclusion = 2,
 			PlatformStand = false,
+			RequiresNeck = true,
 			RigType = 0,
 			RightLeg = nil,
 			Sit = false,
@@ -7264,6 +7337,23 @@ return {
 		defaults = {
 		},
 	},
+	InstanceAdornment = {
+		name = "InstanceAdornment",
+		superclass = "GuiBase3d",
+		properties = {
+			Adornee = {
+				name = "Adornee",
+				type = {type = "Data", name = "Ref"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+		},
+	},
 	IntConstrainedValue = {
 		name = "IntConstrainedValue",
 		superclass = "ValueBase",
@@ -7513,6 +7603,15 @@ return {
 		},
 		defaults = {
 			Name = "Instance",
+		},
+	},
+	LanguageService = {
+		name = "LanguageService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "LanguageService",
 		},
 	},
 	LayerCollector = {
@@ -8076,42 +8175,6 @@ return {
 			DefaultWaitTime = {
 				name = "DefaultWaitTime",
 				type = {type = "Data", name = "Float64"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			GcFrequency = {
-				name = "GcFrequency",
-				type = {type = "Data", name = "Int32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			GcLimit = {
-				name = "GcLimit",
-				type = {type = "Data", name = "Int32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			GcPause = {
-				name = "GcPause",
-				type = {type = "Data", name = "Int32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			GcStepMul = {
-				name = "GcStepMul",
-				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -8763,33 +8826,6 @@ return {
 		name = "NetworkSettings",
 		superclass = "Instance",
 		properties = {
-			ArePhysicsRejectionsReported = {
-				name = "ArePhysicsRejectionsReported",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			ClientPhysicsSendRate = {
-				name = "ClientPhysicsSendRate",
-				type = {type = "Data", name = "Float32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			DataGCRate = {
-				name = "DataGCRate",
-				type = {type = "Data", name = "Float32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
 			DataMtuAdjust = {
 				name = "DataMtuAdjust",
 				type = {type = "Data", name = "Int32"},
@@ -8862,24 +8898,6 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
-			IsQueueErrorComputed = {
-				name = "IsQueueErrorComputed",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			NetworkOwnerRate = {
-				name = "NetworkOwnerRate",
-				type = {type = "Data", name = "Float32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
 			PhysicsMtuAdjust = {
 				name = "PhysicsMtuAdjust",
 				type = {type = "Data", name = "Int32"},
@@ -8898,36 +8916,9 @@ return {
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
-			PhysicsSendRate = {
-				name = "PhysicsSendRate",
-				type = {type = "Data", name = "Float32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
 			PreferredClientPort = {
 				name = "PreferredClientPort",
 				type = {type = "Data", name = "Int32"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			PrintBits = {
-				name = "PrintBits",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			PrintEvents = {
-				name = "PrintEvents",
-				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -8963,15 +8954,6 @@ return {
 			},
 			PrintPhysicsErrors = {
 				name = "PrintPhysicsErrors",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			PrintProperties = {
-				name = "PrintProperties",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9053,15 +9035,6 @@ return {
 			},
 			TrackPhysicsDetails = {
 				name = "TrackPhysicsDetails",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "ReadWrite",
-				serializes = true,
-			},
-			UsePhysicsPacketCache = {
-				name = "UsePhysicsPacketCache",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9801,6 +9774,15 @@ return {
 			Name = "Instance",
 		},
 	},
+	PermissionsService = {
+		name = "PermissionsService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "PermissionsService",
+		},
+	},
 	PhysicsService = {
 		name = "PhysicsService",
 		superclass = "Instance",
@@ -10337,6 +10319,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = false,
 			},
+			PlatformName = {
+				name = "PlatformName",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
 			ReplicationFocus = {
 				name = "ReplicationFocus",
 				type = {type = "Data", name = "Ref"},
@@ -10759,6 +10750,14 @@ return {
 		},
 		defaults = {
 			Name = "Instance",
+		},
+	},
+	PluginDebugService = {
+		name = "PluginDebugService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 	PluginDragEvent = {
@@ -12476,7 +12475,7 @@ return {
 	},
 	SelectionBox = {
 		name = "SelectionBox",
-		superclass = "PVAdornment",
+		superclass = "InstanceAdornment",
 		properties = {
 			LineThickness = {
 				name = "LineThickness",
@@ -12674,6 +12673,14 @@ return {
 	},
 	ServiceProvider = {
 		name = "ServiceProvider",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+		},
+	},
+	SessionService = {
+		name = "SessionService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -14628,17 +14635,17 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
-			PluginsDir = {
-				name = "PluginsDir",
-				type = {type = "Unimplemented", name = "QDir"},
+			PluginDebuggingEnabled = {
+				name = "PluginDebuggingEnabled",
+				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
-			RecentSavesDir = {
-				name = "RecentSavesDir",
+			PluginsDir = {
+				name = "PluginsDir",
 				type = {type = "Unimplemented", name = "QDir"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14681,8 +14688,26 @@ return {
 		name = "StudioData",
 		superclass = "Instance",
 		properties = {
+			EnableScriptCollabByDefaultOnLoad = {
+				name = "EnableScriptCollabByDefaultOnLoad",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			EnableScriptCollabOnLoad = {
 				name = "EnableScriptCollabOnLoad",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			EnableScriptCollabVersionHistoryOnLoad = {
+				name = "EnableScriptCollabVersionHistoryOnLoad",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -14710,7 +14735,9 @@ return {
 			},
 		},
 		defaults = {
+			EnableScriptCollabByDefaultOnLoad = true,
 			EnableScriptCollabOnLoad = false,
+			EnableScriptCollabVersionHistoryOnLoad = false,
 			Name = "StudioData",
 		},
 	},
@@ -14721,6 +14748,24 @@ return {
 			ActiveScript = {
 				name = "ActiveScript",
 				type = {type = "Data", name = "Ref"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			DraggerSolveConstraints = {
+				name = "DraggerSolveConstraints",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			DrawConstraintsOnTop = {
+				name = "DrawConstraintsOnTop",
+				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14748,6 +14793,15 @@ return {
 			RotateIncrement = {
 				name = "RotateIncrement",
 				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			ShowConstraintDetails = {
+				name = "ShowConstraintDetails",
+				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14814,6 +14868,61 @@ return {
 			Intensity = 0.25,
 			Name = "SunRays",
 			Spread = 1,
+		},
+	},
+	SurfaceAppearance = {
+		name = "SurfaceAppearance",
+		superclass = "Instance",
+		properties = {
+			AlphaMode = {
+				name = "AlphaMode",
+				type = {type = "Enum", name = "AlphaMode"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			ColorMap = {
+				name = "ColorMap",
+				type = {type = "Data", name = "Content"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			MetalnessMap = {
+				name = "MetalnessMap",
+				type = {type = "Data", name = "Content"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			NormalMap = {
+				name = "NormalMap",
+				type = {type = "Data", name = "Content"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			RoughnessMap = {
+				name = "RoughnessMap",
+				type = {type = "Data", name = "Content"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+			AlphaMode = 0,
+			Name = "SurfaceAppearance",
 		},
 	},
 	SurfaceGui = {
@@ -16859,6 +16968,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			Enabled = {
+				name = "Enabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			Offset = {
 				name = "Offset",
 				type = {type = "Data", name = "Vector2"},
@@ -16889,6 +17007,7 @@ return {
 		},
 		defaults = {
 			Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))}),
+			Enabled = true,
 			Name = "UIGradient",
 			Offset = Vector2.new(0, 0),
 			Rotation = 0,
@@ -18717,7 +18836,7 @@ return {
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
-				scriptability = "Custom",
+				scriptability = "None",
 				serializes = true,
 			},
 			CurrentCamera = {
