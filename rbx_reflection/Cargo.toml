@@ -11,6 +11,6 @@ authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
 [dependencies]
-bitflags = "1.0.4"
 rbx_types = { path = "../rbx_types", features = ["serde"] }
+
 serde = { version = "1.0", features = ["derive"] }

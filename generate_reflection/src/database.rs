@@ -1,8 +1,11 @@
-use std::{borrow::Cow, collections::HashMap};
+use std::{
+    borrow::Cow,
+    collections::{HashMap, HashSet},
+};
 
 use rbx_reflection::{
-    ClassDescriptor, ClassTags, PropertyDescriptor, PropertyTags, PropertyType,
-    ReflectionDatabase as Database, Scriptability,
+    ClassDescriptor, PropertyDescriptor, PropertyTag, PropertyType, ReflectionDatabase as Database,
+    Scriptability,
 };
 use rbx_types::VariantType;
 use serde::{Deserialize, Serialize};
@@ -32,23 +35,23 @@ impl ReflectionDatabase {
                 Some(Cow::Owned(dump_class.superclass.clone()))
             };
 
-            let mut tags = ClassTags::empty();
+            let mut tags = HashSet::new();
             for dump_tag in &dump_class.tags {
-                tags |= dump_tag.parse().unwrap();
+                tags.insert(dump_tag.parse().unwrap());
             }
 
             let mut properties = HashMap::new();
 
             for member in &dump_class.members {
                 if let DumpClassMember::Property(dump_property) = member {
-                    let mut tags = PropertyTags::empty();
+                    let mut tags = HashSet::new();
                     for dump_tag in &dump_property.tags {
-                        tags |= dump_tag.parse().unwrap();
+                        tags.insert(dump_tag.parse().unwrap());
                     }
 
-                    let scriptability = if tags.contains(PropertyTags::NOT_SCRIPTABLE) {
+                    let scriptability = if tags.contains(&PropertyTag::NotScriptable) {
                         Scriptability::None
-                    } else if tags.contains(PropertyTags::READ_ONLY) {
+                    } else if tags.contains(&PropertyTag::ReadOnly) {
                         Scriptability::Read
                     } else {
                         Scriptability::ReadWrite
