@@ -1,5 +1,5 @@
 use std::{
-    collections::{BTreeMap, HashMap},
+    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
     hash::Hash,
 };
 
@@ -12,5 +12,14 @@ where
     S: Serializer,
 {
     let ordered: BTreeMap<_, _> = value.iter().collect();
+    ordered.serialize(serializer)
+}
+
+pub(crate) fn ordered_set<S, V>(value: &HashSet<V>, serializer: S) -> Result<S::Ok, S::Error>
+where
+    V: Hash + Ord + Serialize,
+    S: Serializer,
+{
+    let ordered: BTreeSet<_> = value.iter().collect();
     ordered.serialize(serializer)
 }

@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 // Tags found via:
 // jq '[.Classes | .[] | .Tags // empty] | add | unique' api-dump.json
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 #[non_exhaustive]
 pub enum ClassTag {
     Deprecated,

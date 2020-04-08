@@ -35,6 +35,7 @@ impl<'a> ReflectionDatabase<'a> {
 pub struct ClassDescriptor<'a> {
     pub name: Cow<'a, str>,
 
+    #[serde(serialize_with = "crate::serde_util::ordered_set")]
     pub tags: HashSet<ClassTag>,
 
     #[serde(default)]
@@ -66,6 +67,8 @@ pub struct PropertyDescriptor<'a> {
     pub name: Cow<'a, str>,
     pub scriptability: Scriptability,
     pub value_type: PropertyType<'a>,
+
+    #[serde(serialize_with = "crate::serde_util::ordered_set")]
     pub tags: HashSet<PropertyTag>,
 
     pub serializes: bool,
