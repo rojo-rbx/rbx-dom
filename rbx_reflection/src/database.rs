@@ -85,49 +85,67 @@ pub struct PropertyDescriptor<'a> {
     pub scriptability: Scriptability,
 
     /// The type of the value described by this descriptor.
-    pub value_type: PropertyType<'a>,
+    pub data_type: DataType<'a>,
 
     /// A set of the tags that apply to this property.
     #[serde(serialize_with = "crate::serde_util::ordered_set")]
     pub tags: HashSet<PropertyTag>,
 
-    /// Whether this property is directly serialized.
-    pub serializes: bool,
-
-    /// If this property is not the canonical property for this data, contains
-    /// the name of the canonical descriptor.
-    ///
-    /// Properties that alias share their storage with each other.
-    #[serde(default)]
-    pub alias_for: Option<Cow<'a, str>>,
-
-    /// If this property does not serialize, describes the name of the
-    /// descriptor that should be serialized instead.
-    #[serde(default)]
-    pub serializes_as: Option<Cow<'a, str>>,
+    /// The kind of property this is, including whether it is canonical.
+    pub kind: PropertyKind<'a>,
 }
 
 impl<'a> PropertyDescriptor<'a> {
     /// Creates a new `PropertyDescriptor` with the given name and type.
-    pub fn new<S: Into<Cow<'a, str>>>(name: S, value_type: PropertyType<'a>) -> Self {
+    pub fn new<S: Into<Cow<'a, str>>>(name: S, data_type: DataType<'a>) -> Self {
         Self {
             name: name.into(),
             scriptability: Scriptability::None,
-            value_type,
+            data_type,
             tags: HashSet::new(),
-            serializes: true,
-            alias_for: None,
-            serializes_as: None,
+            kind: PropertyKind::Canonical {
+                serialization: PropertySerialization::Serializes,
+            },
         }
     }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "Type", rename_all = "PascalCase")]
+#[non_exhaustive]
+pub enum PropertyKind<'a> {
+    /// This property is canonical.
+    #[serde(rename_all = "PascalCase")]
+    Canonical {
+        serialization: PropertySerialization<'a>,
+    },
+
+    /// This property is an alias to another property that is canonical.
+    #[serde(rename_all = "PascalCase")]
+    Alias { alias_for: Cow<'a, str> },
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "Type", content = "Name")]
 #[non_exhaustive]
-pub enum PropertyType<'a> {
+pub enum PropertySerialization<'a> {
+    /// The property serializes as itself.
+    Serializes,
+
+    /// The property does not serialize.
+    DoesNotSerialize,
+
+    /// The property aliases a property with the given name and should serialize
+    /// from that property descriptor instead.
+    SerializesAs(Cow<'a, str>),
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "Type", content = "Name")]
+#[non_exhaustive]
+pub enum DataType<'a> {
     /// The property is a regular value of the given type.
-    Data(VariantType),
+    Value(VariantType),
 
     /// The property is an enum with the given name.
     Enum(Cow<'a, str>),

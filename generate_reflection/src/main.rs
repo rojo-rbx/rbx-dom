@@ -27,12 +27,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let mut database = ReflectionDatabase::new();
 
-    let dump = Dump::read()?;
-    database.populate_from_dump(&dump)?;
-
-    measure_default_properties(&mut database)?;
-
     let property_patches = load_property_patches();
+    let dump = Dump::read()?;
+
+    database.populate_from_dump(&dump)?;
+    measure_default_properties(&mut database)?;
     database.populate_from_patches(&property_patches)?;
 
     database.validate();

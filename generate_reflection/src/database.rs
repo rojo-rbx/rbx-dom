@@ -4,8 +4,8 @@ use std::{
 };
 
 use rbx_reflection::{
-    ClassDescriptor, PropertyDescriptor, PropertyTag, PropertyType, ReflectionDatabase as Database,
-    Scriptability,
+    ClassDescriptor, DataType, PropertyDescriptor, PropertyKind, PropertySerialization,
+    PropertyTag, ReflectionDatabase as Database, Scriptability,
 };
 use rbx_types::VariantType;
 use serde::{Deserialize, Serialize};
@@ -57,26 +57,37 @@ impl ReflectionDatabase {
                         Scriptability::ReadWrite
                     };
 
-                    let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
+                    let can_serialize = !tags.contains(&PropertyTag::ReadOnly)
                         && dump_property.serialization.can_save;
+
+                    let serialization = if can_serialize {
+                        PropertySerialization::Serializes
+                    } else {
+                        PropertySerialization::DoesNotSerialize
+                    };
+
+                    // We assume that all properties are canonical by default,
+                    // since most properties are. Properties are updated by
+                    // patches later on in the database generation process.
+                    let kind = PropertyKind::Canonical { serialization };
 
                     let type_name = &dump_property.value_type.name;
                     let value_type = match dump_property.value_type.category {
-                        ValueCategory::Enum => PropertyType::Enum(type_name.clone().into()),
+                        ValueCategory::Enum => DataType::Enum(type_name.clone().into()),
                         ValueCategory::Primitive | ValueCategory::DataType => {
                             match variant_type_from_str(type_name) {
-                                Some(variant_type) => PropertyType::Data(variant_type),
+                                Some(variant_type) => DataType::Value(variant_type),
                                 None => continue,
                             }
                         }
-                        ValueCategory::Class => PropertyType::Data(VariantType::Ref),
+                        ValueCategory::Class => DataType::Value(VariantType::Ref),
                     };
 
                     let mut property =
                         PropertyDescriptor::new(dump_property.name.clone(), value_type);
                     property.scriptability = scriptability;
                     property.tags = tags;
-                    property.serializes = serializes;
+                    property.kind = kind;
 
                     properties.insert(Cow::Owned(dump_property.name.clone()), property);
                 }
@@ -123,14 +134,12 @@ impl ReflectionDatabase {
 
                 log::debug!("{}.{} changed", class_name, property_name);
 
-                if let Some(canonical_name) = &property_change.canonical_name {
-                    existing_property.alias_for = Some(canonical_name.clone());
-                    existing_property.serializes = false;
+                if let Some(kind) = &property_change.kind {
+                    existing_property.kind = kind.clone();
                 }
 
-                if let Some(serialized_name) = &property_change.serialized_name {
-                    existing_property.serializes_as = Some(serialized_name.clone());
-                    existing_property.serializes = true;
+                if let Some(scriptability) = &property_change.scriptability {
+                    existing_property.scriptability = *scriptability;
                 }
             }
         }
@@ -155,13 +164,11 @@ impl ReflectionDatabase {
                 log::debug!("{}.{} added", class_name, property_name);
 
                 let name = Cow::Owned(property_name.clone());
-                let value_type = property_add.property_type.clone();
+                let data_type = property_add.data_type.clone();
 
-                let mut property = PropertyDescriptor::new(name, value_type);
-                property.alias_for = property_add.canonical_name.clone();
-                property.serializes_as = property_add.serialized_name.clone();
+                let mut property = PropertyDescriptor::new(name, data_type);
+                property.kind = property_add.kind.clone();
                 property.scriptability = property_add.scriptability;
-                property.serializes = property_add.serializes;
 
                 class
                     .properties
