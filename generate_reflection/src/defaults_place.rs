@@ -17,7 +17,7 @@ use std::{
 
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::{RbxTree, RbxValueType};
-use rbx_reflection::PropertyDescriptor;
+use rbx_reflection::{PropertyDescriptor, PropertyKind};
 use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
@@ -56,18 +56,20 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
         found_classes.insert(instance.class_name.clone());
 
         for (prop_name, prop_value) in &instance.properties {
-            let _prop_descriptor =
+            let canonical_descriptor =
                 match find_canonical_descriptor(database, &instance.class_name, prop_name) {
                     Some(descriptor) => descriptor,
                     None => {
                         log::warn!(
-                            "Property {}.{} found in default place but not API dump!",
+                            "Property {}.{} found in default place but not API dump",
                             instance.class_name,
                             prop_name
                         );
                         continue;
                     }
                 };
+
+            let canonical_name = Cow::Owned(canonical_descriptor.name.clone().into_owned());
 
             match prop_value.get_type() {
                 // We don't support usefully emitting these types yet.
@@ -79,17 +81,16 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
                             Some(descriptor) => descriptor,
                             None => {
                                 log::warn!(
-                                    "Class {} found in default place but not API dump!",
+                                    "Class {} found in default place but not API dump",
                                     instance.class_name
                                 );
                                 continue;
                             }
                         };
 
-                    class_descriptor.default_properties.insert(
-                        Cow::Owned(prop_name.clone()),
-                        prop_value.clone().try_into().unwrap(),
-                    );
+                    class_descriptor
+                        .default_properties
+                        .insert(canonical_name, prop_value.clone().try_into().unwrap());
                 }
             }
         }
@@ -107,7 +108,20 @@ fn find_canonical_descriptor<'a>(
         let class = database.0.classes.get(current_class_name).unwrap();
 
         if let Some(prop) = class.properties.get(prop_name) {
-            return Some(prop);
+            match &prop.kind {
+                PropertyKind::Canonical { .. } => {
+                    return Some(prop);
+                }
+                PropertyKind::Alias { alias_for } => {
+                    let aliased_prop = class.properties.get(alias_for).unwrap();
+
+                    return Some(aliased_prop);
+                }
+                unknown => {
+                    log::warn!("Unknown property kind {:?}", unknown);
+                    return None;
+                }
+            }
         }
 
         next_class_name = class.superclass.as_ref().map(|name| name.as_ref());
