@@ -23,7 +23,15 @@ struct Options {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let options = Options::from_args();
-    env_logger::init();
+
+    let log_env = env_logger::Env::default().default_filter_or("info");
+
+    env_logger::Builder::from_env(log_env)
+        .format_module_path(false)
+        .format_timestamp(None)
+        // Indent following lines equal to the log level label, like `[ERROR] `
+        .format_indent(Some(8))
+        .init();
 
     let mut database = ReflectionDatabase::new();
 
@@ -31,8 +39,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     let dump = Dump::read()?;
 
     database.populate_from_dump(&dump)?;
-    measure_default_properties(&mut database)?;
     database.populate_from_patches(&property_patches)?;
+
+    measure_default_properties(&mut database)?;
 
     database.validate();
 

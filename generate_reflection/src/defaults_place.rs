@@ -17,6 +17,7 @@ use std::{
 
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::{RbxTree, RbxValueType};
+use rbx_reflection::PropertyDescriptor;
 use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
@@ -54,24 +55,38 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
 
         found_classes.insert(instance.class_name.clone());
 
-        let descriptor = match database.0.classes.get_mut(instance.class_name.as_str()) {
-            Some(descriptor) => descriptor,
-            None => {
-                log::warn!(
-                    "Class {} found in default place but not API dump!",
-                    instance.class_name
-                );
-                continue;
-            }
-        };
-
         for (prop_name, prop_value) in &instance.properties {
+            let _prop_descriptor =
+                match find_canonical_descriptor(database, &instance.class_name, prop_name) {
+                    Some(descriptor) => descriptor,
+                    None => {
+                        log::warn!(
+                            "Property {}.{} found in default place but not API dump!",
+                            instance.class_name,
+                            prop_name
+                        );
+                        continue;
+                    }
+                };
+
             match prop_value.get_type() {
                 // We don't support usefully emitting these types yet.
                 RbxValueType::Ref | RbxValueType::SharedString => {}
 
                 _ => {
-                    descriptor.default_properties.insert(
+                    let class_descriptor =
+                        match database.0.classes.get_mut(instance.class_name.as_str()) {
+                            Some(descriptor) => descriptor,
+                            None => {
+                                log::warn!(
+                                    "Class {} found in default place but not API dump!",
+                                    instance.class_name
+                                );
+                                continue;
+                            }
+                        };
+
+                    class_descriptor.default_properties.insert(
                         Cow::Owned(prop_name.clone()),
                         prop_value.clone().try_into().unwrap(),
                     );
@@ -79,6 +94,26 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
             }
         }
     }
+}
+
+fn find_canonical_descriptor<'a>(
+    database: &'a ReflectionDatabase,
+    class_name: &str,
+    prop_name: &str,
+) -> Option<&'a PropertyDescriptor<'a>> {
+    let mut next_class_name = Some(class_name);
+
+    while let Some(current_class_name) = next_class_name {
+        let class = database.0.classes.get(current_class_name).unwrap();
+
+        if let Some(prop) = class.properties.get(prop_name) {
+            return Some(prop);
+        }
+
+        next_class_name = class.superclass.as_ref().map(|name| name.as_ref());
+    }
+
+    None
 }
 
 /// Generate a new fixture place from the given reflection database, open it in
