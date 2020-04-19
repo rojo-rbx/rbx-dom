@@ -111,7 +111,6 @@ impl<'a> PropertyDescriptor<'a> {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(tag = "Type", rename_all = "PascalCase")]
 #[non_exhaustive]
 pub enum PropertyKind<'a> {
     /// This property is canonical.
@@ -126,7 +125,6 @@ pub enum PropertyKind<'a> {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(tag = "Type", content = "Name")]
 #[non_exhaustive]
 pub enum PropertySerialization<'a> {
     /// The property serializes as itself.
@@ -141,7 +139,6 @@ pub enum PropertySerialization<'a> {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(tag = "Type", content = "Name")]
 #[non_exhaustive]
 pub enum DataType<'a> {
     /// The property is a regular value of the given type.

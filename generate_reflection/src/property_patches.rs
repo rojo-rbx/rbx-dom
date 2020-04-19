@@ -9,16 +9,16 @@ use rbx_reflection::{DataType, PropertyKind, Scriptability};
 use serde::Deserialize;
 
 const PATCHES: &[&str] = &[
-    include_str!("../patches/body-movers.toml"),
-    include_str!("../patches/camera.toml"),
-    include_str!("../patches/fire-and-smoke.toml"),
-    include_str!("../patches/instance.toml"),
-    include_str!("../patches/joint-instance.toml"),
-    include_str!("../patches/localization-table.toml"),
-    include_str!("../patches/parts.toml"),
-    include_str!("../patches/players.toml"),
-    include_str!("../patches/sound.toml"),
-    include_str!("../patches/workspace.toml"),
+    // include_str!("../patches/body-movers.toml"),
+    // include_str!("../patches/camera.toml"),
+    // include_str!("../patches/fire-and-smoke.toml"),
+    // include_str!("../patches/instance.toml"),
+    // include_str!("../patches/joint-instance.toml"),
+    // include_str!("../patches/localization-table.toml"),
+    // include_str!("../patches/parts.toml"),
+    // include_str!("../patches/players.toml"),
+    // include_str!("../patches/sound.toml"),
+    // include_str!("../patches/workspace.toml"),
 ];
 
 #[derive(Debug, Default, Deserialize)]
