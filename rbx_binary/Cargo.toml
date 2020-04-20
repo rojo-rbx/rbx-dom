@@ -14,8 +14,8 @@ edition = "2018"
 byteorder = "1.2.7"
 log = "0.4.6"
 lz4 = "1.23.1"
-rbx_dom_weak = { version = "1.10.0", path = "../rbx_dom_weak" }
-rbx_reflection = { version = "3.3.408", path = "../rbx_reflection" }
+rbx_dom_weak = "1.10.0"
+rbx_reflection = "3.3.408"
 snafu = "0.6.0"
 
 [dev-dependencies]

@@ -1,27 +1,28 @@
-use std::{borrow::Cow, collections::HashMap};
+use std::{
+    borrow::Cow,
+    collections::{HashMap, HashSet},
+};
 
+use rbx_reflection::{
+    ClassDescriptor, DataType, PropertyDescriptor, PropertyKind, PropertySerialization,
+    PropertyTag, ReflectionDatabase as Database, Scriptability,
+};
+use rbx_types::VariantType;
+use serde::{Deserialize, Serialize};
 use snafu::Snafu;
 
 use crate::{
-    api_dump::{Dump, DumpClassMember},
+    api_dump::{Dump, DumpClassMember, ValueCategory},
     property_patches::PropertyPatches,
-    reflection_types::{
-        RbxClassDescriptor, RbxInstanceTags, RbxPropertyDescriptor, RbxPropertyScriptability,
-        RbxPropertyTags, RbxPropertyTypeDescriptor,
-    },
 };
 
-pub struct ReflectionDatabase {
-    pub studio_version: [u32; 4],
-    pub classes: HashMap<Cow<'static, str>, RbxClassDescriptor>,
-}
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct ReflectionDatabase(pub Database<'static>);
 
 impl ReflectionDatabase {
     pub fn new() -> Self {
-        Self {
-            studio_version: [0, 0, 0, 0],
-            classes: HashMap::new(),
-        }
+        Self(Database::new())
     }
 
     /// Adds all of the classes from the given API dump to the reflection
@@ -34,50 +35,71 @@ impl ReflectionDatabase {
                 Some(Cow::Owned(dump_class.superclass.clone()))
             };
 
-            let tags = RbxInstanceTags::from_dump_tags(&dump_class.tags);
+            let mut tags = HashSet::new();
+            for dump_tag in &dump_class.tags {
+                tags.insert(dump_tag.parse().unwrap());
+            }
 
             let mut properties = HashMap::new();
 
             for member in &dump_class.members {
                 if let DumpClassMember::Property(dump_property) = member {
-                    let tags = RbxPropertyTags::from_dump_tags(&dump_property.tags);
+                    let mut tags = HashSet::new();
+                    for dump_tag in &dump_property.tags {
+                        tags.insert(dump_tag.parse().unwrap());
+                    }
 
-                    let scriptability = if tags.contains(RbxPropertyTags::NOT_SCRIPTABLE) {
-                        RbxPropertyScriptability::None
-                    } else if tags.contains(RbxPropertyTags::READ_ONLY) {
-                        RbxPropertyScriptability::Read
+                    let scriptability = if tags.contains(&PropertyTag::NotScriptable) {
+                        Scriptability::None
+                    } else if tags.contains(&PropertyTag::ReadOnly) {
+                        Scriptability::Read
                     } else {
-                        RbxPropertyScriptability::ReadWrite
+                        Scriptability::ReadWrite
                     };
 
-                    let serializes = !dump_property.tags.iter().any(|v| v == "ReadOnly")
+                    let can_serialize = !tags.contains(&PropertyTag::ReadOnly)
                         && dump_property.serialization.can_save;
 
-                    let property = RbxPropertyDescriptor {
-                        name: Cow::Owned(dump_property.name.clone()),
-                        value_type: RbxPropertyTypeDescriptor::from(&dump_property.value_type),
-                        tags,
-
-                        is_canonical: true,
-                        canonical_name: None,
-                        serialized_name: None,
-                        scriptability,
-                        serializes,
+                    let serialization = if can_serialize {
+                        PropertySerialization::Serializes
+                    } else {
+                        PropertySerialization::DoesNotSerialize
                     };
+
+                    // We assume that all properties are canonical by default,
+                    // since most properties are. Properties are updated by
+                    // patches later on in the database generation process.
+                    let kind = PropertyKind::Canonical { serialization };
+
+                    let type_name = &dump_property.value_type.name;
+                    let value_type = match dump_property.value_type.category {
+                        ValueCategory::Enum => DataType::Enum(type_name.clone().into()),
+                        ValueCategory::Primitive | ValueCategory::DataType => {
+                            match variant_type_from_str(type_name) {
+                                Some(variant_type) => DataType::Value(variant_type),
+                                None => continue,
+                            }
+                        }
+                        ValueCategory::Class => DataType::Value(VariantType::Ref),
+                    };
+
+                    let mut property =
+                        PropertyDescriptor::new(dump_property.name.clone(), value_type);
+                    property.scriptability = scriptability;
+                    property.tags = tags;
+                    property.kind = kind;
 
                     properties.insert(Cow::Owned(dump_property.name.clone()), property);
                 }
             }
 
-            let class = RbxClassDescriptor {
-                name: Cow::Owned(dump_class.name.clone()),
-                superclass,
-                tags,
-                properties,
-                default_properties: HashMap::new(),
-            };
+            let mut class = ClassDescriptor::new(dump_class.name.clone());
+            class.tags = tags;
+            class.superclass = superclass;
+            class.properties = properties;
 
-            self.classes
+            self.0
+                .classes
                 .insert(Cow::Owned(dump_class.name.clone()), class);
         }
 
@@ -92,6 +114,7 @@ impl ReflectionDatabase {
     ) -> Result<(), Error> {
         for (class_name, class_changes) in &property_patches.change {
             let class = self
+                .0
                 .classes
                 .get_mut(class_name.as_str())
                 .unwrap_or_else(|| {
@@ -109,24 +132,21 @@ impl ReflectionDatabase {
                         )
                     });
 
-                println!("{}.{} changed", class_name, property_name);
+                log::debug!("{}.{} changed", class_name, property_name);
 
-                existing_property.is_canonical = property_change.canonical_name.is_none();
-
-                if let Some(canonical_name) = &property_change.canonical_name {
-                    existing_property.canonical_name = Some(canonical_name.clone());
-                    existing_property.serializes = false;
+                if let Some(kind) = &property_change.kind {
+                    existing_property.kind = kind.clone();
                 }
 
-                if let Some(serialized_name) = &property_change.serialized_name {
-                    existing_property.serialized_name = Some(serialized_name.clone());
-                    existing_property.serializes = true;
+                if let Some(scriptability) = &property_change.scriptability {
+                    existing_property.scriptability = *scriptability;
                 }
             }
         }
 
         for (class_name, class_adds) in &property_patches.add {
             let class = self
+                .0
                 .classes
                 .get_mut(class_name.as_str())
                 .unwrap_or_else(|| {
@@ -141,27 +161,14 @@ impl ReflectionDatabase {
                     );
                 }
 
-                println!("{}.{} added", class_name, property_name);
+                log::debug!("{}.{} added", class_name, property_name);
 
                 let name = Cow::Owned(property_name.clone());
-                let value_type = property_add.property_type.clone();
-                let is_canonical = property_add.canonical_name.is_none();
-                let canonical_name = property_add.canonical_name.clone();
-                let serialized_name = property_add.serialized_name.clone();
-                let scriptability = property_add.scriptability;
-                let serializes = property_add.serializes;
+                let data_type = property_add.data_type.clone();
 
-                let property = RbxPropertyDescriptor {
-                    name,
-                    value_type,
-                    is_canonical,
-                    canonical_name,
-                    serialized_name,
-                    scriptability,
-                    serializes,
-
-                    tags: RbxPropertyTags::empty(),
-                };
+                let mut property = PropertyDescriptor::new(name, data_type);
+                property.kind = property_add.kind.clone();
+                property.scriptability = property_add.scriptability;
 
                 class
                     .properties
@@ -174,54 +181,98 @@ impl ReflectionDatabase {
 
     /// Validate that the state of the database makes sense.
     pub fn validate(&self) {
-        for (class_name, class) in &self.classes {
-            for (property_name, property) in &class.properties {
-                if let Some(canonical_name) = &property.canonical_name {
-                    let canonical_property = match class.properties.get(canonical_name) {
-                        Some(value) => value,
-                        None => panic!(
-                            "Property {}.{} refers to canonical property ({}) that does not exist.",
-                            class_name, property_name, canonical_name
-                        ),
-                    };
+        // for (class_name, class) in &self.classes {
+        //     for (property_name, property) in &class.properties {
+        //         if let Some(canonical_name) = &property.canonical_name {
+        //             let canonical_property = match class.properties.get(canonical_name) {
+        //                 Some(value) => value,
+        //                 None => panic!(
+        //                     "Property {}.{} refers to canonical property ({}) that does not exist.",
+        //                     class_name, property_name, canonical_name
+        //                 ),
+        //             };
 
-                    if !canonical_property.is_canonical {
-                        panic!("Property {}.{} is marked as the canonical form of {}, but is not canonical!",
-                            class_name, canonical_name, property_name);
-                    }
-                }
+        //             if !canonical_property.is_canonical {
+        //                 panic!("Property {}.{} is marked as the canonical form of {}, but is not canonical!",
+        //                     class_name, canonical_name, property_name);
+        //             }
+        //         }
 
-                if let Some(serialized_name) = &property.serialized_name {
-                    let _serialized_property = match class.properties.get(serialized_name) {
-                        Some(value) => value,
-                        None => panic!(
-                            "Property {}.{} refers to serialized property ({}) that does not exist.",
-                            class_name, property_name, serialized_name
-                        ),
-                    };
-                }
+        //         if let Some(serialized_name) = &property.serialized_name {
+        //             let _serialized_property = match class.properties.get(serialized_name) {
+        //                 Some(value) => value,
+        //                 None => panic!(
+        //                     "Property {}.{} refers to serialized property ({}) that does not exist.",
+        //                     class_name, property_name, serialized_name
+        //                 ),
+        //             };
+        //         }
 
-                if property.is_canonical {
-                    let mut probably_mistake = false;
+        //         if property.is_canonical {
+        //             let mut probably_mistake = false;
 
-                    if property_name.chars().next().unwrap().is_lowercase() {
-                        probably_mistake = true;
-                    }
+        //             if property_name.chars().next().unwrap().is_lowercase() {
+        //                 probably_mistake = true;
+        //             }
 
-                    if property_name.ends_with("_xml") {
-                        probably_mistake = true;
-                    }
+        //             if property_name.ends_with("_xml") {
+        //                 probably_mistake = true;
+        //             }
 
-                    if probably_mistake {
-                        println!(
-                            "Property {}.{} doesn't look canonical",
-                            class_name, property_name
-                        );
-                    }
-                }
-            }
-        }
+        //             if probably_mistake {
+        //                 println!(
+        //                     "Property {}.{} doesn't look canonical",
+        //                     class_name, property_name
+        //                 );
+        //             }
+        //         }
+        //     }
+        // }
     }
+}
+
+fn variant_type_from_str(value: &str) -> Option<VariantType> {
+    Some(match value {
+        "Axes" => VariantType::Axes,
+        "BinaryString" => VariantType::BinaryString,
+        "BrickColor" => VariantType::BrickColor,
+        "CFrame" => VariantType::CFrame,
+        "Color3" => VariantType::Color3,
+        "ColorSequence" => VariantType::ColorSequence,
+        "Content" => VariantType::Content,
+        "Faces" => VariantType::Faces,
+        "Instance" => VariantType::Ref,
+        "NumberRange" => VariantType::NumberRange,
+        "NumberSequence" => VariantType::NumberSequence,
+        "PhysicalProperties" => VariantType::PhysicalProperties,
+        "Ray" => VariantType::Ray,
+        "Rect" => VariantType::Rect,
+        "Region3" => VariantType::Region3,
+        "Region3int16" => VariantType::Region3int16,
+        "UDim" => VariantType::UDim,
+        "UDim2" => VariantType::UDim2,
+        "Vector2" => VariantType::Vector2,
+        "Vector2int16" => VariantType::Vector2int16,
+        "Vector3" => VariantType::Vector3,
+        "Vector3int16" => VariantType::Vector3int16,
+        "bool" => VariantType::Bool,
+        "double" => VariantType::Float64,
+        "float" => VariantType::Float32,
+        "int" => VariantType::Int32,
+        "int64" => VariantType::Int64,
+        "string" => VariantType::String,
+
+        // ProtectedString is handled as the same as string
+        "ProtectedString" => VariantType::String,
+
+        // TweenInfo is not supported by rbx_types yet
+        "TweenInfo" => return None,
+
+        // These types are not generally implemented right now.
+        "QDir" | "QFont" => return None,
+
+        _ => panic!("Unknown type {}", value),
+    })
 }
 
 #[derive(Debug, Snafu)]

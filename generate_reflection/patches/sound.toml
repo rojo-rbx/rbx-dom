@@ -1,0 +1,8 @@
+# Sound.MaxDistance is serialized as xmlRead_MaxDistance_3.
+[Change.Sound.MaxDistance]
+Kind = { Type = "Canonical", Serialization = { Type = "SerializesAs", Name = "xmlRead_MaxDistance_3" } }
+
+[Add.Sound.xmlRead_MaxDistance_3]
+Kind = { Type = "Alias", AliasFor = "MaxDistance" }
+DataType = { Type = "Value", Name = "Float32" }
+Scriptability = "None"
