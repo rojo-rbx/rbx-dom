@@ -1,5 +1,6 @@
 mod api_dump;
 mod database;
+mod defaults_place;
 mod property_patches;
 
 use std::{error::Error, fs, path::PathBuf};
@@ -7,7 +8,8 @@ use std::{error::Error, fs, path::PathBuf};
 use structopt::StructOpt;
 
 use crate::{
-    api_dump::Dump, database::ReflectionDatabase, property_patches::load_property_patches,
+    api_dump::Dump, database::ReflectionDatabase, defaults_place::measure_default_properties,
+    property_patches::load_property_patches,
 };
 
 #[derive(Debug, StructOpt)]
@@ -22,13 +24,24 @@ struct Options {
 fn main() -> Result<(), Box<dyn Error>> {
     let options = Options::from_args();
 
+    let log_env = env_logger::Env::default().default_filter_or("info");
+
+    env_logger::Builder::from_env(log_env)
+        .format_module_path(false)
+        .format_timestamp(None)
+        // Indent following lines equal to the log level label, like `[ERROR] `
+        .format_indent(Some(8))
+        .init();
+
     let mut database = ReflectionDatabase::new();
 
-    let dump = Dump::read()?;
-    database.populate_from_dump(&dump)?;
-
     let property_patches = load_property_patches();
+    let dump = Dump::read()?;
+
+    database.populate_from_dump(&dump)?;
     database.populate_from_patches(&property_patches)?;
+
+    measure_default_properties(&mut database)?;
 
     database.validate();
 

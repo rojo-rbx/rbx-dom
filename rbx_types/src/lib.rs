@@ -2,6 +2,9 @@
 #[macro_use]
 mod serde_util;
 
+#[cfg(feature = "legacy-compat")]
+mod legacy_compat;
+
 mod axes;
 mod basic_types;
 mod binary_string;

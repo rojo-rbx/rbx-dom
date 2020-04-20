@@ -1,0 +1,50 @@
+# BasePart.BrickColor now defers to the Color3 properties in every case, so we
+# can basically pretend that BrickColor and brickColor never existed.
+[Change.BasePart.brickColor]
+Kind = { Type = "Alias", AliasFor = "Color" }
+
+[Change.BasePart.BrickColor]
+Kind = { Type = "Alias", AliasFor = "Color" }
+
+[Change.BasePart.Color]
+Kind = { Type = "Canonical", Serialization = { Type = "SerializesAs", Name = "Color3uint8" } }
+
+[Add.BasePart.Color3uint8]
+Kind = { Type = "Alias", AliasFor = "Color" }
+DataType = { Type = "Value", Name = "Color3uint8" }
+Scriptability = "None"
+
+[Add.BasePart.CollisionGroups]
+Kind = { Type = "Canonical", Serialization = { Type = "Serializes" } }
+DataType = { Type = "Value", Name = "String" }
+Scriptability = "Custom"
+
+# Size serializes as size.
+[Change.BasePart.Size]
+Kind = { Type = "Canonical", Serialization = { Type = "SerializesAs", Name = "size" } }
+
+[Add.BasePart.size]
+Kind = { Type = "Alias", AliasFor = "Size" }
+DataType = { Type = "Value", Name = "Vector3" }
+Scriptability = "None"
+
+# Shape serializes as shape.
+[Change.Part.Shape]
+Kind = { Type = "Canonical", Serialization = { Type = "SerializesAs", Name = "shape" } }
+
+[Add.Part.shape]
+Kind = { Type = "Alias", AliasFor = "Shape" }
+DataType = { Type = "Enum", Name = "PartType" }
+Scriptability = "None"
+
+# FormFactor serializes as formFactorRaw. formFactor is an alias.
+[Change.FormFactorPart.FormFactor]
+Kind = { Type = "Canonical", Serialization = { Type = "SerializesAs", Name = "formFactorRaw" } }
+
+[Change.FormFactorPart.formFactor]
+Kind = { Type = "Alias", AliasFor = "FormFactor" }
+
+[Add.FormFactorPart.formFactorRaw]
+Kind = { Type = "Alias", AliasFor = "FormFactor" }
+DataType = { Type = "Enum", Name = "FormFactor" }
+Scriptability = "None"

@@ -2,4 +2,6 @@
 
 set -e
 
-cargo run --bin generate_reflection -- --msgpack rbx_reflection_database/database.msgpack
+cargo run --bin generate_reflection -- \
+	--msgpack rbx_reflection_database/database.msgpack \
+	--json rbx_dom_lua/src/database.json
