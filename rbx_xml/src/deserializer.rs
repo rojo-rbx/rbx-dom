@@ -5,7 +5,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::PropertyType;
+use rbx_reflection::DataType;
 
 use crate::{
     compat::{TodoValueConversion, TodoValueConversionType},
@@ -545,9 +545,9 @@ fn deserialize_properties<R: Read>(
             // For example:
             // - Int/Float widening from 32-bit to 64-bit
             // - BrickColor properties turning into Color3
-            let expected_type = match &descriptor.value_type {
-                PropertyType::Data(value_type) => *value_type,
-                PropertyType::Enum(_enum_name) => VariantType::EnumValue,
+            let expected_type = match &descriptor.data_type {
+                DataType::Value(data_type) => *data_type,
+                DataType::Enum(_enum_name) => VariantType::EnumValue,
 
                 // FIXME?
                 _ => unimplemented!(),

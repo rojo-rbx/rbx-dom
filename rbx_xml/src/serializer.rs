@@ -4,7 +4,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
     WeakDom,
 };
-use rbx_reflection::PropertyType;
+use rbx_reflection::DataType;
 
 use crate::{
     compat::{TodoValueConversion, TodoValueConversionType},
@@ -191,15 +191,15 @@ fn serialize_instance<'a, W: Write>(
         };
 
         if let Some(serialized_descriptor) = maybe_serialized_descriptor {
-            let value_type = match &serialized_descriptor.value_type {
-                PropertyType::Data(value_type) => *value_type,
-                PropertyType::Enum(_enum_name) => VariantType::EnumValue,
+            let data_type = match &serialized_descriptor.data_type {
+                DataType::Value(data_type) => *data_type,
+                DataType::Enum(_enum_name) => VariantType::EnumValue,
 
                 // FIXME?
                 _ => unimplemented!(),
             };
 
-            let converted_value = match value.try_convert_ref(value_type) {
+            let converted_value = match value.try_convert_ref(data_type) {
                 TodoValueConversionType::Converted(converted) => Cow::Owned(converted),
                 TodoValueConversionType::Unnecessary => Cow::Borrowed(value),
                 TodoValueConversionType::Failed => {
@@ -207,7 +207,7 @@ fn serialize_instance<'a, W: Write>(
                         writer.error(EncodeErrorKind::UnsupportedPropertyConversion {
                             class_name: instance.class.clone(),
                             property_name: property_name.to_string(),
-                            expected_type: value_type,
+                            expected_type: data_type,
                             actual_type: value.ty(),
                         }),
                     )

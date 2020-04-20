@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_reflection::PropertyDescriptor;
+use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization};
 
 use crate::{
     deserializer_core::XmlEventReader,
@@ -75,41 +75,56 @@ fn find_property_descriptors(
         // If this class descriptor knows about this property name,
         // we're pretty much done!
         if let Some(property_descriptor) = current_class_descriptor.properties.get(property_name) {
-            if property_descriptor.alias_for.is_none() {
-                // The property name in the XML was the canonical name
-                // and also the serialized name, hooray!
+            match &property_descriptor.kind {
+                PropertyKind::Canonical { serialization } => match serialization {
+                    PropertySerialization::Serializes => {
+                        return Some((property_descriptor, property_descriptor))
+                    }
+                    PropertySerialization::DoesNotSerialize => {
+                        // FIXME: Is this the correct solution?
+                        return None;
+                    }
+                    PropertySerialization::SerializesAs(serialized_name) => {
+                        let serialized_descriptor = current_class_descriptor
+                            .properties
+                            .get(serialized_name.as_ref())
+                            .unwrap();
 
-                let serialized_descriptor = property_descriptor
-                    .serializes_as
-                    .as_ref()
-                    .map(|name| current_class_descriptor.properties.get(name).unwrap())
-                    .unwrap_or(property_descriptor);
+                        return Some((property_descriptor, serialized_descriptor));
+                    }
+                    _ => unimplemented!(),
+                },
+                PropertyKind::Alias { alias_for } => {
+                    let canonical_descriptor = current_class_descriptor
+                        .properties
+                        .get(alias_for.as_ref())
+                        .unwrap();
 
-                return Some((property_descriptor, serialized_descriptor));
-            }
+                    // FIXME: This code is duplicated with above.
+                    match &canonical_descriptor.kind {
+                        PropertyKind::Canonical { serialization } => match serialization {
+                            PropertySerialization::Serializes => {
+                                return Some((canonical_descriptor, canonical_descriptor))
+                            }
+                            PropertySerialization::DoesNotSerialize => {
+                                // FIXME: Is this the correct solution?
+                                return None;
+                            }
+                            PropertySerialization::SerializesAs(serialized_name) => {
+                                let serialized_descriptor = current_class_descriptor
+                                    .properties
+                                    .get(serialized_name.as_ref())
+                                    .unwrap();
 
-            if let Some(canonical_name) = &property_descriptor.alias_for {
-                // This property has a canonical form that we'll map
-                // from the XML name.
-
-                let canonical_descriptor = current_class_descriptor
-                    .properties
-                    .get(canonical_name)
-                    .unwrap();
-
-                let serialized_descriptor = canonical_descriptor
-                    .serializes_as
-                    .as_ref()
-                    .map(|name| current_class_descriptor.properties.get(name).unwrap())
-                    .unwrap_or(canonical_descriptor);
-
-                return Some((canonical_descriptor, serialized_descriptor));
-            } else {
-                // This property doesn't have a canonical form, we we'll
-                // skip serializing it by declaring there isn't a
-                // canonical property descriptor for it.
-
-                return None;
+                                return Some((canonical_descriptor, serialized_descriptor));
+                            }
+                            _ => unimplemented!(),
+                        },
+                        _ => return None,
+                    }
+                }
+                // FIXME
+                _ => unimplemented!(),
             }
         }
 
