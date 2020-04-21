@@ -1,0 +1,143 @@
+---
+source: rbx_xml/tests/test-files.rs
+expression: viewer.view_children(&dom)
+---
+- referent: referent-0
+  name: Part
+  class: Part
+  properties:
+    Anchored:
+      Type: Bool
+      Value: false
+    BackParamA:
+      Type: Float32
+      Value: -0.5
+    BackParamB:
+      Type: Float32
+      Value: 0.5
+    BackSurface:
+      Type: EnumValue
+      Value: 0
+    BackSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    BottomParamA:
+      Type: Float32
+      Value: -0.5
+    BottomParamB:
+      Type: Float32
+      Value: 0.5
+    BottomSurface:
+      Type: EnumValue
+      Value: 0
+    BottomSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    CFrame:
+      Type: CFrame
+      Value:
+        Position:
+          - -14.0
+          - 15.5
+          - -7.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    CanCollide:
+      Type: Bool
+      Value: true
+    CastShadow:
+      Type: Bool
+      Value: true
+    CollisionGroupId:
+      Type: Int32
+      Value: 0
+    CustomPhysicalProperties:
+      Type: PhysicalProperties
+      Value: Default
+    FrontParamA:
+      Type: Float32
+      Value: -0.5
+    FrontParamB:
+      Type: Float32
+      Value: 0.5
+    FrontSurface:
+      Type: EnumValue
+      Value: 0
+    FrontSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    LeftParamA:
+      Type: Float32
+      Value: -0.5
+    LeftParamB:
+      Type: Float32
+      Value: 0.5
+    LeftSurface:
+      Type: EnumValue
+      Value: 0
+    LeftSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    Locked:
+      Type: Bool
+      Value: false
+    Massless:
+      Type: Bool
+      Value: false
+    Material:
+      Type: EnumValue
+      Value: 256
+    Reflectance:
+      Type: Float32
+      Value: 0.0
+    RightParamA:
+      Type: Float32
+      Value: -0.5
+    RightParamB:
+      Type: Float32
+      Value: 0.5
+    RightSurface:
+      Type: EnumValue
+      Value: 0
+    RightSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    RootPriority:
+      Type: Int32
+      Value: 0
+    RotVelocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    TopParamA:
+      Type: Float32
+      Value: -0.5
+    TopParamB:
+      Type: Float32
+      Value: 0.5
+    TopSurface:
+      Type: EnumValue
+      Value: 0
+    TopSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Velocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+  children: []

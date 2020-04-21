@@ -1,0 +1,15 @@
+---
+source: rbx_xml/tests/test-files.rs
+expression: viewer.view_children(&dom)
+---
+- referent: referent-0
+  name: Value
+  class: ObjectValue
+  properties:
+    Value: referent-1
+  children:
+    - referent: referent-1
+      name: Ref Target
+      class: Folder
+      properties: {}
+      children: []
