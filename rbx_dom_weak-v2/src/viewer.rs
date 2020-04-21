@@ -118,59 +118,36 @@ enum ViewedValue {
 mod test {
     use super::*;
 
-    use rbx_dom_weak::RbxInstanceProperties;
+    use crate::InstanceBuilder;
 
     #[test]
     fn redact_single() {
-        let dom = WeakDom::new(RbxInstanceProperties {
-            name: "Root".to_owned(),
-            class: "Folder".to_owned(),
-            properties: HashMap::new(),
-        });
+        let dom = WeakDom::new(InstanceBuilder::new("Folder").with_name("Root"));
 
         insta::assert_yaml_snapshot!(DomViewer::new().view(&dom));
     }
 
     #[test]
     fn redact_multi() {
-        let mut dom = WeakDom::new(RbxInstanceProperties {
-            name: "Root".to_owned(),
-            class: "Folder".to_owned(),
-            properties: HashMap::new(),
-        });
-
-        let root_referent = dom.root_ref();
-
-        for i in 0..4 {
-            let name = format!("Child {}", i);
-            let properties = RbxInstanceProperties {
-                name,
-                class: "Folder".to_owned(),
-                properties: HashMap::new(),
-            };
-
-            dom.insert_instance(properties, root_referent);
-        }
+        let dom = WeakDom::new(
+            InstanceBuilder::new("Folder")
+                .with_name("Root")
+                .with_children(
+                    (0..4)
+                        .map(|i| InstanceBuilder::new("Folder").with_name(format!("Child {}", i))),
+                ),
+        );
 
         insta::assert_yaml_snapshot!(DomViewer::new().view(&dom));
     }
 
     #[test]
     fn redact_values() {
-        let mut dom = WeakDom::new(RbxInstanceProperties {
-            name: "Root".to_owned(),
-            class: "ObjectValue".to_owned(),
-            properties: HashMap::new(),
-        });
+        let root = InstanceBuilder::new("ObjectValue").with_name("Root");
+        let root_ref = root.referent;
+        let root = root.with_property("Value", root_ref);
 
-        let root_instance = dom.root(root_referent);
-
-        root_instance.properties.insert(
-            "Value".to_owned(),
-            Variant::Ref {
-                value: Some(root_referent),
-            },
-        );
+        let dom = WeakDom::new(root);
 
         insta::assert_yaml_snapshot!(DomViewer::new().view(&dom));
     }
