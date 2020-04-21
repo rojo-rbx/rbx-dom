@@ -74,27 +74,6 @@ impl From<io::Error> for InnerError {
     }
 }
 
-// A compatibility shim to expose the new deserializer with the API of the old
-// deserializer.
-//
-/// Deserializes instances from a reader containing Roblox's binary model
-/// format.
-///
-/// Top-level instances from the model will be put into the instance with the ID
-/// `parent_ref`.
-pub fn decode_compat<R: Read>(tree: &mut WeakDom, parent_ref: Ref, reader: R) -> Result<(), Error> {
-    let mut temp_tree = decode(reader)?;
-    let root_instance = temp_tree.root();
-    let root_children = root_instance.children().to_vec();
-
-    for id in root_children {
-        // FIXME: WeakDom needs a way to move instances!
-        // temp_tree.move_instance(id, tree, parent_ref);
-    }
-
-    Ok(())
-}
-
 /// Deserializes instances from a reader containing Roblox's binary model
 /// format.
 pub fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {

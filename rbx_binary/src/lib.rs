@@ -20,6 +20,6 @@ mod text_deserializer;
 mod tests;
 
 pub use {
-    deserializer::{decode_compat as decode, Error as DecodeError},
+    deserializer::{decode, Error as DecodeError},
     serializer::{encode, Error as EncodeError},
 };
