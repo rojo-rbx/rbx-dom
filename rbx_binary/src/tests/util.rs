@@ -1,6 +1,6 @@
 use std::{fs, path::Path};
 
-use rbx_dom_test::TreeViewer;
+use rbx_dom_weak::DomViewer;
 
 use crate::{deserializer::decode, encode, text_deserializer::DecodedModel};
 
@@ -29,12 +29,12 @@ pub fn run_model_base_suite(model_path: impl AsRef<Path>) {
     // Decode the test file and snapshot a stable version of the resulting tree.
     // This should properly test the deserializer.
     let decoded = decode(contents.as_slice()).unwrap();
-    let decoded_viewed = TreeViewer::new().view_children(&decoded);
+    let decoded_viewed = DomViewer::new().view_children(&decoded);
     insta::assert_yaml_snapshot!(format!("{}__decoded", model_stem), decoded_viewed);
 
     // Re-encode the model that we decoded. We can't snapshot this directly...
-    let decoded_root = decoded.get_instance(decoded.get_root_id()).unwrap();
-    let top_level_ids = decoded_root.get_children_ids();
+    let decoded_root = decoded.root();
+    let top_level_ids = decoded_root.children();
     let mut encoded = Vec::new();
     encode(&decoded, top_level_ids, &mut encoded).unwrap();
 
