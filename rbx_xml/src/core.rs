@@ -132,7 +132,7 @@ fn find_property_descriptors(
             // If a property descriptor isn't found in our class, check
             // our superclass.
 
-            rbx_reflection_database::get()
+            current_class_descriptor = rbx_reflection_database::get()
                 .classes
                 .get(superclass_name)
                 .expect("Superclass in reflection database didn't exist");
