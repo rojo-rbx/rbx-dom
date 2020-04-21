@@ -6,8 +6,11 @@ use std::{
 };
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use rbx_dom_weak::{RbxId, RbxInstanceProperties, RbxTree, RbxValue, RbxValueType};
-use rbx_reflection::RbxPropertyTypeDescriptor;
+use rbx_dom_weak::{
+    types::{Ref, Variant, VariantType},
+    InstanceBuilder, WeakDom,
+};
+use rbx_reflection::DataType;
 use snafu::{ResultExt, Snafu};
 
 use crate::{
@@ -78,18 +81,15 @@ impl From<io::Error> for InnerError {
 /// format.
 ///
 /// Top-level instances from the model will be put into the instance with the ID
-/// `parent_id`.
-pub fn decode_compat<R: Read>(
-    tree: &mut RbxTree,
-    parent_id: RbxId,
-    reader: R,
-) -> Result<(), Error> {
+/// `parent_ref`.
+pub fn decode_compat<R: Read>(tree: &mut WeakDom, parent_ref: Ref, reader: R) -> Result<(), Error> {
     let mut temp_tree = decode(reader)?;
-    let root_instance = temp_tree.get_instance(temp_tree.get_root_id()).unwrap();
-    let root_children = root_instance.get_children_ids().to_vec();
+    let root_instance = temp_tree.root();
+    let root_children = root_instance.children().to_vec();
 
     for id in root_children {
-        temp_tree.move_instance(id, tree, parent_id);
+        // FIXME: WeakDom needs a way to move instances!
+        // temp_tree.move_instance(id, tree, parent_ref);
     }
 
     Ok(())
@@ -97,7 +97,7 @@ pub fn decode_compat<R: Read>(
 
 /// Deserializes instances from a reader containing Roblox's binary model
 /// format.
-pub fn decode<R: Read>(reader: R) -> Result<RbxTree, Error> {
+pub fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
     let mut deserializer = BinaryDeserializer::new(reader)?;
 
     loop {
@@ -130,7 +130,7 @@ struct BinaryDeserializer<R> {
 
     /// The tree that instances should be written into. Eventually returned to
     /// the user.
-    tree: RbxTree,
+    tree: WeakDom,
 
     /// The metadata contained in the file, which affects how some constructs
     /// are interpreted by Roblox.
@@ -186,12 +186,12 @@ struct Instance {
     /// The properties found for this instance so far from the PROP chunk. Using
     /// a Vec preserves order in the unlikely event of a collision and is also
     /// compact storage since we don't need to look up properties by key.
-    properties: Vec<(String, RbxValue)>,
+    properties: Vec<(String, Variant)>,
 }
 
 impl<R: Read> BinaryDeserializer<R> {
     fn new(mut input: R) -> Result<Self, InnerError> {
-        let tree = make_temp_output_tree();
+        let tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
         let header = FileHeader::decode(&mut input)?;
 
@@ -267,7 +267,7 @@ impl<R: Read> BinaryDeserializer<R> {
     fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_u32::<LittleEndian>()?;
         let prop_name = chunk.read_string()?;
-        let data_type: Type = chunk.read_u8()?.try_into().unwrap();
+        let binary_type: Type = chunk.read_u8()?.try_into().unwrap();
 
         let type_info = self
             .type_infos
@@ -287,13 +287,11 @@ impl<R: Read> BinaryDeserializer<R> {
 
         match find_canonical_property_descriptor(&type_info.type_name, &prop_name) {
             Some(descriptor) => {
-                canonical_name = descriptor.name().to_owned();
-                canonical_type = match descriptor.property_type() {
-                    RbxPropertyTypeDescriptor::Data(ty) => *ty,
-                    RbxPropertyTypeDescriptor::Enum(_) => RbxValueType::Enum,
-                    RbxPropertyTypeDescriptor::UnimplementedType(name) => {
-                        log::info!("Unimplemented data type {}", name);
-
+                canonical_name = descriptor.name.clone().into_owned();
+                canonical_type = match &descriptor.data_type {
+                    DataType::Value(ty) => *ty,
+                    DataType::Enum(_) => VariantType::EnumValue,
+                    _ => {
                         // TODO: Configurable handling of unknown types?
                         return Ok(());
                     }
@@ -308,10 +306,10 @@ impl<R: Read> BinaryDeserializer<R> {
             None => {
                 canonical_name = prop_name.clone();
 
-                match data_type.to_default_rbx_type() {
+                match binary_type.to_default_rbx_type() {
                     Some(rbx_type) => canonical_type = rbx_type,
                     None => {
-                        log::warn!("Unsupported prop type {:?}, skipping property", data_type);
+                        log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
 
                         return Ok(());
                     }
@@ -321,33 +319,33 @@ impl<R: Read> BinaryDeserializer<R> {
             }
         }
 
-        match data_type {
+        match binary_type {
             Type::String => match canonical_type {
-                RbxValueType::String => {
+                VariantType::String => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_string()?;
-                        let rbx_value = RbxValue::String { value };
+                        let rbx_value = Variant::String(value);
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
                     }
                 }
-                RbxValueType::Content => {
+                VariantType::Content => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_string()?;
-                        let rbx_value = RbxValue::String { value };
+                        let rbx_value = Variant::String(value);
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
                     }
                 }
-                RbxValueType::BinaryString => {
+                VariantType::BinaryString => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_binary_string()?;
-                        let rbx_value = RbxValue::BinaryString { value };
+                        let rbx_value = Variant::BinaryString(value.into());
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
@@ -364,11 +362,11 @@ impl<R: Read> BinaryDeserializer<R> {
                 }
             },
             Type::Bool => match canonical_type {
-                RbxValueType::Bool => {
+                VariantType::Bool => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_bool()?;
-                        let rbx_value = RbxValue::Bool { value };
+                        let rbx_value = Variant::Bool(value);
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
@@ -432,11 +430,11 @@ impl<R: Read> BinaryDeserializer<R> {
         chunk.read_referent_array(&mut subjects)?;
         chunk.read_referent_array(&mut parents)?;
 
-        for (id, parent_id) in subjects.iter().copied().zip(parents.iter().copied()) {
-            if parent_id == -1 {
+        for (id, parent_ref) in subjects.iter().copied().zip(parents.iter().copied()) {
+            if parent_ref == -1 {
                 self.root_instance_refs.push(id);
             } else {
-                let instance = self.instances_by_ref.get_mut(&parent_id).unwrap();
+                let instance = self.instances_by_ref.get_mut(&parent_ref).unwrap();
                 instance.children.push(id);
             }
         }
@@ -467,13 +465,13 @@ impl<R: Read> BinaryDeserializer<R> {
         // Any instance with a parent of -1 will be at the top level of the
         // tree. Because of the way rbx_dom_weak generally works, we need to
         // start at the top of the tree to begin construction.
-        let root_id = self.tree.get_root_id();
+        let root_ref = self.tree.root_ref();
         for &referent in &self.root_instance_refs {
-            instances_to_construct.push_back((referent, root_id));
+            instances_to_construct.push_back((referent, root_ref));
         }
 
-        while let Some((referent, parent_id)) = instances_to_construct.pop_front() {
-            let id = self.construct_and_insert_instance(referent, parent_id);
+        while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
+            let id = self.construct_and_insert_instance(referent, parent_ref);
 
             if let Some(instance) = self.instances_by_ref.get(&referent) {
                 for &referent in &instance.children {
@@ -483,23 +481,21 @@ impl<R: Read> BinaryDeserializer<R> {
         }
     }
 
-    fn construct_and_insert_instance(&mut self, referent: i32, parent_id: RbxId) -> RbxId {
+    fn construct_and_insert_instance(&mut self, referent: i32, parent_ref: Ref) -> Ref {
         let instance = self.instances_by_ref.get_mut(&referent).unwrap();
         let type_info = &self.type_infos[&instance.type_id];
 
-        let class_name = type_info.type_name.clone();
-        let mut name = None;
-        let mut properties = HashMap::new();
+        let mut builder = InstanceBuilder::new(&type_info.type_name);
 
         for (prop_key, prop_value) in instance.properties.drain(..) {
             if prop_key.as_str() == "Name" {
-                if let RbxValue::String { value } = prop_value {
-                    name = Some(value);
+                if let Variant::String(value) = prop_value {
+                    builder = builder.with_name(value);
                 } else {
                     panic!("Name property was defined as a non-string type.");
                 }
             } else {
-                properties.insert(prop_key, prop_value);
+                builder = builder.with_property(prop_key, prop_value);
             }
         }
 
@@ -507,18 +503,11 @@ impl<R: Read> BinaryDeserializer<R> {
         // fall back to ClassName if the Name property or whole class descriptor
         // is unknown. This isn't super important since binary files with
         // instances that have no Name generally don't exist.
-        let name = name.unwrap_or_else(|| class_name.clone());
 
-        let properties = RbxInstanceProperties {
-            class_name,
-            name,
-            properties,
-        };
-
-        self.tree.insert_instance(properties, parent_id)
+        self.tree.insert(parent_ref, builder)
     }
 
-    fn finish(self) -> RbxTree {
+    fn finish(self) -> WeakDom {
         self.tree
     }
 }
@@ -560,12 +549,4 @@ impl FileHeader {
             num_instances,
         })
     }
-}
-
-fn make_temp_output_tree() -> RbxTree {
-    RbxTree::new(RbxInstanceProperties {
-        name: "ROOT".to_owned(),
-        class_name: "DataModel".to_owned(),
-        properties: HashMap::new(),
-    })
 }
