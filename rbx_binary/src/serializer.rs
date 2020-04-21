@@ -218,9 +218,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         DataType::Value(ty) => *ty,
                         DataType::Enum(_) => VariantType::EnumValue,
                         _ => {
-                            // This type wasn't implemented by rbx_dom_weak at
-                            // the time that our reflection database was
-                            // generated.
+                            // rbx_binary is not new enough to handle this kind
+                            // of property, whatever it is.
                             panic!("Unsupported property type");
                         }
                     };
