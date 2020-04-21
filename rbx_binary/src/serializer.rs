@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, HashMap},
+    collections::{BTreeMap, HashMap, VecDeque},
     io::{self, Write},
     u32,
 };
@@ -85,9 +85,7 @@ impl From<io::Error> for InnerError {
 pub fn encode<W: Write>(dom: &WeakDom, refs: &[Ref], writer: W) -> Result<(), Error> {
     let mut serializer = BinarySerializer::new(dom, writer);
 
-    for referent in refs {
-        serializer.add_instance(*referent)?;
-    }
+    serializer.add_instances(refs)?;
 
     log::debug!("Type info discovered: {:#?}", serializer.type_infos);
 
@@ -180,18 +178,20 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         }
     }
 
-    /// Mark the given instance ID and all of its descendants as intended for
+    /// Mark the given instance IDs and all of their descendants as intended for
     /// serialization with this serializer.
-    fn add_instance(&mut self, id: Ref) -> Result<(), InnerError> {
-        self.relevant_instances.push(id);
-        self.collect_type_info(id)?;
+    fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
+        let mut to_visit = VecDeque::new();
+        to_visit.extend(referents);
 
-        // FIXME: Need to write descendant iterator.
+        while let Some(referent) = to_visit.pop_front() {
+            self.relevant_instances.push(referent);
+            self.collect_type_info(referent)?;
 
-        // for descendant in self.dom.descendants(id) {
-        //     self.relevant_instances.push(descendant.get_id());
-        //     self.collect_type_info(descendant.get_id())?;
-        // }
+            // TODO: Turn into error
+            let instance = self.dom.get_by_ref(referent).unwrap();
+            to_visit.extend(instance.children());
+        }
 
         Ok(())
     }
