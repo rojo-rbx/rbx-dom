@@ -48,10 +48,12 @@
 
 mod dom;
 mod instance;
+mod viewer;
 
 pub use rbx_types as types;
 
 pub use crate::{
     dom::WeakDom,
     instance::{Instance, InstanceBuilder},
+    viewer::{DomViewer, ViewedInstance},
 };

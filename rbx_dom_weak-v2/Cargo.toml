@@ -16,3 +16,8 @@ edition = "2018"
 
 [dependencies]
 rbx_types = { path = "../rbx_types" }
+
+serde = "1.0.106"
+
+[dev-dependencies]
+insta = "0.16.0"
