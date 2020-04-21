@@ -21,7 +21,7 @@ mod physical_properties;
 mod ray;
 mod rect;
 mod referent;
-// mod shared_string;
+mod shared_string;
 mod strings;
 mod udims;
 mod vectors;
@@ -30,8 +30,8 @@ use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
     BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue, NumberRange,
-    NumberSequence, PhysicalProperties, Ray, Rect, Ref, Variant, Vector2, Vector2int16, Vector3,
-    Vector3int16,
+    NumberSequence, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, Vector2,
+    Vector2int16, Vector3, Vector3int16,
 };
 
 use crate::{
@@ -43,7 +43,10 @@ use crate::{
     serializer_core::XmlEventWriter,
 };
 
-use self::referent::{read_ref, write_ref};
+use self::{
+    referent::{read_ref, write_ref},
+    shared_string::{read_shared_string, write_shared_string},
+};
 
 /// The `declare_rbx_types` macro generates the two big match statements that
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
@@ -67,7 +70,7 @@ macro_rules! declare_rbx_types {
                 // self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
 
                 self::referent::XML_TAG_NAME => Ok(Variant::Ref(read_ref(reader, instance_id, property_name, state)?)),
-                // self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state),
+                self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state),
 
                 _ => {
                     Err(reader.error(DecodeErrorKind::UnknownPropertyType(xml_type_name.to_owned())))
@@ -92,7 +95,7 @@ macro_rules! declare_rbx_types {
                 //     self::numbers::Int32Type::write_xml(writer, xml_property_name, &(*value as i32)),
 
                 Variant::Ref(value) => write_ref(writer, xml_property_name, *value, state),
-                // Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
+                Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.ty())))
@@ -121,8 +124,8 @@ declare_rbx_types! {
     PhysicalProperties: PhysicalProperties,
     Ray: Ray,
     Rect: Rect,
-    // self::udims::UDim2Type => UDim2,
-    // self::udims::UDimType => UDim,
+    UDim2: UDim2,
+    UDim: UDim,
     Vector2: Vector2,
     Vector2int16: Vector2int16,
     Vector3: Vector3,

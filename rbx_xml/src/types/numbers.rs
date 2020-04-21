@@ -74,8 +74,6 @@ int_type!(i16, "<NOT A REAL TYPE>");
 
 #[cfg(test)]
 mod test {
-    use super::*;
-
     use crate::{core::XmlType, deserializer_core::XmlEventReader, test_util};
 
     #[test]

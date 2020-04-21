@@ -66,6 +66,11 @@ impl SharedString {
     pub fn data(&self) -> &[u8] {
         &self.data.as_ref().unwrap()
     }
+
+    #[inline]
+    pub fn hash(&self) -> SharedStringHash {
+        SharedStringHash(self.hash)
+    }
 }
 
 impl PartialEq for SharedString {
@@ -102,6 +107,16 @@ impl Drop for SharedString {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct SharedStringHash(Hash);
+
+impl SharedStringHash {
+    #[inline]
+    pub fn as_bytes(&self) -> &[u8] {
+        self.0.as_bytes().as_ref()
+    }
+}
+
 #[cfg(feature = "serde")]
 mod serde_impl {
     use super::*;
@@ -109,7 +124,7 @@ mod serde_impl {
     use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
     // Mock implementations of traits to get things compiling. We'll need to
-    // decide how to actuall serialize SharedString at some point.
+    // decide how to actually serialize SharedString at some point.
 
     impl Serialize for SharedString {
         fn serialize<S: Serializer>(&self, _serializer: S) -> Result<S::Ok, S::Error> {

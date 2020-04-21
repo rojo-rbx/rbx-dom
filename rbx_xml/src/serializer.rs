@@ -1,7 +1,7 @@
 use std::{borrow::Cow, collections::HashMap, io::Write};
 
 use rbx_dom_weak::{
-    types::{Ref, SharedString, Variant, VariantType},
+    types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
     WeakDom,
 };
 use rbx_reflection::DataType;
@@ -118,7 +118,7 @@ pub struct EmitState {
 
     /// A map of all shared strings referenced so far while generating XML. This
     /// map will be written as the file's SharedString dictionary.
-    shared_strings_to_emit: HashMap<[u8; 16], SharedString>,
+    shared_strings_to_emit: HashMap<SharedStringHash, SharedString>,
 }
 
 impl EmitState {
@@ -144,8 +144,7 @@ impl EmitState {
     }
 
     pub fn add_shared_string(&mut self, value: SharedString) {
-        // FIXME
-        // self.shared_strings_to_emit.insert(value.md5_hash(), value);
+        self.shared_strings_to_emit.insert(value.hash(), value);
     }
 }
 
@@ -259,8 +258,7 @@ fn serialize_shared_strings<W: Write>(
     for value in state.shared_strings_to_emit.values() {
         writer.write(
             XmlWriteEvent::start_element("SharedString")
-                // FIXME
-                // .attr("md5", &base64::encode(&value.md5_hash())),
+                .attr("md5", &base64::encode(value.hash().as_bytes())),
         )?;
 
         writer.write_string(&base64::encode(value.data()))?;
