@@ -31,5 +31,6 @@ test_models! {
     ref_adjacent: "ref-adjacent",
     ref_child: "ref-child",
     ref_parent: "ref-parent",
+    body_movers: "body-movers",
     // default_inserted_modulescript: "default-inserted-modulescript",
 }

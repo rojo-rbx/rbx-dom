@@ -1,0 +1,129 @@
+---
+source: rbx_xml/tests/test-files.rs
+expression: viewer.view_children(&dom)
+---
+- referent: referent-0
+  name: BodyAngularVelocity
+  class: BodyAngularVelocity
+  properties:
+    AngularVelocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 2.0
+        - 0.0
+    MaxTorque:
+      Type: Vector3
+      Value:
+        - 4000.0
+        - 4000.0
+        - 4000.0
+    P:
+      Type: Float32
+      Value: 1250.0
+  children: []
+- referent: referent-1
+  name: BodyForce
+  class: BodyForce
+  properties:
+    Force:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 1.0
+        - 0.0
+  children: []
+- referent: referent-2
+  name: BodyGyro
+  class: BodyGyro
+  properties:
+    CFrame:
+      Type: CFrame
+      Value:
+        Position:
+          - 0.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    D:
+      Type: Float32
+      Value: 500.0
+    MaxTorque:
+      Type: Vector3
+      Value:
+        - 400000.0
+        - 0.0
+        - 400000.0
+    P:
+      Type: Float32
+      Value: 3000.0
+  children: []
+- referent: referent-3
+  name: BodyPosition
+  class: BodyPosition
+  properties:
+    D:
+      Type: Float32
+      Value: 1250.0
+    MaxForce:
+      Type: Vector3
+      Value:
+        - 4000.0
+        - 4000.0
+        - 4000.0
+    P:
+      Type: Float32
+      Value: 10000.0
+    Position:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 50.0
+        - 0.0
+  children: []
+- referent: referent-4
+  name: BodyThrust
+  class: BodyThrust
+  properties:
+    Force:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 1.0
+        - 0.0
+    Location:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+  children: []
+- referent: referent-5
+  name: BodyVelocity
+  class: BodyVelocity
+  properties:
+    MaxForce:
+      Type: Vector3
+      Value:
+        - 4000.0
+        - 4000.0
+        - 4000.0
+    P:
+      Type: Float32
+      Value: 1250.0
+    Velocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 2.0
+        - 0.0
+  children: []
