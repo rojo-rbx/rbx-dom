@@ -3,7 +3,7 @@ use std::{convert::TryFrom, fmt};
 #[cfg(test)]
 use serde::{Deserialize, Serialize};
 
-use rbx_dom_weak::RbxValueType;
+use rbx_dom_weak::types::VariantType;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
@@ -37,73 +37,73 @@ pub enum Type {
 }
 
 impl Type {
-    pub fn from_rbx_type(rbx_type: RbxValueType) -> Option<Type> {
+    pub fn from_rbx_type(rbx_type: VariantType) -> Option<Type> {
         Some(match rbx_type {
             // These types all serialize the same way in the binary format.
-            RbxValueType::String => Type::String,
-            RbxValueType::BinaryString => Type::String,
-            RbxValueType::Content => Type::String,
+            VariantType::String => Type::String,
+            VariantType::BinaryString => Type::String,
+            VariantType::Content => Type::String,
 
-            RbxValueType::Bool => Type::Bool,
-            RbxValueType::Int32 => Type::Int32,
-            RbxValueType::Float32 => Type::Float32,
-            RbxValueType::Float64 => Type::Float64,
-            RbxValueType::UDim => Type::UDim,
-            RbxValueType::UDim2 => Type::UDim2,
-            RbxValueType::Ray => Type::Ray,
+            VariantType::Bool => Type::Bool,
+            VariantType::Int32 => Type::Int32,
+            VariantType::Float32 => Type::Float32,
+            VariantType::Float64 => Type::Float64,
+            VariantType::UDim => Type::UDim,
+            VariantType::UDim2 => Type::UDim2,
+            VariantType::Ray => Type::Ray,
 
             // Types not supported in rbx_dom_weak yet:
-            // RbxValueType::Faces => Type::Faces,
-            // RbxValueType::Axis => Type::Axis,
-            RbxValueType::BrickColor => Type::BrickColor,
-            RbxValueType::Color3 => Type::Color3,
-            RbxValueType::Vector2 => Type::Vector2,
-            RbxValueType::Vector3 => Type::Vector3,
-            RbxValueType::CFrame => Type::CFrame,
-            RbxValueType::Enum => Type::Enum,
-            RbxValueType::Ref => Type::Ref,
-            RbxValueType::Vector3int16 => Type::Vector3int16,
-            RbxValueType::NumberSequence => Type::NumberSequence,
-            RbxValueType::ColorSequence => Type::ColorSequence,
-            RbxValueType::NumberRange => Type::NumberRange,
-            RbxValueType::Rect => Type::Rect,
-            RbxValueType::PhysicalProperties => Type::PhysicalProperties,
-            RbxValueType::Color3uint8 => Type::Color3uint8,
-            RbxValueType::Int64 => Type::Int64,
+            // VariantType::Faces => Type::Faces,
+            // VariantType::Axis => Type::Axis,
+            VariantType::BrickColor => Type::BrickColor,
+            VariantType::Color3 => Type::Color3,
+            VariantType::Vector2 => Type::Vector2,
+            VariantType::Vector3 => Type::Vector3,
+            VariantType::CFrame => Type::CFrame,
+            VariantType::EnumValue => Type::Enum,
+            VariantType::Ref => Type::Ref,
+            VariantType::Vector3int16 => Type::Vector3int16,
+            VariantType::NumberSequence => Type::NumberSequence,
+            VariantType::ColorSequence => Type::ColorSequence,
+            VariantType::NumberRange => Type::NumberRange,
+            VariantType::Rect => Type::Rect,
+            VariantType::PhysicalProperties => Type::PhysicalProperties,
+            VariantType::Color3uint8 => Type::Color3uint8,
+            VariantType::Int64 => Type::Int64,
 
             _ => return None,
         })
     }
 
-    pub fn to_default_rbx_type(&self) -> Option<RbxValueType> {
+    pub fn to_default_rbx_type(&self) -> Option<VariantType> {
         Some(match self {
             // Since many buffers aren't going to be valid UTF-8, it's safer to
             // pick BinaryString for unknown property types instead of String.
-            Type::String => RbxValueType::BinaryString,
-            Type::Bool => RbxValueType::Bool,
-            Type::Int32 => RbxValueType::Int32,
-            Type::Float32 => RbxValueType::Float32,
-            Type::Float64 => RbxValueType::Float64,
-            Type::UDim => RbxValueType::UDim,
-            Type::UDim2 => RbxValueType::UDim2,
-            Type::Ray => RbxValueType::Ray,
+            Type::String => VariantType::BinaryString,
+            Type::Bool => VariantType::Bool,
+            Type::Int32 => VariantType::Int32,
+            Type::Float32 => VariantType::Float32,
+            Type::Float64 => VariantType::Float64,
+            Type::UDim => VariantType::UDim,
+            Type::UDim2 => VariantType::UDim2,
+            Type::Ray => VariantType::Ray,
             Type::Faces => return None,
             Type::Axis => return None,
-            Type::BrickColor => RbxValueType::BrickColor,
-            Type::Color3 => RbxValueType::Color3,
-            Type::Vector2 => RbxValueType::Vector2,
-            Type::Vector3 => RbxValueType::Vector3,
-            Type::CFrame => RbxValueType::CFrame,
-            Type::Enum => RbxValueType::Enum,
-            Type::Ref => RbxValueType::Ref,
-            Type::Vector3int16 => RbxValueType::Vector3int16,
-            Type::NumberSequence => RbxValueType::NumberSequence,
-            Type::ColorSequence => RbxValueType::ColorSequence,
-            Type::NumberRange => RbxValueType::NumberRange,
-            Type::Rect => RbxValueType::Rect,
-            Type::PhysicalProperties => RbxValueType::PhysicalProperties,
-            Type::Color3uint8 => RbxValueType::Color3uint8,
-            Type::Int64 => RbxValueType::Int64,
+            Type::BrickColor => VariantType::BrickColor,
+            Type::Color3 => VariantType::Color3,
+            Type::Vector2 => VariantType::Vector2,
+            Type::Vector3 => VariantType::Vector3,
+            Type::CFrame => VariantType::CFrame,
+            Type::Enum => VariantType::EnumValue,
+            Type::Ref => VariantType::Ref,
+            Type::Vector3int16 => VariantType::Vector3int16,
+            Type::NumberSequence => VariantType::NumberSequence,
+            Type::ColorSequence => VariantType::ColorSequence,
+            Type::NumberRange => VariantType::NumberRange,
+            Type::Rect => VariantType::Rect,
+            Type::PhysicalProperties => VariantType::PhysicalProperties,
+            Type::Color3uint8 => VariantType::Color3uint8,
+            Type::Int64 => VariantType::Int64,
         })
     }
 }

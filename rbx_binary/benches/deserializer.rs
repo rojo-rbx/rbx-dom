@@ -1,7 +1,5 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
-
 pub fn de_folders_100(c: &mut Criterion) {
     static BUFFER: &[u8] = include_bytes!("../bench-files/folders-100.rbxm");
 
@@ -34,14 +32,7 @@ pub fn de_modulescripts_100_lines_100(c: &mut Criterion) {
 
 #[inline(always)]
 fn deserialize_bench(buffer: &[u8]) {
-    let mut tree = RbxTree::new(RbxInstanceProperties {
-        name: String::new(),
-        class_name: String::new(),
-        properties: Default::default(),
-    });
-    let root_id = tree.get_root_id();
-
-    rbx_binary::decode(&mut tree, root_id, buffer).unwrap();
+    rbx_binary::decode(buffer).unwrap();
 }
 
 criterion_group!(

@@ -1,35 +1,27 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use rbx_dom_weak::{RbxInstanceProperties, RbxTree};
+use rbx_dom_weak::{InstanceBuilder, WeakDom};
 
 pub fn ser_folders_100(c: &mut Criterion) {
-    let mut tree = RbxTree::new(RbxInstanceProperties {
-        name: "Container".to_owned(),
-        class_name: "Folder".to_owned(),
-        properties: Default::default(),
-    });
-    let root_id = tree.get_root_id();
+    let mut tree = WeakDom::new(InstanceBuilder::new("Folder").with_name("Container"));
+    let root_ref = tree.root_ref();
 
     for i in 0..99 {
-        tree.insert_instance(
-            RbxInstanceProperties {
-                name: format!("Folder {}", i),
-                class_name: "Folder".to_owned(),
-                properties: Default::default(),
-            },
-            root_id,
+        tree.insert(
+            root_ref,
+            InstanceBuilder::new("Folder").with_name(format!("Folder {}", i)),
         );
     }
 
     let mut buffer = Vec::new();
 
     // Encode once into the buffer to pre-size it.
-    rbx_binary::encode(&tree, &[root_id], &mut buffer).unwrap();
+    rbx_binary::encode(&tree, &[root_ref], &mut buffer).unwrap();
     buffer.clear();
 
     c.bench_function("Serialize 100 Folders", |b| {
         b.iter(|| {
-            rbx_binary::encode(&tree, &[root_id], &mut buffer).unwrap();
+            rbx_binary::encode(&tree, &[root_ref], &mut buffer).unwrap();
             buffer.clear();
         });
     });

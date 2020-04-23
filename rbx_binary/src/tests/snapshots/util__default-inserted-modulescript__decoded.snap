@@ -2,9 +2,9 @@
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
-- id: id-0
+- referent: referent-0
   name: ModuleScript
-  class_name: ModuleScript
+  class: ModuleScript
   properties:
     AttributesSerialize:
       Type: BinaryString

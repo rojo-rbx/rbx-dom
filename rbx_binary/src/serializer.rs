@@ -1,13 +1,16 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, HashMap},
+    collections::{BTreeMap, HashMap, VecDeque},
     io::{self, Write},
     u32,
 };
 
 use byteorder::{LittleEndian, WriteBytesExt};
-use rbx_dom_weak::{RbxId, RbxTree, RbxValue, RbxValueType};
-use rbx_reflection::{RbxClassDescriptor, RbxPropertyTypeDescriptor};
+use rbx_dom_weak::{
+    types::{BinaryString, Ref, Variant, VariantType},
+    WeakDom,
+};
+use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
 use snafu::Snafu;
 
 use crate::{
@@ -64,8 +67,11 @@ enum InnerError {
         prop_type: String,
     },
 
-    #[snafu(display("The instance with ID {} was not present in the tree.", id))]
-    InvalidInstanceId { id: RbxId },
+    #[snafu(display(
+        "The instance with referent {:?} was not present in the dom.",
+        referent
+    ))]
+    InvalidInstanceId { referent: Ref },
 }
 
 impl From<io::Error> for InnerError {
@@ -74,14 +80,12 @@ impl From<io::Error> for InnerError {
     }
 }
 
-/// Serializes instances from an `RbxTree` into a writer in Roblox's binary
+/// Serializes instances from an `WeakDom` into a writer in Roblox's binary
 /// model format.
-pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], writer: W) -> Result<(), Error> {
-    let mut serializer = BinarySerializer::new(tree, writer);
+pub fn encode<W: Write>(dom: &WeakDom, refs: &[Ref], writer: W) -> Result<(), Error> {
+    let mut serializer = BinarySerializer::new(dom, writer);
 
-    for id in ids {
-        serializer.add_instance(*id)?;
-    }
+    serializer.add_instances(refs)?;
 
     log::debug!("Type info discovered: {:#?}", serializer.type_infos);
 
@@ -103,19 +107,19 @@ pub fn encode<W: Write>(tree: &RbxTree, ids: &[RbxId], writer: W) -> Result<(), 
 /// `BinarySerializer` object should be created every time we want to serialize
 /// a binary model file.
 struct BinarySerializer<'a, W> {
-    /// The tree containing all of the instances that we're serializing.
-    tree: &'a RbxTree,
+    /// The dom containing all of the instances that we're serializing.
+    dom: &'a WeakDom,
 
     /// Where the binary output should be written.
     output: W,
 
     /// All of the instances, in a deterministic order, that we're going to be
     /// serializing.
-    relevant_instances: Vec<RbxId>,
+    relevant_instances: Vec<Ref>,
 
-    /// A map from rbx-dom's unique instance ID (RbxId) to the ID space used in
+    /// A map from rbx-dom's unique instance ID (Ref) to the ID space used in
     /// the binary model format, signed integers.
-    id_to_referent: HashMap<RbxId, i32>,
+    id_to_referent: HashMap<Ref, i32>,
 
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
@@ -142,7 +146,7 @@ struct TypeInfo {
     is_service: bool,
 
     /// The IDs of all of the instances of this type.
-    object_ids: Vec<RbxId>,
+    object_refs: Vec<Ref>,
 
     /// All of the defined properties for this type found on any instance of
     /// this type.
@@ -153,19 +157,19 @@ struct TypeInfo {
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
-    class_descriptor: Option<&'static RbxClassDescriptor>,
+    class_descriptor: Option<&'static ClassDescriptor<'static>>,
 }
 
 #[derive(Debug)]
 struct PropInfo {
     prop_type: Type,
-    default_value: Cow<'static, RbxValue>,
+    default_value: Cow<'static, Variant>,
 }
 
 impl<'a, W: Write> BinarySerializer<'a, W> {
-    fn new(tree: &'a RbxTree, output: W) -> Self {
+    fn new(dom: &'a WeakDom, output: W) -> Self {
         BinarySerializer {
-            tree,
+            dom,
             output,
             relevant_instances: Vec::new(),
             id_to_referent: HashMap::new(),
@@ -174,15 +178,19 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         }
     }
 
-    /// Mark the given instance ID and all of its descendants as intended for
+    /// Mark the given instance IDs and all of their descendants as intended for
     /// serialization with this serializer.
-    fn add_instance(&mut self, id: RbxId) -> Result<(), InnerError> {
-        self.relevant_instances.push(id);
-        self.collect_type_info(id)?;
+    fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
+        let mut to_visit = VecDeque::new();
+        to_visit.extend(referents);
 
-        for descendant in self.tree.descendants(id) {
-            self.relevant_instances.push(descendant.get_id());
-            self.collect_type_info(descendant.get_id())?;
+        while let Some(referent) = to_visit.pop_front() {
+            self.relevant_instances.push(referent);
+            self.collect_type_info(referent)?;
+
+            // TODO: Turn into error
+            let instance = self.dom.get_by_ref(referent).unwrap();
+            to_visit.extend(instance.children());
         }
 
         Ok(())
@@ -190,53 +198,53 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Collect information about all the different types of instance and their
     /// properties.
-    fn collect_type_info(&mut self, id: RbxId) -> Result<(), InnerError> {
+    fn collect_type_info(&mut self, referent: Ref) -> Result<(), InnerError> {
         let instance = self
-            .tree
-            .get_instance(id)
-            .ok_or_else(|| InnerError::InvalidInstanceId { id })?;
+            .dom
+            .get_by_ref(referent)
+            .ok_or_else(|| InnerError::InvalidInstanceId { referent })?;
 
-        let type_info = self.get_or_create_type_info(&instance.class_name);
-        type_info.object_ids.push(id);
+        let type_info = self.get_or_create_type_info(&instance.class);
+        type_info.object_refs.push(referent);
 
         for (prop_name, prop_value) in &instance.properties {
             let ser_name;
             let ser_rbx_type;
 
-            match find_serialized_property_descriptor(&instance.class_name, prop_name) {
+            match find_serialized_property_descriptor(&instance.class, prop_name) {
                 Some(descriptor) => {
-                    ser_name = descriptor.name();
-                    ser_rbx_type = match descriptor.property_type() {
-                        RbxPropertyTypeDescriptor::Data(ty) => *ty,
-                        RbxPropertyTypeDescriptor::Enum(_) => RbxValueType::Enum,
-                        RbxPropertyTypeDescriptor::UnimplementedType(name) => {
-                            // This type wasn't implemented by rbx_dom_weak at
-                            // the time that our reflection database was
-                            // generated.
-                            return Err(InnerError::UnsupportedPropType {
-                                type_name: instance.class_name.clone(),
-                                prop_name: prop_name.clone(),
-                                prop_type: name.to_string(),
-                            });
+                    ser_name = descriptor.name.as_ref();
+                    ser_rbx_type = match &descriptor.data_type {
+                        DataType::Value(ty) => *ty,
+                        DataType::Enum(_) => VariantType::EnumValue,
+                        _ => {
+                            // rbx_binary is not new enough to handle this kind
+                            // of property, whatever it is.
+                            panic!("Unsupported property type");
                         }
                     };
                 }
                 None => {
                     ser_name = prop_name.as_str();
-                    ser_rbx_type = prop_value.get_type();
+                    ser_rbx_type = prop_value.ty();
                 }
             }
 
             if !type_info.properties.contains_key(ser_name) {
                 let default_value = type_info
                     .class_descriptor
-                    .and_then(|class| class.get_default_value(prop_name).map(Cow::Borrowed))
+                    .and_then(|class| {
+                        class
+                            .default_properties
+                            .get(prop_name.as_str())
+                            .map(Cow::Borrowed)
+                    })
                     .or_else(|| Self::fallback_default_value(ser_rbx_type).map(Cow::Owned))
                     .ok_or_else(|| {
                         // Since we don't know how to generate the default value for
                         // this property, we consider it unsupported.
                         InnerError::UnsupportedPropType {
-                            type_name: instance.class_name.clone(),
+                            type_name: instance.class.clone(),
                             prop_name: prop_name.clone(),
                             prop_type: format!("{:?}", ser_rbx_type),
                         }
@@ -247,7 +255,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     // binary type value for it. rbx_binary might be out of
                     // date?
                     InnerError::UnsupportedPropType {
-                        type_name: instance.class_name.clone(),
+                        type_name: instance.class.clone(),
                         prop_name: prop_name.clone(),
                         prop_type: format!("{:?}", ser_rbx_type),
                     }
@@ -268,18 +276,18 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Finds the type info from the given class name if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create_type_info(&mut self, class_name: &str) -> &mut TypeInfo {
-        if !self.type_infos.contains_key(class_name) {
+    fn get_or_create_type_info(&mut self, class: &str) -> &mut TypeInfo {
+        if !self.type_infos.contains_key(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let class_descriptor = rbx_reflection::get_class_descriptor(class_name);
+            let class_descriptor = rbx_reflection_database::get().classes.get(class);
 
             let is_service;
             if let Some(descriptor) = &class_descriptor {
-                is_service = descriptor.is_service();
+                is_service = descriptor.tags.contains(&ClassTag::Service);
             } else {
-                log::info!("The class {} is not known to rbx_binary", class_name);
+                log::info!("The class {} is not known to rbx_binary", class);
                 is_service = false;
             };
 
@@ -296,18 +304,16 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 "Name".to_owned(),
                 PropInfo {
                     prop_type: Type::String,
-                    default_value: Cow::Owned(RbxValue::String {
-                        value: String::new(),
-                    }),
+                    default_value: Cow::Owned(Variant::String(String::new())),
                 },
             );
 
             self.type_infos.insert(
-                class_name.to_owned(),
+                class.to_owned(),
                 TypeInfo {
                     type_id,
                     is_service,
-                    object_ids: Vec::new(),
+                    object_refs: Vec::new(),
                     properties,
                     class_descriptor,
                 },
@@ -316,7 +322,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
         // This unwrap will not panic because we always insert this key into
         // type_infos in this function.
-        self.type_infos.get_mut(class_name).unwrap()
+        self.type_infos.get_mut(class).unwrap()
     }
 
     /// Populate the map from rbx-dom's instance ID space to the IDs that we'll
@@ -351,7 +357,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write out any metadata about this file, stored in a chunk named META.
     fn serialize_metadata(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing metadata (currently no-op)");
-        // TODO: There is no concept of metadata in a tree yet.
+        // TODO: There is no concept of metadata in a dom yet.
         Ok(())
     }
 
@@ -364,7 +370,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             log::trace!(
                 "Writing chunk for {} ({} instances)",
                 type_name,
-                type_info.object_ids.len()
+                type_info.object_refs.len()
             );
 
             let mut chunk = ChunkBuilder::new(b"INST", ChunkCompression::Compressed);
@@ -380,11 +386,11 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             // instead of a bool.
             chunk.write_bool(type_info.is_service)?;
 
-            chunk.write_u32::<LittleEndian>(type_info.object_ids.len() as u32)?;
+            chunk.write_u32::<LittleEndian>(type_info.object_refs.len() as u32)?;
 
             chunk.write_referents(
                 type_info
-                    .object_ids
+                    .object_refs
                     .iter()
                     .map(|id| self.id_to_referent[id]),
             )?;
@@ -397,7 +403,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 // In 99.9% of cases, there's only going to be one copy of a
                 // given service, so we're not worried about doing this super
                 // efficiently.
-                for _ in 0..type_info.object_ids.len() {
+                for _ in 0..type_info.object_refs.len() {
                     chunk.write_u8(1)?;
                 }
             }
@@ -429,23 +435,21 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 chunk.write_string(&prop_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
-                let tree = &self.tree;
+                let dom = &self.dom;
                 let values = type_info
-                    .object_ids
+                    .object_refs
                     .iter()
                     .map(|id| {
                         // This unwrap will not panic because we uphold the
-                        // invariant that any ID in object_ids must be part of
-                        // this tree.
-                        let instance = tree.get_instance(*id).unwrap();
+                        // invariant that any ID in object_refs must be part of
+                        // this dom.
+                        let instance = dom.get_by_ref(*id).unwrap();
 
                         // We store the Name property in a different field for
                         // convenience, but when serializing to the binary model
                         // format we need to handle it just like other properties.
                         if prop_name == "Name" {
-                            Cow::Owned(RbxValue::String {
-                                value: instance.name.clone(),
-                            })
+                            Cow::Owned(Variant::String(instance.name.clone()))
                         } else {
                             instance
                                 .properties
@@ -459,13 +463,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 // Helper to generate a type mismatch error with context from
                 // this chunk.
                 let type_mismatch =
-                    |i: usize, bad_value: &RbxValue, valid_type_names: &'static str| {
+                    |i: usize, bad_value: &Variant, valid_type_names: &'static str| {
                         Err(InnerError::PropTypeMismatch {
                             type_name: type_name.clone(),
                             prop_name: prop_name.clone(),
                             valid_type_names,
-                            actual_type_name: format!("{:?}", bad_value.get_type()),
-                            instance_full_name: self.full_name_for(type_info.object_ids[i]),
+                            actual_type_name: format!("{:?}", bad_value.ty()),
+                            instance_full_name: self.full_name_for(type_info.object_refs[i]),
                         })
                     };
 
@@ -473,14 +477,14 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     Type::String => {
                         for (i, rbx_value) in values {
                             match rbx_value.as_ref() {
-                                RbxValue::String { value } => {
+                                Variant::String(value) => {
                                     chunk.write_string(&value)?;
                                 }
-                                RbxValue::Content { value } => {
-                                    chunk.write_string(&value)?;
+                                Variant::Content(value) => {
+                                    chunk.write_string(value.as_ref())?;
                                 }
-                                RbxValue::BinaryString { value } => {
-                                    chunk.write_binary_string(&value)?;
+                                Variant::BinaryString(value) => {
+                                    chunk.write_binary_string(value.as_ref())?;
                                 }
                                 _ => {
                                     return type_mismatch(
@@ -495,7 +499,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     Type::Bool => {
                         for (i, rbx_value) in values {
                             match rbx_value.as_ref() {
-                                RbxValue::Bool { value } => {
+                                Variant::Bool(value) => {
                                     chunk.write_bool(*value)?;
                                 }
                                 _ => {
@@ -536,13 +540,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             .map(|id| self.id_to_referent[id]);
 
         let parent_referents = self.relevant_instances.iter().map(|id| {
-            let instance = self.tree.get_instance(*id).unwrap();
+            let instance = self.dom.get_by_ref(*id).unwrap();
 
             // If there's no parent set OR our parent is not one of the
             // instances we're serializing, we use -1 to represent a null
             // parent.
             instance
-                .get_parent_id()
+                .parent()
                 .and_then(|parent_id| self.id_to_referent.get(&parent_id).cloned())
                 .unwrap_or(-1)
         });
@@ -569,14 +573,14 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     }
 
     /// Equivalent to Instance:GetFullName() from Roblox.
-    fn full_name_for(&self, subject_id: RbxId) -> String {
+    fn full_name_for(&self, subject_ref: Ref) -> String {
         let mut components = Vec::new();
-        let mut current_id = Some(subject_id);
+        let mut current_id = Some(subject_ref);
 
         while let Some(id) = current_id {
-            let instance = self.tree.get_instance(id).unwrap();
+            let instance = self.dom.get_by_ref(id).unwrap();
             components.push(instance.name.as_str());
-            current_id = instance.get_parent_id();
+            current_id = instance.parent();
         }
 
         let mut name = String::new();
@@ -589,13 +593,11 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         name
     }
 
-    fn fallback_default_value(rbx_type: RbxValueType) -> Option<RbxValue> {
+    fn fallback_default_value(rbx_type: VariantType) -> Option<Variant> {
         Some(match rbx_type {
-            RbxValueType::String => RbxValue::String {
-                value: String::new(),
-            },
-            RbxValueType::BinaryString => RbxValue::BinaryString { value: Vec::new() },
-            RbxValueType::Bool => RbxValue::Bool { value: false },
+            VariantType::String => Variant::String(String::new()),
+            VariantType::BinaryString => Variant::BinaryString(BinaryString::new()),
+            VariantType::Bool => Variant::Bool(false),
             _ => return None,
         })
     }

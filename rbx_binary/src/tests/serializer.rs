@@ -1,15 +1,17 @@
-use rbx_dom_test::InstanceBuilder;
-use rbx_dom_weak::{RbxId, RbxValue};
+use rbx_dom_weak::{
+    types::{Ref, UDim},
+    InstanceBuilder, WeakDom,
+};
 
 use crate::{encode, text_deserializer::DecodedModel};
 
 /// A basic test to make sure we can serialize the simplest instance: a Folder.
 #[test]
 fn just_folder() {
-    let tree = InstanceBuilder::new("Folder").build();
+    let tree = WeakDom::new(InstanceBuilder::new("Folder"));
     let mut buffer = Vec::new();
 
-    encode(&tree, &[tree.get_root_id()], &mut buffer).expect("failed to encode model");
+    encode(&tree, &[tree.root_ref()], &mut buffer).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -19,27 +21,17 @@ fn just_folder() {
 /// without will correctly fall back to (some) default value.
 #[test]
 fn partially_present() {
-    let tree = InstanceBuilder::new("Folder")
-        .children(vec![
-            // This instance's `Value` property should be preserved.
-            InstanceBuilder::new("StringValue").property(
-                "Value",
-                RbxValue::String {
-                    value: "Hello".to_string(),
-                },
-            ),
-            // This instance's `Value` property should be the empty string.
-            InstanceBuilder::new("StringValue"),
-        ])
-        .build();
+    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children(vec![
+        // This instance's `Value` property should be preserved.
+        InstanceBuilder::new("StringValue").with_property("Value", "Hello"),
+        // This instance's `Value` property should be the empty string.
+        InstanceBuilder::new("StringValue"),
+    ]));
 
-    let root_ids = tree
-        .get_instance(tree.get_root_id())
-        .unwrap()
-        .get_children_ids();
+    let root_refs = tree.root().children();
 
     let mut buffer = Vec::new();
-    encode(&tree, root_ids, &mut buffer).expect("failed to encode model");
+    encode(&tree, root_refs, &mut buffer).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -48,17 +40,11 @@ fn partially_present() {
 /// Ensures that unknown properties get serialized on instances.
 #[test]
 fn unknown_property() {
-    let tree = InstanceBuilder::new("Folder")
-        .property(
-            "WILL_NEVER_EXIST",
-            RbxValue::String {
-                value: "Hi, mom!".to_owned(),
-            },
-        )
-        .build();
+    let tree =
+        WeakDom::new(InstanceBuilder::new("Folder").with_property("WILL_NEVER_EXIST", "Hi, mom!"));
 
     let mut buffer = Vec::new();
-    encode(&tree, &[tree.get_root_id()], &mut buffer).expect("failed to encode model");
+    encode(&tree, &[tree.root_ref()], &mut buffer).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -70,12 +56,12 @@ fn unknown_property() {
 /// This test will need to be updated once we implement the type used here.
 #[test]
 fn unimplemented_type_known_property() {
-    let tree = InstanceBuilder::new("UIListLayout")
-        .property("Padding", RbxValue::UDim { value: (1.0, -30) })
-        .build();
+    let tree = WeakDom::new(
+        InstanceBuilder::new("UIListLayout").with_property("Padding", UDim::new(1.0, -30)),
+    );
 
     let mut buffer = Vec::new();
-    let result = encode(&tree, &[tree.get_root_id()], &mut buffer);
+    let result = encode(&tree, &[tree.root_ref()], &mut buffer);
 
     assert!(result.is_err());
 }
@@ -89,12 +75,12 @@ fn unimplemented_type_known_property() {
 /// This test will need to be updated once we implement the type used here.
 #[test]
 fn unimplemented_type_unknown_property() {
-    let tree = InstanceBuilder::new("Folder")
-        .property("WILL_NEVER_EXIST", RbxValue::UDim { value: (0.0, 50) })
-        .build();
+    let tree = WeakDom::new(
+        InstanceBuilder::new("Folder").with_property("WILL_NEVER_EXIST", UDim::new(0.0, 50)),
+    );
 
     let mut buffer = Vec::new();
-    let result = encode(&tree, &[tree.get_root_id()], &mut buffer);
+    let result = encode(&tree, &[tree.root_ref()], &mut buffer);
 
     assert!(result.is_err());
 }
@@ -103,10 +89,10 @@ fn unimplemented_type_unknown_property() {
 /// it an ID not present in the tree.
 #[test]
 fn unknown_id() {
-    let tree = InstanceBuilder::new("Folder").build();
+    let tree = WeakDom::new(InstanceBuilder::new("Folder"));
 
     let mut buffer = Vec::new();
-    let result = encode(&tree, &[RbxId::new()], &mut buffer);
+    let result = encode(&tree, &[Ref::new()], &mut buffer);
 
     assert!(result.is_err());
 }
