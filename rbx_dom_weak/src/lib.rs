@@ -7,7 +7,7 @@
 //! wrapping it with an [`WeakDom`]:
 //!
 //! ```
-//! use rbx_dom_weak2::{InstanceBuilder, WeakDom};
+//! use rbx_dom_weak::{InstanceBuilder, WeakDom};
 //!
 //! let dm = InstanceBuilder::new("DataModel");
 //!
@@ -20,7 +20,7 @@
 //! [`WeakDom::get_by_ref`] to add instances to the tree and retrieve them.
 //!
 //! ```
-//! use rbx_dom_weak2::{InstanceBuilder, WeakDom};
+//! use rbx_dom_weak::{InstanceBuilder, WeakDom};
 //!
 //! let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
 //!

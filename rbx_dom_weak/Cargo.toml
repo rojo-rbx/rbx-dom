@@ -1,9 +1,5 @@
 [package]
-name = "rbx_dom_weak2"
-
-# Don't publish before this crate is renamed back over rbx_dom_weak!
-publish = false
-
+name = "rbx_dom_weak"
 description = "Weakly-typed Roblox DOM implementation for Rust"
 version = "2.0.0-dev"
 license = "MIT"
