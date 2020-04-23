@@ -74,7 +74,7 @@ impl WeakDom {
             referent,
             Instance {
                 referent,
-                children: Vec::new(),
+                children: Vec::with_capacity(builder.children.len()),
                 parent: parent_ref,
                 name: builder.name,
                 class: builder.class,
