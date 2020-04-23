@@ -1,12 +1,7 @@
-[patch.crates-io]
-rbx_dom_weak = { path = "rbx_dom_weak" }
-
 [workspace]
 members = [
 	"generate_reflection",
 	"rbx_binary",
-	"rbx_dom_test",
-	"rbx_dom_weak",
 	"rbx_dom_weak-v2",
 	"rbx_reflection",
 	"rbx_reflection_database",

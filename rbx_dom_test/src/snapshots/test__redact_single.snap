@@ -1,9 +1,0 @@
----
-source: test_util/src/lib.rs
-expression: "view_tree(&tree, tree.get_root_id())"
----
-id: id-0
-name: Root
-class_name: Folder
-properties: {}
-children: []
