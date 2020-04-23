@@ -28,7 +28,7 @@ impl WeakDom {
             Instance {
                 referent: root_ref,
                 children: Vec::new(),
-                parent: None,
+                parent: Ref::none(),
                 name: builder.name,
                 class: builder.class,
                 properties: builder.properties,
@@ -75,7 +75,7 @@ impl WeakDom {
             Instance {
                 referent,
                 children: Vec::new(),
-                parent: Some(parent_ref),
+                parent: parent_ref,
                 name: builder.name,
                 class: builder.class,
                 properties: builder.properties,
@@ -97,7 +97,9 @@ impl WeakDom {
     }
 
     pub fn destroy(&mut self, referent: Ref) {
-        if let Some(parent) = self.instances[&referent].parent {
+        let parent = self.instances[&referent].parent;
+
+        if parent.is_some() {
             let parent = self.instances.get_mut(&parent).unwrap();
             parent.children.retain(|&child| child != referent);
         }

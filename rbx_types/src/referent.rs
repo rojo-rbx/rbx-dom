@@ -17,6 +17,12 @@ impl Ref {
         Ref(None)
     }
 
+    /// Tells whether this `Ref` points to something.
+    #[inline]
+    pub fn is_some(&self) -> bool {
+        self.0.is_some()
+    }
+
     /// Tells whether this `Ref` points to nothing.
     #[inline]
     pub fn is_none(&self) -> bool {

@@ -65,7 +65,7 @@ impl InstanceBuilder {
 pub struct Instance {
     pub(crate) referent: Ref,
     pub(crate) children: Vec<Ref>,
-    pub(crate) parent: Option<Ref>,
+    pub(crate) parent: Ref,
 
     pub name: String,
     pub class: String,
@@ -81,7 +81,7 @@ impl Instance {
         &self.children
     }
 
-    pub fn parent(&self) -> Option<Ref> {
+    pub fn parent(&self) -> Ref {
         self.parent
     }
 }

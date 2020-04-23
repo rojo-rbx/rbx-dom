@@ -545,10 +545,14 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             // If there's no parent set OR our parent is not one of the
             // instances we're serializing, we use -1 to represent a null
             // parent.
-            instance
-                .parent()
-                .and_then(|parent_id| self.id_to_referent.get(&parent_id).cloned())
-                .unwrap_or(-1)
+            if instance.parent().is_some() {
+                self.id_to_referent
+                    .get(&instance.parent())
+                    .cloned()
+                    .unwrap_or(-1)
+            } else {
+                -1
+            }
         });
 
         chunk.write_referents(object_referents)?;
@@ -575,10 +579,10 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Equivalent to Instance:GetFullName() from Roblox.
     fn full_name_for(&self, subject_ref: Ref) -> String {
         let mut components = Vec::new();
-        let mut current_id = Some(subject_ref);
+        let mut current_id = subject_ref;
 
-        while let Some(id) = current_id {
-            let instance = self.dom.get_by_ref(id).unwrap();
+        while current_id.is_some() {
+            let instance = self.dom.get_by_ref(current_id).unwrap();
             components.push(instance.name.as_str());
             current_id = instance.parent();
         }
