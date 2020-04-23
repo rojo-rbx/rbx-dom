@@ -21,11 +21,7 @@ Weakly-typed Roblox DOM implementation. Defines types for representing instances
 [![rbx_types on crates.io](https://img.shields.io/crates/v/rbx_types.svg)](https://crates.io/crates/rbx_types)
 [![rbx_types docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_types)
 
-Contains Roblox's value types like `Vector3` and `NumberSequence`. Will be used by crates like rbx_dom_weak and a future rbx_dom_strong crate to let them share types and conversions.
-
-## [rbx_dom_lua](rbx_dom_lua)
-
-Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside Roblox. Uses a data format that's compatible with rbx_dom_weak to facilitate communication with applications outside Roblox about instances.
+Contains Roblox's value types like `Vector3` and `NumberSequence`. Used by crates like rbx_dom_weak and a future rbx_dom_strong crate to let them share types and conversions.
 
 ## [rbx_xml](rbx_xml)
 [![rbx_xml on crates.io](https://img.shields.io/crates/v/rbx_xml.svg)](https://crates.io/crates/rbx_xml)
@@ -43,13 +39,23 @@ Serializer and deserializer for for Roblox's binary model and place formats, `rb
 [![rbx_reflection on crates.io](https://img.shields.io/crates/v/rbx_reflection.svg)](https://crates.io/crates/rbx_reflection)
 [![rbx_reflection docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_reflection)
 
-Roblox reflection information for working with Instances in external tooling.
+Roblox reflection types for working with Instances in external tooling.
+
+## [rbx_reflection_database](rbx_reflection_database)
+[![rbx_reflection_database on crates.io](https://img.shields.io/crates/v/rbx_reflection_database.svg)](https://crates.io/crates/rbx_reflection_database)
+[![rbx_reflection_database docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_reflection_database)
+
+Bundled reflection database using types from rbx_reflection. Intended for users migrating from rbx_reflection 4.x and users who need reflection information statically.
+
+## [rbx_dom_lua](rbx_dom_lua)
+
+Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside Roblox. Uses a data format that's compatible with rbx_dom_weak to facilitate communication with applications outside Roblox about instances.
 
 ## Property Type Coverage
 
 | Property Type      | Example Property                | rbx_dom_weak | rbx_dom_lua | rbx_xml | rbx_binary
 |:------------------ |:------------------------------- |:--:|:--:|:--:|:--:|
-| Axes               | `ArcHandles.Axes`               | ❌ | ❌ | ❌ | ❌ |
+| Axes               | `ArcHandles.Axes`               | ✔ | ❌ | ❌ | ❌ |
 | BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ❌ |
 | Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
 | BrickColor         | `Part.BrickColor`               | ✔ | ✔ | ✔ | ❌ |
@@ -59,7 +65,7 @@ Roblox reflection information for working with Instances in external tooling.
 | ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ❌ |
-| Faces              | `BasePart.ResizableFaces`       | ❌ | ❌ | ❌ | ❌ |
+| Faces              | `BasePart.ResizableFaces`       | ✔ | ❌ | ❌ | ❌ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ❌ |
 | Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ❌ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ❌ |
@@ -71,8 +77,8 @@ Roblox reflection information for working with Instances in external tooling.
 | Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ❌ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
-| Region3            | `N/A`                           | ❌ | ✔ | ❌ | ❌ |
-| Region3int16       | `Terrain.MaxExtents`            | ❌ | ✔ | ❌ | ❌ |
+| Region3            | `N/A`                           | ✔ | ✔ | ❌ | ❌ |
+| Region3int16       | `Terrain.MaxExtents`            | ✔ | ✔ | ❌ | ❌ |
 | SharedString       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
 | UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ❌ |

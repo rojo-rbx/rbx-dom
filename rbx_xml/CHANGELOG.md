@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Breaking: ported to rbx_dom_weak 2.0
 * Added support for serializing the `Ray` type, used in the `RayValue` instance.
 
 ## 0.11.4 (2019-12-18)

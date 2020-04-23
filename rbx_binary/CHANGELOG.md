@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Breaking: ported crate to rbx_dom_weak 2.0
+* Breaking: updated top-level decode API to match rbx_xml.
 
 ## 0.5.0 (2019-12-18)
 0.5.0 is intended to be mostly API-compatible with previous rbx_binary releases because it makes a lot of foundational changes. 0.6.0 will break the rbx_binary API significantly.
