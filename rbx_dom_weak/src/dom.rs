@@ -19,6 +19,7 @@ pub struct WeakDom {
 }
 
 impl WeakDom {
+    /// Consruct a new `WeakDom` described by the given `InstanceBuilder`.
     pub fn new(builder: InstanceBuilder) -> WeakDom {
         let root_ref = builder.referent;
 
@@ -47,26 +48,37 @@ impl WeakDom {
         dom
     }
 
+    /// Returns the referent of the root instance of the `WeakDom`.
     pub fn root_ref(&self) -> Ref {
         self.root_ref
     }
 
+    /// Returns a reference to the root instance of the `WeakDom`.
     pub fn root(&self) -> &Instance {
         self.instances.get(&self.root_ref).unwrap()
     }
 
+    /// Returns a _mutable_ reference to the root instance of the `WeakDom`.
     pub fn root_mut(&mut self) -> &mut Instance {
         self.instances.get_mut(&self.root_ref).unwrap()
     }
 
+    /// Returns a reference to an instance by referent, or `None` if it is not
+    /// found.
     pub fn get_by_ref(&self, referent: Ref) -> Option<&Instance> {
         self.instances.get(&referent)
     }
 
+    /// Returns a _mutable_ reference to an instance by referent, or `None` if
+    /// it is not found.
     pub fn get_by_ref_mut(&mut self, referent: Ref) -> Option<&mut Instance> {
         self.instances.get_mut(&referent)
     }
 
+    /// Insert a new instance into the DOM with the given parent.
+    ///
+    /// ## Panics
+    /// Panics if `parent_ref` does not refer to an instance in the DOM.
     pub fn insert(&mut self, parent_ref: Ref, builder: InstanceBuilder) -> Ref {
         let referent = builder.referent;
 
@@ -96,8 +108,17 @@ impl WeakDom {
         referent
     }
 
+    /// Destroy the instance with the given referent.
+    ///
+    /// ## Panics
+    /// Panics if `referent` does not refer to an instance in the DOM.
     pub fn destroy(&mut self, referent: Ref) {
-        let parent = self.instances[&referent].parent;
+        let instance = self
+            .instances
+            .get(&referent)
+            .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
+
+        let parent = instance.parent;
 
         if parent.is_some() {
             let parent = self.instances.get_mut(&parent).unwrap();

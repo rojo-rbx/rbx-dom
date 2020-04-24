@@ -6,14 +6,19 @@ use crate::{
 };
 use serde::{Deserialize, Serialize};
 
-/// Contains state for viewing/redacting WeakDom objects, making them suitable
-/// for viewing in a snapshot test.
+/// Contains state for viewing and redacting nondeterministic portions of
+/// WeakDom objects, making them suitable for usage in snapshot tests.
+///
+/// `DomViewer` can be held onto and used with a DOM multiple times. IDs will
+/// persist when viewing the same instance multiple times, and should stay the
+/// same across multiple runs of a test.
 pub struct DomViewer {
     referent_map: HashMap<Ref, String>,
     next_referent: usize,
 }
 
 impl DomViewer {
+    /// Construct a new `DomViewer` with no interned referents.
     pub fn new() -> Self {
         Self {
             referent_map: HashMap::new(),
@@ -21,12 +26,16 @@ impl DomViewer {
         }
     }
 
+    /// View the given `WeakDom`, creating a `ViewedInstance` object that can be
+    /// used in a snapshot test.
     pub fn view(&mut self, dom: &WeakDom) -> ViewedInstance {
         let root_referent = dom.root_ref();
         self.populate_referent_map(dom, root_referent);
         self.view_instance(dom, root_referent)
     }
 
+    /// View the children of the root instance of the given `WeakDom`, returning
+    /// them as a `Vec<ViewedInstance>`.
     pub fn view_children(&mut self, dom: &WeakDom) -> Vec<ViewedInstance> {
         let root_instance = dom.root();
         let children = root_instance.children();
@@ -94,7 +103,7 @@ impl DomViewer {
     }
 }
 
-/// A transformed view into an WeakDom or RbxInstance that has been redacted and
+/// A transformed view into a `WeakDom` or `Instance` that has been redacted and
 /// transformed to be more readable.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ViewedInstance {
