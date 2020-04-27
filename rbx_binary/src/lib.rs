@@ -19,7 +19,26 @@ mod text_deserializer;
 #[cfg(test)]
 mod tests;
 
-pub use {
-    deserializer::{decode, Error as DecodeError},
-    serializer::{encode, Error as EncodeError},
-};
+use std::io::{Read, Write};
+
+use rbx_dom_weak::{types::Ref, WeakDom};
+
+use crate::{deserializer::decode, serializer::encode};
+
+pub use crate::{deserializer::Error as DecodeError, serializer::Error as EncodeError};
+
+/// Decodes an binary format model or place from something that implements the
+/// `std::io::Read` trait.
+pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
+    decode(reader)
+}
+
+/// Serializes a subset of the given DOM to a binary format model or place,
+/// writing to something that implements the `std::io::Write` trait.
+pub fn to_writer_default<W: Write>(
+    writer: W,
+    dom: &WeakDom,
+    refs: &[Ref],
+) -> Result<(), EncodeError> {
+    encode(dom, refs, writer)
+}

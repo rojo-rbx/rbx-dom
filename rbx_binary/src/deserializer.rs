@@ -76,7 +76,7 @@ impl From<io::Error> for InnerError {
 
 /// Deserializes instances from a reader containing Roblox's binary model
 /// format.
-pub fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
+pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
     let mut deserializer = BinaryDeserializer::new(reader)?;
 
     loop {
