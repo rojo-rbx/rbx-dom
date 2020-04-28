@@ -17,7 +17,7 @@ lz4 = "1.23.1"
 rbx_dom_weak = { path = "../rbx_dom_weak" }
 rbx_reflection = { path = "../rbx_reflection" }
 rbx_reflection_database = { path = "../rbx_reflection_database" }
-snafu = "0.6.0"
+thiserror = "1.0.16"
 
 [dev-dependencies]
 base64 = "0.11.0"

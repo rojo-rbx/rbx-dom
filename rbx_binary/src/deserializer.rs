@@ -11,7 +11,7 @@ use rbx_dom_weak::{
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
-use snafu::{ResultExt, Snafu};
+use thiserror::Error;
 
 use crate::{
     chunk::Chunk,
@@ -23,40 +23,43 @@ use crate::{
 };
 
 /// Represents an error that occurred during deserialization.
-#[derive(Debug, Snafu)]
-pub struct Error(Box<InnerError>);
+#[derive(Debug, Error)]
+#[error(transparent)]
+pub struct Error {
+    source: Box<InnerError>,
+}
 
 impl From<InnerError> for Error {
     fn from(inner: InnerError) -> Self {
-        Self(Box::new(inner))
+        Self {
+            source: Box::new(inner),
+        }
     }
 }
 
-#[derive(Debug, Snafu)]
+#[derive(Debug, Error)]
 pub(crate) enum InnerError {
-    /// A general I/O error occurred.
-    #[snafu(display("{}", source))]
-    Io { source: io::Error },
+    #[error(transparent)]
+    Io {
+        #[from]
+        source: io::Error,
+    },
 
-    #[snafu(display("Invalid file header"))]
+    #[error("Invalid file header")]
     BadHeader,
 
-    #[snafu(display("Unknown file version {}. Known versions are: 0", version))]
+    #[error("Unknown file version {version}. Known versions are: 0")]
     UnknownFileVersion { version: u16 },
 
-    #[snafu(display("Unknown version {} for chunk {}", version, chunk_name))]
+    #[error("Unknown version {version} for chunk {chunk_name}")]
     UnknownChunkVersion {
         chunk_name: &'static str,
         version: u8,
     },
 
-    #[snafu(display(
-        "Type mismatch: Property {}.{} should be {}, but it was {}",
-        type_name,
-        prop_name,
-        valid_type_names,
-        actual_type_name
-    ))]
+    #[error(
+        "Type mismatch: Property {type_name}.{prop_name} should be {valid_type_names}, but it was {actual_type_name}",
+    )]
     PropTypeMismatch {
         type_name: String,
         prop_name: String,
@@ -64,23 +67,19 @@ pub(crate) enum InnerError {
         actual_type_name: String,
     },
 
-    #[snafu(display("File referred to type ID {}, which was not declared", type_id))]
+    #[error("File referred to type ID {type_id}, which was not declared")]
     InvalidTypeId { type_id: u32 },
 }
 
-impl From<io::Error> for InnerError {
-    fn from(source: io::Error) -> Self {
-        InnerError::Io { source }
-    }
+pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
+    Ok(decode_inner(reader)?)
 }
 
-/// Deserializes instances from a reader containing Roblox's binary model
-/// format.
-pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
+pub(crate) fn decode_inner<R: Read>(reader: R) -> Result<WeakDom, InnerError> {
     let mut deserializer = BinaryDeserializer::new(reader)?;
 
     loop {
-        let chunk = Chunk::decode(&mut deserializer.input).context(Io)?;
+        let chunk = Chunk::decode(&mut deserializer.input)?;
 
         match &chunk.name {
             b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
@@ -331,13 +330,12 @@ impl<R: Read> BinaryDeserializer<R> {
                     }
                 }
                 invalid_type => {
-                    PropTypeMismatch {
+                    return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "String, Content, or BinaryString",
                         actual_type_name: format!("{:?}", invalid_type),
-                    }
-                    .fail()?;
+                    });
                 }
             },
             Type::Bool => match canonical_type {
@@ -352,13 +350,12 @@ impl<R: Read> BinaryDeserializer<R> {
                     }
                 }
                 invalid_type => {
-                    PropTypeMismatch {
+                    return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Bool",
                         actual_type_name: format!("{:?}", invalid_type),
-                    }
-                    .fail()?;
+                    });
                 }
             },
             Type::Int32 => {}

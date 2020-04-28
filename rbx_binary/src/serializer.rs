@@ -11,7 +11,7 @@ use rbx_dom_weak::{
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
-use snafu::Snafu;
+use thiserror::Error;
 
 use crate::{
     chunk::{ChunkBuilder, ChunkCompression},
@@ -25,28 +25,32 @@ use crate::{
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
 /// Represents an error that occurred during serialization.
-#[derive(Debug, Snafu)]
-pub struct Error(Box<InnerError>);
+#[derive(Debug, Error)]
+#[error(transparent)]
+pub struct Error {
+    source: Box<InnerError>,
+}
 
 impl From<InnerError> for Error {
     fn from(inner: InnerError) -> Self {
-        Self(Box::new(inner))
+        Self {
+            source: Box::new(inner),
+        }
     }
 }
 
-#[derive(Debug, Snafu)]
+#[derive(Debug, Error)]
 enum InnerError {
-    #[snafu(display("{}", source))]
-    Io { source: io::Error },
+    #[error(transparent)]
+    Io {
+        #[from]
+        source: io::Error,
+    },
 
-    #[snafu(display(
-        "Property type mismatch: Expected {}.{} to be of type {}, but it was of type {} on instance {}",
-        type_name,
-        prop_name,
-        valid_type_names,
-        actual_type_name,
-        instance_full_name,
-    ))]
+    #[error(
+        "Property type mismatch: Expected {type_name}.{prop_name} to be of type {valid_type_names}, \
+        but it was of type {actual_type_name} on instance {instance_full_name}",
+    )]
     PropTypeMismatch {
         type_name: String,
         prop_name: String,
@@ -55,29 +59,15 @@ enum InnerError {
         instance_full_name: String,
     },
 
-    #[snafu(display(
-        "Unsupported property type: {}.{} is of type {}",
-        type_name,
-        prop_name,
-        prop_type
-    ))]
+    #[error("Unsupported property type: {type_name}.{prop_name} is of type {prop_type}")]
     UnsupportedPropType {
         type_name: String,
         prop_name: String,
         prop_type: String,
     },
 
-    #[snafu(display(
-        "The instance with referent {:?} was not present in the dom.",
-        referent
-    ))]
+    #[error("The instance with referent {referent:?} was not present in the dom.")]
     InvalidInstanceId { referent: Ref },
-}
-
-impl From<io::Error> for InnerError {
-    fn from(source: io::Error) -> Self {
-        InnerError::Io { source }
-    }
 }
 
 /// Serializes instances from an `WeakDom` into a writer in Roblox's binary
