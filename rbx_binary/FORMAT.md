@@ -195,7 +195,9 @@ Because of the shape of this chunk, every instance of a given type must have the
 
 **Property Name** defines the serializable name of the property. Note that this is not necessarily the same as the name reflected to Lua, which is sometimes referred to as the _canonical name_.
 
-**Data Type** is
+**Data Type** corresponds to a value from [Data Types](#data-types).
+
+**Values** contains an array of values of **Data Type** whose length is the same as the number of instances with the type ID **Type ID**.
 
 ### `PRNT` Chunk
 | `PRNT` Chunk Data |
