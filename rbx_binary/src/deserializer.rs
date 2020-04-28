@@ -368,7 +368,7 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::UDim2 => {}
             Type::Ray => {}
             Type::Faces => {}
-            Type::Axis => {}
+            Type::Axes => {}
             Type::BrickColor => {}
             Type::Color3 => {}
             Type::Vector2 => {}
