@@ -53,71 +53,19 @@ This document is based on:
 	5. One `END` chunk
 
 ## File Header
-Every file starts with:
+Every file starts with a 16 byte header.
 
-<table>
-	<tr>
-		<th width="40">0</th>
-		<th width="40">1</th>
-		<th width="40">2</th>
-		<th width="40">3</th>
-		<th width="40">4</th>
-		<th width="40">5</th>
-		<th width="40">6</th>
-		<th width="40">7</th>
-		<th width="40">8</th>
-		<th width="40">9</th>
-		<th width="40">10</th>
-		<th width="40">11</th>
-		<th width="40">12</th>
-		<th width="40">13</th>
-		<th width="40">14</th>
-		<th width="40">15</th>
-	</tr>
-	<tr>
-		<td colspan="8">Magic number (<code>&lt;roblox!</code>)</td>
-		<td colspan="6">Signature (<code>89 ff 0d 0a 1a 0a</code>)</td>
-		<td colspan="2">Version (<code>0</code>)</td>
-	</tr>
-	<tr>
-		<td colspan="4">Number of instance types (<code>u32</code>)</td>
-		<td colspan="4">Number of instances (<code>u32</code>)</td>
-		<td colspan="8">Reserved bytes (always 0)</td>
-	</tr>
-</table>
+1. Magic number: 8 bytes, always `<roblox!`
+2. Signature: 6 bytes, always `89 ff 0d 0a 1a 0a`
+3. Version: u16, always `00 00`
 
 ## Chunks
-Every chunk starts with:
+Every chunk starts with a 16 byte header followed by the chunk's data.
 
-<table>
-	<tr>
-		<th width="40">0</th>
-		<th width="40">1</th>
-		<th width="40">2</th>
-		<th width="40">3</th>
-		<th width="40">4</th>
-		<th width="40">5</th>
-		<th width="40">6</th>
-		<th width="40">7</th>
-		<th width="40">8</th>
-		<th width="40">9</th>
-		<th width="40">10</th>
-		<th width="40">11</th>
-		<th width="40">12</th>
-		<th width="40">13</th>
-		<th width="40">14</th>
-		<th width="40">15</th>
-	</tr>
-	<tr>
-		<td colspan="4">Chunk name</td>
-		<td colspan="4">Compressed length (<code>u32</code>)</td>
-		<td colspan="4">Uncompressed length (<code>u32</code>)</td>
-		<td colspan="4">Reserved bytes (always 0)</td>
-	</tr>
-	<tr>
-		<td colspan="16">Chunk data</td>
-	</tr>
-</table>
+1. Chunk name: 4 bytes, like `META` or `INST`
+2. Compressed length: u32
+3. Uncompressed length: u32
+4. Reserved bytes: u32, always `0`
 
 If **chunk name** is less than four bytes, the remainder is filled with zeros.
 
@@ -130,6 +78,7 @@ When the **chunk data** is compressed, it is done so using the [LZ4](https://git
 When documentation for individual chunks uses the term "chunk data", it refers to **chunk data** after it has been decompressed, if necessary.
 
 ### `META` Chunk
+
 | `META` Chunk Data |
 | ----------------- |
 | Number of entries (`u32`) |
@@ -326,37 +275,23 @@ Referents are stored as transformed 32-bit signed integers. A value of `-1` (unt
 
 When reading an [Interleaved Array](#interleaved-array) of referents, they should be read accumulatively. In other words, the value of each referent id should be itself, plus its previous value.
 
-❌ **Without Accumulation**
+Without accumulation, referents read from a file may look like this. This is **incorrect**:
 
-<table>
-	<tr>
-		<th colspan="6">Referents</th>
-	</tr>
-	<tr>
-		<th width="40">1619</th>
-		<th width="40">1</th>
-		<th width="40">4</th>
-		<th width="40">2</th>
-		<th width="40">3</th>
-		<th width="40">5</th>
-	</tr>
-</table>
+- 1619
+- 1
+- 4
+- 2
+- 3
+- 5
 
-✔ **With Accumulation**
+The **correct** interpretation of this data, with accumulation, is:
 
-<table>
-	<tr>
-		<th colspan="6">Referents</th>
-	</tr>
-	<tr>
-		<th width="40">1619</th>
-		<th width="40">1620</th>
-		<th width="40">1624</th>
-		<th width="40">1626</th>
-		<th width="40">1629</th>
-		<th width="40">1634</th>
-	</tr>
-</table>
+- 1619
+- 1620
+- 1624
+- 1626
+- 1629
+- 1634
 
 ### Vector3int16
 **Type ID 0x14**
@@ -389,40 +324,14 @@ Arrays of many types in property data have their bytes interleaved.
 
 For example, an array of 4 bit integers normally represented as:
 
-<table>
-	<tr>
-		<td><b>A0</b></td>
-		<td><b>A1</b></td>
-		<td><b>A2</b></td>
-		<td><b>A3</b></td>
-		<td>B0</td>
-		<td>B1</td>
-		<td>B2</td>
-		<td>B3</td>
-		<td>C0</td>
-		<td>C1</td>
-		<td>C2</td>
-		<td>C3</td>
-	</tr>
-</table>
+|||||||||||||
+|--|--|--|--|--|--|--|--|--|--|--|--|
+|**A0**|**A1**|**A2**|**A3**|B0|B1|B2|B3|C0|C1|C2|C3|
 
 Would become, after interleaving:
 
-<table>
-	<tr>
-		<td><b>A0</b></td>
-		<td>B0</td>
-		<td>C0</td>
-		<td><b>A1</b></td>
-		<td>B1</td>
-		<td>C1</td>
-		<td><b>A2</b></td>
-		<td>B2</td>
-		<td>C2</td>
-		<td><b>A3</b></td>
-		<td>B3</td>
-		<td>C3</td>
-	</tr>
-</table>
+|||||||||||||
+|--|--|--|--|--|--|--|--|--|--|--|--|
+|**A0**|B0|C0|**A1**|B1|C1|**A2**|B2|C2|**A3**|B3|C3|
 
 Note that arrays of integers are generally subject to both interleaving and integer transformation.
