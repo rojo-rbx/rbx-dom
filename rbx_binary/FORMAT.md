@@ -81,7 +81,6 @@ When the **chunk data** is compressed, it is done so using the [LZ4](https://git
 When documentation for individual chunks uses the term "chunk data", it refers to **chunk data** after it has been decompressed, if necessary.
 
 ### `META` Chunk
-
 | `META` Chunk Data |
 | ----------------- |
 | Number of entries (`u32`) |
