@@ -57,7 +57,10 @@ Every file starts with a 16 byte header.
 
 1. Magic number: 8 bytes, always `<roblox!`
 2. Signature: 6 bytes, always `89 ff 0d 0a 1a 0a`
-3. Version: u16, always `00 00`
+3. Version: u16, always zero
+4. Number of instance types: u32
+5. Number of instances: u32
+6. Reserved: 8 bytes, always zero
 
 ## Chunks
 Every chunk starts with a 16 byte header followed by the chunk's data.
