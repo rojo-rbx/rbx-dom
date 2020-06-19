@@ -7,6 +7,7 @@ This document is based on:
 - Observing `rbxm` and `rbxl` output from Roblox Studio
 
 ## Contents
+- [Document Conventions](#document-conventions)
 - [File Structure](#file-structure)
 - [File Header](#file-header)
 - [Chunks](#chunks)
@@ -43,6 +44,14 @@ This document is based on:
 - [Data Storage Notes](#data-storage-notes)
 	- [Interleaved Array](#interleaved-array)
 
+## Document Conventions
+This document assumes a basic understanding of Rust's conventions for numeric types. For example:
+
+- `u16` is an unsigned 16-bit integer
+- `i32` is a signed 32-bit integer
+
+Integers are assumed to be little endian and 2's complement unless otherwise specified. Big endian integers and integers with interesting transformations are present in this document and are explicitly noted.
+
 ## File Structure
 1. File Header
 2. Chunks
@@ -53,22 +62,26 @@ This document is based on:
 	5. One `END` chunk
 
 ## File Header
-Every file starts with a 16 byte header.
+Every file starts with a 32 byte header.
 
-1. Magic number: 8 bytes, always `<roblox!`
-2. Signature: 6 bytes, always `89 ff 0d 0a 1a 0a`
-3. Version: u16, always zero
-4. Number of instance types: u32
-5. Number of instances: u32
-6. Reserved: 8 bytes, always zero
+| Field Name          | Format  | Value                                         |
+|:--------------------|:--------|:----------------------------------------------|
+| Magic Number        | 8 bytes | Always `<roblox!`                             |
+| Signature           | 6 bytes | Always `89 ff 0a 1a 0a`                       |
+| Version             | u16     | Always `0`                                    |
+| Instance Type Count | i32     | Number of distinct instance types in the file |
+| Instance Count      | i32     | Number of instances in the file               |
+| Reserved            | 8 bytes | Always `0`                                    |
 
 ## Chunks
 Every chunk starts with a 16 byte header followed by the chunk's data.
 
-1. Chunk name: 4 bytes, like `META` or `INST`
-2. Compressed length: u32
-3. Uncompressed length: u32
-4. Reserved bytes: u32, always `0`
+| Field Name          | Format  | Value                                             |
+|:--------------------|:--------|:--------------------------------------------------|
+| Chunk Name          | 4 bytes | The chunk's name, like `META` or `INST`           |
+| Compressed Length   | u32     | Length of the chunk in bytes, if it is compressed |
+| Uncompressed Length | u32     | Length of the chunk's data after decompression    |
+| Reserved            | 4 bytes | Always `0`                                        |
 
 If **chunk name** is less than four bytes, the remainder is filled with zeros.
 
@@ -81,15 +94,19 @@ When the **chunk data** is compressed, it is done so using the [LZ4](https://git
 When documentation for individual chunks uses the term "chunk data", it refers to **chunk data** after it has been decompressed, if necessary.
 
 ### `META` Chunk
-| `META` Chunk Data |
-| ----------------- |
-| Number of entries (`u32`) |
-| Metadata Entries (fills rest of chunk) |
+The `META` chunk has this layout:
 
-| Metadata Entry |
-| ----- |
-| Key ([String](#string)) |
-| Value ([String](#string)) |
+| Field Name                 | Format         | Value                                       |
+|:---------------------------|:---------------|:--------------------------------------------|
+| Number of Metadata Entries | u32            | The number of metadata entries in the chunk |
+| Metadata Entries           | Array(Entries) | The actual metadata entries                 |
+
+Each metadata entry has the following format:
+
+| Field Name     | Format | Value                                    |
+|:---------------|:-------|:-----------------------------------------|
+| Metadata Key   | String | The metadata key, which should be unique |
+| Metadata Value | String | The value for this metadata key          |
 
 The Metadata chunk (`META`) is a map of strings to strings. It represents metadata about the model, such as whether it was authored with `ExplicitAutoJoints` enabled.
 
@@ -100,27 +117,29 @@ Observed metadata entries and their values:
 - `ExplicitAutoJoints`: `true` or `false`
 
 ### `INST` Chunk
-| `INST` Chunk Data |
-| ----------------- |
-| Type ID (`u32`) |
-| Type Name ([String](#string)) |
-| Object Format (`u8`) |
-| Number Instances (`u32`) |
-| Instance Referents ([Referent](#referent) Array) |
-| Service Markers (`u8` * number instances) |
+The `INST` chunk has this layout:
+
+| Field Name         | Format           | Value                                           |
+|:-------------------|:-----------------|:------------------------------------------------|
+| Type ID            | u32              | An arbitrarily-chosen ID to refer to this type  |
+| Type Name          | String           | The type's name, like `Folder` or `Part`        |
+| Object Format      | u8               | Always `0` (regular instance) or `1` (service)  |
+| Number Instances   | u32              | The number of instances of this type            |
+| Instance Referents | Array(Referent)  | The instance referents in the file of this type |
+| Service Markers    | Array(u8)        | If **Object Format** is `1`, contains the byte `1` once for each instance in the chunk. Otherwise, not present. |
 
 The Instance chunk (`INST`) defines a type of instance, how many of them there are in this file, and what referent IDs they have.
 
 There should be one `INST` chunk for each type of instance defined.
 
-There are two forms of the `INST` chunk determined by the **object format** field:
+There are two forms of the `INST` chunk determined by the **Object Format** field:
 
 - `0`: regular
 - `1`: service
 
-If the object format is **regular**, the service markers section will not be present.
+If the **Object Format** is **regular**, the service markers section will not be present.
 
-If the object format is **service**, the service markers section contains `1` repeated for the number of instances of that type in the file. If this field is not set, Roblox may create duplicate copies of services, like in [rojo-rbx/rbx-dom#11](https://github.com/rojo-rbx/rbx-dom/issues/11).
+If the **Object Format** is **service**, the service markers section contains `1` repeated for the number of instances of that type in the file. If this field is not set, Roblox may create duplicate copies of services, like in [rojo-rbx/rbx-dom#11](https://github.com/rojo-rbx/rbx-dom/issues/11).
 
 **Type ID** must be unique and ideally sorted monotonically among all `INST` chunks. It's used later in the file to refer to this type.
 
@@ -129,12 +148,14 @@ If the object format is **service**, the service markers section contains `1` re
 The length of the **Instance Referents** array must match the **Number of Instances** field.
 
 ### `PROP` Chunk
-| `PROP` Chunk Data |
-| ----------------- |
-| Type ID (`u32`) |
-| Property Name ([String](#string)) |
-| Data Type (`u8`) |
-| Values (array of data) |
+The `PROP` chunk has this layout:
+
+| Field Name    | Format       | Value                                                      |
+|:--------------|:-------------|:-----------------------------------------------------------|
+| Type ID       | u32          | The type ID assigned in the `INST` chunk                   |
+| Property Name | String       | The name of the property, like `CFrame`                    |
+| Data Type     | u8           | The [Data Type](#data-types) of this property              |
+| Values        | Array(value) | A list of values whose type is determined by **Data Type** |
 
 The property chunk (`PROP`) defines a single property for a single instance type.
 
@@ -151,12 +172,14 @@ Because of the shape of this chunk, every instance of a given type must have the
 **Values** contains an array of values of **Data Type** whose length is the same as the number of instances with the type ID **Type ID**.
 
 ### `PRNT` Chunk
-| `PRNT` Chunk Data |
-| ----------------- |
-| Version (`u8`, zero) |
-| Number of Objects (`u32`) |
-| Object Array ([Referent](#referent) Array) |
-| Parent Array ([Referent](#referent) Array) |
+The `PRNT` chunk has this layout:
+
+| Field Name        | Format          | Value                                     |
+|:------------------|:----------------|:------------------------------------------|
+| Version           | u8              | Always `0`                                |
+| Number of Objects | u32             | Number of objects described in this chunk |
+| Objects           | Array(Referent) | Objects to be parented                    |
+| Parents           | Array(Referent) | Parents for objects                       |
 
 The parent chunk (`PRNT`) defines the hierarchy relationship between every instance in the file.
 
@@ -171,13 +194,15 @@ There should be exactly one `PRNT` chunk.
 A null parent referent (`-1`) indicates that the object is a root instance. In a place, that means the object is a child of `DataModel`. In a model, that means the object should be placed directly under the object the model is being inserted into.
 
 ### `END` Chunk
-| `END` Chunk Data |
-| ---------------- |
-| Magic Value `</roblox>` |
+The `END` chunk has this layout:
+
+| Field Name  | Format  | Value              |
+|:------------|:--------|:-------------------|
+| Magic Value | 9 bytes | Always `</roblox>` |
 
 The ending chunk (`END`) signifies the end of the file.
 
-The `END` chunk should not be compressed, since it's used as a rough form of file validation when uploading places to the website.
+The `END` chunk must not be compressed. It is used as a rough form of file validation when uploading places to the Roblox website.
 
 ## Data Types
 
