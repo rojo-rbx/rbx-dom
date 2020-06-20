@@ -12,6 +12,7 @@ This document is based on:
 - [File Header](#file-header)
 - [Chunks](#chunks)
 	- [`META` Chunk](#meta-chunk)
+	- [`SSTR` Chunk](#sstr-chunk)
 	- [`INST` Chunk](#inst-chunk)
 	- [`PROP` Chunk](#prop-chunk)
 	- [`PRNT` Chunk](#prnt-chunk)
@@ -32,6 +33,7 @@ This document is based on:
 	- [Vector2](#vector2)
 	- [Vector3](#vector3)
 	- [CFrame](#cframe)
+	- [Enum](#enum)
 	- [Referent](#referent)
 	- [Vector3int16](#vector3int16)
 	- [NumberSequence](#numbersequence)
@@ -41,6 +43,7 @@ This document is based on:
 	- [PhysicalProperties](#physicalproperties)
 	- [Color3uint8](#color3uint8)
 	- [Int64](#int64)
+	- [SharedString](#sharedstring)
 - [Data Storage Notes](#data-storage-notes)
 	- [Interleaved Array](#interleaved-array)
 
@@ -56,10 +59,11 @@ Integers are assumed to be little endian and 2's complement unless otherwise spe
 1. File Header
 2. Chunks
 	1. Zero or one `META` chunks
-	2. Zero or more `INST` chunk
-	3. Zero or more `PROP` chunks
-	4. One `PRNT` chunk
-	5. One `END` chunk
+	2. Zero or one `SSTR` chunks
+	3. Zero or more `INST` chunk
+	4. Zero or more `PROP` chunks
+	5. One `PRNT` chunk
+	6. One `END` chunk
 
 ## File Header
 Every file starts with a 32 byte header.
@@ -115,6 +119,26 @@ There should be zero or one `META` chunks.
 Observed metadata entries and their values:
 
 - `ExplicitAutoJoints`: `true` or `false`
+
+### `SSTR` Chunk
+The `SSTR` chunk has this layout:
+
+| Field Name          | Format                | Value                                        |
+|:--------------------|:----------------------|:---------------------------------------------|
+| Version             | u32                   | The version of the `SSTR` chunk (always `0`) |
+| Shared String Count | u32                   | The number of SharedStrings in the chunk     |
+| Strings             | Array(Shared Strings) | The actual shared string entries             |
+
+A shared string entry looks like this:
+
+| Field Name    | Format   | Value                                                                   |
+|:--------------|:---------|:------------------------------------------------------------------------|
+| MD5 Hash      | 16 bytes | An [MD5](https://en.wikipedia.org/wiki/MD5) hash of the `Shared String` |
+| Shared String | String   | The string that's used by a later `PROP` chunk                          |
+
+The Shared String chunk (`SSTR`) is an array of strings. It's used to reduce the overall size of a file by allowing large strings to be reused in [`PROP`](#prop-chunk) chunks. The `MD5 Hash` isn't used by Roblox Studio when loading the file.
+
+There should be zero or one `SSTR` chunks.
 
 ### `INST` Chunk
 The `INST` chunk has this layout:
@@ -343,6 +367,13 @@ The **correct** interpretation of this data, with accumulation, is:
 
 ### Int64
 **Type ID 0x1B**
+
+### SharedString
+**Type ID 0x1C**
+
+SharedStrings are stored as an [Interleaved Array](#interleaved-array) of `u32`s that represent indices in the [`SSTR`](#sstr-chunk) string array.
+
+Any property that's a [String](#string) can also be a SharedString.
 
 ## Data Storage Notes
 
