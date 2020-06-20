@@ -371,7 +371,7 @@ The **correct** interpretation of this data, with accumulation, is:
 ### SharedString
 **Type ID 0x1C**
 
-SharedStrings are stored as an [Interleaved Array](#interleaved-array) of `u32`s that represent indices in the [`SSTR`](#sstr-chunk) string array.
+SharedStrings are stored as an [Interleaved Array](#interleaved-array) of [Int32s](#int32) that represent indices in the [`SSTR`](#sstr-chunk) string array.
 
 Any property that's a [String](#string) can also be a SharedString.
 
