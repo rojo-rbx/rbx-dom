@@ -1,12 +1,15 @@
 use std::{convert::TryFrom, fmt};
 
-#[cfg(test)]
+#[cfg(any(test, feature = "unstable_text_format"))]
 use serde::{Deserialize, Serialize};
 
 use rbx_dom_weak::types::VariantType;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-#[cfg_attr(test, derive(Serialize, Deserialize))]
+#[cfg_attr(
+    any(test, feature = "unstable_text_format"),
+    derive(Serialize, Deserialize)
+)]
 #[repr(u8)]
 pub enum Type {
     String = 0x01,

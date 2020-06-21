@@ -13,7 +13,7 @@ mod deserializer;
 mod serializer;
 mod types;
 
-#[cfg(test)]
+#[cfg(any(test, feature = "unstable_text_format"))]
 mod text_deserializer;
 
 #[cfg(test)]
@@ -24,6 +24,12 @@ use std::io::{Read, Write};
 use rbx_dom_weak::{types::Ref, WeakDom};
 
 use crate::{deserializer::decode, serializer::encode};
+
+/// An unstable textual format that can be used to debug binary models.
+#[cfg(feature = "unstable_text_format")]
+pub mod text_format {
+    pub use crate::text_deserializer::*;
+}
 
 pub use crate::{deserializer::Error as DecodeError, serializer::Error as EncodeError};
 

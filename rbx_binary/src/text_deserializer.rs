@@ -2,6 +2,8 @@
 //! It's intended to be used to snapshot test the binary serializer without
 //! suffering from same-inverse-bug problems.
 
+#![allow(missing_docs)]
+
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use byteorder::{LittleEndian, ReadBytesExt};
