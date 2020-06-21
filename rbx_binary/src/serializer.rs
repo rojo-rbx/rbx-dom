@@ -511,6 +511,28 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_i32_array(buf.into_iter())?;
                     }
+                    Type::Float32 => {
+                        let mut buf = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Float32(value) = rbx_value.as_ref() {
+                                buf.push(*value);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Float32");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(buf.into_iter())?;
+                    }
+                    Type::Float64 => {
+                        for (i, rbx_value) in values {
+                            if let Variant::Float64(value) = rbx_value.as_ref() {
+                                chunk.write_f64::<LittleEndian>(*value)?;
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Float64");
+                            }
+                        }
+                    }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
@@ -606,6 +628,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::BinaryString => Variant::BinaryString(BinaryString::new()),
             VariantType::Bool => Variant::Bool(false),
             VariantType::Int32 => Variant::Int32(0),
+            VariantType::Float32 => Variant::Float32(0 as f32),
+            VariantType::Float64 => Variant::Float64(0 as f64),
             _ => return None,
         })
     }

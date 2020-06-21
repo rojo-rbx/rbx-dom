@@ -383,8 +383,51 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::Float32 => {}
-            Type::Float64 => {}
+            Type::Float32 => match canonical_type {
+                VariantType::Float32 => {
+                    let mut values = vec![0 as f32; type_info.referents.len()];
+                    chunk.read_interleaved_f32_array(&mut values)?;
+
+                    for i in 0..values.len() {
+                        let instance = self
+                            .instances_by_ref
+                            .get_mut(&type_info.referents[i])
+                            .unwrap();
+                        let rbx_value = Variant::Float32(values[i]);
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Float32",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::Float64 => match canonical_type {
+                VariantType::Float64 => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_f64::<LittleEndian>()?;
+                        let rbx_value = Variant::Float64(value);
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Float64",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::UDim => {}
             Type::UDim2 => {}
             Type::Ray => {}

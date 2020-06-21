@@ -1,0 +1,18 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Value
+  class: NumberValue
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: Float64
+      Value: 1.23456
+  children: []

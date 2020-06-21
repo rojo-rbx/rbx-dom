@@ -58,6 +58,21 @@ pub trait RbxReadExt: Read {
         Ok(())
     }
 
+    fn read_interleaved_f32_array(&mut self, output: &mut [f32]) -> io::Result<()> {
+        let mut buf = vec![0; output.len() * mem::size_of::<f32>()];
+        self.read_exact(&mut buf)?;
+
+        for i in 0..output.len() {
+            let v0 = buf[i] as u32;
+            let v1 = buf[i + output.len()] as u32;
+            let v2 = buf[i + output.len() * 2] as u32;
+            let v3 = buf[i + output.len() * 3] as u32;
+
+            output[i] = f32::from_bits(((v0 << 24) | (v1 << 16) | (v2 << 8) | v3).rotate_right(1));
+        }
+        Ok(())
+    }
+
     fn read_referent_array(&mut self, output: &mut [i32]) -> io::Result<()> {
         self.read_interleaved_i32_array(output)?;
 
@@ -99,6 +114,22 @@ pub trait RbxWriteExt: Write {
         for shift in &[24, 16, 8, 0] {
             for value in values.iter().copied() {
                 let encoded = transform_i32(value) >> shift;
+                self.write_u8(encoded as u8)?;
+            }
+        }
+
+        Ok(())
+    }
+
+    fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: Iterator<Item = f32>,
+    {
+        let values: Vec<_> = values.collect();
+
+        for shift in &[24, 16, 8, 0] {
+            for value in values.iter().copied() {
+                let encoded = value.to_bits().rotate_left(1) >> shift;
                 self.write_u8(encoded as u8)?;
             }
         }
