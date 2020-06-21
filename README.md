@@ -47,6 +47,9 @@ Roblox reflection types for working with Instances in external tooling.
 
 Bundled reflection database using types from rbx_reflection. Intended for users migrating from rbx_reflection 4.x and users who need reflection information statically.
 
+## [rbx_util](rbx_util)
+Command line utility to convert and debug Roblox model files.
+
 ## [rbx_dom_lua](rbx_dom_lua)
 
 Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside Roblox. Uses a data format that's compatible with rbx_dom_weak to facilitate communication with applications outside Roblox about instances.
