@@ -358,7 +358,31 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::Int32 => {}
+            Type::Int32 => match canonical_type {
+                VariantType::Int32 => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_i32_array(&mut values)?;
+
+                    for i in 0..values.len() {
+                        let instance = self
+                            .instances_by_ref
+                            .get_mut(&type_info.referents[i])
+                            .unwrap();
+                        let rbx_value = Variant::Int32(values[i]);
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Int32",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Float32 => {}
             Type::Float64 => {}
             Type::UDim => {}
