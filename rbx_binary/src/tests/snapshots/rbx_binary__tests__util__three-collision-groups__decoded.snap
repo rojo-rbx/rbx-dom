@@ -1,0 +1,100 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: group1
+  class: Part
+  properties:
+    Anchored:
+      Type: Bool
+      Value: false
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    CanCollide:
+      Type: Bool
+      Value: true
+    CastShadow:
+      Type: Bool
+      Value: true
+    CollisionGroupId:
+      Type: Int32
+      Value: 1
+    Locked:
+      Type: Bool
+      Value: false
+    Massless:
+      Type: Bool
+      Value: false
+    RootPriority:
+      Type: Int32
+      Value: 0
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []
+- referent: referent-1
+  name: group0
+  class: Part
+  properties:
+    Anchored:
+      Type: Bool
+      Value: false
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    CanCollide:
+      Type: Bool
+      Value: true
+    CastShadow:
+      Type: Bool
+      Value: true
+    CollisionGroupId:
+      Type: Int32
+      Value: 0
+    Locked:
+      Type: Bool
+      Value: false
+    Massless:
+      Type: Bool
+      Value: false
+    RootPriority:
+      Type: Int32
+      Value: 0
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []
+- referent: referent-2
+  name: group2
+  class: Part
+  properties:
+    Anchored:
+      Type: Bool
+      Value: false
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    CanCollide:
+      Type: Bool
+      Value: true
+    CastShadow:
+      Type: Bool
+      Value: true
+    CollisionGroupId:
+      Type: Int32
+      Value: 2
+    Locked:
+      Type: Bool
+      Value: false
+    Massless:
+      Type: Bool
+      Value: false
+    RootPriority:
+      Type: Int32
+      Value: 0
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []
