@@ -605,6 +605,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::String => Variant::String(String::new()),
             VariantType::BinaryString => Variant::BinaryString(BinaryString::new()),
             VariantType::Bool => Variant::Bool(false),
+            VariantType::Int32 => Variant::Int32(0),
             _ => return None,
         })
     }
