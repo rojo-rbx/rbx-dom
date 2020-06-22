@@ -46,6 +46,7 @@ This document is based on:
 	- [SharedString](#sharedstring)
 - [Data Storage Notes](#data-storage-notes)
 	- [Interleaved Array](#interleaved-array)
+	- [Roblox Float Format](#roblox-float-format)
 
 ## Document Conventions
 This document assumes a basic understanding of Rust's conventions for numeric types. For example:
@@ -393,3 +394,21 @@ Would become, after interleaving:
 |**A0**|B0|C0|**A1**|B1|C1|**A2**|B2|C2|**A3**|B3|C3|
 
 Note that arrays of integers are generally subject to both interleaving and integer transformation.
+
+### Roblox Float Format
+
+Some data types do not follow the [IEEE-754 standard](https://en.wikipedia.org/wiki/Single-precision_floating-point_format) format for 32-bit floating point numbers. Instead, they use a proprietary format where the sign bit is after the mantissa.
+
+| Format   | Bit Layout                            |
+|:---------|:--------------------------------------|
+| Standard | `seeeeeee emmmmmmm mmmmmmmm mmmmmmmm` |
+| Roblox   | `eeeeeeee mmmmmmmm mmmmmmmm mmmmmmms` |
+
+Where `s` is the sign bit, `e` is an exponent bit, and `m` is a mantissa bit.
+
+As a practical example, below is a comparison of how `-0.15625` is stored:
+
+| Format   | Binary View                           | Byte View     |
+|:---------|:--------------------------------------|:--------------|
+| Standard | `10111110 00100000 00000000 00000000` | `be 20 00 00` |
+| Roblox   | `01111100 01000000 00000000 00000001` | `7c 40 00 01` |
