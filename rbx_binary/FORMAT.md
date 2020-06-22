@@ -245,6 +245,10 @@ String data is UTF-8 encoded.
 ### Bool
 **Type ID `0x02`**
 
+The `Bool` type is stored as a single byte. If the byte is `0x00`, the bool is `false`. If it is `0x01`, it is `true`.
+
+When an array of Bools is present, they are stored in sequence.
+
 ### Int32
 **Type ID `0x03`**
 
