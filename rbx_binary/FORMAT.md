@@ -235,12 +235,14 @@ The `END` chunk must not be compressed. It is used as a rough form of file valid
 ### String
 **Type ID `0x01`**
 
-| String |
-| ------ |
-| String length in bytes (u32) |
-| Data |
+The `String` type is stored as a length-prefixed sequence of bytes. The length is stored as an untransformed 32-bit integer. Strings are UTF-8 encoded.
 
-String data is UTF-8 encoded.
+| Field Name | Format       | Value                                    |
+|:-----------|:-------------|:-----------------------------------------|
+| Length     | `u32`        | The length of the string                 |
+| Data       | Array(Bytes) | The actual bytes that make up the string |
+
+When an array of strings is present, they are stored in sequence without any modification.
 
 ### Bool
 **Type ID `0x02`**
