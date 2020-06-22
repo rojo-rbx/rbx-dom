@@ -45,6 +45,7 @@ This document is based on:
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
 - [Data Storage Notes](#data-storage-notes)
+	- [Integer Transformations](#integer-transformations)
 	- [Interleaved Array](#interleaved-array)
 	- [Roblox Float Format](#roblox-float-format)
 
@@ -377,6 +378,16 @@ SharedStrings are stored as an [Interleaved Array](#interleaved-array) of [Int32
 Any property that's a [String](#string) can also be a SharedString.
 
 ## Data Storage Notes
+
+### Integer Transformations
+
+Some integers may be subject to a transformation to make them more compressable.
+
+To transform an integer: if `x` greater than or equal to zero, transform it with `2 * x`. Otherwise, use `2 * |x| - 1`. In most compilers this is equivalent to `(x << 1) ^ (x >> 31)` for 32-bit integers. For 64-bit integers, the same format is used but with `63` instead of `31`. 
+
+To untransform one: if `x` is divisble by 2, untransform it with `x / 2`. Otherwise, use `-(x + 1) / 2`. This is equivalent to `(x >> 1) ^ -(x & 1)`.
+
+Untransforming with bitwise operators requires casting to an unsigned integer in some cases because `x >> 1` will result in a negative number if `x` is negative.
 
 ### Interleaved Array
 Arrays of many types in property data have their bytes interleaved.
