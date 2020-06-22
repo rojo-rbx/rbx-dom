@@ -165,7 +165,7 @@ There are two forms of the `INST` chunk determined by the **Object Format** fiel
 
 If the **Object Format** is **regular**, the service markers section will not be present.
 
-If the **Object Format** is **service**, the service markers section contains `1` repeated for the number of instances of that type in the file. If this field is not set, Roblox may create duplicate copies of services, like in [rojo-rbx/rbx-dom#11](https://github.com/rojo-rbx/rbx-dom/issues/11).
+If the **Object Format** is **service**, the service markers section contains `1` repeated for the number of instances of that type in the file. If this field is not set, Roblox may create duplicate copies of services, like in [Roblox/rbx-dom#11](https://github.com/Roblox/rbx-dom/issues/11).
 
 **Type ID** must be unique and ideally sorted monotonically among all `INST` chunks. It's used later in the file to refer to this type.
 
@@ -371,7 +371,7 @@ Any property that's a [String](#string) can also be a SharedString.
 
 Some integers may be subject to a transformation to make them more compressable.
 
-To transform an integer: if `x` greater than or equal to zero, transform it with `2 * x`. Otherwise, use `2 * |x| - 1`. In most compilers this is equivalent to `(x << 1) ^ (x >> 31)` for 32-bit integers. For 64-bit integers, the same format is used but with `63` instead of `31`. 
+To transform an integer: if `x` greater than or equal to zero, transform it with `2 * x`. Otherwise, use `2 * |x| - 1`. In most compilers this is equivalent to `(x << 1) ^ (x >> 31)` for 32-bit integers. For 64-bit integers, the same format is used but with `63` instead of `31`.
 
 To untransform one: if `x` is divisible by 2, untransform it with `x / 2`. Otherwise, use `-(x + 1) / 2`. This is equivalent to `(x >> 1) ^ -(x & 1)`.
 

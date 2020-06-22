@@ -6,7 +6,7 @@ authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/rojo-rbx/rbx-dom"
+homepage = "https://github.com/Roblox/rbx-dom"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

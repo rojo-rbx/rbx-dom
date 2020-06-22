@@ -2,7 +2,7 @@
 [![rbx_types on crates.io](https://img.shields.io/crates/v/rbx_types.svg)](https://crates.io/crates/rbx_types)
 [![rbx_types docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_types)
 
-More details about this crate are available on [the rbx-dom GitHub](https://github.com/rojo-rbx/rbx-dom#readme).
+More details about this crate are available on [the rbx-dom GitHub](https://github.com/Roblox/rbx-dom#readme).
 
 rbx_types is a crate containing value types for interacting with Roblox.
 

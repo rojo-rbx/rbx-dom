@@ -8,11 +8,11 @@
 * Updated `base64` dependency
 
 ## 0.11.3 (2019-12-11)
-* Empty BinaryStrings will now serialize without an empty CDATA tag ([#76](https://github.com/rojo-rbx/rbx-dom/pull/76)).
-* Fixed SharedString entries with CRLF line endings causing obscure errors ([#84](https://github.com/rojo-rbx/rbx-dom/pull/84))
+* Empty BinaryStrings will now serialize without an empty CDATA tag ([#76](https://github.com/Roblox/rbx-dom/pull/76)).
+* Fixed SharedString entries with CRLF line endings causing obscure errors ([#84](https://github.com/Roblox/rbx-dom/pull/84))
 
 ## 0.11.2 (2019-08-08)
-* Fixed encoding properties in a nondeterministic order. Properties should now be sorted. ([#66](https://github.com/rojo-rbx/rbx-dom/pull/66))
+* Fixed encoding properties in a nondeterministic order. Properties should now be sorted. ([#66](https://github.com/Roblox/rbx-dom/pull/66))
 
 ## 0.11.1 (2019-08-01)
 * Fixed decoding `BinaryString` values with arbitrary whitespace in them, including CRLF line endings.
@@ -21,9 +21,9 @@
 * Added support for reading and writing `BrickColor` values.
 
 ## 0.10.0 (2019-06-10)
-* Added support for INF and NAN values in compound types like Vector2 ([#62](https://github.com/rojo-rbx/rbx-dom/pull/62))
+* Added support for INF and NAN values in compound types like Vector2 ([#62](https://github.com/Roblox/rbx-dom/pull/62))
 * Fixed edge cases around unrecognized Ref properties causing confusing errors.
-* Added support for serializing and deserializing `SharedString` values. ([#63](https://github.com/rojo-rbx/rbx-dom/pull/63))
+* Added support for serializing and deserializing `SharedString` values. ([#63](https://github.com/Roblox/rbx-dom/pull/63))
 
 ## 0.9.0 (2019-05-16)
 * Added real configuration to serialization and deserialization routines
@@ -31,8 +31,8 @@
 	* It's also possible to disable the reflection database entirely, akin to version 0.6.0
 
 ## 0.8.0 (2019-05-14)
-* Fixed type conversion when serializing properties whose serialized type differs from its canonical type ([#56](https://github.com/rojo-rbx/rbx-dom/pull/56))
-* Changed type conversion failures when serializing to elevate to serialization errors ([#58](https://github.com/rojo-rbx/rbx-dom/pull/58))
+* Fixed type conversion when serializing properties whose serialized type differs from its canonical type ([#56](https://github.com/Roblox/rbx-dom/pull/56))
+* Changed type conversion failures when serializing to elevate to serialization errors ([#58](https://github.com/Roblox/rbx-dom/pull/58))
 
 ## 0.7.0 (2019-05-12)
 * Breaking: changed API dramatically to make deserializing instances easier
@@ -45,10 +45,10 @@
 
 ## 0.6.0 (2019-03-27)
 * Added support for new types:
-	* `Rect`, `NumberRange`, `NumberSequence`, and `ColorSequence` ([#23](https://github.com/rojo-rbx/rbx-dom/pull/23))
-	* `Int64` and `Float64` ([#15](https://github.com/rojo-rbx/rbx-dom/pull/15))
+	* `Rect`, `NumberRange`, `NumberSequence`, and `ColorSequence` ([#23](https://github.com/Roblox/rbx-dom/pull/23))
+	* `Int64` and `Float64` ([#15](https://github.com/Roblox/rbx-dom/pull/15))
 	* `Ref` and `PhysicalProperties`, no longer stubs!
-* Rewrote lots of internals, which should improve whitespace handling ([#17](https://github.com/rojo-rbx/rbx-dom/pull/17), [#19](https://github.com/rojo-rbx/rbx-dom/pull/19))
+* Rewrote lots of internals, which should improve whitespace handling ([#17](https://github.com/Roblox/rbx-dom/pull/17), [#19](https://github.com/Roblox/rbx-dom/pull/19))
 
 ## 0.5.0 (2019-03-13)
 * Changed referents to be emitted as consecutive integers, which makes generating XML models deterministic regardless of IDs
@@ -62,7 +62,7 @@
 ## 0.3.0 (2019-02-14)
 * Updated `rbx_tree` dependency to `rbx_dom_weak` 0.3.0
 * Added support for `ProtectedString`, deserializing as String
-* Added support for `Ref` values ([#8](https://github.com/rojo-rbx/rbx-dom/pull/8))
+* Added support for `Ref` values ([#8](https://github.com/Roblox/rbx-dom/pull/8))
 
 ## 0.2.0 (2019-01-25)
 * Serialization and deserialization functions are now fully functional
