@@ -248,39 +248,9 @@ String data is UTF-8 encoded.
 ### Int32
 **Type ID `0x03`**
 
-**Untransformed integers**, generally in header data, are little-endian and two's complement. Integers are untransformed unless denoted otherwise.
+The `Int32` type is stored as a big-endian [transformed 32-bit integer](#integer-transformations).
 
-**Transformed integers**, normally used in property data, are big-endian and are transformed and untransformed via:
-
-```rust
-fn transform_i32(value: i32) -> i32 {
-	if value >= 0 {
-		value * 2
-	} else {
-		2 * -value - 1
-	}
-}
-
-fn untransform_i32(value: i32) -> i32 {
-	if value % 2 == 0 {
-		value / 2
-	} else {
-		-(value +1 1) / 2
-	}
-}
-```
-
-Integers can also be transformed via bitwise ops to avoid branches:
-
-```rust
-fn transform_i32(value: i32) -> i32 {
-	(value << 1) ^ (value >> 31)
-}
-
-fn untransform_i32(value: i32) -> i32 {
-	((value as u32) >> 1) as i32 ^ -(value & 1)
-}
-```
+When an array of Int32s is present, the bytes of the integers are subject to [byte interleaving](#interleaved-array).
 
 ### Float32
 **Type ID 0x04**
@@ -369,6 +339,10 @@ The **correct** interpretation of this data, with accumulation, is:
 
 ### Int64
 **Type ID 0x1B**
+
+The `Int64` type is stored as a big-endian [transformed 64-bit integer](#integer-transformations).
+
+When an array of Int64s is present, the bytes of the integers are subject to [byte interleaving](#interleaved-array).
 
 ### SharedString
 **Type ID 0x1C**
