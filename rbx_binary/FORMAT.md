@@ -255,8 +255,16 @@ When an array of Int32s is present, the bytes of the integers are subject to [by
 ### Float32
 **Type ID 0x04**
 
+The `Float32` type is stored using the [Roblox float format](#roblox-float-format) and is little-endian. This datatype is also called `float` or `single`.
+
+When an array of Float32s is present, the bytes of the floats are subject to [byte interleaving](#interleaved-array).
+
 ### Float64
 **Type ID 0x05**
+
+The `Float64` type is stored using the [IEEE-754 format](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) and is little-endian. This datatype is also called `double`.
+
+When an array of Float64s is present, they are in sequence with no transformations.
 
 ### UDim
 **Type ID 0x06**
