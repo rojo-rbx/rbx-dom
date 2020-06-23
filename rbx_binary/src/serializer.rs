@@ -503,7 +503,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::Int32(value) = rbx_value.as_ref() {
-                                    buf.push(*value);
+                                buf.push(*value);
                             } else {
                                 return type_mismatch(i, &rbx_value, "Int32");
                             }
