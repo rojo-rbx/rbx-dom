@@ -41,7 +41,7 @@
 	* Added options to APIs
 	* Made error types opaque
 * Breaking: changed serialization to be reflection-driven, which improves content compatibility
-* Fixed serializing empty `Content` properties ([#146](https://github.com/rojo-rbx/rojo/issues/146))
+* Fixed serializing empty `Content` properties ([#146](https://github.com/Roblox/rojo/issues/146))
 
 ## 0.6.0 (2019-03-27)
 * Added support for new types:
