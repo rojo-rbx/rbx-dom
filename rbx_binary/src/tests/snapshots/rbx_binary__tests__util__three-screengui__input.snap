@@ -1,0 +1,103 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 3
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: ScreenGui
+      object_format: 0
+      referents:
+        - 0
+        - 1
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: AutoLocalize
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: DisplayOrder
+      prop_type: Int32
+      values:
+        - 0
+        - 1
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: IgnoreGuiInset
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - DisplayOrder0
+        - DisplayOrder1
+        - DisplayOrder2
+  - Prop:
+      type_id: 0
+      prop_name: ResetOnSpawn
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: RootLocalizationTable
+      prop_type: Ref
+      remaining: AAAAAAAAAAAAAQAA
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: ZIndexBehavior
+      prop_type: Enum
+      remaining: AAAAAAAAAAAAAQEB
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+  - End

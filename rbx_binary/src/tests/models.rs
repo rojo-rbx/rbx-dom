@@ -27,5 +27,5 @@ macro_rules! binary_tests {
 binary_tests! {
     default_inserted_folder,
     default_inserted_modulescript,
-    three_collision_groups,
+    three_screengui,
 }
