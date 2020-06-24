@@ -321,27 +321,21 @@ The first 8 bytes (`80 7f 80 00 00 00 00 00`) represent the Scale values of the 
 ### Referent
 **Type ID 0x13**
 
-Referents are stored as transformed 32-bit signed integers. A value of `-1` (untransformed) indicates a null referent.
+The `Referent` type represents a specific Instance in the file and is stored as an [Int32](#int32). After untransforming a referent, a value of `-1` represents the so-called 'null referent'. In a `PROP` chunk, a null referent represents a property with no set value (an example would `ObjectValue.Value` by default).
 
-When reading an [Interleaved Array](#byte-interleaving) of referents, they should be read accumulatively. In other words, the value of each referent id should be itself, plus its previous value.
+An array of Referents is stored as an array of Int32s, and as a result they are subject to [byte interleaving](#byte-interleaving). When reading an array of Referents, they must be read accumulatively. That is to say that the 'actual' value of the referent is the value of the read value plus the preceding one.
 
 Without accumulation, referents read from a file may look like this. This is **incorrect**:
 
-- 1619
-- 1
-- 4
-- 2
-- 3
-- 5
+| Referent 1 | Referent 2 | Referent 3 | Referent 4 | Referent 5 | Referent 6 |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+| 1619       | 1          | 4          | 2          | 3          | 5          |
 
 The **correct** interpretation of this data, with accumulation, is:
 
-- 1619
-- 1620
-- 1624
-- 1626
-- 1629
-- 1634
+| Referent 1 | Referent 2 | Referent 3 | Referent 4 | Referent 5 | Referent 6 |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+| 1619       | 1620       | 1624       | 1626       | 1629       | 1634       |
 
 ### Vector3int16
 **Type ID 0x14**
