@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
-    types::{BinaryString, Ref, UDim, Variant, VariantType},
+    types::{BinaryString, Ref, UDim, UDim2, Variant, VariantType},
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -549,6 +549,28 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(scale.into_iter())?;
                         chunk.write_interleaved_i32_array(offset.into_iter())?;
                     }
+                    Type::UDim2 => {
+                        let mut scale_x = Vec::with_capacity(values.len());
+                        let mut scale_y = Vec::with_capacity(values.len());
+                        let mut offset_x = Vec::with_capacity(values.len());
+                        let mut offset_y = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::UDim2(value) = rbx_value.as_ref() {
+                                scale_x.push(value.x.scale);
+                                scale_y.push(value.y.scale);
+                                offset_x.push(value.x.offset);
+                                offset_y.push(value.y.offset);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "UDim2");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(scale_x.into_iter())?;
+                        chunk.write_interleaved_f32_array(scale_y.into_iter())?;
+                        chunk.write_interleaved_i32_array(offset_x.into_iter())?;
+                        chunk.write_interleaved_i32_array(offset_y.into_iter())?;
+                    }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
@@ -647,6 +669,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Float32 => Variant::Float32(0 as f32),
             VariantType::Float64 => Variant::Float64(0 as f64),
             VariantType::UDim => Variant::UDim(UDim::new(0 as f32, 0)),
+            VariantType::UDim2 => {
+                Variant::UDim2(UDim2::new(UDim::new(0 as f32, 0), UDim::new(0 as f32, 0)))
+            }
             _ => return None,
         })
     }
