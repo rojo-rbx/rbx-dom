@@ -498,6 +498,19 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             }
                         }
                     }
+                    Type::Int32 => {
+                        let mut buf = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Int32(value) = rbx_value.as_ref() {
+                                buf.push(*value);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Int32");
+                            }
+                        }
+
+                        chunk.write_interleaved_i32_array(buf.into_iter())?;
+                    }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
@@ -592,6 +605,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::String => Variant::String(String::new()),
             VariantType::BinaryString => Variant::BinaryString(BinaryString::new()),
             VariantType::Bool => Variant::Bool(false),
+            VariantType::Int32 => Variant::Int32(0),
             _ => return None,
         })
     }

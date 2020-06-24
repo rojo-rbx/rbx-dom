@@ -169,6 +169,7 @@ fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
 pub enum DecodedValues {
     String(Vec<RobloxString>),
     Bool(Vec<bool>),
+    Int32(Vec<i32>),
 }
 
 impl DecodedValues {
@@ -191,6 +192,13 @@ impl DecodedValues {
                 }
 
                 Some(DecodedValues::Bool(values))
+            }
+            Type::Int32 => {
+                let mut values = vec![0; prop_count];
+
+                reader.read_interleaved_i32_array(&mut values).unwrap();
+
+                Some(DecodedValues::Int32(values))
             }
             _ => None,
         }
