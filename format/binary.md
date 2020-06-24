@@ -200,12 +200,12 @@ Because of the shape of this chunk, every instance of a given type must have the
 ### `PRNT` Chunk
 The `PRNT` chunk has this layout:
 
-| Field Name        | Format          | Value                                     |
-|:------------------|:----------------|:------------------------------------------|
-| Version           | u8              | Always `0`                                |
-| Number of Objects | u32             | Number of objects described in this chunk |
-| Objects           | Array(Referent) | Objects to be parented                    |
-| Parents           | Array(Referent) | Parents for objects                       |
+| Field Name        | Format                       | Value                                     |
+|:------------------|:-----------------------------|:------------------------------------------|
+| Version           | u8                           | Always `0`                                |
+| Number of Objects | u32                          | Number of objects described in this chunk |
+| Objects           | Array([Referent](#referent)) | Objects to be parented                    |
+| Parents           | Array(Referent)              | Parents for objects                       |
 
 The parent chunk (`PRNT`) defines the hierarchy relationship between every instance in the file.
 
