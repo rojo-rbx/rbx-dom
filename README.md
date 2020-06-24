@@ -71,7 +71,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Faces              | `BasePart.ResizableFaces`       | ✔ | ❌ | ❌ | ❌ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ❌ |
 | Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ❌ |
-| Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ❌ |
+| Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ✔ |
 | Int64              | `Player.UserId`                 | ✔ | ✔ | ✔ | ❌ |
 | NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ❌ |
 | NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ❌ |
