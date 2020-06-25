@@ -1,0 +1,69 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: UIPadding
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - UIPadding
+  - Prop:
+      type_id: 0
+      prop_name: PaddingBottom
+      prop_type: UDim
+      values:
+        - - 13.369999885559082
+        - - 42
+  - Prop:
+      type_id: 0
+      prop_name: PaddingLeft
+      prop_type: UDim
+      values:
+        - - -13.369999885559082
+        - - 42
+  - Prop:
+      type_id: 0
+      prop_name: PaddingRight
+      prop_type: UDim
+      values:
+        - - 13.369999885559082
+        - - -42
+  - Prop:
+      type_id: 0
+      prop_name: PaddingTop
+      prop_type: UDim
+      values:
+        - - -13.369999885559082
+        - - -42
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End

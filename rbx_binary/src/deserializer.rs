@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
-    types::{Ref, Variant, VariantType},
+    types::{Ref, UDim, Variant, VariantType},
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
@@ -428,7 +428,24 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::UDim => {}
+            Type::UDim => {
+                let mut scale = vec![0 as f32; type_info.referents.len()];
+                let mut offset = vec![0 as i32; type_info.referents.len()];
+
+                chunk.read_interleaved_f32_array(&mut scale)?;
+                chunk.read_interleaved_i32_array(&mut offset)?;
+
+                for i in 0..scale.len() {
+                    let instance = self
+                        .instances_by_ref
+                        .get_mut(&type_info.referents[i])
+                        .unwrap();
+                    let rbx_value = Variant::UDim(UDim::new(scale[i], offset[i]));
+                    instance
+                        .properties
+                        .push((canonical_name.clone(), rbx_value));
+                }
+            }
             Type::UDim2 => {}
             Type::Ray => {}
             Type::Faces => {}
