@@ -308,6 +308,10 @@ An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00
 ### Faces
 **Type ID 0x09**
 
+The `Faces` type is a single byte used as a bit field. The low 6 bits represent the `Front`, `Bottom`, `Left`, `Back`, `Top`, and `Right` faces, in that order. The remaining two bits have no meaning. `Faces` is stored as an array of bytes with no transformations or interleaving.
+
+Three encoded `Faces` with values `Front`, `Back, Top` and `Bottom, Left, Right` looks like this: `01 18 26`.
+
 ### Axes
 **Type ID 0x0A**
 

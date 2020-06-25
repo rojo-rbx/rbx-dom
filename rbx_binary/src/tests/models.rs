@@ -36,4 +36,5 @@ binary_tests! {
     three_uigridlayouts,
     three_intvalues,
     axes,
+    faces,
 }
