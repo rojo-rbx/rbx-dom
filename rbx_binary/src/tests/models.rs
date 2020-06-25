@@ -35,4 +35,5 @@ binary_tests! {
     three_unique_frames,
     three_uigridlayouts,
     three_intvalues,
+    axes,
 }

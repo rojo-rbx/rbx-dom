@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
-    types::{Color3, Ref, UDim, UDim2, Variant, VariantType, Vector2},
+    types::{Axes, Color3, Ref, UDim, UDim2, Variant, VariantType, Vector2},
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
@@ -474,7 +474,26 @@ impl<R: Read> BinaryDeserializer<R> {
             }
             Type::Ray => {}
             Type::Faces => {}
-            Type::Axes => {}
+            Type::Axes => match canonical_type {
+                VariantType::Axes => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_u8()?;
+                        let rbx_value = Variant::Axes(Axes::from_bits(value).unwrap());
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Axes",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::BrickColor => {}
             Type::Color3 => match canonical_type {
                 VariantType::Color3 => {

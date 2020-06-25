@@ -1,0 +1,224 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: ""
+  class: ArcHandles
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Axes:
+      Type: Axes
+      Value: []
+    Color3:
+      Type: Color3
+      Value:
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Visible:
+      Type: Bool
+      Value: true
+  children: []
+- referent: referent-1
+  name: X
+  class: ArcHandles
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Axes:
+      Type: Axes
+      Value:
+        - X
+    Color3:
+      Type: Color3
+      Value:
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Visible:
+      Type: Bool
+      Value: true
+  children: []
+- referent: referent-2
+  name: "X, Y"
+  class: ArcHandles
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Axes:
+      Type: Axes
+      Value:
+        - X
+        - Y
+    Color3:
+      Type: Color3
+      Value:
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Visible:
+      Type: Bool
+      Value: true
+  children: []
+- referent: referent-3
+  name: "X, Y, Z"
+  class: ArcHandles
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Axes:
+      Type: Axes
+      Value:
+        - X
+        - Y
+        - Z
+    Color3:
+      Type: Color3
+      Value:
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Visible:
+      Type: Bool
+      Value: true
+  children: []
+- referent: referent-4
+  name: "X, Z"
+  class: ArcHandles
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Axes:
+      Type: Axes
+      Value:
+        - X
+        - Z
+    Color3:
+      Type: Color3
+      Value:
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Visible:
+      Type: Bool
+      Value: true
+  children: []
+- referent: referent-5
+  name: Y
+  class: ArcHandles
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Axes:
+      Type: Axes
+      Value:
+        - Y
+    Color3:
+      Type: Color3
+      Value:
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Visible:
+      Type: Bool
+      Value: true
+  children: []
+- referent: referent-6
+  name: "Y, Z"
+  class: ArcHandles
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Axes:
+      Type: Axes
+      Value:
+        - Y
+        - Z
+    Color3:
+      Type: Color3
+      Value:
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Visible:
+      Type: Bool
+      Value: true
+  children: []
+- referent: referent-7
+  name: Z
+  class: ArcHandles
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Axes:
+      Type: Axes
+      Value:
+        - Z
+    Color3:
+      Type: Color3
+      Value:
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    Visible:
+      Type: Bool
+      Value: true
+  children: []

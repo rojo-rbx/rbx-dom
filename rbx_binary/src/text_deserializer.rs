@@ -10,6 +10,8 @@ use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::types::{Color3, UDim, UDim2, Vector2};
 use serde::{Deserialize, Serialize};
 
+use rbx_dom_weak::types::Axes;
+
 use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -175,6 +177,7 @@ pub enum DecodedValues {
     Float64(Vec<f64>),
     UDim(Vec<UDim>),
     UDim2(Vec<UDim2>),
+    Axes(Vec<Axes>),
     Color3(Vec<Color3>),
     Vector2(Vec<Vector2>),
     Int64(Vec<i64>),
@@ -305,6 +308,15 @@ impl DecodedValues {
                 reader.read_interleaved_i64_array(&mut values).unwrap();
 
                 Some(DecodedValues::Int64(values))
+            }
+            Type::Axes => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    values.push(Axes::from_bits(reader.read_u8().unwrap())?)
+                }
+
+                Some(DecodedValues::Axes(values))
             }
             _ => None,
         }
