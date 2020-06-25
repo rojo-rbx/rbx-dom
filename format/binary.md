@@ -284,9 +284,9 @@ The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an
 
 When an array of UDims is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
 
-As an example, the UDims `{1, 2}` and `{3, 4}` when stored would look like this: `80 7f 80 00 00 00 00 00 00 00 00 00 00 00 08 04`.
+As an example, the UDims `{1, 2}` and `{3, 4}` when stored would look like this: `7f 80 00 80 00 00 00 00 00 00 00 00 00 00 04 08`.
 
-The first 8 bytes (`80 7f 80 00 00 00 00 00`) represent the Scale values of the UDims. The latter 8 bytes (`00 00 00 00 00 00 08 04`) represent the Offset values. From there, the values are paired off, so that the first value in each array make up the components of the first UDim, and so on.
+The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the UDims. The latter 8 bytes (`00 00 00 00 00 00 04 08`) represent the Offset values. From there, the values are paired off, so that the first value in each array make up the components of the first UDim, and so on.
 
 ### UDim2
 **Type ID 0x07**
@@ -357,6 +357,8 @@ The **correct** interpretation of this data, with accumulation, is:
 
 ### Color3uint8
 **Type ID 0x1A**
+
+The `Color3uint8` type is stored as a sequence of bytes that 
 
 ### Int64
 **Type ID 0x1B**
