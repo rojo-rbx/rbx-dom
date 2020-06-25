@@ -46,7 +46,7 @@ This document is based on:
 	- [SharedString](#sharedstring)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
-	- [Interleaved Array](#interleaved-array)
+	- [Byte Interleaving](#byte-interleaving)
 	- [Roblox Float Format](#roblox-float-format)
 
 ## Document Conventions
@@ -200,12 +200,12 @@ Because of the shape of this chunk, every instance of a given type must have the
 ### `PRNT` Chunk
 The `PRNT` chunk has this layout:
 
-| Field Name        | Format          | Value                                     |
-|:------------------|:----------------|:------------------------------------------|
-| Version           | u8              | Always `0`                                |
-| Number of Objects | u32             | Number of objects described in this chunk |
-| Objects           | Array(Referent) | Objects to be parented                    |
-| Parents           | Array(Referent) | Parents for objects                       |
+| Field Name        | Format                       | Value                                     |
+|:------------------|:-----------------------------|:------------------------------------------|
+| Version           | u8                           | Always `0`                                |
+| Number of Objects | u32                          | Number of objects described in this chunk |
+| Objects           | Array([Referent](#referent)) | Objects to be parented                    |
+| Parents           | Array(Referent)              | Parents for objects                       |
 
 The parent chunk (`PRNT`) defines the hierarchy relationship between every instance in the file.
 
@@ -256,14 +256,14 @@ When an array of Bools is present, they are stored in sequence.
 
 The `Int32` type is stored as a big-endian [transformed 32-bit integer](#integer-transformations).
 
-When an array of Int32s is present, the bytes of the integers are subject to [byte interleaving](#interleaved-array).
+When an array of Int32s is present, the bytes of the integers are subject to [byte interleaving](#byte-interleaving).
 
 ### Float32
 **Type ID 0x04**
 
 The `Float32` type is stored using the [Roblox float format](#roblox-float-format) and is little-endian. This datatype is also called `float` or `single`.
 
-When an array of Float32s is present, the bytes of the floats are subject to [byte interleaving](#interleaved-array).
+When an array of Float32s is present, the bytes of the floats are subject to [byte interleaving](#byte-interleaving).
 
 ### Float64
 **Type ID 0x05**
@@ -274,6 +274,19 @@ When an array of Float64s is present, they are in sequence with no transformatio
 
 ### UDim
 **Type ID 0x06**
+
+The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an [`Int32`](#int32):
+
+| Field Name  | Format              | Value                             |
+|:------------|:--------------------|:----------------------------------|
+| Scale       | [Float32](#float32) | The `Scale` component of the UDim |
+| Offset      | [Int32](#In32)      | The `Scale` component of the UDim |
+
+When an array of UDims is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
+
+As an example, the UDims `{1, 2}` and `{3, 4}` when stored would look like this: `80 7f 80 00 00 00 00 00 00 00 00 00 00 00 08 04`.
+
+The first 8 bytes (`80 7f 80 00 00 00 00 00`) represent the Scale values of the UDims. The latter 8 bytes (`00 00 00 00 00 00 08 04`) represent the Offset values. From there, the values are paired off, so that the first value in each array make up the components of the first UDim, and so on.
 
 ### UDim2
 **Type ID 0x07**
@@ -308,27 +321,21 @@ When an array of Float64s is present, they are in sequence with no transformatio
 ### Referent
 **Type ID 0x13**
 
-Referents are stored as transformed 32-bit signed integers. A value of `-1` (untransformed) indicates a null referent.
+The `Referent` type represents a specific Instance in the file and is stored as an [Int32](#int32). After untransforming a referent, a value of `-1` represents the so-called 'null referent'. In a `PROP` chunk, a null referent represents a property with no set value (an example would `ObjectValue.Value` by default).
 
-When reading an [Interleaved Array](#interleaved-array) of referents, they should be read accumulatively. In other words, the value of each referent id should be itself, plus its previous value.
+An array of Referents is stored as an array of Int32s, and as a result they are subject to [byte interleaving](#byte-interleaving). When reading an array of Referents, they must be read accumulatively. That is to say that the 'actual' value of the referent is the value of the read value plus the preceding one.
 
 Without accumulation, referents read from a file may look like this. This is **incorrect**:
 
-- 1619
-- 1
-- 4
-- 2
-- 3
-- 5
+| Referent 1 | Referent 2 | Referent 3 | Referent 4 | Referent 5 | Referent 6 |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+| 1619       | 1          | 4          | 2          | 3          | 5          |
 
 The **correct** interpretation of this data, with accumulation, is:
 
-- 1619
-- 1620
-- 1624
-- 1626
-- 1629
-- 1634
+| Referent 1 | Referent 2 | Referent 3 | Referent 4 | Referent 5 | Referent 6 |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+| 1619       | 1620       | 1624       | 1626       | 1629       | 1634       |
 
 ### Vector3int16
 **Type ID 0x14**
@@ -356,12 +363,12 @@ The **correct** interpretation of this data, with accumulation, is:
 
 The `Int64` type is stored as a big-endian [transformed 64-bit integer](#integer-transformations).
 
-When an array of Int64s is present, the bytes of the integers are subject to [byte interleaving](#interleaved-array).
+When an array of Int64s is present, the bytes of the integers are subject to [byte interleaving](#byte-interleaving).
 
 ### SharedString
 **Type ID 0x1C**
 
-SharedStrings are stored as an [Interleaved Array](#interleaved-array) of [Int32s](#int32) that represent indices in the [`SSTR`](#sstr-chunk) string array.
+SharedStrings are stored as an [Interleaved Array](#byte-interleaving) of [Int32s](#int32) that represent indices in the [`SSTR`](#sstr-chunk) string array.
 
 Any property that's a [String](#string) can also be a SharedString.
 
@@ -377,22 +384,29 @@ To untransform one: if `x` is divisible by 2, untransform it with `x / 2`. Other
 
 Untransforming with bitwise operators requires casting to an unsigned integer in some cases because `x >> 1` will result in a negative number if `x` is negative.
 
-### Interleaved Array
-Arrays of many types in property data have their bytes interleaved.
+### Byte Interleaving
 
-For example, an array of 4 bit integers normally represented as:
+When stored as arrays, some data types have their bytes interleaved to help with compression. Cases where byte interleaving is present are explicitly noted.
 
-|||||||||||||
-|--|--|--|--|--|--|--|--|--|--|--|--|
-|**A0**|**A1**|**A2**|**A3**|B0|B1|B2|B3|C0|C1|C2|C3|
+When the bytes of an array are interleaved, they're stored with the first bytes all in sequence, then the second bytes, then the third, and so on. As an example, a sequence of bytes that looks like `A0 A1 B0 B1 C0 C1` would be stored as `A0 B0 C0 A1 B1 C1`.
 
-Would become, after interleaving:
+Viewed another way, it means that the bytes are effectively stored in 'columns' rather than 'rows'. If an array of four 32-bit integers were viewed as a 4x4 matrix, for example, it would normally look like this:
 
-|||||||||||||
-|--|--|--|--|--|--|--|--|--|--|--|--|
-|**A0**|B0|C0|**A1**|B1|C1|**A2**|B2|C2|**A3**|B3|C3|
+|       | Column 1 | Column 2 | Column 3 | Column 4 |
+|:-----:|:--------:|:--------:|:--------:|:--------:|
+| Row 1 | `A0`     | `A1`     | `A2`     | `A3`     |
+| Row 2 | `B0`     | `B1`     | `B2`     | `B3`     |
+| Row 3 | `C0`     | `C1`     | `C2`     | `C3`     |
+| Row 4 | `D0`     | `D1`     | `D2`     | `D3`     |
 
-Note that arrays of integers are generally subject to both interleaving and integer transformation.
+When interleaved, the same array would instead look like this:
+
+|       | Column 1 | Column 2 | Column 3 | Column 4 |
+|:-----:|:--------:|:--------:|:--------:|:--------:|
+| Row 1 | `A0`     | `B0`     | `C0`     | `D0`     |
+| Row 2 | `A1`     | `B1`     | `C1`     | `D1`     |
+| Row 3 | `A2`     | `B2`     | `C2`     | `D2`     |
+| Row 4 | `A3`     | `B3`     | `C3`     | `D3`     |
 
 ### Roblox Float Format
 
