@@ -1,0 +1,65 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: BloomEffect
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: Intensity
+      prop_type: Float32
+      values:
+        - 0.44999998807907107
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Bloom
+  - Prop:
+      type_id: 0
+      prop_name: Size
+      prop_type: Float32
+      values:
+        - 24.700000762939454
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Threshold
+      prop_type: Float32
+      values:
+        - 2.2850000858306886
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End

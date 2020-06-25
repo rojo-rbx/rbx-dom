@@ -28,4 +28,6 @@ binary_tests! {
     default_inserted_folder,
     default_inserted_modulescript,
     three_screengui,
+    bloomeffect,
+    funny_numbervalue,
 }

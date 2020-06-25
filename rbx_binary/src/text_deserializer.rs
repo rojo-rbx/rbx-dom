@@ -170,6 +170,8 @@ pub enum DecodedValues {
     String(Vec<RobloxString>),
     Bool(Vec<bool>),
     Int32(Vec<i32>),
+    Float32(Vec<f32>),
+    Float64(Vec<f64>),
 }
 
 impl DecodedValues {
@@ -199,6 +201,22 @@ impl DecodedValues {
                 reader.read_interleaved_i32_array(&mut values).unwrap();
 
                 Some(DecodedValues::Int32(values))
+            }
+            Type::Float32 => {
+                let mut values = vec![0 as f32; prop_count];
+
+                reader.read_interleaved_f32_array(&mut values).unwrap();
+
+                Some(DecodedValues::Float32(values))
+            }
+            Type::Float64 => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    values.push(reader.read_f64::<LittleEndian>().unwrap())
+                }
+
+                Some(DecodedValues::Float64(values))
             }
             _ => None,
         }
