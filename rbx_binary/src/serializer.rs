@@ -643,7 +643,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Int32 => Variant::Int32(0),
             VariantType::Float32 => Variant::Float32(0 as f32),
             VariantType::Float64 => Variant::Float64(0 as f64),
-            VariantType::Int64 => Variant::Int64(0),
+            VariantType::Int64 => Variant::Int64(0 as i64),
             _ => return None,
         })
     }
