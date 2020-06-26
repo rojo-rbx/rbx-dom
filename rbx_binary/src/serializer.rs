@@ -533,6 +533,19 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             }
                         }
                     }
+                    Type::Int64 => {
+                        let mut buf = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Int64(value) = rbx_value.as_ref() {
+                                buf.push(*value);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Int64");
+                            }
+                        }
+
+                        chunk.write_interleaved_i64_array(buf.into_iter())?;
+                    }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
@@ -630,6 +643,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Int32 => Variant::Int32(0),
             VariantType::Float32 => Variant::Float32(0 as f32),
             VariantType::Float64 => Variant::Float64(0 as f64),
+            VariantType::Int64 => Variant::Int64(0),
             _ => return None,
         })
     }

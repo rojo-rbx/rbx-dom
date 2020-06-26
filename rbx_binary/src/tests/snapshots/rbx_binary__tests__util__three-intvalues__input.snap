@@ -1,0 +1,61 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 3
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: IntValue
+      object_format: 0
+      referents:
+        - 0
+        - 1
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Value=1234567
+        - Value=1337
+        - Value=-7654321
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Value
+      prop_type: Int64
+      values:
+        - 1234567
+        - 1337
+        - -7654321
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+  - End
