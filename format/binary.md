@@ -321,6 +321,17 @@ An encoded `Color3` with RGB value `255, 180, 20` looks like this: `7f 00 00 00 
 ### Vector2
 **Type ID 0x0D**
 
+The `Vector2` type is a struct composed of two `Float32`s:
+
+| Field Name  | Format              | Value                             |
+|:------------|:--------------------|:----------------------------------|
+| X           | [Float32](#float32) | The `X` component of the Vector2  |
+| Y           | [Float32](#float32) | The `Y` component of the Vector2  |
+
+Vector2 is stored as two arrays of components in the order `X`, `Y`. Each array is separately [byte interleaved](#byte-interleaving).
+
+Two encoded `Vector2`s with values `-100.80, 200.55`, `200.55, -100.80` look like this: `85 86 93 91 33 19 35 9a 86 85 91 93 19 33 9a 35`
+
 ### Vector3
 **Type ID 0x0E**
 
