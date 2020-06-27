@@ -358,8 +358,6 @@ The **correct** interpretation of this data, with accumulation, is:
 ### Color3uint8
 **Type ID 0x1A**
 
-The `Color3uint8` type is stored as a sequence of bytes that 
-
 ### Int64
 **Type ID 0x1B**
 
