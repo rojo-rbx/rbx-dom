@@ -280,7 +280,7 @@ The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an
 | Field Name  | Format              | Value                             |
 |:------------|:--------------------|:----------------------------------|
 | Scale       | [Float32](#float32) | The `Scale` component of the UDim |
-| Offset      | [Int32](#In32)      | The `Scale` component of the UDim |
+| Offset      | [Int32](#int32)      | The `Offset` component of the UDim |
 
 When an array of UDims is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
 
