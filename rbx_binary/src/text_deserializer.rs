@@ -207,7 +207,7 @@ impl DecodedValues {
                 Some(DecodedValues::Int32(values))
             }
             Type::Float32 => {
-                let mut values = vec![0 as f32; prop_count];
+                let mut values = vec![0.0; prop_count];
 
                 reader.read_interleaved_f32_array(&mut values).unwrap();
 
@@ -223,8 +223,8 @@ impl DecodedValues {
                 Some(DecodedValues::Float64(values))
             }
             Type::UDim => {
-                let mut scale = vec![0 as f32; prop_count];
-                let mut offset = vec![0 as i32; prop_count];
+                let mut scale = vec![0.0; prop_count];
+                let mut offset = vec![0; prop_count];
 
                 reader.read_interleaved_f32_array(&mut scale).unwrap();
                 reader.read_interleaved_i32_array(&mut offset).unwrap();
@@ -232,9 +232,9 @@ impl DecodedValues {
                 Some(DecodedValues::UDim(scale, offset))
             }
             Type::Color3 => {
-                let mut r = vec![0 as f32; prop_count];
-                let mut g = vec![0 as f32; prop_count];
-                let mut b = vec![0 as f32; prop_count];
+                let mut r = vec![0.0; prop_count];
+                let mut g = vec![0.0; prop_count];
+                let mut b = vec![0.0; prop_count];
 
                 reader.read_interleaved_f32_array(&mut r).unwrap();
                 reader.read_interleaved_f32_array(&mut g).unwrap();
@@ -252,10 +252,10 @@ impl DecodedValues {
                 Some(DecodedValues::Vector2(x, y))
             }
             Type::UDim2 => {
-                let mut scale_x = vec![0 as f32; prop_count];
-                let mut scale_y = vec![0 as f32; prop_count];
-                let mut offset_x = vec![0 as i32; prop_count];
-                let mut offset_y = vec![0 as i32; prop_count];
+                let mut scale_x = vec![0.0; prop_count];
+                let mut scale_y = vec![0.0; prop_count];
+                let mut offset_x = vec![0; prop_count];
+                let mut offset_y = vec![0; prop_count];
 
                 reader.read_interleaved_f32_array(&mut scale_x).unwrap();
                 reader.read_interleaved_f32_array(&mut scale_y).unwrap();

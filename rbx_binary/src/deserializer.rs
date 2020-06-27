@@ -448,10 +448,10 @@ impl<R: Read> BinaryDeserializer<R> {
             }
             Type::UDim2 => {
                 let prop_count = type_info.referents.len();
-                let mut scale_x = vec![0 as f32; prop_count];
-                let mut scale_y = vec![0 as f32; prop_count];
-                let mut offset_x = vec![0 as i32; prop_count];
-                let mut offset_y = vec![0 as i32; prop_count];
+                let mut scale_x = vec![0.0; prop_count];
+                let mut scale_y = vec![0.0; prop_count];
+                let mut offset_x = vec![0; prop_count];
+                let mut offset_y = vec![0; prop_count];
 
                 chunk.read_interleaved_f32_array(&mut scale_x)?;
                 chunk.read_interleaved_f32_array(&mut scale_y)?;
@@ -464,8 +464,14 @@ impl<R: Read> BinaryDeserializer<R> {
                         .get_mut(&type_info.referents[i])
                         .unwrap();
                     let rbx_value = Variant::UDim2(UDim2::new(
-                        UDim::new(scale_x[i], offset_x[i]),
-                        UDim::new(scale_y[i], offset_y[i]),
+                        UDim {
+                            scale: scale_x[i],
+                            offset: offset_x[i],
+                        },
+                        UDim {
+                            scale: scale_y[i],
+                            offset: offset_y[i],
+                        },
                     ));
                     instance
                         .properties
@@ -478,19 +484,24 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::BrickColor => {}
             Type::Color3 => match canonical_type {
                 VariantType::Color3 => {
-                    let mut r = vec![0 as f32; type_info.referents.len()];
-                    let mut g = vec![0 as f32; type_info.referents.len()];
-                    let mut b = vec![0 as f32; type_info.referents.len()];
+                    let mut r = vec![0.0; type_info.referents.len()];
+                    let mut g = vec![0.0; type_info.referents.len()];
+                    let mut b = vec![0.0; type_info.referents.len()];
 
                     chunk.read_interleaved_f32_array(&mut r)?;
                     chunk.read_interleaved_f32_array(&mut g)?;
                     chunk.read_interleaved_f32_array(&mut b)?;
+
                     for i in 0..type_info.referents.len() {
                         let instance = self
                             .instances_by_ref
                             .get_mut(&type_info.referents[i])
                             .unwrap();
-                        let rbx_value = Variant::Color3(Color3::new(r[i], g[i], b[i]));
+                        let rbx_value = Variant::Color3(Color3 {
+                            r: r[i],
+                            g: g[i],
+                            b: b[i],
+                        });
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
