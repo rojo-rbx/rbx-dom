@@ -67,7 +67,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
 | BrickColor         | `Part.BrickColor`               | ✔ | ✔ | ✔ | ❌ |
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ❌ |
-| Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ❌ |
+| Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ✔ |
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
 | ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
@@ -90,7 +90,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
 | UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ✔ |
 | UDim2              | `Frame.Size`                    | ✔ | ✔ | ✔ | ✔ |
-| Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ❌ |
+| Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ✔ |
 | Vector2int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
 | Vector3            | `Part.Size`                     | ✔ | ✔ | ✔ | ❌ |
 | Vector3int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
