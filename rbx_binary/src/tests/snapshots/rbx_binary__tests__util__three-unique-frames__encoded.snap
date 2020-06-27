@@ -50,12 +50,40 @@ chunks:
         - true
   - Prop:
       type_id: 0
+      prop_name: BackgroundColor3
+      prop_type: Color3
+      values:
+        - - 1.0
+          - 0.0
+          - 1.0
+        - - 0.49803921580314639
+          - 1.0
+          - 0.0
+        - - 0.0
+          - 0.0
+          - 1.0
+  - Prop:
+      type_id: 0
       prop_name: BackgroundTransparency
       prop_type: Float32
       values:
         - 0.0
         - 0.10000000149011612
         - 0.20000000298023225
+  - Prop:
+      type_id: 0
+      prop_name: BorderColor3
+      prop_type: Color3
+      values:
+        - - 1.0
+          - 0.0
+          - 1.0
+        - - 0.0
+          - 0.0
+          - 1.0
+        - - 0.49803921580314639
+          - 1.0
+          - 0.0
   - Prop:
       type_id: 0
       prop_name: BorderSizePixel
@@ -98,6 +126,23 @@ chunks:
         - Frame3
   - Prop:
       type_id: 0
+      prop_name: Position
+      prop_type: UDim2
+      values:
+        - - 0.10000000149011612
+          - 0.30000001192092898
+          - 0.5
+        - - 0.20000000298023225
+          - 0.4000000059604645
+          - 0.6000000238418579
+        - - 2
+          - 16
+          - 64
+        - - 4
+          - 32
+          - 128
+  - Prop:
+      type_id: 0
       prop_name: Rotation
       prop_type: Float32
       values:
@@ -112,6 +157,23 @@ chunks:
         - false
         - false
         - false
+  - Prop:
+      type_id: 0
+      prop_name: Size
+      prop_type: UDim2
+      values:
+        - - 0.10000000149011612
+          - 0.30000001192092898
+          - 0.5
+        - - 0.20000000298023225
+          - 0.4000000059604645
+          - 0.6000000238418579
+        - - 2
+          - 16
+          - 64
+        - - 4
+          - 32
+          - 128
   - Prop:
       type_id: 0
       prop_name: Tags

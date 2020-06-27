@@ -56,7 +56,16 @@ chunks:
       type_id: 0
       prop_name: BackgroundColor3
       prop_type: Color3
-      remaining: fwB/AAAAAAAAAAAAfX8A/QAA/QAA/gAAAAB/AAAAAAAAAAAA
+      values:
+        - - 1.0
+          - 0.0
+          - 1.0
+        - - 0.49803921580314639
+          - 1.0
+          - 0.0
+        - - 0.0
+          - 0.0
+          - 1.0
   - Prop:
       type_id: 0
       prop_name: BackgroundTransparency
@@ -69,7 +78,16 @@ chunks:
       type_id: 0
       prop_name: BorderColor3
       prop_type: Color3
-      remaining: fwB/AAAAAAAAAAAAAAB/AAAAAAAAAAAAfX8A/QAA/QAA/gAA
+      values:
+        - - 1.0
+          - 0.0
+          - 1.0
+        - - 0.0
+          - 0.0
+          - 1.0
+        - - 0.49803921580314639
+          - 1.0
+          - 0.0
   - Prop:
       type_id: 0
       prop_name: BorderMode
@@ -139,7 +157,19 @@ chunks:
       type_id: 0
       prop_name: Position
       prop_type: UDim2
-      remaining: e31+mTMAmTMAmjQAfH1+mZkzmZkzmpo0AAAAAAAAAAAABCCAAAAAAAAAAAABCEAA
+      values:
+        - - 0.10000000149011612
+          - 0.30000001192092898
+          - 0.5
+        - - 0.20000000298023225
+          - 0.4000000059604645
+          - 0.6000000238418579
+        - - 2
+          - 16
+          - 64
+        - - 4
+          - 32
+          - 128
   - Prop:
       type_id: 0
       prop_name: RootLocalizationTable
@@ -170,7 +200,19 @@ chunks:
       type_id: 0
       prop_name: Size
       prop_type: UDim2
-      remaining: e31+mTMAmTMAmjQAfH1+mZkzmZkzmpo0AAAAAAAAAAAABCCAAAAAAAAAAAABCEAA
+      values:
+        - - 0.10000000149011612
+          - 0.30000001192092898
+          - 0.5
+        - - 0.20000000298023225
+          - 0.4000000059604645
+          - 0.6000000238418579
+        - - 2
+          - 16
+          - 64
+        - - 4
+          - 32
+          - 128
   - Prop:
       type_id: 0
       prop_name: SizeConstraint

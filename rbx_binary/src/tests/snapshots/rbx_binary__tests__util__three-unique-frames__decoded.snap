@@ -20,9 +20,21 @@ expression: decoded_viewed
     AutoLocalize:
       Type: Bool
       Value: true
+    BackgroundColor3:
+      Type: Color3
+      Value:
+        - 1.0
+        - 0.49803921580314639
+        - 0.0
     BackgroundTransparency:
       Type: Float32
       Value: 0.0
+    BorderColor3:
+      Type: Color3
+      Value:
+        - 1.0
+        - 0.0
+        - 0.49803921580314639
     BorderSizePixel:
       Type: Int32
       Value: 1
@@ -35,12 +47,26 @@ expression: decoded_viewed
     LayoutOrder:
       Type: Int32
       Value: 0
+    Position:
+      Type: UDim2
+      Value:
+        - - 0.10000000149011612
+          - 2
+        - - 0.20000000298023225
+          - 4
     Rotation:
       Type: Float32
       Value: 0.0
     Selectable:
       Type: Bool
       Value: false
+    Size:
+      Type: UDim2
+      Value:
+        - - 0.10000000149011612
+          - 2
+        - - 0.20000000298023225
+          - 4
     Tags:
       Type: BinaryString
       Value: ""
@@ -69,9 +95,21 @@ expression: decoded_viewed
     AutoLocalize:
       Type: Bool
       Value: true
+    BackgroundColor3:
+      Type: Color3
+      Value:
+        - 0.0
+        - 1.0
+        - 0.0
     BackgroundTransparency:
       Type: Float32
       Value: 0.10000000149011612
+    BorderColor3:
+      Type: Color3
+      Value:
+        - 0.0
+        - 0.0
+        - 1.0
     BorderSizePixel:
       Type: Int32
       Value: 2
@@ -84,12 +122,26 @@ expression: decoded_viewed
     LayoutOrder:
       Type: Int32
       Value: 1
+    Position:
+      Type: UDim2
+      Value:
+        - - 0.30000001192092898
+          - 16
+        - - 0.4000000059604645
+          - 32
     Rotation:
       Type: Float32
       Value: 1.0
     Selectable:
       Type: Bool
       Value: false
+    Size:
+      Type: UDim2
+      Value:
+        - - 0.30000001192092898
+          - 16
+        - - 0.4000000059604645
+          - 32
     Tags:
       Type: BinaryString
       Value: ""
@@ -118,9 +170,21 @@ expression: decoded_viewed
     AutoLocalize:
       Type: Bool
       Value: true
+    BackgroundColor3:
+      Type: Color3
+      Value:
+        - 1.0
+        - 0.0
+        - 1.0
     BackgroundTransparency:
       Type: Float32
       Value: 0.20000000298023225
+    BorderColor3:
+      Type: Color3
+      Value:
+        - 1.0
+        - 1.0
+        - 0.0
     BorderSizePixel:
       Type: Int32
       Value: 3
@@ -133,12 +197,26 @@ expression: decoded_viewed
     LayoutOrder:
       Type: Int32
       Value: 2
+    Position:
+      Type: UDim2
+      Value:
+        - - 0.5
+          - 64
+        - - 0.6000000238418579
+          - 128
     Rotation:
       Type: Float32
       Value: 2.0
     Selectable:
       Type: Bool
       Value: false
+    Size:
+      Type: UDim2
+      Value:
+        - - 0.5
+          - 64
+        - - 0.6000000238418579
+          - 128
     Tags:
       Type: BinaryString
       Value: ""
