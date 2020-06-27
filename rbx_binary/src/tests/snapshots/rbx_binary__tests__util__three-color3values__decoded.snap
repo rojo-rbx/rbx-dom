@@ -1,0 +1,55 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Value
+  class: Color3Value
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: Color3
+      Value:
+        - 0.0
+        - 0.3137255012989044
+        - 0.49803921580314639
+  children: []
+- referent: referent-1
+  name: Value
+  class: Color3Value
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: Color3
+      Value:
+        - 1.0
+        - 0.7058823704719544
+        - 0.0784313753247261
+  children: []
+- referent: referent-2
+  name: Value
+  class: Color3Value
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: Color3
+      Value:
+        - 2.007843255996704
+        - 1.0196079015731812
+        - 0.03921568766236305
+  children: []

@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
-    types::{Ref, UDim, Variant, VariantType},
+    types::{Color3, Ref, UDim, Variant, VariantType},
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
@@ -451,7 +451,36 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::Faces => {}
             Type::Axes => {}
             Type::BrickColor => {}
-            Type::Color3 => {}
+            Type::Color3 => match canonical_type {
+                VariantType::Color3 => {
+                    let mut r = vec![0 as f32; type_info.referents.len()];
+                    let mut g = vec![0 as f32; type_info.referents.len()];
+                    let mut b = vec![0 as f32; type_info.referents.len()];
+
+                    chunk.read_interleaved_f32_array(&mut r)?;
+                    chunk.read_interleaved_f32_array(&mut g)?;
+                    chunk.read_interleaved_f32_array(&mut b)?;
+
+                    for i in 0..type_info.referents.len() {
+                        let instance = self
+                            .instances_by_ref
+                            .get_mut(&type_info.referents[i])
+                            .unwrap();
+                        let rbx_value = Variant::Color3(Color3::new(r[i], g[i], b[i]));
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Color3",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Vector2 => {}
             Type::Vector3 => {}
             Type::CFrame => {}

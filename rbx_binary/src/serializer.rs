@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
-    types::{BinaryString, Ref, UDim, Variant, VariantType},
+    types::{BinaryString, Color3, Ref, UDim, Variant, VariantType},
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -549,6 +549,25 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(scale.into_iter())?;
                         chunk.write_interleaved_i32_array(offset.into_iter())?;
                     }
+                    Type::Color3 => {
+                        let mut r = Vec::with_capacity(values.len());
+                        let mut g = Vec::with_capacity(values.len());
+                        let mut b = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Color3(value) = rbx_value.as_ref() {
+                                r.push(value.r);
+                                g.push(value.g);
+                                b.push(value.b);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Color3");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(r.into_iter())?;
+                        chunk.write_interleaved_f32_array(g.into_iter())?;
+                        chunk.write_interleaved_f32_array(b.into_iter())?;
+                    }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
@@ -647,6 +666,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Float32 => Variant::Float32(0 as f32),
             VariantType::Float64 => Variant::Float64(0 as f64),
             VariantType::UDim => Variant::UDim(UDim::new(0 as f32, 0)),
+            VariantType::Color3 => Variant::Color3(Color3{ r: 0.0, g: 0.0, b: 0.0}),
             _ => return None,
         })
     }

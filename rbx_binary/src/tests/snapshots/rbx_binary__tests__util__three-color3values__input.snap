@@ -1,0 +1,67 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 3
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: Color3Value
+      object_format: 0
+      referents:
+        - 0
+        - 1
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Value
+        - Value
+        - Value
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Value
+      prop_type: Color3
+      values:
+        - - 0.0
+          - 1.0
+          - 2.007843255996704
+        - - 0.3137255012989044
+          - 0.7058823704719544
+          - 1.0196079015731812
+        - - 0.49803921580314639
+          - 0.0784313753247261
+          - 0.03921568766236305
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+  - End
