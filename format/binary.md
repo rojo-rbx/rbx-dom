@@ -291,6 +291,17 @@ The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the 
 ### UDim2
 **Type ID 0x07**
 
+The `UDim2` type is a struct composed of two `UDim`s, one for each axis:
+
+| Field Name  | Format              | Value                             |
+|:------------|:--------------------|:----------------------------------|
+| X           | [UDim](#udim)       | The `X` component of the UDim2    |
+| Y           | [UDim](#udim)       | The `Y` component of the UDim2    |
+
+`UDim2` is stored as four arrays of component values in the order `X.Scale`, `Y.Scale`, `X.Offset`, `Y.Offset`. Each array is separately [byte interleaved](#byte-interleaving).
+
+An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00 00 7f 80 00 01 00 00 00 3b 00 00 00 78`.
+
 ### Ray
 **Type ID 0x08**
 
