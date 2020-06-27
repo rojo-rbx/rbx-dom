@@ -32,4 +32,5 @@ binary_tests! {
     funny_numbervalue,
     funny_uipadding,
     three_color3values,
+    three_unique_frames,
 }

@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
-    types::{BinaryString, Color3, Ref, UDim, Variant, VariantType},
+    types::{BinaryString, Color3, Ref, UDim, Variant, VariantType, Vector2},
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -568,6 +568,22 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(g.into_iter())?;
                         chunk.write_interleaved_f32_array(b.into_iter())?;
                     }
+                    Type::Vector2 => {
+                        let mut x = Vec::with_capacity(values.len());
+                        let mut y = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Vector2(value) = rbx_value.as_ref() {
+                                x.push(value.x);
+                                y.push(value.y)
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Vector2");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(x.into_iter())?;
+                        chunk.write_interleaved_f32_array(y.into_iter())?;
+                    }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
@@ -666,7 +682,12 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Float32 => Variant::Float32(0 as f32),
             VariantType::Float64 => Variant::Float64(0 as f64),
             VariantType::UDim => Variant::UDim(UDim::new(0 as f32, 0)),
-            VariantType::Color3 => Variant::Color3(Color3{ r: 0.0, g: 0.0, b: 0.0}),
+            VariantType::Color3 => Variant::Color3(Color3 {
+                r: 0.0,
+                g: 0.0,
+                b: 0.0,
+            }),
+            VariantType::Vector2 => Variant::Vector2(Vector2 { x: 0.0, y: 0.0 }),
             _ => return None,
         })
     }

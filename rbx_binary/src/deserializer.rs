@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
-    types::{Color3, Ref, UDim, Variant, VariantType},
+    types::{Color3, Ref, UDim, Variant, VariantType, Vector2},
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
@@ -460,7 +460,6 @@ impl<R: Read> BinaryDeserializer<R> {
                     chunk.read_interleaved_f32_array(&mut r)?;
                     chunk.read_interleaved_f32_array(&mut g)?;
                     chunk.read_interleaved_f32_array(&mut b)?;
-
                     for i in 0..type_info.referents.len() {
                         let instance = self
                             .instances_by_ref
@@ -481,7 +480,34 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::Vector2 => {}
+            Type::Vector2 => match canonical_type {
+                VariantType::Vector2 => {
+                    let mut x = vec![0.0; type_info.referents.len()];
+                    let mut y = vec![0.0; type_info.referents.len()];
+
+                    chunk.read_interleaved_f32_array(&mut x)?;
+                    chunk.read_interleaved_f32_array(&mut y)?;
+
+                    for i in 0..type_info.referents.len() {
+                        let instance = self
+                            .instances_by_ref
+                            .get_mut(&type_info.referents[i])
+                            .unwrap();
+                        let rbx_value = Variant::Vector2(Vector2 { x: x[i], y: y[i] });
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Vector2",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Vector3 => {}
             Type::CFrame => {}
             Type::Enum => {}

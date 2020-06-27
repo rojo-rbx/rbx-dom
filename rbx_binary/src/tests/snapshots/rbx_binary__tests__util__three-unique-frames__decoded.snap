@@ -1,0 +1,151 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Frame1
+  class: Frame
+  properties:
+    Active:
+      Type: Bool
+      Value: false
+    AnchorPoint:
+      Type: Vector2
+      Value:
+        - 0.10000000149011612
+        - 0.20000000298023225
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    AutoLocalize:
+      Type: Bool
+      Value: true
+    BackgroundTransparency:
+      Type: Float32
+      Value: 0.0
+    BorderSizePixel:
+      Type: Int32
+      Value: 1
+    ClipsDescendants:
+      Type: Bool
+      Value: false
+    Draggable:
+      Type: Bool
+      Value: false
+    LayoutOrder:
+      Type: Int32
+      Value: 0
+    Rotation:
+      Type: Float32
+      Value: 0.0
+    Selectable:
+      Type: Bool
+      Value: false
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Visible:
+      Type: Bool
+      Value: true
+    ZIndex:
+      Type: Int32
+      Value: 1
+  children: []
+- referent: referent-1
+  name: Frame2
+  class: Frame
+  properties:
+    Active:
+      Type: Bool
+      Value: false
+    AnchorPoint:
+      Type: Vector2
+      Value:
+        - 0.30000001192092898
+        - 0.4000000059604645
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    AutoLocalize:
+      Type: Bool
+      Value: true
+    BackgroundTransparency:
+      Type: Float32
+      Value: 0.10000000149011612
+    BorderSizePixel:
+      Type: Int32
+      Value: 2
+    ClipsDescendants:
+      Type: Bool
+      Value: false
+    Draggable:
+      Type: Bool
+      Value: false
+    LayoutOrder:
+      Type: Int32
+      Value: 1
+    Rotation:
+      Type: Float32
+      Value: 1.0
+    Selectable:
+      Type: Bool
+      Value: false
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Visible:
+      Type: Bool
+      Value: true
+    ZIndex:
+      Type: Int32
+      Value: 1
+  children: []
+- referent: referent-2
+  name: Frame3
+  class: Frame
+  properties:
+    Active:
+      Type: Bool
+      Value: false
+    AnchorPoint:
+      Type: Vector2
+      Value:
+        - 0.5
+        - 0.6000000238418579
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    AutoLocalize:
+      Type: Bool
+      Value: true
+    BackgroundTransparency:
+      Type: Float32
+      Value: 0.20000000298023225
+    BorderSizePixel:
+      Type: Int32
+      Value: 3
+    ClipsDescendants:
+      Type: Bool
+      Value: false
+    Draggable:
+      Type: Bool
+      Value: false
+    LayoutOrder:
+      Type: Int32
+      Value: 2
+    Rotation:
+      Type: Float32
+      Value: 2.0
+    Selectable:
+      Type: Bool
+      Value: false
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Visible:
+      Type: Bool
+      Value: true
+    ZIndex:
+      Type: Int32
+      Value: 1
+  children: []
