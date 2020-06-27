@@ -306,6 +306,18 @@ The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the 
 ### Color3
 **Type ID 0x0C**
 
+The `Color3` type is a struct composed of three `Float32`s:
+
+| Field Name  | Format              | Value                             |
+|:------------|:--------------------|:----------------------------------|
+| R           | [Float32](#float32) | The `R` component of the Color3   |
+| G           | [Float32](#float32) | The `G` component of the Color3   |
+| B           | [Float32](#float32) | The `B` component of the Color3   |
+
+`Color3` is stored as three arrays of components in the order `R`, `G`, `B`. Each array is separately [byte interleaved](#byte-interleaving).
+
+An encoded `Color3` with RGB value `255, 180, 20` looks like this: `7f 00 00 00 7e 69 69 6a 7b 41 41 42`.
+
 ### Vector2
 **Type ID 0x0D**
 
