@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
-    types::{BinaryString, Color3, Ref, UDim, Variant, VariantType, Vector2},
+    types::{BinaryString, Color3, Ref, UDim, UDim2, Variant, VariantType, Vector2},
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -584,6 +584,28 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(x.into_iter())?;
                         chunk.write_interleaved_f32_array(y.into_iter())?;
                     }
+                    Type::UDim2 => {
+                        let mut scale_x = Vec::with_capacity(values.len());
+                        let mut scale_y = Vec::with_capacity(values.len());
+                        let mut offset_x = Vec::with_capacity(values.len());
+                        let mut offset_y = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::UDim2(value) = rbx_value.as_ref() {
+                                scale_x.push(value.x.scale);
+                                scale_y.push(value.y.scale);
+                                offset_x.push(value.x.offset);
+                                offset_y.push(value.y.offset);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "UDim2");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(scale_x.into_iter())?;
+                        chunk.write_interleaved_f32_array(scale_y.into_iter())?;
+                        chunk.write_interleaved_i32_array(offset_x.into_iter())?;
+                        chunk.write_interleaved_i32_array(offset_y.into_iter())?;
+                    }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
@@ -688,6 +710,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 b: 0.0,
             }),
             VariantType::Vector2 => Variant::Vector2(Vector2 { x: 0.0, y: 0.0 }),
+            VariantType::UDim2 => {
+                Variant::UDim2(UDim2::new(UDim::new(0 as f32, 0), UDim::new(0 as f32, 0)))
+            }
             _ => return None,
         })
     }

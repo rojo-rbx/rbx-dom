@@ -33,4 +33,5 @@ binary_tests! {
     funny_uipadding,
     three_color3values,
     three_unique_frames,
+    three_uigridlayouts,
 }
