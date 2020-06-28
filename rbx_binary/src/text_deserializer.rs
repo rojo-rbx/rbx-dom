@@ -172,6 +172,7 @@ pub enum DecodedValues {
     Int32(Vec<i32>),
     Float32(Vec<f32>),
     Float64(Vec<f64>),
+    UDim(Vec<f32>, Vec<i32>),
     Int64(Vec<i64>),
 }
 
@@ -218,6 +219,15 @@ impl DecodedValues {
                 }
 
                 Some(DecodedValues::Float64(values))
+            }
+            Type::UDim => {
+                let mut scale = vec![0 as f32; prop_count];
+                let mut offset = vec![0 as i32; prop_count];
+
+                reader.read_interleaved_f32_array(&mut scale).unwrap();
+                reader.read_interleaved_i32_array(&mut offset).unwrap();
+
+                Some(DecodedValues::UDim(scale, offset))
             }
             Type::Int64 => {
                 let mut values = vec![0; prop_count];

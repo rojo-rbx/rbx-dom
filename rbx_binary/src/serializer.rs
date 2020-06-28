@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
-    types::{BinaryString, Ref, Variant, VariantType},
+    types::{BinaryString, Ref, UDim, Variant, VariantType},
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -533,6 +533,22 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             }
                         }
                     }
+                    Type::UDim => {
+                        let mut scale = Vec::with_capacity(values.len());
+                        let mut offset = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::UDim(value) = rbx_value.as_ref() {
+                                scale.push(value.scale);
+                                offset.push(value.offset);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "UDim");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(scale.into_iter())?;
+                        chunk.write_interleaved_i32_array(offset.into_iter())?;
+                    }
                     Type::Int64 => {
                         let mut buf = Vec::with_capacity(values.len());
 
@@ -643,6 +659,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Int32 => Variant::Int32(0),
             VariantType::Float32 => Variant::Float32(0 as f32),
             VariantType::Float64 => Variant::Float64(0 as f64),
+            VariantType::UDim => Variant::UDim(UDim::new(0 as f32, 0)),
             VariantType::Int64 => Variant::Int64(0 as i64),
             _ => return None,
         })

@@ -88,7 +88,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Region3int16       | `Terrain.MaxExtents`            | ✔ | ✔ | ❌ | ❌ |
 | SharedString       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
-| UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ❌ |
+| UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ✔ |
 | UDim2              | `Frame.Size`                    | ✔ | ✔ | ✔ | ❌ |
 | Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ❌ |
 | Vector2int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |

@@ -1,5 +1,5 @@
 use rbx_dom_weak::{
-    types::{Ref, UDim},
+    types::{Ref, Region3, Vector3},
     InstanceBuilder, WeakDom,
 };
 
@@ -56,9 +56,10 @@ fn unknown_property() {
 /// This test will need to be updated once we implement the type used here.
 #[test]
 fn unimplemented_type_known_property() {
-    let tree = WeakDom::new(
-        InstanceBuilder::new("UIListLayout").with_property("Padding", UDim::new(1.0, -30)),
-    );
+    let tree = WeakDom::new(InstanceBuilder::new("UIListLayout").with_property(
+        "Padding",
+        Region3::new(Vector3::new(0.0, 0.0, 50.0), Vector3::new(0.0, 0.0, 50.0)),
+    ));
 
     let mut buffer = Vec::new();
     let result = encode(&tree, &[tree.root_ref()], &mut buffer);
@@ -75,9 +76,10 @@ fn unimplemented_type_known_property() {
 /// This test will need to be updated once we implement the type used here.
 #[test]
 fn unimplemented_type_unknown_property() {
-    let tree = WeakDom::new(
-        InstanceBuilder::new("Folder").with_property("WILL_NEVER_EXIST", UDim::new(0.0, 50)),
-    );
+    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_property(
+        "WILL_NEVER_EXIST",
+        Region3::new(Vector3::new(0.0, 0.0, 50.0), Vector3::new(0.0, 0.0, 50.0)),
+    ));
 
     let mut buffer = Vec::new();
     let result = encode(&tree, &[tree.root_ref()], &mut buffer);

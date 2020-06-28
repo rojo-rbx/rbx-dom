@@ -30,5 +30,6 @@ binary_tests! {
     three_screengui,
     bloomeffect,
     funny_numbervalue,
+    funny_uipadding,
     three_intvalues,
 }
