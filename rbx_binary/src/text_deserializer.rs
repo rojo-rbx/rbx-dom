@@ -7,7 +7,7 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use rbx_dom_weak::types::{UDim, UDim2};
+use rbx_dom_weak::types::{Color3, UDim, UDim2};
 use serde::{Deserialize, Serialize};
 
 use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
@@ -175,7 +175,7 @@ pub enum DecodedValues {
     Float64(Vec<f64>),
     UDim(Vec<UDim>),
     UDim2(Vec<UDim2>),
-    Color3(Vec<f32>, Vec<f32>, Vec<f32>),
+    Color3(Vec<Color3>),
     Vector2(Vec<f32>, Vec<f32>),
     Int64(Vec<i64>),
 }
@@ -275,7 +275,14 @@ impl DecodedValues {
                 reader.read_interleaved_f32_array(&mut g).unwrap();
                 reader.read_interleaved_f32_array(&mut b).unwrap();
 
-                Some(DecodedValues::Color3(r, g, b))
+                let values = r
+                    .into_iter()
+                    .zip(g.into_iter())
+                    .zip(b.into_iter())
+                    .map(|((r, g), b)| Color3::new(r, g, b))
+                    .collect();
+
+                Some(DecodedValues::Color3(values))
             }
             Type::Vector2 => {
                 let mut x = vec![0.0; prop_count];
