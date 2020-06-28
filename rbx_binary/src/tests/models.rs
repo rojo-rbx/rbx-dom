@@ -31,4 +31,5 @@ binary_tests! {
     bloomeffect,
     funny_numbervalue,
     funny_uipadding,
+    three_intvalues,
 }
