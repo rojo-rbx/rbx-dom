@@ -719,7 +719,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::UDim => Variant::UDim(UDim::new(0.0, 0)),
             VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
-            VariantType::Vector2 => Variant::Vector2(Vector2 { x: 0.0, y: 0.0 }),
+            VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Int64 => Variant::Int64(0),
             _ => return None,
         })
