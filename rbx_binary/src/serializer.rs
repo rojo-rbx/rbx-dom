@@ -716,25 +716,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Int32 => Variant::Int32(0),
             VariantType::Float32 => Variant::Float32(0.0),
             VariantType::Float64 => Variant::Float64(0.0),
-            VariantType::UDim => Variant::UDim(UDim {
-                scale: 0.0,
-                offset: 0,
-            }),
-            VariantType::UDim2 => Variant::UDim2(UDim2 {
-                x: UDim {
-                    scale: 0.0,
-                    offset: 0,
-                },
-                y: UDim {
-                    scale: 0.0,
-                    offset: 0,
-                },
-            }),
-            VariantType::Color3 => Variant::Color3(Color3 {
-                r: 0.0,
-                g: 0.0,
-                b: 0.0,
-            }),
+            VariantType::UDim => Variant::UDim(UDim::new(0.0, 0)),
+            VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
+            VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2 { x: 0.0, y: 0.0 }),
             VariantType::Int64 => Variant::Int64(0),
             _ => return None,
