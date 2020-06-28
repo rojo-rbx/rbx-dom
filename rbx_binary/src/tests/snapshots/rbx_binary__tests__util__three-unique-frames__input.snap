@@ -1,0 +1,259 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 3
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: Frame
+      object_format: 0
+      referents:
+        - 0
+        - 1
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: Active
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: AnchorPoint
+      prop_type: Vector2
+      values:
+        - - 0.10000000149011612
+          - 0.30000001192092898
+          - 0.5
+        - - 0.20000000298023225
+          - 0.4000000059604645
+          - 0.6000000238418579
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: AutoLocalize
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: BackgroundColor3
+      prop_type: Color3
+      values:
+        - - 1.0
+          - 0.0
+          - 1.0
+        - - 0.49803921580314639
+          - 1.0
+          - 0.0
+        - - 0.0
+          - 0.0
+          - 1.0
+  - Prop:
+      type_id: 0
+      prop_name: BackgroundTransparency
+      prop_type: Float32
+      values:
+        - 0.0
+        - 0.10000000149011612
+        - 0.20000000298023225
+  - Prop:
+      type_id: 0
+      prop_name: BorderColor3
+      prop_type: Color3
+      values:
+        - - 1.0
+          - 0.0
+          - 1.0
+        - - 0.0
+          - 0.0
+          - 1.0
+        - - 0.49803921580314639
+          - 1.0
+          - 0.0
+  - Prop:
+      type_id: 0
+      prop_name: BorderMode
+      prop_type: Enum
+      remaining: AAAAAAAAAAAAAAAA
+  - Prop:
+      type_id: 0
+      prop_name: BorderSizePixel
+      prop_type: Int32
+      values:
+        - 1
+        - 2
+        - 3
+  - Prop:
+      type_id: 0
+      prop_name: ClipsDescendants
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: Draggable
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: LayoutOrder
+      prop_type: Int32
+      values:
+        - 0
+        - 1
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Frame1
+        - Frame2
+        - Frame3
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionDown
+      prop_type: Ref
+      remaining: AAAAAAAAAAAAAQAA
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionLeft
+      prop_type: Ref
+      remaining: AAAAAAAAAAAAAQAA
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionRight
+      prop_type: Ref
+      remaining: AAAAAAAAAAAAAQAA
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionUp
+      prop_type: Ref
+      remaining: AAAAAAAAAAAAAQAA
+  - Prop:
+      type_id: 0
+      prop_name: Position
+      prop_type: UDim2
+      values:
+        - - 0.10000000149011612
+          - 0.30000001192092898
+          - 0.5
+        - - 0.20000000298023225
+          - 0.4000000059604645
+          - 0.6000000238418579
+        - - 2
+          - 16
+          - 64
+        - - 4
+          - 32
+          - 128
+  - Prop:
+      type_id: 0
+      prop_name: RootLocalizationTable
+      prop_type: Ref
+      remaining: AAAAAAAAAAAAAQAA
+  - Prop:
+      type_id: 0
+      prop_name: Rotation
+      prop_type: Float32
+      values:
+        - 0.0
+        - 1.0
+        - 2.0
+  - Prop:
+      type_id: 0
+      prop_name: Selectable
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: SelectionImageObject
+      prop_type: Ref
+      remaining: AAAAAAAAAAAAAQAA
+  - Prop:
+      type_id: 0
+      prop_name: Size
+      prop_type: UDim2
+      values:
+        - - 0.10000000149011612
+          - 0.30000001192092898
+          - 0.5
+        - - 0.20000000298023225
+          - 0.4000000059604645
+          - 0.6000000238418579
+        - - 2
+          - 16
+          - 64
+        - - 4
+          - 32
+          - 128
+  - Prop:
+      type_id: 0
+      prop_name: SizeConstraint
+      prop_type: Enum
+      remaining: AAAAAAAAAAAAAQAC
+  - Prop:
+      type_id: 0
+      prop_name: Style
+      prop_type: Enum
+      remaining: AAAAAAAAAAAAAAAA
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Visible
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: ZIndex
+      prop_type: Int32
+      values:
+        - 1
+        - 1
+        - 1
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+  - End

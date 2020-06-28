@@ -1,0 +1,88 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: UIGridLayout
+  class: UIGridLayout
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    CellPadding:
+      Type: UDim2
+      Value:
+        - - 0.0
+          - 0
+        - - -0.10000000149011612
+          - 100
+    CellSize:
+      Type: UDim2
+      Value:
+        - - 0.20000000298023225
+          - -150
+        - - -0.30000001192092898
+          - 300
+    FillDirectionMaxCells:
+      Type: Int32
+      Value: 0
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []
+- referent: referent-1
+  name: UIGridLayout
+  class: UIGridLayout
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    CellPadding:
+      Type: UDim2
+      Value:
+        - - 0.4000000059604645
+          - -500
+        - - -0.5
+          - 600
+    CellSize:
+      Type: UDim2
+      Value:
+        - - 0.6000000238418579
+          - -1200
+        - - -0.699999988079071
+          - 1000
+    FillDirectionMaxCells:
+      Type: Int32
+      Value: 0
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []
+- referent: referent-2
+  name: UIGridLayout
+  class: UIGridLayout
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    CellPadding:
+      Type: UDim2
+      Value:
+        - - 0.800000011920929
+          - -200
+        - - -0.8999999761581421
+          - 250
+    CellSize:
+      Type: UDim2
+      Value:
+        - - 1.0
+          - -300
+        - - -1.100000023841858
+          - 1200
+    FillDirectionMaxCells:
+      Type: Int32
+      Value: 0
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []

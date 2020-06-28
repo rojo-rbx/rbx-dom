@@ -31,5 +31,8 @@ binary_tests! {
     bloomeffect,
     funny_numbervalue,
     funny_uipadding,
+    three_color3values,
+    three_unique_frames,
+    three_uigridlayouts,
     three_intvalues,
 }

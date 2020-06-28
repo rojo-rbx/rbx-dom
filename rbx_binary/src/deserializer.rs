@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
-    types::{Ref, UDim, Variant, VariantType},
+    types::{Color3, Ref, UDim, UDim2, Variant, VariantType, Vector2},
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
@@ -385,7 +385,7 @@ impl<R: Read> BinaryDeserializer<R> {
             },
             Type::Float32 => match canonical_type {
                 VariantType::Float32 => {
-                    let mut values = vec![0 as f32; type_info.referents.len()];
+                    let mut values = vec![0.0; type_info.referents.len()];
                     chunk.read_interleaved_f32_array(&mut values)?;
 
                     for i in 0..values.len() {
@@ -429,8 +429,8 @@ impl<R: Read> BinaryDeserializer<R> {
                 }
             },
             Type::UDim => {
-                let mut scale = vec![0 as f32; type_info.referents.len()];
-                let mut offset = vec![0 as i32; type_info.referents.len()];
+                let mut scale = vec![0.0; type_info.referents.len()];
+                let mut offset = vec![0; type_info.referents.len()];
 
                 chunk.read_interleaved_f32_array(&mut scale)?;
                 chunk.read_interleaved_i32_array(&mut offset)?;
@@ -446,13 +446,94 @@ impl<R: Read> BinaryDeserializer<R> {
                         .push((canonical_name.clone(), rbx_value));
                 }
             }
-            Type::UDim2 => {}
+            Type::UDim2 => {
+                let prop_count = type_info.referents.len();
+                let mut scale_x = vec![0.0; prop_count];
+                let mut scale_y = vec![0.0; prop_count];
+                let mut offset_x = vec![0; prop_count];
+                let mut offset_y = vec![0; prop_count];
+
+                chunk.read_interleaved_f32_array(&mut scale_x)?;
+                chunk.read_interleaved_f32_array(&mut scale_y)?;
+                chunk.read_interleaved_i32_array(&mut offset_x)?;
+                chunk.read_interleaved_i32_array(&mut offset_y)?;
+
+                for i in 0..prop_count {
+                    let instance = self
+                        .instances_by_ref
+                        .get_mut(&type_info.referents[i])
+                        .unwrap();
+                    let rbx_value = Variant::UDim2(UDim2::new(
+                        UDim::new(scale_x[i], offset_x[i]),
+                        UDim::new(scale_y[i], offset_y[i]),
+                    ));
+                    instance
+                        .properties
+                        .push((canonical_name.clone(), rbx_value));
+                }
+            }
             Type::Ray => {}
             Type::Faces => {}
             Type::Axes => {}
             Type::BrickColor => {}
-            Type::Color3 => {}
-            Type::Vector2 => {}
+            Type::Color3 => match canonical_type {
+                VariantType::Color3 => {
+                    let mut r = vec![0.0; type_info.referents.len()];
+                    let mut g = vec![0.0; type_info.referents.len()];
+                    let mut b = vec![0.0; type_info.referents.len()];
+
+                    chunk.read_interleaved_f32_array(&mut r)?;
+                    chunk.read_interleaved_f32_array(&mut g)?;
+                    chunk.read_interleaved_f32_array(&mut b)?;
+
+                    for i in 0..type_info.referents.len() {
+                        let instance = self
+                            .instances_by_ref
+                            .get_mut(&type_info.referents[i])
+                            .unwrap();
+                        let rbx_value = Variant::Color3(Color3::new(r[i], g[i], b[i]));
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Color3",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::Vector2 => match canonical_type {
+                VariantType::Vector2 => {
+                    let mut x = vec![0.0; type_info.referents.len()];
+                    let mut y = vec![0.0; type_info.referents.len()];
+
+                    chunk.read_interleaved_f32_array(&mut x)?;
+                    chunk.read_interleaved_f32_array(&mut y)?;
+
+                    for i in 0..type_info.referents.len() {
+                        let instance = self
+                            .instances_by_ref
+                            .get_mut(&type_info.referents[i])
+                            .unwrap();
+                        let rbx_value = Variant::Vector2(Vector2::new(x[i], y[i]));
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Vector2",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Vector3 => {}
             Type::CFrame => {}
             Type::Enum => {}

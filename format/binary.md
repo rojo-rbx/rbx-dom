@@ -280,7 +280,7 @@ The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an
 | Field Name  | Format              | Value                             |
 |:------------|:--------------------|:----------------------------------|
 | Scale       | [Float32](#float32) | The `Scale` component of the UDim |
-| Offset      | [Int32](#In32)      | The `Scale` component of the UDim |
+| Offset      | [Int32](#int32)      | The `Offset` component of the UDim |
 
 When an array of UDims is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
 
@@ -290,6 +290,17 @@ The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the 
 
 ### UDim2
 **Type ID 0x07**
+
+The `UDim2` type is a struct composed of two `UDim`s, one for each axis:
+
+| Field Name  | Format              | Value                             |
+|:------------|:--------------------|:----------------------------------|
+| X           | [UDim](#udim)       | The `X` component of the UDim2    |
+| Y           | [UDim](#udim)       | The `Y` component of the UDim2    |
+
+`UDim2` is stored as four arrays of component values in the order `X.Scale`, `Y.Scale`, `X.Offset`, `Y.Offset`. Each array is separately [byte interleaved](#byte-interleaving).
+
+An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00 00 7f 80 00 01 00 00 00 3b 00 00 00 78`.
 
 ### Ray
 **Type ID 0x08**
@@ -306,8 +317,31 @@ The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the 
 ### Color3
 **Type ID 0x0C**
 
+The `Color3` type is a struct composed of three `Float32`s:
+
+| Field Name  | Format              | Value                             |
+|:------------|:--------------------|:----------------------------------|
+| R           | [Float32](#float32) | The `R` component of the Color3   |
+| G           | [Float32](#float32) | The `G` component of the Color3   |
+| B           | [Float32](#float32) | The `B` component of the Color3   |
+
+`Color3` is stored as three arrays of components in the order `R`, `G`, `B`. Each array is separately [byte interleaved](#byte-interleaving).
+
+An encoded `Color3` with RGB value `255, 180, 20` looks like this: `7f 00 00 00 7e 69 69 6a 7b 41 41 42`.
+
 ### Vector2
 **Type ID 0x0D**
+
+The `Vector2` type is a struct composed of two `Float32`s:
+
+| Field Name  | Format              | Value                             |
+|:------------|:--------------------|:----------------------------------|
+| X           | [Float32](#float32) | The `X` component of the Vector2  |
+| Y           | [Float32](#float32) | The `Y` component of the Vector2  |
+
+Vector2 is stored as two arrays of components in the order `X`, `Y`. Each array is separately [byte interleaved](#byte-interleaving).
+
+Two encoded `Vector2`s with values `-100.80, 200.55`, `200.55, -100.80` look like this: `85 86 93 91 33 19 35 9a 86 85 91 93 19 33 9a 35`
 
 ### Vector3
 **Type ID 0x0E**
