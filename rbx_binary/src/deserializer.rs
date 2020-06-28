@@ -440,10 +440,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         .instances_by_ref
                         .get_mut(&type_info.referents[i])
                         .unwrap();
-                    let rbx_value = Variant::UDim(UDim {
-                        scale: scale[i],
-                        offset: offset[i],
-                    });
+                    let rbx_value = Variant::UDim(UDim::new(scale[i], offset[i]));
                     instance
                         .properties
                         .push((canonical_name.clone(), rbx_value));
@@ -467,14 +464,8 @@ impl<R: Read> BinaryDeserializer<R> {
                         .get_mut(&type_info.referents[i])
                         .unwrap();
                     let rbx_value = Variant::UDim2(UDim2::new(
-                        UDim {
-                            scale: scale_x[i],
-                            offset: offset_x[i],
-                        },
-                        UDim {
-                            scale: scale_y[i],
-                            offset: offset_y[i],
-                        },
+                        UDim::new(scale_x[i], offset_x[i]),
+                        UDim::new(scale_y[i], offset_y[i]),
                     ));
                     instance
                         .properties
@@ -500,11 +491,7 @@ impl<R: Read> BinaryDeserializer<R> {
                             .instances_by_ref
                             .get_mut(&type_info.referents[i])
                             .unwrap();
-                        let rbx_value = Variant::Color3(Color3 {
-                            r: r[i],
-                            g: g[i],
-                            b: b[i],
-                        });
+                        let rbx_value = Variant::Color3(Color3::new(r[i], g[i], b[i]));
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
@@ -532,7 +519,7 @@ impl<R: Read> BinaryDeserializer<R> {
                             .instances_by_ref
                             .get_mut(&type_info.referents[i])
                             .unwrap();
-                        let rbx_value = Variant::Vector2(Vector2 { x: x[i], y: y[i] });
+                        let rbx_value = Variant::Vector2(Vector2::new(x[i], y[i]));
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
