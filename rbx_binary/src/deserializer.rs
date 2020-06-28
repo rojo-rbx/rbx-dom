@@ -385,7 +385,7 @@ impl<R: Read> BinaryDeserializer<R> {
             },
             Type::Float32 => match canonical_type {
                 VariantType::Float32 => {
-                    let mut values = vec![0 as f32; type_info.referents.len()];
+                    let mut values = vec![0.0; type_info.referents.len()];
                     chunk.read_interleaved_f32_array(&mut values)?;
 
                     for i in 0..values.len() {
@@ -429,8 +429,8 @@ impl<R: Read> BinaryDeserializer<R> {
                 }
             },
             Type::UDim => {
-                let mut scale = vec![0 as f32; type_info.referents.len()];
-                let mut offset = vec![0 as i32; type_info.referents.len()];
+                let mut scale = vec![0.0; type_info.referents.len()];
+                let mut offset = vec![0; type_info.referents.len()];
 
                 chunk.read_interleaved_f32_array(&mut scale)?;
                 chunk.read_interleaved_i32_array(&mut offset)?;
@@ -440,7 +440,10 @@ impl<R: Read> BinaryDeserializer<R> {
                         .instances_by_ref
                         .get_mut(&type_info.referents[i])
                         .unwrap();
-                    let rbx_value = Variant::UDim(UDim::new(scale[i], offset[i]));
+                    let rbx_value = Variant::UDim(UDim {
+                        scale: scale[i],
+                        offset: offset[i],
+                    });
                     instance
                         .properties
                         .push((canonical_name.clone(), rbx_value));
