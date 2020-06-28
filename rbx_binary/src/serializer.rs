@@ -549,6 +549,28 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(scale.into_iter())?;
                         chunk.write_interleaved_i32_array(offset.into_iter())?;
                     }
+                    Type::UDim2 => {
+                        let mut scale_x = Vec::with_capacity(values.len());
+                        let mut scale_y = Vec::with_capacity(values.len());
+                        let mut offset_x = Vec::with_capacity(values.len());
+                        let mut offset_y = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::UDim2(value) = rbx_value.as_ref() {
+                                scale_x.push(value.x.scale);
+                                scale_y.push(value.y.scale);
+                                offset_x.push(value.x.offset);
+                                offset_y.push(value.y.offset);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "UDim2");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(scale_x.into_iter())?;
+                        chunk.write_interleaved_f32_array(scale_y.into_iter())?;
+                        chunk.write_interleaved_i32_array(offset_x.into_iter())?;
+                        chunk.write_interleaved_i32_array(offset_y.into_iter())?;
+                    }
                     Type::Color3 => {
                         let mut r = Vec::with_capacity(values.len());
                         let mut g = Vec::with_capacity(values.len());
@@ -584,27 +606,18 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(x.into_iter())?;
                         chunk.write_interleaved_f32_array(y.into_iter())?;
                     }
-                    Type::UDim2 => {
-                        let mut scale_x = Vec::with_capacity(values.len());
-                        let mut scale_y = Vec::with_capacity(values.len());
-                        let mut offset_x = Vec::with_capacity(values.len());
-                        let mut offset_y = Vec::with_capacity(values.len());
+                    Type::Int64 => {
+                        let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::UDim2(value) = rbx_value.as_ref() {
-                                scale_x.push(value.x.scale);
-                                scale_y.push(value.y.scale);
-                                offset_x.push(value.x.offset);
-                                offset_y.push(value.y.offset);
+                            if let Variant::Int64(value) = rbx_value.as_ref() {
+                                buf.push(*value);
                             } else {
-                                return type_mismatch(i, &rbx_value, "UDim2");
+                                return type_mismatch(i, &rbx_value, "Int64");
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(scale_x.into_iter())?;
-                        chunk.write_interleaved_f32_array(scale_y.into_iter())?;
-                        chunk.write_interleaved_i32_array(offset_x.into_iter())?;
-                        chunk.write_interleaved_i32_array(offset_y.into_iter())?;
+                        chunk.write_interleaved_i64_array(buf.into_iter())?;
                     }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
@@ -707,12 +720,6 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 scale: 0.0,
                 offset: 0,
             }),
-            VariantType::Color3 => Variant::Color3(Color3 {
-                r: 0.0,
-                g: 0.0,
-                b: 0.0,
-            }),
-            VariantType::Vector2 => Variant::Vector2(Vector2 { x: 0.0, y: 0.0 }),
             VariantType::UDim2 => Variant::UDim2(UDim2 {
                 x: UDim {
                     scale: 0.0,
@@ -723,6 +730,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     offset: 0,
                 },
             }),
+            VariantType::Color3 => Variant::Color3(Color3 {
+                r: 0.0,
+                g: 0.0,
+                b: 0.0,
+            }),
+            VariantType::Vector2 => Variant::Vector2(Vector2 { x: 0.0, y: 0.0 }),
+            VariantType::Int64 => Variant::Int64(0),
             _ => return None,
         })
     }

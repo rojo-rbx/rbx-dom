@@ -85,6 +85,35 @@ pub trait RbxReadExt: Read {
 
         Ok(())
     }
+
+    fn read_interleaved_i64_array(&mut self, output: &mut [i64]) -> io::Result<()> {
+        let mut buf = vec![0; output.len() * mem::size_of::<i64>()];
+        self.read_exact(&mut buf)?;
+
+        for i in 0..output.len() {
+            let z0 = buf[i] as i64;
+            let z1 = buf[i + output.len()] as i64;
+            let z2 = buf[i + output.len() * 2] as i64;
+            let z3 = buf[i + output.len() * 3] as i64;
+            let z4 = buf[i + output.len() * 4] as i64;
+            let z5 = buf[i + output.len() * 5] as i64;
+            let z6 = buf[i + output.len() * 6] as i64;
+            let z7 = buf[i + output.len() * 7] as i64;
+
+            output[i] = untransform_i64(
+                (z0 << 56)
+                    | (z1 << 48)
+                    | (z2 << 40)
+                    | (z3 << 32)
+                    | (z4 << 24)
+                    | (z5 << 16)
+                    | (z6 << 8)
+                    | z7,
+            );
+        }
+
+        Ok(())
+    }
 }
 
 impl<R> RbxReadExt for R where R: Read {}
@@ -150,6 +179,22 @@ pub trait RbxWriteExt: Write {
 
         self.write_interleaved_i32_array(delta_encoded)
     }
+
+    fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: Iterator<Item = i64>,
+    {
+        let values: Vec<_> = values.collect();
+
+        for shift in &[56, 48, 40, 32, 24, 16, 8, 0] {
+            for value in values.iter().copied() {
+                let encoded = transform_i64(value) >> shift;
+                self.write_u8(encoded as u8)?;
+            }
+        }
+
+        Ok(())
+    }
 }
 
 impl<W> RbxWriteExt for W where W: Write {}
@@ -163,6 +208,14 @@ pub fn transform_i32(value: i32) -> i32 {
 /// The inverse of `transform_i32`.
 pub fn untransform_i32(value: i32) -> i32 {
     ((value as u32) >> 1) as i32 ^ -(value & 1)
+}
+
+pub fn transform_i64(value: i64) -> i64 {
+    (value << 1) ^ (value >> 63)
+}
+
+pub fn untransform_i64(value: i64) -> i64 {
+    ((value as u64) >> 1) as i64 ^ -(value & 1)
 }
 
 pub fn find_canonical_property_descriptor(

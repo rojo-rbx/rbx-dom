@@ -76,7 +76,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ✔ |
 | Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ✔ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ✔ |
-| Int64              | `Player.UserId`                 | ✔ | ✔ | ✔ | ❌ |
+| Int64              | `Player.UserId`                 | ✔ | ✔ | ✔ | ✔ |
 | NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ❌ |
 | NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ❌ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ❌ |

@@ -173,9 +173,10 @@ pub enum DecodedValues {
     Float32(Vec<f32>),
     Float64(Vec<f64>),
     UDim(Vec<f32>, Vec<i32>),
+    UDim2(Vec<f32>, Vec<f32>, Vec<i32>, Vec<i32>),
     Color3(Vec<f32>, Vec<f32>, Vec<f32>),
     Vector2(Vec<f32>, Vec<f32>),
-    UDim2(Vec<f32>, Vec<f32>, Vec<i32>, Vec<i32>),
+    Int64(Vec<i64>),
 }
 
 impl DecodedValues {
@@ -231,6 +232,19 @@ impl DecodedValues {
 
                 Some(DecodedValues::UDim(scale, offset))
             }
+            Type::UDim2 => {
+                let mut scale_x = vec![0.0; prop_count];
+                let mut scale_y = vec![0.0; prop_count];
+                let mut offset_x = vec![0; prop_count];
+                let mut offset_y = vec![0; prop_count];
+
+                reader.read_interleaved_f32_array(&mut scale_x).unwrap();
+                reader.read_interleaved_f32_array(&mut scale_y).unwrap();
+                reader.read_interleaved_i32_array(&mut offset_x).unwrap();
+                reader.read_interleaved_i32_array(&mut offset_y).unwrap();
+
+                Some(DecodedValues::UDim2(scale_x, scale_y, offset_x, offset_y))
+            }
             Type::Color3 => {
                 let mut r = vec![0.0; prop_count];
                 let mut g = vec![0.0; prop_count];
@@ -251,18 +265,12 @@ impl DecodedValues {
 
                 Some(DecodedValues::Vector2(x, y))
             }
-            Type::UDim2 => {
-                let mut scale_x = vec![0.0; prop_count];
-                let mut scale_y = vec![0.0; prop_count];
-                let mut offset_x = vec![0; prop_count];
-                let mut offset_y = vec![0; prop_count];
+            Type::Int64 => {
+                let mut values = vec![0; prop_count];
 
-                reader.read_interleaved_f32_array(&mut scale_x).unwrap();
-                reader.read_interleaved_f32_array(&mut scale_y).unwrap();
-                reader.read_interleaved_i32_array(&mut offset_x).unwrap();
-                reader.read_interleaved_i32_array(&mut offset_y).unwrap();
+                reader.read_interleaved_i64_array(&mut values).unwrap();
 
-                Some(DecodedValues::UDim2(scale_x, scale_y, offset_x, offset_y))
+                Some(DecodedValues::Int64(values))
             }
             _ => None,
         }
