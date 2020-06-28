@@ -233,7 +233,7 @@ impl DecodedValues {
 
                 let values = scale
                     .into_iter()
-                    .zip(offset.into_iter())
+                    .zip(offset)
                     .map(|(scale, offset)| UDim::new(scale, offset))
                     .collect();
 
@@ -252,11 +252,11 @@ impl DecodedValues {
 
                 let x_values = scale_x
                     .into_iter()
-                    .zip(offset_x.into_iter())
+                    .zip(offset_x)
                     .map(|(scale, offset)| UDim::new(scale, offset));
                 let y_values = scale_y
                     .into_iter()
-                    .zip(offset_y.into_iter())
+                    .zip(offset_y)
                     .map(|(scale, offset)| UDim::new(scale, offset));
 
                 let values = x_values
@@ -277,8 +277,8 @@ impl DecodedValues {
 
                 let values = r
                     .into_iter()
-                    .zip(g.into_iter())
-                    .zip(b.into_iter())
+                    .zip(g)
+                    .zip(b)
                     .map(|((r, g), b)| Color3::new(r, g, b))
                     .collect();
 
@@ -293,7 +293,7 @@ impl DecodedValues {
 
                 let values = x
                     .into_iter()
-                    .zip(y.into_iter())
+                    .zip(y)
                     .map(|(x, y)| Vector2::new(x, y))
                     .collect();
 
