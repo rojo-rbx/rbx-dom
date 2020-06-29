@@ -308,8 +308,10 @@ An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00
 ### Faces
 **Type ID 0x09**
 
-### Axis
+### Axes
 **Type ID 0x0A**
+
+The `Axes` type is a single byte used as a bit field. The low three bits represent the `X`, `Y`, and `Z` axes, in that order. The remaining five bits have no meaning.
 
 ### BrickColor
 **Type ID 0x0B**
@@ -439,7 +441,7 @@ When interleaved, the same array would instead look like this:
 |:-----:|:--------:|:--------:|:--------:|:--------:|
 | Row 1 | `A0`     | `B0`     | `C0`     | `D0`     |
 | Row 2 | `A1`     | `B1`     | `C1`     | `D1`     |
-| Row 3 | `A2`     | `B2`     | `C2`     | `D2`     |
+p| Row 3 | `A2`     | `B2`     | `C2`     | `D2`     |
 | Row 4 | `A3`     | `B3`     | `C3`     | `D3`     |
 
 ### Roblox Float Format
