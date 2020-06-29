@@ -7,6 +7,7 @@
 //! 2. Add a 'mod' statement immediately below this comment
 //! 3. Add the type(s) to the declare_rbx_types! macro invocation
 
+mod axes;
 mod binary_string;
 mod bool;
 mod cframe;
@@ -29,8 +30,8 @@ mod vectors;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue, NumberRange,
-    NumberSequence, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, Vector2,
+    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue,
+    NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, Vector2,
     Vector2int16, Vector3, Vector3int16,
 };
 
@@ -106,6 +107,7 @@ macro_rules! declare_rbx_types {
 }
 
 declare_rbx_types! {
+    Axes: Axes,
     BinaryString: BinaryString,
     Bool: bool,
     CFrame: CFrame,
