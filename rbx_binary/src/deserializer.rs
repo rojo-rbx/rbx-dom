@@ -479,7 +479,8 @@ impl<R: Read> BinaryDeserializer<R> {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_u8()?;
-                        let rbx_value = Variant::Axes(Axes::from_bits(value).unwrap());
+                        let rbx_value =
+                            Variant::Axes(Axes::from_bits(value).unwrap_or(Axes::empty()));
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
