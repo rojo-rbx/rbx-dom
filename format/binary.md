@@ -443,7 +443,7 @@ When interleaved, the same array would instead look like this:
 |:-----:|:--------:|:--------:|:--------:|:--------:|
 | Row 1 | `A0`     | `B0`     | `C0`     | `D0`     |
 | Row 2 | `A1`     | `B1`     | `C1`     | `D1`     |
-p| Row 3 | `A2`     | `B2`     | `C2`     | `D2`     |
+| Row 3 | `A2`     | `B2`     | `C2`     | `D2`     |
 | Row 4 | `A3`     | `B3`     | `C3`     | `D3`     |
 
 ### Roblox Float Format
