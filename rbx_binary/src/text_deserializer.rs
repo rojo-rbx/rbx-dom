@@ -7,10 +7,8 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use rbx_dom_weak::types::{Color3, UDim, UDim2, Vector2};
+use rbx_dom_weak::types::{Axes, Color3, UDim, UDim2, Vector2};
 use serde::{Deserialize, Serialize};
-
-use rbx_dom_weak::types::Axes;
 
 use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
 
