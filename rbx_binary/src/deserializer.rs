@@ -487,8 +487,16 @@ impl<R: Read> BinaryDeserializer<R> {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_u8()?;
-                        let rbx_value =
-                            Variant::Axes(Axes::from_bits(value).unwrap_or(Axes::empty()));
+                        let rbx_value = Variant::Axes(if let Some(axes) = Axes::from_bits(value) {
+                            axes
+                        } else {
+                            return Err(InnerError::InvalidPropData {
+                                type_name: type_info.type_name.clone(),
+                                prop_name,
+                                valid_value: "less than 7",
+                                actual_value: format!("{}", value),
+                            });
+                        });
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
