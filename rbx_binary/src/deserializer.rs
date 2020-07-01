@@ -67,6 +67,14 @@ pub(crate) enum InnerError {
         actual_type_name: String,
     },
 
+    #[error("Invalid property data: Property {type_name}.{prop_name} was expected to be {valid_value}, but it was {actual_value}")]
+    InvalidPropData {
+        type_name: String,
+        prop_name: String,
+        valid_value: &'static str,
+        actual_value: String,
+    },
+
     #[error("File referred to type ID {type_id}, which was not declared")]
     InvalidTypeId { type_id: u32 },
 }
