@@ -78,9 +78,9 @@ pub trait RbxReadExt: Read {
 
         let mut last = 0;
 
-        for i in 0..output.len() {
-            output[i] += last;
-            last = output[i];
+        for referent in output.iter_mut() {
+            *referent += last;
+            last = *referent;
         }
 
         Ok(())

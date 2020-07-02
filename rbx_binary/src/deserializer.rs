@@ -363,12 +363,12 @@ impl<R: Read> BinaryDeserializer<R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_i32_array(&mut values)?;
 
-                    for i in 0..values.len() {
+                    for (i, value) in values.into_iter().enumerate() {
                         let instance = self
                             .instances_by_ref
                             .get_mut(&type_info.referents[i])
                             .unwrap();
-                        let rbx_value = Variant::Int32(values[i]);
+                        let rbx_value = Variant::Int32(value);
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
@@ -388,12 +388,12 @@ impl<R: Read> BinaryDeserializer<R> {
                     let mut values = vec![0.0; type_info.referents.len()];
                     chunk.read_interleaved_f32_array(&mut values)?;
 
-                    for i in 0..values.len() {
+                    for (i, value) in values.into_iter().enumerate() {
                         let instance = self
                             .instances_by_ref
                             .get_mut(&type_info.referents[i])
                             .unwrap();
-                        let rbx_value = Variant::Float32(values[i]);
+                        let rbx_value = Variant::Float32(value);
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
@@ -550,12 +550,12 @@ impl<R: Read> BinaryDeserializer<R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_i64_array(&mut values)?;
 
-                    for i in 0..values.len() {
+                    for (i, value) in values.into_iter().enumerate() {
                         let instance = self
                             .instances_by_ref
                             .get_mut(&type_info.referents[i])
                             .unwrap();
-                        let rbx_value = Variant::Int64(values[i]);
+                        let rbx_value = Variant::Int64(value);
                         instance
                             .properties
                             .push((canonical_name.clone(), rbx_value));
@@ -682,14 +682,14 @@ impl FileHeader {
         let mut magic_header = [0; 8];
         source.read_exact(&mut magic_header)?;
 
-        if &magic_header != FILE_MAGIC_HEADER {
+        if magic_header != FILE_MAGIC_HEADER {
             return Err(InnerError::BadHeader);
         }
 
         let mut signature = [0; 6];
         source.read_exact(&mut signature)?;
 
-        if &signature != FILE_SIGNATURE {
+        if signature != FILE_SIGNATURE {
             return Err(InnerError::BadHeader);
         }
 
