@@ -1,6 +1,7 @@
 use std::{
     borrow::{Borrow, Cow},
     collections::{BTreeMap, HashMap, VecDeque},
+    convert::TryInto,
     io::{self, Write},
     u32,
 };
@@ -320,11 +321,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     fn generate_referents(&mut self) {
         self.id_to_referent.reserve(self.relevant_instances.len());
 
-        let mut next_referent = 0;
-
-        for id in &self.relevant_instances {
-            self.id_to_referent.insert(*id, next_referent);
-            next_referent += 1;
+        for (next_referent, id) in self.relevant_instances.iter().enumerate() {
+            self.id_to_referent.insert(*id, next_referent.try_into().unwrap());
         }
     }
 
@@ -445,7 +443,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                                 .properties
                                 .get(prop_name)
                                 .map(Cow::Borrowed)
-                                .unwrap_or(Cow::Borrowed(prop_info.default_value.borrow()))
+                                .unwrap_or_else(|| Cow::Borrowed(prop_info.default_value.borrow()))
                         }
                     })
                     .enumerate();
