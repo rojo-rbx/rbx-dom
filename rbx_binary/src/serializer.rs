@@ -322,7 +322,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         self.id_to_referent.reserve(self.relevant_instances.len());
 
         for (next_referent, id) in self.relevant_instances.iter().enumerate() {
-            self.id_to_referent.insert(*id, next_referent.try_into().unwrap());
+            self.id_to_referent
+                .insert(*id, next_referent.try_into().unwrap());
         }
     }
 
