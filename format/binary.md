@@ -27,7 +27,7 @@ This document is based on:
 	- [UDim2](#udim2)
 	- [Ray](#ray)
 	- [Faces](#faces)
-	- [Axis](#axis)
+	- [Axes](#axes)
 	- [BrickColor](#brickcolor)
 	- [Color3](#color3)
 	- [Vector2](#vector2)
@@ -308,8 +308,12 @@ An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00
 ### Faces
 **Type ID 0x09**
 
-### Axis
+### Axes
 **Type ID 0x0A**
+
+The `Axes` type is a single byte used as a bit field. The low three bits represent the `X`, `Y`, and `Z` axes, in that order. The remaining five bits have no meaning. `Axes` is stored as an array of bytes with no transformations or interleaving.
+
+Three encoded `Axes` with values `X`, `X Y`, and `X Z` would look like this: `01 03 05`.
 
 ### BrickColor
 **Type ID 0x0B**

@@ -8,7 +8,7 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
-    types::{BinaryString, Color3, Ref, UDim, UDim2, Variant, VariantType, Vector2},
+    types::{Axes, BinaryString, Color3, Ref, UDim, UDim2, Variant, VariantType, Vector2},
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -570,6 +570,15 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_i32_array(offset_x.into_iter())?;
                         chunk.write_interleaved_i32_array(offset_y.into_iter())?;
                     }
+                    Type::Axes => {
+                        for (i, rbx_value) in values {
+                            if let Variant::Axes(value) = rbx_value.as_ref() {
+                                chunk.write_u8(value.bits())?;
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Axes");
+                            }
+                        }
+                    }
                     Type::Color3 => {
                         let mut r = Vec::with_capacity(values.len());
                         let mut g = Vec::with_capacity(values.len());
@@ -717,6 +726,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Float64 => Variant::Float64(0.0),
             VariantType::UDim => Variant::UDim(UDim::new(0.0, 0)),
             VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
+            VariantType::Axes => Variant::Axes(Axes::from_bits(0)?),
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Int64 => Variant::Int64(0),
