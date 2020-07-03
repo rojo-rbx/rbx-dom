@@ -371,11 +371,8 @@ impl<R: Read> BinaryDeserializer<R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_i32_array(&mut values)?;
 
-                    for (i, value) in values.into_iter().enumerate() {
-                        let instance = self
-                            .instances_by_ref
-                            .get_mut(&type_info.referents[i])
-                            .unwrap();
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let rbx_value = Variant::Int32(value);
                         instance
                             .properties
@@ -396,11 +393,8 @@ impl<R: Read> BinaryDeserializer<R> {
                     let mut values = vec![0.0; type_info.referents.len()];
                     chunk.read_interleaved_f32_array(&mut values)?;
 
-                    for (i, value) in values.into_iter().enumerate() {
-                        let instance = self
-                            .instances_by_ref
-                            .get_mut(&type_info.referents[i])
-                            .unwrap();
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let rbx_value = Variant::Float32(value);
                         instance
                             .properties
@@ -437,21 +431,20 @@ impl<R: Read> BinaryDeserializer<R> {
                 }
             },
             Type::UDim => {
-                let mut scale = vec![0.0; type_info.referents.len()];
-                let mut offset = vec![0; type_info.referents.len()];
+                let mut scales = vec![0.0; type_info.referents.len()];
+                let mut offsets = vec![0; type_info.referents.len()];
 
-                chunk.read_interleaved_f32_array(&mut scale)?;
-                chunk.read_interleaved_i32_array(&mut offset)?;
+                chunk.read_interleaved_f32_array(&mut scales)?;
+                chunk.read_interleaved_i32_array(&mut offsets)?;
 
-                for i in 0..scale.len() {
-                    let instance = self
-                        .instances_by_ref
-                        .get_mut(&type_info.referents[i])
-                        .unwrap();
-                    let rbx_value = Variant::UDim(UDim::new(scale[i], offset[i]));
-                    instance
-                        .properties
-                        .push((canonical_name.clone(), rbx_value));
+                let values = scales
+                    .into_iter()
+                    .zip(offsets)
+                    .map(|(scale, offset)| Variant::UDim(UDim::new(scale, offset)));
+
+                for (value, referent) in values.zip(&type_info.referents) {
+                    let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    instance.properties.push((canonical_name.clone(), value));
                 }
             }
             Type::UDim2 => {
@@ -466,18 +459,21 @@ impl<R: Read> BinaryDeserializer<R> {
                 chunk.read_interleaved_i32_array(&mut offset_x)?;
                 chunk.read_interleaved_i32_array(&mut offset_y)?;
 
-                for i in 0..prop_count {
-                    let instance = self
-                        .instances_by_ref
-                        .get_mut(&type_info.referents[i])
-                        .unwrap();
-                    let rbx_value = Variant::UDim2(UDim2::new(
-                        UDim::new(scale_x[i], offset_x[i]),
-                        UDim::new(scale_y[i], offset_y[i]),
-                    ));
-                    instance
-                        .properties
-                        .push((canonical_name.clone(), rbx_value));
+                let x = scale_x
+                    .into_iter()
+                    .zip(offset_x)
+                    .map(|(scale, offset)| UDim::new(scale, offset));
+
+                let y = scale_y
+                    .into_iter()
+                    .zip(offset_y)
+                    .map(|(scale, offset)| UDim::new(scale, offset));
+
+                let values = x.zip(y).map(|(x, y)| Variant::UDim2(UDim2::new(x, y)));
+
+                for (value, referent) in values.zip(&type_info.referents) {
+                    let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    instance.properties.push((canonical_name.clone(), value));
                 }
             }
             Type::Ray => {}
@@ -527,8 +523,8 @@ impl<R: Read> BinaryDeserializer<R> {
                         .zip(b)
                         .map(|((r, g), b)| Variant::Color3(Color3::new(r, g, b)));
 
-                    for (color, &referent) in colors.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(&referent).unwrap();
+                    for (color, referent) in colors.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.properties.push((canonical_name.clone(), color));
                     }
                 }
@@ -549,15 +545,14 @@ impl<R: Read> BinaryDeserializer<R> {
                     chunk.read_interleaved_f32_array(&mut x)?;
                     chunk.read_interleaved_f32_array(&mut y)?;
 
-                    for i in 0..type_info.referents.len() {
-                        let instance = self
-                            .instances_by_ref
-                            .get_mut(&type_info.referents[i])
-                            .unwrap();
-                        let rbx_value = Variant::Vector2(Vector2::new(x[i], y[i]));
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                    let values = x
+                        .into_iter()
+                        .zip(y)
+                        .map(|(x, y)| Variant::Vector2(Vector2::new(x, y)));
+
+                    for (value, referent) in values.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.properties.push((canonical_name.clone(), value));
                     }
                 }
                 invalid_type => {
@@ -585,11 +580,8 @@ impl<R: Read> BinaryDeserializer<R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_i64_array(&mut values)?;
 
-                    for (i, value) in values.into_iter().enumerate() {
-                        let instance = self
-                            .instances_by_ref
-                            .get_mut(&type_info.referents[i])
-                            .unwrap();
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let rbx_value = Variant::Int64(value);
                         instance
                             .properties
