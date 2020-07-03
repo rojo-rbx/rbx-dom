@@ -521,15 +521,15 @@ impl<R: Read> BinaryDeserializer<R> {
                     chunk.read_interleaved_f32_array(&mut g)?;
                     chunk.read_interleaved_f32_array(&mut b)?;
 
-                    for i in 0..type_info.referents.len() {
-                        let instance = self
-                            .instances_by_ref
-                            .get_mut(&type_info.referents[i])
-                            .unwrap();
-                        let rbx_value = Variant::Color3(Color3::new(r[i], g[i], b[i]));
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                    let colors = r
+                        .into_iter()
+                        .zip(g)
+                        .zip(b)
+                        .map(|((r, g), b)| Variant::Color3(Color3::new(r, g, b)));
+
+                    for (color, &referent) in colors.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(&referent).unwrap();
+                        instance.properties.push((canonical_name.clone(), color));
                     }
                 }
                 invalid_type => {
