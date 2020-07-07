@@ -357,6 +357,43 @@ Two encoded `Vector2`s with values `-100.80, 200.55`, `200.55, -100.80` look lik
 ### CFrame
 **Type ID 0x10**
 
+The `CFrame` type is more complicated than other types. To save space, there are 24 special cases where only the CFrame's position is saved. The special case's ID is written as a single byte.
+
+If the byte is `00`, a CFrame looks like this:
+
+| Field Name  | Format              | Value                                                                                                      |
+|:------------|:--------------------|:-----------------------------------------------------------------------------------------------------------|
+| ID          | `u8`                | Always `00` in this case.                                                                                  |
+| Orientation | Array of 9 `f32`s   | The rotation matrix of the CFrame. It represents the RightVector, UpVector, and LookVector, in that order. |
+| Position    | [Vector3](#vector3) | The position of the CFrame.                                                                                |
+
+In this case, the `Orientation` field is stored as nine untransformed [IEEE-754 standard](https://en.wikipedia.org/wiki/Single-precision_floating-point_format) 32-bit floats.
+
+If the `ID` is **not** `00`, it will be a value from the following table. In this case, the `Orientation` field isn't present and is instead equivalent to the angles paired with the `ID` in the table. Rotations in this table are in degrees and are applied in the order `Y -> X -> Z`.
+
+| ID   | Rotation       | ID   | Rotation       |
+|:-----|:---------------|:-----|:---------------|
+| `02` | (0, 0, 0)      | `14` | (0, 180, 0)    |
+| `03` | (90, 0, 0)     | `15` | (-90, -180, 0) |
+| `05` | (0, 180, 180)  | `17` | (0, 0, 180)    |
+| `06` | (-90, 0, 0)    | `18` | (90, 180, 0)   |
+| `07` | (0, 180, 90)   | `19` | (0, 0, -90)    |
+| `09` | (0, 90, 90)    | `1b` | (0, -90, -90)  |
+| `0a` | (0, 0, 90)     | `1c` | (0, -180, -90) |
+| `0c` | (0, -90, 90)   | `1e` | (0, 90, -90)   |
+| `0d` | (-90, -90, 0)  | `1f` | (90, 90, 0)    |
+| `0e` | (0, -90, 0)    | `20` | (0, 90, 0)     |
+| `10` | (90, -90, 0)   | `22` | (-90, 90, 0)   |
+| `11` | (0, 90, 180)   | `23` | (0, -90, 180)  |
+
+When an array of CFrames is present, for each value the `ID` is stored followed by the `Rotation` field if it's present. Then, an array of [Vector3s](#vector3) that represent the `Position` field of each CFrame.
+
+As an example, two CFrames with the components `CFrame.new(1, 2, 3)` and `CFrame.new(4, 5, 6)*CFrame.Angles(7, 8, 9)` would be stored as `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD 7F 81 00 00 00 00 00 00 80 7F 00 22 00 D4 00 B2 80 81 80 80 00 00 00 00`.
+
+The first part (the `ID` and `Rotation` array) is: `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD`, which is an split into `02` and `00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD`.
+
+The second part (the `Position` array) is: `7F 81 00 00 00 00 00 00 80 7F 00 22 00 D4 00 B2 80 81 80 80 00 00 00 00`.
+
 ### Enum
 **Type ID 0x12**
 
