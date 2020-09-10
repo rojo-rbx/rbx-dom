@@ -11,9 +11,9 @@
 * Added support for using reflection information, improving content compatibility
 * Improved performance by up to 30% for some files
 * Improved instrumentation using the `log` crate
-* Improved the crate's error types ([#48](https://github.com/Roblox/rbx-dom/issues/48))
-* Fixed panics in many cases, instead returning an error ([#26](https://github.com/Roblox/rbx-dom/issues/26))
-* Fixed handling unknown `BinaryString` values ([#49](https://github.com/Roblox/rbx-dom/issues/49))
+* Improved the crate's error types ([#48](https://github.com/rojo-rbx/rbx-dom/issues/48))
+* Fixed panics in many cases, instead returning an error ([#26](https://github.com/rojo-rbx/rbx-dom/issues/26))
+* Fixed handling unknown `BinaryString` values ([#49](https://github.com/rojo-rbx/rbx-dom/issues/49))
 
 ## 0.4.1 (2019-05-29)
 * Fixed bad interaction with rbx_dom_weak 1.6.0 causing instances to go missing.

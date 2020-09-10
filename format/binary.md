@@ -165,7 +165,7 @@ There are two forms of the `INST` chunk determined by the **Object Format** fiel
 
 If the **Object Format** is **regular**, the service markers section will not be present.
 
-If the **Object Format** is **service**, the service markers section contains `1` repeated for the number of instances of that type in the file. If this field is not set, Roblox may create duplicate copies of services, like in [Roblox/rbx-dom#11](https://github.com/Roblox/rbx-dom/issues/11).
+If the **Object Format** is **service**, the service markers section contains `1` repeated for the number of instances of that type in the file. If this field is not set, Roblox may create duplicate copies of services, like in [rojo-rbx/rbx-dom#11](https://github.com/rojo-rbx/rbx-dom/issues/11).
 
 **Type ID** must be unique and ideally sorted monotonically among all `INST` chunks. It's used later in the file to refer to this type.
 

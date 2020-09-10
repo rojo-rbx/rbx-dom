@@ -4,12 +4,10 @@
 
 <h1 align="center">rbx-dom</h1>
 <div align="center">
-	<a href="https://github.com/Roblox/rbx-dom/actions">
-		<img title="GitHub Actions" src="https://github.com/Roblox/rbx-dom/workflows/CI/badge.svg" />
+	<a href="https://github.com/rojo-rbx/rbx-dom/actions">
+		<img title="GitHub Actions" src="https://github.com/rojo-rbx/rbx-dom/workflows/CI/badge.svg" />
 	</a>
 </div>
-
-**Heads up! This repository was recently migrated from [the rojo-rbx org](https://github.com/rojo-rbx) to [the Roblox org](https://github.com/Roblox). Not much else has changed.**
 
 rbx-dom is a collection of cross-platform libraries that enables any software to interact with Roblox instances.
 
