@@ -9,7 +9,7 @@ use rbx_reflection::{DataType, PropertyKind, Scriptability};
 use serde::Deserialize;
 
 const PATCHES: &[&str] = &[
-    // include_str!("../patches/body-movers.toml"),
+    include_str!("../patches/body-movers.yml"),
     // include_str!("../patches/camera.toml"),
     // include_str!("../patches/fire-and-smoke.toml"),
     // include_str!("../patches/instance.toml"),
@@ -51,7 +51,7 @@ pub fn load_property_patches() -> PropertyPatches {
 
     for patch_source in PATCHES {
         let parsed: PropertyPatches =
-            toml::from_str(patch_source).expect("Couldn't parse property patch file");
+            serde_yaml::from_str(patch_source).expect("Couldn't parse property patch file");
 
         all_patches.change.extend(parsed.change);
         all_patches.add.extend(parsed.add);

@@ -1,0 +1,53 @@
+# Body Movers are old objects that have a number of deprecated aliases.
+
+Change:
+  BodyAngularVelocity:
+    angularvelocity:
+      Kind:
+        Alias:
+          AliasFor: AngularVelocity
+    maxTorque:
+      Kind:
+        Alias:
+          AliasFor: MaxTorque
+  BodyForce:
+    force:
+      Kind:
+        Alias:
+          AliasFor: Force
+  BodyGyro:
+    cframe:
+      Kind:
+        Alias:
+          AliasFor: CFrame
+    maxTorque:
+      Kind:
+        Alias:
+          AliasFor: MaxTorque
+  BodyPosition:
+    maxForce:
+      Kind:
+        Alias:
+          AliasFor: MaxForce
+    position:
+      Kind:
+        Alias:
+          AliasFor: Position
+  BodyThrust:
+    force:
+      Kind:
+        Alias:
+          AliasFor: Force
+    location:
+      Kind:
+        Alias:
+          AliasFor: Location
+  BodyVelocity:
+    maxForce:
+      Kind:
+        Alias:
+          AliasFor: MaxForce
+    velocity:
+      Kind:
+        Alias:
+          AliasFor: Velocity
