@@ -87,7 +87,9 @@ impl ReflectionDatabase {
                         PropertyDescriptor::new(dump_property.name.clone(), value_type);
                     property.scriptability = scriptability;
                     property.tags = tags;
-                    property.kind = kind;
+
+                    // FIXME
+                    // property.kind = kind;
 
                     properties.insert(Cow::Owned(dump_property.name.clone()), property);
                 }
@@ -134,9 +136,10 @@ impl ReflectionDatabase {
 
                 log::debug!("{}.{} changed", class_name, property_name);
 
-                if let Some(kind) = &property_change.kind {
-                    existing_property.kind = kind.clone();
-                }
+                // FIXME
+                // if let Some(kind) = &property_change.kind {
+                //     existing_property.kind = kind.clone();
+                // }
 
                 if let Some(scriptability) = &property_change.scriptability {
                     existing_property.scriptability = *scriptability;
@@ -167,7 +170,10 @@ impl ReflectionDatabase {
                 let data_type = property_add.data_type.clone();
 
                 let mut property = PropertyDescriptor::new(name, data_type);
-                property.kind = property_add.kind.clone();
+
+                // FIXME
+                // property.kind = property_add.kind.clone();
+
                 property.scriptability = property_add.scriptability;
 
                 class

@@ -3,51 +3,29 @@
 Change:
   BodyAngularVelocity:
     angularvelocity:
-      Kind:
-        Alias:
-          AliasFor: AngularVelocity
+      AliasFor: AngularVelocity
     maxTorque:
-      Kind:
-        Alias:
-          AliasFor: MaxTorque
+      AliasFor: MaxTorque
   BodyForce:
     force:
-      Kind:
-        Alias:
-          AliasFor: Force
+      AliasFor: Force
   BodyGyro:
     cframe:
-      Kind:
-        Alias:
-          AliasFor: CFrame
+      AliasFor: CFrame
     maxTorque:
-      Kind:
-        Alias:
-          AliasFor: MaxTorque
+      AliasFor: MaxTorque
   BodyPosition:
     maxForce:
-      Kind:
-        Alias:
-          AliasFor: MaxForce
+      AliasFor: MaxForce
     position:
-      Kind:
-        Alias:
-          AliasFor: Position
+      AliasFor: Position
   BodyThrust:
     force:
-      Kind:
-        Alias:
-          AliasFor: Force
+      AliasFor: Force
     location:
-      Kind:
-        Alias:
-          AliasFor: Location
+      AliasFor: Location
   BodyVelocity:
     maxForce:
-      Kind:
-        Alias:
-          AliasFor: MaxForce
+      AliasFor: MaxForce
     velocity:
-      Kind:
-        Alias:
-          AliasFor: Velocity
+      AliasFor: Velocity

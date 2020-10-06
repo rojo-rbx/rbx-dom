@@ -5,7 +5,7 @@
 
 use std::collections::HashMap;
 
-use rbx_reflection::{DataType, PropertyKind, Scriptability};
+use rbx_reflection::{DataType, PropertySerialization, Scriptability};
 use serde::Deserialize;
 
 const PATCHES: &[&str] = &[
@@ -34,7 +34,7 @@ pub struct PropertyPatches {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
 pub struct PropertyChange {
-    pub kind: Option<PropertyKind<'static>>,
+    pub alias_for: Option<String>,
     pub scriptability: Option<Scriptability>,
 }
 
@@ -42,7 +42,8 @@ pub struct PropertyChange {
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
 pub struct PropertyAdd {
     pub data_type: DataType<'static>,
-    pub kind: PropertyKind<'static>,
+    pub alias_for: Option<String>,
+    pub serialization: Option<PropertySerialization<'static>>,
     pub scriptability: Scriptability,
 }
 
