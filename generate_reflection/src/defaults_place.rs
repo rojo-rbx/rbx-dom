@@ -22,14 +22,17 @@ use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
 use crate::database::ReflectionDatabase;
+use crate::plugin_injector::{PluginInjector, StudioInfo};
 
 /// Use Roblox Studio to populate the reflection database with default values
 /// for as many properties as possible.
 pub fn measure_default_properties(database: &mut ReflectionDatabase) -> Result<(), Box<dyn Error>> {
     let fixture_place = generate_fixture_place(database);
-    let tree = roundtrip_place_through_studio(&fixture_place)?;
+    let output = roundtrip_place_through_studio(&fixture_place)?;
 
-    apply_defaults_from_fixture_place(database, &tree);
+    database.0.version = output.info.version;
+
+    apply_defaults_from_fixture_place(database, &output.tree);
 
     Ok(())
 }
@@ -130,22 +133,29 @@ fn find_canonical_descriptor<'a>(
     None
 }
 
+struct StudioOutput {
+    info: StudioInfo,
+    tree: RbxTree,
+}
+
 /// Generate a new fixture place from the given reflection database, open it in
 /// Studio, coax Studio to re-save it, and reads back the resulting place.
-fn roundtrip_place_through_studio(place_contents: &str) -> Result<RbxTree, Box<dyn Error>> {
+fn roundtrip_place_through_studio(place_contents: &str) -> Result<StudioOutput, Box<dyn Error>> {
     let output_dir = tempdir()?;
     let output_path = output_dir.path().join("roundtrip.rbxlx");
+    log::info!("Generating place at {}", output_path.display());
     fs::write(&output_path, place_contents)?;
 
-    log::info!("Generating place at {}", output_path.display());
-
     let studio_install = RobloxStudio::locate()?;
+    let injector = PluginInjector::start(&studio_install);
 
     log::info!("Starting Roblox Studio...");
 
     let mut studio_process = Command::new(studio_install.application_path())
         .arg(output_path.display().to_string())
         .spawn()?;
+
+    let info = injector.receive_info();
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
@@ -175,7 +185,7 @@ fn roundtrip_place_through_studio(place_contents: &str) -> Result<RbxTree, Box<d
         .property_behavior(rbx_xml::DecodePropertyBehavior::NoReflection);
     let tree = rbx_xml::from_reader(&mut file, decode_options)?;
 
-    Ok(tree)
+    Ok(StudioOutput { info, tree })
 }
 
 /// Create a place file that contains a copy of every Roblox class and no
