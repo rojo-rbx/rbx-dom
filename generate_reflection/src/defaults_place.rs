@@ -226,7 +226,8 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             | "Attachment"
             | "Animator"
             | "StarterPlayerScripts"
-            | "StarterCharacterScripts" => continue,
+            | "StarterCharacterScripts"
+            | "Bone" => continue,
 
             // WorldModel is not yet enabled.
             "WorldModel" => continue,
@@ -240,6 +241,7 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             }
             "Part" => {
                 instance.add_child(FixtureInstance::named("Attachment"));
+                instance.add_child(FixtureInstance::named("Bone"));
             }
             "Humanoid" => {
                 instance.add_child(FixtureInstance::named("Animator"));

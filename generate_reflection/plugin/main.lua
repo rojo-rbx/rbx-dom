@@ -1,7 +1,3 @@
-while game:FindFirstChild("GENERATE_REFLECTION_MARKER") == nil do
-	game.ChildAdded:Wait()
-end
-
 local HttpService = game:GetService("HttpService")
 
 local SERVER_URL = "http://localhost:22073"

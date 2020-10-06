@@ -45,10 +45,14 @@ impl<'a> PluginInjector<'a> {
         let studio_info: StudioInfo = serde_json::from_reader(request.as_reader()).unwrap();
         request.respond(Response::empty(200)).unwrap();
 
+        studio_info
+    }
+}
+
+impl<'a> Drop for PluginInjector<'a> {
+    fn drop(&mut self) {
         log::info!("Uninstalling Studio Plugin");
         remove_plugin(&self.roblox_studio);
-
-        studio_info
     }
 }
 
