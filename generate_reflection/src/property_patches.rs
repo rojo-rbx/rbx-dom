@@ -5,14 +5,14 @@
 
 use std::collections::HashMap;
 
-use rbx_reflection::{DataType, PropertySerialization, Scriptability};
+use rbx_reflection::{DataType, Scriptability};
 use serde::Deserialize;
 
 const PATCHES: &[&str] = &[
     include_str!("../patches/body-movers.yml"),
     // include_str!("../patches/camera.toml"),
     // include_str!("../patches/fire-and-smoke.toml"),
-    // include_str!("../patches/instance.toml"),
+    include_str!("../patches/instance.yml"),
     // include_str!("../patches/joint-instance.toml"),
     // include_str!("../patches/localization-table.toml"),
     // include_str!("../patches/parts.toml"),
@@ -35,6 +35,7 @@ pub struct PropertyPatches {
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
 pub struct PropertyChange {
     pub alias_for: Option<String>,
+    pub serialization: Option<PropertySerialization>,
     pub scriptability: Option<Scriptability>,
 }
 
@@ -43,8 +44,20 @@ pub struct PropertyChange {
 pub struct PropertyAdd {
     pub data_type: DataType<'static>,
     pub alias_for: Option<String>,
-    pub serialization: Option<PropertySerialization<'static>>,
+    pub serialization: Option<PropertySerialization>,
     pub scriptability: Scriptability,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(tag = "Type", rename_all = "PascalCase", deny_unknown_fields)]
+pub enum PropertySerialization {
+    Serializes,
+    DoesNotSerialize,
+    #[serde(rename_all = "PascalCase")]
+    SerializesAs {
+        #[serde(rename = "As")]
+        serialize_as: String,
+    },
 }
 
 pub fn load_property_patches() -> PropertyPatches {

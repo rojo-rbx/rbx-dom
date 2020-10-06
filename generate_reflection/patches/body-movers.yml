@@ -6,24 +6,29 @@ Change:
       AliasFor: AngularVelocity
     maxTorque:
       AliasFor: MaxTorque
+
   BodyForce:
     force:
       AliasFor: Force
+
   BodyGyro:
     cframe:
       AliasFor: CFrame
     maxTorque:
       AliasFor: MaxTorque
+
   BodyPosition:
     maxForce:
       AliasFor: MaxForce
     position:
       AliasFor: Position
+
   BodyThrust:
     force:
       AliasFor: Force
     location:
       AliasFor: Location
+
   BodyVelocity:
     maxForce:
       AliasFor: MaxForce
