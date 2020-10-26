@@ -7,7 +7,10 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
-    types::{Axes, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3},
+    types::{
+        Axes, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType, Vector2,
+        Vector3,
+    },
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
@@ -763,7 +766,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         .zip(y)
                         .zip(z)
                         .map(|((x, y), z)| Variant::Vector3(Vector3::new(x, y, z)));
-                    
+
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.properties.push((canonical_name.clone(), value));
@@ -774,10 +777,10 @@ impl<R: Read> BinaryDeserializer<R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Vector3",
-                        actual_type_name: format!("{:?}", invalid_type)
+                        actual_type_name: format!("{:?}", invalid_type),
                     });
                 }
-            }
+            },
             Type::CFrame => match canonical_type {
                 VariantType::CFrame => {
                     let referents = &type_info.referents;
@@ -829,12 +832,10 @@ impl<R: Read> BinaryDeserializer<R> {
                         let instance = self.instances_by_ref.get_mut(&referents[i]).unwrap();
                         instance.properties.push((
                             canonical_name.clone(),
-                            Variant::CFrame(
-                                CFrame::new(
-                                    Vector3::new(x[i], y[i], z[i]),
-                                    rotations[i],
-                                )
-                            )
+                            Variant::CFrame(CFrame::new(
+                                Vector3::new(x[i], y[i], z[i]),
+                                rotations[i],
+                            )),
                         ))
                     }
                 }
@@ -846,7 +847,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }
-            }
+            },
             Type::Enum => {}
             Type::Ref => {}
             Type::Vector3int16 => {}

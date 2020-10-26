@@ -8,7 +8,10 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
-    types::{Axes, BinaryString, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3},
+    types::{
+        Axes, BinaryString, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType,
+        Vector2, Vector3,
+    },
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -614,7 +617,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         for (i, rbx_value) in values {
                             if let Variant::Vector2(value) = rbx_value.as_ref() {
                                 x.push(value.x);
-                                y.push(value.y)
+                                y.push(value.y);
                             } else {
                                 return type_mismatch(i, &rbx_value, "Vector2");
                             }
@@ -632,7 +635,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             if let Variant::Vector3(value) = rbx_value.as_ref() {
                                 x.push(value.x);
                                 y.push(value.y);
-                                z.push(value.z)
+                                z.push(value.z);
                             } else {
                                 return type_mismatch(i, &rbx_value, "Vector3");
                             }
@@ -794,7 +797,10 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
             VariantType::Faces => Variant::Faces(Faces::from_bits(0)?),
             VariantType::Axes => Variant::Axes(Axes::from_bits(0)?),
-            VariantType::CFrame => Variant::CFrame(CFrame::new(Vector3::new(0.0, 0.0, 0.0), Matrix3::identity())),
+            VariantType::CFrame => Variant::CFrame(CFrame::new(
+                Vector3::new(0.0, 0.0, 0.0),
+                Matrix3::identity(),
+            )),
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),

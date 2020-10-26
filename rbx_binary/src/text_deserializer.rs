@@ -10,7 +10,10 @@ use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::types::{Axes, CFrame, Color3, Faces, Matrix3, UDim, UDim2, Vector2, Vector3};
 use serde::{Deserialize, Serialize};
 
-use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, deserializer::special_case_to_rotation, types::Type};
+use crate::{
+    chunk::Chunk, core::RbxReadExt, deserializer::special_case_to_rotation,
+    deserializer::FileHeader, types::Type,
+};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DecodedModel {
@@ -324,15 +327,13 @@ impl DecodedValues {
                 reader.read_interleaved_f32_array(&mut y).unwrap();
                 reader.read_interleaved_f32_array(&mut z).unwrap();
 
-                let mut values = vec![CFrame::new(Vector3::new(0.0, 0.0, 0.0), Matrix3::identity()); prop_count];
+                let mut values =
+                    vec![CFrame::new(Vector3::new(0.0, 0.0, 0.0), Matrix3::identity()); prop_count];
 
                 for i in 0..prop_count {
-                    values[i] = CFrame::new(
-                        Vector3::new(x[i], y[i], z[i]),
-                        rotations[i],
-                    )
+                    values[i] = CFrame::new(Vector3::new(x[i], y[i], z[i]), rotations[i])
                 }
-                
+
                 Some(DecodedValues::CFrame(values))
             }
             Type::Color3 => {
