@@ -605,7 +605,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         .zip(y)
                         .zip(z)
                         .map(|((x, y), z)| Variant::Vector3(Vector3::new(x, y, z)));
-                    
+
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.properties.push((canonical_name.clone(), value));
@@ -616,10 +616,10 @@ impl<R: Read> BinaryDeserializer<R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Vector3",
-                        actual_type_name: format!("{:?}", invalid_type)
+                        actual_type_name: format!("{:?}", invalid_type),
                     });
                 }
-            }
+            },
             Type::CFrame => {}
             Type::Enum => {}
             Type::Ref => {}

@@ -8,7 +8,9 @@ use std::{
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
-    types::{Axes, BinaryString, Color3, Faces, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3},
+    types::{
+        Axes, BinaryString, Color3, Faces, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    },
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
