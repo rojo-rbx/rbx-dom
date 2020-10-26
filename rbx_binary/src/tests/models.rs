@@ -37,4 +37,7 @@ binary_tests! {
     three_intvalues,
     axes,
     faces,
+    two_cframevalues,
+    cframe_special_cases,
+    cframe_case_mixture,
 }
