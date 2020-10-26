@@ -142,6 +142,10 @@ impl Matrix3 {
             z: Vector3::new(0.0, 0.0, 1.0),
         }
     }
+
+    pub fn new(x: Vector3, y: Vector3, z: Vector3) -> Self {
+        Self { x, y, z }
+    }
 }
 
 /// Represents any color, including HDR colors.

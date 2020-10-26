@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
-    types::{Axes, Color3, Faces, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3},
+    types::{Axes, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3},
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
@@ -77,6 +77,164 @@ pub(crate) enum InnerError {
 
     #[error("File referred to type ID {type_id}, which was not declared")]
     InvalidTypeId { type_id: u32 },
+
+    #[error("Invalid property data: CFrame property {type_name}.{prop_name} had an invalid orientation ID {id:02x}")]
+    BadCFrameOrientationId {
+        type_name: String,
+        prop_name: String,
+        id: u8,
+    },
+}
+
+// TODO potentially move this to a different file if/when we do the inverse for serializing
+pub(crate) fn special_case_to_rotation(id: u8) -> Option<Matrix3> {
+    match id {
+        0x02 => Some(Matrix3::new(
+            //02 -> (1, 0, 0) (0, 1, 0) (0, 0, 1)
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+        )),
+        0x03 => Some(Matrix3::new(
+            //03 -> (1, 0, 0) (0, 0, -1) (0, 1, 0)
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(0.0, 1.0, 0.0),
+        )),
+        0x05 => Some(Matrix3::new(
+            //05 -> (1, 0, 0) (0, -1, 0) (0, 0, -1)
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+        )),
+        0x06 => Some(Matrix3::new(
+            //06 -> (1, 0, -0) (0, 0, 1) (0, -1, 0)
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(0.0, -1.0, 0.0),
+        )),
+        0x07 => Some(Matrix3::new(
+            //07 -> (0, 1, 0) (1, 0, 0) (0, 0, -1)
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+        )),
+        0x09 => Some(Matrix3::new(
+            //09 -> (0, 0, 1) (1, 0, 0) (0, 1, 0)
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 1.0, 0.0),
+        )),
+        0x0a => Some(Matrix3::new(
+            //0a -> (0, -1, 0) (1, 0, -0) (0, 0, 1)
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+        )),
+        0x0c => Some(Matrix3::new(
+            //0c -> (0, 0, -1) (1, 0, 0) (0, -1, 0)
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, -1.0, 0.0),
+        )),
+        0x0d => Some(Matrix3::new(
+            //0d -> (0, 1, 0) (0, 0, 1) (1, 0, 0)
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(1.0, 0.0, 0.0),
+        )),
+        0x0e => Some(Matrix3::new(
+            //0e -> (0, 0, -1) (0, 1, 0) (1, 0, 0)
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(1.0, 0.0, 0.0),
+        )),
+        0x10 => Some(Matrix3::new(
+            //10 -> (0, -1, 0) (0, 0, -1) (1, 0, 0)
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(1.0, 0.0, 0.0),
+        )),
+        0x11 => Some(Matrix3::new(
+            //11 -> (0, 0, 1) (0, -1, 0) (1, 0, -0)
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(1.0, 0.0, 0.0),
+        )),
+        0x14 => Some(Matrix3::new(
+            //14 -> (-1, 0, 0) (0, 1, 0) (0, 0, -1)
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+        )),
+        0x15 => Some(Matrix3::new(
+            //15 -> (-1, 0, 0) (0, 0, 1) (0, 1, -0)
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(0.0, 1.0, 0.0),
+        )),
+        0x17 => Some(Matrix3::new(
+            //17 -> (-1, 0, 0) (0, -1, 0) (0, 0, 1)
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+        )),
+        0x18 => Some(Matrix3::new(
+            //18 -> (-1, 0, -0) (0, 0, -1) (0, -1, -0)
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(0.0, -1.0, 0.0),
+        )),
+        0x19 => Some(Matrix3::new(
+            //19 -> (0, 1, -0) (-1, 0, 0) (0, 0, 1)
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+        )),
+        0x1b => Some(Matrix3::new(
+            //1b -> (0, 0, -1) (-1, 0, 0) (0, 1, 0)
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 1.0, 0.0),
+        )),
+        0x1c => Some(Matrix3::new(
+            //1c -> (0, -1, -0) (-1, 0, -0) (0, 0, -1)
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+        )),
+        0x1e => Some(Matrix3::new(
+            //1e -> (0, 0, 1) (-1, 0, 0) (0, -1, 0)
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, -1.0, 0.0),
+        )),
+        0x1f => Some(Matrix3::new(
+            //1f -> (0, 1, 0) (0, 0, -1) (-1, 0, 0)
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+        )),
+        0x20 => Some(Matrix3::new(
+            //20 -> (0, 0, 1) (0, 1, -0) (-1, 0, 0)
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+        )),
+        0x22 => Some(Matrix3::new(
+            //22 -> (0, -1, 0) (0, 0, 1) (-1, 0, 0)
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+        )),
+        0x23 => Some(Matrix3::new(
+            //23 -> (0, 0, -1) (0, -1, -0) (-1, 0, -0)
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+        )),
+        _ => None,
+    }
 }
 
 pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
@@ -620,7 +778,75 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             }
-            Type::CFrame => {}
+            Type::CFrame => match canonical_type {
+                VariantType::CFrame => {
+                    let referents = &type_info.referents;
+                    let mut rotations = Vec::with_capacity(referents.len());
+
+                    for _ in 0..referents.len() {
+                        let id = chunk.read_u8()?;
+                        if id == 0 {
+                            rotations.push(Matrix3::new(
+                                Vector3::new(
+                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_f32::<LittleEndian>()?,
+                                ),
+                                Vector3::new(
+                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_f32::<LittleEndian>()?,
+                                ),
+                                Vector3::new(
+                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_f32::<LittleEndian>()?,
+                                ),
+                            ));
+                        } else {
+                            let special_case = special_case_to_rotation(id);
+                            if special_case.is_some() {
+                                rotations.push(special_case.unwrap());
+                            } else {
+                                return Err(InnerError::BadCFrameOrientationId {
+                                    type_name: type_info.type_name.clone(),
+                                    prop_name,
+                                    id,
+                                });
+                            }
+                        }
+                    }
+
+                    let mut x = vec![0.0; referents.len()];
+                    let mut y = vec![0.0; referents.len()];
+                    let mut z = vec![0.0; referents.len()];
+
+                    chunk.read_interleaved_f32_array(&mut x)?;
+                    chunk.read_interleaved_f32_array(&mut y)?;
+                    chunk.read_interleaved_f32_array(&mut z)?;
+
+                    for i in 0..referents.len() {
+                        let instance = self.instances_by_ref.get_mut(&referents[i]).unwrap();
+                        instance.properties.push((
+                            canonical_name.clone(),
+                            Variant::CFrame(
+                                CFrame::new(
+                                    Vector3::new(x[i], y[i], z[i]),
+                                    rotations[i],
+                                )
+                            )
+                        ))
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "CFrame",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            }
             Type::Enum => {}
             Type::Ref => {}
             Type::Vector3int16 => {}

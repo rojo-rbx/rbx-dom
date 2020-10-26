@@ -7,10 +7,10 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use rbx_dom_weak::types::{Axes, Color3, Faces, UDim, UDim2, Vector2, Vector3};
+use rbx_dom_weak::types::{Axes, CFrame, Color3, Faces, Matrix3, UDim, UDim2, Vector2, Vector3};
 use serde::{Deserialize, Serialize};
 
-use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
+use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, deserializer::special_case_to_rotation, types::Type};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DecodedModel {
@@ -180,6 +180,7 @@ pub enum DecodedValues {
     Color3(Vec<Color3>),
     Vector2(Vec<Vector2>),
     Vector3(Vec<Vector3>),
+    CFrame(Vec<CFrame>),
     Int64(Vec<i64>),
 }
 
@@ -286,6 +287,53 @@ impl DecodedValues {
                 }
 
                 Some(DecodedValues::Axes(values))
+            }
+            Type::CFrame => {
+                let mut rotations = vec![Matrix3::identity(); prop_count];
+
+                for i in 0..prop_count {
+                    let id = reader.read_u8().unwrap();
+                    if id == 0 {
+                        rotations[i] = Matrix3::new(
+                            Vector3::new(
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                            ),
+                            Vector3::new(
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                            ),
+                            Vector3::new(
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_f32::<LittleEndian>().unwrap(),
+                            ),
+                        );
+                    } else {
+                        rotations[i] = special_case_to_rotation(id).unwrap();
+                    }
+                }
+
+                let mut x = vec![0.0; prop_count];
+                let mut y = vec![0.0; prop_count];
+                let mut z = vec![0.0; prop_count];
+
+                reader.read_interleaved_f32_array(&mut x).unwrap();
+                reader.read_interleaved_f32_array(&mut y).unwrap();
+                reader.read_interleaved_f32_array(&mut z).unwrap();
+
+                let mut values = vec![CFrame::new(Vector3::new(0.0, 0.0, 0.0), Matrix3::identity()); prop_count];
+
+                for i in 0..prop_count {
+                    values[i] = CFrame::new(
+                        Vector3::new(x[i], y[i], z[i]),
+                        rotations[i],
+                    )
+                }
+                
+                Some(DecodedValues::CFrame(values))
             }
             Type::Color3 => {
                 let mut r = vec![0.0; prop_count];
