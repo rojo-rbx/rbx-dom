@@ -347,12 +347,24 @@ The `Vector2` type is a struct composed of two `Float32`s:
 | X           | [Float32](#float32) | The `X` component of the Vector2  |
 | Y           | [Float32](#float32) | The `Y` component of the Vector2  |
 
-Vector2 is stored as two arrays of components in the order `X`, `Y`. Each array is separately [byte interleaved](#byte-interleaving).
+`Vector2` is stored as two arrays of components in the order `X`, `Y`. Each array is separately [byte interleaved](#byte-interleaving).
 
 Two encoded `Vector2`s with values `-100.80, 200.55`, `200.55, -100.80` look like this: `85 86 93 91 33 19 35 9a 86 85 91 93 19 33 9a 35`
 
 ### Vector3
 **Type ID 0x0E**
+
+The `Vector3` type is a struct composed of of thre `Float32`s:
+
+| Field Name  | Format              | Value                             |
+|:------------|:--------------------|:----------------------------------|
+| X           | [Float32](#float32) | The `X` component of the Vector3  |
+| Y           | [Float32](#float32) | The `Y` component of the Vector3  |
+| Z           | [Float32](#float32) | The `Z` component of the Vector3  |
+
+`Vector3` is stored as three arrays of components in the order `X`, `Y`, `Z`. Each array is separately [byte interleaved](#byte-interleaving).
+
+Two encoded `Vector3`s with values `1, 2, 3` and `-1, -2, -3` look like this: `7F 7F 00 00 00 00 00 01 80 80 00 00 00 00 00 01 80 80 80 80 00 00 00 01`.
 
 ### CFrame
 **Type ID 0x10**
