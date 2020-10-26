@@ -354,7 +354,7 @@ Two encoded `Vector2`s with values `-100.80, 200.55`, `200.55, -100.80` look lik
 ### Vector3
 **Type ID 0x0E**
 
-The `Vector3` type is a struct composed of of thre `Float32`s:
+The `Vector3` type is a struct composed of three `Float32`s:
 
 | Field Name  | Format              | Value                             |
 |:------------|:--------------------|:----------------------------------|
