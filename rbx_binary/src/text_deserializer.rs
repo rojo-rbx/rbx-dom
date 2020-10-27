@@ -326,12 +326,13 @@ impl DecodedValues {
                 reader.read_interleaved_f32_array(&mut y).unwrap();
                 reader.read_interleaved_f32_array(&mut z).unwrap();
 
-                let mut values =
-                    vec![CFrame::new(Vector3::new(0.0, 0.0, 0.0), Matrix3::identity()); prop_count];
-
-                for i in 0..prop_count {
-                    values[i] = CFrame::new(Vector3::new(x[i], y[i], z[i]), rotations[i])
-                }
+                let values = x
+                    .into_iter()
+                    .zip(y)
+                    .zip(z)
+                    .zip(rotations)
+                    .map(|(((x, y), z), rotation)| CFrame::new(Vector3::new(x, y, z), rotation))
+                    .collect();
 
                 Some(DecodedValues::CFrame(values))
             }

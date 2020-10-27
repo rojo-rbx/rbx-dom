@@ -775,15 +775,19 @@ impl<R: Read> BinaryDeserializer<R> {
                     chunk.read_interleaved_f32_array(&mut y)?;
                     chunk.read_interleaved_f32_array(&mut z)?;
 
-                    for i in 0..referents.len() {
-                        let instance = self.instances_by_ref.get_mut(&referents[i]).unwrap();
-                        instance.properties.push((
-                            canonical_name.clone(),
-                            Variant::CFrame(CFrame::new(
-                                Vector3::new(x[i], y[i], z[i]),
-                                rotations[i],
-                            )),
-                        ))
+                    let values = x
+                        .into_iter()
+                        .zip(y)
+                        .zip(z)
+                        .map(|((x, y), z)| Vector3::new(x, y, z))
+                        .zip(rotations)
+                        .map(|(position, rotation)| {
+                            Variant::CFrame(CFrame::new(position, rotation))
+                        });
+
+                    for (cframe, referent) in values.zip(referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.properties.push((canonical_name.clone(), cframe))
                     }
                 }
                 invalid_type => {
