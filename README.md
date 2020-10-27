@@ -90,7 +90,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | UDim2              | `Frame.Size`                    | ✔ | ✔ | ✔ | ✔ |
 | Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ✔ |
 | Vector2int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
-| Vector3            | `Part.Size`                     | ✔ | ✔ | ✔ | ❌ |
+| Vector3            | `Part.Size`                     | ✔ | ✔ | ✔ | ✔ |
 | Vector3int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
 | QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ | ⛔ |
 | QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ | ⛔ |

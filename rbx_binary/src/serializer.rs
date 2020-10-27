@@ -626,6 +626,25 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(x.into_iter())?;
                         chunk.write_interleaved_f32_array(y.into_iter())?;
                     }
+                    Type::Vector3 => {
+                        let mut x = Vec::with_capacity(values.len());
+                        let mut y = Vec::with_capacity(values.len());
+                        let mut z = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Vector3(value) = rbx_value.as_ref() {
+                                x.push(value.x);
+                                y.push(value.y);
+                                z.push(value.z)
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Vector3");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(x.into_iter())?;
+                        chunk.write_interleaved_f32_array(y.into_iter())?;
+                        chunk.write_interleaved_f32_array(z.into_iter())?;
+                    }
                     Type::CFrame => {
                         let mut rotations = Vec::with_capacity(values.len());
                         let mut x = Vec::with_capacity(values.len());
@@ -786,6 +805,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             )),
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
+            VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
             VariantType::Int64 => Variant::Int64(0),
             _ => return None,
         })

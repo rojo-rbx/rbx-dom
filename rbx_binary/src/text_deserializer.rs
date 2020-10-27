@@ -182,6 +182,7 @@ pub enum DecodedValues {
     Axes(Vec<Axes>),
     Color3(Vec<Color3>),
     Vector2(Vec<Vector2>),
+    Vector3(Vec<Vector3>),
     CFrame(Vec<CFrame>),
     Int64(Vec<i64>),
 }
@@ -368,6 +369,24 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::Vector2(values))
+            }
+            Type::Vector3 => {
+                let mut x = vec![0.0; prop_count];
+                let mut y = vec![0.0; prop_count];
+                let mut z = vec![0.0; prop_count];
+
+                reader.read_interleaved_f32_array(&mut x).unwrap();
+                reader.read_interleaved_f32_array(&mut y).unwrap();
+                reader.read_interleaved_f32_array(&mut z).unwrap();
+
+                let values = x
+                    .into_iter()
+                    .zip(y)
+                    .zip(z)
+                    .map(|((x, y), z)| Vector3::new(x, y, z))
+                    .collect();
+
+                Some(DecodedValues::Vector3(values))
             }
             Type::Int64 => {
                 let mut values = vec![0; prop_count];

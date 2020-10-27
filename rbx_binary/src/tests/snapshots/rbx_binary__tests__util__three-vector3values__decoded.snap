@@ -1,0 +1,64 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: "1337, -1337, 0"
+  class: Vector3Value
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: Vector3
+      Value:
+        - 1337.0
+        - -1337.0
+        - 0.0
+  children: []
+- referent: referent-1
+  name: "0.15625, -0.15625, 0.1"
+  class: Vector3Value
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: Vector3
+      Value:
+        - 0.15625
+        - -0.15625
+        - 0.10000000149011612
+  children: []
+- referent: referent-2
+  name: "inf, -inf, nan"
+  class: Vector3Value
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: Vector3
+      Value:
+        - .inf
+        - -.inf
+        - .nan
+  children: []
