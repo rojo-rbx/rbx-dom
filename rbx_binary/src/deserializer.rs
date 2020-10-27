@@ -93,145 +93,121 @@ pub(crate) enum InnerError {
 pub(crate) fn special_case_to_rotation(id: u8) -> Option<Matrix3> {
     match id {
         0x02 => Some(Matrix3::new(
-            //02 -> (1, 0, 0) (0, 1, 0) (0, 0, 1)
             Vector3::new(1.0, 0.0, 0.0),
             Vector3::new(0.0, 1.0, 0.0),
             Vector3::new(0.0, 0.0, 1.0),
         )),
         0x03 => Some(Matrix3::new(
-            //03 -> (1, 0, 0) (0, 0, -1) (0, 1, 0)
             Vector3::new(1.0, 0.0, 0.0),
             Vector3::new(0.0, 0.0, -1.0),
             Vector3::new(0.0, 1.0, 0.0),
         )),
         0x05 => Some(Matrix3::new(
-            //05 -> (1, 0, 0) (0, -1, 0) (0, 0, -1)
             Vector3::new(1.0, 0.0, 0.0),
             Vector3::new(0.0, -1.0, 0.0),
             Vector3::new(0.0, 0.0, -1.0),
         )),
         0x06 => Some(Matrix3::new(
-            //06 -> (1, 0, -0) (0, 0, 1) (0, -1, 0)
             Vector3::new(1.0, 0.0, 0.0),
             Vector3::new(0.0, 0.0, 1.0),
             Vector3::new(0.0, -1.0, 0.0),
         )),
         0x07 => Some(Matrix3::new(
-            //07 -> (0, 1, 0) (1, 0, 0) (0, 0, -1)
             Vector3::new(0.0, 1.0, 0.0),
             Vector3::new(1.0, 0.0, 0.0),
             Vector3::new(0.0, 0.0, -1.0),
         )),
         0x09 => Some(Matrix3::new(
-            //09 -> (0, 0, 1) (1, 0, 0) (0, 1, 0)
             Vector3::new(0.0, 0.0, 1.0),
             Vector3::new(1.0, 0.0, 0.0),
             Vector3::new(0.0, 1.0, 0.0),
         )),
         0x0a => Some(Matrix3::new(
-            //0a -> (0, -1, 0) (1, 0, -0) (0, 0, 1)
             Vector3::new(0.0, -1.0, 0.0),
             Vector3::new(1.0, 0.0, 0.0),
             Vector3::new(0.0, 0.0, 1.0),
         )),
         0x0c => Some(Matrix3::new(
-            //0c -> (0, 0, -1) (1, 0, 0) (0, -1, 0)
             Vector3::new(0.0, 0.0, -1.0),
             Vector3::new(1.0, 0.0, 0.0),
             Vector3::new(0.0, -1.0, 0.0),
         )),
         0x0d => Some(Matrix3::new(
-            //0d -> (0, 1, 0) (0, 0, 1) (1, 0, 0)
             Vector3::new(0.0, 1.0, 0.0),
             Vector3::new(0.0, 0.0, 1.0),
             Vector3::new(1.0, 0.0, 0.0),
         )),
         0x0e => Some(Matrix3::new(
-            //0e -> (0, 0, -1) (0, 1, 0) (1, 0, 0)
             Vector3::new(0.0, 0.0, -1.0),
             Vector3::new(0.0, 1.0, 0.0),
             Vector3::new(1.0, 0.0, 0.0),
         )),
         0x10 => Some(Matrix3::new(
-            //10 -> (0, -1, 0) (0, 0, -1) (1, 0, 0)
             Vector3::new(0.0, -1.0, 0.0),
             Vector3::new(0.0, 0.0, -1.0),
             Vector3::new(1.0, 0.0, 0.0),
         )),
         0x11 => Some(Matrix3::new(
-            //11 -> (0, 0, 1) (0, -1, 0) (1, 0, -0)
             Vector3::new(0.0, 0.0, 1.0),
             Vector3::new(0.0, -1.0, 0.0),
             Vector3::new(1.0, 0.0, 0.0),
         )),
         0x14 => Some(Matrix3::new(
-            //14 -> (-1, 0, 0) (0, 1, 0) (0, 0, -1)
             Vector3::new(-1.0, 0.0, 0.0),
             Vector3::new(0.0, 1.0, 0.0),
             Vector3::new(0.0, 0.0, -1.0),
         )),
         0x15 => Some(Matrix3::new(
-            //15 -> (-1, 0, 0) (0, 0, 1) (0, 1, -0)
             Vector3::new(-1.0, 0.0, 0.0),
             Vector3::new(0.0, 0.0, 1.0),
             Vector3::new(0.0, 1.0, 0.0),
         )),
         0x17 => Some(Matrix3::new(
-            //17 -> (-1, 0, 0) (0, -1, 0) (0, 0, 1)
             Vector3::new(-1.0, 0.0, 0.0),
             Vector3::new(0.0, -1.0, 0.0),
             Vector3::new(0.0, 0.0, 1.0),
         )),
         0x18 => Some(Matrix3::new(
-            //18 -> (-1, 0, -0) (0, 0, -1) (0, -1, -0)
             Vector3::new(-1.0, 0.0, 0.0),
             Vector3::new(0.0, 0.0, -1.0),
             Vector3::new(0.0, -1.0, 0.0),
         )),
         0x19 => Some(Matrix3::new(
-            //19 -> (0, 1, -0) (-1, 0, 0) (0, 0, 1)
             Vector3::new(0.0, 1.0, 0.0),
             Vector3::new(-1.0, 0.0, 0.0),
             Vector3::new(0.0, 0.0, 1.0),
         )),
         0x1b => Some(Matrix3::new(
-            //1b -> (0, 0, -1) (-1, 0, 0) (0, 1, 0)
             Vector3::new(0.0, 0.0, -1.0),
             Vector3::new(-1.0, 0.0, 0.0),
             Vector3::new(0.0, 1.0, 0.0),
         )),
         0x1c => Some(Matrix3::new(
-            //1c -> (0, -1, -0) (-1, 0, -0) (0, 0, -1)
             Vector3::new(0.0, -1.0, 0.0),
             Vector3::new(-1.0, 0.0, 0.0),
             Vector3::new(0.0, 0.0, -1.0),
         )),
         0x1e => Some(Matrix3::new(
-            //1e -> (0, 0, 1) (-1, 0, 0) (0, -1, 0)
             Vector3::new(0.0, 0.0, 1.0),
             Vector3::new(-1.0, 0.0, 0.0),
             Vector3::new(0.0, -1.0, 0.0),
         )),
         0x1f => Some(Matrix3::new(
-            //1f -> (0, 1, 0) (0, 0, -1) (-1, 0, 0)
             Vector3::new(0.0, 1.0, 0.0),
             Vector3::new(0.0, 0.0, -1.0),
             Vector3::new(-1.0, 0.0, 0.0),
         )),
         0x20 => Some(Matrix3::new(
-            //20 -> (0, 0, 1) (0, 1, -0) (-1, 0, 0)
             Vector3::new(0.0, 0.0, 1.0),
             Vector3::new(0.0, 1.0, 0.0),
             Vector3::new(-1.0, 0.0, 0.0),
         )),
         0x22 => Some(Matrix3::new(
-            //22 -> (0, -1, 0) (0, 0, 1) (-1, 0, 0)
             Vector3::new(0.0, -1.0, 0.0),
             Vector3::new(0.0, 0.0, 1.0),
             Vector3::new(-1.0, 0.0, 0.0),
         )),
         0x23 => Some(Matrix3::new(
-            //23 -> (0, 0, -1) (0, -1, -0) (-1, 0, -0)
             Vector3::new(0.0, 0.0, -1.0),
             Vector3::new(0.0, -1.0, 0.0),
             Vector3::new(-1.0, 0.0, 0.0),
