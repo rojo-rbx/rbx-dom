@@ -135,15 +135,16 @@ pub struct Matrix3 {
 }
 
 impl Matrix3 {
+    pub fn new(x: Vector3, y: Vector3, z: Vector3) -> Self {
+        Self { x, y, z }
+    }
+
     pub fn identity() -> Self {
         Self {
             x: Vector3::new(1.0, 0.0, 1.0),
             y: Vector3::new(0.0, 1.0, 0.0),
             z: Vector3::new(0.0, 0.0, 1.0),
         }
-    }
-    pub fn new(x: Vector3, y: Vector3, z: Vector3) -> Self {
-        Self { x, y, z }
     }
 }
 
