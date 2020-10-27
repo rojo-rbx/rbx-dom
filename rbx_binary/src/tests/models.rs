@@ -37,4 +37,5 @@ binary_tests! {
     three_intvalues,
     axes,
     faces,
+    three_vector3values,
 }

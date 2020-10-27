@@ -7,7 +7,7 @@ use std::{
 
 use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
-    types::{Axes, Color3, Faces, Ref, UDim, UDim2, Variant, VariantType, Vector2},
+    types::{Axes, Color3, Faces, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3},
     InstanceBuilder, WeakDom,
 };
 use rbx_reflection::DataType;
@@ -590,7 +590,36 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::Vector3 => {}
+            Type::Vector3 => match canonical_type {
+                VariantType::Vector3 => {
+                    let mut x = vec![0.0; type_info.referents.len()];
+                    let mut y = vec![0.0; type_info.referents.len()];
+                    let mut z = vec![0.0; type_info.referents.len()];
+
+                    chunk.read_interleaved_f32_array(&mut x)?;
+                    chunk.read_interleaved_f32_array(&mut y)?;
+                    chunk.read_interleaved_f32_array(&mut z)?;
+
+                    let values = x
+                        .into_iter()
+                        .zip(y)
+                        .zip(z)
+                        .map(|((x, y), z)| Variant::Vector3(Vector3::new(x, y, z)));
+
+                    for (value, referent) in values.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.properties.push((canonical_name.clone(), value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Vector3",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::CFrame => {}
             Type::Enum => {}
             Type::Ref => {}
