@@ -2,7 +2,23 @@
 use crate::reflection_types::*;
 use std::{borrow::Cow, collections::HashMap};
 pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
-    let mut output = HashMap::with_capacity(201);
+    let mut output = HashMap::with_capacity(223);
+    output.insert(
+        Cow::Borrowed("ABTestLoadingStatus"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("ABTestLoadingStatus"),
+            items: {
+                let mut items = HashMap::with_capacity(6);
+                items.insert(Cow::Borrowed("None"), 0);
+                items.insert(Cow::Borrowed("Pending"), 1);
+                items.insert(Cow::Borrowed("Initialized"), 2);
+                items.insert(Cow::Borrowed("Error"), 3);
+                items.insert(Cow::Borrowed("TimedOut"), 4);
+                items.insert(Cow::Borrowed("ShutOff"), 5);
+                items
+            },
+        },
+    );
     output.insert(
         Cow::Borrowed("ActionType"),
         RbxEnumDescriptor {
@@ -40,6 +56,18 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("None"), 0);
                 items.insert(Cow::Borrowed("Motor"), 1);
                 items.insert(Cow::Borrowed("Servo"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("AdornCullingMode"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("AdornCullingMode"),
+            items: {
+                let mut items = HashMap::with_capacity(2);
+                items.insert(Cow::Borrowed("Automatic"), 0);
+                items.insert(Cow::Borrowed("Never"), 1);
                 items
             },
         },
@@ -132,7 +160,7 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("AssetType"),
             items: {
-                let mut items = HashMap::with_capacity(44);
+                let mut items = HashMap::with_capacity(45);
                 items.insert(Cow::Borrowed("Image"), 1);
                 items.insert(Cow::Borrowed("TeeShirt"), 2);
                 items.insert(Cow::Borrowed("Audio"), 3);
@@ -177,6 +205,84 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("EarAccessory"), 57);
                 items.insert(Cow::Borrowed("EyeAccessory"), 58);
                 items.insert(Cow::Borrowed("EmoteAnimation"), 61);
+                items.insert(Cow::Borrowed("Video"), 62);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("AssetTypeVerification"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("AssetTypeVerification"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Default"), 1);
+                items.insert(Cow::Borrowed("ClientOnly"), 2);
+                items.insert(Cow::Borrowed("Always"), 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("AutoIndentRule"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("AutoIndentRule"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Off"), 0);
+                items.insert(Cow::Borrowed("Absolute"), 1);
+                items.insert(Cow::Borrowed("Relative"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("AutomaticSize"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("AutomaticSize"),
+            items: {
+                let mut items = HashMap::with_capacity(4);
+                items.insert(Cow::Borrowed("None"), 0);
+                items.insert(Cow::Borrowed("X"), 1);
+                items.insert(Cow::Borrowed("Y"), 2);
+                items.insert(Cow::Borrowed("XY"), 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("AvatarAssetType"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("AvatarAssetType"),
+            items: {
+                let mut items = HashMap::with_capacity(27);
+                items.insert(Cow::Borrowed("TShirt"), 2);
+                items.insert(Cow::Borrowed("Hat"), 8);
+                items.insert(Cow::Borrowed("HairAccessory"), 41);
+                items.insert(Cow::Borrowed("FaceAccessory"), 42);
+                items.insert(Cow::Borrowed("NeckAccessory"), 43);
+                items.insert(Cow::Borrowed("ShoulderAccessory"), 44);
+                items.insert(Cow::Borrowed("FrontAccessory"), 45);
+                items.insert(Cow::Borrowed("BackAccessory"), 46);
+                items.insert(Cow::Borrowed("WaistAccessory"), 47);
+                items.insert(Cow::Borrowed("Shirt"), 11);
+                items.insert(Cow::Borrowed("Pants"), 12);
+                items.insert(Cow::Borrowed("Gear"), 19);
+                items.insert(Cow::Borrowed("Head"), 17);
+                items.insert(Cow::Borrowed("Face"), 18);
+                items.insert(Cow::Borrowed("Torso"), 27);
+                items.insert(Cow::Borrowed("RightArm"), 28);
+                items.insert(Cow::Borrowed("LeftArm"), 29);
+                items.insert(Cow::Borrowed("LeftLeg"), 30);
+                items.insert(Cow::Borrowed("RightLeg"), 31);
+                items.insert(Cow::Borrowed("ClimbAnimation"), 48);
+                items.insert(Cow::Borrowed("FallAnimation"), 50);
+                items.insert(Cow::Borrowed("IdleAnimation"), 51);
+                items.insert(Cow::Borrowed("JumpAnimation"), 52);
+                items.insert(Cow::Borrowed("RunAnimation"), 53);
+                items.insert(Cow::Borrowed("SwimAnimation"), 54);
+                items.insert(Cow::Borrowed("WalkAnimation"), 55);
+                items.insert(Cow::Borrowed("EmoteAnimation"), 61);
                 items
             },
         },
@@ -196,6 +302,18 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("AvatarItemType"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("AvatarItemType"),
+            items: {
+                let mut items = HashMap::with_capacity(2);
+                items.insert(Cow::Borrowed("Asset"), 1);
+                items.insert(Cow::Borrowed("Bundle"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("AvatarJointPositionType"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("AvatarJointPositionType"),
@@ -203,6 +321,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 let mut items = HashMap::with_capacity(2);
                 items.insert(Cow::Borrowed("Fixed"), 0);
                 items.insert(Cow::Borrowed("ArtistIntent"), 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("AvatarPromptResult"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("AvatarPromptResult"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Success"), 1);
+                items.insert(Cow::Borrowed("PermissionDenied"), 2);
+                items.insert(Cow::Borrowed("Failed"), 3);
                 items
             },
         },
@@ -306,6 +437,30 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("BulkMoveMode"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("BulkMoveMode"),
+            items: {
+                let mut items = HashMap::with_capacity(2);
+                items.insert(Cow::Borrowed("FireAllEvents"), 0);
+                items.insert(Cow::Borrowed("FireCFrameChanged"), 1);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("BundleType"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("BundleType"),
+            items: {
+                let mut items = HashMap::with_capacity(2);
+                items.insert(Cow::Borrowed("BodyParts"), 1);
+                items.insert(Cow::Borrowed("Animations"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("Button"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("Button"),
@@ -371,6 +526,36 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("Custom"), 5);
                 items.insert(Cow::Borrowed("Scriptable"), 6);
                 items.insert(Cow::Borrowed("Orbital"), 7);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("CatalogCategoryFilter"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("CatalogCategoryFilter"),
+            items: {
+                let mut items = HashMap::with_capacity(5);
+                items.insert(Cow::Borrowed("None"), 1);
+                items.insert(Cow::Borrowed("Featured"), 2);
+                items.insert(Cow::Borrowed("Collectibles"), 3);
+                items.insert(Cow::Borrowed("CommunityCreations"), 4);
+                items.insert(Cow::Borrowed("Premium"), 5);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("CatalogSortType"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("CatalogSortType"),
+            items: {
+                let mut items = HashMap::with_capacity(5);
+                items.insert(Cow::Borrowed("Relevance"), 1);
+                items.insert(Cow::Borrowed("PriceHighToLow"), 2);
+                items.insert(Cow::Borrowed("PriceLowToHigh"), 3);
+                items.insert(Cow::Borrowed("RecentlyUpdated"), 4);
+                items.insert(Cow::Borrowed("MostFavorited"), 5);
                 items
             },
         },
@@ -517,23 +702,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("CollisionFidelity"),
             items: {
-                let mut items = HashMap::with_capacity(3);
+                let mut items = HashMap::with_capacity(4);
                 items.insert(Cow::Borrowed("Default"), 0);
                 items.insert(Cow::Borrowed("Hull"), 1);
                 items.insert(Cow::Borrowed("Box"), 2);
-                items
-            },
-        },
-    );
-    output.insert(
-        Cow::Borrowed("CollisionsMode"),
-        RbxEnumDescriptor {
-            name: Cow::Borrowed("CollisionsMode"),
-            items: {
-                let mut items = HashMap::with_capacity(3);
-                items.insert(Cow::Borrowed("NoCollisions"), 0);
-                items.insert(Cow::Borrowed("OtherMechanismsAnchored"), 1);
-                items.insert(Cow::Borrowed("IncludeContactedMechanisms"), 2);
+                items.insert(Cow::Borrowed("PreciseConvexDecomposition"), 3);
                 items
             },
         },
@@ -1006,6 +1179,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("FieldOfViewMode"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("FieldOfViewMode"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Vertical"), 0);
+                items.insert(Cow::Borrowed("Diagonal"), 1);
+                items.insert(Cow::Borrowed("MaxAxis"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("FillDirection"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("FillDirection"),
@@ -1034,7 +1220,7 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("Font"),
             items: {
-                let mut items = HashMap::with_capacity(21);
+                let mut items = HashMap::with_capacity(46);
                 items.insert(Cow::Borrowed("Legacy"), 0);
                 items.insert(Cow::Borrowed("Arial"), 1);
                 items.insert(Cow::Borrowed("ArialBold"), 2);
@@ -1056,6 +1242,31 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("GothamSemibold"), 18);
                 items.insert(Cow::Borrowed("GothamBold"), 19);
                 items.insert(Cow::Borrowed("GothamBlack"), 20);
+                items.insert(Cow::Borrowed("AmaticSC"), 21);
+                items.insert(Cow::Borrowed("Bangers"), 22);
+                items.insert(Cow::Borrowed("Creepster"), 23);
+                items.insert(Cow::Borrowed("DenkOne"), 24);
+                items.insert(Cow::Borrowed("Fondamento"), 25);
+                items.insert(Cow::Borrowed("FredokaOne"), 26);
+                items.insert(Cow::Borrowed("GrenzeGotisch"), 27);
+                items.insert(Cow::Borrowed("IndieFlower"), 28);
+                items.insert(Cow::Borrowed("JosefinSans"), 29);
+                items.insert(Cow::Borrowed("Jura"), 30);
+                items.insert(Cow::Borrowed("Kalam"), 31);
+                items.insert(Cow::Borrowed("LuckiestGuy"), 32);
+                items.insert(Cow::Borrowed("Merriweather"), 33);
+                items.insert(Cow::Borrowed("Michroma"), 34);
+                items.insert(Cow::Borrowed("Nunito"), 35);
+                items.insert(Cow::Borrowed("Oswald"), 36);
+                items.insert(Cow::Borrowed("PatrickHand"), 37);
+                items.insert(Cow::Borrowed("PermanentMarker"), 38);
+                items.insert(Cow::Borrowed("Roboto"), 39);
+                items.insert(Cow::Borrowed("RobotoCondensed"), 40);
+                items.insert(Cow::Borrowed("RobotoMono"), 41);
+                items.insert(Cow::Borrowed("Sarpanch"), 42);
+                items.insert(Cow::Borrowed("SpecialElite"), 43);
+                items.insert(Cow::Borrowed("TitilliumWeb"), 44);
+                items.insert(Cow::Borrowed("Ubuntu"), 45);
                 items
             },
         },
@@ -1331,7 +1542,7 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("HttpError"),
             items: {
-                let mut items = HashMap::with_capacity(12);
+                let mut items = HashMap::with_capacity(13);
                 items.insert(Cow::Borrowed("OK"), 0);
                 items.insert(Cow::Borrowed("InvalidUrl"), 1);
                 items.insert(Cow::Borrowed("DnsResolve"), 2);
@@ -1343,7 +1554,8 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("NetFail"), 8);
                 items.insert(Cow::Borrowed("Aborted"), 9);
                 items.insert(Cow::Borrowed("SslConnectFail"), 10);
-                items.insert(Cow::Borrowed("Unknown"), 11);
+                items.insert(Cow::Borrowed("SslVerificationFail"), 11);
+                items.insert(Cow::Borrowed("Unknown"), 12);
                 items
             },
         },
@@ -1359,8 +1571,8 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("Players"), 7);
                 items.insert(Cow::Borrowed("Chat"), 15);
                 items.insert(Cow::Borrowed("Avatar"), 16);
-                items.insert(Cow::Borrowed("Analytics"), 22);
-                items.insert(Cow::Borrowed("Localization"), 24);
+                items.insert(Cow::Borrowed("Analytics"), 23);
+                items.insert(Cow::Borrowed("Localization"), 25);
                 items
             },
         },
@@ -1443,6 +1655,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("IKCollisionsMode"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("IKCollisionsMode"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("NoCollisions"), 0);
+                items.insert(Cow::Borrowed("OtherMechanismsAnchored"), 1);
+                items.insert(Cow::Borrowed("IncludeContactedMechanisms"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("InOut"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("InOut"),
@@ -1486,19 +1711,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
-        Cow::Borrowed("InlineAlignment"),
-        RbxEnumDescriptor {
-            name: Cow::Borrowed("InlineAlignment"),
-            items: {
-                let mut items = HashMap::with_capacity(3);
-                items.insert(Cow::Borrowed("Bottom"), 0);
-                items.insert(Cow::Borrowed("Center"), 1);
-                items.insert(Cow::Borrowed("Top"), 2);
-                items
-            },
-        },
-    );
-    output.insert(
         Cow::Borrowed("InputType"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("InputType"),
@@ -1507,6 +1719,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("NoInput"), 0);
                 items.insert(Cow::Borrowed("Constant"), 12);
                 items.insert(Cow::Borrowed("Sin"), 13);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("InterpolationThrottlingMode"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("InterpolationThrottlingMode"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Default"), 0);
+                items.insert(Cow::Borrowed("Disabled"), 1);
+                items.insert(Cow::Borrowed("Enabled"), 2);
                 items
             },
         },
@@ -1816,10 +2041,11 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("LanguagePreference"),
             items: {
-                let mut items = HashMap::with_capacity(3);
+                let mut items = HashMap::with_capacity(4);
                 items.insert(Cow::Borrowed("SystemDefault"), 0);
                 items.insert(Cow::Borrowed("English"), 1);
                 items.insert(Cow::Borrowed("SimplifiedChinese"), 2);
+                items.insert(Cow::Borrowed("Korean"), 3);
                 items
             },
         },
@@ -1956,6 +2182,34 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("MeshPartDetailLevel"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("MeshPartDetailLevel"),
+            items: {
+                let mut items = HashMap::with_capacity(5);
+                items.insert(Cow::Borrowed("DistanceBased"), 0);
+                items.insert(Cow::Borrowed("Level01"), 1);
+                items.insert(Cow::Borrowed("Level02"), 2);
+                items.insert(Cow::Borrowed("Level03"), 3);
+                items.insert(Cow::Borrowed("Level04"), 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("MeshPartHeads"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("MeshPartHeads"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Default"), 0);
+                items.insert(Cow::Borrowed("Disabled"), 1);
+                items.insert(Cow::Borrowed("Enabled"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("MeshType"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("MeshType"),
@@ -1987,6 +2241,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("MessageInfo"), 1);
                 items.insert(Cow::Borrowed("MessageWarning"), 2);
                 items.insert(Cow::Borrowed("MessageError"), 3);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("ModelLevelOfDetail"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("ModelLevelOfDetail"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Automatic"), 0);
+                items.insert(Cow::Borrowed("StreamingMesh"), 1);
+                items.insert(Cow::Borrowed("Disabled"), 2);
                 items
             },
         },
@@ -2171,6 +2438,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("PhysicsSimulationRate"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("PhysicsSimulationRate"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Fixed240Hz"), 0);
+                items.insert(Cow::Borrowed("Fixed120Hz"), 1);
+                items.insert(Cow::Borrowed("Fixed60Hz"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("Platform"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("Platform"),
@@ -2300,6 +2580,44 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("ProximityPromptExclusivity"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("ProximityPromptExclusivity"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("OnePerButton"), 0);
+                items.insert(Cow::Borrowed("OneGlobally"), 1);
+                items.insert(Cow::Borrowed("AlwaysShow"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("ProximityPromptInputType"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("ProximityPromptInputType"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Keyboard"), 0);
+                items.insert(Cow::Borrowed("Gamepad"), 1);
+                items.insert(Cow::Borrowed("Touch"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("ProximityPromptStyle"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("ProximityPromptStyle"),
+            items: {
+                let mut items = HashMap::with_capacity(2);
+                items.insert(Cow::Borrowed("Default"), 0);
+                items.insert(Cow::Borrowed("Custom"), 1);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("QualityLevel"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("QualityLevel"),
@@ -2360,9 +2678,10 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("RenderFidelity"),
             items: {
-                let mut items = HashMap::with_capacity(2);
+                let mut items = HashMap::with_capacity(3);
                 items.insert(Cow::Borrowed("Automatic"), 0);
                 items.insert(Cow::Borrowed("Precise"), 1);
+                items.insert(Cow::Borrowed("Performance"), 2);
                 items
             },
         },
@@ -2729,11 +3048,64 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("StudioScriptEditorColorCategories"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("StudioScriptEditorColorCategories"),
+            items: {
+                let mut items = HashMap::with_capacity(29);
+                items.insert(Cow::Borrowed("Default"), 0);
+                items.insert(Cow::Borrowed("Operator"), 1);
+                items.insert(Cow::Borrowed("Number"), 2);
+                items.insert(Cow::Borrowed("String"), 3);
+                items.insert(Cow::Borrowed("Comment"), 4);
+                items.insert(Cow::Borrowed("Keyword"), 5);
+                items.insert(Cow::Borrowed("Builtin"), 6);
+                items.insert(Cow::Borrowed("Method"), 7);
+                items.insert(Cow::Borrowed("Property"), 8);
+                items.insert(Cow::Borrowed("Nil"), 9);
+                items.insert(Cow::Borrowed("Bool"), 10);
+                items.insert(Cow::Borrowed("Function"), 11);
+                items.insert(Cow::Borrowed("Local"), 12);
+                items.insert(Cow::Borrowed("Self"), 13);
+                items.insert(Cow::Borrowed("LuauKeyword"), 14);
+                items.insert(Cow::Borrowed("FunctionName"), 15);
+                items.insert(Cow::Borrowed("TODO"), 16);
+                items.insert(Cow::Borrowed("Background"), 17);
+                items.insert(Cow::Borrowed("SelectionText"), 18);
+                items.insert(Cow::Borrowed("SelectionBackground"), 19);
+                items.insert(Cow::Borrowed("FindSelectionBackground"), 20);
+                items.insert(Cow::Borrowed("MatchingWordBackground"), 21);
+                items.insert(Cow::Borrowed("Warning"), 22);
+                items.insert(Cow::Borrowed("Error"), 23);
+                items.insert(Cow::Borrowed("Whitespace"), 24);
+                items.insert(Cow::Borrowed("ActiveLine"), 25);
+                items.insert(Cow::Borrowed("DebuggerCurrentLine"), 26);
+                items.insert(Cow::Borrowed("DebuggerErrorLine"), 27);
+                items.insert(Cow::Borrowed("Ruler"), 28);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("StudioScriptEditorColorPresets"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("StudioScriptEditorColorPresets"),
+            items: {
+                let mut items = HashMap::with_capacity(4);
+                items.insert(Cow::Borrowed("RobloxDefault"), 0);
+                items.insert(Cow::Borrowed("Extra1"), 1);
+                items.insert(Cow::Borrowed("Extra2"), 2);
+                items.insert(Cow::Borrowed("Custom"), 3);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("StudioStyleGuideColor"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("StudioStyleGuideColor"),
             items: {
-                let mut items = HashMap::with_capacity(89);
+                let mut items = HashMap::with_capacity(108);
                 items.insert(Cow::Borrowed("MainBackground"), 0);
                 items.insert(Cow::Borrowed("Titlebar"), 1);
                 items.insert(Cow::Borrowed("Dropdown"), 2);
@@ -2785,44 +3157,63 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("ScriptNumber"), 48);
                 items.insert(Cow::Borrowed("ScriptString"), 49);
                 items.insert(Cow::Borrowed("ScriptComment"), 50);
-                items.insert(Cow::Borrowed("ScriptPreprocessor"), 51);
-                items.insert(Cow::Borrowed("ScriptKeyword"), 52);
-                items.insert(Cow::Borrowed("ScriptBuiltInFunction"), 53);
-                items.insert(Cow::Borrowed("ScriptWarning"), 54);
-                items.insert(Cow::Borrowed("ScriptError"), 55);
-                items.insert(Cow::Borrowed("DebuggerCurrentLine"), 56);
-                items.insert(Cow::Borrowed("DebuggerErrorLine"), 57);
-                items.insert(Cow::Borrowed("DiffFilePathText"), 58);
-                items.insert(Cow::Borrowed("DiffTextHunkInfo"), 59);
-                items.insert(Cow::Borrowed("DiffTextNoChange"), 60);
-                items.insert(Cow::Borrowed("DiffTextAddition"), 61);
-                items.insert(Cow::Borrowed("DiffTextDeletion"), 62);
-                items.insert(Cow::Borrowed("DiffTextSeparatorBackground"), 63);
-                items.insert(Cow::Borrowed("DiffTextNoChangeBackground"), 64);
-                items.insert(Cow::Borrowed("DiffTextAdditionBackground"), 65);
-                items.insert(Cow::Borrowed("DiffTextDeletionBackground"), 66);
-                items.insert(Cow::Borrowed("DiffLineNum"), 67);
-                items.insert(Cow::Borrowed("DiffLineNumSeparatorBackground"), 68);
-                items.insert(Cow::Borrowed("DiffLineNumNoChangeBackground"), 69);
-                items.insert(Cow::Borrowed("DiffLineNumAdditionBackground"), 70);
-                items.insert(Cow::Borrowed("DiffLineNumDeletionBackground"), 71);
-                items.insert(Cow::Borrowed("DiffFilePathBackground"), 72);
-                items.insert(Cow::Borrowed("DiffFilePathBorder"), 73);
-                items.insert(Cow::Borrowed("Separator"), 74);
-                items.insert(Cow::Borrowed("ButtonBorder"), 75);
-                items.insert(Cow::Borrowed("ButtonText"), 76);
-                items.insert(Cow::Borrowed("InputFieldBorder"), 77);
-                items.insert(Cow::Borrowed("CheckedFieldBackground"), 78);
-                items.insert(Cow::Borrowed("CheckedFieldBorder"), 79);
-                items.insert(Cow::Borrowed("CheckedFieldIndicator"), 80);
-                items.insert(Cow::Borrowed("HeaderSection"), 81);
-                items.insert(Cow::Borrowed("Midlight"), 82);
-                items.insert(Cow::Borrowed("StatusBar"), 83);
-                items.insert(Cow::Borrowed("DialogButton"), 84);
-                items.insert(Cow::Borrowed("DialogButtonText"), 85);
-                items.insert(Cow::Borrowed("DialogButtonBorder"), 86);
-                items.insert(Cow::Borrowed("DialogMainButton"), 87);
-                items.insert(Cow::Borrowed("DialogMainButtonText"), 88);
+                items.insert(Cow::Borrowed("ScriptKeyword"), 51);
+                items.insert(Cow::Borrowed("ScriptBuiltInFunction"), 52);
+                items.insert(Cow::Borrowed("ScriptWarning"), 53);
+                items.insert(Cow::Borrowed("ScriptError"), 54);
+                items.insert(Cow::Borrowed("ScriptWhitespace"), 55);
+                items.insert(Cow::Borrowed("ScriptRuler"), 56);
+                items.insert(Cow::Borrowed("DebuggerCurrentLine"), 57);
+                items.insert(Cow::Borrowed("DebuggerErrorLine"), 58);
+                items.insert(Cow::Borrowed("ScriptEditorCurrentLine"), 97);
+                items.insert(Cow::Borrowed("DiffFilePathText"), 59);
+                items.insert(Cow::Borrowed("DiffTextHunkInfo"), 60);
+                items.insert(Cow::Borrowed("DiffTextNoChange"), 61);
+                items.insert(Cow::Borrowed("DiffTextAddition"), 62);
+                items.insert(Cow::Borrowed("DiffTextDeletion"), 63);
+                items.insert(Cow::Borrowed("DiffTextSeparatorBackground"), 64);
+                items.insert(Cow::Borrowed("DiffTextNoChangeBackground"), 65);
+                items.insert(Cow::Borrowed("DiffTextAdditionBackground"), 66);
+                items.insert(Cow::Borrowed("DiffTextDeletionBackground"), 67);
+                items.insert(Cow::Borrowed("DiffLineNum"), 68);
+                items.insert(Cow::Borrowed("DiffLineNumSeparatorBackground"), 69);
+                items.insert(Cow::Borrowed("DiffLineNumNoChangeBackground"), 70);
+                items.insert(Cow::Borrowed("DiffLineNumAdditionBackground"), 71);
+                items.insert(Cow::Borrowed("DiffLineNumDeletionBackground"), 72);
+                items.insert(Cow::Borrowed("DiffFilePathBackground"), 73);
+                items.insert(Cow::Borrowed("DiffFilePathBorder"), 74);
+                items.insert(Cow::Borrowed("ChatIncomingBgColor"), 75);
+                items.insert(Cow::Borrowed("ChatIncomingTextColor"), 76);
+                items.insert(Cow::Borrowed("ChatOutgoingBgColor"), 77);
+                items.insert(Cow::Borrowed("ChatOutgoingTextColor"), 78);
+                items.insert(Cow::Borrowed("ChatModeratedMessageColor"), 79);
+                items.insert(Cow::Borrowed("Separator"), 80);
+                items.insert(Cow::Borrowed("ButtonBorder"), 81);
+                items.insert(Cow::Borrowed("ButtonText"), 82);
+                items.insert(Cow::Borrowed("InputFieldBorder"), 83);
+                items.insert(Cow::Borrowed("CheckedFieldBackground"), 84);
+                items.insert(Cow::Borrowed("CheckedFieldBorder"), 85);
+                items.insert(Cow::Borrowed("CheckedFieldIndicator"), 86);
+                items.insert(Cow::Borrowed("HeaderSection"), 87);
+                items.insert(Cow::Borrowed("Midlight"), 88);
+                items.insert(Cow::Borrowed("StatusBar"), 89);
+                items.insert(Cow::Borrowed("DialogButton"), 90);
+                items.insert(Cow::Borrowed("DialogButtonText"), 91);
+                items.insert(Cow::Borrowed("DialogButtonBorder"), 92);
+                items.insert(Cow::Borrowed("DialogMainButton"), 93);
+                items.insert(Cow::Borrowed("DialogMainButtonText"), 94);
+                items.insert(Cow::Borrowed("InfoBarWarningBackground"), 95);
+                items.insert(Cow::Borrowed("InfoBarWarningText"), 96);
+                items.insert(Cow::Borrowed("ScriptMethod"), 98);
+                items.insert(Cow::Borrowed("ScriptProperty"), 99);
+                items.insert(Cow::Borrowed("ScriptNil"), 100);
+                items.insert(Cow::Borrowed("ScriptBool"), 101);
+                items.insert(Cow::Borrowed("ScriptFunction"), 102);
+                items.insert(Cow::Borrowed("ScriptLocal"), 103);
+                items.insert(Cow::Borrowed("ScriptSelf"), 104);
+                items.insert(Cow::Borrowed("ScriptLuauKeyword"), 105);
+                items.insert(Cow::Borrowed("ScriptFunctionName"), 106);
+                items.insert(Cow::Borrowed("ScriptTodo"), 107);
                 items
             },
         },
@@ -2933,11 +3324,27 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("Technology"),
             items: {
-                let mut items = HashMap::with_capacity(4);
+                let mut items = HashMap::with_capacity(5);
                 items.insert(Cow::Borrowed("Compatibility"), 2);
                 items.insert(Cow::Borrowed("Voxel"), 1);
                 items.insert(Cow::Borrowed("ShadowMap"), 3);
                 items.insert(Cow::Borrowed("Legacy"), 0);
+                items.insert(Cow::Borrowed("Future"), 4);
+                items
+            },
+        },
+    );
+    output.insert(
+        Cow::Borrowed("TeleportMethod"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("TeleportMethod"),
+            items: {
+                let mut items = HashMap::with_capacity(5);
+                items.insert(Cow::Borrowed("TeleportToSpawnByName"), 0);
+                items.insert(Cow::Borrowed("TeleportToPlaceInstance"), 1);
+                items.insert(Cow::Borrowed("TeleportToPrivateServer"), 2);
+                items.insert(Cow::Borrowed("TeleportPartyAsync"), 3);
+                items.insert(Cow::Borrowed("TeleportUnknown"), 4);
                 items
             },
         },
@@ -3005,13 +3412,15 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         RbxEnumDescriptor {
             name: Cow::Borrowed("TextInputType"),
             items: {
-                let mut items = HashMap::with_capacity(6);
+                let mut items = HashMap::with_capacity(8);
                 items.insert(Cow::Borrowed("Default"), 0);
                 items.insert(Cow::Borrowed("NoSuggestions"), 1);
                 items.insert(Cow::Borrowed("Number"), 2);
                 items.insert(Cow::Borrowed("Email"), 3);
                 items.insert(Cow::Borrowed("Phone"), 4);
                 items.insert(Cow::Borrowed("Password"), 5);
+                items.insert(Cow::Borrowed("PasswordShown"), 6);
+                items.insert(Cow::Borrowed("Username"), 7);
                 items
             },
         },
@@ -3202,6 +3611,19 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
         },
     );
     output.insert(
+        Cow::Borrowed("TriStateBoolean"),
+        RbxEnumDescriptor {
+            name: Cow::Borrowed("TriStateBoolean"),
+            items: {
+                let mut items = HashMap::with_capacity(3);
+                items.insert(Cow::Borrowed("Unknown"), 0);
+                items.insert(Cow::Borrowed("True"), 1);
+                items.insert(Cow::Borrowed("False"), 2);
+                items
+            },
+        },
+    );
+    output.insert(
         Cow::Borrowed("TweenStatus"),
         RbxEnumDescriptor {
             name: Cow::Borrowed("TweenStatus"),
@@ -3233,19 +3655,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 let mut items = HashMap::with_capacity(2);
                 items.insert(Cow::Borrowed("UiMessageError"), 0);
                 items.insert(Cow::Borrowed("UiMessageInfo"), 1);
-                items
-            },
-        },
-    );
-    output.insert(
-        Cow::Borrowed("UploadSetting"),
-        RbxEnumDescriptor {
-            name: Cow::Borrowed("UploadSetting"),
-            items: {
-                let mut items = HashMap::with_capacity(3);
-                items.insert(Cow::Borrowed("Never"), 0);
-                items.insert(Cow::Borrowed("Ask"), 1);
-                items.insert(Cow::Borrowed("Always"), 2);
                 items
             },
         },
@@ -3371,19 +3780,6 @@ pub fn generate_enums() -> HashMap<Cow<'static, str>, RbxEnumDescriptor> {
                 items.insert(Cow::Borrowed("RightTrigger"), 3);
                 items.insert(Cow::Borrowed("LeftHand"), 4);
                 items.insert(Cow::Borrowed("RightHand"), 5);
-                items
-            },
-        },
-    );
-    output.insert(
-        Cow::Borrowed("VideoQualitySettings"),
-        RbxEnumDescriptor {
-            name: Cow::Borrowed("VideoQualitySettings"),
-            items: {
-                let mut items = HashMap::with_capacity(3);
-                items.insert(Cow::Borrowed("LowResolution"), 0);
-                items.insert(Cow::Borrowed("MediumResolution"), 1);
-                items.insert(Cow::Borrowed("HighResolution"), 2);
                 items
             },
         },
