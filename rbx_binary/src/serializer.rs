@@ -663,7 +663,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         }
 
                         for matrix in rotations {
-                            //TODO write special cases; see: https://github.com/rojo-rbx/rbx-dom/issues/129
+                            // TODO write special cases; see: https://github.com/rojo-rbx/rbx-dom/issues/129
                             // Right now all CFrames are written as `0x00`,
                             // which means that their rotation matrix is written fully.
                             chunk.write_u8(0x00)?;
