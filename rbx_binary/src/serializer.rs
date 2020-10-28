@@ -9,7 +9,8 @@ use std::{
 use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, Color3, Faces, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        Axes, BinaryString, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType,
+        Vector2, Vector3,
     },
     WeakDom,
 };
@@ -644,6 +645,46 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(y.into_iter())?;
                         chunk.write_interleaved_f32_array(z.into_iter())?;
                     }
+                    Type::CFrame => {
+                        let mut rotations = Vec::with_capacity(values.len());
+                        let mut x = Vec::with_capacity(values.len());
+                        let mut y = Vec::with_capacity(values.len());
+                        let mut z = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::CFrame(value) = rbx_value.as_ref() {
+                                rotations.push(value.orientation);
+                                x.push(value.position.x);
+                                y.push(value.position.y);
+                                z.push(value.position.z);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "CFrame");
+                            }
+                        }
+
+                        for matrix in rotations {
+                            // TODO write special cases; see: https://github.com/rojo-rbx/rbx-dom/issues/129
+                            // Right now all CFrames are written as `0x00`,
+                            // which means that their rotation matrix is written fully.
+                            chunk.write_u8(0x00)?;
+
+                            chunk.write_f32::<LittleEndian>(matrix.x.x)?;
+                            chunk.write_f32::<LittleEndian>(matrix.x.y)?;
+                            chunk.write_f32::<LittleEndian>(matrix.x.z)?;
+
+                            chunk.write_f32::<LittleEndian>(matrix.y.x)?;
+                            chunk.write_f32::<LittleEndian>(matrix.y.y)?;
+                            chunk.write_f32::<LittleEndian>(matrix.y.z)?;
+
+                            chunk.write_f32::<LittleEndian>(matrix.z.x)?;
+                            chunk.write_f32::<LittleEndian>(matrix.z.y)?;
+                            chunk.write_f32::<LittleEndian>(matrix.z.z)?;
+                        }
+
+                        chunk.write_interleaved_f32_array(x.into_iter())?;
+                        chunk.write_interleaved_f32_array(y.into_iter())?;
+                        chunk.write_interleaved_f32_array(z.into_iter())?;
+                    }
                     Type::Int64 => {
                         let mut buf = Vec::with_capacity(values.len());
 
@@ -758,6 +799,10 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
             VariantType::Faces => Variant::Faces(Faces::from_bits(0)?),
             VariantType::Axes => Variant::Axes(Axes::from_bits(0)?),
+            VariantType::CFrame => Variant::CFrame(CFrame::new(
+                Vector3::new(0.0, 0.0, 0.0),
+                Matrix3::identity(),
+            )),
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),

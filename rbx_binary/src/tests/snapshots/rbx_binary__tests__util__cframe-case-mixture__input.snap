@@ -1,0 +1,87 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 2
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: CFrameValue
+      object_format: 0
+      referents:
+        - 0
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - "0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0"
+        - "0.15625, -0.15625, 0.1, -0.1, 0, 0, 1337, -1337, inf, -inf, nan, nan"
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Value
+      prop_type: CFrame
+      values:
+        - Position:
+            - 0.0
+            - 0.0
+            - 0.0
+          Orientation:
+            - - 1.0
+              - 0.0
+              - 0.0
+            - - 0.0
+              - 0.0
+              - -1.0
+            - - 0.0
+              - 1.0
+              - 0.0
+        - Position:
+            - 0.15625
+            - -0.15625
+            - 0.10000000149011612
+          Orientation:
+            - - -0.10000000149011612
+              - 0.0
+              - 0.0
+            - - 1337.0
+              - -1337.0
+              - .inf
+            - - -.inf
+              - .nan
+              - .nan
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+  - End
