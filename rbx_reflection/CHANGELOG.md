@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+## 3.3.454 (2020-10-28)
+* Updated reflection database to client 0.454.0.413308
+
 ## 3.3.418 (2020-02-08)
 * Updated reflection database to client 0.418.1.380321
 
