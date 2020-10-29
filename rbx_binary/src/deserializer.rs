@@ -550,11 +550,7 @@ impl<R: Read> BinaryDeserializer<R> {
                 VariantType::Float64 => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = {
-                            let mut bytes = [0; 8];
-                            chunk.read_exact(&mut bytes)?;
-                            f64::from_le_bytes(bytes)
-                        };
+                        let value = chunk.read_le_f64()?;
                         let rbx_value = Variant::Float64(value);
                         instance
                             .properties
@@ -985,11 +981,7 @@ impl FileHeader {
             return Err(InnerError::BadHeader);
         }
 
-        let version = {
-            let mut bytes = [0; 2];
-            source.read_exact(&mut bytes)?;
-            u16::from_le_bytes(bytes)
-        };
+        let version = source.read_le_u16()?;
 
         if version != FILE_VERSION {
             return Err(InnerError::UnknownFileVersion { version });

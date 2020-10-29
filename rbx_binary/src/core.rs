@@ -17,11 +17,25 @@ pub trait RbxReadExt: Read {
         Ok(u32::from_le_bytes(buffer))
     }
 
+    fn read_le_u16(&mut self) -> io::Result<u16> {
+        let mut bytes = [0; 2];
+        self.read_exact(&mut bytes)?;
+
+        Ok(u16::from_le_bytes(bytes))
+    }
+
     fn read_le_f32(&mut self) -> io::Result<f32> {
         let mut buffer = [0u8; 4];
         self.read_exact(&mut buffer)?;
 
         Ok(f32::from_le_bytes(buffer))
+    }
+
+    fn read_le_f64(&mut self) -> io::Result<f64> {
+        let mut bytes = [0; 8];
+        self.read_exact(&mut bytes)?;
+
+        Ok(f64::from_le_bytes(bytes))
     }
 
     fn read_u8(&mut self) -> io::Result<u8> {

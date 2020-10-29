@@ -225,11 +225,7 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push({
-                        let mut bytes = [0; 8];
-                        reader.read_exact(&mut bytes).unwrap();
-                        f64::from_le_bytes(bytes)
-                    });
+                    values.push(reader.read_le_f64().unwrap());
                 }
 
                 Some(DecodedValues::Float64(values))
