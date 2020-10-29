@@ -1,3 +1,6 @@
+//! Defines an interface to inject a plugin into a local Roblox Studio install
+//! that can communicate with a temporary HTTP server.
+
 use std::collections::HashMap;
 use std::fs::{remove_file, File};
 use std::io::BufWriter;
