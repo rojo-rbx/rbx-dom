@@ -1,8 +1,10 @@
 //! Interface for dealing with Roblox Studio's JSON API Dump. Isn't specific to
 //! this crate and could probably turn into a separate crate.
 
-use std::{fs, io, process::Command};
+use std::fs;
+use std::process::Command;
 
+use anyhow::Context;
 use roblox_install::RobloxStudio;
 use serde::Deserialize;
 use tempfile::tempdir;
@@ -99,9 +101,9 @@ pub struct DumpEnumItem {
 }
 
 impl Dump {
-    pub fn read() -> io::Result<Dump> {
+    pub fn read() -> anyhow::Result<Dump> {
         let studio_install =
-            RobloxStudio::locate().expect("Could not locate Roblox Studio install");
+            RobloxStudio::locate().context("Could not locate Roblox Studio install")?;
 
         let dir = tempdir()?;
         let dump_path = dir.path().join("api-dump.json");
@@ -113,7 +115,7 @@ impl Dump {
 
         let contents = fs::read_to_string(&dump_path)?;
         let dump: Dump =
-            serde_json::from_str(&contents).expect("Roblox Studio produced an invalid dump");
+            serde_json::from_str(&contents).context("Roblox Studio produced an invalid dump")?;
 
         Ok(dump)
     }

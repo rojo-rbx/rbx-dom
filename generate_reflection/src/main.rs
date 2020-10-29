@@ -23,18 +23,7 @@ struct Options {
     msgpack_path: Option<PathBuf>,
 }
 
-fn main() -> anyhow::Result<()> {
-    let options = Options::from_args();
-
-    let log_env = env_logger::Env::default().default_filter_or("info");
-
-    env_logger::Builder::from_env(log_env)
-        .format_module_path(false)
-        .format_timestamp(None)
-        // Indent following lines equal to the log level label, like `[ERROR] `
-        .format_indent(Some(8))
-        .init();
-
+fn run(options: Options) -> anyhow::Result<()> {
     let mut database = ReflectionDatabase::new();
 
     let dump = Dump::read()?;
@@ -58,4 +47,22 @@ fn main() -> anyhow::Result<()> {
     }
 
     Ok(())
+}
+
+fn main() {
+    let options = Options::from_args();
+
+    let log_env = env_logger::Env::default().default_filter_or("info");
+
+    env_logger::Builder::from_env(log_env)
+        .format_module_path(false)
+        .format_timestamp(None)
+        // Indent following lines equal to the log level label, like `[ERROR] `
+        .format_indent(Some(8))
+        .init();
+
+    if let Err(err) = run(options) {
+        eprintln!("Error: {:?}", err);
+        std::process::exit(1);
+    }
 }
