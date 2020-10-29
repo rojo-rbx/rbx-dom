@@ -1,7 +1,5 @@
-use std::{
-    borrow::Cow,
-    collections::{HashMap, HashSet},
-};
+use std::borrow::Cow;
+use std::collections::{HashMap, HashSet};
 
 use rbx_reflection::{
     ClassDescriptor, DataType, PropertyDescriptor, PropertyKind, PropertySerialization,
@@ -9,12 +7,8 @@ use rbx_reflection::{
 };
 use rbx_types::VariantType;
 use serde::{Deserialize, Serialize};
-use snafu::Snafu;
 
-use crate::{
-    api_dump::{Dump, DumpClassMember, ValueCategory},
-    property_patches::PropertyPatches,
-};
+use crate::api_dump::{Dump, DumpClassMember, ValueCategory};
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(transparent)]
@@ -27,7 +21,7 @@ impl ReflectionDatabase {
 
     /// Adds all of the classes from the given API dump to the reflection
     /// database.
-    pub fn populate_from_dump(&mut self, dump: &Dump) -> Result<(), Error> {
+    pub fn populate_from_dump(&mut self, dump: &Dump) -> anyhow::Result<()> {
         for dump_class in &dump.classes {
             let superclass = if dump_class.superclass == "<<<ROOT>>>" {
                 None
@@ -103,83 +97,6 @@ impl ReflectionDatabase {
             self.0
                 .classes
                 .insert(Cow::Owned(dump_class.name.clone()), class);
-        }
-
-        Ok(())
-    }
-
-    /// Add and update information based on rbx-dom's hand-written property
-    /// patch file.
-    pub fn populate_from_patches(
-        &mut self,
-        property_patches: &PropertyPatches,
-    ) -> Result<(), Error> {
-        for (class_name, class_changes) in &property_patches.change {
-            let class = self
-                .0
-                .classes
-                .get_mut(class_name.as_str())
-                .unwrap_or_else(|| {
-                    panic!("Class {} defined in patch file wasn't present", class_name)
-                });
-
-            for (property_name, property_change) in class_changes {
-                let existing_property = class
-                    .properties
-                    .get_mut(property_name.as_str())
-                    .unwrap_or_else(|| {
-                        panic!(
-                            "Property {}.{} did not exist in dump",
-                            class_name, property_name
-                        )
-                    });
-
-                log::debug!("{}.{} changed", class_name, property_name);
-
-                // FIXME
-                // if let Some(kind) = &property_change.kind {
-                //     existing_property.kind = kind.clone();
-                // }
-
-                if let Some(scriptability) = &property_change.scriptability {
-                    existing_property.scriptability = *scriptability;
-                }
-            }
-        }
-
-        for (class_name, class_adds) in &property_patches.add {
-            let class = self
-                .0
-                .classes
-                .get_mut(class_name.as_str())
-                .unwrap_or_else(|| {
-                    panic!("Class {} defined in patch file wasn't present", class_name)
-                });
-
-            for (property_name, property_add) in class_adds {
-                if class.properties.contains_key(property_name.as_str()) {
-                    panic!(
-                        "Property {}.{} marked for addition in patch was already present",
-                        class_name, property_name
-                    );
-                }
-
-                log::debug!("{}.{} added", class_name, property_name);
-
-                let name = Cow::Owned(property_name.clone());
-                let data_type = property_add.data_type.clone();
-
-                let mut property = PropertyDescriptor::new(name, data_type);
-
-                // FIXME
-                // property.kind = property_add.kind.clone();
-
-                property.scriptability = property_add.scriptability;
-
-                class
-                    .properties
-                    .insert(Cow::Owned(property_name.clone()), property);
-            }
         }
 
         Ok(())
@@ -280,8 +197,3 @@ fn variant_type_from_str(value: &str) -> Option<VariantType> {
         _ => panic!("Unknown type {}", value),
     })
 }
-
-#[derive(Debug, Snafu)]
-pub enum Error {}
-
-pub use Error as DatabaseError;

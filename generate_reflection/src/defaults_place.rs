@@ -6,7 +6,6 @@ use std::{
     borrow::Cow,
     collections::{HashSet, VecDeque},
     convert::TryInto,
-    error::Error,
     fmt::{self, Write},
     fs::{self, File},
     io::BufReader,
@@ -26,7 +25,7 @@ use crate::plugin_injector::{PluginInjector, StudioInfo};
 
 /// Use Roblox Studio to populate the reflection database with default values
 /// for as many properties as possible.
-pub fn measure_default_properties(database: &mut ReflectionDatabase) -> Result<(), Box<dyn Error>> {
+pub fn measure_default_properties(database: &mut ReflectionDatabase) -> anyhow::Result<()> {
     let fixture_place = generate_fixture_place(database);
     let output = roundtrip_place_through_studio(&fixture_place)?;
 
@@ -140,7 +139,7 @@ struct StudioOutput {
 
 /// Generate a new fixture place from the given reflection database, open it in
 /// Studio, coax Studio to re-save it, and reads back the resulting place.
-fn roundtrip_place_through_studio(place_contents: &str) -> Result<StudioOutput, Box<dyn Error>> {
+fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<StudioOutput> {
     let output_dir = tempdir()?;
     let output_path = output_dir.path().join("roundtrip.rbxlx");
     log::info!("Generating place at {}", output_path.display());

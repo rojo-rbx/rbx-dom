@@ -3,9 +3,11 @@
 //!
 //! See the `patches/` directory for input.
 
+use std::borrow::Cow;
 use std::collections::HashMap;
 
-use rbx_reflection::{DataType, Scriptability};
+use anyhow::{anyhow, bail, Context};
+use rbx_reflection::{DataType, PropertyDescriptor, ReflectionDatabase, Scriptability};
 use serde::Deserialize;
 
 const PATCHES: &[&str] = &[
@@ -60,16 +62,93 @@ pub enum PropertySerialization {
     },
 }
 
-pub fn load_property_patches() -> PropertyPatches {
-    let mut all_patches = PropertyPatches::default();
+impl PropertyPatches {
+    pub fn load() -> anyhow::Result<Self> {
+        let mut all_patches = PropertyPatches::default();
 
-    for patch_source in PATCHES {
-        let parsed: PropertyPatches =
-            serde_yaml::from_str(patch_source).expect("Couldn't parse property patch file");
+        for patch_source in PATCHES {
+            let parsed: PropertyPatches =
+                serde_yaml::from_str(patch_source).context("Couldn't parse property patch file")?;
 
-        all_patches.change.extend(parsed.change);
-        all_patches.add.extend(parsed.add);
+            all_patches.change.extend(parsed.change);
+            all_patches.add.extend(parsed.add);
+        }
+
+        Ok(all_patches)
     }
 
-    all_patches
+    pub fn apply(self, database: &mut ReflectionDatabase<'static>) -> anyhow::Result<()> {
+        for (class_name, class_changes) in &self.change {
+            let class = database
+                .classes
+                .get_mut(class_name.as_str())
+                .ok_or_else(|| {
+                    anyhow!(
+                        "Class {} modified in patch file did not exist in database",
+                        class_name
+                    )
+                })?;
+
+            for (property_name, property_change) in class_changes {
+                let existing_property = class
+                    .properties
+                    .get_mut(property_name.as_str())
+                    .ok_or_else(|| {
+                        anyhow!(
+                            "Property {}.{} modified in patch file did not exist in database",
+                            class_name,
+                            property_name
+                        )
+                    })?;
+
+                log::debug!("Property {}.{} changed", class_name, property_name);
+
+                // FIXME
+                // if let Some(kind) = &property_change.kind {
+                //     existing_property.kind = kind.clone();
+                // }
+
+                if let Some(scriptability) = &property_change.scriptability {
+                    existing_property.scriptability = *scriptability;
+                }
+            }
+        }
+
+        for (class_name, class_adds) in &self.add {
+            let class = database
+                .classes
+                .get_mut(class_name.as_str())
+                .ok_or_else(|| {
+                    anyhow!("Class {} modified in patch file wasn't present", class_name)
+                })?;
+
+            for (property_name, property_add) in class_adds {
+                if class.properties.contains_key(property_name.as_str()) {
+                    bail!(
+                        "Property {}.{} added in patch file was already present",
+                        class_name,
+                        property_name
+                    );
+                }
+
+                log::debug!("Property {}.{} added", class_name, property_name);
+
+                let name = Cow::Owned(property_name.clone());
+                let data_type = property_add.data_type.clone();
+
+                let mut property = PropertyDescriptor::new(name, data_type);
+
+                // FIXME
+                // property.kind = property_add.kind.clone();
+
+                property.scriptability = property_add.scriptability;
+
+                class
+                    .properties
+                    .insert(Cow::Owned(property_name.clone()), property);
+            }
+        }
+
+        Ok(())
+    }
 }
