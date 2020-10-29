@@ -1,5 +1,4 @@
 mod api_dump;
-mod database;
 mod defaults_place;
 mod plugin_injector;
 mod property_patches;
@@ -7,10 +6,10 @@ mod property_patches;
 use std::fs;
 use std::path::PathBuf;
 
+use rbx_reflection::ReflectionDatabase;
 use structopt::StructOpt;
 
 use crate::api_dump::Dump;
-use crate::database::ReflectionDatabase;
 use crate::defaults_place::measure_default_properties;
 use crate::property_patches::PropertyPatches;
 
@@ -27,14 +26,15 @@ fn run(options: Options) -> anyhow::Result<()> {
     let mut database = ReflectionDatabase::new();
 
     let dump = Dump::read()?;
-    database.populate_from_dump(&dump)?;
+    dump.apply(&mut database)?;
 
     let property_patches = PropertyPatches::load()?;
-    property_patches.apply(&mut database.0)?;
+    property_patches.apply(&mut database)?;
 
     measure_default_properties(&mut database)?;
 
-    database.validate();
+    // TODO
+    // database.validate();
 
     if let Some(path) = &options.msgpack_path {
         let encoded = rmp_serde::to_vec(&database)?;

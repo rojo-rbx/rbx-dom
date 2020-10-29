@@ -16,11 +16,10 @@ use std::{
 
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::{RbxTree, RbxValueType};
-use rbx_reflection::{PropertyDescriptor, PropertyKind};
+use rbx_reflection::{PropertyDescriptor, PropertyKind, ReflectionDatabase};
 use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
-use crate::database::ReflectionDatabase;
 use crate::plugin_injector::{PluginInjector, StudioInfo};
 
 /// Use Roblox Studio to populate the reflection database with default values
@@ -29,7 +28,7 @@ pub fn measure_default_properties(database: &mut ReflectionDatabase) -> anyhow::
     let fixture_place = generate_fixture_place(database);
     let output = roundtrip_place_through_studio(&fixture_place)?;
 
-    database.0.version = output.info.version;
+    database.version = output.info.version;
 
     apply_defaults_from_fixture_place(database, &output.tree);
 
@@ -79,7 +78,7 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
 
                 _ => {
                     let class_descriptor =
-                        match database.0.classes.get_mut(instance.class_name.as_str()) {
+                        match database.classes.get_mut(instance.class_name.as_str()) {
                             Some(descriptor) => descriptor,
                             None => {
                                 log::warn!(
@@ -107,7 +106,7 @@ fn find_canonical_descriptor<'a>(
     let mut next_class_name = Some(class_name);
 
     while let Some(current_class_name) = next_class_name {
-        let class = database.0.classes.get(current_class_name).unwrap();
+        let class = database.classes.get(current_class_name).unwrap();
 
         if let Some(prop) = class.properties.get(prop_name) {
             match &prop.kind {
@@ -199,7 +198,7 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
 
     writeln!(&mut output, "<roblox version=\"4\">").unwrap();
 
-    for descriptor in database.0.classes.values() {
+    for descriptor in database.classes.values() {
         let mut instance = FixtureInstance::named(&descriptor.name);
 
         match &*descriptor.name {
