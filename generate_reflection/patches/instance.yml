@@ -11,7 +11,7 @@ Add:
       Scriptability: Custom
 
     # Attributes serialize as a BinaryString with a strange name, but we want to
-    # refere to them with a different name.
+    # refer to them with a different name.
     Attributes:
       DataType:
         Value: BinaryString

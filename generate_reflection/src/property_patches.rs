@@ -11,7 +11,7 @@ use serde::Deserialize;
 const PATCHES: &[&str] = &[
     include_str!("../patches/body-movers.yml"),
     include_str!("../patches/camera.yml"),
-    // include_str!("../patches/fire-and-smoke.toml"),
+    include_str!("../patches/fire-and-smoke.yml"),
     include_str!("../patches/instance.yml"),
     // include_str!("../patches/joint-instance.toml"),
     // include_str!("../patches/localization-table.toml"),
