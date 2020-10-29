@@ -6,7 +6,6 @@
 
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
-use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::types::{Axes, CFrame, Color3, Faces, Matrix3, UDim, UDim2, Vector2, Vector3};
 use serde::{Deserialize, Serialize};
 
@@ -67,7 +66,7 @@ impl DecodedModel {
 }
 
 fn decode_meta_chunk<R: Read>(mut reader: R) -> DecodedChunk {
-    let num_entries = reader.read_u32::<LittleEndian>().unwrap();
+    let num_entries = reader.read_le_u32().unwrap();
     let mut entries = Vec::with_capacity(num_entries as usize);
 
     for _ in 0..num_entries {
@@ -86,10 +85,10 @@ fn decode_inst_chunk<R: Read>(
     mut reader: R,
     count_by_type_id: &mut HashMap<u32, usize>,
 ) -> DecodedChunk {
-    let type_id = reader.read_u32::<LittleEndian>().unwrap();
+    let type_id = reader.read_le_u32().unwrap();
     let type_name = reader.read_string().unwrap();
     let object_format = reader.read_u8().unwrap();
-    let num_instances = reader.read_u32::<LittleEndian>().unwrap();
+    let num_instances = reader.read_le_u32().unwrap();
 
     count_by_type_id.insert(type_id, num_instances as usize);
 
@@ -112,7 +111,7 @@ fn decode_prop_chunk<R: Read>(
     mut reader: R,
     count_by_type_id: &mut HashMap<u32, usize>,
 ) -> DecodedChunk {
-    let type_id = reader.read_u32::<LittleEndian>().unwrap();
+    let type_id = reader.read_le_u32().unwrap();
     let prop_name = reader.read_string().unwrap();
 
     let prop_type_value = reader.read_u8().unwrap();
@@ -144,7 +143,7 @@ fn decode_prop_chunk<R: Read>(
 
 fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     let version = reader.read_u8().unwrap();
-    let num_referents = reader.read_u32::<LittleEndian>().unwrap();
+    let num_referents = reader.read_le_u32().unwrap();
 
     let mut subjects = vec![0; num_referents as usize];
     let mut parents = vec![0; num_referents as usize];
@@ -226,7 +225,11 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push(reader.read_f64::<LittleEndian>().unwrap())
+                    values.push({
+                        let mut bytes = [0; 8];
+                        reader.read_exact(&mut bytes).unwrap();
+                        f64::from_le_bytes(bytes)
+                    });
                 }
 
                 Some(DecodedValues::Float64(values))
@@ -299,19 +302,19 @@ impl DecodedValues {
                     if id == 0 {
                         rotations[i] = Matrix3::new(
                             Vector3::new(
-                                reader.read_f32::<LittleEndian>().unwrap(),
-                                reader.read_f32::<LittleEndian>().unwrap(),
-                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
                             ),
                             Vector3::new(
-                                reader.read_f32::<LittleEndian>().unwrap(),
-                                reader.read_f32::<LittleEndian>().unwrap(),
-                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
                             ),
                             Vector3::new(
-                                reader.read_f32::<LittleEndian>().unwrap(),
-                                reader.read_f32::<LittleEndian>().unwrap(),
-                                reader.read_f32::<LittleEndian>().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
                             ),
                         );
                     } else {

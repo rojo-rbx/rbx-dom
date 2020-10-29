@@ -5,7 +5,6 @@ use std::{
     str,
 };
 
-use byteorder::{LittleEndian, ReadBytesExt};
 use rbx_dom_weak::{
     types::{
         Axes, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType, Vector2,
@@ -332,7 +331,7 @@ impl<R: Read> BinaryDeserializer<R> {
     }
 
     fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
-        let len = chunk.read_u32::<LittleEndian>()?;
+        let len = chunk.read_le_u32()?;
         self.metadata.reserve(len as usize);
 
         for _ in 0..len {
@@ -346,10 +345,10 @@ impl<R: Read> BinaryDeserializer<R> {
     }
 
     fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
-        let type_id = chunk.read_u32::<LittleEndian>()?;
+        let type_id = chunk.read_le_u32()?;
         let type_name = chunk.read_string()?;
         let object_format = chunk.read_u8()?;
-        let number_instances = chunk.read_u32::<LittleEndian>()?;
+        let number_instances = chunk.read_le_u32()?;
 
         log::trace!(
             "INST chunk (type ID {}, type name {}, format {}, {} instances)",
@@ -388,7 +387,7 @@ impl<R: Read> BinaryDeserializer<R> {
     }
 
     fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
-        let type_id = chunk.read_u32::<LittleEndian>()?;
+        let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
         let binary_type: Type = chunk.read_u8()?.try_into().unwrap();
 
@@ -551,7 +550,11 @@ impl<R: Read> BinaryDeserializer<R> {
                 VariantType::Float64 => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = chunk.read_f64::<LittleEndian>()?;
+                        let value = {
+                            let mut bytes = [0; 8];
+                            chunk.read_exact(&mut bytes)?;
+                            f64::from_le_bytes(bytes)
+                        };
                         let rbx_value = Variant::Float64(value);
                         instance
                             .properties
@@ -767,19 +770,19 @@ impl<R: Read> BinaryDeserializer<R> {
                         if id == 0 {
                             rotations.push(Matrix3::new(
                                 Vector3::new(
-                                    chunk.read_f32::<LittleEndian>()?,
-                                    chunk.read_f32::<LittleEndian>()?,
-                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
                                 ),
                                 Vector3::new(
-                                    chunk.read_f32::<LittleEndian>()?,
-                                    chunk.read_f32::<LittleEndian>()?,
-                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
                                 ),
                                 Vector3::new(
-                                    chunk.read_f32::<LittleEndian>()?,
-                                    chunk.read_f32::<LittleEndian>()?,
-                                    chunk.read_f32::<LittleEndian>()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
                                 ),
                             ));
                         } else {
@@ -874,7 +877,7 @@ impl<R: Read> BinaryDeserializer<R> {
             });
         }
 
-        let number_objects = chunk.read_u32::<LittleEndian>()?;
+        let number_objects = chunk.read_le_u32()?;
 
         log::trace!("PRNT chunk ({} instances)", number_objects);
 
@@ -982,14 +985,18 @@ impl FileHeader {
             return Err(InnerError::BadHeader);
         }
 
-        let version = source.read_u16::<LittleEndian>()?;
+        let version = {
+            let mut bytes = [0; 2];
+            source.read_exact(&mut bytes)?;
+            u16::from_le_bytes(bytes)
+        };
 
         if version != FILE_VERSION {
             return Err(InnerError::UnknownFileVersion { version });
         }
 
-        let num_types = source.read_u32::<LittleEndian>()?;
-        let num_instances = source.read_u32::<LittleEndian>()?;
+        let num_types = source.read_le_u32()?;
+        let num_instances = source.read_le_u32()?;
 
         let mut reserved = [0; 8];
         source.read_exact(&mut reserved)?;

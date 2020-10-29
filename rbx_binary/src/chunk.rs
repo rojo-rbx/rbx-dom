@@ -4,7 +4,7 @@ use std::{
     str,
 };
 
-use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
+use crate::core::{RbxReadExt, RbxWriteExt};
 
 /// Represents one chunk from a binary model file.
 #[derive(Debug)]
@@ -83,16 +83,16 @@ impl ChunkBuilder {
             ChunkCompression::Compressed => {
                 let compressed = lz4::block::compress(&self.buffer, None, false)?;
 
-                writer.write_u32::<LittleEndian>(compressed.len() as u32)?;
-                writer.write_u32::<LittleEndian>(self.buffer.len() as u32)?;
-                writer.write_u32::<LittleEndian>(0)?;
+                writer.write_le_u32(compressed.len() as u32)?;
+                writer.write_le_u32(self.buffer.len() as u32)?;
+                writer.write_le_u32(0)?;
 
                 writer.write_all(&compressed)?;
             }
             ChunkCompression::Uncompressed => {
-                writer.write_u32::<LittleEndian>(0)?;
-                writer.write_u32::<LittleEndian>(self.buffer.len() as u32)?;
-                writer.write_u32::<LittleEndian>(0)?;
+                writer.write_le_u32(0)?;
+                writer.write_le_u32(self.buffer.len() as u32)?;
+                writer.write_le_u32(0)?;
 
                 writer.write_all(&self.buffer)?;
             }
@@ -149,9 +149,9 @@ fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
     let mut name = [0; 4];
     source.read_exact(&mut name)?;
 
-    let compressed_len = source.read_u32::<LittleEndian>()?;
-    let len = source.read_u32::<LittleEndian>()?;
-    let reserved = source.read_u32::<LittleEndian>()?;
+    let compressed_len = source.read_le_u32()?;
+    let len = source.read_le_u32()?;
+    let reserved = source.read_le_u32()?;
 
     if reserved != 0 {
         panic!(

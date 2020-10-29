@@ -3,7 +3,6 @@ use std::{
     mem,
 };
 
-use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization};
 
 pub static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
@@ -11,6 +10,27 @@ pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
 pub const FILE_VERSION: u16 = 0;
 
 pub trait RbxReadExt: Read {
+    fn read_le_u32(&mut self) -> io::Result<u32> {
+        let mut buffer = [0; 4];
+        self.read_exact(&mut buffer)?;
+
+        Ok(u32::from_le_bytes(buffer))
+    }
+
+    fn read_le_f32(&mut self) -> io::Result<f32> {
+        let mut buffer = [0u8; 4];
+        self.read_exact(&mut buffer)?;
+
+        Ok(f32::from_le_bytes(buffer))
+    }
+
+    fn read_u8(&mut self) -> io::Result<u8> {
+        let mut buffer = [0u8];
+        self.read_exact(&mut buffer)?;
+
+        Ok(buffer[0])
+    }
+
     /// Read a binary "string" in the format that Roblox's model files use.
     ///
     /// This function is safer than read_string because Roblox generally makes
@@ -18,7 +38,7 @@ pub trait RbxReadExt: Read {
     /// makes a semantic differentiation between strings and binary buffers,
     /// which makes it more strict than Roblox but more likely to be correct.
     fn read_binary_string(&mut self) -> io::Result<Vec<u8>> {
-        let length = self.read_u32::<LittleEndian>()?;
+        let length = self.read_le_u32()?;
 
         let mut value = Vec::with_capacity(length as usize);
         self.take(length as u64).read_to_end(&mut value)?;
@@ -30,8 +50,7 @@ pub trait RbxReadExt: Read {
     /// strings. This function isn't always appropriate because Roblox's formats
     /// generally aren't dilligent about data being valid Unicode.
     fn read_string(&mut self) -> io::Result<String> {
-        let length = self.read_u32::<LittleEndian>()?;
-
+        let length = self.read_le_u32()?;
         let mut value = String::with_capacity(length as usize);
         self.take(length as u64).read_to_string(&mut value)?;
 
@@ -119,8 +138,26 @@ pub trait RbxReadExt: Read {
 impl<R> RbxReadExt for R where R: Read {}
 
 pub trait RbxWriteExt: Write {
+    fn write_le_u32(&mut self, value: u32) -> io::Result<()> {
+        self.write_all(&value.to_le_bytes())?;
+
+        Ok(())
+    }
+
+    fn write_le_f32(&mut self, value: f32) -> io::Result<()> {
+        self.write_all(&value.to_le_bytes())?;
+
+        Ok(())
+    }
+
+    fn write_u8(&mut self, value: u8) -> io::Result<()> {
+        self.write_all(&[value])?;
+
+        Ok(())
+    }
+
     fn write_binary_string(&mut self, value: &[u8]) -> io::Result<()> {
-        self.write_u32::<LittleEndian>(value.len() as u32)?;
+        self.write_le_u32(value.len() as u32)?;
         self.write_all(value)?;
 
         Ok(())

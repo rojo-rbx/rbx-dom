@@ -6,7 +6,6 @@ use std::{
     u32,
 };
 
-use byteorder::{LittleEndian, WriteBytesExt};
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType,
@@ -335,13 +334,12 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
         self.output.write_all(FILE_MAGIC_HEADER)?;
         self.output.write_all(FILE_SIGNATURE)?;
-        self.output.write_u16::<LittleEndian>(FILE_VERSION)?;
+        self.output.write_all(&FILE_VERSION.to_le_bytes())?;
 
+        self.output.write_le_u32(self.type_infos.len() as u32)?;
         self.output
-            .write_u32::<LittleEndian>(self.type_infos.len() as u32)?;
-        self.output
-            .write_u32::<LittleEndian>(self.relevant_instances.len() as u32)?;
-        self.output.write_u64::<LittleEndian>(0)?;
+            .write_le_u32(self.relevant_instances.len() as u32)?;
+        self.output.write_all(&[0; 8])?;
 
         Ok(())
     }
@@ -367,7 +365,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
             let mut chunk = ChunkBuilder::new(b"INST", ChunkCompression::Compressed);
 
-            chunk.write_u32::<LittleEndian>(type_info.type_id)?;
+            chunk.write_le_u32(type_info.type_id)?;
             chunk.write_string(type_name)?;
 
             // It's possible that this integer will be expanded in the future to
@@ -378,7 +376,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             // instead of a bool.
             chunk.write_bool(type_info.is_service)?;
 
-            chunk.write_u32::<LittleEndian>(type_info.object_refs.len() as u32)?;
+            chunk.write_le_u32(type_info.object_refs.len() as u32)?;
 
             chunk.write_referents(
                 type_info
@@ -423,7 +421,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                 let mut chunk = ChunkBuilder::new(b"PROP", ChunkCompression::Compressed);
 
-                chunk.write_u32::<LittleEndian>(type_info.type_id)?;
+                chunk.write_le_u32(type_info.type_id)?;
                 chunk.write_string(&prop_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
@@ -529,7 +527,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     Type::Float64 => {
                         for (i, rbx_value) in values {
                             if let Variant::Float64(value) = rbx_value.as_ref() {
-                                chunk.write_f64::<LittleEndian>(*value)?;
+                                chunk.write_all(&value.to_le_bytes())?;
                             } else {
                                 return type_mismatch(i, &rbx_value, "Float64");
                             }
@@ -668,17 +666,17 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             // which means that their rotation matrix is written fully.
                             chunk.write_u8(0x00)?;
 
-                            chunk.write_f32::<LittleEndian>(matrix.x.x)?;
-                            chunk.write_f32::<LittleEndian>(matrix.x.y)?;
-                            chunk.write_f32::<LittleEndian>(matrix.x.z)?;
+                            chunk.write_le_f32(matrix.x.x)?;
+                            chunk.write_le_f32(matrix.x.y)?;
+                            chunk.write_le_f32(matrix.x.z)?;
 
-                            chunk.write_f32::<LittleEndian>(matrix.y.x)?;
-                            chunk.write_f32::<LittleEndian>(matrix.y.y)?;
-                            chunk.write_f32::<LittleEndian>(matrix.y.z)?;
+                            chunk.write_le_f32(matrix.y.x)?;
+                            chunk.write_le_f32(matrix.y.y)?;
+                            chunk.write_le_f32(matrix.y.z)?;
 
-                            chunk.write_f32::<LittleEndian>(matrix.z.x)?;
-                            chunk.write_f32::<LittleEndian>(matrix.z.y)?;
-                            chunk.write_f32::<LittleEndian>(matrix.z.z)?;
+                            chunk.write_le_f32(matrix.z.x)?;
+                            chunk.write_le_f32(matrix.z.y)?;
+                            chunk.write_le_f32(matrix.z.z)?;
                         }
 
                         chunk.write_interleaved_f32_array(x.into_iter())?;
@@ -722,7 +720,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         let mut chunk = ChunkBuilder::new(b"PRNT", ChunkCompression::Compressed);
 
         chunk.write_u8(0)?; // PRNT version 0
-        chunk.write_u32::<LittleEndian>(self.relevant_instances.len() as u32)?;
+        chunk.write_le_u32(self.relevant_instances.len() as u32)?;
 
         let object_referents = self
             .relevant_instances

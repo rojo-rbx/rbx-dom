@@ -14,7 +14,6 @@ edition = "2018"
 unstable_text_format = ["base64", "serde"]
 
 [dependencies]
-byteorder = "1.2.7"
 log = "0.4.6"
 lz4 = "1.23.1"
 rbx_dom_weak = { path = "../rbx_dom_weak" }
