@@ -3,37 +3,32 @@ Add:
     heat_xml:
       DataType:
         Value: Float32
-      Serialization:
-        Type: Serializes
+      AliasFor: Heat
       Scriptability: None
 
     size_xml:
       DataType:
         Value: Float32
-      Serialization:
-        Type: Serializes
+      AliasFor: Size
       Scriptability: None
 
   Smoke:
     opacity_xml:
       DataType:
         Value: Float32
-      Serialization:
-        Type: Serializes
+      AliasFor: Opacity
       Scriptability: None
 
     size_xml:
       DataType:
         Value: Float32
-      Serialization:
-        Type: Serializes
+      AliasFor: Size
       Scriptability: None
 
     riseVelocity_xml:
       DataType:
         Value: Float32
-      Serialization:
-        Type: Serializes
+      AliasFor: RiseVelocity
       Scriptability: None
 
 Change:
