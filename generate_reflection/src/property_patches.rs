@@ -7,7 +7,9 @@ use std::borrow::Cow;
 use std::collections::HashMap;
 
 use anyhow::{anyhow, bail, Context};
-use rbx_reflection::{DataType, PropertyDescriptor, ReflectionDatabase, Scriptability};
+use rbx_reflection::{
+    DataType, PropertyDescriptor, PropertyKind, ReflectionDatabase, Scriptability,
+};
 use serde::Deserialize;
 
 const PATCHES: &[&str] = &[
@@ -41,6 +43,24 @@ pub struct PropertyChange {
     pub scriptability: Option<Scriptability>,
 }
 
+impl PropertyChange {
+    fn kind(&self) -> Option<PropertyKind<'static>> {
+        match (&self.alias_for, &self.serialization) {
+            (Some(alias), None) => Some(PropertyKind::Alias {
+                alias_for: Cow::Owned(alias.clone()),
+            }),
+
+            (None, Some(serialization)) => Some(PropertyKind::Canonical {
+                serialization: serialization.clone().into(),
+            }),
+
+            (None, None) => None,
+
+            _ => panic!("property changes cannot specify AliasFor and Serialization"),
+        }
+    }
+}
+
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
 pub struct PropertyAdd {
@@ -50,7 +70,23 @@ pub struct PropertyAdd {
     pub scriptability: Scriptability,
 }
 
-#[derive(Debug, Deserialize)]
+impl PropertyAdd {
+    fn kind(&self) -> PropertyKind<'static> {
+        match (&self.alias_for, &self.serialization) {
+            (Some(alias), None) => PropertyKind::Alias {
+                alias_for: Cow::Owned(alias.clone()),
+            },
+
+            (None, Some(serialization)) => PropertyKind::Canonical {
+                serialization: serialization.clone().into(),
+            },
+
+            _ => panic!("property additions must specify AliasFor xor Serialization"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
 #[serde(tag = "Type", rename_all = "PascalCase", deny_unknown_fields)]
 pub enum PropertySerialization {
     Serializes,
@@ -58,8 +94,22 @@ pub enum PropertySerialization {
     #[serde(rename_all = "PascalCase")]
     SerializesAs {
         #[serde(rename = "As")]
-        serialize_as: String,
+        serializes_as: String,
     },
+}
+
+impl From<PropertySerialization> for rbx_reflection::PropertySerialization<'_> {
+    fn from(value: PropertySerialization) -> Self {
+        match value {
+            PropertySerialization::Serializes => rbx_reflection::PropertySerialization::Serializes,
+            PropertySerialization::DoesNotSerialize => {
+                rbx_reflection::PropertySerialization::DoesNotSerialize
+            }
+            PropertySerialization::SerializesAs { serializes_as } => {
+                rbx_reflection::PropertySerialization::SerializesAs(Cow::Owned(serializes_as))
+            }
+        }
+    }
 }
 
 impl PropertyPatches {
@@ -103,10 +153,9 @@ impl PropertyPatches {
 
                 log::debug!("Property {}.{} changed", class_name, property_name);
 
-                // FIXME
-                // if let Some(kind) = &property_change.kind {
-                //     existing_property.kind = kind.clone();
-                // }
+                if let Some(kind) = property_change.kind() {
+                    existing_property.kind = kind;
+                }
 
                 if let Some(scriptability) = &property_change.scriptability {
                     existing_property.scriptability = *scriptability;
@@ -138,9 +187,7 @@ impl PropertyPatches {
 
                 let mut property = PropertyDescriptor::new(name, data_type);
 
-                // FIXME
-                // property.kind = property_add.kind.clone();
-
+                property.kind = property_add.kind();
                 property.scriptability = property_add.scriptability;
 
                 class

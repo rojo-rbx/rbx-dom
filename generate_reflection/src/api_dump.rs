@@ -189,9 +189,7 @@ impl Dump {
                         PropertyDescriptor::new(dump_property.name.clone(), value_type);
                     property.scriptability = scriptability;
                     property.tags = tags;
-
-                    // FIXME
-                    // property.kind = kind;
+                    property.kind = kind;
 
                     properties.insert(Cow::Owned(dump_property.name.clone()), property);
                 }

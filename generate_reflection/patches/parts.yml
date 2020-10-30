@@ -2,8 +2,6 @@ Add:
   BasePart:
     Color3uint8:
       AliasFor: "Color"
-      Serialization:
-        Type: Serializes
       DataType:
         Value: Color3uint8
       Scriptability: None
