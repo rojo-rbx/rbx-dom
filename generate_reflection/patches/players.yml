@@ -1,0 +1,15 @@
+Change:
+  Players:
+    MaxPlayers:
+      Serialization:
+        Type: SerializesAs
+        As: MaxPlayersInternal
+    MaxPlayersInternal:
+      AliasFor: MaxPlayers
+
+    PreferredPlayers:
+      Serialization:
+        Type: SerializesAs
+        As: PreferredPlayersInternal
+    PreferredPlayersInternal:
+      AliasFor: PreferredPlayers

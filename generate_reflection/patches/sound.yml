@@ -1,0 +1,16 @@
+Add:
+  Sound:
+    xmlRead_MaxDistance_3:
+      AliasFor: MaxDistance
+      Serialization:
+        Type: Serializes
+      DataType:
+        Value: Float32
+      Scriptability: None
+
+Change:
+  Sound:
+    MaxDistance:
+      Serialization:
+        Type: SerializesAs
+        As: xmlRead_MaxDistance_3

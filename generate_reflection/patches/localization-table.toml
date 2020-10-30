@@ -1,6 +1,0 @@
-# 'Contents' is the name of the field in the Roblox file formats, so it makes
-# sense to use it as the canonical name of this property.
-[Add.LocalizationTable.Contents]
-Kind = { Type = "Canonical", Serialization = { Type = "Serializes" } }
-DataType = { Type = "Value", Name = "String" }
-Scriptability = "Custom"

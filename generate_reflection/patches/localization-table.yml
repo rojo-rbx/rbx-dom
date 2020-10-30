@@ -1,0 +1,10 @@
+Add:
+  LocalizationTable:
+    # 'Contents' is the name of the field in the Roblox file formats, so it
+    # makes sense to use it as the canonical name of this property.
+    Contents:
+      Serialization:
+        Type: Serializes
+      DataType:
+        Value: String
+      Scriptability: Custom

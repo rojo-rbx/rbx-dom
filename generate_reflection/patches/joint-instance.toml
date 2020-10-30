@@ -1,3 +1,0 @@
-# JointInstance.part1 is an alias for Part1.
-[Change.JointInstance.part1]
-Kind = { Type = "Alias", AliasFor = "Part1" }

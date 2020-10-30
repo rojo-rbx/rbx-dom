@@ -1,0 +1,68 @@
+Add:
+  BasePart:
+    Color3uint8:
+      AliasFor: "Color"
+      Serialization:
+        Type: Serializes
+      DataType:
+        Value: Color3uint8
+      Scriptability: None
+
+    CollisionGroups:
+      Serialization:
+        Type: Serializes
+      DataType:
+        Value: String
+      Scriptability: Custom
+
+    size:
+      AliasFor: Size
+      DataType:
+        Value: Vector3
+      Scriptability: None
+
+  FormFactorPart:
+    formFactorRaw:
+      AliasFor: FormFactor
+      DataType:
+        Enum: FormFactor
+      Scriptability: None
+
+  Part:
+    shape:
+      AliasFor: Shape
+      DataType:
+        Enum: PartType
+      Scriptability: None
+
+Change:
+  BasePart:
+    # BasePart.BrickColor now defers to the Color3 properties in every case, so
+    # we can basically pretend that BrickColor and brickColor never existed.
+    brickColor:
+      AliasFor: Color
+    BrickColor:
+      AliasFor: Color
+    Color:
+      Serialization:
+        Type: SerializesAs
+        As: Color3uint8
+
+    Size:
+      Serialization:
+        Type: SerializesAs
+        As: size
+
+  FormFactorPart:
+    FormFactor:
+      Serialization:
+        Type: SerializesAs
+        As: formFactorRaw
+    formFactor:
+      AliasFor: FormFactor
+
+  Part:
+    Shape:
+      Serialization:
+        Type: SerializesAs
+        As: shape

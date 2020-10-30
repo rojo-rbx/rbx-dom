@@ -15,12 +15,12 @@ const PATCHES: &[&str] = &[
     include_str!("../patches/camera.yml"),
     include_str!("../patches/fire-and-smoke.yml"),
     include_str!("../patches/instance.yml"),
-    // include_str!("../patches/joint-instance.toml"),
-    // include_str!("../patches/localization-table.toml"),
-    // include_str!("../patches/parts.toml"),
-    // include_str!("../patches/players.toml"),
-    // include_str!("../patches/sound.toml"),
-    // include_str!("../patches/workspace.toml"),
+    include_str!("../patches/joint-instance.yml"),
+    include_str!("../patches/localization-table.yml"),
+    include_str!("../patches/parts.yml"),
+    include_str!("../patches/players.yml"),
+    include_str!("../patches/sound.yml"),
+    include_str!("../patches/workspace.yml"),
 ];
 
 #[derive(Debug, Default, Deserialize)]
