@@ -42,7 +42,7 @@ fn run(options: Options) -> anyhow::Result<()> {
     }
 
     if let Some(path) = &options.json_path {
-        let encoded = serde_json::to_string(&database)?;
+        let encoded = serde_json::to_string_pretty(&database)?;
         fs::write(&path, encoded)?;
     }
 
