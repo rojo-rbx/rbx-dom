@@ -13,12 +13,8 @@
 //! These methods also have variants like [`from_str`][from_str] that let you
 //! pass in custom options.
 //!
-//! ```ignore
-//! # // FIXME: This test overflows its stack only as a doctest on Windows. :/
-//! # // see: https://github.com/rust-lang/rust/issues/60753
-//! #
-//! # std::thread::spawn(|| {
-//! use rbx_dom_weak::RbxValue;
+//! ```
+//! use rbx_dom_weak::types::Variant;
 //!
 //! let model_file = r#"
 //! <roblox version="4">
@@ -31,27 +27,23 @@
 //! </roblox>
 //! "#;
 //!
-//! let model = rbx_xml::from_str_default(model_file)
-//!     .expect("Couldn't decode model file");
+//! let model = rbx_xml::from_str_default(model_file)?;
 //!
-//! let data_model = model.get_instance(model.get_root_id()).unwrap();
-//! let number_value_id = data_model.get_children_ids()[0];
-//!
-//! let number_value = model.get_instance(number_value_id).unwrap();
+//! let data_model = model.root();
+//! let number_value_ref = data_model.children()[0];
+//! let number_value = model.get_by_ref(number_value_ref).unwrap();
 //!
 //! assert_eq!(
 //!     number_value.properties.get("Value"),
-//!     Some(&RbxValue::Float64 { value: 12345.0 }),
+//!     Some(&Variant::Float64(12345.0)),
 //! );
-//! #
-//! # });
+//! # Ok::<(), Box<dyn std::error::Error>>(())
 //! ```
 //!
 //! If you're decoding from a file, you'll want to do your own I/O buffering,
 //! like with [`BufReader`][BufReader]:
 //!
-//! ```ignore
-//! # fn main() -> Result<(), Box<std::error::Error>> {
+//! ```no_run
 //! use std::{
 //!     io::BufReader,
 //!     fs::File,
@@ -59,8 +51,7 @@
 //!
 //! let file = BufReader::new(File::open("place.rbxlx")?);
 //! let place = rbx_xml::from_reader_default(file)?;
-//! # Ok(())
-//! # }
+//! # Ok::<(), Box<dyn std::error::Error>>(())
 //! ```
 //!
 //! Note that the `WeakDom` instance returned by the rbx_xml decode methods will
@@ -78,29 +69,23 @@
 //!
 //! For example, to re-save the place file we loaded above:
 //!
-//! ```ignore
-//! # fn main() -> Result<(), Box<std::error::Error>> {
+//! ```no_run
 //! use std::{
 //!     io::BufWriter,
 //!     fs::File,
 //! };
-//! # use rbx_dom_weak::{WeakDom, RbxInstanceProperties};
+//! use rbx_dom_weak::{WeakDom, InstanceBuilder};
 //!
-//! # let place = WeakDom::new(RbxInstanceProperties {
-//! #   class_name: "DataModel".to_owned(),
-//! #   name: "DataModel".to_owned(),
-//! #   properties: Default::default(),
-//! # });
+//! let place = WeakDom::new(InstanceBuilder::new("DataModel"));
+//!
 //! // A Roblox place file contains all of its top-level instances.
-//! let data_model = place.get_instance(place.get_root_id()).unwrap();
-//! let top_level_ids = data_model.get_children_ids();
+//! let top_level_refs = place.root().children();
 //!
 //! // Just like when reading a place file, we should buffer our I/O.
 //! let file = BufWriter::new(File::create("place-2.rbxlx")?);
 //!
-//! rbx_xml::to_writer_default(file, &place, top_level_ids)?;
-//! # Ok(())
-//! # }
+//! rbx_xml::to_writer_default(file, &place, top_level_refs)?;
+//! # Ok::<(), Box<dyn std::error::Error>>(())
 //! ```
 //!
 //! ## Configuration
