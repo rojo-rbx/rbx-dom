@@ -1,6 +1,0 @@
-# Collision groups in a place are serialized as a string that looks like:
-# Default^0^1
-[Add.Workspace.CollisionGroups]
-Kind = { Type = "Canonical", Serialization = { Type = "Serializes" } }
-DataType = { Type = "Value", Name = "String" }
-Scriptability = "Custom"

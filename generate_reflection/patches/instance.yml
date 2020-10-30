@@ -1,0 +1,39 @@
+# Patches up basic properties of Instance.
+
+Add:
+  Instance:
+    # Tags serialize as a \0-delimited BinaryString of the tags on the instance.
+    Tags:
+      DataType:
+        Value: BinaryString
+      Serialization:
+        Type: Serializes
+      Scriptability: Custom
+
+    # Attributes serialize as a BinaryString with a strange name, but we want to
+    # refer to them with a different name.
+    Attributes:
+      DataType:
+        Value: BinaryString
+      Serialization:
+        Type: SerializesAs
+        As: AttributesSerialize
+      Scriptability: None
+    AttributesSerialize:
+      DataType:
+        Value: BinaryString
+      Serialization:
+        Type: Serializes
+      Scriptability: None
+
+Change:
+  Instance:
+    archivable:
+      AliasFor: Archivable
+    Archivable:
+      Serialization:
+        Type: SerializesAs
+        As: archivable
+
+    className:
+      AliasFor: ClassName

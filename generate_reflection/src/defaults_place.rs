@@ -6,7 +6,6 @@ use std::{
     borrow::Cow,
     collections::{HashSet, VecDeque},
     convert::TryInto,
-    error::Error,
     fmt::{self, Write},
     fs::{self, File},
     io::BufReader,
@@ -17,19 +16,21 @@ use std::{
 
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::{RbxTree, RbxValueType};
-use rbx_reflection::{PropertyDescriptor, PropertyKind};
+use rbx_reflection::{PropertyDescriptor, PropertyKind, ReflectionDatabase};
 use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
-use crate::database::ReflectionDatabase;
+use crate::plugin_injector::{PluginInjector, StudioInfo};
 
 /// Use Roblox Studio to populate the reflection database with default values
 /// for as many properties as possible.
-pub fn measure_default_properties(database: &mut ReflectionDatabase) -> Result<(), Box<dyn Error>> {
+pub fn measure_default_properties(database: &mut ReflectionDatabase) -> anyhow::Result<()> {
     let fixture_place = generate_fixture_place(database);
-    let tree = roundtrip_place_through_studio(&fixture_place)?;
+    let output = roundtrip_place_through_studio(&fixture_place)?;
 
-    apply_defaults_from_fixture_place(database, &tree);
+    database.version = output.info.version;
+
+    apply_defaults_from_fixture_place(database, &output.tree);
 
     Ok(())
 }
@@ -77,7 +78,7 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
 
                 _ => {
                     let class_descriptor =
-                        match database.0.classes.get_mut(instance.class_name.as_str()) {
+                        match database.classes.get_mut(instance.class_name.as_str()) {
                             Some(descriptor) => descriptor,
                             None => {
                                 log::warn!(
@@ -105,7 +106,7 @@ fn find_canonical_descriptor<'a>(
     let mut next_class_name = Some(class_name);
 
     while let Some(current_class_name) = next_class_name {
-        let class = database.0.classes.get(current_class_name).unwrap();
+        let class = database.classes.get(current_class_name).unwrap();
 
         if let Some(prop) = class.properties.get(prop_name) {
             match &prop.kind {
@@ -130,22 +131,29 @@ fn find_canonical_descriptor<'a>(
     None
 }
 
+struct StudioOutput {
+    info: StudioInfo,
+    tree: RbxTree,
+}
+
 /// Generate a new fixture place from the given reflection database, open it in
 /// Studio, coax Studio to re-save it, and reads back the resulting place.
-fn roundtrip_place_through_studio(place_contents: &str) -> Result<RbxTree, Box<dyn Error>> {
+fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<StudioOutput> {
     let output_dir = tempdir()?;
     let output_path = output_dir.path().join("roundtrip.rbxlx");
+    log::info!("Generating place at {}", output_path.display());
     fs::write(&output_path, place_contents)?;
 
-    log::info!("Generating place at {}", output_path.display());
-
     let studio_install = RobloxStudio::locate()?;
+    let injector = PluginInjector::start(&studio_install);
 
     log::info!("Starting Roblox Studio...");
 
     let mut studio_process = Command::new(studio_install.application_path())
         .arg(output_path.display().to_string())
         .spawn()?;
+
+    let info = injector.receive_info();
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
@@ -175,7 +183,7 @@ fn roundtrip_place_through_studio(place_contents: &str) -> Result<RbxTree, Box<d
         .property_behavior(rbx_xml::DecodePropertyBehavior::NoReflection);
     let tree = rbx_xml::from_reader(&mut file, decode_options)?;
 
-    Ok(tree)
+    Ok(StudioOutput { info, tree })
 }
 
 /// Create a place file that contains a copy of every Roblox class and no
@@ -190,7 +198,7 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
 
     writeln!(&mut output, "<roblox version=\"4\">").unwrap();
 
-    for descriptor in database.0.classes.values() {
+    for descriptor in database.classes.values() {
         let mut instance = FixtureInstance::named(&descriptor.name);
 
         match &*descriptor.name {
@@ -216,7 +224,8 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             | "Attachment"
             | "Animator"
             | "StarterPlayerScripts"
-            | "StarterCharacterScripts" => continue,
+            | "StarterCharacterScripts"
+            | "Bone" => continue,
 
             // WorldModel is not yet enabled.
             "WorldModel" => continue,
@@ -230,6 +239,7 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             }
             "Part" => {
                 instance.add_child(FixtureInstance::named("Attachment"));
+                instance.add_child(FixtureInstance::named("Bone"));
             }
             "Humanoid" => {
                 instance.add_child(FixtureInstance::named("Animator"));

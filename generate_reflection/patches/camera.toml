@@ -1,7 +1,0 @@
-# Camera.CoordinateFrame is an alias for CFrame.
-[Change.Camera.CoordinateFrame]
-Kind = { Type = "Alias", AliasFor = "CFrame" }
-
-# Camera.focus is an alias for Focus.
-[Change.Camera.focus]
-Kind = { Type = "Alias", AliasFor = "Focus" }
