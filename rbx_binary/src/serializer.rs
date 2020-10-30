@@ -334,7 +334,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
         self.output.write_all(FILE_MAGIC_HEADER)?;
         self.output.write_all(FILE_SIGNATURE)?;
-        self.output.write_all(&FILE_VERSION.to_le_bytes())?;
+        self.output.write_le_u16(FILE_VERSION)?;
 
         self.output.write_le_u32(self.type_infos.len() as u32)?;
         self.output
@@ -527,7 +527,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     Type::Float64 => {
                         for (i, rbx_value) in values {
                             if let Variant::Float64(value) = rbx_value.as_ref() {
-                                chunk.write_all(&value.to_le_bytes())?;
+                                chunk.write_le_f64(*value)?;
                             } else {
                                 return type_mismatch(i, &rbx_value, "Float64");
                             }

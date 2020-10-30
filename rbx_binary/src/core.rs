@@ -158,7 +158,19 @@ pub trait RbxWriteExt: Write {
         Ok(())
     }
 
+    fn write_le_u16(&mut self, value: u16) -> io::Result<()> {
+        self.write_all(&value.to_le_bytes())?;
+
+        Ok(())
+    }
+
     fn write_le_f32(&mut self, value: f32) -> io::Result<()> {
+        self.write_all(&value.to_le_bytes())?;
+
+        Ok(())
+    }
+
+    fn write_le_f64(&mut self, value: f64) -> io::Result<()> {
         self.write_all(&value.to_le_bytes())?;
 
         Ok(())
