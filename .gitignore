@@ -17,3 +17,4 @@ Cargo.lock
 /*.rbxlx
 /*.rbxm
 /*.rbxmx
+/rbx_dom_lua/*.rbxlx
