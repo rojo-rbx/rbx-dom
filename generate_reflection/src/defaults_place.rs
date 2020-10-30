@@ -16,7 +16,7 @@ use std::{
 
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::{RbxTree, RbxValueType};
-use rbx_reflection::{PropertyDescriptor, PropertyKind, ReflectionDatabase};
+use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
 use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
@@ -57,20 +57,65 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
         found_classes.insert(instance.class_name.clone());
 
         for (prop_name, prop_value) in &instance.properties {
-            let canonical_descriptor =
-                match find_canonical_descriptor(database, &instance.class_name, prop_name) {
-                    Some(descriptor) => descriptor,
-                    None => {
-                        log::warn!(
-                            "Property {}.{} found in default place but not API dump",
-                            instance.class_name,
-                            prop_name
-                        );
-                        continue;
-                    }
-                };
+            let descriptors = match find_descriptors(database, &instance.class_name, prop_name) {
+                Some(descriptor) => descriptor,
+                None => {
+                    log::info!(
+                        "Property {}.{} found in default place but not API dump",
+                        instance.class_name,
+                        prop_name
+                    );
+                    continue;
+                }
+            };
 
-            let canonical_name = Cow::Owned(canonical_descriptor.name.clone().into_owned());
+            match &descriptors.canonical.kind {
+                PropertyKind::Canonical { serialization } => match serialization {
+                    PropertySerialization::Serializes => {
+                        if &descriptors.canonical.name != prop_name {
+                            log::error!("Property {}.{} is supposed to serialize as {}, but was actually serialized as {}",
+                                instance.class_name,
+                                descriptors.canonical.name,
+                                descriptors.canonical.name,
+                                prop_name);
+                        }
+                    }
+
+                    PropertySerialization::DoesNotSerialize => {
+                        log::error!(
+                            "Property {}.{} (canonical name {}) found in default place but should not serialize",
+                            instance.class_name,
+                            prop_name,
+                            descriptors.canonical.name,
+                        );
+                    }
+
+                    PropertySerialization::SerializesAs(serialized_name) => {
+                        if serialized_name != prop_name {
+                            log::error!("Property {}.{} is supposed to serialize as {}, but was actually serialized as {}",
+                                instance.class_name,
+                                descriptors.canonical.name,
+                                serialized_name,
+                                prop_name);
+                        }
+                    }
+
+                    unknown => {
+                        log::error!(
+                            "Unknown property serialization {:?} on property {}.{}",
+                            unknown,
+                            instance.class_name,
+                            descriptors.canonical.name
+                        );
+                    }
+                },
+
+                _ => panic!(
+                    "find_descriptors must not return a non-canonical descriptor as canonical"
+                ),
+            }
+
+            let canonical_name = Cow::Owned(descriptors.canonical.name.clone().into_owned());
 
             match prop_value.get_type() {
                 // We don't support usefully emitting these types yet.
@@ -98,25 +143,41 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
     }
 }
 
-fn find_canonical_descriptor<'a>(
+struct Descriptors<'a> {
+    input: &'a PropertyDescriptor<'a>,
+    canonical: &'a PropertyDescriptor<'a>,
+}
+
+fn find_descriptors<'a>(
     database: &'a ReflectionDatabase,
     class_name: &str,
     prop_name: &str,
-) -> Option<&'a PropertyDescriptor<'a>> {
+) -> Option<Descriptors<'a>> {
+    let mut input_descriptor = None;
     let mut next_class_name = Some(class_name);
 
     while let Some(current_class_name) = next_class_name {
         let class = database.classes.get(current_class_name).unwrap();
 
         if let Some(prop) = class.properties.get(prop_name) {
+            if input_descriptor.is_none() {
+                input_descriptor = Some(prop);
+            }
+
             match &prop.kind {
                 PropertyKind::Canonical { .. } => {
-                    return Some(prop);
+                    return Some(Descriptors {
+                        input: input_descriptor.unwrap(),
+                        canonical: prop,
+                    });
                 }
                 PropertyKind::Alias { alias_for } => {
                     let aliased_prop = class.properties.get(alias_for).unwrap();
 
-                    return Some(aliased_prop);
+                    return Some(Descriptors {
+                        input: input_descriptor.unwrap(),
+                        canonical: aliased_prop,
+                    });
                 }
                 unknown => {
                     log::warn!("Unknown property kind {:?}", unknown);
