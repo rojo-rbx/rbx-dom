@@ -9,6 +9,9 @@ expression: viewer.view_children(&dom)
     Anchored:
       Type: Bool
       Value: false
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
     BackParamA:
       Type: Float32
       Value: -0.5
@@ -59,9 +62,18 @@ expression: viewer.view_children(&dom)
     CollisionGroupId:
       Type: Int32
       Value: 0
+    Color:
+      Type: Color3uint8
+      Value:
+        - 163
+        - 162
+        - 165
     CustomPhysicalProperties:
       Type: PhysicalProperties
       Value: Default
+    FormFactor:
+      Type: EnumValue
+      Value: 1
     FrontParamA:
       Type: Float32
       Value: -0.5
@@ -119,6 +131,18 @@ expression: viewer.view_children(&dom)
         - 0.0
         - 0.0
         - 0.0
+    Shape:
+      Type: EnumValue
+      Value: 1
+    Size:
+      Type: Vector3
+      Value:
+        - 4.0
+        - 1.0
+        - 2.0
+    Tags:
+      Type: BinaryString
+      Value: ""
     TopParamA:
       Type: Float32
       Value: -0.5

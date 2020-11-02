@@ -6,10 +6,22 @@ expression: viewer.view_children(&dom)
   name: Value
   class: ObjectValue
   properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
     Value: referent-1
   children:
     - referent: referent-1
       name: Ref Target
       class: Folder
-      properties: {}
+      properties:
+        AttributesSerialize:
+          Type: BinaryString
+          Value: ""
+        Tags:
+          Type: BinaryString
+          Value: ""
       children: []

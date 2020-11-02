@@ -12,6 +12,9 @@ expression: viewer.view_children(&dom)
         - 0.0
         - 2.0
         - 0.0
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
     MaxTorque:
       Type: Vector3
       Value:
@@ -21,22 +24,34 @@ expression: viewer.view_children(&dom)
     P:
       Type: Float32
       Value: 1250.0
+    Tags:
+      Type: BinaryString
+      Value: ""
   children: []
 - referent: referent-1
   name: BodyForce
   class: BodyForce
   properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
     Force:
       Type: Vector3
       Value:
         - 0.0
         - 1.0
         - 0.0
+    Tags:
+      Type: BinaryString
+      Value: ""
   children: []
 - referent: referent-2
   name: BodyGyro
   class: BodyGyro
   properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
     CFrame:
       Type: CFrame
       Value:
@@ -66,11 +81,17 @@ expression: viewer.view_children(&dom)
     P:
       Type: Float32
       Value: 3000.0
+    Tags:
+      Type: BinaryString
+      Value: ""
   children: []
 - referent: referent-3
   name: BodyPosition
   class: BodyPosition
   properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
     D:
       Type: Float32
       Value: 1250.0
@@ -89,11 +110,17 @@ expression: viewer.view_children(&dom)
         - 0.0
         - 50.0
         - 0.0
+    Tags:
+      Type: BinaryString
+      Value: ""
   children: []
 - referent: referent-4
   name: BodyThrust
   class: BodyThrust
   properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
     Force:
       Type: Vector3
       Value:
@@ -106,11 +133,17 @@ expression: viewer.view_children(&dom)
         - 0.0
         - 0.0
         - 0.0
+    Tags:
+      Type: BinaryString
+      Value: ""
   children: []
 - referent: referent-5
   name: BodyVelocity
   class: BodyVelocity
   properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
     MaxForce:
       Type: Vector3
       Value:
@@ -120,6 +153,9 @@ expression: viewer.view_children(&dom)
     P:
       Type: Float32
       Value: 1250.0
+    Tags:
+      Type: BinaryString
+      Value: ""
     Velocity:
       Type: Vector3
       Value:

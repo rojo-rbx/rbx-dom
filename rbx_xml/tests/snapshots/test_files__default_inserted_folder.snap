@@ -5,5 +5,11 @@ expression: viewer.view_children(&dom)
 - referent: referent-0
   name: Folder
   class: Folder
-  properties: {}
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
   children: []
