@@ -2,8 +2,35 @@ use std::collections::HashMap;
 
 use rbx_types::{Ref, Variant};
 
-/// Represents an instance that can be turned into a new `WeakDom`, or inserted
-/// into an existing one.
+/**
+Represents an instance that can be turned into a new `WeakDom`, or inserted
+into an existing one.
+
+## Examples
+Instances have the given ClassName and Name and no properties by default.
+
+```
+use rbx_dom_weak::{InstanceBuilder, WeakDom};
+
+let data_model = InstanceBuilder::new("DataModel");
+let dom = WeakDom::new(data_model);
+```
+
+Properties and children can be added to the builder.
+
+```
+use rbx_dom_weak::{InstanceBuilder, WeakDom};
+use rbx_dom_weak::types::Color3;
+
+let data_model = InstanceBuilder::new("DataModel")
+    .with_child(InstanceBuilder::new("Workspace")
+        .with_property("FilteringEnabled", true))
+    .with_child(InstanceBuilder::new("Lighting")
+        .with_property("Ambient", Color3::new(1.0, 0.0, 0.0)));
+
+let dom = WeakDom::new(data_model);
+```
+*/
 #[derive(Debug)]
 pub struct InstanceBuilder {
     pub(crate) referent: Ref,
@@ -15,7 +42,7 @@ pub struct InstanceBuilder {
 
 impl InstanceBuilder {
     /// Create a new `InstanceBuilder` with the given ClassName. This is also
-    /// used as the instance's name, unless overwritten later.
+    /// used as the instance's Name, unless overwritten later.
     pub fn new<S: Into<String>>(class: S) -> Self {
         let class = class.into();
         let name = class.clone();
@@ -82,22 +109,34 @@ pub struct Instance {
     pub(crate) children: Vec<Ref>,
     pub(crate) parent: Ref,
 
+    /// The instance's name, corresponding to the `Name` property.
     pub name: String,
+
+    /// The instance's class, corresponding to the `ClassName` property.
     pub class: String,
+
+    /// Any properties stored on the object that are not `Name` or `ClassName`.
     pub properties: HashMap<String, Variant>,
 }
 
 impl Instance {
+    /// Returns this instance's referent. It will always be non-null.
     #[inline]
     pub fn referent(&self) -> Ref {
         self.referent
     }
 
+    /// Returns a list of the referents corresponding to the instance's
+    /// children. All referents returned will be non-null and point to valid
+    /// instances in the same [`WeakDom`].
     #[inline]
     pub fn children(&self) -> &[Ref] {
         &self.children
     }
 
+    /// Returns the referent corresponding to this instance's parent. This
+    /// referent will either point to an instance in the same [`WeakDom`] or be
+    /// null.
     #[inline]
     pub fn parent(&self) -> Ref {
         self.parent

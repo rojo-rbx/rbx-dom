@@ -38,13 +38,8 @@
 //! [`WeakDom::get_by_ref_mut`]. Note that it isn't possible to add or remove
 //! children through this method, use [`WeakDom::insert`] and
 //! [`WeakDom::destroy`] instead.
-//!
-//! [`WeakDom`]: struct.WeakDom.html
-//! [`WeakDom::insert`]: struct.WeakDom.html#method.insert
-//! [`WeakDom::destroy`]: struct.WeakDom.html#method.destroy
-//! [`WeakDom::get_by_ref`]: struct.WeakDom.html#method.get_by_ref
-//! [`WeakDom::get_by_ref_mut`]: struct.WeakDom.html#method.get_by_ref_mut
-//! [`InstanceBuilder`]: struct.InstanceBuilder.html
+
+#![deny(missing_docs)]
 
 mod dom;
 mod instance;
