@@ -69,7 +69,7 @@ macro_rules! declare_rbx_types {
 
                 // Protected strings are only read, never written
                 self::strings::ProtectedStringDummy::XML_TAG_NAME => {
-                    let value = self::strings::ProtectedStringDummy::read_xml(reader)?;
+                    let value = self::strings::ProtectedStringDummy::read_outer_xml(reader)?;
                     Ok(Variant::String(value.0))
                 },
 

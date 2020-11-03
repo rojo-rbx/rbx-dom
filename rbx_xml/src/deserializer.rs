@@ -488,6 +488,12 @@ fn deserialize_properties<R: Read>(
         .class
         .clone();
 
+    log::trace!(
+        "Deserializing properties for instance {:?}, whose ClassName is {}",
+        instance_id,
+        class_name
+    );
+
     loop {
         let (xml_type_name, xml_property_name) = {
             match reader.expect_peek()? {
@@ -525,6 +531,13 @@ fn deserialize_properties<R: Read>(
                 }
             }
         };
+
+        log::trace!(
+            "Deserializing property {}.{}, of type {}",
+            class_name,
+            xml_property_name,
+            xml_type_name
+        );
 
         let maybe_descriptor = if state.options.use_reflection() {
             find_canonical_property_descriptor(&class_name, &xml_property_name)
