@@ -19,34 +19,25 @@ impl XmlType for String {
     }
 }
 
-// FIXME: Support ProtectedString again:
+#[derive(Debug, PartialEq, Eq)]
+pub struct ProtectedStringDummy(pub String);
 
-// pub struct ProtectedStringType;
+impl XmlType for ProtectedStringDummy {
+    const XML_TAG_NAME: &'static str = "ProtectedString";
 
-// impl XmlType<str> for ProtectedStringType {
-//     const XML_TAG_NAME: &'static str = "ProtectedString";
+    fn write_xml<W: Write>(&self, _writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
+        panic!("ProtectedString values are only read, never written.");
+    }
 
-//     fn write_xml<W: Write>(
-//         writer: &mut XmlEventWriter<W>,
-//         name: &str,
-//         value: &str,
-//     ) -> Result<(), EncodeError> {
-//         writer.write(XmlWriteEvent::start_element(Self::XML_TAG_NAME).attr("name", name))?;
-//         writer.write_string(value)?;
-//         writer.write(XmlWriteEvent::end_element())?;
-
-//         Ok(())
-//     }
-
-//     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<RbxValue, DecodeError> {
-//         let value = reader.read_tag_contents(Self::XML_TAG_NAME)?;
-
-//         Ok(RbxValue::String { value })
-//     }
-// }
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
+        Ok(ProtectedStringDummy(reader.read_characters()?))
+    }
+}
 
 #[cfg(test)]
 mod test {
+    use super::ProtectedStringDummy;
+
     use crate::test_util;
 
     #[test]
@@ -82,23 +73,16 @@ mod test {
         test_util::test_xml_round_trip(&"\n\t".to_owned());
     }
 
-    // FIXME: We need to put ProtectedString support back in.
+    #[test]
+    fn de_protected_string() {
+        let test_value = "Hello,\n\tworld!\n";
+        let test_source = format!(
+            r#"
+            <ProtectedString name="something">{}</ProtectedString>
+        "#,
+            test_value
+        );
 
-    // #[test]
-    // fn de_protected_string() {
-    //     let test_value = "Hello,\n\tworld!\n";
-    //     let test_source = format!(
-    //         r#"
-    //         <ProtectedString name="something">{}</ProtectedString>
-    //     "#,
-    //         test_value
-    //     );
-
-    //     test_util::test_xml_deserialize::<ProtectedStringType, _>(
-    //         &test_source,
-    //         RbxValue::String {
-    //             value: test_value.to_owned(),
-    //         },
-    //     );
-    // }
+        test_util::test_xml_deserialize(&test_source, &ProtectedStringDummy(test_value.to_owned()));
+    }
 }

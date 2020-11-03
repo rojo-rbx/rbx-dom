@@ -68,7 +68,10 @@ macro_rules! declare_rbx_types {
                 $(<$inner_type>::XML_TAG_NAME => Ok(Variant::$variant_name(<$inner_type>::read_outer_xml(reader)?)),)*
 
                 // Protected strings are only read, never written
-                // self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
+                self::strings::ProtectedStringDummy::XML_TAG_NAME => {
+                    let value = self::strings::ProtectedStringDummy::read_xml(reader)?;
+                    Ok(Variant::String(value.0))
+                },
 
                 self::referent::XML_TAG_NAME => Ok(Variant::Ref(read_ref(reader, instance_id, property_name, state)?)),
                 self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state),
