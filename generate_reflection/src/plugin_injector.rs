@@ -1,12 +1,11 @@
 //! Defines an interface to inject a plugin into a local Roblox Studio install
 //! that can communicate with a temporary HTTP server.
 
-use std::collections::HashMap;
 use std::fs::{remove_file, File};
 use std::io::BufWriter;
 use std::time::Duration;
 
-use rbx_dom_weak::{RbxInstanceProperties, RbxTree, RbxValue};
+use rbx_dom_weak::{InstanceBuilder, WeakDom};
 use roblox_install::RobloxStudio;
 use serde::Deserialize;
 use tiny_http::Response;
@@ -67,7 +66,7 @@ fn install_plugin(roblox_studio: &RobloxStudio) {
         .join("RbxDomGenerateReflectionPlugin.rbxmx");
 
     let output = BufWriter::new(File::create(plugin_path).unwrap());
-    rbx_xml::to_writer_default(output, &plugin, &[plugin.get_root_id()]).unwrap();
+    rbx_xml::to_writer_default(output, &plugin, &[plugin.root_ref()]).unwrap();
 }
 
 fn remove_plugin(roblox_studio: &RobloxStudio) {
@@ -78,20 +77,10 @@ fn remove_plugin(roblox_studio: &RobloxStudio) {
     remove_file(plugin_path).unwrap();
 }
 
-fn create_plugin() -> RbxTree {
-    let mut properties = HashMap::new();
-    properties.insert(
-        "Source".to_owned(),
-        RbxValue::String {
-            value: PLUGIN_SOURCE.to_owned(),
-        },
-    );
-
-    let tree = RbxTree::new(RbxInstanceProperties {
-        name: "RbxDomGenerateReflectionPlugin".to_owned(),
-        class_name: "Script".to_owned(),
-        properties,
-    });
-
-    tree
+fn create_plugin() -> WeakDom {
+    WeakDom::new(
+        InstanceBuilder::new("Script")
+            .with_name("RbxDomGenerateReflectionPlugin")
+            .with_property("Source", PLUGIN_SOURCE),
+    )
 }

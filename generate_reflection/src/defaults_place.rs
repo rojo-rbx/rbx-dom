@@ -5,7 +5,6 @@
 use std::{
     borrow::Cow,
     collections::{HashSet, VecDeque},
-    convert::TryInto,
     fmt::{self, Write},
     fs::{self, File},
     io::BufReader,
@@ -15,7 +14,8 @@ use std::{
 };
 
 use notify::{DebouncedEvent, Watcher};
-use rbx_dom_weak::{RbxTree, RbxValueType};
+use rbx_dom_weak::types::VariantType;
+use rbx_dom_weak::WeakDom;
 use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
 use roblox_install::RobloxStudio;
 use tempfile::tempdir;
@@ -30,39 +30,39 @@ pub fn measure_default_properties(database: &mut ReflectionDatabase) -> anyhow::
 
     database.version = output.info.version;
 
+    log::info!("Applying defaults from place file into reflection database...");
     apply_defaults_from_fixture_place(database, &output.tree);
 
     Ok(())
 }
 
-fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &RbxTree) {
+fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &WeakDom) {
     // Perform a breadth-first search to find the instance shallowest in the
     // tree of each class.
 
     let mut found_classes = HashSet::new();
     let mut to_visit = VecDeque::new();
 
-    let root_instance = tree.get_instance(tree.get_root_id()).unwrap();
-    to_visit.extend(root_instance.get_children_ids());
+    to_visit.extend(tree.root().children());
 
-    while let Some(id) = to_visit.pop_front() {
-        let instance = tree.get_instance(id).unwrap();
+    while let Some(referent) = to_visit.pop_front() {
+        let instance = tree.get_by_ref(referent).unwrap();
 
-        to_visit.extend(instance.get_children_ids());
+        to_visit.extend(instance.children());
 
-        if found_classes.contains(&instance.class_name) {
+        if found_classes.contains(&instance.class) {
             continue;
         }
 
-        found_classes.insert(instance.class_name.clone());
+        found_classes.insert(instance.class.clone());
 
         for (prop_name, prop_value) in &instance.properties {
-            let descriptors = match find_descriptors(database, &instance.class_name, prop_name) {
+            let descriptors = match find_descriptors(database, &instance.class, prop_name) {
                 Some(descriptor) => descriptor,
                 None => {
                     log::info!(
                         "Property {}.{} found in default place but not API dump",
-                        instance.class_name,
+                        instance.class,
                         prop_name
                     );
                     continue;
@@ -74,7 +74,7 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
                     PropertySerialization::Serializes => {
                         if &descriptors.canonical.name != prop_name {
                             log::error!("Property {}.{} is supposed to serialize as {}, but was actually serialized as {}",
-                                instance.class_name,
+                                instance.class,
                                 descriptors.canonical.name,
                                 descriptors.canonical.name,
                                 prop_name);
@@ -84,7 +84,7 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
                     PropertySerialization::DoesNotSerialize => {
                         log::error!(
                             "Property {}.{} (canonical name {}) found in default place but should not serialize",
-                            instance.class_name,
+                            instance.class,
                             prop_name,
                             descriptors.canonical.name,
                         );
@@ -93,7 +93,7 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
                     PropertySerialization::SerializesAs(serialized_name) => {
                         if serialized_name != prop_name {
                             log::error!("Property {}.{} is supposed to serialize as {}, but was actually serialized as {}",
-                                instance.class_name,
+                                instance.class,
                                 descriptors.canonical.name,
                                 serialized_name,
                                 prop_name);
@@ -104,7 +104,7 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
                         log::error!(
                             "Unknown property serialization {:?} on property {}.{}",
                             unknown,
-                            instance.class_name,
+                            instance.class,
                             descriptors.canonical.name
                         );
                     }
@@ -117,26 +117,25 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &R
 
             let canonical_name = Cow::Owned(descriptors.canonical.name.clone().into_owned());
 
-            match prop_value.get_type() {
+            match prop_value.ty() {
                 // We don't support usefully emitting these types yet.
-                RbxValueType::Ref | RbxValueType::SharedString => {}
+                VariantType::Ref | VariantType::SharedString => {}
 
                 _ => {
-                    let class_descriptor =
-                        match database.classes.get_mut(instance.class_name.as_str()) {
-                            Some(descriptor) => descriptor,
-                            None => {
-                                log::warn!(
-                                    "Class {} found in default place but not API dump",
-                                    instance.class_name
-                                );
-                                continue;
-                            }
-                        };
+                    let class_descriptor = match database.classes.get_mut(instance.class.as_str()) {
+                        Some(descriptor) => descriptor,
+                        None => {
+                            log::warn!(
+                                "Class {} found in default place but not API dump",
+                                instance.class
+                            );
+                            continue;
+                        }
+                    };
 
                     class_descriptor
                         .default_properties
-                        .insert(canonical_name, prop_value.clone().try_into().unwrap());
+                        .insert(canonical_name, prop_value.clone());
                 }
             }
         }
@@ -194,7 +193,7 @@ fn find_descriptors<'a>(
 
 struct StudioOutput {
     info: StudioInfo,
-    tree: RbxTree,
+    tree: WeakDom,
 }
 
 /// Generate a new fixture place from the given reflection database, open it in
