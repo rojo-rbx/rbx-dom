@@ -92,7 +92,7 @@ chunks:
       type_id: 0
       prop_name: BorderMode
       prop_type: Enum
-      remaining: AAAAAAAAAAAAAAAA
+      remaining: 00 00 00 00 00 00 00 00 00 00 00 00
   - Prop:
       type_id: 0
       prop_name: BorderSizePixel
@@ -137,22 +137,22 @@ chunks:
       type_id: 0
       prop_name: NextSelectionDown
       prop_type: Ref
-      remaining: AAAAAAAAAAAAAQAA
+      remaining: 00 00 00 00 00 00 00 00 00 01 00 00
   - Prop:
       type_id: 0
       prop_name: NextSelectionLeft
       prop_type: Ref
-      remaining: AAAAAAAAAAAAAQAA
+      remaining: 00 00 00 00 00 00 00 00 00 01 00 00
   - Prop:
       type_id: 0
       prop_name: NextSelectionRight
       prop_type: Ref
-      remaining: AAAAAAAAAAAAAQAA
+      remaining: 00 00 00 00 00 00 00 00 00 01 00 00
   - Prop:
       type_id: 0
       prop_name: NextSelectionUp
       prop_type: Ref
-      remaining: AAAAAAAAAAAAAQAA
+      remaining: 00 00 00 00 00 00 00 00 00 01 00 00
   - Prop:
       type_id: 0
       prop_name: Position
@@ -174,7 +174,7 @@ chunks:
       type_id: 0
       prop_name: RootLocalizationTable
       prop_type: Ref
-      remaining: AAAAAAAAAAAAAQAA
+      remaining: 00 00 00 00 00 00 00 00 00 01 00 00
   - Prop:
       type_id: 0
       prop_name: Rotation
@@ -195,7 +195,7 @@ chunks:
       type_id: 0
       prop_name: SelectionImageObject
       prop_type: Ref
-      remaining: AAAAAAAAAAAAAQAA
+      remaining: 00 00 00 00 00 00 00 00 00 01 00 00
   - Prop:
       type_id: 0
       prop_name: Size
@@ -217,12 +217,12 @@ chunks:
       type_id: 0
       prop_name: SizeConstraint
       prop_type: Enum
-      remaining: AAAAAAAAAAAAAQAC
+      remaining: 00 00 00 00 00 00 00 00 00 01 00 02
   - Prop:
       type_id: 0
       prop_name: Style
       prop_type: Enum
-      remaining: AAAAAAAAAAAAAAAA
+      remaining: 00 00 00 00 00 00 00 00 00 00 00 00
   - Prop:
       type_id: 0
       prop_name: Tags

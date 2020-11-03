@@ -63,7 +63,7 @@ chunks:
       type_id: 0
       prop_name: FillDirection
       prop_type: Enum
-      remaining: AAAAAAAAAAAAAAAA
+      remaining: 00 00 00 00 00 00 00 00 00 00 00 00
   - Prop:
       type_id: 0
       prop_name: FillDirectionMaxCells
@@ -76,7 +76,7 @@ chunks:
       type_id: 0
       prop_name: HorizontalAlignment
       prop_type: Enum
-      remaining: AAAAAAAAAAAAAQEB
+      remaining: 00 00 00 00 00 00 00 00 00 01 01 01
   - Prop:
       type_id: 0
       prop_name: Name
@@ -89,12 +89,12 @@ chunks:
       type_id: 0
       prop_name: SortOrder
       prop_type: Enum
-      remaining: AAAAAAAAAAAAAAAA
+      remaining: 00 00 00 00 00 00 00 00 00 00 00 00
   - Prop:
       type_id: 0
       prop_name: StartCorner
       prop_type: Enum
-      remaining: AAAAAAAAAAAAAAAA
+      remaining: 00 00 00 00 00 00 00 00 00 00 00 00
   - Prop:
       type_id: 0
       prop_name: Tags
@@ -107,7 +107,7 @@ chunks:
       type_id: 0
       prop_name: VerticalAlignment
       prop_type: Enum
-      remaining: AAAAAAAAAAAAAQEB
+      remaining: 00 00 00 00 00 00 00 00 00 01 01 01
   - Prnt:
       version: 0
       links:

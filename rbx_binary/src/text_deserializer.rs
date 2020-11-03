@@ -7,14 +7,14 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{Axes, CFrame, Color3, Faces, Matrix3, UDim, UDim2, Vector2, Vector3};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
 use crate::{
     chunk::Chunk, core::RbxReadExt, deserializer::special_case_to_rotation,
     deserializer::FileHeader, types::Type,
 };
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 pub struct DecodedModel {
     pub num_types: u32,
     pub num_instances: u32,
@@ -167,7 +167,7 @@ fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 #[serde(untagged)]
 pub enum DecodedValues {
     String(Vec<RobloxString>),
@@ -399,7 +399,7 @@ impl DecodedValues {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 #[serde(untagged)]
 pub enum DecodedPropType {
     Known(Type),
@@ -408,7 +408,7 @@ pub enum DecodedPropType {
 
 /// Holds a string with the same semantics as Roblox does. It can be UTF-8, but
 /// might not be.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 #[serde(untagged)]
 pub enum RobloxString {
     String(String),
@@ -424,7 +424,7 @@ impl From<Vec<u8>> for RobloxString {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 pub enum DecodedChunk {
     Meta {
         entries: Vec<(String, String)>,
@@ -476,25 +476,30 @@ pub enum DecodedChunk {
 /// Contains data that we haven't decoded for a chunk. Using `unknown_buffer`
 /// should generally be a placeholder since it's results are opaque, but stable.
 mod unknown_buffer {
-    use serde::{Deserialize, Deserializer, Serializer};
+    use std::fmt;
+
+    use serde::Serializer;
 
     pub fn serialize<S>(value: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
-        serializer.collect_str(&base64::display::Base64Display::with_config(
-            &value,
-            base64::STANDARD,
-        ))
+        serializer.collect_str(&SliceBytes(value))
     }
 
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let encoded = <&str>::deserialize(deserializer)?;
-        let contents = base64::decode(encoded).map_err(serde::de::Error::custom)?;
+    struct SliceBytes<'a>(&'a [u8]);
 
-        Ok(contents)
+    impl fmt::Display for SliceBytes<'_> {
+        fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+            for (index, byte) in self.0.iter().enumerate() {
+                if index < self.0.len() - 1 {
+                    write!(formatter, "{:02x} ", byte)?;
+                } else {
+                    write!(formatter, "{:02x}", byte)?;
+                }
+            }
+
+            Ok(())
+        }
     }
 }

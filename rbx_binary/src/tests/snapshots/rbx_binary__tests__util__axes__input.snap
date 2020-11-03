@@ -26,7 +26,7 @@ chunks:
       type_id: 0
       prop_name: Adornee
       prop_type: Ref
-      remaining: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=
+      remaining: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
