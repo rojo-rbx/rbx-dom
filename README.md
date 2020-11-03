@@ -61,7 +61,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Property Type      | Example Property                | rbx_types | rbx_dom_lua | rbx_xml | rbx_binary
 |:------------------ |:------------------------------- |:--:|:--:|:--:|:--:|
 | Axes               | `ArcHandles.Axes`               | ✔ | ❌ | ✔ | ✔ |
-| BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ❌ |
+| BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ✔ |
 | Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
 | BrickColor         | `Part.BrickColor`               | ✔ | ✔ | ✔ | ❌ |
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ➖ |
