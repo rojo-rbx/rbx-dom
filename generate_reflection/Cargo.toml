@@ -7,7 +7,6 @@ edition = "2018"
 publish = false
 
 [dependencies]
-rbx_types = { path = "../rbx_types" }
 rbx_reflection = { path = "../rbx_reflection" }
 rbx_dom_weak = { path = "../rbx_dom_weak" }
 rbx_xml = { path = "../rbx_xml" }

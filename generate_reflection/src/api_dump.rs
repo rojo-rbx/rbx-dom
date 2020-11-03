@@ -7,11 +7,11 @@ use std::fs;
 use std::process::Command;
 
 use anyhow::Context;
+use rbx_dom_weak::types::VariantType;
 use rbx_reflection::{
     ClassDescriptor, DataType, PropertyDescriptor, PropertyKind, PropertySerialization,
     PropertyTag, ReflectionDatabase, Scriptability,
 };
-use rbx_types::VariantType;
 use roblox_install::RobloxStudio;
 use serde::Deserialize;
 use tempfile::tempdir;
