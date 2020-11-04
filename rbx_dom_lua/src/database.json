@@ -901,7 +901,44 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Axes": {
+          "Type": "Axes",
+          "Value": [
+            "X",
+            "Y",
+            "Z"
+          ]
+        },
+        "Color3": {
+          "Type": "Color3",
+          "Value": [
+            0.050980397,
+            0.41176474,
+            0.6745098
+          ]
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Transparency": {
+          "Type": "Float32",
+          "Value": 0.0
+        },
+        "Visible": {
+          "Type": "Bool",
+          "Value": true
+        }
+      }
     },
     "AssetCounterService": {
       "Name": "AssetCounterService",
@@ -11219,7 +11256,51 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Color3": {
+          "Type": "Color3",
+          "Value": [
+            0.050980397,
+            0.41176474,
+            0.6745098
+          ]
+        },
+        "Faces": {
+          "Type": "Faces",
+          "Value": [
+            "Right",
+            "Top",
+            "Back",
+            "Left",
+            "Bottom",
+            "Front"
+          ]
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Style": {
+          "Type": "EnumValue",
+          "Value": 0
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Transparency": {
+          "Type": "Float32",
+          "Value": 0.0
+        },
+        "Visible": {
+          "Type": "Bool",
+          "Value": true
+        }
+      }
     },
     "HandlesBase": {
       "Name": "HandlesBase",
@@ -21654,7 +21735,35 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Value": {
+          "Type": "Ray",
+          "Value": {
+            "Origin": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Direction": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
     },
     "RbxAnalyticsService": {
       "Name": "RbxAnalyticsService",
