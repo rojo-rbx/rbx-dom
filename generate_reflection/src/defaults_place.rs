@@ -13,6 +13,7 @@ use std::{
     time::Duration,
 };
 
+use anyhow::Context;
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::types::VariantType;
 use rbx_dom_weak::WeakDom;
@@ -237,11 +238,20 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
 
     log::info!("Reading back place file...");
 
-    let mut file = BufReader::new(File::open(output_path)?);
+    let file = BufReader::new(File::open(&output_path)?);
 
     let decode_options = rbx_xml::DecodeOptions::new()
         .property_behavior(rbx_xml::DecodePropertyBehavior::NoReflection);
-    let tree = rbx_xml::from_reader(&mut file, decode_options)?;
+
+    let tree = match rbx_xml::from_reader(file, decode_options) {
+        Ok(tree) => tree,
+        Err(err) => {
+            let _ = fs::copy(output_path, "defaults-place.rbxlx");
+            return Err(err).context(
+                "failed to decode defaults place; it has been copied to defaults-place.rbxlx",
+            );
+        }
+    };
 
     Ok(StudioOutput { info, tree })
 }
