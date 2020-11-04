@@ -15,6 +15,7 @@ mod color_sequence;
 mod colors;
 mod content;
 mod enumeration;
+mod faces;
 mod number_range;
 mod number_sequence;
 mod numbers;
@@ -30,7 +31,7 @@ mod vectors;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue,
+    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue, Faces,
     NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, Vector2,
     Vector2int16, Vector3, Vector3int16,
 };
@@ -114,21 +115,22 @@ declare_rbx_types! {
     BinaryString: BinaryString,
     Bool: bool,
     CFrame: CFrame,
-    String: String,
-    ColorSequence: ColorSequence,
     Color3: Color3,
     Color3uint8: Color3uint8,
+    ColorSequence: ColorSequence,
     Content: Content,
     EnumValue: EnumValue,
-    NumberRange: NumberRange,
-    NumberSequence: NumberSequence,
+    Faces: Faces,
     Float32: f32,
     Float64: f64,
     Int32: i32,
     Int64: i64,
+    NumberRange: NumberRange,
+    NumberSequence: NumberSequence,
     PhysicalProperties: PhysicalProperties,
     Ray: Ray,
     Rect: Rect,
+    String: String,
     UDim2: UDim2,
     UDim: UDim,
     Vector2: Vector2,
