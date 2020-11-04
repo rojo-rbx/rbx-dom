@@ -13,19 +13,19 @@ impl XmlType for Axes {
     const XML_TAG_NAME: &'static str = "Axes";
 
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
-        writer.write_characters(self.bits())?;
+        writer.write_tag_characters("axes", self.bits())?;
 
         Ok(())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
         let value = reader
-            .read_characters()?
+            .read_tag_contents("axes")?
             .parse::<u8>()
             .map_err(|e| reader.error(e))?;
 
         Self::from_bits(value)
-            .ok_or(reader.error(DecodeErrorKind::InvalidContent("value out of range")))
+            .ok_or(reader.error(DecodeErrorKind::InvalidContent("Axes value out of range")))
     }
 }
 
@@ -36,12 +36,18 @@ mod test {
 
     #[test]
     fn serialize_axes() {
-        test_util::test_xml_serialize("<Axes name=\"foo\">5</Axes>", &Axes::from_bits(5).unwrap())
+        test_util::test_xml_serialize(
+            "<Axes name=\"foo\"><axes>5</axes></Axes>",
+            &Axes::from_bits(5).unwrap(),
+        )
     }
 
     #[test]
     fn deserialize_axes() {
-        test_util::test_xml_deserialize("<Axes name=\"foo\">3</Axes>", &Axes::from_bits(3).unwrap())
+        test_util::test_xml_deserialize(
+            "<Axes name=\"foo\"><axes>3</axes></Axes>",
+            &Axes::from_bits(3).unwrap(),
+        )
     }
 
     #[test]
