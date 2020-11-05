@@ -683,6 +683,19 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_f32_array(y.into_iter())?;
                         chunk.write_interleaved_f32_array(z.into_iter())?;
                     }
+                    Type::Enum => {
+                        let mut buf = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::EnumValue(value) = rbx_value.as_ref() {
+                                buf.push(value.to_u32());
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Enum");
+                            }
+                        }
+
+                        chunk.write_interleaved_u32_array(&buf)?;
+                    }
                     Type::Int64 => {
                         let mut buf = Vec::with_capacity(values.len());
 

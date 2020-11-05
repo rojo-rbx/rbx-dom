@@ -77,6 +77,14 @@ chunks:
         - ""
         - ""
         - ""
+  - Prop:
+      type_id: 0
+      prop_name: ZIndexBehavior
+      prop_type: Enum
+      values:
+        - 1
+        - 1
+        - 1
   - Prnt:
       version: 0
       links:

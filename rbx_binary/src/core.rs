@@ -231,6 +231,17 @@ pub trait RbxWriteExt: Write {
         Ok(())
     }
 
+    fn write_interleaved_u32_array(&mut self, values: &[u32]) -> io::Result<()> {
+        for shift in &[24, 16, 8, 0] {
+            for value in values.iter().copied() {
+                let encoded = value >> shift;
+                self.write_u8(encoded as u8)?;
+            }
+        }
+
+        Ok(())
+    }
+
     fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = f32>,
