@@ -451,6 +451,18 @@ The **correct** interpretation of this data, with accumulation, is:
 ### Color3uint8
 **Type ID 0x1A**
 
+The `Color3uint8` type is a struct made up of three bytes, one for each component:
+
+| Field Name  | Format | Value                                |
+|:------------|:-------|:-------------------------------------|
+| R           | u8     | The `R` component of the Color3uint8 |
+| G           | u8     | The `G` component of the Color3uint8 |
+| B           | u8     | The `B` component of the Color3uint8 |
+
+`Color3uint8` is stored as three consecutive arrays of components in the order `R`, `G`, `B`. It is not subject to any transformation or byte interleaving.
+
+Two Color3uint8s with the values `0, 255, 255` and `63, 0, 127`, respectively, look like this: `00 3f ff 00 ff 7f`.
+
 ### Int64
 **Type ID 0x1B**
 

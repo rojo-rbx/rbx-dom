@@ -66,7 +66,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | BrickColor         | `Part.BrickColor`               | ✔ | ✔ | ✔ | ❌ |
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ➖ |
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ✔ |
-| Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ✔ |
 | ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ❌ |
