@@ -8,8 +8,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType,
-        Vector2, Vector3,
+        Axes, BinaryString, CFrame, Color3, Color3uint8, Faces, Matrix3, Ref, UDim, UDim2, Variant,
+        VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -19,8 +19,8 @@ use thiserror::Error;
 use crate::{
     chunk::{ChunkBuilder, ChunkCompression},
     core::{
-        find_serialized_property_descriptor, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
-        FILE_VERSION,
+        find_canonical_property_descriptor, find_serialized_property_descriptor, RbxWriteExt,
+        FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
 };
@@ -443,7 +443,15 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         } else {
                             instance
                                 .properties
-                                .get(prop_name)
+                                .get(
+                                    if let Some(descriptor) =
+                                        find_canonical_property_descriptor(type_name, prop_name)
+                                    {
+                                        &*descriptor.name
+                                    } else {
+                                        prop_name
+                                    },
+                                )
                                 .map(Cow::Borrowed)
                                 .unwrap_or_else(|| Cow::Borrowed(prop_info.default_value.borrow()))
                         }
@@ -696,6 +704,33 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_u32_array(&buf)?;
                     }
+                    Type::Color3uint8 => {
+                        let mut r = Vec::with_capacity(values.len());
+                        let mut g = Vec::with_capacity(values.len());
+                        let mut b = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Color3uint8(value) = rbx_value.as_ref() {
+                                r.push(value.r);
+                                g.push(value.g);
+                                b.push(value.b);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Color3uint8");
+                            }
+                        }
+
+                        for component in r {
+                            chunk.write_u8(component)?;
+                        }
+
+                        for component in g {
+                            chunk.write_u8(component)?;
+                        }
+
+                        for component in b {
+                            chunk.write_u8(component)?;
+                        }
+                    }
                     Type::Int64 => {
                         let mut buf = Vec::with_capacity(values.len());
 
@@ -817,6 +852,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
+            VariantType::Color3uint8 => Variant::Color3uint8(Color3uint8::new(0, 0, 0)),
             VariantType::Int64 => Variant::Int64(0),
             _ => return None,
         })

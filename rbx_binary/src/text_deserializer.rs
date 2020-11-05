@@ -7,7 +7,7 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{
-    Axes, CFrame, Color3, EnumValue, Faces, Matrix3, UDim, UDim2, Vector2, Vector3,
+    Axes, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, UDim, UDim2, Vector2, Vector3,
 };
 use serde::Serialize;
 
@@ -186,6 +186,7 @@ pub enum DecodedValues {
     Vector3(Vec<Vector3>),
     CFrame(Vec<CFrame>),
     Enum(Vec<EnumValue>),
+    Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
 }
 
@@ -400,6 +401,32 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::Vector3(values))
+            }
+            Type::Color3uint8 => {
+                let mut r = Vec::with_capacity(prop_count);
+                let mut g = Vec::with_capacity(prop_count);
+                let mut b = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    r.push(reader.read_u8().unwrap());
+                }
+
+                for _ in 0..prop_count {
+                    g.push(reader.read_u8().unwrap());
+                }
+
+                for _ in 0..prop_count {
+                    b.push(reader.read_u8().unwrap());
+                }
+
+                let values = r
+                    .into_iter()
+                    .zip(g)
+                    .zip(b)
+                    .map(|((r, g), b)| Color3uint8::new(r, g, b))
+                    .collect();
+
+                Some(DecodedValues::Color3uint8(values))
             }
             Type::Int64 => {
                 let mut values = vec![0; prop_count];
