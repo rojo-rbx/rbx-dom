@@ -91,6 +91,24 @@ pub trait RbxReadExt: Read {
         Ok(())
     }
 
+    fn read_interleaved_u32_array(&mut self, output: &mut [u32]) -> io::Result<()> {
+        let mut buffer = vec![0; output.len() * mem::size_of::<u32>()];
+        self.read_exact(&mut buffer)?;
+
+        for i in 0..output.len() {
+            let bytes = [
+                buffer[i],
+                buffer[i + output.len()],
+                buffer[i + output.len() * 2],
+                buffer[i + output.len() * 3],
+            ];
+
+            output[i] = u32::from_be_bytes(bytes);
+        }
+
+        Ok(())
+    }
+
     fn read_interleaved_f32_array(&mut self, output: &mut [f32]) -> io::Result<()> {
         let mut buf = vec![0; output.len() * mem::size_of::<f32>()];
         self.read_exact(&mut buf)?;

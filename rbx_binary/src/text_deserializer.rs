@@ -6,7 +6,9 @@
 
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
-use rbx_dom_weak::types::{Axes, CFrame, Color3, Faces, Matrix3, UDim, UDim2, Vector2, Vector3};
+use rbx_dom_weak::types::{
+    Axes, CFrame, Color3, EnumValue, Faces, Matrix3, UDim, UDim2, Vector2, Vector3,
+};
 use serde::Serialize;
 
 use crate::{
@@ -183,6 +185,7 @@ pub enum DecodedValues {
     Vector2(Vec<Vector2>),
     Vector3(Vec<Vector3>),
     CFrame(Vec<CFrame>),
+    Enum(Vec<EnumValue>),
     Int64(Vec<i64>),
 }
 
@@ -335,6 +338,17 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::CFrame(values))
+            }
+            Type::Enum => {
+                let mut ints = vec![0; prop_count];
+                reader.read_interleaved_u32_array(&mut ints).unwrap();
+
+                let values = ints
+                    .into_iter()
+                    .map(|int| EnumValue::from_u32(int))
+                    .collect();
+
+                Some(DecodedValues::Enum(values))
             }
             Type::Color3 => {
                 let mut r = vec![0.0; prop_count];

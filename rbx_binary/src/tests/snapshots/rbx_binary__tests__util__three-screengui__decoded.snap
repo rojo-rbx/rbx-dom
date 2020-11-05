@@ -27,6 +27,9 @@ expression: decoded_viewed
     Tags:
       Type: BinaryString
       Value: ""
+    ZIndexBehavior:
+      Type: EnumValue
+      Value: 1
   children: []
 - referent: referent-1
   name: DisplayOrder1
@@ -53,6 +56,9 @@ expression: decoded_viewed
     Tags:
       Type: BinaryString
       Value: ""
+    ZIndexBehavior:
+      Type: EnumValue
+      Value: 1
   children: []
 - referent: referent-2
   name: DisplayOrder2
@@ -79,4 +85,7 @@ expression: decoded_viewed
     Tags:
       Type: BinaryString
       Value: ""
+    ZIndexBehavior:
+      Type: EnumValue
+      Value: 1
   children: []
