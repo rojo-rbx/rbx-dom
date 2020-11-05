@@ -69,7 +69,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
 | ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
-| Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ❌ |
+| Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ✔ |
 | Faces              | `Handles.Faces`                 | ✔ | ❌ | ✔ | ✔ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ✔ |
 | Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ✔ |
