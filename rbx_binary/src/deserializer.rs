@@ -7,8 +7,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType, Vector2,
-        Vector3,
+        Axes, CFrame, Color3, EnumValue, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType,
+        Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -827,7 +827,28 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::Enum => {}
+            Type::Enum => match canonical_type {
+                VariantType::EnumValue => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_u32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let rbx_value = Variant::EnumValue(EnumValue::from_u32(value));
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Enum",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Ref => {}
             Type::Vector3int16 => {}
             Type::NumberSequence => {}

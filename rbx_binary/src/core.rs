@@ -91,6 +91,24 @@ pub trait RbxReadExt: Read {
         Ok(())
     }
 
+    fn read_interleaved_u32_array(&mut self, output: &mut [u32]) -> io::Result<()> {
+        let mut buffer = vec![0; output.len() * mem::size_of::<u32>()];
+        self.read_exact(&mut buffer)?;
+
+        for i in 0..output.len() {
+            let bytes = [
+                buffer[i],
+                buffer[i + output.len()],
+                buffer[i + output.len() * 2],
+                buffer[i + output.len() * 3],
+            ];
+
+            output[i] = u32::from_be_bytes(bytes);
+        }
+
+        Ok(())
+    }
+
     fn read_interleaved_f32_array(&mut self, output: &mut [f32]) -> io::Result<()> {
         let mut buf = vec![0; output.len() * mem::size_of::<f32>()];
         self.read_exact(&mut buf)?;
@@ -206,6 +224,17 @@ pub trait RbxWriteExt: Write {
         for shift in &[24, 16, 8, 0] {
             for value in values.iter().copied() {
                 let encoded = transform_i32(value) >> shift;
+                self.write_u8(encoded as u8)?;
+            }
+        }
+
+        Ok(())
+    }
+
+    fn write_interleaved_u32_array(&mut self, values: &[u32]) -> io::Result<()> {
+        for shift in &[24, 16, 8, 0] {
+            for value in values.iter().copied() {
+                let encoded = value >> shift;
                 self.write_u8(encoded as u8)?;
             }
         }

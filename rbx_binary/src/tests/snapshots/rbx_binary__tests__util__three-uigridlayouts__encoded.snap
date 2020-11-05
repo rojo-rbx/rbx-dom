@@ -57,12 +57,28 @@ chunks:
             - 1200
   - Prop:
       type_id: 0
+      prop_name: FillDirection
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 0
       prop_name: FillDirectionMaxCells
       prop_type: Int32
       values:
         - 0
         - 0
         - 0
+  - Prop:
+      type_id: 0
+      prop_name: HorizontalAlignment
+      prop_type: Enum
+      values:
+        - 1
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: Name
@@ -73,12 +89,36 @@ chunks:
         - UIGridLayout
   - Prop:
       type_id: 0
+      prop_name: SortOrder
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: StartCorner
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 0
       prop_name: Tags
       prop_type: String
       values:
         - ""
         - ""
         - ""
+  - Prop:
+      type_id: 0
+      prop_name: VerticalAlignment
+      prop_type: Enum
+      values:
+        - 1
+        - 1
+        - 1
   - Prnt:
       version: 0
       links:

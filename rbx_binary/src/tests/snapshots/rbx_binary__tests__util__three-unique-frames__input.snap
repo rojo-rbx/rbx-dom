@@ -92,7 +92,10 @@ chunks:
       type_id: 0
       prop_name: BorderMode
       prop_type: Enum
-      remaining: 00 00 00 00 00 00 00 00 00 00 00 00
+      values:
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: BorderSizePixel
@@ -217,12 +220,18 @@ chunks:
       type_id: 0
       prop_name: SizeConstraint
       prop_type: Enum
-      remaining: 00 00 00 00 00 00 00 00 00 01 00 02
+      values:
+        - 1
+        - 0
+        - 2
   - Prop:
       type_id: 0
       prop_name: Style
       prop_type: Enum
-      remaining: 00 00 00 00 00 00 00 00 00 00 00 00
+      values:
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: Tags

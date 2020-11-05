@@ -90,7 +90,10 @@ chunks:
       type_id: 0
       prop_name: ZIndexBehavior
       prop_type: Enum
-      remaining: 00 00 00 00 00 00 00 00 00 01 01 01
+      values:
+        - 1
+        - 1
+        - 1
   - Prnt:
       version: 0
       links:

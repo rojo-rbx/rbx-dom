@@ -409,6 +409,8 @@ The second part (the `Position` array) is: `7F 81 00 00 00 00 00 00 80 7F 00 22 
 ### Enum
 **Type ID 0x12**
 
+The `Enum` type is an unsigned 32-bit integer. It is stored as big endian and is subject to [byte interleaving](#byte-interleaving).
+
 ### Referent
 **Type ID 0x13**
 

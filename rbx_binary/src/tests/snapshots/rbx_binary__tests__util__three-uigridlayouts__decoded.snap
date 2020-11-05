@@ -23,12 +23,27 @@ expression: decoded_viewed
           - -150
         - - -0.30000001192092898
           - 300
+    FillDirection:
+      Type: EnumValue
+      Value: 0
     FillDirectionMaxCells:
       Type: Int32
+      Value: 0
+    HorizontalAlignment:
+      Type: EnumValue
+      Value: 1
+    SortOrder:
+      Type: EnumValue
+      Value: 0
+    StartCorner:
+      Type: EnumValue
       Value: 0
     Tags:
       Type: BinaryString
       Value: ""
+    VerticalAlignment:
+      Type: EnumValue
+      Value: 1
   children: []
 - referent: referent-1
   name: UIGridLayout
@@ -51,12 +66,27 @@ expression: decoded_viewed
           - -1200
         - - -0.699999988079071
           - 1000
+    FillDirection:
+      Type: EnumValue
+      Value: 0
     FillDirectionMaxCells:
       Type: Int32
+      Value: 0
+    HorizontalAlignment:
+      Type: EnumValue
+      Value: 1
+    SortOrder:
+      Type: EnumValue
+      Value: 0
+    StartCorner:
+      Type: EnumValue
       Value: 0
     Tags:
       Type: BinaryString
       Value: ""
+    VerticalAlignment:
+      Type: EnumValue
+      Value: 1
   children: []
 - referent: referent-2
   name: UIGridLayout
@@ -79,10 +109,25 @@ expression: decoded_viewed
           - -300
         - - -1.100000023841858
           - 1200
+    FillDirection:
+      Type: EnumValue
+      Value: 0
     FillDirectionMaxCells:
       Type: Int32
+      Value: 0
+    HorizontalAlignment:
+      Type: EnumValue
+      Value: 1
+    SortOrder:
+      Type: EnumValue
+      Value: 0
+    StartCorner:
+      Type: EnumValue
       Value: 0
     Tags:
       Type: BinaryString
       Value: ""
+    VerticalAlignment:
+      Type: EnumValue
+      Value: 1
   children: []
