@@ -710,26 +710,24 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         let mut b = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Color3uint8(value) = rbx_value.as_ref() {
-                                r.push(value.r);
-                                g.push(value.g);
-                                b.push(value.b);
-                            } else {
-                                return type_mismatch(i, &rbx_value, "Color3uint8");
+                            match rbx_value.as_ref() {
+                                Variant::Color3uint8(value) => {
+                                    r.push(value.r);
+                                    g.push(value.g);
+                                    b.push(value.b);
+                                }
+                                Variant::Color3(value) => {
+                                    r.push((value.r.max(0.0).min(1.0) * 255.0).round() as u8);
+                                    g.push((value.g.max(0.0).min(1.0) * 255.0).round() as u8);
+                                    b.push((value.b.max(0.0).min(1.0) * 255.0).round() as u8);
+                                }
+                                _ => return type_mismatch(i, &rbx_value, "Color3uint8 or Color3"),
                             }
                         }
 
-                        for component in r {
-                            chunk.write_u8(component)?;
-                        }
-
-                        for component in g {
-                            chunk.write_u8(component)?;
-                        }
-
-                        for component in b {
-                            chunk.write_u8(component)?;
-                        }
+                        chunk.write_all(r.as_slice())?;
+                        chunk.write_all(g.as_slice())?;
+                        chunk.write_all(b.as_slice())?;
                     }
                     Type::Int64 => {
                         let mut buf = Vec::with_capacity(values.len());
