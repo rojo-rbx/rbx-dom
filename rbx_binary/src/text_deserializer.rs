@@ -403,21 +403,13 @@ impl DecodedValues {
                 Some(DecodedValues::Vector3(values))
             }
             Type::Color3uint8 => {
-                let mut r = Vec::with_capacity(prop_count);
-                let mut g = Vec::with_capacity(prop_count);
-                let mut b = Vec::with_capacity(prop_count);
+                let mut r = vec![0; prop_count];
+                let mut g = vec![0; prop_count];
+                let mut b = vec![0; prop_count];
 
-                for _ in 0..prop_count {
-                    r.push(reader.read_u8().unwrap());
-                }
-
-                for _ in 0..prop_count {
-                    g.push(reader.read_u8().unwrap());
-                }
-
-                for _ in 0..prop_count {
-                    b.push(reader.read_u8().unwrap());
-                }
+			 reader.read_exact(r.as_mut_slice()).unwrap();
+			 reader.read_exact(g.as_mut_slice()).unwrap();
+			 reader.read_exact(b.as_mut_slice()).unwrap();
 
                 let values = r
                     .into_iter()

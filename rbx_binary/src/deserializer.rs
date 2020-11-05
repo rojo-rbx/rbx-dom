@@ -859,21 +859,13 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::Color3uint8 => match canonical_type {
                 VariantType::Color3 => {
                     let len = type_info.referents.len();
-                    let mut r = Vec::with_capacity(len);
-                    let mut g = Vec::with_capacity(len);
-                    let mut b = Vec::with_capacity(len);
+                    let mut r = vec![0; len];
+                    let mut g = vec![0; len];
+                    let mut b = vec![0; len];
 
-                    for _ in 0..len {
-                        r.push(chunk.read_u8().unwrap());
-                    }
-
-                    for _ in 0..len {
-                        g.push(chunk.read_u8().unwrap());
-                    }
-
-                    for _ in 0..len {
-                        b.push(chunk.read_u8().unwrap());
-                    }
+                    chunk.read_exact(r.as_mut_slice())?;
+                    chunk.read_exact(g.as_mut_slice())?;
+                    chunk.read_exact(b.as_mut_slice())?;
 
                     let colors = r
                         .into_iter()
