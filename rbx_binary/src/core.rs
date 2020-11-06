@@ -365,33 +365,29 @@ pub fn find_property_descriptors(
                 PropertyKind::Alias { alias_for } => {
                     let canonical = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
 
-                    match &canonical.kind {
-                        PropertyKind::Canonical { serialization } => {
-                            let serialized = find_serialized_from_canonical(
-                                class_descriptor,
-                                canonical,
-                                serialization,
-                            );
+                    if let PropertyKind::Canonical { serialization } = &canonical.kind {
+                        let serialized = find_serialized_from_canonical(
+                            class_descriptor,
+                            canonical,
+                            serialization,
+                        );
 
-                            return Some(PropertyDescriptors {
-                                canonical,
-                                serialized,
-                            });
-                        }
-
+                        return Some(PropertyDescriptors {
+                            canonical,
+                            serialized,
+                        });
+                    } else {
                         // If one property in the database calls itself an alias
                         // of another property, that property must be canonical.
-                        _ => {
-                            log::error!(
-                                "Property {}.{} is marked as an alias for {}.{}, but the latter is not canonical.",
-                                class_descriptor.name,
-                                property_descriptor.name,
-                                class_descriptor.name,
-                                alias_for
-                            );
+                        log::error!(
+                            "Property {}.{} is marked as an alias for {}.{}, but the latter is not canonical.",
+                            class_descriptor.name,
+                            property_descriptor.name,
+                            class_descriptor.name,
+                            alias_for
+                        );
 
-                            return None;
-                        }
+                        return None;
                     }
                 }
 
