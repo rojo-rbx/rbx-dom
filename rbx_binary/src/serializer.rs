@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, HashMap, VecDeque},
+    collections::{BTreeMap, BTreeSet, HashMap, VecDeque},
     convert::TryInto,
     io::{self, Write},
     u32,
@@ -19,8 +19,7 @@ use thiserror::Error;
 use crate::{
     chunk::{ChunkBuilder, ChunkCompression},
     core::{
-        find_canonical_property_descriptor, find_serialized_property_descriptor, RbxWriteExt,
-        FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
+        find_property_descriptors, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
 };
@@ -142,20 +141,57 @@ struct TypeInfo {
     object_refs: Vec<Ref>,
 
     /// All of the defined properties for this type found on any instance of
-    /// this type.
+    /// this type. Properties are keyed by their canonical name, and only one
+    /// entry should be present for each logical property.
     ///
     /// Stored in a sorted map to try to ensure that we write out properties in
     /// a deterministic order.
-    properties: BTreeMap<String, PropInfo>,
+    properties: BTreeMap<Cow<'static, str>, PropInfo>,
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
     class_descriptor: Option<&'static ClassDescriptor<'static>>,
 }
 
+/// A property on a specific class that our serializer knows about.
+///
+/// We should have one `PropInfo` per logical property per class that is used in
+/// the document we are serializing. This means that even if `BasePart.Size` and
+/// `BasePart.size` are present in the same document, they should share a
+/// `PropInfo` as they are the same logical property.
 #[derive(Debug)]
 struct PropInfo {
+    /// The binary format type ID that will be use to serialize this property.
+    /// This type is related to the type of the serialized form of the logical
+    /// property, but is not 1:1.
+    ///
+    /// For example, a property marked to serialize as a
+    /// `VariantType::BinaryString` will serialize as `Type::String`, the same
+    /// as the `Content` and `String` variants do.
     prop_type: Type,
+
+    /// The serialized name for this property. This is the name that is actually
+    /// written as part of the PROP chunk and may not line up with the canonical
+    /// name for the property.
+    serialized_name: Cow<'static, str>,
+
+    /// A set containing the names of all aliases discovered while preparing to
+    /// serialize this property. Ideally, this set will remain empty (and not
+    /// allocate) in most cases. However, if an instance is missing a property
+    /// from its canonical name, but does have another variant, we can use this
+    /// set to recover and map those values.
+    aliases: BTreeSet<String>,
+
+    /// The default value for this property that should be used if any instances
+    /// are missing this property.
+    ///
+    /// With the exception of newly-added properties, Roblox Studio will create
+    /// files with instances that contain every property. When mixing old and
+    /// newly-saved instances, or mixing instances generated from other tools,
+    /// some properties may be missing. They will be populated from this value.
+    ///
+    /// Default values are first populated from the reflection database, if
+    /// present, followed by an educated guess based on the type of the value.
     default_value: Cow<'static, Variant>,
 }
 
@@ -201,66 +237,105 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         type_info.object_refs.push(referent);
 
         for (prop_name, prop_value) in &instance.properties {
-            let ser_name;
-            let ser_rbx_type;
+            let canonical_name;
+            let serialized_name;
+            let serialized_ty;
 
-            match find_serialized_property_descriptor(&instance.class, prop_name) {
-                Some(descriptor) => {
-                    ser_name = descriptor.name.as_ref();
-                    ser_rbx_type = match &descriptor.data_type {
+            match find_property_descriptors(&instance.class, prop_name) {
+                Some(descriptors) => {
+                    // For any properties that do not serialize, we can skip
+                    // adding them to the set of type_infos.
+                    let serialized = match descriptors.serialized {
+                        Some(descriptor) => descriptor,
+                        None => continue,
+                    };
+
+                    canonical_name = descriptors.canonical.name.clone();
+                    serialized_name = serialized.name.clone();
+
+                    serialized_ty = match &serialized.data_type {
                         DataType::Value(ty) => *ty,
                         DataType::Enum(_) => VariantType::EnumValue,
-                        _ => {
+
+                        unknown_ty => {
                             // rbx_binary is not new enough to handle this kind
                             // of property, whatever it is.
-                            panic!("Unsupported property type");
+                            return Err(InnerError::UnsupportedPropType {
+                                type_name: instance.class.clone(),
+                                prop_name: prop_name.clone(),
+                                prop_type: format!("{:?}", unknown_ty),
+                            });
                         }
                     };
                 }
+
                 None => {
-                    ser_name = prop_name.as_str();
-                    ser_rbx_type = prop_value.ty();
+                    canonical_name = Cow::Owned(prop_name.clone());
+                    serialized_name = Cow::Owned(prop_name.clone());
+                    serialized_ty = prop_value.ty();
                 }
             }
 
-            if !type_info.properties.contains_key(ser_name) {
+            // In order to prevent cloning canonical_name in a rare branch,
+            // we conditionally clone here if we'll need canonical_name after
+            // it's inserted into type_info.properties.
+            let canonical_name_if_different = if prop_name != &canonical_name {
+                Some(canonical_name.clone())
+            } else {
+                None
+            };
+
+            if !type_info.properties.contains_key(&canonical_name) {
                 let default_value = type_info
                     .class_descriptor
                     .and_then(|class| {
                         class
                             .default_properties
-                            .get(prop_name.as_str())
+                            .get(&canonical_name)
                             .map(Cow::Borrowed)
                     })
-                    .or_else(|| Self::fallback_default_value(ser_rbx_type).map(Cow::Owned))
+                    .or_else(|| Self::fallback_default_value(serialized_ty).map(Cow::Owned))
                     .ok_or_else(|| {
-                        // Since we don't know how to generate the default value for
-                        // this property, we consider it unsupported.
+                        // Since we don't know how to generate the default value
+                        // for this property, we consider it unsupported.
                         InnerError::UnsupportedPropType {
                             type_name: instance.class.clone(),
-                            prop_name: prop_name.clone(),
-                            prop_type: format!("{:?}", ser_rbx_type),
+                            prop_name: canonical_name.to_string(),
+                            prop_type: format!("{:?}", serialized_ty),
                         }
                     })?;
 
-                let ser_type = Type::from_rbx_type(ser_rbx_type).ok_or_else(|| {
+                let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
                     // This is a known value type, but rbx_binary doesn't have a
                     // binary type value for it. rbx_binary might be out of
                     // date?
                     InnerError::UnsupportedPropType {
                         type_name: instance.class.clone(),
-                        prop_name: prop_name.clone(),
-                        prop_type: format!("{:?}", ser_rbx_type),
+                        prop_name: serialized_name.to_string(),
+                        prop_type: format!("{:?}", serialized_ty),
                     }
                 })?;
 
                 type_info.properties.insert(
-                    ser_name.to_owned(),
+                    canonical_name,
                     PropInfo {
                         prop_type: ser_type,
+                        serialized_name,
+                        aliases: BTreeSet::new(),
                         default_value,
                     },
                 );
+            }
+
+            // If the property we found on this instance is different than the
+            // canonical name for this property, stash it into the set of known
+            // aliases for this PropInfo.
+            if let Some(canonical_name) = canonical_name_if_different {
+                let prop_info = type_info.properties.get_mut(&canonical_name).unwrap();
+
+                if !prop_info.aliases.contains(prop_name) {
+                    prop_info.aliases.insert(prop_name.clone());
+                }
             }
         }
 
@@ -294,9 +369,11 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             // We can use a dummy default_value here because instances from
             // rbx_dom_weak always have a name set.
             properties.insert(
-                "Name".to_owned(),
+                Cow::Borrowed("Name"),
                 PropInfo {
                     prop_type: Type::String,
+                    serialized_name: Cow::Borrowed("Name"),
+                    aliases: BTreeSet::new(),
                     default_value: Cow::Owned(Variant::String(String::new())),
                 },
             );
@@ -422,7 +499,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 let mut chunk = ChunkBuilder::new(b"PROP", ChunkCompression::Compressed);
 
                 chunk.write_le_u32(type_info.type_id)?;
-                chunk.write_string(&prop_name)?;
+                chunk.write_string(&prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
                 let dom = &self.dom;
@@ -439,22 +516,28 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         // convenience, but when serializing to the binary model
                         // format we need to handle it just like other properties.
                         if prop_name == "Name" {
-                            Cow::Owned(Variant::String(instance.name.clone()))
-                        } else {
-                            instance
-                                .properties
-                                .get(
-                                    if let Some(descriptor) =
-                                        find_canonical_property_descriptor(type_name, prop_name)
-                                    {
-                                        &*descriptor.name
-                                    } else {
-                                        prop_name
-                                    },
-                                )
-                                .map(Cow::Borrowed)
-                                .unwrap_or_else(|| Cow::Borrowed(prop_info.default_value.borrow()))
+                            return Cow::Owned(Variant::String(instance.name.clone()));
                         }
+
+                        // Most properties will be stored on instances using the
+                        // property's canonical name, so we'll try that first.
+                        if let Some(property) = instance.properties.get(prop_name.as_ref()) {
+                            return Cow::Borrowed(property);
+                        }
+
+                        // If there were any known aliases for this property
+                        // used as part of this file, we can check those next.
+                        for alias in &prop_info.aliases {
+                            if let Some(property) = instance.properties.get(alias) {
+                                return Cow::Borrowed(property);
+                            }
+                        }
+
+                        // Finally, we can fall back to the default value we
+                        // computed for this PropInfo. This is sourced from the
+                        // reflection database if available, or falls back to a
+                        // reasonable default.
+                        Cow::Borrowed(prop_info.default_value.borrow())
                     })
                     .enumerate();
 
@@ -464,7 +547,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     |i: usize, bad_value: &Variant, valid_type_names: &'static str| {
                         Err(InnerError::PropTypeMismatch {
                             type_name: type_name.clone(),
-                            prop_name: prop_name.clone(),
+                            prop_name: prop_name.to_string(),
                             valid_type_names,
                             actual_type_name: format!("{:?}", bad_value.ty()),
                             instance_full_name: self.full_name_for(type_info.object_refs[i]),
@@ -745,7 +828,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
-                            prop_name: prop_name.clone(),
+                            prop_name: prop_name.to_string(),
                             prop_type: format!("binary type {:?}", prop_info.prop_type),
                         });
                     }

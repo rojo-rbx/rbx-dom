@@ -51,9 +51,12 @@ impl DomViewer {
     }
 
     fn populate_referent_map(&mut self, dom: &WeakDom, referent: Ref) {
-        self.referent_map
-            .insert(referent, format!("referent-{}", self.next_referent));
-        self.next_referent += 1;
+        let next_referent = &mut self.next_referent;
+        self.referent_map.entry(referent).or_insert_with(|| {
+            let name = format!("referent-{}", next_referent);
+            *next_referent += 1;
+            name
+        });
 
         let instance = dom.get_by_ref(referent).unwrap();
         for referent in instance.children() {
