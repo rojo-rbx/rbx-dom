@@ -98,3 +98,29 @@ fn unknown_id() {
 
     assert!(result.is_err());
 }
+
+/// Ensures that only one name for each logical property is serialized to a
+/// file. Here, we use BasePart.Size and BasePart.size, which alias and both
+/// serialize to BasePart.size.
+///
+/// For fun, we also have a part with no size property at all. It should default
+/// to (4.0, 1.2, 2.0), a relic of Roblox's distant past.
+#[test]
+fn logical_properties_basepart_size() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("Folder")
+            .with_child(
+                InstanceBuilder::new("Part").with_property("Size", Vector3::new(1.0, 2.0, 3.0)),
+            )
+            .with_child(
+                InstanceBuilder::new("Part").with_property("size", Vector3::new(4.0, 5.0, 6.0)),
+            )
+            .with_child(InstanceBuilder::new("Part")),
+    );
+
+    let mut buffer = Vec::new();
+    let result = encode(&tree, tree.root().children(), &mut buffer);
+
+    let decoded = DecodedModel::from_reader(buffer.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
