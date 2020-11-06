@@ -133,4 +133,90 @@ impl WeakDom {
             to_remove.extend(instance.children);
         }
     }
+
+    /// Move the instance with the given referent to a new `WeakDom`, parenting
+    /// it to the given ref.
+    ///
+    /// This function would be called `move`, but that's a Rust keyword!
+    ///
+    /// ## Panics
+    /// Panics if `referent` does not refer to an instance in `self` or if
+    /// `dest_parent_ref` does not refer to an instance in `other_dom`.
+    ///
+    /// Will also panic if `referent` refers to the root instance in this
+    /// `WeakDom`.
+    pub fn transfer(&mut self, referent: Ref, dest: &mut WeakDom, dest_parent_ref: Ref) {
+        if referent == self.root_ref {
+            panic!("cannot transfer the root instance of WeakDom");
+        }
+
+        let mut instance = self
+            .instances
+            .remove(&referent)
+            .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
+
+        // Remove the instance being moved from its parents list of children. If
+        // we care about panic tolerance in the future, doing this first is
+        // important to ensure this link is the one severed first.
+        let parent = self.instances.get_mut(&instance.parent).unwrap();
+        parent.children.retain(|&child| child != referent);
+
+        // We'll start tracking all of the instances that we're moving in a
+        // queue. We're about to move the moving instance, so we need to do this
+        // now.
+        let mut to_move = VecDeque::new();
+        to_move.extend(instance.children.iter().copied());
+
+        // Instance was released.
+        // Bye-bye, instance!
+        instance.parent = dest_parent_ref;
+        dest.instances.insert(referent, instance);
+
+        // Transfer all of the descendants of the moving instance breadth-first.
+        while let Some(referent) = to_move.pop_front() {
+            let instance = self.instances.remove(&referent).unwrap();
+            to_move.extend(instance.children.iter().copied());
+            dest.instances.insert(referent, instance);
+        }
+
+        // Finally, notify the new parent instance that their adoption is
+        // complete. Enjoy!
+        let dest_parent = dest.instances.get_mut(&dest_parent_ref).unwrap_or_else(|| {
+            panic!("cannot move an instance into an instance that does not exist")
+        });
+        dest_parent.children.push(referent);
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    use crate::DomViewer;
+
+    #[test]
+    fn transfer() {
+        let target = InstanceBuilder::new("Folder")
+            .with_name("Target")
+            .with_child(InstanceBuilder::new("Part").with_name("Some Child"));
+        let target_ref = target.referent;
+
+        let mut source = WeakDom::new(InstanceBuilder::new("Folder").with_child(target));
+        let mut dest = WeakDom::new(InstanceBuilder::new("DataModel"));
+
+        let mut viewer = DomViewer::new();
+
+        // This snapshot should contain Target and Some Child
+        insta::assert_yaml_snapshot!(viewer.view_children(&source));
+
+        let dest_root = dest.root_ref();
+        source.transfer(target_ref, &mut dest, dest_root);
+
+        // This snapshot should be empty
+        insta::assert_yaml_snapshot!(viewer.view_children(&source));
+
+        // This snapshot should be exactly the same as the first snapshot,
+        // containing Target and Child.
+        insta::assert_yaml_snapshot!(viewer.view_children(&dest));
+    }
 }
