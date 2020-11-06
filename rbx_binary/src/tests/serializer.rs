@@ -125,7 +125,7 @@ fn logical_properties_basepart_size() {
     insta::assert_yaml_snapshot!(decoded);
 }
 
-/// Ensure that Color3 can be serialized as Color3uint8. We use both the
+/// Ensures that Color3 can be serialized as Color3uint8. We use both the
 /// canonical property name Part.Color as well as the serialized name
 /// Part.Color3uint8.
 #[test]
