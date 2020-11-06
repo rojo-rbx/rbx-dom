@@ -139,7 +139,8 @@ impl WeakDom {
     }
 
     /// Move the instance with the given referent to a new `WeakDom`, parenting
-    /// it to the given ref.
+    /// it to the given ref. To move to within the same DOM, use
+    /// [`WeakDom::transfer_within`].
     ///
     /// This function would be called `move`, but that's a Rust keyword!
     ///
@@ -159,8 +160,8 @@ impl WeakDom {
             .remove(&referent)
             .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
 
-        // Remove the instance being moved from its parents list of children. If
-        // we care about panic tolerance in the future, doing this first is
+        // Remove the instance being moved from its parent's list of children.
+        // If we care about panic tolerance in the future, doing this first is
         // important to ensure this link is the one severed first.
         let parent = self.instances.get_mut(&instance.parent).unwrap();
         parent.children.retain(|&child| child != referent);
@@ -188,6 +189,44 @@ impl WeakDom {
         let dest_parent = dest.instances.get_mut(&dest_parent_ref).unwrap_or_else(|| {
             panic!("cannot move an instance into an instance that does not exist")
         });
+        dest_parent.children.push(referent);
+    }
+
+    /// Move the instance with the given referent to a new parent within the
+    /// same `WeakDom`. To move to another DOM, use [`WeakDom::transfer`].
+    ///
+    /// This function would be called `move_within`, but `move` is a Rust
+    /// keyword and consistency with `transfer` is valuable.
+    ///
+    /// ## Panics
+    /// Panics if `referent` or `dest_parent_ref` do not refer to instances in
+    /// `self`.
+    ///
+    /// Will also panic if `referent` refers to the root instance in this
+    /// `WeakDom`.
+    pub fn transfer_within(&mut self, referent: Ref, dest_parent_ref: Ref) {
+        if referent == self.root_ref {
+            panic!("cannot transfer the root instance of WeakDom");
+        }
+
+        let mut instance = self
+            .instances
+            .get_mut(&referent)
+            .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
+
+        // Tell the instance who its new parent is.
+        let parent_ref = instance.parent;
+        instance.parent = dest_parent_ref;
+
+        // Remove the instance's referent from its parent's list of children.
+        let parent = self.instances.get_mut(&parent_ref).unwrap();
+        parent.children.retain(|&child| child != referent);
+
+        // Add the instance's referent to its new parent's list of children.
+        let dest_parent = self
+            .instances
+            .get_mut(&dest_parent_ref)
+            .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
         dest_parent.children.push(referent);
     }
 }
@@ -222,5 +261,36 @@ mod test {
         // This snapshot should be exactly the same as the first snapshot,
         // containing Target and Child.
         insta::assert_yaml_snapshot!(viewer.view_children(&dest));
+    }
+
+    #[test]
+    fn transfer_within() {
+        let subject = InstanceBuilder::new("Folder")
+            .with_name("Root")
+            .with_child(InstanceBuilder::new("SpawnLocation"));
+        let subject_ref = subject.referent;
+
+        let source_parent = InstanceBuilder::new("Folder")
+            .with_name("Source")
+            .with_child(subject);
+
+        let dest_parent = InstanceBuilder::new("Folder").with_name("Dest");
+        let dest_parent_ref = dest_parent.referent;
+
+        let mut dom = WeakDom::new(
+            InstanceBuilder::new("Folder")
+                .with_child(source_parent)
+                .with_child(dest_parent),
+        );
+
+        let mut viewer = DomViewer::new();
+
+        // This snapshot should have Root and SpawnLocation contained in Source.
+        insta::assert_yaml_snapshot!(viewer.view_children(&dom));
+
+        dom.transfer_within(subject_ref, dest_parent_ref);
+
+        // This snapshot should have Root and SpawnLocation contained in Dest.
+        insta::assert_yaml_snapshot!(viewer.view_children(&dom));
     }
 }
