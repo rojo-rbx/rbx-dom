@@ -4,14 +4,13 @@ use rbx_types::Ref;
 
 use crate::instance::{Instance, InstanceBuilder};
 
-/// Represents a tree containing Roblox instances.
+/// Represents a DOM containing one or more Roblox instances.
 ///
-/// Instances are described by [RbxInstance](struct.RbxInstance.html) objects
-/// and have an ID, children, and a parent.
+/// Instances are described by [`Instance`] objects and have a referent, a class
+/// name, a name, properties, and an ordered list of children.
 ///
-/// When constructing instances, you'll want to create
-/// [RbxInstanceProperties](struct.RbxInstanceProperties.html) objects and
-/// insert them into the tree.
+/// When constructing instances, you'll want to create [`InstanceBuilder`]
+/// objects and insert them into the tree.
 #[derive(Debug)]
 pub struct WeakDom {
     instances: HashMap<Ref, Instance>,
@@ -19,7 +18,7 @@ pub struct WeakDom {
 }
 
 impl WeakDom {
-    /// Consruct a new `WeakDom` described by the given `InstanceBuilder`.
+    /// Construct a new `WeakDom` described by the given [`InstanceBuilder`].
     pub fn new(builder: InstanceBuilder) -> WeakDom {
         let root_ref = builder.referent;
 

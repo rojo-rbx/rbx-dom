@@ -1,12 +1,25 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
-* Breaking: Rewrote crate APIs to be faster, smaller, and make more sense.
-	* `RbxTree` was replaced with `WeakDom`.
-	* `RbxInstanceProperties` was replaced with `InstanceBuilder` from rbx_dom_test.
-	* `RbxInstance` was replaced with `Instance`.
-	* Many APIs were changed to line up with standard Rust conventions.
-* Breaking: Moved types into rbx_types crate, re-exported as `rbx_dom_weak::types`.
+This release is a major, breaking change that introduces many fixes and features.
+
+* `RbxTree` was replaced with `WeakDom`
+	* Changed `new` to accept an `InstanceBuilder`, which can contain children.
+	* Renamed `get_root_id` to `root_ref`.
+	* Renamed `get_instance` to `get_by_ref`.
+	* Renamed `get_instance_mut` to `get_by_ref_mut`.
+	* Renamed `move_instance` to `transfer`.
+	* Renamed `set_parent` to `transfer_within`.
+	* Renamed `insert_instance` to `insert`. This method now accepts an `InstanceBuilder`.
+	* Removed `remove_instance`, replaced by `destroy` and `transfer`.
+	* Removed `iter_all_ids`.
+	* Removed `descendants`.
+	* Added `root` and `root_mut` for accessing the root instance directly.
+* `RbxInstanceProperties` was replaced with `InstanceBuilder`
+	* This API is completely different, as it's now a builder. It is now much easier to construct instances.
+* `RbxInstance` was replaced with `Instance`
+	* This type now directly exposes its values instead of implementing `Deref` for another type.
+* Moved types into the `rbx_types` crate, re-exported as `rbx_dom_weak::types`.
 	* `RbxId` was replaced with `types::Ref`, which can now represent null referents.
 * Added `DomViewer` API from rbx_dom_test to make testing instance trees easier.
 
