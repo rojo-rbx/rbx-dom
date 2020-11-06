@@ -444,12 +444,8 @@ fn find_serialized_from_canonical(
             Some(serialized_descriptor)
         }
 
-        // If this property does not serialize, it's possible that it isn't
-        // relevant for rbx_binary. As-is we cannot distinguish between unknown
-        // properties and properties that do not serialize.
-        //
-        // FIXME: Should we change PropertyDescriptors.serialized to
-        // be optional and return a None serialized descriptor here?
+        // If this property does not serialize, there is no serialized
+        // descriptor to use.
         PropertySerialization::DoesNotSerialize => None,
 
         // This case will be hit if a new form of property serialization is
