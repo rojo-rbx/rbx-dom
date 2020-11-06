@@ -499,7 +499,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 let mut chunk = ChunkBuilder::new(b"PROP", ChunkCompression::Compressed);
 
                 chunk.write_le_u32(type_info.type_id)?;
-                chunk.write_string(&prop_name)?;
+                chunk.write_string(&prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
                 let dom = &self.dom;
