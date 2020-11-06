@@ -319,7 +319,7 @@ pub fn find_canonical_property_descriptor(
 
 pub struct PropertyDescriptors {
     pub canonical: &'static PropertyDescriptor<'static>,
-    pub serialized: &'static PropertyDescriptor<'static>,
+    pub serialized: Option<&'static PropertyDescriptor<'static>>,
 }
 
 /// Find both the canonical and serialized property descriptors for a given
@@ -352,7 +352,7 @@ pub fn find_property_descriptors(
                         class_descriptor,
                         property_descriptor,
                         serialization,
-                    )?;
+                    );
 
                     return Some(PropertyDescriptors {
                         canonical: property_descriptor,
@@ -376,7 +376,7 @@ pub fn find_property_descriptors(
                                 class_descriptor,
                                 canonical,
                                 serialization,
-                            )?;
+                            );
 
                             return Some(PropertyDescriptors {
                                 canonical,

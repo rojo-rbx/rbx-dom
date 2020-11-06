@@ -243,10 +243,17 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
             match find_property_descriptors(&instance.class, prop_name) {
                 Some(descriptors) => {
-                    canonical_name = descriptors.canonical.name.clone();
-                    serialized_name = descriptors.serialized.name.clone();
+                    // For any properties that do not serialize, we can skip
+                    // adding them to the set of type_infos.
+                    let serialized = match descriptors.serialized {
+                        Some(descriptor) => descriptor,
+                        None => continue,
+                    };
 
-                    serialized_ty = match &descriptors.serialized.data_type {
+                    canonical_name = descriptors.canonical.name.clone();
+                    serialized_name = serialized.name.clone();
+
+                    serialized_ty = match &serialized.data_type {
                         DataType::Value(ty) => *ty,
                         DataType::Enum(_) => VariantType::EnumValue,
 
