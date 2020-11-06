@@ -328,9 +328,7 @@ pub fn find_property_descriptors(
     class_name: &str,
     property_name: &str,
 ) -> Option<PropertyDescriptors> {
-    let class_descriptor = rbx_reflection_database::get().classes.get(class_name)?;
-
-    let mut current_class_descriptor = class_descriptor;
+    let mut class_descriptor = rbx_reflection_database::get().classes.get(class_name)?;
 
     // We need to find the canonical property descriptor associated with
     // the property we're working with.
@@ -342,7 +340,7 @@ pub fn find_property_descriptors(
     loop {
         // If this class descriptor knows about this property name, we're pretty
         // much done!
-        if let Some(property_descriptor) = current_class_descriptor.properties.get(property_name) {
+        if let Some(property_descriptor) = class_descriptor.properties.get(property_name) {
             match &property_descriptor.kind {
                 // This property descriptor is the canonical form of this
                 // logical property. That means we've found one of the two
@@ -365,10 +363,7 @@ pub fn find_property_descriptors(
                 // return, it's possible that both the canonical and serialized
                 // forms are different.
                 PropertyKind::Alias { alias_for } => {
-                    let canonical = current_class_descriptor
-                        .properties
-                        .get(alias_for.as_ref())
-                        .unwrap();
+                    let canonical = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
 
                     match &canonical.kind {
                         PropertyKind::Canonical { serialization } => {
@@ -389,9 +384,9 @@ pub fn find_property_descriptors(
                         _ => {
                             log::error!(
                                 "Property {}.{} is marked as an alias for {}.{}, but the latter is not canonical.",
-                                current_class_descriptor.name,
+                                class_descriptor.name,
                                 property_descriptor.name,
-                                current_class_descriptor.name,
+                                class_descriptor.name,
                                 alias_for
                             );
 
@@ -406,11 +401,11 @@ pub fn find_property_descriptors(
             }
         }
 
-        if let Some(superclass_name) = &current_class_descriptor.superclass {
+        if let Some(superclass_name) = &class_descriptor.superclass {
             // If a property descriptor isn't found in our class, check our
             // superclass.
 
-            current_class_descriptor = rbx_reflection_database::get()
+            class_descriptor = rbx_reflection_database::get()
                 .classes
                 .get(superclass_name)
                 .expect("Superclass in reflection database didn't exist");
