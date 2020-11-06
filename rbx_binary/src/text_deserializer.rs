@@ -407,9 +407,9 @@ impl DecodedValues {
                 let mut g = vec![0; prop_count];
                 let mut b = vec![0; prop_count];
 
-			 reader.read_exact(r.as_mut_slice()).unwrap();
-			 reader.read_exact(g.as_mut_slice()).unwrap();
-			 reader.read_exact(b.as_mut_slice()).unwrap();
+                reader.read_exact(r.as_mut_slice()).unwrap();
+                reader.read_exact(g.as_mut_slice()).unwrap();
+                reader.read_exact(b.as_mut_slice()).unwrap();
 
                 let values = r
                     .into_iter()
