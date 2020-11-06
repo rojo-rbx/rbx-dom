@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, HashMap, VecDeque},
+    collections::{BTreeMap, BTreeSet, HashMap, VecDeque},
     convert::TryInto,
     io::{self, Write},
     u32,
@@ -175,6 +175,13 @@ struct PropInfo {
     /// name for the property.
     serialized_name: Cow<'static, str>,
 
+    /// A set containing the names of all aliases discovered while preparing to
+    /// serialize this property. Ideally, this set will remain empty (and not
+    /// allocate) in most cases. However, if an instance is missing a property
+    /// from its canonical name, but does have another variant, we can use this
+    /// set to recover and map those values.
+    aliases: BTreeSet<String>,
+
     /// The default value for this property that should be used if any instances
     /// are missing this property.
     ///
@@ -262,6 +269,15 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 }
             }
 
+            // In order to prevent cloning canonical_name in a rare branch,
+            // we conditionally clone here if we'll need canonical_name after
+            // it's inserted into type_info.properties.
+            let canonical_name_if_different = if prop_name != &canonical_name {
+                Some(canonical_name.clone())
+            } else {
+                None
+            };
+
             if !type_info.properties.contains_key(&canonical_name) {
                 let default_value = type_info
                     .class_descriptor
@@ -298,9 +314,21 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     PropInfo {
                         prop_type: ser_type,
                         serialized_name,
+                        aliases: BTreeSet::new(),
                         default_value,
                     },
                 );
+            }
+
+            // If the property we found on this instance is different than the
+            // canonical name for this property, stash it into the set of known
+            // aliases for this PropInfo.
+            if let Some(canonical_name) = canonical_name_if_different {
+                let prop_info = type_info.properties.get_mut(&canonical_name).unwrap();
+
+                if !prop_info.aliases.contains(prop_name) {
+                    prop_info.aliases.insert(prop_name.clone());
+                }
             }
         }
 
@@ -338,6 +366,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 PropInfo {
                     prop_type: Type::String,
                     serialized_name: Cow::Borrowed("Name"),
+                    aliases: BTreeSet::new(),
                     default_value: Cow::Owned(Variant::String(String::new())),
                 },
             );
@@ -480,14 +509,28 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         // convenience, but when serializing to the binary model
                         // format we need to handle it just like other properties.
                         if prop_name == "Name" {
-                            Cow::Owned(Variant::String(instance.name.clone()))
-                        } else {
-                            instance
-                                .properties
-                                .get(prop_name.as_ref())
-                                .map(Cow::Borrowed)
-                                .unwrap_or_else(|| Cow::Borrowed(prop_info.default_value.borrow()))
+                            return Cow::Owned(Variant::String(instance.name.clone()));
                         }
+
+                        // Most properties will be stored on instances using the
+                        // property's canonical name, so we'll try that first.
+                        if let Some(property) = instance.properties.get(prop_name.as_ref()) {
+                            return Cow::Borrowed(property);
+                        }
+
+                        // If there were any known aliases for this property
+                        // used as part of this file, we can check those next.
+                        for alias in &prop_info.aliases {
+                            if let Some(property) = instance.properties.get(alias) {
+                                return Cow::Borrowed(property);
+                            }
+                        }
+
+                        // Finally, we can fall back to the default value we
+                        // computed for this PropInfo. This is sourced from the
+                        // reflection database if available, or falls back to a
+                        // reasonable default.
+                        Cow::Borrowed(prop_info.default_value.borrow())
                     })
                     .enumerate();
 
