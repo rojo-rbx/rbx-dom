@@ -112,18 +112,22 @@ impl WeakDom {
     ///
     /// ## Panics
     /// Panics if `referent` does not refer to an instance in the DOM.
+    ///
+    /// Will also panic if `referent` refers to the root instance in this
+    /// `WeakDom`.
     pub fn destroy(&mut self, referent: Ref) {
+        if referent == self.root_ref {
+            panic!("cannot destroy the root instance of a WeakDom");
+        }
+
         let instance = self
             .instances
             .get(&referent)
             .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
 
-        let parent = instance.parent;
-
-        if parent.is_some() {
-            let parent = self.instances.get_mut(&parent).unwrap();
-            parent.children.retain(|&child| child != referent);
-        }
+        let parent_ref = instance.parent;
+        let parent = self.instances.get_mut(&parent_ref).unwrap();
+        parent.children.retain(|&child| child != referent);
 
         let mut to_remove = VecDeque::new();
         to_remove.push_back(referent);
