@@ -302,10 +302,7 @@ impl DecodedValues {
 
                 let values = values
                     .into_iter()
-                    .map(|value| {
-                        BrickColor::from_number(value as u16)
-                            .unwrap_or_else(|| BrickColor::MediumStoneGrey)
-                    })
+                    .map(|value| BrickColor::from_number(value as u16).unwrap())
                     .collect();
 
                 Some(DecodedValues::BrickColor(values))
