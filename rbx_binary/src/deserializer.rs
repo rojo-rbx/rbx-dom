@@ -7,8 +7,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, CFrame, Color3, EnumValue, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType,
-        Vector2, Vector3,
+        Axes, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, Ref, UDim, UDim2, Variant,
+        VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -856,7 +856,37 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::NumberRange => {}
             Type::Rect => {}
             Type::PhysicalProperties => {}
-            Type::Color3uint8 => {}
+            Type::Color3uint8 => match canonical_type {
+                VariantType::Color3 => {
+                    let len = type_info.referents.len();
+                    let mut r = vec![0; len];
+                    let mut g = vec![0; len];
+                    let mut b = vec![0; len];
+
+                    chunk.read_exact(r.as_mut_slice())?;
+                    chunk.read_exact(g.as_mut_slice())?;
+                    chunk.read_exact(b.as_mut_slice())?;
+
+                    let colors = r
+                        .into_iter()
+                        .zip(g)
+                        .zip(b)
+                        .map(|((r, g), b)| Variant::Color3uint8(Color3uint8::new(r, g, b)));
+
+                    for (color, referent) in colors.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.properties.push((canonical_name.clone(), color));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Color3",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Int64 => match canonical_type {
                 VariantType::Int64 => {
                     let mut values = vec![0; type_info.referents.len()];

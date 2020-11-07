@@ -41,4 +41,5 @@ binary_tests! {
     two_cframevalues,
     cframe_special_cases,
     cframe_case_mixture,
+    three_unique_parts,
 }

@@ -1,5 +1,5 @@
 use rbx_dom_weak::{
-    types::{Ref, Region3, Vector3},
+    types::{Color3, Color3uint8, Ref, Region3, Vector3},
     InstanceBuilder, WeakDom,
 };
 
@@ -122,5 +122,34 @@ fn logical_properties_basepart_size() {
     let result = encode(&tree, tree.root().children(), &mut buffer);
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+/// Ensures that all valid combinations of color property names and
+/// value types are properly handled.
+#[test]
+fn part_color() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("Folder")
+            .with_child(
+                InstanceBuilder::new("Part")
+                    .with_property("Color3uint8", Color3::new(-0.25, 0.5, 1.2)),
+            )
+            .with_child(
+                InstanceBuilder::new("Part")
+                    .with_property("Color3uint8", Color3uint8::new(25, 86, 254)),
+            )
+            .with_child(
+                InstanceBuilder::new("Part").with_property("Color", Color3::new(0.0, 0.5, 1.0)),
+            )
+            .with_child(
+                InstanceBuilder::new("Part").with_property("Color", Color3uint8::new(1, 30, 100)),
+            ),
+    );
+
+    let mut buf = Vec::new();
+    let _ = encode(&tree, tree.root().children(), &mut buf);
+
+    let decoded = DecodedModel::from_reader(buf.as_slice());
     insta::assert_yaml_snapshot!(decoded);
 }

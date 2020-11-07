@@ -8,8 +8,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, CFrame, Color3, Faces, Matrix3, Ref, UDim, UDim2, Variant, VariantType,
-        Vector2, Vector3,
+        Axes, BinaryString, CFrame, Color3, Color3uint8, Faces, Matrix3, Ref, UDim, UDim2, Variant,
+        VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -787,6 +787,31 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_u32_array(&buf)?;
                     }
+                    Type::Color3uint8 => {
+                        let mut r = Vec::with_capacity(values.len());
+                        let mut g = Vec::with_capacity(values.len());
+                        let mut b = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            match rbx_value.as_ref() {
+                                Variant::Color3uint8(value) => {
+                                    r.push(value.r);
+                                    g.push(value.g);
+                                    b.push(value.b);
+                                }
+                                Variant::Color3(value) => {
+                                    r.push((value.r.max(0.0).min(1.0) * 255.0).round() as u8);
+                                    g.push((value.g.max(0.0).min(1.0) * 255.0).round() as u8);
+                                    b.push((value.b.max(0.0).min(1.0) * 255.0).round() as u8);
+                                }
+                                _ => return type_mismatch(i, &rbx_value, "Color3uint8 or Color3"),
+                            }
+                        }
+
+                        chunk.write_all(r.as_slice())?;
+                        chunk.write_all(g.as_slice())?;
+                        chunk.write_all(b.as_slice())?;
+                    }
                     Type::Int64 => {
                         let mut buf = Vec::with_capacity(values.len());
 
@@ -908,6 +933,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
+            VariantType::Color3uint8 => Variant::Color3uint8(Color3uint8::new(0, 0, 0)),
             VariantType::Int64 => Variant::Int64(0),
             _ => return None,
         })

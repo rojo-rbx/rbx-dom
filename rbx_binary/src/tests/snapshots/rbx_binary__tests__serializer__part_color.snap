@@ -1,0 +1,54 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 1
+num_instances: 4
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: Part
+      object_format: 0
+      referents:
+        - 0
+        - 1
+        - 2
+        - 3
+  - Prop:
+      type_id: 0
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 0
+          - 128
+          - 255
+        - - 25
+          - 86
+          - 254
+        - - 0
+          - 128
+          - 255
+        - - 1
+          - 30
+          - 100
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Part
+        - Part
+        - Part
+        - Part
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+        - - 3
+          - -1
+  - End
