@@ -675,11 +675,13 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let color = BrickColor::from_number(value as u16).ok_or_else(|| InnerError::InvalidPropData {
-                            type_name: type_info.type_name.clone(),
-                            prop_name: prop_name.clone(),
-                            valid_value: "a valid BrickColor",
-                            actual_value: value.to_string(),
+                        let color = BrickColor::from_number(value as u16).ok_or_else(|| {
+                            InnerError::InvalidPropData {
+                                type_name: type_info.type_name.clone(),
+                                prop_name: prop_name.clone(),
+                                valid_value: "a valid BrickColor",
+                                actual_value: value.to_string(),
+                            }
                         })?;
 
                         instance
