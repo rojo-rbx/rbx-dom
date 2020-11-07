@@ -457,7 +457,7 @@ The `PhysicalProperties` type is a struct composed of five f32s:
 | ElasticityWeight | f32    | The elasticity weight set for the custom physical properties |
 | FrictionWeight   | f32    | The friction weight set for the custom physical properties   |
 
-If there are no custom physical properties set, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by `Density`, `Friction`, `Elasticity`, `ElasticityWeight`, and `Friction` (in that order) as little-endian floats. When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
+If there are no custom physical properties set, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by `Density`, `Friction`, `Elasticity`, `ElasticityWeight`, and `FrictionWeight` (in that order) as little-endian floats. When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
 
 A default `PhysicalProperties` (i.e. no custom properties set) followed by a `PhysicalProperties` of value `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)` looks like this: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`.
 
