@@ -7,7 +7,8 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{
-    Axes, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, UDim, UDim2, Vector2, Vector3,
+    Axes, BrickColor, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, UDim, UDim2, Vector2,
+    Vector3,
 };
 use serde::Serialize;
 
@@ -181,6 +182,7 @@ pub enum DecodedValues {
     UDim2(Vec<UDim2>),
     Faces(Vec<Faces>),
     Axes(Vec<Axes>),
+    BrickColor(Vec<BrickColor>),
     Color3(Vec<Color3>),
     Vector2(Vec<Vector2>),
     Vector3(Vec<Vector3>),
@@ -293,6 +295,20 @@ impl DecodedValues {
                 }
 
                 Some(DecodedValues::Axes(values))
+            }
+            Type::BrickColor => {
+                let mut values = vec![0; prop_count];
+                reader.read_interleaved_u32_array(&mut values).unwrap();
+
+                let values = values
+                    .into_iter()
+                    .map(|value| {
+                        BrickColor::from_number(value as u16)
+                            .unwrap_or_else(|| BrickColor::MediumStoneGrey)
+                    })
+                    .collect();
+
+                Some(DecodedValues::BrickColor(values))
             }
             Type::CFrame => {
                 let mut rotations = vec![Matrix3::identity(); prop_count];

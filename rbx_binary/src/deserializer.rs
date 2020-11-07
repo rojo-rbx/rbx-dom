@@ -7,8 +7,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, Ref, UDim, UDim2, Variant,
-        VariantType, Vector2, Vector3,
+        Axes, BrickColor, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, Ref, UDim, UDim2,
+        Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -668,7 +668,32 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::BrickColor => {}
+            Type::BrickColor => match canonical_type {
+                VariantType::BrickColor => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_u32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let rbx_value = Variant::BrickColor(
+                            BrickColor::from_number(value as u16)
+                                // We should perhaps return an error here but this matches Roblox Studio's behavior
+                                .unwrap_or_else(|| BrickColor::MediumStoneGrey),
+                        );
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), rbx_value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "BrickColor",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Color3 => match canonical_type {
                 VariantType::Color3 => {
                     let mut r = vec![0.0; type_info.referents.len()];

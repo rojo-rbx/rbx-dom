@@ -8,8 +8,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, CFrame, Color3, Color3uint8, Faces, Matrix3, Ref, UDim, UDim2, Variant,
-        VariantType, Vector2, Vector3,
+        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Faces, Matrix3, Ref, UDim,
+        UDim2, Variant, VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -680,6 +680,19 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             }
                         }
                     }
+                    Type::BrickColor => {
+                        let mut numbers = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::BrickColor(value) = rbx_value.as_ref() {
+                                numbers.push(*value as u32)
+                            } else {
+                                return type_mismatch(i, &rbx_value, "BrickColor");
+                            }
+                        }
+
+                        chunk.write_interleaved_u32_array(&numbers)?;
+                    }
                     Type::Color3 => {
                         let mut r = Vec::with_capacity(values.len());
                         let mut g = Vec::with_capacity(values.len());
@@ -926,6 +939,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
             VariantType::Faces => Variant::Faces(Faces::from_bits(0)?),
             VariantType::Axes => Variant::Axes(Axes::from_bits(0)?),
+            VariantType::BrickColor => Variant::BrickColor(BrickColor::MediumStoneGrey),
             VariantType::CFrame => Variant::CFrame(CFrame::new(
                 Vector3::new(0.0, 0.0, 0.0),
                 Matrix3::identity(),

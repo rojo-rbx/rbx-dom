@@ -42,4 +42,5 @@ binary_tests! {
     cframe_special_cases,
     cframe_case_mixture,
     three_unique_parts,
+    three_brickcolorvalues,
 }
