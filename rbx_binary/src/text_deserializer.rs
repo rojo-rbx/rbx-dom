@@ -7,7 +7,8 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{
-    Axes, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, UDim, UDim2, Vector2, Vector3,
+    Axes, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
+    PhysicalProperties, UDim, UDim2, Vector2, Vector3,
 };
 use serde::Serialize;
 
@@ -186,6 +187,7 @@ pub enum DecodedValues {
     Vector3(Vec<Vector3>),
     CFrame(Vec<CFrame>),
     Enum(Vec<EnumValue>),
+    PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
 }
@@ -401,6 +403,25 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::Vector3(values))
+            }
+            Type::PhysicalProperties => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    if reader.read_u8().unwrap() == 1 {
+                        values.push(PhysicalProperties::Custom(CustomPhysicalProperties {
+                            density: reader.read_le_f32().unwrap(),
+                            friction: reader.read_le_f32().unwrap(),
+                            elasticity: reader.read_le_f32().unwrap(),
+                            elasticity_weight: reader.read_le_f32().unwrap(),
+                            friction_weight: reader.read_le_f32().unwrap(),
+                        }))
+                    } else {
+                        values.push(PhysicalProperties::Default)
+                    }
+                }
+
+                Some(DecodedValues::PhysicalProperties(values))
             }
             Type::Color3uint8 => {
                 let mut r = vec![0; prop_count];

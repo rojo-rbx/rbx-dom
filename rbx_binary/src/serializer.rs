@@ -8,8 +8,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, CFrame, Color3, Color3uint8, Faces, Matrix3, Ref, UDim, UDim2, Variant,
-        VariantType, Vector2, Vector3,
+        Axes, BinaryString, CFrame, Color3, Color3uint8, Faces, Matrix3, PhysicalProperties, Ref,
+        UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -787,6 +787,24 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_u32_array(&buf)?;
                     }
+                    Type::PhysicalProperties => {
+                        for (i, rbx_value) in values {
+                            if let Variant::PhysicalProperties(value) = rbx_value.as_ref() {
+                                if let PhysicalProperties::Custom(props) = value {
+                                    chunk.write_u8(1)?;
+                                    chunk.write_le_f32(props.density)?;
+                                    chunk.write_le_f32(props.friction)?;
+                                    chunk.write_le_f32(props.elasticity)?;
+                                    chunk.write_le_f32(props.elasticity_weight)?;
+                                    chunk.write_le_f32(props.friction_weight)?;
+                                } else {
+                                    chunk.write_u8(0)?;
+                                }
+                            } else {
+                                return type_mismatch(i, &rbx_value, "PhysicalProperties");
+                            }
+                        }
+                    }
                     Type::Color3uint8 => {
                         let mut r = Vec::with_capacity(values.len());
                         let mut g = Vec::with_capacity(values.len());
@@ -933,6 +951,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
+            VariantType::PhysicalProperties => {
+                Variant::PhysicalProperties(PhysicalProperties::Default)
+            }
             VariantType::Color3uint8 => Variant::Color3uint8(Color3uint8::new(0, 0, 0)),
             VariantType::Int64 => Variant::Int64(0),
             _ => return None,
