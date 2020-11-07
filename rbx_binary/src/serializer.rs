@@ -795,8 +795,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                                     chunk.write_le_f32(props.density)?;
                                     chunk.write_le_f32(props.friction)?;
                                     chunk.write_le_f32(props.elasticity)?;
-                                    chunk.write_le_f32(props.elasticity_weight)?;
                                     chunk.write_le_f32(props.friction_weight)?;
+                                    chunk.write_le_f32(props.elasticity_weight)?;
                                 } else {
                                     chunk.write_u8(0)?;
                                 }

@@ -413,8 +413,8 @@ impl DecodedValues {
                             density: reader.read_le_f32().unwrap(),
                             friction: reader.read_le_f32().unwrap(),
                             elasticity: reader.read_le_f32().unwrap(),
-                            elasticity_weight: reader.read_le_f32().unwrap(),
                             friction_weight: reader.read_le_f32().unwrap(),
+                            elasticity_weight: reader.read_le_f32().unwrap(),
                         }))
                     } else {
                         values.push(PhysicalProperties::Default)

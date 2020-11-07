@@ -866,8 +866,8 @@ impl<R: Read> BinaryDeserializer<R> {
                                     density: chunk.read_le_f32()?,
                                     friction: chunk.read_le_f32()?,
                                     elasticity: chunk.read_le_f32()?,
-                                    elasticity_weight: chunk.read_le_f32()?,
                                     friction_weight: chunk.read_le_f32()?,
+                                    elasticity_weight: chunk.read_le_f32()?,
                                 },
                             )))
                         } else {

@@ -196,8 +196,8 @@ chunks:
         - Density: 90.66000366210938
           Friction: 1.440000057220459
           Elasticity: 0.6499999761581421
-          FrictionWeight: 40.5
-          ElasticityWeight: 50.5
+          FrictionWeight: 50.5
+          ElasticityWeight: 40.5
   - Prop:
       type_id: 0
       prop_name: FrontParamA
