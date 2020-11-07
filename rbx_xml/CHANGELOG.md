@@ -1,8 +1,12 @@
 # rbx_xml Changelog
 
 ## Unreleased
-* Breaking: ported to rbx_dom_weak 2.0
-* Added support for serializing the `Ray` type, used in the `RayValue` instance.
+This release is a major, breaking change that upgrades rbx_xml's underlying DOM implementation from rbx_dom_weak 1.0 to 2.0.
+
+* Breaking: upgraded to rbx_dom_weak 2.0
+* Added support for the `Ray` type, used in the `RayValue` instance.
+* Added support for the `Faces` type, used in the `Handles` instance.
+* Added support for the `Axes` type, used in the `ArcHandles` instance.
 
 ## 0.11.4 (2019-12-18)
 * Updated `base64` dependency

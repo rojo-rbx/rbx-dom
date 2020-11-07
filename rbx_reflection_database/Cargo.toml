@@ -1,6 +1,11 @@
 [package]
 name = "rbx_reflection_database"
 version = "0.1.0"
+license = "MIT"
+documentation = "https://docs.rs/rbx_reflection_database"
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom.git"
+readme = "README.md"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
 
