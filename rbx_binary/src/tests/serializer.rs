@@ -1,5 +1,5 @@
 use rbx_dom_weak::{
-    types::{Color3, Ref, Region3, Vector3},
+    types::{Color3, Color3uint8, Ref, Region3, Vector3},
     InstanceBuilder, WeakDom,
 };
 
@@ -125,11 +125,10 @@ fn logical_properties_basepart_size() {
     insta::assert_yaml_snapshot!(decoded);
 }
 
-/// Ensures that Color3 can be serialized as Color3uint8. We use both the
-/// canonical property name Part.Color as well as the serialized name
-/// Part.Color3uint8.
+/// Ensures that all valid combinations of color property names and
+/// value types are properly handled.
 #[test]
-fn color3_to_color3uint8() {
+fn part_color() {
     let tree = WeakDom::new(
         InstanceBuilder::new("Folder")
             .with_child(
@@ -138,10 +137,13 @@ fn color3_to_color3uint8() {
             )
             .with_child(
                 InstanceBuilder::new("Part")
-                    .with_property("Color", Color3::new(0.1111, 0.3333, 0.9999)),
+                    .with_property("Color3uint8", Color3uint8::new(25, 86, 254)),
             )
             .with_child(
                 InstanceBuilder::new("Part").with_property("Color", Color3::new(0.0, 0.5, 1.0)),
+            )
+            .with_child(
+                InstanceBuilder::new("Part").with_property("Color", Color3uint8::new(1, 30, 100)),
             ),
     );
 

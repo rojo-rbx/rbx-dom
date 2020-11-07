@@ -3,7 +3,7 @@ source: rbx_binary/src/tests/serializer.rs
 expression: decoded
 ---
 num_types: 1
-num_instances: 3
+num_instances: 4
 chunks:
   - Inst:
       type_id: 0
@@ -13,6 +13,7 @@ chunks:
         - 0
         - 1
         - 2
+        - 3
   - Prop:
       type_id: 0
       prop_name: Color3uint8
@@ -21,17 +22,21 @@ chunks:
         - - 0
           - 128
           - 255
-        - - 28
-          - 85
-          - 255
+        - - 25
+          - 86
+          - 254
         - - 0
           - 128
           - 255
+        - - 1
+          - 30
+          - 100
   - Prop:
       type_id: 0
       prop_name: Name
       prop_type: String
       values:
+        - Part
         - Part
         - Part
         - Part
@@ -43,5 +48,7 @@ chunks:
         - - 1
           - -1
         - - 2
+          - -1
+        - - 3
           - -1
   - End
