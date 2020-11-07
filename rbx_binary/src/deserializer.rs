@@ -857,11 +857,10 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::Rect => {}
             Type::PhysicalProperties => match canonical_type {
                 VariantType::PhysicalProperties => {
-                    let mut values = Vec::with_capacity(type_info.referents.len());
-
-                    for _ in 0..type_info.referents.len() {
-                        if chunk.read_u8()? == 1 {
-                            values.push(Variant::PhysicalProperties(PhysicalProperties::Custom(
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = if chunk.read_u8()? == 1 {
+                            Variant::PhysicalProperties(PhysicalProperties::Custom(
                                 CustomPhysicalProperties {
                                     density: chunk.read_le_f32()?,
                                     friction: chunk.read_le_f32()?,
@@ -869,14 +868,11 @@ impl<R: Read> BinaryDeserializer<R> {
                                     friction_weight: chunk.read_le_f32()?,
                                     elasticity_weight: chunk.read_le_f32()?,
                                 },
-                            )))
+                            ))
                         } else {
-                            values.push(Variant::PhysicalProperties(PhysicalProperties::Default))
-                        }
-                    }
+                            Variant::PhysicalProperties(PhysicalProperties::Default)
+                        };
 
-                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.properties.push((canonical_name.clone(), value));
                     }
                 }
