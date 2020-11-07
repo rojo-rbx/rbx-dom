@@ -447,7 +447,7 @@ The **correct** interpretation of this data, with accumulation, is:
 
 ### PhysicalProperties
 
-The `PhysicalProperties` type is a struct composed of five f32s:
+The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five f32s:
 
 | Field Name       | Format | Value                                                        |
 |:-----------------|:-------|:-------------------------------------------------------------|
@@ -457,7 +457,7 @@ The `PhysicalProperties` type is a struct composed of five f32s:
 | FrictionWeight   | f32    | The friction weight set for the custom physical properties   |
 | ElasticityWeight | f32    | The elasticity weight set for the custom physical properties |
 
-If there are no custom physical properties set, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by `Density`, `Friction`, `Elasticity`, `FrictionWeight`, and `ElasticityWeight` (in that order) as little-endian floats. When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
+If there is no `CustomPhysicalProperties` value, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by a `CustomPhysicalProperties` stored as little-endian floats (in the same order as the above table). When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
 
 A default `PhysicalProperties` (i.e. no custom properties set) followed by a `PhysicalProperties` of value `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)` looks like this: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`.
 
