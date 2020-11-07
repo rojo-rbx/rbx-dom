@@ -66,7 +66,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | BrickColor         | `Part.BrickColor`               | ✔ | ✔ | ✔ | ❌ |
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ➖ |
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ✔ |
-| Color3uint8        | `N/A`                           | ✔ | ✔ | ✔ | ✔ |
+| Color3uint8        | `Part.BrickColor`               | ✔ | ✔ | ✔ | ✔ |
 | ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ✔ |
@@ -82,16 +82,16 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ❌ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
-| Region3            | `N/A`                           | ✔ | ✔ | ❌ | ❌ |
+| Region3            | N/A                             | ✔ | ✔ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ✔ | ✔ | ❌ | ❌ |
-| SharedString       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| SharedString       | N/A                             | ✔ | ✔ | ✔ | ❌ |
 | String             | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
 | UDim               | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ✔ |
 | UDim2              | `Frame.Size`                    | ✔ | ✔ | ✔ | ✔ |
 | Vector2            | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ✔ |
-| Vector2int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| Vector2int16       | N/A                             | ✔ | ✔ | ✔ | ❌ |
 | Vector3            | `Part.Size`                     | ✔ | ✔ | ✔ | ✔ |
-| Vector3int16       | `N/A`                           | ✔ | ✔ | ✔ | ❌ |
+| Vector3int16       | N/A                             | ✔ | ✔ | ✔ | ❌ |
 | QDir               | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ | ⛔ |
 | QFont              | `Studio.Font`                   | ⛔ | ⛔ | ⛔ | ⛔ |
 
