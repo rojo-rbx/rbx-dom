@@ -144,7 +144,10 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &W
 }
 
 struct Descriptors<'a> {
+    // This descriptor might be useful in the future, but is currently unused.
+    #[allow(unused)]
     input: &'a PropertyDescriptor<'a>,
+
     canonical: &'a PropertyDescriptor<'a>,
 }
 
