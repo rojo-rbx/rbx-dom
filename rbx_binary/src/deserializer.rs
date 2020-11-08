@@ -21,7 +21,7 @@ use crate::{
         find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
         FILE_VERSION,
     },
-    types::Type,
+    types::{InvalidTypeError, Type},
 };
 
 /// Represents an error that occurred during deserialization.
@@ -57,6 +57,12 @@ pub(crate) enum InnerError {
     UnknownChunkVersion {
         chunk_name: &'static str,
         version: u8,
+    },
+
+    #[error(transparent)]
+    InvalidTypeError {
+        #[from]
+        source: InvalidTypeError,
     },
 
     #[error(
@@ -389,7 +395,7 @@ impl<R: Read> BinaryDeserializer<R> {
     fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
-        let binary_type: Type = chunk.read_u8()?.try_into().unwrap();
+        let binary_type: Type = chunk.read_u8()?.try_into()?;
 
         let type_info = self
             .type_infos
