@@ -227,6 +227,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Collect information about all the different types of instance and their
     /// properties.
+    // Using the entry API here, as Clippy suggests, would require us to
+    // clone canonical_name in a cold branch. We don't want to do that.
+    #[allow(clippy::map_entry)]
     fn collect_type_info(&mut self, referent: Ref) -> Result<(), InnerError> {
         let instance = self
             .dom

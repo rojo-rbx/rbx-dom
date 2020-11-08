@@ -24,8 +24,9 @@ impl XmlType for Faces {
             .parse::<u8>()
             .map_err(|e| reader.error(e))?;
 
-        Self::from_bits(value)
-            .ok_or(reader.error(DecodeErrorKind::InvalidContent("Faces value out of range")))
+        Self::from_bits(value).ok_or_else(|| {
+            reader.error(DecodeErrorKind::InvalidContent("Faces value out of range"))
+        })
     }
 }
 

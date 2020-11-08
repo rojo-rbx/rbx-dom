@@ -299,10 +299,10 @@ impl DecodedValues {
             Type::CFrame => {
                 let mut rotations = vec![Matrix3::identity(); prop_count];
 
-                for i in 0..prop_count {
+                for rotation in rotations.iter_mut() {
                     let id = reader.read_u8().unwrap();
                     if id == 0 {
-                        rotations[i] = Matrix3::new(
+                        *rotation = Matrix3::new(
                             Vector3::new(
                                 reader.read_le_f32().unwrap(),
                                 reader.read_le_f32().unwrap(),
@@ -320,7 +320,7 @@ impl DecodedValues {
                             ),
                         );
                     } else {
-                        rotations[i] = special_case_to_rotation(id).unwrap();
+                        *rotation = special_case_to_rotation(id).unwrap();
                     }
                 }
 
@@ -346,10 +346,7 @@ impl DecodedValues {
                 let mut ints = vec![0; prop_count];
                 reader.read_interleaved_u32_array(&mut ints).unwrap();
 
-                let values = ints
-                    .into_iter()
-                    .map(|int| EnumValue::from_u32(int))
-                    .collect();
+                let values = ints.into_iter().map(EnumValue::from_u32).collect();
 
                 Some(DecodedValues::Enum(values))
             }
@@ -534,7 +531,7 @@ mod unknown_buffer {
 
     use serde::Serializer;
 
-    pub fn serialize<S>(value: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
+    pub fn serialize<S>(value: &[u8], serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {

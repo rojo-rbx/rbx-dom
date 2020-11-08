@@ -1,3 +1,7 @@
+// Creating a default reflection database implicitly doesn't really make sense
+// for most cases.
+#![allow(clippy::new_without_default)]
+
 use std::{
     borrow::Cow,
     collections::{HashMap, HashSet},

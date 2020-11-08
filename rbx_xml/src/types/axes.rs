@@ -25,7 +25,7 @@ impl XmlType for Axes {
             .map_err(|e| reader.error(e))?;
 
         Self::from_bits(value)
-            .ok_or(reader.error(DecodeErrorKind::InvalidContent("Axes value out of range")))
+            .ok_or_else(|| reader.error(DecodeErrorKind::InvalidContent("Axes value out of range")))
     }
 }
 

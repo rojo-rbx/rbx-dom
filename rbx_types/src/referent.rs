@@ -1,3 +1,6 @@
+// Refs are random, and so implementing Default doesn't really make sense.
+#![allow(clippy::new_without_default)]
+
 use std::num::NonZeroU128;
 
 /// An universally unique, optional reference to a Roblox instance.
