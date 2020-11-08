@@ -24,7 +24,9 @@ jobs:
         submodules: true
 
     - name: Setup Rust toolchain
-      run: rustup default ${{ matrix.rust_version }}
+      run: |
+        rustup default ${{ matrix.rust_version }}
+        rustup component add clippy
 
     - name: Run Clippy
       run: cargo clippy --all-targets --all-features -- -D warnings
