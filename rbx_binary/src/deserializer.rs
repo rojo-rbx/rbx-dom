@@ -7,8 +7,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, Ref, UDim, UDim2, Variant,
-        VariantType, Vector2, Vector3,
+        Axes, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
+        PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -855,7 +855,36 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::ColorSequence => {}
             Type::NumberRange => {}
             Type::Rect => {}
-            Type::PhysicalProperties => {}
+            Type::PhysicalProperties => match canonical_type {
+                VariantType::PhysicalProperties => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = if chunk.read_u8()? == 1 {
+                            Variant::PhysicalProperties(PhysicalProperties::Custom(
+                                CustomPhysicalProperties {
+                                    density: chunk.read_le_f32()?,
+                                    friction: chunk.read_le_f32()?,
+                                    elasticity: chunk.read_le_f32()?,
+                                    friction_weight: chunk.read_le_f32()?,
+                                    elasticity_weight: chunk.read_le_f32()?,
+                                },
+                            ))
+                        } else {
+                            Variant::PhysicalProperties(PhysicalProperties::Default)
+                        };
+
+                        instance.properties.push((canonical_name.clone(), value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "PhysicalProperties",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Color3uint8 => match canonical_type {
                 VariantType::Color3 => {
                     let len = type_info.referents.len();
