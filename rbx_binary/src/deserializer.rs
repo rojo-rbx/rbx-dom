@@ -788,16 +788,15 @@ impl<R: Read> BinaryDeserializer<R> {
                                 ),
                             ));
                         } else {
-                            let special_case = special_case_to_rotation(id);
-                            if special_case.is_some() {
-                                rotations.push(special_case.unwrap());
-                            } else {
-                                return Err(InnerError::BadCFrameOrientationId {
+                            let special_case = special_case_to_rotation(id).ok_or_else(|| {
+                                InnerError::BadCFrameOrientationId {
                                     type_name: type_info.type_name.clone(),
-                                    prop_name,
+                                    prop_name: prop_name.clone(),
                                     id,
-                                });
-                            }
+                                }
+                            })?;
+
+                            rotations.push(special_case);
                         }
                     }
 
