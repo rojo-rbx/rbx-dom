@@ -1,7 +1,7 @@
 /// A reference to a Roblox asset.
 ///
 /// When exposed to Lua, this is just a string.
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
