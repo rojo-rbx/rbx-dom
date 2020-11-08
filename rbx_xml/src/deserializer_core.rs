@@ -214,11 +214,8 @@ impl<R: Read> XmlEventReader<R> {
             None => return Ok(String::new()),
         };
 
-        loop {
-            match self.read_one_characters_event()? {
-                Some(piece) => buffer.push_str(&piece),
-                None => break,
-            }
+        while let Some(piece) = self.read_one_characters_event()? {
+            buffer.push_str(&piece);
         }
 
         Ok(buffer)

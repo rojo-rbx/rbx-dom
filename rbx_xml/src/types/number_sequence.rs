@@ -28,7 +28,7 @@ impl XmlType for NumberSequence {
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
         let contents = reader.read_characters()?;
         let mut pieces = contents
-            .split(" ")
+            .split(' ')
             .filter(|slice| !slice.is_empty())
             .map(|piece| piece.parse::<f32>().map_err(|e| reader.error(e)));
         let mut keypoints = Vec::new();
@@ -39,6 +39,9 @@ impl XmlType for NumberSequence {
             ))
         };
 
+        // Because next() returns Option<Result<_>> here, it's cleaner to use
+        // loop instead of while-let.
+        #[allow(clippy::while_let_loop)]
         loop {
             let time = match pieces.next() {
                 Some(value) => value?,

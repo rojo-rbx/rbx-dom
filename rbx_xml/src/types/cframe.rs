@@ -41,8 +41,7 @@ impl XmlType for CFrame {
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
         let mut value = CFrame::new(Vector3::new(0.0, 0.0, 0.0), Matrix3::identity());
 
-        for index in 0..12 {
-            let tag_name = TAG_NAMES[index];
+        for &tag_name in &TAG_NAMES {
             let component: f32 = reader.read_value_in_tag(tag_name)?;
 
             match tag_name {

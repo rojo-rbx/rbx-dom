@@ -40,6 +40,7 @@ pub fn encode_internal<W: Write>(
 
 /// Describes the strategy that rbx_xml should use when serializing properties.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[non_exhaustive]
 pub enum EncodePropertyBehavior {
     /// Ignores properties that aren't known by rbx_xml.
     ///
@@ -65,9 +66,6 @@ pub enum EncodePropertyBehavior {
     /// user to deal with oddities like how `Part.FormFactor` is actually
     /// serialized as `Part.formFactorRaw`.
     NoReflection,
-
-    #[doc(hidden)]
-    __Nonexhaustive,
 }
 
 /// Options available for serializing an XML-format model or place.
@@ -89,10 +87,7 @@ impl EncodeOptions {
     /// ones.
     #[inline]
     pub fn property_behavior(self, property_behavior: EncodePropertyBehavior) -> Self {
-        EncodeOptions {
-            property_behavior,
-            ..self
-        }
+        EncodeOptions { property_behavior }
     }
 
     pub(crate) fn use_reflection(&self) -> bool {
@@ -229,7 +224,6 @@ fn serialize_instance<'a, W: Write>(
                         property_name: property_name.clone(),
                     }));
                 }
-                EncodePropertyBehavior::__Nonexhaustive => unreachable!(),
             }
         }
     }
