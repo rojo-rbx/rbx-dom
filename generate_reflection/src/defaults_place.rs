@@ -227,9 +227,8 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
     // like enigo or maybe raw input calls to do this for them.
 
     loop {
-        match rx.recv()? {
-            DebouncedEvent::Write(_) => break,
-            _ => {}
+        if let DebouncedEvent::Write(_) = rx.recv()? {
+            break;
         }
     }
 
