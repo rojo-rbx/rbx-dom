@@ -450,6 +450,21 @@ The **correct** interpretation of this data, with accumulation, is:
 **Type ID 0x18**
 
 ### PhysicalProperties
+
+The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five f32s:
+
+| Field Name       | Format | Value                                                        |
+|:-----------------|:-------|:-------------------------------------------------------------|
+| Density          | f32    | The density set for the custom physical properties           |
+| Friction         | f32    | The friction set for the custom physical properties          |
+| Elasticity       | f32    | The elasticity set for the custom physical properties        |
+| FrictionWeight   | f32    | The friction weight set for the custom physical properties   |
+| ElasticityWeight | f32    | The elasticity weight set for the custom physical properties |
+
+If there is no `CustomPhysicalProperties` value, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by a `CustomPhysicalProperties` stored as little-endian floats (in the same order as the above table). When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
+
+A default `PhysicalProperties` (i.e. no custom properties set) followed by a `PhysicalProperties` of value `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)` looks like this: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`.
+
 **Type ID 0x19**
 
 ### Color3uint8

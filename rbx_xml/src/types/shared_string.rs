@@ -12,7 +12,7 @@ use crate::{
     serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
-pub const XML_TAG_NAME: &'static str = "SharedString";
+pub const XML_TAG_NAME: &str = "SharedString";
 
 pub fn write_shared_string<W: Write>(
     writer: &mut XmlEventWriter<W>,

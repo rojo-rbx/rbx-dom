@@ -180,6 +180,22 @@ chunks:
           - 191
   - Prop:
       type_id: 0
+      prop_name: CustomPhysicalProperties
+      prop_type: PhysicalProperties
+      values:
+        - Default
+        - Density: 0.699999988079071
+          Friction: 0.30000001192092898
+          Elasticity: 0.5
+          FrictionWeight: 1.0
+          ElasticityWeight: 1.0
+        - Density: 90.66000366210938
+          Friction: 1.440000057220459
+          Elasticity: 0.6499999761581421
+          FrictionWeight: 50.5
+          ElasticityWeight: 40.5
+  - Prop:
+      type_id: 0
       prop_name: formFactorRaw
       prop_type: Enum
       values:
@@ -366,6 +382,14 @@ chunks:
         - - 7.0
           - 8.0
           - 9.0
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+        - -1
   - Prop:
       type_id: 0
       prop_name: Tags

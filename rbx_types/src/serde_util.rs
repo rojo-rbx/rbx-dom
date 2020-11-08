@@ -12,7 +12,7 @@ macro_rules! serde_tuple {
                 where
                     S: serde::Serializer,
                 {
-                    ( $( (&self).$field_name, )* ).serialize(serializer)
+                    ( $( self.$field_name, )* ).serialize(serializer)
                 }
             }
 

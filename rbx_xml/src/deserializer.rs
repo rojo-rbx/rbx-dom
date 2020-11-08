@@ -34,6 +34,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Wea
 /// Describes the strategy that rbx_xml should use when deserializing
 /// properties.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[non_exhaustive]
 pub enum DecodePropertyBehavior {
     /// Ignores properties that aren't known by rbx_xml.
     ///
@@ -61,9 +62,6 @@ pub enum DecodePropertyBehavior {
     /// user to deal with oddities like how `Part.FormFactor` is actually
     /// serialized as `Part.formFactorRaw`.
     NoReflection,
-
-    #[doc(hidden)]
-    __Nonexhaustive,
 }
 
 /// Options available for deserializing an XML-format model or place.
@@ -85,10 +83,7 @@ impl DecodeOptions {
     /// ones.
     #[inline]
     pub fn property_behavior(self, property_behavior: DecodePropertyBehavior) -> Self {
-        DecodeOptions {
-            property_behavior,
-            ..self
-        }
+        DecodeOptions { property_behavior }
     }
 
     /// A utility function to determine whether or not we should reference the
@@ -242,9 +237,8 @@ fn deserialize_root<R: Read>(
     let mut doc_version = None;
 
     for attribute in doc_attributes.into_iter() {
-        match attribute.name.local_name.as_str() {
-            "version" => doc_version = Some(attribute.value),
-            _ => {}
+        if attribute.name.local_name.as_str() == "version" {
+            doc_version = Some(attribute.value);
         }
     }
 
@@ -309,9 +303,8 @@ fn deserialize_metadata<R: Read>(
         let mut name = None;
 
         for attribute in attributes.into_iter() {
-            match attribute.name.local_name.as_str() {
-                "name" => name = Some(attribute.value),
-                _ => {}
+            if attribute.name.local_name.as_str() == "name" {
+                name = Some(attribute.value);
             }
         }
 
@@ -624,7 +617,6 @@ fn deserialize_properties<R: Read>(
                         property_name: xml_property_name,
                     }));
                 }
-                DecodePropertyBehavior::__Nonexhaustive => unreachable!(),
             }
         }
     }

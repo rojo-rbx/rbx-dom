@@ -16,12 +16,12 @@ pub fn ser_folders_100(c: &mut Criterion) {
     let mut buffer = Vec::new();
 
     // Encode once into the buffer to pre-size it.
-    rbx_binary::encode(&tree, &[root_ref], &mut buffer).unwrap();
+    rbx_binary::to_writer_default(&mut buffer, &tree, &[root_ref]).unwrap();
     buffer.clear();
 
     c.bench_function("Serialize 100 Folders", |b| {
         b.iter(|| {
-            rbx_binary::encode(&tree, &[root_ref], &mut buffer).unwrap();
+            rbx_binary::to_writer_default(&mut buffer, &tree, &[root_ref]).unwrap();
             buffer.clear();
         });
     });

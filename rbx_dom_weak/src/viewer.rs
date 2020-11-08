@@ -106,6 +106,12 @@ impl DomViewer {
     }
 }
 
+impl Default for DomViewer {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 /// A transformed view into a `WeakDom` or `Instance` that has been redacted and
 /// transformed to be more readable.
 #[derive(Debug, Clone, Serialize, Deserialize)]

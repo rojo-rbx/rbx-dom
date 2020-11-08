@@ -7,8 +7,8 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{
-    Axes, BrickColor, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, UDim, UDim2, Vector2,
-    Vector3,
+    Axes, BrickColor, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces,
+    Matrix3, PhysicalProperties, UDim, UDim2, Vector2, Vector3,
 };
 use serde::Serialize;
 
@@ -188,6 +188,7 @@ pub enum DecodedValues {
     Vector3(Vec<Vector3>),
     CFrame(Vec<CFrame>),
     Enum(Vec<EnumValue>),
+    PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
 }
@@ -310,10 +311,10 @@ impl DecodedValues {
             Type::CFrame => {
                 let mut rotations = vec![Matrix3::identity(); prop_count];
 
-                for i in 0..prop_count {
+                for rotation in rotations.iter_mut() {
                     let id = reader.read_u8().unwrap();
                     if id == 0 {
-                        rotations[i] = Matrix3::new(
+                        *rotation = Matrix3::new(
                             Vector3::new(
                                 reader.read_le_f32().unwrap(),
                                 reader.read_le_f32().unwrap(),
@@ -331,7 +332,7 @@ impl DecodedValues {
                             ),
                         );
                     } else {
-                        rotations[i] = special_case_to_rotation(id).unwrap();
+                        *rotation = special_case_to_rotation(id).unwrap();
                     }
                 }
 
@@ -357,10 +358,7 @@ impl DecodedValues {
                 let mut ints = vec![0; prop_count];
                 reader.read_interleaved_u32_array(&mut ints).unwrap();
 
-                let values = ints
-                    .into_iter()
-                    .map(|int| EnumValue::from_u32(int))
-                    .collect();
+                let values = ints.into_iter().map(EnumValue::from_u32).collect();
 
                 Some(DecodedValues::Enum(values))
             }
@@ -414,6 +412,25 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::Vector3(values))
+            }
+            Type::PhysicalProperties => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    if reader.read_u8().unwrap() == 1 {
+                        values.push(PhysicalProperties::Custom(CustomPhysicalProperties {
+                            density: reader.read_le_f32().unwrap(),
+                            friction: reader.read_le_f32().unwrap(),
+                            elasticity: reader.read_le_f32().unwrap(),
+                            friction_weight: reader.read_le_f32().unwrap(),
+                            elasticity_weight: reader.read_le_f32().unwrap(),
+                        }))
+                    } else {
+                        values.push(PhysicalProperties::Default)
+                    }
+                }
+
+                Some(DecodedValues::PhysicalProperties(values))
             }
             Type::Color3uint8 => {
                 let mut r = vec![0; prop_count];
@@ -526,7 +543,7 @@ mod unknown_buffer {
 
     use serde::Serializer;
 
-    pub fn serialize<S>(value: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
+    pub fn serialize<S>(value: &[u8], serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {

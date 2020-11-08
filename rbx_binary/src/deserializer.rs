@@ -7,8 +7,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BrickColor, CFrame, Color3, Color3uint8, EnumValue, Faces, Matrix3, Ref, UDim, UDim2,
-        Variant, VariantType, Vector2, Vector3,
+        Axes, BrickColor, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces,
+        Matrix3, PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -21,7 +21,7 @@ use crate::{
         find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
         FILE_VERSION,
     },
-    types::Type,
+    types::{InvalidTypeError, Type},
 };
 
 /// Represents an error that occurred during deserialization.
@@ -57,6 +57,12 @@ pub(crate) enum InnerError {
     UnknownChunkVersion {
         chunk_name: &'static str,
         version: u8,
+    },
+
+    #[error(transparent)]
+    InvalidTypeError {
+        #[from]
+        source: InvalidTypeError,
     },
 
     #[error(
@@ -389,7 +395,7 @@ impl<R: Read> BinaryDeserializer<R> {
     fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
-        let binary_type: Type = chunk.read_u8()?.try_into().unwrap();
+        let binary_type: Type = chunk.read_u8()?.try_into()?;
 
         let type_info = self
             .type_infos
@@ -811,16 +817,15 @@ impl<R: Read> BinaryDeserializer<R> {
                                 ),
                             ));
                         } else {
-                            let special_case = special_case_to_rotation(id);
-                            if special_case.is_some() {
-                                rotations.push(special_case.unwrap());
-                            } else {
-                                return Err(InnerError::BadCFrameOrientationId {
+                            let special_case = special_case_to_rotation(id).ok_or_else(|| {
+                                InnerError::BadCFrameOrientationId {
                                     type_name: type_info.type_name.clone(),
-                                    prop_name,
+                                    prop_name: prop_name.clone(),
                                     id,
-                                });
-                            }
+                                }
+                            })?;
+
+                            rotations.push(special_case);
                         }
                     }
 
@@ -884,7 +889,36 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::ColorSequence => {}
             Type::NumberRange => {}
             Type::Rect => {}
-            Type::PhysicalProperties => {}
+            Type::PhysicalProperties => match canonical_type {
+                VariantType::PhysicalProperties => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = if chunk.read_u8()? == 1 {
+                            Variant::PhysicalProperties(PhysicalProperties::Custom(
+                                CustomPhysicalProperties {
+                                    density: chunk.read_le_f32()?,
+                                    friction: chunk.read_le_f32()?,
+                                    elasticity: chunk.read_le_f32()?,
+                                    friction_weight: chunk.read_le_f32()?,
+                                    elasticity_weight: chunk.read_le_f32()?,
+                                },
+                            ))
+                        } else {
+                            Variant::PhysicalProperties(PhysicalProperties::Default)
+                        };
+
+                        instance.properties.push((canonical_name.clone(), value));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "PhysicalProperties",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Color3uint8 => match canonical_type {
                 VariantType::Color3 => {
                     let len = type_info.referents.len();

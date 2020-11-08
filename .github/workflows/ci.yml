@@ -38,8 +38,6 @@ jobs:
     - name: Run tests (all features)
       run: cargo test --all-features --verbose
 
-    - name: Rustfmt and Clippy
-      run: |
-        cargo fmt -- --check
-        cargo clippy --all-features
+    - name: Check Formatting (stable only)
+      run: cargo fmt -- --check
       if: matrix.rust_version == 'stable'

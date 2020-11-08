@@ -24,7 +24,7 @@ impl XmlType for NumberRange {
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
         let contents = reader.read_characters()?;
         let mut pieces = contents
-            .split(" ")
+            .split(' ')
             .filter(|slice| !slice.is_empty())
             .map(|piece| piece.parse::<f32>().map_err(|e| reader.error(e)));
 

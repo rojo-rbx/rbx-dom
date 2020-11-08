@@ -21,7 +21,7 @@ use crate::{
     serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
-pub const XML_TAG_NAME: &'static str = "Ref";
+pub const XML_TAG_NAME: &str = "Ref";
 
 pub fn write_ref<W: Write>(
     writer: &mut XmlEventWriter<W>,

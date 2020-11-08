@@ -48,7 +48,7 @@ impl XmlType for Content {
                     let value = reader.read_characters()?;
                     reader.expect_end_with_name("url")?;
 
-                    value.to_owned()
+                    value
                 }
                 _ => {
                     let event = XmlReadEvent::StartElement {

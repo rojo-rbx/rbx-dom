@@ -144,7 +144,10 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &W
 }
 
 struct Descriptors<'a> {
+    // This descriptor might be useful in the future, but is currently unused.
+    #[allow(unused)]
     input: &'a PropertyDescriptor<'a>,
+
     canonical: &'a PropertyDescriptor<'a>,
 }
 
@@ -227,9 +230,8 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
     // like enigo or maybe raw input calls to do this for them.
 
     loop {
-        match rx.recv()? {
-            DebouncedEvent::Write(_) => break,
-            _ => {}
+        if let DebouncedEvent::Write(_) = rx.recv()? {
+            break;
         }
     }
 

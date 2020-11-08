@@ -68,6 +68,9 @@ expression: decoded_viewed
         - 0
         - 255
         - 255
+    CustomPhysicalProperties:
+      Type: PhysicalProperties
+      Value: Default
     FormFactor:
       Type: EnumValue
       Value: 1
@@ -137,6 +140,9 @@ expression: decoded_viewed
         - 1.0
         - 2.0
         - 3.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
     Tags:
       Type: BinaryString
       Value: ""
@@ -228,6 +234,14 @@ expression: decoded_viewed
         - 44
         - 101
         - 29
+    CustomPhysicalProperties:
+      Type: PhysicalProperties
+      Value:
+        Density: 0.699999988079071
+        Friction: 0.30000001192092898
+        Elasticity: 0.5
+        FrictionWeight: 1.0
+        ElasticityWeight: 1.0
     FormFactor:
       Type: EnumValue
       Value: 1
@@ -297,6 +311,9 @@ expression: decoded_viewed
         - 4.0
         - 5.0
         - 6.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
     Tags:
       Type: BinaryString
       Value: ""
@@ -388,6 +405,14 @@ expression: decoded_viewed
         - 255
         - 0
         - 191
+    CustomPhysicalProperties:
+      Type: PhysicalProperties
+      Value:
+        Density: 90.66000366210938
+        Friction: 1.440000057220459
+        Elasticity: 0.6499999761581421
+        FrictionWeight: 50.5
+        ElasticityWeight: 40.5
     FormFactor:
       Type: EnumValue
       Value: 1
@@ -457,6 +482,9 @@ expression: decoded_viewed
         - 7.0
         - 8.0
         - 9.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
     Tags:
       Type: BinaryString
       Value: ""
