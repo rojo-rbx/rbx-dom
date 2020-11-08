@@ -119,7 +119,7 @@ fn logical_properties_basepart_size() {
     );
 
     let mut buffer = Vec::new();
-    let result = encode(&tree, tree.root().children(), &mut buffer);
+    encode(&tree, tree.root().children(), &mut buffer).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
