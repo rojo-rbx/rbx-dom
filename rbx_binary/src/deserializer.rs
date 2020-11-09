@@ -683,8 +683,9 @@ impl<R: Read> BinaryDeserializer<R> {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let color = value
                             .try_into()
-                            .map(|value| BrickColor::from_number(value).unwrap())
-                            .map_err(|_| InnerError::InvalidPropData {
+                            .ok()
+                            .and_then(|color| BrickColor::from_number(color))
+                            .ok_or_else(|| InnerError::InvalidPropData {
                                 type_name: type_info.type_name.clone(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "a valid BrickColor",
