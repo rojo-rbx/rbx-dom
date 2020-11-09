@@ -322,6 +322,10 @@ Three encoded `Axes` with values `X`, `X Y`, and `X Z` would look like this: `01
 ### BrickColor
 **Type ID 0x0B**
 
+The `BrickColor` type is a single untransformed big-endian `u32` that represents the `Number` of a BrickColor. When an array of BrickColors is present, the Numbers are [byte interleaved](#byte-interleaving) but otherwise are unchanged.
+
+As an example, three encoded BrickColors with values `Really red (1004)`, `Bright green (37)`, and `Really blue (1010)` look like this: `00 00 00 00 00 00 03 00 03 EC 25 F2`.
+
 ### Color3
 **Type ID 0x0C**
 

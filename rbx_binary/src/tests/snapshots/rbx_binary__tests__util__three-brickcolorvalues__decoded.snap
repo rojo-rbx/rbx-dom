@@ -1,0 +1,46 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Value
+  class: BrickColorValue
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: BrickColor
+      Value: 1004
+  children: []
+- referent: referent-1
+  name: Value
+  class: BrickColorValue
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: BrickColor
+      Value: 37
+  children: []
+- referent: referent-2
+  name: Value
+  class: BrickColorValue
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Value:
+      Type: BrickColor
+      Value: 1010
+  children: []

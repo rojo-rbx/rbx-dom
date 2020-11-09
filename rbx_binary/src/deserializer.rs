@@ -7,8 +7,8 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
-        PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        Axes, BrickColor, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces,
+        Matrix3, PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -674,7 +674,37 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::BrickColor => {}
+            Type::BrickColor => match canonical_type {
+                VariantType::BrickColor => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_u32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let color = value
+                            .try_into()
+                            .ok()
+                            .and_then(BrickColor::from_number)
+                            .ok_or_else(|| InnerError::InvalidPropData {
+                                type_name: type_info.type_name.clone(),
+                                prop_name: prop_name.clone(),
+                                valid_value: "a valid BrickColor",
+                                actual_value: value.to_string(),
+                            })?;
+                        instance
+                            .properties
+                            .push((canonical_name.clone(), Variant::BrickColor(color)));
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "BrickColor",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Color3 => match canonical_type {
                 VariantType::Color3 => {
                     let mut r = vec![0.0; type_info.referents.len()];
