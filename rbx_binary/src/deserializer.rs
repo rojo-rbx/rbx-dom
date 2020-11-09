@@ -684,7 +684,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         let color = value
                             .try_into()
                             .ok()
-                            .and_then(|color| BrickColor::from_number(color))
+                            .and_then(BrickColor::from_number)
                             .ok_or_else(|| InnerError::InvalidPropData {
                                 type_name: type_info.type_name.clone(),
                                 prop_name: prop_name.clone(),
