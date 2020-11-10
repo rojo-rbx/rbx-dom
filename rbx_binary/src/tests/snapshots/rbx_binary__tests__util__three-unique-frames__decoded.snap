@@ -50,6 +50,10 @@ expression: decoded_viewed
     LayoutOrder:
       Type: Int32
       Value: 0
+    NextSelectionDown: "[unknown ID]"
+    NextSelectionLeft: "[unknown ID]"
+    NextSelectionRight: "[unknown ID]"
+    NextSelectionUp: "[unknown ID]"
     Position:
       Type: UDim2
       Value:
@@ -57,12 +61,14 @@ expression: decoded_viewed
           - 2
         - - 0.20000000298023225
           - 4
+    RootLocalizationTable: "[unknown ID]"
     Rotation:
       Type: Float32
       Value: 0.0
     Selectable:
       Type: Bool
       Value: false
+    SelectionImageObject: "[unknown ID]"
     Size:
       Type: UDim2
       Value:
@@ -134,6 +140,10 @@ expression: decoded_viewed
     LayoutOrder:
       Type: Int32
       Value: 1
+    NextSelectionDown: "[unknown ID]"
+    NextSelectionLeft: "[unknown ID]"
+    NextSelectionRight: "[unknown ID]"
+    NextSelectionUp: "[unknown ID]"
     Position:
       Type: UDim2
       Value:
@@ -141,12 +151,14 @@ expression: decoded_viewed
           - 16
         - - 0.4000000059604645
           - 32
+    RootLocalizationTable: "[unknown ID]"
     Rotation:
       Type: Float32
       Value: 1.0
     Selectable:
       Type: Bool
       Value: false
+    SelectionImageObject: "[unknown ID]"
     Size:
       Type: UDim2
       Value:
@@ -218,6 +230,10 @@ expression: decoded_viewed
     LayoutOrder:
       Type: Int32
       Value: 2
+    NextSelectionDown: "[unknown ID]"
+    NextSelectionLeft: "[unknown ID]"
+    NextSelectionRight: "[unknown ID]"
+    NextSelectionUp: "[unknown ID]"
     Position:
       Type: UDim2
       Value:
@@ -225,12 +241,14 @@ expression: decoded_viewed
           - 64
         - - 0.6000000238418579
           - 128
+    RootLocalizationTable: "[unknown ID]"
     Rotation:
       Type: Float32
       Value: 2.0
     Selectable:
       Type: Bool
       Value: false
+    SelectionImageObject: "[unknown ID]"
     Size:
       Type: UDim2
       Value:

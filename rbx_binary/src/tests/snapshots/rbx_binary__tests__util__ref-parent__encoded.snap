@@ -1,0 +1,69 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 2
+num_instances: 2
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+  - Inst:
+      type_id: 1
+      type_name: ObjectValue
+      object_format: 0
+      referents:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Ref Target
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: Name
+      prop_type: String
+      values:
+        - Value
+  - Prop:
+      type_id: 1
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: Value
+      prop_type: Ref
+      values:
+        - 0
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - 0
+  - End

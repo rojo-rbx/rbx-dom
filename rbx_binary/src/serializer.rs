@@ -803,6 +803,33 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_u32_array(&buf)?;
                     }
+                    Type::Ref => {
+                        let mut buf = Vec::with_capacity(values.len());
+                        let mut prev = 0;
+                        let mut curr;
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Ref(value) = rbx_value.as_ref() {
+                                if value.is_none() {
+                                    curr = -1;
+                                } else {
+                                    curr = if let Some(id) = self.id_to_referent.get(value) {
+                                        *id
+                                    } else {
+                                        return Err(InnerError::InvalidInstanceId {
+                                            referent: *value,
+                                        });
+                                    };
+                                }
+                                buf.push(curr - prev);
+                                prev = curr;
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Ref");
+                            }
+                        }
+
+                        chunk.write_interleaved_i32_array(buf.into_iter())?;
+                    }
                     Type::PhysicalProperties => {
                         for (i, rbx_value) in values {
                             if let Variant::PhysicalProperties(value) = rbx_value.as_ref() {
@@ -968,6 +995,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
+            VariantType::Ref => Variant::Ref(Ref::none()),
             VariantType::PhysicalProperties => {
                 Variant::PhysicalProperties(PhysicalProperties::Default)
             }
