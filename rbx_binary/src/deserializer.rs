@@ -8,7 +8,7 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Content,
-        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, Ref, UDim, UDim2,
+        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, UDim, UDim2,
         Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
@@ -1013,21 +1013,15 @@ impl<R: Read> BinaryDeserializer<R> {
         }
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let id = self.construct_and_insert_instance(referent, parent_ref);
+            let instance = self.instances_by_ref.remove(&referent).unwrap();
+            let id = self.tree.insert(parent_ref, instance.builder);
 
-            if let Some(instance) = self.instances_by_ref.get(&referent) {
-                for &referent in &instance.children {
-                    instances_to_construct.push_back((referent, id));
-                }
+            for referent in instance.children {
+                instances_to_construct.push_back((referent, id));
             }
         }
 
         self.tree
-    }
-
-    fn construct_and_insert_instance(&mut self, referent: i32, parent_ref: Ref) -> Ref {
-        let instance = self.instances_by_ref.remove(&referent).unwrap();
-        self.tree.insert(parent_ref, instance.builder)
     }
 }
 
