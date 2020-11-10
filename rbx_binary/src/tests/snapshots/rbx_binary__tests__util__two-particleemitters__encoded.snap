@@ -115,6 +115,43 @@ chunks:
           - 6.659999847412109
   - Prop:
       type_id: 0
+      prop_name: Size
+      prop_type: NumberSequence
+      values:
+        - Keypoints:
+            - Time: 0.0
+              Value: 1.0
+              Envelope: 0.0
+            - Time: 0.08036739379167557
+              Value: 0.5624997615814209
+              Envelope: 0.0
+            - Time: 0.12169919162988663
+              Value: 1.9374996423721314
+              Envelope: 0.0
+            - Time: 0.14351320266723634
+              Value: 3.75
+              Envelope: 0.0
+            - Time: 1.0
+              Value: 1.0
+              Envelope: 0.0
+        - Keypoints:
+            - Time: 0.0
+              Value: 1.0
+              Envelope: 0.0
+            - Time: 0.08036739379167557
+              Value: 0.5624997615814209
+              Envelope: 0.0
+            - Time: 0.12169919162988663
+              Value: 1.9374996423721314
+              Envelope: 0.0
+            - Time: 0.14351320266723634
+              Value: 3.75
+              Envelope: 0.0
+            - Time: 1.0
+              Value: 1.0
+              Envelope: 0.0
+  - Prop:
+      type_id: 0
       prop_name: SourceAssetId
       prop_type: Int64
       values:
@@ -152,6 +189,25 @@ chunks:
       values:
         - "rbxasset://textures/particles/sparkles_main.dds"
         - "rbxasset://textures/particles/sparkles_main.dds"
+  - Prop:
+      type_id: 0
+      prop_name: Transparency
+      prop_type: NumberSequence
+      values:
+        - Keypoints:
+            - Time: 0.0
+              Value: 0.0
+              Envelope: 0.0
+            - Time: 1.0
+              Value: 0.0
+              Envelope: 0.0
+        - Keypoints:
+            - Time: 0.0
+              Value: 0.0
+              Envelope: 0.0
+            - Time: 1.0
+              Value: 0.0
+              Envelope: 0.0
   - Prop:
       type_id: 0
       prop_name: VelocityInheritance

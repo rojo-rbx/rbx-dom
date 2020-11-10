@@ -1,0 +1,122 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 1
+num_instances: 3
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: UIGradient
+      object_format: 0
+      referents:
+        - 0
+        - 1
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - UIGradient
+        - UIGradient
+        - UIGradient
+  - Prop:
+      type_id: 0
+      prop_name: Offset
+      prop_type: Vector2
+      values:
+        - - 0.0
+          - 0.0
+        - - 0.0
+          - 0.0
+        - - 0.0
+          - 0.0
+  - Prop:
+      type_id: 0
+      prop_name: Rotation
+      prop_type: Float32
+      values:
+        - 0.0
+        - 0.0
+        - 0.0
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Transparency
+      prop_type: NumberSequence
+      values:
+        - Keypoints:
+            - Time: 0.0
+              Value: 0.5
+              Envelope: 0.0
+            - Time: 0.20000000298023225
+              Value: 0.75
+              Envelope: 0.0
+            - Time: 0.5
+              Value: 0.0
+              Envelope: 0.0
+            - Time: 0.6000000238418579
+              Value: 0.800000011920929
+              Envelope: 0.0
+            - Time: 1.0
+              Value: 1.0
+              Envelope: 0.0
+        - Keypoints:
+            - Time: 0.0
+              Value: 0.0
+              Envelope: 0.0
+            - Time: 0.5
+              Value: 1.0
+              Envelope: 0.0
+            - Time: 1.0
+              Value: 0.0
+              Envelope: 0.0
+        - Keypoints:
+            - Time: 0.0
+              Value: 0.0
+              Envelope: 0.0
+            - Time: 1.0
+              Value: 0.0
+              Envelope: 0.0
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+  - End
