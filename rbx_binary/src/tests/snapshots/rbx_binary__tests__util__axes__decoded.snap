@@ -6,7 +6,7 @@ expression: decoded_viewed
   name: ""
   class: ArcHandles
   properties:
-    Adornee: "[unknown ID]"
+    Adornee: "null"
     AttributesSerialize:
       Type: BinaryString
       Value: ""
@@ -33,7 +33,7 @@ expression: decoded_viewed
   name: X
   class: ArcHandles
   properties:
-    Adornee: "[unknown ID]"
+    Adornee: "null"
     AttributesSerialize:
       Type: BinaryString
       Value: ""
@@ -61,7 +61,7 @@ expression: decoded_viewed
   name: "X, Y"
   class: ArcHandles
   properties:
-    Adornee: "[unknown ID]"
+    Adornee: "null"
     AttributesSerialize:
       Type: BinaryString
       Value: ""
@@ -90,7 +90,7 @@ expression: decoded_viewed
   name: "X, Y, Z"
   class: ArcHandles
   properties:
-    Adornee: "[unknown ID]"
+    Adornee: "null"
     AttributesSerialize:
       Type: BinaryString
       Value: ""
@@ -120,7 +120,7 @@ expression: decoded_viewed
   name: "X, Z"
   class: ArcHandles
   properties:
-    Adornee: "[unknown ID]"
+    Adornee: "null"
     AttributesSerialize:
       Type: BinaryString
       Value: ""
@@ -149,7 +149,7 @@ expression: decoded_viewed
   name: Y
   class: ArcHandles
   properties:
-    Adornee: "[unknown ID]"
+    Adornee: "null"
     AttributesSerialize:
       Type: BinaryString
       Value: ""
@@ -177,7 +177,7 @@ expression: decoded_viewed
   name: "Y, Z"
   class: ArcHandles
   properties:
-    Adornee: "[unknown ID]"
+    Adornee: "null"
     AttributesSerialize:
       Type: BinaryString
       Value: ""
@@ -206,7 +206,7 @@ expression: decoded_viewed
   name: Z
   class: ArcHandles
   properties:
-    Adornee: "[unknown ID]"
+    Adornee: "null"
     AttributesSerialize:
       Type: BinaryString
       Value: ""

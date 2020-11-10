@@ -24,7 +24,7 @@ expression: decoded_viewed
     ResetOnSpawn:
       Type: Bool
       Value: true
-    RootLocalizationTable: "[unknown ID]"
+    RootLocalizationTable: "null"
     Tags:
       Type: BinaryString
       Value: ""
@@ -54,7 +54,7 @@ expression: decoded_viewed
     ResetOnSpawn:
       Type: Bool
       Value: true
-    RootLocalizationTable: "[unknown ID]"
+    RootLocalizationTable: "null"
     Tags:
       Type: BinaryString
       Value: ""
@@ -84,7 +84,7 @@ expression: decoded_viewed
     ResetOnSpawn:
       Type: Bool
       Value: true
-    RootLocalizationTable: "[unknown ID]"
+    RootLocalizationTable: "null"
     Tags:
       Type: BinaryString
       Value: ""
