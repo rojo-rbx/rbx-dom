@@ -8,7 +8,7 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Faces, Matrix3,
+        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Faces, Matrix3, NumberRange,
         PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     WeakDom,
@@ -820,6 +820,16 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_referent_array(buf.into_iter())?;
                     }
+                    Type::NumberRange => {
+                        for (i, rbx_value) in values {
+                            if let Variant::NumberRange(value) = rbx_value.as_ref() {
+                                chunk.write_le_f32(value.min)?;
+                                chunk.write_le_f32(value.max)?;
+                            } else {
+                                return type_mismatch(i, &rbx_value, "NumberRange");
+                            }
+                        }
+                    }
                     Type::PhysicalProperties => {
                         for (i, rbx_value) in values {
                             if let Variant::PhysicalProperties(value) = rbx_value.as_ref() {
@@ -986,6 +996,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
             VariantType::Ref => Variant::Ref(Ref::none()),
+            VariantType::NumberRange => Variant::NumberRange(NumberRange::new(0.0, 0.0)),
             VariantType::PhysicalProperties => {
                 Variant::PhysicalProperties(PhysicalProperties::Default)
             }
