@@ -56,7 +56,7 @@ impl InstanceBuilder {
         }
     }
 
-    /// Return the referent of the instance that the `InstanceBuilder` refers to
+    /// Return the referent of the instance that the `InstanceBuilder` refers to.
     pub fn referent(&self) -> Ref {
         self.referent
     }
