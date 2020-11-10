@@ -369,9 +369,9 @@ impl DecodedValues {
 
                 let refs = differences
                     .into_iter()
-                    .scan(0, |last_ref, difference| {
-                        *last_ref += difference;
-                        Some(*last_ref)
+                    .scan(0, |curr_ref, difference| {
+                        *curr_ref += difference;
+                        Some(*curr_ref)
                     })
                     .collect();
 

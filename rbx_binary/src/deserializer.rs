@@ -866,9 +866,9 @@ impl<R: Read> BinaryDeserializer<R> {
                     let mut differences = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_i32_array(&mut differences)?;
 
-                    let values = differences.into_iter().scan(0, |last_ref, difference| {
-                        *last_ref += difference;
-                        Some(*last_ref)
+                    let values = differences.into_iter().scan(0, |curr_ref, difference| {
+                        *curr_ref += difference;
+                        Some(*curr_ref)
                     });
 
                     for (value, referent) in values.zip(&type_info.referents) {
