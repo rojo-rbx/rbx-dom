@@ -33,13 +33,11 @@ let dom = WeakDom::new(data_model);
 */
 #[derive(Debug)]
 pub struct InstanceBuilder {
+    pub(crate) referent: Ref,
     pub(crate) name: String,
     pub(crate) class: String,
     pub(crate) properties: HashMap<String, Variant>,
     pub(crate) children: Vec<InstanceBuilder>,
-
-    /// The referent of the instance that this `InstanceBuilder` refers to.
-    pub referent: Ref,
 }
 
 impl InstanceBuilder {
@@ -56,6 +54,11 @@ impl InstanceBuilder {
             properties: HashMap::new(),
             children: Vec::new(),
         }
+    }
+
+    /// Return the referent of the instance that the `InstanceBuilder` refers to
+    pub fn referent(&self) -> Ref {
+        self.referent
     }
 
     /// Change the name of the `InstanceBuilder`.

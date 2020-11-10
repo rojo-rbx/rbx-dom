@@ -873,7 +873,7 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
-                            instance.builder.referent
+                            instance.builder.referent()
                         } else {
                             Ref::none()
                         };
