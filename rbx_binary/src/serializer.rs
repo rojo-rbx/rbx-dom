@@ -812,15 +812,12 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             if let Variant::Ref(value) = rbx_value.as_ref() {
                                 if value.is_none() {
                                     curr_ref = -1;
+                                } else if let Some(id) = self.id_to_referent.get(value) {
+                                    curr_ref = *id
                                 } else {
-                                    curr_ref = if let Some(id) = self.id_to_referent.get(value) {
-                                        *id
-                                    } else {
-                                        return Err(InnerError::InvalidInstanceId {
-                                            referent: *value,
-                                        });
-                                    };
+                                    return Err(InnerError::InvalidInstanceId { referent: *value });
                                 }
+
                                 buf.push(curr_ref - prev_ref);
                                 prev_ref = curr_ref;
                             } else {
