@@ -10,7 +10,7 @@ expression: decoded_viewed
       Type: BinaryString
       Value: ""
     LinkedSource:
-      Type: String
+      Type: Content
       Value: ""
     ScriptGuid:
       Type: BinaryString

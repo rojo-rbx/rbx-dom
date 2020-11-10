@@ -7,8 +7,9 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BrickColor, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces,
-        Matrix3, PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Content,
+        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, Ref, UDim, UDim2,
+        Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -303,16 +304,11 @@ struct TypeInfo {
 /// instance. Incrementally built up by the deserializer as we decode different
 /// chunks.
 struct Instance {
-    /// The type of this instance, given as a type ID defined in the file.
-    type_id: u32,
+    /// A work-in-progress builder that will be used to construct this instance.
+    builder: InstanceBuilder,
 
-    /// Referents for the children of this instance.
+    /// Document-defined IDs for the children of this instance.
     children: Vec<i32>,
-
-    /// The properties found for this instance so far from the PROP chunk. Using
-    /// a Vec preserves order in the unlikely event of a collision and is also
-    /// compact storage since we don't need to look up properties by key.
-    properties: Vec<(String, Variant)>,
 }
 
 impl<R: Read> BinaryDeserializer<R> {
@@ -371,9 +367,8 @@ impl<R: Read> BinaryDeserializer<R> {
             self.instances_by_ref.insert(
                 referent,
                 Instance {
-                    type_id,
+                    builder: InstanceBuilder::new(&type_name),
                     children: Vec::new(),
-                    properties: Vec::new(),
                 },
             );
         }
@@ -407,6 +402,22 @@ impl<R: Read> BinaryDeserializer<R> {
             type_info.type_id,
             type_id
         );
+
+        // The `Name` prop is special and is routed to a different spot for
+        // rbx_dom_weak, so we handle it specially here.
+        if prop_name == "Name" {
+            // TODO: If an instance is never assigned a name through this code
+            // path, we should use the reflection database to figure out its
+            // default name. This should be rare: effectively never!
+
+            for referent in &type_info.referents {
+                let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                let value = chunk.read_string()?;
+                instance.builder.set_name(value);
+            }
+
+            return Ok(());
+        }
 
         let canonical_name;
         let canonical_type;
@@ -451,30 +462,21 @@ impl<R: Read> BinaryDeserializer<R> {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_string()?;
-                        let rbx_value = Variant::String(value);
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 VariantType::Content => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = chunk.read_string()?;
-                        let rbx_value = Variant::String(value);
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                        let value: Content = chunk.read_string()?.into();
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 VariantType::BinaryString => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = chunk.read_binary_string()?;
-                        let rbx_value = Variant::BinaryString(value.into());
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                        let value: BinaryString = chunk.read_binary_string()?.into();
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -491,10 +493,7 @@ impl<R: Read> BinaryDeserializer<R> {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_bool()?;
-                        let rbx_value = Variant::Bool(value);
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -513,10 +512,7 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let rbx_value = Variant::Int32(value);
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -535,10 +531,7 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let rbx_value = Variant::Float32(value);
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -555,10 +548,7 @@ impl<R: Read> BinaryDeserializer<R> {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_le_f64()?;
-                        let rbx_value = Variant::Float64(value);
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -580,11 +570,11 @@ impl<R: Read> BinaryDeserializer<R> {
                 let values = scales
                     .into_iter()
                     .zip(offsets)
-                    .map(|(scale, offset)| Variant::UDim(UDim::new(scale, offset)));
+                    .map(|(scale, offset)| UDim::new(scale, offset));
 
                 for (value, referent) in values.zip(&type_info.referents) {
                     let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                    instance.properties.push((canonical_name.clone(), value));
+                    instance.builder.add_property(&canonical_name, value);
                 }
             }
             Type::UDim2 => {
@@ -609,11 +599,11 @@ impl<R: Read> BinaryDeserializer<R> {
                     .zip(offset_y)
                     .map(|(scale, offset)| UDim::new(scale, offset));
 
-                let values = x.zip(y).map(|(x, y)| Variant::UDim2(UDim2::new(x, y)));
+                let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
 
                 for (value, referent) in values.zip(&type_info.referents) {
                     let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                    instance.properties.push((canonical_name.clone(), value));
+                    instance.builder.add_property(&canonical_name, value);
                 }
             }
             Type::Ray => {}
@@ -630,9 +620,7 @@ impl<R: Read> BinaryDeserializer<R> {
                                 actual_value: value.to_string(),
                             })?;
 
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), Variant::Faces(faces)));
+                        instance.builder.add_property(&canonical_name, faces);
                     }
                 }
                 invalid_type => {
@@ -658,9 +646,7 @@ impl<R: Read> BinaryDeserializer<R> {
                                 actual_value: value.to_string(),
                             })?;
 
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), Variant::Axes(axes)));
+                        instance.builder.add_property(&canonical_name, axes);
                     }
                 }
                 invalid_type => {
@@ -689,9 +675,8 @@ impl<R: Read> BinaryDeserializer<R> {
                                 valid_value: "a valid BrickColor",
                                 actual_value: value.to_string(),
                             })?;
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), Variant::BrickColor(color)));
+
+                        instance.builder.add_property(&canonical_name, color);
                     }
                 }
                 invalid_type => {
@@ -717,11 +702,11 @@ impl<R: Read> BinaryDeserializer<R> {
                         .into_iter()
                         .zip(g)
                         .zip(b)
-                        .map(|((r, g), b)| Variant::Color3(Color3::new(r, g, b)));
+                        .map(|((r, g), b)| Color3::new(r, g, b));
 
                     for (color, referent) in colors.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.properties.push((canonical_name.clone(), color));
+                        instance.builder.add_property(&canonical_name, color);
                     }
                 }
                 invalid_type => {
@@ -741,14 +726,11 @@ impl<R: Read> BinaryDeserializer<R> {
                     chunk.read_interleaved_f32_array(&mut x)?;
                     chunk.read_interleaved_f32_array(&mut y)?;
 
-                    let values = x
-                        .into_iter()
-                        .zip(y)
-                        .map(|(x, y)| Variant::Vector2(Vector2::new(x, y)));
+                    let values = x.into_iter().zip(y).map(|(x, y)| Vector2::new(x, y));
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.properties.push((canonical_name.clone(), value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -774,11 +756,11 @@ impl<R: Read> BinaryDeserializer<R> {
                         .into_iter()
                         .zip(y)
                         .zip(z)
-                        .map(|((x, y), z)| Variant::Vector3(Vector3::new(x, y, z)));
+                        .map(|((x, y), z)| Vector3::new(x, y, z));
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.properties.push((canonical_name.clone(), value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -842,13 +824,11 @@ impl<R: Read> BinaryDeserializer<R> {
                         .zip(z)
                         .map(|((x, y), z)| Vector3::new(x, y, z))
                         .zip(rotations)
-                        .map(|(position, rotation)| {
-                            Variant::CFrame(CFrame::new(position, rotation))
-                        });
+                        .map(|(position, rotation)| CFrame::new(position, rotation));
 
                     for (cframe, referent) in values.zip(referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.properties.push((canonical_name.clone(), cframe))
+                        instance.builder.add_property(&canonical_name, cframe);
                     }
                 }
                 invalid_type => {
@@ -867,10 +847,9 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let rbx_value = Variant::EnumValue(EnumValue::from_u32(value));
                         instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                            .builder
+                            .add_property(&canonical_name, EnumValue::from_u32(value));
                     }
                 }
                 invalid_type => {
@@ -906,7 +885,7 @@ impl<R: Read> BinaryDeserializer<R> {
                             Variant::PhysicalProperties(PhysicalProperties::Default)
                         };
 
-                        instance.properties.push((canonical_name.clone(), value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -933,11 +912,11 @@ impl<R: Read> BinaryDeserializer<R> {
                         .into_iter()
                         .zip(g)
                         .zip(b)
-                        .map(|((r, g), b)| Variant::Color3uint8(Color3uint8::new(r, g, b)));
+                        .map(|((r, g), b)| Color3uint8::new(r, g, b));
 
                     for (color, referent) in colors.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.properties.push((canonical_name.clone(), color));
+                        instance.builder.add_property(&canonical_name, color);
                     }
                 }
                 invalid_type => {
@@ -956,10 +935,7 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let rbx_value = Variant::Int64(value);
-                        instance
-                            .properties
-                            .push((canonical_name.clone(), rbx_value));
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -1050,29 +1026,8 @@ impl<R: Read> BinaryDeserializer<R> {
     }
 
     fn construct_and_insert_instance(&mut self, referent: i32, parent_ref: Ref) -> Ref {
-        let instance = self.instances_by_ref.get_mut(&referent).unwrap();
-        let type_info = &self.type_infos[&instance.type_id];
-
-        let mut builder = InstanceBuilder::new(&type_info.type_name);
-
-        for (prop_key, prop_value) in instance.properties.drain(..) {
-            if prop_key.as_str() == "Name" {
-                if let Variant::String(value) = prop_value {
-                    builder = builder.with_name(value);
-                } else {
-                    panic!("Name property was defined as a non-string type.");
-                }
-            } else {
-                builder = builder.with_property(prop_key, prop_value);
-            }
-        }
-
-        // TODO: Look up default instance name from class descriptor and then
-        // fall back to ClassName if the Name property or whole class descriptor
-        // is unknown. This isn't super important since binary files with
-        // instances that have no Name generally don't exist.
-
-        self.tree.insert(parent_ref, builder)
+        let instance = self.instances_by_ref.remove(&referent).unwrap();
+        self.tree.insert(parent_ref, instance.builder)
     }
 }
 
