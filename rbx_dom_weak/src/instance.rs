@@ -64,10 +64,20 @@ impl InstanceBuilder {
         }
     }
 
+    /// Change the name of the `InstanceBuilder`.
+    pub fn set_name<S: Into<String>>(&mut self, name: S) {
+        self.name = name.into();
+    }
+
     /// Add a new property to the `InstanceBuilder`.
     pub fn with_property<K: Into<String>, V: Into<Variant>>(mut self, key: K, value: V) -> Self {
         self.properties.insert(key.into(), value.into());
         self
+    }
+
+    /// Add a new property to the `InstanceBuilder`.
+    pub fn add_property<K: Into<String>, V: Into<Variant>>(&mut self, key: K, value: V) {
+        self.properties.insert(key.into(), value.into());
     }
 
     /// Add multiple properties to the `InstanceBuilder` at once.
@@ -84,18 +94,48 @@ impl InstanceBuilder {
         self
     }
 
+    /// Add multiple properties to the `InstanceBuilder` at once.
+    pub fn add_properties<K, V, I>(&mut self, props: I)
+    where
+        K: Into<String>,
+        V: Into<Variant>,
+        I: IntoIterator<Item = (K, V)>,
+    {
+        for (key, value) in props {
+            self.properties.insert(key.into(), value.into());
+        }
+    }
+
     /// Add a new child to the `InstanceBuilder`.
     pub fn with_child(mut self, child: InstanceBuilder) -> Self {
         self.children.push(child);
         self
     }
 
+    /// Add a new child to the `InstanceBuilder`.
+    pub fn add_child(&mut self, child: InstanceBuilder) {
+        self.children.push(child);
+    }
+
     /// Add multiple children to the `InstanceBuilder` at once.
     ///
     /// Order of the children will be preserved.
-    pub fn with_children<I: IntoIterator<Item = InstanceBuilder>>(mut self, children: I) -> Self {
+    pub fn with_children<I>(mut self, children: I) -> Self
+    where
+        I: IntoIterator<Item = InstanceBuilder>,
+    {
         self.children.extend(children.into_iter());
         self
+    }
+
+    /// Add multiple children to the `InstanceBuilder` at once.
+    ///
+    /// Order of the children will be preserved.
+    pub fn add_children<I>(&mut self, children: I)
+    where
+        I: IntoIterator<Item = InstanceBuilder>,
+    {
+        self.children.extend(children.into_iter());
     }
 }
 
