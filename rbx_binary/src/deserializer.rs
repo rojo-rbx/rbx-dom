@@ -247,8 +247,6 @@ pub(crate) fn decode_inner<R: Read>(reader: R) -> Result<WeakDom, InnerError> {
         }
     }
 
-    deserializer.construct_tree();
-
     Ok(deserializer.finish())
 }
 
@@ -1022,7 +1020,7 @@ impl<R: Read> BinaryDeserializer<R> {
 
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
-    fn construct_tree(&mut self) {
+    fn finish(mut self) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 
         // Track all the instances we need to construct. Order of construction
@@ -1047,6 +1045,8 @@ impl<R: Read> BinaryDeserializer<R> {
                 }
             }
         }
+
+        self.tree
     }
 
     fn construct_and_insert_instance(&mut self, referent: i32, parent_ref: Ref) -> Ref {
@@ -1073,10 +1073,6 @@ impl<R: Read> BinaryDeserializer<R> {
         // instances that have no Name generally don't exist.
 
         self.tree.insert(parent_ref, builder)
-    }
-
-    fn finish(self) -> WeakDom {
-        self.tree
     }
 }
 
