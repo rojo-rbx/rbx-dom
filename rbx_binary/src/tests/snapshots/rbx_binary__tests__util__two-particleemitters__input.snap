@@ -38,7 +38,29 @@ chunks:
       type_id: 0
       prop_name: Color
       prop_type: ColorSequence
-      remaining: 02 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 02 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00
+      values:
+        - Keypoints:
+            - Time: 0.0
+              Color:
+                - 1.0
+                - 1.0
+                - 1.0
+            - Time: 1.0
+              Color:
+                - 1.0
+                - 1.0
+                - 1.0
+        - Keypoints:
+            - Time: 0.0
+              Color:
+                - 1.0
+                - 1.0
+                - 1.0
+            - Time: 1.0
+              Color:
+                - 1.0
+                - 1.0
+                - 1.0
   - Prop:
       type_id: 0
       prop_name: Drag

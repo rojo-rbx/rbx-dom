@@ -8,9 +8,9 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Faces, Matrix3, NumberRange,
-        NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ref, UDim, UDim2, Variant,
-        VariantType, Vector2, Vector3,
+        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+        ColorSequenceKeypoint, Faces, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+        PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -836,6 +836,25 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             }
                         }
                     }
+                    Type::ColorSequence => {
+                        for (i, rbx_value) in values {
+                            if let Variant::ColorSequence(value) = rbx_value.as_ref() {
+                                chunk.write_le_u32(value.keypoints.len() as u32)?;
+
+                                for keypoint in &value.keypoints {
+                                    chunk.write_le_f32(keypoint.time)?;
+                                    chunk.write_le_f32(keypoint.color.r)?;
+                                    chunk.write_le_f32(keypoint.color.g)?;
+                                    chunk.write_le_f32(keypoint.color.b)?;
+
+                                    // write out a dummy value for envelope, which is serialized but doesn't do anything
+                                    chunk.write_le_f32(0.0)?;
+                                }
+                            } else {
+                                return type_mismatch(i, &rbx_value, "ColorSequence");
+                            }
+                        }
+                    }
                     Type::NumberRange => {
                         for (i, rbx_value) in values {
                             if let Variant::NumberRange(value) = rbx_value.as_ref() {
@@ -1016,6 +1035,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 keypoints: [
                     NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
                     NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
+                ]
+                .to_vec(),
+            }),
+            VariantType::ColorSequence => Variant::ColorSequence(ColorSequence {
+                keypoints: [
+                    ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
+                    ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
                 ]
                 .to_vec(),
             }),
