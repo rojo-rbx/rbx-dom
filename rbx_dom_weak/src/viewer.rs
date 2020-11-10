@@ -13,16 +13,16 @@ use serde::{Deserialize, Serialize};
 /// persist when viewing the same instance multiple times, and should stay the
 /// same across multiple runs of a test.
 pub struct DomViewer {
-    referent_map: HashMap<Ref, String>,
-    next_referent: usize,
+    referent_to_id: HashMap<Ref, String>,
+    next_id: usize,
 }
 
 impl DomViewer {
     /// Construct a new `DomViewer` with no interned referents.
     pub fn new() -> Self {
         Self {
-            referent_map: HashMap::new(),
-            next_referent: 0,
+            referent_to_id: HashMap::new(),
+            next_id: 0,
         }
     }
 
@@ -51,10 +51,10 @@ impl DomViewer {
     }
 
     fn populate_referent_map(&mut self, dom: &WeakDom, referent: Ref) {
-        let next_referent = &mut self.next_referent;
-        self.referent_map.entry(referent).or_insert_with(|| {
-            let name = format!("referent-{}", next_referent);
-            *next_referent += 1;
+        let next_id = &mut self.next_id;
+        self.referent_to_id.entry(referent).or_insert_with(|| {
+            let name = format!("referent-{}", next_id);
+            *next_id += 1;
             name
         });
 
@@ -80,14 +80,18 @@ impl DomViewer {
             .map(|(key, value)| {
                 let key = key.clone();
                 let new_value = match value {
-                    Variant::Ref(ref_referent) => {
-                        let referent_str = self
-                            .referent_map
-                            .get(ref_referent)
-                            .cloned()
-                            .unwrap_or_else(|| "[unknown ID]".to_owned());
+                    Variant::Ref(referent) => {
+                        if referent.is_some() {
+                            let referent_str = self
+                                .referent_to_id
+                                .get(referent)
+                                .cloned()
+                                .unwrap_or_else(|| "[unknown ID]".to_owned());
 
-                        ViewedValue::Ref(referent_str)
+                            ViewedValue::Ref(referent_str)
+                        } else {
+                            ViewedValue::Ref("null".to_owned())
+                        }
                     }
                     other => ViewedValue::Other(other.clone()),
                 };
@@ -97,7 +101,7 @@ impl DomViewer {
             .collect();
 
         ViewedInstance {
-            referent: self.referent_map.get(&referent).unwrap().clone(),
+            referent: self.referent_to_id.get(&referent).unwrap().clone(),
             name: instance.name.clone(),
             class: instance.class.clone(),
             properties,
