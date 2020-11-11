@@ -863,15 +863,10 @@ impl<R: Read> BinaryDeserializer<R> {
             },
             Type::Ref => match canonical_type {
                 VariantType::Ref => {
-                    let mut differences = vec![0; type_info.referents.len()];
-                    chunk.read_interleaved_i32_array(&mut differences)?;
+                    let mut refs = vec![0; type_info.referents.len()];
+                    chunk.read_referent_array(&mut refs)?;
 
-                    let values = differences.into_iter().scan(0, |curr_ref, difference| {
-                        *curr_ref += difference;
-                        Some(*curr_ref)
-                    });
-
-                    for (value, referent) in values.zip(&type_info.referents) {
+                    for (value, referent) in refs.into_iter().zip(&type_info.referents) {
                         let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
                             instance.builder.referent()
                         } else {

@@ -364,16 +364,8 @@ impl DecodedValues {
                 Some(DecodedValues::Enum(values))
             }
             Type::Ref => {
-                let mut differences = vec![0; prop_count];
-                reader.read_interleaved_i32_array(&mut differences).unwrap();
-
-                let refs = differences
-                    .into_iter()
-                    .scan(0, |curr_ref, difference| {
-                        *curr_ref += difference;
-                        Some(*curr_ref)
-                    })
-                    .collect();
+                let mut refs = vec![0; prop_count];
+                reader.read_referent_array(&mut refs).unwrap();
 
                 Some(DecodedValues::Ref(refs))
             }

@@ -458,7 +458,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
             chunk.write_le_u32(type_info.object_refs.len() as u32)?;
 
-            chunk.write_referents(
+            chunk.write_referent_array(
                 type_info
                     .object_refs
                     .iter()
@@ -805,7 +805,6 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     }
                     Type::Ref => {
                         let mut buf = Vec::with_capacity(values.len());
-                        let mut prev_ref = 0;
                         let mut curr_ref;
 
                         for (i, rbx_value) in values {
@@ -818,14 +817,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                                     return Err(InnerError::InvalidInstanceId { referent: *value });
                                 }
 
-                                buf.push(curr_ref - prev_ref);
-                                prev_ref = curr_ref;
+                                buf.push(curr_ref);
                             } else {
                                 return type_mismatch(i, &rbx_value, "Ref");
                             }
                         }
 
-                        chunk.write_interleaved_i32_array(buf.into_iter())?;
+                        chunk.write_referent_array(buf.into_iter())?;
                     }
                     Type::PhysicalProperties => {
                         for (i, rbx_value) in values {
