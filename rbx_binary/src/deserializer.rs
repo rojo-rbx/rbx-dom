@@ -8,7 +8,7 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Content,
-        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, UDim, UDim2,
+        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, Ref, UDim, UDim2,
         Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
@@ -861,7 +861,31 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::Ref => {}
+            Type::Ref => match canonical_type {
+                VariantType::Ref => {
+                    let mut refs = vec![0; type_info.referents.len()];
+                    chunk.read_referent_array(&mut refs)?;
+
+                    for (value, referent) in refs.into_iter().zip(&type_info.referents) {
+                        let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
+                            instance.builder.referent()
+                        } else {
+                            Ref::none()
+                        };
+
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(&canonical_name, rbx_value);
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Ref",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Vector3int16 => {}
             Type::NumberSequence => {}
             Type::ColorSequence => {}

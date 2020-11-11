@@ -458,7 +458,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
             chunk.write_le_u32(type_info.object_refs.len() as u32)?;
 
-            chunk.write_referents(
+            chunk.write_referent_array(
                 type_info
                     .object_refs
                     .iter()
@@ -803,6 +803,23 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_u32_array(&buf)?;
                     }
+                    Type::Ref => {
+                        let mut buf = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Ref(value) = rbx_value.as_ref() {
+                                if value.is_none() {
+                                    buf.push(-1);
+                                } else if let Some(id) = self.id_to_referent.get(value) {
+                                    buf.push(*id);
+                                }
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Ref");
+                            }
+                        }
+
+                        chunk.write_referent_array(buf.into_iter())?;
+                    }
                     Type::PhysicalProperties => {
                         for (i, rbx_value) in values {
                             if let Variant::PhysicalProperties(value) = rbx_value.as_ref() {
@@ -906,8 +923,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             }
         });
 
-        chunk.write_referents(object_referents)?;
-        chunk.write_referents(parent_referents)?;
+        chunk.write_referent_array(object_referents)?;
+        chunk.write_referent_array(parent_referents)?;
 
         chunk.dump(&mut self.output)?;
 
@@ -968,6 +985,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
+            VariantType::Ref => Variant::Ref(Ref::none()),
             VariantType::PhysicalProperties => {
                 Variant::PhysicalProperties(PhysicalProperties::Default)
             }

@@ -134,6 +134,38 @@ chunks:
         - Frame3
   - Prop:
       type_id: 0
+      prop_name: NextSelectionDown
+      prop_type: Ref
+      values:
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionLeft
+      prop_type: Ref
+      values:
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionRight
+      prop_type: Ref
+      values:
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionUp
+      prop_type: Ref
+      values:
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
       prop_name: Position
       prop_type: UDim2
       values:
@@ -151,6 +183,14 @@ chunks:
             - 128
   - Prop:
       type_id: 0
+      prop_name: RootLocalizationTable
+      prop_type: Ref
+      values:
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
       prop_name: Rotation
       prop_type: Float32
       values:
@@ -165,6 +205,14 @@ chunks:
         - false
         - false
         - false
+  - Prop:
+      type_id: 0
+      prop_name: SelectionImageObject
+      prop_type: Ref
+      values:
+        - -1
+        - -1
+        - -1
   - Prop:
       type_id: 0
       prop_name: Size

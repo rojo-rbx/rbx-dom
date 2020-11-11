@@ -81,7 +81,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | ProtectedString    | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
 | Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ❌ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
-| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
+| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ✔ |
 | Region3            | N/A                             | ✔ | ✔ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ✔ | ✔ | ❌ | ❌ |
 | SharedString       | N/A                             | ✔ | ✔ | ✔ | ❌ |

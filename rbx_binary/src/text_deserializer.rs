@@ -188,6 +188,7 @@ pub enum DecodedValues {
     Vector3(Vec<Vector3>),
     CFrame(Vec<CFrame>),
     Enum(Vec<EnumValue>),
+    Ref(Vec<i32>),
     PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
@@ -361,6 +362,12 @@ impl DecodedValues {
                 let values = ints.into_iter().map(EnumValue::from_u32).collect();
 
                 Some(DecodedValues::Enum(values))
+            }
+            Type::Ref => {
+                let mut refs = vec![0; prop_count];
+                reader.read_referent_array(&mut refs).unwrap();
+
+                Some(DecodedValues::Ref(refs))
             }
             Type::Color3 => {
                 let mut r = vec![0.0; prop_count];

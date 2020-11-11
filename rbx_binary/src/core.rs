@@ -258,7 +258,7 @@ pub trait RbxWriteExt: Write {
         Ok(())
     }
 
-    fn write_referents<I>(&mut self, values: I) -> io::Result<()>
+    fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = i32>,
     {

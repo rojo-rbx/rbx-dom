@@ -56,6 +56,11 @@ impl InstanceBuilder {
         }
     }
 
+    /// Return the referent of the instance that the `InstanceBuilder` refers to.
+    pub fn referent(&self) -> Ref {
+        self.referent
+    }
+
     /// Change the name of the `InstanceBuilder`.
     pub fn with_name<S: Into<String>>(self, name: S) -> Self {
         Self {
