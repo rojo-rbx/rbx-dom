@@ -930,8 +930,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             }
         });
 
-        chunk.write_referents(object_referents)?;
-        chunk.write_referents(parent_referents)?;
+        chunk.write_referent_array(object_referents)?;
+        chunk.write_referent_array(parent_referents)?;
 
         chunk.dump(&mut self.output)?;
 
