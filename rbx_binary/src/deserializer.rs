@@ -8,8 +8,8 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Content,
-        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, UDim, UDim2,
-        Variant, VariantType, Vector2, Vector3,
+        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, SharedString,
+        UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -57,7 +57,7 @@ pub(crate) enum InnerError {
     #[error("Unknown version {version} for chunk {chunk_name}")]
     UnknownChunkVersion {
         chunk_name: &'static str,
-        version: u8,
+        version: u32,
     },
 
     #[error(transparent)]
@@ -234,6 +234,7 @@ pub(crate) fn decode_inner<R: Read>(reader: R) -> Result<WeakDom, InnerError> {
 
         match &chunk.name {
             b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
+            b"SSTR" => deserializer.decode_sstr_chunk(&chunk.data)?,
             b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
             b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
             b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
@@ -262,6 +263,8 @@ struct BinaryDeserializer<R> {
     /// The metadata contained in the file, which affects how some constructs
     /// are interpreted by Roblox.
     metadata: HashMap<String, String>,
+
+    shared_strings: HashMap<u32, SharedString>,
 
     /// All of the instance types described by the file so far.
     type_infos: HashMap<u32, TypeInfo>,
@@ -324,6 +327,7 @@ impl<R: Read> BinaryDeserializer<R> {
             input,
             tree,
             metadata: HashMap::new(),
+            shared_strings: HashMap::new(),
             type_infos,
             instances_by_ref,
             root_instance_refs: Vec::new(),
@@ -339,6 +343,29 @@ impl<R: Read> BinaryDeserializer<R> {
             let value = chunk.read_string()?;
 
             self.metadata.insert(key, value);
+        }
+
+        Ok(())
+    }
+
+    fn decode_sstr_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+        let version = chunk.read_le_u32()?;
+
+        if version != 0 {
+            return Err(InnerError::UnknownChunkVersion {
+                chunk_name: "PRNT",
+                version,
+            });
+        }
+
+        let num_entries = chunk.read_le_u32()?;
+
+        for i in 0..num_entries {
+            chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
+
+            let data = chunk.read_binary_string()?;
+
+            self.shared_strings.insert(i, SharedString::new(data));
         }
 
         Ok(())
@@ -947,7 +974,37 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::SharedString => {}
+            Type::SharedString => match canonical_type {
+                VariantType::SharedString => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_u32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let shared_string = self.shared_strings.get(&value).ok_or_else(|| {
+                            InnerError::InvalidPropData {
+                                type_name: type_info.type_name.clone(),
+                                prop_name: prop_name.clone(),
+                                valid_value: "a valid SharedString",
+                                actual_value: format!("{:?}", value),
+                            }
+                        })?;
+
+                        let value: BinaryString = shared_string.data().into();
+
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+
+                        instance.builder.add_property(&canonical_name, value)
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "SharedString",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    })
+                }
+            },
         }
 
         Ok(())
@@ -959,7 +1016,7 @@ impl<R: Read> BinaryDeserializer<R> {
         if version != 0 {
             return Err(InnerError::UnknownChunkVersion {
                 chunk_name: "PRNT",
-                version,
+                version: version as u32,
             });
         }
 
