@@ -805,19 +805,14 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     }
                     Type::Ref => {
                         let mut buf = Vec::with_capacity(values.len());
-                        let mut curr_ref;
 
                         for (i, rbx_value) in values {
                             if let Variant::Ref(value) = rbx_value.as_ref() {
                                 if value.is_none() {
-                                    curr_ref = -1;
+                                    buf.push(-1);
                                 } else if let Some(id) = self.id_to_referent.get(value) {
-                                    curr_ref = *id
-                                } else {
-                                    return Err(InnerError::InvalidInstanceId { referent: *value });
+                                    buf.push(*id);
                                 }
-
-                                buf.push(curr_ref);
                             } else {
                                 return type_mismatch(i, &rbx_value, "Ref");
                             }
