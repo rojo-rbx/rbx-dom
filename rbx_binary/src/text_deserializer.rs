@@ -8,7 +8,7 @@ use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces,
-    Matrix3, PhysicalProperties, UDim, UDim2, Vector2, Vector3,
+    Matrix3, PhysicalProperties, SharedString, UDim, UDim2, Vector2, Vector3,
 };
 use serde::Serialize;
 
@@ -38,6 +38,7 @@ impl DecodedModel {
 
             match &chunk.name {
                 b"META" => chunks.push(decode_meta_chunk(chunk.data.as_slice())),
+                b"SSTR" => chunks.push(decode_sstr_chunk(chunk.data.as_slice())),
                 b"INST" => chunks.push(decode_inst_chunk(
                     chunk.data.as_slice(),
                     &mut count_by_type_id,
@@ -82,6 +83,30 @@ fn decode_meta_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     reader.read_to_end(&mut remaining).unwrap();
 
     DecodedChunk::Meta { entries, remaining }
+}
+
+fn decode_sstr_chunk<R: Read>(mut reader: R) -> DecodedChunk {
+    let version = reader.read_le_u32().unwrap();
+    let num_entries = reader.read_le_u32().unwrap();
+    let mut entries = Vec::with_capacity(num_entries as usize);
+
+    for _ in 0..num_entries {
+        let mut hash = [0; 16];
+        reader.read_exact(&mut hash).unwrap();
+
+        let data = reader.read_binary_string().unwrap().into();
+
+        entries.push(SharedString::new(data));
+    }
+
+    let mut remaining = Vec::new();
+    reader.read_to_end(&mut remaining).unwrap();
+
+    DecodedChunk::Sstr {
+        version,
+        entries,
+        remaining,
+    }
 }
 
 fn decode_inst_chunk<R: Read>(
@@ -191,6 +216,7 @@ pub enum DecodedValues {
     PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
+    SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
 }
 
 impl DecodedValues {
@@ -457,6 +483,13 @@ impl DecodedValues {
 
                 Some(DecodedValues::Int64(values))
             }
+            Type::SharedString => {
+                let mut values = vec![0; prop_count];
+
+                reader.read_interleaved_u32_array(&mut values).unwrap();
+
+                Some(DecodedValues::SharedString(values))
+            }
             _ => None,
         }
     }
@@ -491,6 +524,14 @@ impl From<Vec<u8>> for RobloxString {
 pub enum DecodedChunk {
     Meta {
         entries: Vec<(String, String)>,
+
+        #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
+        remaining: Vec<u8>,
+    },
+
+    Sstr {
+        version: u32,
+        entries: Vec<SharedString>,
 
         #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
         remaining: Vec<u8>,

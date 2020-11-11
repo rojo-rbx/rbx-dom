@@ -947,6 +947,7 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
+            Type::SharedString => {}
         }
 
         Ok(())
