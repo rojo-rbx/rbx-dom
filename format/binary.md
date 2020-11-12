@@ -478,7 +478,7 @@ look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 
 ### ColorSequence
 **Type ID 0x16**
 
-The `ColorSequence` type is stored as a `u32` indicating how many `ColorSequenceKeypoints` are in the `ColorSequence` followed by an array of ColorSequenceKeypoints:
+The `ColorSequence` type is stored as a `u32` indicating how many ColorSequenceKeypoints are in the `ColorSequence` followed by an array of ColorSequenceKeypoints:
 
 | Field Name     | Format                       | Value                                   |
 |:---------------|:-----------------------------|:----------------------------------------|
