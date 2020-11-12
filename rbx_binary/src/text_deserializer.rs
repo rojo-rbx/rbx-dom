@@ -8,7 +8,7 @@ use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces,
-    Matrix3, PhysicalProperties, UDim, UDim2, Vector2, Vector3,
+    Matrix3, NumberRange, PhysicalProperties, UDim, UDim2, Vector2, Vector3,
 };
 use serde::Serialize;
 
@@ -189,6 +189,7 @@ pub enum DecodedValues {
     CFrame(Vec<CFrame>),
     Enum(Vec<EnumValue>),
     Ref(Vec<i32>),
+    NumberRange(Vec<NumberRange>),
     PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
@@ -419,6 +420,18 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::Vector3(values))
+            }
+            Type::NumberRange => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    values.push(NumberRange::new(
+                        reader.read_le_f32().unwrap(),
+                        reader.read_le_f32().unwrap(),
+                    ));
+                }
+
+                Some(DecodedValues::NumberRange(values))
             }
             Type::PhysicalProperties => {
                 let mut values = Vec::with_capacity(prop_count);

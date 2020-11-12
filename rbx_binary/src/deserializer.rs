@@ -8,8 +8,8 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Content,
-        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, Ref, UDim, UDim2,
-        Variant, VariantType, Vector2, Vector3,
+        CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, PhysicalProperties, Ref,
+        UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -889,7 +889,15 @@ impl<R: Read> BinaryDeserializer<R> {
             Type::Vector3int16 => {}
             Type::NumberSequence => {}
             Type::ColorSequence => {}
-            Type::NumberRange => {}
+            Type::NumberRange => {
+                for referent in &type_info.referents {
+                    let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    instance.builder.add_property(
+                        &canonical_name,
+                        NumberRange::new(chunk.read_le_f32()?, chunk.read_le_f32()?),
+                    )
+                }
+            }
             Type::Rect => {}
             Type::PhysicalProperties => match canonical_type {
                 VariantType::PhysicalProperties => {
