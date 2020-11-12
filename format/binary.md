@@ -521,8 +521,8 @@ The `NumberRange` type is stored as two little-endian floats:
 
 | Field Name | Format | Value                          |
 |:-----------|:-------|:-------------------------------|
-| Min        | f32    | The maximum value of the range |
-| Max        | f32    | The minimum value of the range |
+| Min        | f32    | The minimum value of the range |
+| Max        | f32    | The maximum value of the range |
 
 Multiple NumberRanges are stored in sequence with no transformation or interleaving. Two NumberRanges with values `NumberRange.new(0, 0.5)` and `NumberRange.new(0.5, 1)` look like this: `00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 80 3f`.
 
