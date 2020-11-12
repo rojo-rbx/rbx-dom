@@ -9,7 +9,7 @@ use std::{collections::HashMap, convert::TryInto, io::Read};
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, UDim, UDim2, Vector2, Vector3,
+    NumberSequenceKeypoint, PhysicalProperties, Rect, UDim, UDim2, Vector2, Vector3,
 };
 use serde::Serialize;
 
@@ -193,6 +193,7 @@ pub enum DecodedValues {
     NumberSequence(Vec<NumberSequence>),
     ColorSequence(Vec<ColorSequence>),
     NumberRange(Vec<NumberRange>),
+    Rect(Vec<Rect>),
     PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
@@ -481,6 +482,29 @@ impl DecodedValues {
                 }
 
                 Some(DecodedValues::NumberSequence(values))
+            }
+            Type::Rect => {
+                let mut x_min = vec![0.0; prop_count];
+                let mut y_min = vec![0.0; prop_count];
+                let mut x_max = vec![0.0; prop_count];
+                let mut y_max = vec![0.0; prop_count];
+
+                reader.read_interleaved_f32_array(&mut x_min).unwrap();
+                reader.read_interleaved_f32_array(&mut y_min).unwrap();
+                reader.read_interleaved_f32_array(&mut x_max).unwrap();
+                reader.read_interleaved_f32_array(&mut y_max).unwrap();
+
+                let values = x_min
+                    .into_iter()
+                    .zip(y_min)
+                    .zip(x_max)
+                    .zip(y_max)
+                    .map(|(((x_min, y_min), x_max), y_max)| {
+                        Rect::new(Vector2::new(x_min, y_min), Vector2::new(x_max, y_max))
+                    })
+                    .collect();
+
+                Some(DecodedValues::Rect(values))
             }
             Type::PhysicalProperties => {
                 let mut values = Vec::with_capacity(prop_count);

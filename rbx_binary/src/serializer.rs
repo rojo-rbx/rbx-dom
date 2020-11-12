@@ -10,7 +10,7 @@ use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Faces, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        PhysicalProperties, Rect, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -865,6 +865,28 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                             }
                         }
                     }
+                    Type::Rect => {
+                        let mut x_min = Vec::with_capacity(values.len());
+                        let mut y_min = Vec::with_capacity(values.len());
+                        let mut x_max = Vec::with_capacity(values.len());
+                        let mut y_max = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::Rect(value) = rbx_value.as_ref() {
+                                x_min.push(value.min.x);
+                                y_min.push(value.min.y);
+                                x_max.push(value.max.x);
+                                y_max.push(value.max.y);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Rect");
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(x_min.into_iter())?;
+                        chunk.write_interleaved_f32_array(y_min.into_iter())?;
+                        chunk.write_interleaved_f32_array(x_max.into_iter())?;
+                        chunk.write_interleaved_f32_array(y_max.into_iter())?;
+                    }
                     Type::PhysicalProperties => {
                         for (i, rbx_value) in values {
                             if let Variant::PhysicalProperties(value) = rbx_value.as_ref() {
@@ -1046,6 +1068,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 .to_vec(),
             }),
             VariantType::NumberRange => Variant::NumberRange(NumberRange::new(0.0, 0.0)),
+            VariantType::Rect => {
+                Variant::Rect(Rect::new(Vector2::new(0.0, 0.0), Vector2::new(0.0, 0.0)))
+            }
             VariantType::PhysicalProperties => {
                 Variant::PhysicalProperties(PhysicalProperties::Default)
             }

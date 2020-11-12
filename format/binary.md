@@ -39,7 +39,7 @@ This document is based on:
 	- [NumberSequence](#numbersequence)
 	- [ColorSequence](#colorsequence)
 	- [NumberRange](#numberrange)
-	- [Rect2D](#rect2d)
+	- [Rect](#rect)
 	- [PhysicalProperties](#physicalproperties)
 	- [Color3uint8](#color3uint8)
 	- [Int64](#int64)
@@ -509,7 +509,6 @@ ColorSequence.new(
 	ColorSequenceKeypoint.new(0.5, Color3.FromRGB(0, 255, 0))
 	ColorSequenceKeypoint.new(1, Color3.FromRGB(0, 0, 255))
 )
-
 ```
 
 look like this: `03 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 03 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00`.
@@ -526,8 +525,19 @@ The `NumberRange` type is stored as two little-endian floats:
 
 Multiple NumberRanges are stored in sequence with no transformation or interleaving. Two NumberRanges with values `NumberRange.new(0, 0.5)` and `NumberRange.new(0.5, 1)` look like this: `00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 80 3f`.
 
-### Rect2D
+### Rect
 **Type ID 0x18**
+
+The `Rect` type is a struct composed of two Vector2s:
+
+| Field Name | Format              | Value                         |
+|:-----------|:--------------------|:------------------------------|
+| Min        | [Vector2](#vector2) | The minimum value of the Rect |
+| Max        | [Vector2](#vector2) | The maximum value of the Rect |
+
+`Rect` is stored as four arrays of [Float32](#float32)s in the order `Min.X`, `Min.Y`, `Max.X`, `Max.Y`. Each array is subject to [byte interleaving](#byte-interleaving).
+
+Two encoded Rects with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0, 1, 5, 6)` look like this: `7f 00 00 00 00 00 01 00 82 7f 40 00 00 00 01 00 82 81 00 40 00 00 00 00 82 81 20 80 00 00 00 00`.
 
 ### PhysicalProperties
 
