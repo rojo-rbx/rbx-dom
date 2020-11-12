@@ -994,7 +994,7 @@ impl<R: Read> BinaryDeserializer<R> {
 
                         instance.builder.add_property(
                             &canonical_name,
-                            Variant::SharedString(shared_string.clone()),
+                            shared_string.clone(),
                         );
                     }
                 }
