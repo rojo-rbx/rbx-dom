@@ -127,8 +127,13 @@ mod serde_impl {
     // decide how to actually serialize SharedString at some point.
 
     impl Serialize for SharedString {
-        fn serialize<S: Serializer>(&self, _serializer: S) -> Result<S::Ok, S::Error> {
-            unimplemented!();
+        fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+            if serializer.is_human_readable() {
+                let encoded = format!("[{} bytes] {}", self.data().len(), self.hash.to_hex());
+                serializer.serialize_str(&encoded)
+            } else {
+                serializer.serialize_bytes(self.data())
+            }
         }
     }
 
