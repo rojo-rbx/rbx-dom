@@ -264,7 +264,9 @@ struct BinaryDeserializer<R> {
     /// are interpreted by Roblox.
     metadata: HashMap<String, String>,
 
-    shared_strings: HashMap<u32, SharedString>,
+    /// The SharedStrings contained in the file, if any, in the order that they
+    /// appear in the file.
+    shared_strings: Vec<SharedString>,
 
     /// All of the instance types described by the file so far.
     type_infos: HashMap<u32, TypeInfo>,
@@ -327,7 +329,7 @@ impl<R: Read> BinaryDeserializer<R> {
             input,
             tree,
             metadata: HashMap::new(),
-            shared_strings: HashMap::new(),
+            shared_strings: Vec::new(),
             type_infos,
             instances_by_ref,
             root_instance_refs: Vec::new(),
@@ -360,12 +362,11 @@ impl<R: Read> BinaryDeserializer<R> {
 
         let num_entries = chunk.read_le_u32()?;
 
-        for i in 0..num_entries {
+        for _ in 0..num_entries {
             chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
 
             let data = chunk.read_binary_string()?;
-
-            self.shared_strings.insert(i, SharedString::new(data));
+            self.shared_strings.push(SharedString::new(data));
         }
 
         Ok(())
@@ -980,20 +981,22 @@ impl<R: Read> BinaryDeserializer<R> {
                     chunk.read_interleaved_u32_array(&mut values)?;
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
-                        let shared_string = self.shared_strings.get(&value).ok_or_else(|| {
-                            InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
-                                prop_name: prop_name.clone(),
-                                valid_value: "a valid SharedString",
-                                actual_value: format!("{:?}", value),
-                            }
-                        })?;
-
-                        let value: BinaryString = shared_string.data().into();
+                        let shared_string =
+                            self.shared_strings.get(value as usize).ok_or_else(|| {
+                                InnerError::InvalidPropData {
+                                    type_name: type_info.type_name.clone(),
+                                    prop_name: prop_name.clone(),
+                                    valid_value: "a valid SharedString",
+                                    actual_value: format!("{:?}", value),
+                                }
+                            })?;
 
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
-                        instance.builder.add_property(&canonical_name, value)
+                        instance.builder.add_property(
+                            &canonical_name,
+                            Variant::SharedString(shared_string.clone()),
+                        );
                     }
                 }
                 invalid_type => {
