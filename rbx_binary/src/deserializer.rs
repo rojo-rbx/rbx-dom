@@ -9,8 +9,8 @@ use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
-        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ref, UDim, UDim2,
-        Variant, VariantType, Vector2, Vector3,
+        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Rect, Ref, UDim,
+        UDim2, Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -961,7 +961,39 @@ impl<R: Read> BinaryDeserializer<R> {
                     )
                 }
             }
-            Type::Rect => {}
+            Type::Rect => match canonical_type {
+                VariantType::Rect => {
+                    let len = type_info.referents.len();
+                    let mut x_min = vec![0.0; len];
+                    let mut y_min = vec![0.0; len];
+                    let mut x_max = vec![0.0; len];
+                    let mut y_max = vec![0.0; len];
+
+                    chunk.read_interleaved_f32_array(&mut x_min)?;
+                    chunk.read_interleaved_f32_array(&mut y_min)?;
+                    chunk.read_interleaved_f32_array(&mut x_max)?;
+                    chunk.read_interleaved_f32_array(&mut y_max)?;
+
+                    let values = x_min.into_iter().zip(y_min).zip(x_max).zip(y_max).map(
+                        |(((x_min, y_min), x_max), y_max)| {
+                            Rect::new(Vector2::new(x_min, y_min), Vector2::new(x_max, y_max))
+                        },
+                    );
+
+                    for (value, referent) in values.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(&canonical_name, value)
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Rect",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::PhysicalProperties => match canonical_type {
                 VariantType::PhysicalProperties => {
                     for referent in &type_info.referents {

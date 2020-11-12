@@ -80,7 +80,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ✔ |
 | ProtectedString    | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
 | Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ❌ |
-| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
+| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ✔ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ✔ |
 | Region3            | N/A                             | ✔ | ✔ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ✔ | ✔ | ❌ | ❌ |

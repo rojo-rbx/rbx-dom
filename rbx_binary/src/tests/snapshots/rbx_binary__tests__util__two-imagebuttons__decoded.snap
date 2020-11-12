@@ -1,0 +1,310 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: ImageButton
+  class: ImageButton
+  properties:
+    Active:
+      Type: Bool
+      Value: true
+    AnchorPoint:
+      Type: Vector2
+      Value:
+        - 0.0
+        - 0.0
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    AutoButtonColor:
+      Type: Bool
+      Value: true
+    AutoLocalize:
+      Type: Bool
+      Value: true
+    AutomaticSize:
+      Type: EnumValue
+      Value: 0
+    BackgroundColor3:
+      Type: Color3
+      Value:
+        - 1.0
+        - 1.0
+        - 1.0
+    BackgroundTransparency:
+      Type: Float32
+      Value: 0.0
+    BorderColor3:
+      Type: Color3
+      Value:
+        - 0.10588236153125763
+        - 0.16470588743686677
+        - 0.20784315466880799
+    BorderMode:
+      Type: EnumValue
+      Value: 0
+    BorderSizePixel:
+      Type: Int32
+      Value: 1
+    ClipsDescendants:
+      Type: Bool
+      Value: false
+    Draggable:
+      Type: Bool
+      Value: false
+    HoverImage:
+      Type: Content
+      Value: ""
+    Image:
+      Type: Content
+      Value: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+    ImageColor3:
+      Type: Color3
+      Value:
+        - 1.0
+        - 1.0
+        - 1.0
+    ImageRectOffset:
+      Type: Vector2
+      Value:
+        - 0.0
+        - 0.0
+    ImageRectSize:
+      Type: Vector2
+      Value:
+        - 0.0
+        - 0.0
+    ImageTransparency:
+      Type: Float32
+      Value: 0.0
+    LayoutOrder:
+      Type: Int32
+      Value: 0
+    Modal:
+      Type: Bool
+      Value: false
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      Type: UDim2
+      Value:
+        - - 0.0
+          - 0
+        - - 0.0
+          - 0
+    PressedImage:
+      Type: Content
+      Value: ""
+    RootLocalizationTable: "null"
+    Rotation:
+      Type: Float32
+      Value: 0.0
+    ScaleType:
+      Type: EnumValue
+      Value: 1
+    Selectable:
+      Type: Bool
+      Value: true
+    Selected:
+      Type: Bool
+      Value: false
+    SelectionImageObject: "null"
+    Size:
+      Type: UDim2
+      Value:
+        - - 0.0
+          - 100
+        - - 0.0
+          - 100
+    SizeConstraint:
+      Type: EnumValue
+      Value: 0
+    SliceCenter:
+      Type: Rect
+      Value:
+        - - -1.0
+          - -10.0
+        - - 8.0
+          - 9.0
+    SliceScale:
+      Type: Float32
+      Value: 1.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Style:
+      Type: EnumValue
+      Value: 0
+    Tags:
+      Type: BinaryString
+      Value: ""
+    TileSize:
+      Type: UDim2
+      Value:
+        - - 1.0
+          - 0
+        - - 1.0
+          - 0
+    Visible:
+      Type: Bool
+      Value: true
+    ZIndex:
+      Type: Int32
+      Value: 1
+  children: []
+- referent: referent-1
+  name: ImageButton
+  class: ImageButton
+  properties:
+    Active:
+      Type: Bool
+      Value: true
+    AnchorPoint:
+      Type: Vector2
+      Value:
+        - 0.0
+        - 0.0
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    AutoButtonColor:
+      Type: Bool
+      Value: true
+    AutoLocalize:
+      Type: Bool
+      Value: true
+    AutomaticSize:
+      Type: EnumValue
+      Value: 0
+    BackgroundColor3:
+      Type: Color3
+      Value:
+        - 1.0
+        - 1.0
+        - 1.0
+    BackgroundTransparency:
+      Type: Float32
+      Value: 0.0
+    BorderColor3:
+      Type: Color3
+      Value:
+        - 0.10588236153125763
+        - 0.16470588743686677
+        - 0.20784315466880799
+    BorderMode:
+      Type: EnumValue
+      Value: 0
+    BorderSizePixel:
+      Type: Int32
+      Value: 1
+    ClipsDescendants:
+      Type: Bool
+      Value: false
+    Draggable:
+      Type: Bool
+      Value: false
+    HoverImage:
+      Type: Content
+      Value: ""
+    Image:
+      Type: Content
+      Value: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+    ImageColor3:
+      Type: Color3
+      Value:
+        - 1.0
+        - 1.0
+        - 1.0
+    ImageRectOffset:
+      Type: Vector2
+      Value:
+        - 0.0
+        - 0.0
+    ImageRectSize:
+      Type: Vector2
+      Value:
+        - 0.0
+        - 0.0
+    ImageTransparency:
+      Type: Float32
+      Value: 0.0
+    LayoutOrder:
+      Type: Int32
+      Value: 0
+    Modal:
+      Type: Bool
+      Value: false
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      Type: UDim2
+      Value:
+        - - 0.0
+          - 0
+        - - 0.0
+          - 0
+    PressedImage:
+      Type: Content
+      Value: ""
+    RootLocalizationTable: "null"
+    Rotation:
+      Type: Float32
+      Value: 0.0
+    ScaleType:
+      Type: EnumValue
+      Value: 1
+    Selectable:
+      Type: Bool
+      Value: true
+    Selected:
+      Type: Bool
+      Value: false
+    SelectionImageObject: "null"
+    Size:
+      Type: UDim2
+      Value:
+        - - 0.0
+          - 100
+        - - 0.0
+          - 100
+    SizeConstraint:
+      Type: EnumValue
+      Value: 0
+    SliceCenter:
+      Type: Rect
+      Value:
+        - - 0.0
+          - 1.0
+        - - 5.0
+          - 6.0
+    SliceScale:
+      Type: Float32
+      Value: 1.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Style:
+      Type: EnumValue
+      Value: 0
+    Tags:
+      Type: BinaryString
+      Value: ""
+    TileSize:
+      Type: UDim2
+      Value:
+        - - 1.0
+          - 0
+        - - 1.0
+          - 0
+    Visible:
+      Type: Bool
+      Value: true
+    ZIndex:
+      Type: Int32
+      Value: 1
+  children: []
