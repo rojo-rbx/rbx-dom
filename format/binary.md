@@ -440,6 +440,41 @@ The **correct** interpretation of this data, with accumulation, is:
 ### NumberSequence
 **Type ID 0x15**
 
+The `NumberSequence` type is stored as a `u32` indicating how many NumberSequenceKeypoints are in the sequence followed by an array of NumberSequenceKeypoints:
+
+| Field Name     | Format                        | Value                                   |
+|:---------------|:------------------------------|:----------------------------------------|
+| Keypoint count | u32                           | The number of keypoints in the sequence |
+| Keypoints      | Array(NumberSequenceKeypoint) | The data for the keypoints              |
+
+`NumberSequenceKeypoint` is a struct composed of the following fields:
+
+| Field Name | Format | Value                         |
+|:-----------|:-------|:------------------------------|
+| Time       | f32    | The time for the keypoint     |
+| Value      | f32    | The value of the keypoint     |
+| Envelope   | f32    | The envelope for the keypoint |
+
+When multiple NumberSequences are present, they are stored in sequence with no transformation or interleaving. Two NumberSequences with values
+
+```
+NumberSequence.new(
+	NumberSequenceKeypoint.new(0, 0),
+	NumberSequenceKeypoint.new(0.5, 1),
+	NumberSequenceKeypoint.new(1, 1, 0.5)
+)
+```
+
+```
+NumberSequence.new(
+	NumberSequenceKeypoint.new(0, 1),
+	NumberSequenceKeypoint.new(0.5, 0.5, 0.5),
+	NumberSequenceKeypoint.new(1, 0.5)
+)
+```
+
+look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 80 3f 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 00 3f 03 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 00 3f 00 00 80 3f 00 00 00 3f 00 00 00 00`
+
 ### ColorSequence
 **Type ID 0x16**
 

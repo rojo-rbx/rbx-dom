@@ -9,7 +9,8 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Faces, Matrix3, NumberRange,
-        PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ref, UDim, UDim2, Variant,
+        VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -820,6 +821,21 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_referent_array(buf.into_iter())?;
                     }
+                    Type::NumberSequence => {
+                        for (i, rbx_value) in values {
+                            if let Variant::NumberSequence(value) = rbx_value.as_ref() {
+                                chunk.write_le_u32(value.keypoints.len() as u32)?;
+
+                                for keypoint in &value.keypoints {
+                                    chunk.write_le_f32(keypoint.time)?;
+                                    chunk.write_le_f32(keypoint.value)?;
+                                    chunk.write_le_f32(keypoint.envelope)?;
+                                }
+                            } else {
+                                return type_mismatch(i, &rbx_value, "NumberSequence");
+                            }
+                        }
+                    }
                     Type::NumberRange => {
                         for (i, rbx_value) in values {
                             if let Variant::NumberRange(value) = rbx_value.as_ref() {
@@ -996,6 +1012,13 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
             VariantType::Ref => Variant::Ref(Ref::none()),
+            VariantType::NumberSequence => Variant::NumberSequence(NumberSequence {
+                keypoints: [
+                    NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
+                    NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
+                ]
+                .to_vec(),
+            }),
             VariantType::NumberRange => Variant::NumberRange(NumberRange::new(0.0, 0.0)),
             VariantType::PhysicalProperties => {
                 Variant::PhysicalProperties(PhysicalProperties::Default)

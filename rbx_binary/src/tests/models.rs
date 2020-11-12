@@ -42,6 +42,7 @@ binary_tests! {
     three_intvalues,
     three_nested_folders,
     three_screengui,
+    three_uigradients,
     three_uigridlayouts,
     three_unique_frames,
     three_unique_parts,

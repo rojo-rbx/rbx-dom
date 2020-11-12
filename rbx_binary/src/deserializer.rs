@@ -8,8 +8,9 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Content,
-        CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, PhysicalProperties, Ref,
-        UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
+        NumberSequenceKeypoint, PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType,
+        Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -887,7 +888,35 @@ impl<R: Read> BinaryDeserializer<R> {
                 }
             },
             Type::Vector3int16 => {}
-            Type::NumberSequence => {}
+            Type::NumberSequence => match canonical_type {
+                VariantType::NumberSequence => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let keypoint_count = chunk.read_le_u32()?;
+                        let mut keypoints = Vec::with_capacity(keypoint_count as usize);
+
+                        for _ in 0..keypoint_count {
+                            keypoints.push(NumberSequenceKeypoint::new(
+                                chunk.read_le_f32()?,
+                                chunk.read_le_f32()?,
+                                chunk.read_le_f32()?,
+                            ))
+                        }
+
+                        instance
+                            .builder
+                            .add_property(&canonical_name, NumberSequence { keypoints })
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "NumberSequence",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::ColorSequence => {}
             Type::NumberRange => {
                 for referent in &type_info.referents {

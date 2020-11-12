@@ -8,7 +8,8 @@ use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces,
-    Matrix3, NumberRange, PhysicalProperties, UDim, UDim2, Vector2, Vector3,
+    Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, UDim, UDim2,
+    Vector2, Vector3,
 };
 use serde::Serialize;
 
@@ -189,6 +190,7 @@ pub enum DecodedValues {
     CFrame(Vec<CFrame>),
     Enum(Vec<EnumValue>),
     Ref(Vec<i32>),
+    NumberSequence(Vec<NumberSequence>),
     NumberRange(Vec<NumberRange>),
     PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
@@ -432,6 +434,26 @@ impl DecodedValues {
                 }
 
                 Some(DecodedValues::NumberRange(values))
+            }
+            Type::NumberSequence => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    let keypoint_count = reader.read_le_u32().unwrap();
+                    let mut keypoints = Vec::with_capacity(keypoint_count as usize);
+
+                    for _ in 0..keypoint_count {
+                        keypoints.push(NumberSequenceKeypoint::new(
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                        ))
+                    }
+
+                    values.push(NumberSequence { keypoints })
+                }
+
+                Some(DecodedValues::NumberSequence(values))
             }
             Type::PhysicalProperties => {
                 let mut values = Vec::with_capacity(prop_count);
