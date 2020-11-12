@@ -478,6 +478,42 @@ look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 
 ### ColorSequence
 **Type ID 0x16**
 
+The `ColorSequence` type is stored as a `u32` indicating how many ColorSequenceKeypoints are in the `ColorSequence` followed by an array of ColorSequenceKeypoints:
+
+| Field Name     | Format                       | Value                                   |
+|:---------------|:-----------------------------|:----------------------------------------|
+| Keypoint count | u32                          | The number of keypoints in the sequence |
+| Keypoints      | Array(ColorSequenceKeypoint) | The data for each keypoint              |
+
+`ColorSequenceKeypoint` is a struct composed of the following fields:
+
+| Field Name        | Format            | Value                                        |
+|:------------------|:------------------|:---------------------------------------------|
+| Time              | f32               | The time value of the ColorSequenceKeypoint  |
+| Color             | [Color3](#Color3) | The color value of the ColorSequenceKeypoint |
+| Envelope (unused) | f32               | n/a; serialized, but not used                |
+
+Note that `Color` is **not** subject to interleaving like a normal `Color3`. When multiple ColorSequences are present, they are stored in sequence with no transformation or interleaving. Two ColorSequences with values
+
+```
+ColorSequence.new(
+	ColorSequenceKeypoint.new(0, Color3.FromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(0.5, Color3.FromRGB(0, 0, 0)),
+	ColorSequenceKeypoint.new(1, Color3.FromRGB(255, 255, 255))
+)
+```
+
+```
+ColorSequence.new(
+	ColorSequenceKeypoint.new(0, Color3.FromRGB(255, 0, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.FromRGB(0, 255, 0))
+	ColorSequenceKeypoint.new(1, Color3.FromRGB(0, 0, 255))
+)
+
+```
+
+look like this: `03 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 03 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00`.
+
 ### NumberRange
 **Type ID 0x17**
 

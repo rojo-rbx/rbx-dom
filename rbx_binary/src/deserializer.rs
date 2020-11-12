@@ -7,10 +7,10 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Content,
-        CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
-        NumberSequenceKeypoint, PhysicalProperties, Ref, UDim, UDim2, Variant, VariantType,
-        Vector2, Vector3,
+        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+        ColorSequenceKeypoint, Content, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
+        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ref, UDim, UDim2,
+        Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -917,7 +917,41 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::ColorSequence => {}
+            Type::ColorSequence => match canonical_type {
+                VariantType::ColorSequence => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let keypoint_count = chunk.read_le_u32()? as usize;
+                        let mut keypoints = Vec::with_capacity(keypoint_count);
+
+                        for _ in 0..keypoint_count {
+                            keypoints.push(ColorSequenceKeypoint::new(
+                                chunk.read_le_f32()?,
+                                Color3::new(
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                ),
+                            ));
+
+                            // envelope is serialized but doesn't do anything; don't do anything with it
+                            chunk.read_le_f32()?;
+                        }
+
+                        instance
+                            .builder
+                            .add_property(&canonical_name, ColorSequence { keypoints })
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "ColorSequence",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::NumberRange => {
                 for referent in &type_info.referents {
                     let instance = self.instances_by_ref.get_mut(referent).unwrap();

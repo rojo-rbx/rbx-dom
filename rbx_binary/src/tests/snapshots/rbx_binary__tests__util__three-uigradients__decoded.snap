@@ -9,6 +9,20 @@ expression: decoded_viewed
     AttributesSerialize:
       Type: BinaryString
       Value: ""
+    Color:
+      Type: ColorSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+          - Time: 1.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
     Enabled:
       Type: Bool
       Value: true
@@ -53,6 +67,20 @@ expression: decoded_viewed
     AttributesSerialize:
       Type: BinaryString
       Value: ""
+    Color:
+      Type: ColorSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+          - Time: 1.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
     Enabled:
       Type: Bool
       Value: true
@@ -91,6 +119,20 @@ expression: decoded_viewed
     AttributesSerialize:
       Type: BinaryString
       Value: ""
+    Color:
+      Type: ColorSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+          - Time: 1.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
     Enabled:
       Type: Bool
       Value: true
