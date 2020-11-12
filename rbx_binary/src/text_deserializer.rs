@@ -93,9 +93,7 @@ fn decode_sstr_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     for _ in 0..num_entries {
         let mut hash = [0; 16];
         reader.read_exact(&mut hash).unwrap();
-
         let data = reader.read_binary_string().unwrap();
-
         entries.push(SharedString::new(data));
     }
 

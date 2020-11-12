@@ -355,7 +355,7 @@ impl<R: Read> BinaryDeserializer<R> {
 
         if version != 0 {
             return Err(InnerError::UnknownChunkVersion {
-                chunk_name: "PRNT",
+                chunk_name: "SSTR",
                 version,
             });
         }
@@ -364,7 +364,6 @@ impl<R: Read> BinaryDeserializer<R> {
 
         for _ in 0..num_entries {
             chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
-
             let data = chunk.read_binary_string()?;
             self.shared_strings.push(SharedString::new(data));
         }
