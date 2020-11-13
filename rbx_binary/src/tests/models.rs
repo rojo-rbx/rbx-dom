@@ -51,4 +51,5 @@ binary_tests! {
     two_cframevalues,
     two_imagebuttons,
     two_particleemitters,
+    two_ray_values,
 }

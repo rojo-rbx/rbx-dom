@@ -1,0 +1,71 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 1
+num_instances: 2
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: RayValue
+      object_format: 0
+      referents:
+        - 0
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - "{1, 2, 3}, {-4, -5, -6}"
+        - "{inf, -inf, nan}, {0.5, 0.15625, 0.1}"
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Value
+      prop_type: Ray
+      values:
+        - Origin:
+            - 1.0
+            - 2.0
+            - 3.0
+          Direction:
+            - -4.0
+            - -5.0
+            - -4.0
+        - Origin:
+            - .inf
+            - -.inf
+            - .nan
+          Direction:
+            - 0.5
+            - 0.15625
+            - 0.5
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+  - End
