@@ -9,7 +9,7 @@ use std::{collections::HashMap, convert::TryInto, io::Read};
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Rect, UDim, UDim2, Vector2, Vector3,
+    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, UDim, UDim2, Vector2, Vector3,
 };
 use serde::Serialize;
 
@@ -181,6 +181,7 @@ pub enum DecodedValues {
     Float64(Vec<f64>),
     UDim(Vec<UDim>),
     UDim2(Vec<UDim2>),
+    Ray(Vec<Ray>),
     Faces(Vec<Faces>),
     Axes(Vec<Axes>),
     BrickColor(Vec<BrickColor>),
@@ -284,6 +285,25 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::UDim2(values))
+            }
+            Type::Ray => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    let origin_x = reader.read_le_f32().unwrap();
+                    let origin_y = reader.read_le_f32().unwrap();
+                    let origin_z = reader.read_le_f32().unwrap();
+                    let direction_x = reader.read_le_f32().unwrap();
+                    let direction_y = reader.read_le_f32().unwrap();
+                    let direction_z = reader.read_le_f32().unwrap();
+
+                    values.push(Ray::new(
+                        Vector3::new(origin_x, origin_y, origin_z),
+                        Vector3::new(direction_x, direction_y, direction_z),
+                    ))
+                }
+
+                Some(DecodedValues::Ray(values))
             }
             Type::Faces => {
                 let mut values = Vec::with_capacity(prop_count);

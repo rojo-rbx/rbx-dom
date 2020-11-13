@@ -10,7 +10,7 @@ use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Faces, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Rect, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -666,6 +666,20 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         chunk.write_interleaved_i32_array(offset_x.into_iter())?;
                         chunk.write_interleaved_i32_array(offset_y.into_iter())?;
                     }
+                    Type::Ray => {
+                        for (i, rbx_value) in values {
+                            if let Variant::Ray(value) = rbx_value.as_ref() {
+                                chunk.write_le_f32(value.origin.x)?;
+                                chunk.write_le_f32(value.origin.y)?;
+                                chunk.write_le_f32(value.origin.z)?;
+                                chunk.write_le_f32(value.direction.x)?;
+                                chunk.write_le_f32(value.direction.y)?;
+                                chunk.write_le_f32(value.direction.x)?;
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Ray");
+                            }
+                        }
+                    }
                     Type::Faces => {
                         for (i, rbx_value) in values {
                             if let Variant::Faces(value) = rbx_value.as_ref() {
@@ -1042,6 +1056,10 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Float64 => Variant::Float64(0.0),
             VariantType::UDim => Variant::UDim(UDim::new(0.0, 0)),
             VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
+            VariantType::Ray => Variant::Ray(Ray::new(
+                Vector3::new(0.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, 0.0),
+            )),
             VariantType::Faces => Variant::Faces(Faces::from_bits(0)?),
             VariantType::Axes => Variant::Axes(Axes::from_bits(0)?),
             VariantType::BrickColor => Variant::BrickColor(BrickColor::MediumStoneGrey),

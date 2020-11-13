@@ -305,6 +305,19 @@ An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00
 ### Ray
 **Type ID 0x08**
 
+The `Ray` type is a struct composed of six little-endian f32s, making up the components of the `Origin` and then the `Direction` of the Ray:
+
+| Field Name  | Format | Value                                      |
+|:------------|:-------|:-------------------------------------------|
+| Origin X    | `f32`  | The `X` component of the Ray's `Origin`    |
+| Origin Y    | `f32`  | The `Y` component of the Ray's `Origin`    |
+| Origin Z    | `f32`  | The `Z` component of the Ray's `Origin`    |
+| Direction X | `f32`  | The `X` component of the Ray's `Direction` |
+| Direction Y | `f32`  | The `Y` component of the Ray's `Direction` |
+| Direction Z | `f32`  | The `Z` component of the Ray's `Direction` |
+
+The components are stored in order without any additional transformations. When an array of `Rays` is present, they're stored in order but otherwise without transformation.
+
 ### Faces
 **Type ID 0x09**
 
