@@ -79,7 +79,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ✔ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ✔ |
 | ProtectedString    | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
-| Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ❌ |
+| Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ✔ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ✔ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ✔ |
 | Region3            | N/A                             | ✔ | ✔ | ❌ | ❌ |
