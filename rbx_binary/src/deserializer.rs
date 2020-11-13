@@ -9,8 +9,8 @@ use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
-        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Rect, Ref, UDim,
-        UDim2, Variant, VariantType, Vector2, Vector3,
+        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
+        UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -607,7 +607,36 @@ impl<R: Read> BinaryDeserializer<R> {
                     instance.builder.add_property(&canonical_name, value);
                 }
             }
-            Type::Ray => {}
+            Type::Ray => match canonical_type {
+                VariantType::Ray => {
+                    for referent in &type_info.referents {
+                        let origin_x = chunk.read_le_f32()?;
+                        let origin_y = chunk.read_le_f32()?;
+                        let origin_z = chunk.read_le_f32()?;
+                        let direction_x = chunk.read_le_f32()?;
+                        let direction_y = chunk.read_le_f32()?;
+                        let direction_z = chunk.read_le_f32()?;
+
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+
+                        instance.builder.add_property(
+                            &canonical_name,
+                            Ray::new(
+                                Vector3::new(origin_x, origin_y, origin_z),
+                                Vector3::new(direction_x, direction_y, direction_z),
+                            ),
+                        );
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Ray",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Faces => match canonical_type {
                 VariantType::Faces => {
                     for referent in &type_info.referents {
