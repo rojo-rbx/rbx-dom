@@ -20,12 +20,18 @@ macro_rules! make_variant {
         #[cfg_attr(
             feature = "serde",
             derive(serde::Serialize, serde::Deserialize),
-            serde(tag = "Type", content = "Value")
+            serde(tag = "Type", content = "Value"),
         )]
         pub enum Variant {
             $(
                 $variant_name($inner_type),
             )*
+
+            #[cfg_attr(
+                feature = "serde",
+                serde(with = "crate::shared_string::variant_serialization"),
+            )]
+            SharedString(SharedString),
         }
 
         impl Variant {
@@ -34,6 +40,8 @@ macro_rules! make_variant {
                     $(
                         Variant::$variant_name(_) => VariantType::$variant_name,
                     )*
+
+                    Variant::SharedString(_) => VariantType::SharedString,
                 }
             }
         }
@@ -46,6 +54,12 @@ macro_rules! make_variant {
             }
         )*
 
+        impl From<SharedString> for Variant {
+            fn from(value: SharedString) -> Self {
+                Self::SharedString(value)
+            }
+        }
+
         /// Represents any type that can be held in a `Variant`.
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         #[non_exhaustive]
@@ -57,6 +71,8 @@ macro_rules! make_variant {
             $(
                 $variant_name,
             )*
+
+            SharedString,
         }
 
         #[cfg(test)]
@@ -73,6 +89,7 @@ macro_rules! make_variant {
                 fn trait_test<T: Into<Variant>>() {}
 
                 $( trait_test::<$inner_type>(); )*
+                trait_test::<SharedString>();
             }
         }
     };
@@ -102,7 +119,6 @@ make_variant! {
     Ref(Ref),
     Region3(Region3),
     Region3int16(Region3int16),
-    SharedString(SharedString),
     String(String),
     UDim(UDim),
     UDim2(UDim2),
