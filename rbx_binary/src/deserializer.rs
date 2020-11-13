@@ -578,35 +578,45 @@ impl<R: Read> BinaryDeserializer<R> {
                     instance.builder.add_property(&canonical_name, value);
                 }
             }
-            Type::UDim2 => {
-                let prop_count = type_info.referents.len();
-                let mut scale_x = vec![0.0; prop_count];
-                let mut scale_y = vec![0.0; prop_count];
-                let mut offset_x = vec![0; prop_count];
-                let mut offset_y = vec![0; prop_count];
+            Type::UDim2 => match canonical_type {
+                VariantType::UDim2 => {
+                    let prop_count = type_info.referents.len();
+                    let mut scale_x = vec![0.0; prop_count];
+                    let mut scale_y = vec![0.0; prop_count];
+                    let mut offset_x = vec![0; prop_count];
+                    let mut offset_y = vec![0; prop_count];
 
-                chunk.read_interleaved_f32_array(&mut scale_x)?;
-                chunk.read_interleaved_f32_array(&mut scale_y)?;
-                chunk.read_interleaved_i32_array(&mut offset_x)?;
-                chunk.read_interleaved_i32_array(&mut offset_y)?;
+                    chunk.read_interleaved_f32_array(&mut scale_x)?;
+                    chunk.read_interleaved_f32_array(&mut scale_y)?;
+                    chunk.read_interleaved_i32_array(&mut offset_x)?;
+                    chunk.read_interleaved_i32_array(&mut offset_y)?;
 
-                let x = scale_x
-                    .into_iter()
-                    .zip(offset_x)
-                    .map(|(scale, offset)| UDim::new(scale, offset));
+                    let x = scale_x
+                        .into_iter()
+                        .zip(offset_x)
+                        .map(|(scale, offset)| UDim::new(scale, offset));
 
-                let y = scale_y
-                    .into_iter()
-                    .zip(offset_y)
-                    .map(|(scale, offset)| UDim::new(scale, offset));
+                    let y = scale_y
+                        .into_iter()
+                        .zip(offset_y)
+                        .map(|(scale, offset)| UDim::new(scale, offset));
 
-                let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
+                    let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
 
-                for (value, referent) in values.zip(&type_info.referents) {
-                    let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                    instance.builder.add_property(&canonical_name, value);
+                    for (value, referent) in values.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(&canonical_name, value);
+                    }
                 }
-            }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "UDim2",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Ray => match canonical_type {
                 VariantType::Ray => {
                     for referent in &type_info.referents {
