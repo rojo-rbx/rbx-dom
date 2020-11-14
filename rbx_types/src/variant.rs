@@ -7,7 +7,12 @@ use crate::{
 /// Reduces boilerplate from listing different values of Variant by wrapping
 /// them into a macro.
 macro_rules! make_variant {
-    ( $( $variant_name: ident($inner_type: ty), )* ) => {
+    (
+        $(
+            $( #[$attr:meta] )*
+            $variant_name:ident ($inner_type:ty),
+        )*
+    ) => {
         /// Represents any Roblox type. Useful for operating generically on
         /// Roblox instances.
         ///
@@ -24,14 +29,11 @@ macro_rules! make_variant {
         )]
         pub enum Variant {
             $(
+                $(
+                    #[$attr]
+                )*
                 $variant_name($inner_type),
             )*
-
-            #[cfg_attr(
-                feature = "serde",
-                serde(with = "crate::shared_string::variant_serialization"),
-            )]
-            SharedString(SharedString),
         }
 
         impl Variant {
@@ -40,8 +42,6 @@ macro_rules! make_variant {
                     $(
                         Variant::$variant_name(_) => VariantType::$variant_name,
                     )*
-
-                    Variant::SharedString(_) => VariantType::SharedString,
                 }
             }
         }
@@ -54,12 +54,6 @@ macro_rules! make_variant {
             }
         )*
 
-        impl From<SharedString> for Variant {
-            fn from(value: SharedString) -> Self {
-                Self::SharedString(value)
-            }
-        }
-
         /// Represents any type that can be held in a `Variant`.
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         #[non_exhaustive]
@@ -71,8 +65,6 @@ macro_rules! make_variant {
             $(
                 $variant_name,
             )*
-
-            SharedString,
         }
 
         #[cfg(test)]
@@ -119,6 +111,11 @@ make_variant! {
     Ref(Ref),
     Region3(Region3),
     Region3int16(Region3int16),
+    #[cfg_attr(
+        feature = "serde",
+        serde(with = "crate::shared_string::variant_serialization"),
+    )]
+    SharedString(SharedString),
     String(String),
     UDim(UDim),
     UDim2(UDim2),
