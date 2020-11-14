@@ -87,6 +87,9 @@ macro_rules! make_variant {
     };
 }
 
+// IMPORTANT! The order of this enum is very important in order to preserve the
+// discriminant values that Rust assigns for both Variant and VariantType. Any
+// newly-added variants MUST be added to the end!
 make_variant! {
     Axes(Axes),
     BinaryString(BinaryString),
