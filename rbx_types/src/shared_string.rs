@@ -118,24 +118,29 @@ impl SharedStringHash {
 }
 
 #[cfg(feature = "serde")]
-mod serde_impl {
+pub(crate) mod variant_serialization {
     use super::*;
 
-    use serde::{Deserialize, Deserializer, Serialize, Serializer};
+    use serde::de::Error as _;
+    use serde::ser::Error as _;
+    use serde::{Deserializer, Serializer};
 
-    // Mock implementations of traits to get things compiling. We'll need to
-    // decide how to actually serialize SharedString at some point.
-
-    impl Serialize for SharedString {
-        fn serialize<S: Serializer>(&self, _serializer: S) -> Result<S::Ok, S::Error> {
-            unimplemented!();
-        }
+    pub fn serialize<S>(_value: &SharedString, _serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        Err(S::Error::custom(
+            "SharedString cannot be serialized as part of a Variant",
+        ))
     }
 
-    impl<'de> Deserialize<'de> for SharedString {
-        fn deserialize<D: Deserializer<'de>>(_deserializer: D) -> Result<Self, D::Error> {
-            unimplemented!();
-        }
+    pub fn deserialize<'de, D>(_deserializer: D) -> Result<SharedString, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        Err(D::Error::custom(
+            "SharedString cannot be deserialized as part of a Variant",
+        ))
     }
 }
 

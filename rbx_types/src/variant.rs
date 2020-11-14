@@ -7,7 +7,12 @@ use crate::{
 /// Reduces boilerplate from listing different values of Variant by wrapping
 /// them into a macro.
 macro_rules! make_variant {
-    ( $( $variant_name: ident($inner_type: ty), )* ) => {
+    (
+        $(
+            $( #[$attr:meta] )*
+            $variant_name:ident ($inner_type:ty),
+        )*
+    ) => {
         /// Represents any Roblox type. Useful for operating generically on
         /// Roblox instances.
         ///
@@ -20,10 +25,13 @@ macro_rules! make_variant {
         #[cfg_attr(
             feature = "serde",
             derive(serde::Serialize, serde::Deserialize),
-            serde(tag = "Type", content = "Value")
+            serde(tag = "Type", content = "Value"),
         )]
         pub enum Variant {
             $(
+                $(
+                    #[$attr]
+                )*
                 $variant_name($inner_type),
             )*
         }
@@ -73,11 +81,15 @@ macro_rules! make_variant {
                 fn trait_test<T: Into<Variant>>() {}
 
                 $( trait_test::<$inner_type>(); )*
+                trait_test::<SharedString>();
             }
         }
     };
 }
 
+// IMPORTANT! The order of this enum is very important in order to preserve the
+// discriminant values that Rust assigns for both Variant and VariantType. Any
+// newly-added variants MUST be added to the end!
 make_variant! {
     Axes(Axes),
     BinaryString(BinaryString),
@@ -102,6 +114,10 @@ make_variant! {
     Ref(Ref),
     Region3(Region3),
     Region3int16(Region3int16),
+    #[cfg_attr(
+        feature = "serde",
+        serde(with = "crate::shared_string::variant_serialization"),
+    )]
     SharedString(SharedString),
     String(String),
     UDim(UDim),
