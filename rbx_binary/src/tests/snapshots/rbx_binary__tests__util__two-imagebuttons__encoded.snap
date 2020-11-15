@@ -3,35 +3,31 @@ source: rbx_binary/src/tests/util.rs
 expression: text_roundtrip
 ---
 num_types: 1
-num_instances: 3
+num_instances: 2
 chunks:
   - Inst:
       type_id: 0
-      type_name: Frame
+      type_name: ImageButton
       object_format: 0
       referents:
         - 0
         - 1
-        - 2
   - Prop:
       type_id: 0
       prop_name: Active
       prop_type: Bool
       values:
-        - false
-        - false
-        - false
+        - true
+        - true
   - Prop:
       type_id: 0
       prop_name: AnchorPoint
       prop_type: Vector2
       values:
-        - - 0.10000000149011612
-          - 0.20000000298023225
-        - - 0.30000001192092898
-          - 0.4000000059604645
-        - - 0.5
-          - 0.6000000238418579
+        - - 0.0
+          - 0.0
+        - - 0.0
+          - 0.0
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
@@ -39,7 +35,13 @@ chunks:
       values:
         - ""
         - ""
-        - ""
+  - Prop:
+      type_id: 0
+      prop_name: AutoButtonColor
+      prop_type: Bool
+      values:
+        - true
+        - true
   - Prop:
       type_id: 0
       prop_name: AutoLocalize
@@ -47,20 +49,23 @@ chunks:
       values:
         - true
         - true
-        - true
+  - Prop:
+      type_id: 0
+      prop_name: AutomaticSize
+      prop_type: Enum
+      values:
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: BackgroundColor3
       prop_type: Color3
       values:
         - - 1.0
-          - 0.49803921580314639
-          - 0.0
-        - - 0.0
           - 1.0
-          - 0.0
+          - 1.0
         - - 1.0
-          - 0.0
+          - 1.0
           - 1.0
   - Prop:
       type_id: 0
@@ -68,28 +73,23 @@ chunks:
       prop_type: Float32
       values:
         - 0.0
-        - 0.10000000149011612
-        - 0.20000000298023225
+        - 0.0
   - Prop:
       type_id: 0
       prop_name: BorderColor3
       prop_type: Color3
       values:
-        - - 1.0
-          - 0.0
-          - 0.49803921580314639
-        - - 0.0
-          - 0.0
-          - 1.0
-        - - 1.0
-          - 1.0
-          - 0.0
+        - - 0.10588236153125763
+          - 0.16470588743686677
+          - 0.20784315466880799
+        - - 0.10588236153125763
+          - 0.16470588743686677
+          - 0.20784315466880799
   - Prop:
       type_id: 0
       prop_name: BorderMode
       prop_type: Enum
       values:
-        - 0
         - 0
         - 0
   - Prop:
@@ -98,14 +98,12 @@ chunks:
       prop_type: Int32
       values:
         - 1
-        - 2
-        - 3
+        - 1
   - Prop:
       type_id: 0
       prop_name: ClipsDescendants
       prop_type: Bool
       values:
-        - false
         - false
         - false
   - Prop:
@@ -115,29 +113,82 @@ chunks:
       values:
         - false
         - false
-        - false
+  - Prop:
+      type_id: 0
+      prop_name: HoverImage
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Image
+      prop_type: String
+      values:
+        - "rbxasset://textures/ui/GuiImagePlaceholder.png"
+        - "rbxasset://textures/ui/GuiImagePlaceholder.png"
+  - Prop:
+      type_id: 0
+      prop_name: ImageColor3
+      prop_type: Color3
+      values:
+        - - 1.0
+          - 1.0
+          - 1.0
+        - - 1.0
+          - 1.0
+          - 1.0
+  - Prop:
+      type_id: 0
+      prop_name: ImageRectOffset
+      prop_type: Vector2
+      values:
+        - - 0.0
+          - 0.0
+        - - 0.0
+          - 0.0
+  - Prop:
+      type_id: 0
+      prop_name: ImageRectSize
+      prop_type: Vector2
+      values:
+        - - 0.0
+          - 0.0
+        - - 0.0
+          - 0.0
+  - Prop:
+      type_id: 0
+      prop_name: ImageTransparency
+      prop_type: Float32
+      values:
+        - 0.0
+        - 0.0
   - Prop:
       type_id: 0
       prop_name: LayoutOrder
       prop_type: Int32
       values:
         - 0
-        - 1
-        - 2
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Modal
+      prop_type: Bool
+      values:
+        - false
+        - false
   - Prop:
       type_id: 0
       prop_name: Name
       prop_type: String
       values:
-        - Frame1
-        - Frame2
-        - Frame3
+        - ImageButton
+        - ImageButton
   - Prop:
       type_id: 0
       prop_name: NextSelectionDown
       prop_type: Ref
       values:
-        - -1
         - -1
         - -1
   - Prop:
@@ -147,13 +198,11 @@ chunks:
       values:
         - -1
         - -1
-        - -1
   - Prop:
       type_id: 0
       prop_name: NextSelectionRight
       prop_type: Ref
       values:
-        - -1
         - -1
         - -1
   - Prop:
@@ -163,30 +212,31 @@ chunks:
       values:
         - -1
         - -1
-        - -1
   - Prop:
       type_id: 0
       prop_name: Position
       prop_type: UDim2
       values:
-        - - - 0.10000000149011612
-            - 2
-          - - 0.20000000298023225
-            - 4
-        - - - 0.30000001192092898
-            - 16
-          - - 0.4000000059604645
-            - 32
-        - - - 0.5
-            - 64
-          - - 0.6000000238418579
-            - 128
+        - - - 0.0
+            - 0
+          - - 0.0
+            - 0
+        - - - 0.0
+            - 0
+          - - 0.0
+            - 0
+  - Prop:
+      type_id: 0
+      prop_name: PressedImage
+      prop_type: String
+      values:
+        - ""
+        - ""
   - Prop:
       type_id: 0
       prop_name: RootLocalizationTable
       prop_type: Ref
       values:
-        - -1
         - -1
         - -1
   - Prop:
@@ -195,14 +245,26 @@ chunks:
       prop_type: Float32
       values:
         - 0.0
-        - 1.0
-        - 2.0
+        - 0.0
+  - Prop:
+      type_id: 0
+      prop_name: ScaleType
+      prop_type: Enum
+      values:
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: Selectable
       prop_type: Bool
       values:
-        - false
+        - true
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: Selected
+      prop_type: Bool
+      values:
         - false
         - false
   - Prop:
@@ -212,38 +274,58 @@ chunks:
       values:
         - -1
         - -1
-        - -1
   - Prop:
       type_id: 0
       prop_name: Size
       prop_type: UDim2
       values:
-        - - - 0.10000000149011612
-            - 2
-          - - 0.20000000298023225
-            - 4
-        - - - 0.30000001192092898
-            - 16
-          - - 0.4000000059604645
-            - 32
-        - - - 0.5
-            - 64
-          - - 0.6000000238418579
-            - 128
+        - - - 0.0
+            - 100
+          - - 0.0
+            - 100
+        - - - 0.0
+            - 100
+          - - 0.0
+            - 100
   - Prop:
       type_id: 0
       prop_name: SizeConstraint
       prop_type: Enum
       values:
-        - 1
         - 0
-        - 2
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: SliceCenter
+      prop_type: Rect
+      values:
+        - - - -1.0
+            - -10.0
+          - - 8.0
+            - 9.0
+        - - - 0.0
+            - 1.0
+          - - 5.0
+            - 6.0
+  - Prop:
+      type_id: 0
+      prop_name: SliceScale
+      prop_type: Float32
+      values:
+        - 1.0
+        - 1.0
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
   - Prop:
       type_id: 0
       prop_name: Style
       prop_type: Enum
       values:
-        - 0
         - 0
         - 0
   - Prop:
@@ -253,13 +335,24 @@ chunks:
       values:
         - ""
         - ""
-        - ""
+  - Prop:
+      type_id: 0
+      prop_name: TileSize
+      prop_type: UDim2
+      values:
+        - - - 1.0
+            - 0
+          - - 1.0
+            - 0
+        - - - 1.0
+            - 0
+          - - 1.0
+            - 0
   - Prop:
       type_id: 0
       prop_name: Visible
       prop_type: Bool
       values:
-        - true
         - true
         - true
   - Prop:
@@ -269,14 +362,11 @@ chunks:
       values:
         - 1
         - 1
-        - 1
   - Prnt:
       version: 0
       links:
         - - 0
           - -1
         - - 1
-          - -1
-        - - 2
           - -1
   - End

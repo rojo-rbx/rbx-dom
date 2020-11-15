@@ -67,7 +67,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | CFrame             | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ➖ |
 | Color3             | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ✔ |
 | Color3uint8        | `Part.BrickColor`               | ✔ | ✔ | ✔ | ✔ |
-| ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ❌ |
+| ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ✔ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ✔ |
 | Faces              | `Handles.Faces`                 | ✔ | ❌ | ✔ | ✔ |
@@ -75,13 +75,13 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ✔ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ✔ |
 | Int64              | `Player.UserId`                 | ✔ | ✔ | ✔ | ✔ |
-| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ❌ |
-| NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ❌ |
+| NumberRange        | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ✔ |
+| NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ✔ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ✔ |
 | ProtectedString    | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
-| Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ❌ |
-| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ❌ |
-| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ❌ |
+| Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ✔ |
+| Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ✔ |
+| Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ✔ |
 | Region3            | N/A                             | ✔ | ✔ | ❌ | ❌ |
 | Region3int16       | `Terrain.MaxExtents`            | ✔ | ✔ | ❌ | ❌ |
 | SharedString       | N/A                             | ✔ | ✔ | ✔ | ❌ |

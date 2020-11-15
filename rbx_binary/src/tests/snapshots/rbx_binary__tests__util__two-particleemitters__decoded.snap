@@ -1,0 +1,240 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: ParticleEmitter
+  class: ParticleEmitter
+  properties:
+    Acceleration:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Color:
+      Type: ColorSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+          - Time: 1.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+    Drag:
+      Type: Float32
+      Value: 0.0
+    EmissionDirection:
+      Type: EnumValue
+      Value: 1
+    Enabled:
+      Type: Bool
+      Value: true
+    Lifetime:
+      Type: NumberRange
+      Value:
+        - -20.200000762939454
+        - 10.100000381469727
+    LightEmission:
+      Type: Float32
+      Value: 0.0
+    LightInfluence:
+      Type: Float32
+      Value: 1.0
+    LockedToPart:
+      Type: Bool
+      Value: false
+    Rate:
+      Type: Float32
+      Value: 2.0
+    RotSpeed:
+      Type: NumberRange
+      Value:
+        - 45.0
+        - 46.0
+    Rotation:
+      Type: NumberRange
+      Value:
+        - -6.659999847412109
+        - 6.659999847412109
+    Size:
+      Type: NumberSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Value: 1.0
+            Envelope: 0.0
+          - Time: 0.08036739379167557
+            Value: 0.5624997615814209
+            Envelope: 0.0
+          - Time: 0.12169919162988663
+            Value: 1.9374996423721314
+            Envelope: 0.0
+          - Time: 0.14351320266723634
+            Value: 3.75
+            Envelope: 0.0
+          - Time: 1.0
+            Value: 1.0
+            Envelope: 0.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Speed:
+      Type: NumberRange
+      Value:
+        - 2.0
+        - 5.0
+    SpreadAngle:
+      Type: Vector2
+      Value:
+        - 0.0
+        - 0.0
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Texture:
+      Type: Content
+      Value: "rbxasset://textures/particles/sparkles_main.dds"
+    Transparency:
+      Type: NumberSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Value: 0.0
+            Envelope: 0.0
+          - Time: 1.0
+            Value: 0.0
+            Envelope: 0.0
+    VelocityInheritance:
+      Type: Float32
+      Value: 0.0
+    ZOffset:
+      Type: Float32
+      Value: 0.0
+  children: []
+- referent: referent-1
+  name: ParticleEmitter
+  class: ParticleEmitter
+  properties:
+    Acceleration:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Color:
+      Type: ColorSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+          - Time: 1.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+    Drag:
+      Type: Float32
+      Value: 0.0
+    EmissionDirection:
+      Type: EnumValue
+      Value: 1
+    Enabled:
+      Type: Bool
+      Value: true
+    Lifetime:
+      Type: NumberRange
+      Value:
+        - -20.200000762939454
+        - 10.100000381469727
+    LightEmission:
+      Type: Float32
+      Value: 0.0
+    LightInfluence:
+      Type: Float32
+      Value: 1.0
+    LockedToPart:
+      Type: Bool
+      Value: false
+    Rate:
+      Type: Float32
+      Value: 2.0
+    RotSpeed:
+      Type: NumberRange
+      Value:
+        - 45.0
+        - 46.0
+    Rotation:
+      Type: NumberRange
+      Value:
+        - -6.659999847412109
+        - 6.659999847412109
+    Size:
+      Type: NumberSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Value: 1.0
+            Envelope: 0.0
+          - Time: 0.08036739379167557
+            Value: 0.5624997615814209
+            Envelope: 0.0
+          - Time: 0.12169919162988663
+            Value: 1.9374996423721314
+            Envelope: 0.0
+          - Time: 0.14351320266723634
+            Value: 3.75
+            Envelope: 0.0
+          - Time: 1.0
+            Value: 1.0
+            Envelope: 0.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Speed:
+      Type: NumberRange
+      Value:
+        - 2.0
+        - 5.0
+    SpreadAngle:
+      Type: Vector2
+      Value:
+        - 0.0
+        - 0.0
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Texture:
+      Type: Content
+      Value: "rbxasset://textures/particles/sparkles_main.dds"
+    Transparency:
+      Type: NumberSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Value: 0.0
+            Envelope: 0.0
+          - Time: 1.0
+            Value: 0.0
+            Envelope: 0.0
+    VelocityInheritance:
+      Type: Float32
+      Value: 0.0
+    ZOffset:
+      Type: Float32
+      Value: 0.0
+  children: []

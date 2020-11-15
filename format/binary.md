@@ -39,7 +39,7 @@ This document is based on:
 	- [NumberSequence](#numbersequence)
 	- [ColorSequence](#colorsequence)
 	- [NumberRange](#numberrange)
-	- [Rect2D](#rect2d)
+	- [Rect](#rect)
 	- [PhysicalProperties](#physicalproperties)
 	- [Color3uint8](#color3uint8)
 	- [Int64](#int64)
@@ -305,6 +305,19 @@ An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00
 ### Ray
 **Type ID 0x08**
 
+The `Ray` type is a struct composed of six little-endian f32s, making up the components of the `Origin` and then the `Direction` of the Ray:
+
+| Field Name  | Format | Value                                      |
+|:------------|:-------|:-------------------------------------------|
+| Origin X    | `f32`  | The `X` component of the Ray's `Origin`    |
+| Origin Y    | `f32`  | The `Y` component of the Ray's `Origin`    |
+| Origin Z    | `f32`  | The `Z` component of the Ray's `Origin`    |
+| Direction X | `f32`  | The `X` component of the Ray's `Direction` |
+| Direction Y | `f32`  | The `Y` component of the Ray's `Direction` |
+| Direction Z | `f32`  | The `Z` component of the Ray's `Direction` |
+
+The components are stored in order without any additional transformations. When an array of `Rays` is present, they're stored in order but otherwise without transformation.
+
 ### Faces
 **Type ID 0x09**
 
@@ -440,14 +453,104 @@ The **correct** interpretation of this data, with accumulation, is:
 ### NumberSequence
 **Type ID 0x15**
 
+The `NumberSequence` type is stored as a `u32` indicating how many NumberSequenceKeypoints are in the sequence followed by an array of NumberSequenceKeypoints:
+
+| Field Name     | Format                        | Value                                   |
+|:---------------|:------------------------------|:----------------------------------------|
+| Keypoint count | u32                           | The number of keypoints in the sequence |
+| Keypoints      | Array(NumberSequenceKeypoint) | The data for the keypoints              |
+
+`NumberSequenceKeypoint` is a struct composed of the following fields:
+
+| Field Name | Format | Value                         |
+|:-----------|:-------|:------------------------------|
+| Time       | f32    | The time for the keypoint     |
+| Value      | f32    | The value of the keypoint     |
+| Envelope   | f32    | The envelope for the keypoint |
+
+When multiple NumberSequences are present, they are stored in sequence with no transformation or interleaving. Two NumberSequences with values
+
+```
+NumberSequence.new(
+	NumberSequenceKeypoint.new(0, 0),
+	NumberSequenceKeypoint.new(0.5, 1),
+	NumberSequenceKeypoint.new(1, 1, 0.5)
+)
+```
+
+```
+NumberSequence.new(
+	NumberSequenceKeypoint.new(0, 1),
+	NumberSequenceKeypoint.new(0.5, 0.5, 0.5),
+	NumberSequenceKeypoint.new(1, 0.5)
+)
+```
+
+look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 80 3f 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 00 3f 03 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 00 3f 00 00 80 3f 00 00 00 3f 00 00 00 00`
+
 ### ColorSequence
 **Type ID 0x16**
+
+The `ColorSequence` type is stored as a `u32` indicating how many ColorSequenceKeypoints are in the `ColorSequence` followed by an array of ColorSequenceKeypoints:
+
+| Field Name     | Format                       | Value                                   |
+|:---------------|:-----------------------------|:----------------------------------------|
+| Keypoint count | u32                          | The number of keypoints in the sequence |
+| Keypoints      | Array(ColorSequenceKeypoint) | The data for each keypoint              |
+
+`ColorSequenceKeypoint` is a struct composed of the following fields:
+
+| Field Name        | Format            | Value                                        |
+|:------------------|:------------------|:---------------------------------------------|
+| Time              | f32               | The time value of the ColorSequenceKeypoint  |
+| Color             | [Color3](#Color3) | The color value of the ColorSequenceKeypoint |
+| Envelope (unused) | f32               | n/a; serialized, but not used                |
+
+Note that `Color` is **not** subject to interleaving like a normal `Color3`. When multiple ColorSequences are present, they are stored in sequence with no transformation or interleaving. Two ColorSequences with values
+
+```
+ColorSequence.new(
+	ColorSequenceKeypoint.new(0, Color3.FromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(0.5, Color3.FromRGB(0, 0, 0)),
+	ColorSequenceKeypoint.new(1, Color3.FromRGB(255, 255, 255))
+)
+```
+
+```
+ColorSequence.new(
+	ColorSequenceKeypoint.new(0, Color3.FromRGB(255, 0, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.FromRGB(0, 255, 0))
+	ColorSequenceKeypoint.new(1, Color3.FromRGB(0, 0, 255))
+)
+```
+
+look like this: `03 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 03 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00`.
 
 ### NumberRange
 **Type ID 0x17**
 
-### Rect2D
+The `NumberRange` type is stored as two little-endian floats:
+
+| Field Name | Format | Value                          |
+|:-----------|:-------|:-------------------------------|
+| Min        | f32    | The minimum value of the range |
+| Max        | f32    | The maximum value of the range |
+
+Multiple NumberRanges are stored in sequence with no transformation or interleaving. Two NumberRanges with values `NumberRange.new(0, 0.5)` and `NumberRange.new(0.5, 1)` look like this: `00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 80 3f`.
+
+### Rect
 **Type ID 0x18**
+
+The `Rect` type is a struct composed of two Vector2s:
+
+| Field Name | Format              | Value                         |
+|:-----------|:--------------------|:------------------------------|
+| Min        | [Vector2](#vector2) | The minimum value of the Rect |
+| Max        | [Vector2](#vector2) | The maximum value of the Rect |
+
+`Rect` is stored as four arrays of [Float32](#float32)s in the order `Min.X`, `Min.Y`, `Max.X`, `Max.Y`. Each array is subject to [byte interleaving](#byte-interleaving).
+
+Two encoded Rects with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0, 1, 5, 6)` look like this: `7f 00 00 00 00 00 01 00 82 7f 40 00 00 00 01 00 82 81 00 40 00 00 00 00 82 81 20 80 00 00 00 00`.
 
 ### PhysicalProperties
 

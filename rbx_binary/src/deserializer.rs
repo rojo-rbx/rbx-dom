@@ -7,9 +7,10 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, Content,
-        CustomPhysicalProperties, EnumValue, Faces, Matrix3, PhysicalProperties, SharedString,
-        UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+        ColorSequenceKeypoint, Content, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
+        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
+        SharedString, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -587,53 +588,102 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::UDim => {
-                let mut scales = vec![0.0; type_info.referents.len()];
-                let mut offsets = vec![0; type_info.referents.len()];
+            Type::UDim => match canonical_type {
+                VariantType::UDim => {
+                    let mut scales = vec![0.0; type_info.referents.len()];
+                    let mut offsets = vec![0; type_info.referents.len()];
 
-                chunk.read_interleaved_f32_array(&mut scales)?;
-                chunk.read_interleaved_i32_array(&mut offsets)?;
+                    chunk.read_interleaved_f32_array(&mut scales)?;
+                    chunk.read_interleaved_i32_array(&mut offsets)?;
 
-                let values = scales
-                    .into_iter()
-                    .zip(offsets)
-                    .map(|(scale, offset)| UDim::new(scale, offset));
+                    let values = scales
+                        .into_iter()
+                        .zip(offsets)
+                        .map(|(scale, offset)| UDim::new(scale, offset));
 
-                for (value, referent) in values.zip(&type_info.referents) {
-                    let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                    instance.builder.add_property(&canonical_name, value);
+                    for (value, referent) in values.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(&canonical_name, value);
+                    }
                 }
-            }
-            Type::UDim2 => {
-                let prop_count = type_info.referents.len();
-                let mut scale_x = vec![0.0; prop_count];
-                let mut scale_y = vec![0.0; prop_count];
-                let mut offset_x = vec![0; prop_count];
-                let mut offset_y = vec![0; prop_count];
-
-                chunk.read_interleaved_f32_array(&mut scale_x)?;
-                chunk.read_interleaved_f32_array(&mut scale_y)?;
-                chunk.read_interleaved_i32_array(&mut offset_x)?;
-                chunk.read_interleaved_i32_array(&mut offset_y)?;
-
-                let x = scale_x
-                    .into_iter()
-                    .zip(offset_x)
-                    .map(|(scale, offset)| UDim::new(scale, offset));
-
-                let y = scale_y
-                    .into_iter()
-                    .zip(offset_y)
-                    .map(|(scale, offset)| UDim::new(scale, offset));
-
-                let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
-
-                for (value, referent) in values.zip(&type_info.referents) {
-                    let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                    instance.builder.add_property(&canonical_name, value);
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "UDim",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
                 }
-            }
-            Type::Ray => {}
+            },
+            Type::UDim2 => match canonical_type {
+                VariantType::UDim2 => {
+                    let prop_count = type_info.referents.len();
+                    let mut scale_x = vec![0.0; prop_count];
+                    let mut scale_y = vec![0.0; prop_count];
+                    let mut offset_x = vec![0; prop_count];
+                    let mut offset_y = vec![0; prop_count];
+
+                    chunk.read_interleaved_f32_array(&mut scale_x)?;
+                    chunk.read_interleaved_f32_array(&mut scale_y)?;
+                    chunk.read_interleaved_i32_array(&mut offset_x)?;
+                    chunk.read_interleaved_i32_array(&mut offset_y)?;
+
+                    let x = scale_x
+                        .into_iter()
+                        .zip(offset_x)
+                        .map(|(scale, offset)| UDim::new(scale, offset));
+
+                    let y = scale_y
+                        .into_iter()
+                        .zip(offset_y)
+                        .map(|(scale, offset)| UDim::new(scale, offset));
+
+                    let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
+
+                    for (value, referent) in values.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(&canonical_name, value);
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "UDim2",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::Ray => match canonical_type {
+                VariantType::Ray => {
+                    for referent in &type_info.referents {
+                        let origin_x = chunk.read_le_f32()?;
+                        let origin_y = chunk.read_le_f32()?;
+                        let origin_z = chunk.read_le_f32()?;
+                        let direction_x = chunk.read_le_f32()?;
+                        let direction_y = chunk.read_le_f32()?;
+                        let direction_z = chunk.read_le_f32()?;
+
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+
+                        instance.builder.add_property(
+                            &canonical_name,
+                            Ray::new(
+                                Vector3::new(origin_x, origin_y, origin_z),
+                                Vector3::new(direction_x, direction_y, direction_z),
+                            ),
+                        );
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Ray",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Faces => match canonical_type {
                 VariantType::Faces => {
                     for referent in &type_info.referents {
@@ -888,12 +938,148 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::Ref => {}
+            Type::Ref => match canonical_type {
+                VariantType::Ref => {
+                    let mut refs = vec![0; type_info.referents.len()];
+                    chunk.read_referent_array(&mut refs)?;
+
+                    for (value, referent) in refs.into_iter().zip(&type_info.referents) {
+                        let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
+                            instance.builder.referent()
+                        } else {
+                            Ref::none()
+                        };
+
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(&canonical_name, rbx_value);
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Ref",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::Vector3int16 => {}
-            Type::NumberSequence => {}
-            Type::ColorSequence => {}
-            Type::NumberRange => {}
-            Type::Rect => {}
+            Type::NumberSequence => match canonical_type {
+                VariantType::NumberSequence => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let keypoint_count = chunk.read_le_u32()?;
+                        let mut keypoints = Vec::with_capacity(keypoint_count as usize);
+
+                        for _ in 0..keypoint_count {
+                            keypoints.push(NumberSequenceKeypoint::new(
+                                chunk.read_le_f32()?,
+                                chunk.read_le_f32()?,
+                                chunk.read_le_f32()?,
+                            ))
+                        }
+
+                        instance
+                            .builder
+                            .add_property(&canonical_name, NumberSequence { keypoints })
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "NumberSequence",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::ColorSequence => match canonical_type {
+                VariantType::ColorSequence => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let keypoint_count = chunk.read_le_u32()? as usize;
+                        let mut keypoints = Vec::with_capacity(keypoint_count);
+
+                        for _ in 0..keypoint_count {
+                            keypoints.push(ColorSequenceKeypoint::new(
+                                chunk.read_le_f32()?,
+                                Color3::new(
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                ),
+                            ));
+
+                            // envelope is serialized but doesn't do anything; don't do anything with it
+                            chunk.read_le_f32()?;
+                        }
+
+                        instance
+                            .builder
+                            .add_property(&canonical_name, ColorSequence { keypoints })
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "ColorSequence",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::NumberRange => match canonical_type {
+                VariantType::NumberRange => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(
+                            &canonical_name,
+                            NumberRange::new(chunk.read_le_f32()?, chunk.read_le_f32()?),
+                        )
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "NumberRange",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::Rect => match canonical_type {
+                VariantType::Rect => {
+                    let len = type_info.referents.len();
+                    let mut x_min = vec![0.0; len];
+                    let mut y_min = vec![0.0; len];
+                    let mut x_max = vec![0.0; len];
+                    let mut y_max = vec![0.0; len];
+
+                    chunk.read_interleaved_f32_array(&mut x_min)?;
+                    chunk.read_interleaved_f32_array(&mut y_min)?;
+                    chunk.read_interleaved_f32_array(&mut x_max)?;
+                    chunk.read_interleaved_f32_array(&mut y_max)?;
+
+                    let values = x_min.into_iter().zip(y_min).zip(x_max).zip(y_max).map(
+                        |(((x_min, y_min), x_max), y_max)| {
+                            Rect::new(Vector2::new(x_min, y_min), Vector2::new(x_max, y_max))
+                        },
+                    );
+
+                    for (value, referent) in values.zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(&canonical_name, value)
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Rect",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::PhysicalProperties => match canonical_type {
                 VariantType::PhysicalProperties => {
                     for referent in &type_info.referents {
@@ -992,10 +1178,9 @@ impl<R: Read> BinaryDeserializer<R> {
 
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
-                        instance.builder.add_property(
-                            &canonical_name,
-                            shared_string.clone(),
-                        );
+                        instance
+                            .builder
+                            .add_property(&canonical_name, shared_string.clone());
                     }
                 }
                 invalid_type => {

@@ -7,8 +7,10 @@
 use std::{collections::HashMap, convert::TryInto, io::Read};
 
 use rbx_dom_weak::types::{
-    Axes, BrickColor, CFrame, Color3, Color3uint8, CustomPhysicalProperties, EnumValue, Faces,
-    Matrix3, PhysicalProperties, SharedString, UDim, UDim2, Vector2, Vector3,
+    Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
+    CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
+    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
+    Vector3,
 };
 use serde::Serialize;
 
@@ -203,6 +205,7 @@ pub enum DecodedValues {
     Float64(Vec<f64>),
     UDim(Vec<UDim>),
     UDim2(Vec<UDim2>),
+    Ray(Vec<Ray>),
     Faces(Vec<Faces>),
     Axes(Vec<Axes>),
     BrickColor(Vec<BrickColor>),
@@ -211,6 +214,11 @@ pub enum DecodedValues {
     Vector3(Vec<Vector3>),
     CFrame(Vec<CFrame>),
     Enum(Vec<EnumValue>),
+    Ref(Vec<i32>),
+    NumberSequence(Vec<NumberSequence>),
+    ColorSequence(Vec<ColorSequence>),
+    NumberRange(Vec<NumberRange>),
+    Rect(Vec<Rect>),
     PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
@@ -303,6 +311,25 @@ impl DecodedValues {
 
                 Some(DecodedValues::UDim2(values))
             }
+            Type::Ray => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    let origin_x = reader.read_le_f32().unwrap();
+                    let origin_y = reader.read_le_f32().unwrap();
+                    let origin_z = reader.read_le_f32().unwrap();
+                    let direction_x = reader.read_le_f32().unwrap();
+                    let direction_y = reader.read_le_f32().unwrap();
+                    let direction_z = reader.read_le_f32().unwrap();
+
+                    values.push(Ray::new(
+                        Vector3::new(origin_x, origin_y, origin_z),
+                        Vector3::new(direction_x, direction_y, direction_z),
+                    ))
+                }
+
+                Some(DecodedValues::Ray(values))
+            }
             Type::Faces => {
                 let mut values = Vec::with_capacity(prop_count);
 
@@ -386,6 +413,12 @@ impl DecodedValues {
 
                 Some(DecodedValues::Enum(values))
             }
+            Type::Ref => {
+                let mut refs = vec![0; prop_count];
+                reader.read_referent_array(&mut refs).unwrap();
+
+                Some(DecodedValues::Ref(refs))
+            }
             Type::Color3 => {
                 let mut r = vec![0.0; prop_count];
                 let mut g = vec![0.0; prop_count];
@@ -436,6 +469,87 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::Vector3(values))
+            }
+            Type::ColorSequence => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    let keypoint_count = reader.read_le_u32().unwrap() as usize;
+                    let mut keypoints = Vec::with_capacity(keypoint_count);
+
+                    for _ in 0..keypoint_count {
+                        keypoints.push(ColorSequenceKeypoint::new(
+                            reader.read_le_f32().unwrap(),
+                            Color3::new(
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                            ),
+                        ));
+
+                        // envelope is serialized but doesn't do anything; don't do anything with it
+                        reader.read_le_f32().unwrap();
+                    }
+
+                    values.push(ColorSequence { keypoints })
+                }
+
+                Some(DecodedValues::ColorSequence(values))
+            }
+            Type::NumberRange => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    values.push(NumberRange::new(
+                        reader.read_le_f32().unwrap(),
+                        reader.read_le_f32().unwrap(),
+                    ));
+                }
+
+                Some(DecodedValues::NumberRange(values))
+            }
+            Type::NumberSequence => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    let keypoint_count = reader.read_le_u32().unwrap();
+                    let mut keypoints = Vec::with_capacity(keypoint_count as usize);
+
+                    for _ in 0..keypoint_count {
+                        keypoints.push(NumberSequenceKeypoint::new(
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                        ))
+                    }
+
+                    values.push(NumberSequence { keypoints })
+                }
+
+                Some(DecodedValues::NumberSequence(values))
+            }
+            Type::Rect => {
+                let mut x_min = vec![0.0; prop_count];
+                let mut y_min = vec![0.0; prop_count];
+                let mut x_max = vec![0.0; prop_count];
+                let mut y_max = vec![0.0; prop_count];
+
+                reader.read_interleaved_f32_array(&mut x_min).unwrap();
+                reader.read_interleaved_f32_array(&mut y_min).unwrap();
+                reader.read_interleaved_f32_array(&mut x_max).unwrap();
+                reader.read_interleaved_f32_array(&mut y_max).unwrap();
+
+                let values = x_min
+                    .into_iter()
+                    .zip(y_min)
+                    .zip(x_max)
+                    .zip(y_max)
+                    .map(|(((x_min, y_min), x_max), y_max)| {
+                        Rect::new(Vector2::new(x_min, y_min), Vector2::new(x_max, y_max))
+                    })
+                    .collect();
+
+                Some(DecodedValues::Rect(values))
             }
             Type::PhysicalProperties => {
                 let mut values = Vec::with_capacity(prop_count);

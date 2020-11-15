@@ -1,0 +1,260 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Beam
+  class: Beam
+  properties:
+    Attachment0: "null"
+    Attachment1: "null"
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Color:
+      Type: ColorSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+          - Time: 0.5
+            Color:
+              - 0.0
+              - 0.0
+              - 0.0
+          - Time: 1.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+    CurveSize0:
+      Type: Float32
+      Value: 0.0
+    CurveSize1:
+      Type: Float32
+      Value: 0.0
+    Enabled:
+      Type: Bool
+      Value: true
+    FaceCamera:
+      Type: Bool
+      Value: false
+    LightEmission:
+      Type: Float32
+      Value: 0.0
+    LightInfluence:
+      Type: Float32
+      Value: 1.0
+    Segments:
+      Type: Int32
+      Value: 10
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Texture:
+      Type: Content
+      Value: ""
+    TextureLength:
+      Type: Float32
+      Value: 1.0
+    TextureMode:
+      Type: EnumValue
+      Value: 0
+    TextureSpeed:
+      Type: Float32
+      Value: 1.0
+    Transparency:
+      Type: NumberSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Value: 0.5
+            Envelope: 0.0
+          - Time: 1.0
+            Value: 0.5
+            Envelope: 0.0
+    Width0:
+      Type: Float32
+      Value: 1.0
+    Width1:
+      Type: Float32
+      Value: 1.0
+    ZOffset:
+      Type: Float32
+      Value: 0.0
+  children: []
+- referent: referent-1
+  name: Beam
+  class: Beam
+  properties:
+    Attachment0: "null"
+    Attachment1: "null"
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Color:
+      Type: ColorSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+          - Time: 1.0
+            Color:
+              - 1.0
+              - 1.0
+              - 1.0
+    CurveSize0:
+      Type: Float32
+      Value: 0.0
+    CurveSize1:
+      Type: Float32
+      Value: 0.0
+    Enabled:
+      Type: Bool
+      Value: false
+    FaceCamera:
+      Type: Bool
+      Value: false
+    LightEmission:
+      Type: Float32
+      Value: 0.0
+    LightInfluence:
+      Type: Float32
+      Value: 1.0
+    Segments:
+      Type: Int32
+      Value: 10
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Texture:
+      Type: Content
+      Value: ""
+    TextureLength:
+      Type: Float32
+      Value: 1.0
+    TextureMode:
+      Type: EnumValue
+      Value: 0
+    TextureSpeed:
+      Type: Float32
+      Value: 1.0
+    Transparency:
+      Type: NumberSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Value: 0.5
+            Envelope: 0.0
+          - Time: 1.0
+            Value: 0.5
+            Envelope: 0.0
+    Width0:
+      Type: Float32
+      Value: 1.0
+    Width1:
+      Type: Float32
+      Value: 1.0
+    ZOffset:
+      Type: Float32
+      Value: 0.0
+  children: []
+- referent: referent-2
+  name: Beam
+  class: Beam
+  properties:
+    Attachment0: "null"
+    Attachment1: "null"
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    Color:
+      Type: ColorSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Color:
+              - 1.0
+              - 0.0
+              - 0.0
+          - Time: 0.5
+            Color:
+              - 0.0
+              - 1.0
+              - 0.0
+          - Time: 1.0
+            Color:
+              - 0.0
+              - 0.0
+              - 1.0
+    CurveSize0:
+      Type: Float32
+      Value: 0.0
+    CurveSize1:
+      Type: Float32
+      Value: 0.0
+    Enabled:
+      Type: Bool
+      Value: true
+    FaceCamera:
+      Type: Bool
+      Value: false
+    LightEmission:
+      Type: Float32
+      Value: 0.0
+    LightInfluence:
+      Type: Float32
+      Value: 1.0
+    Segments:
+      Type: Int32
+      Value: 10
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    Texture:
+      Type: Content
+      Value: ""
+    TextureLength:
+      Type: Float32
+      Value: 1.0
+    TextureMode:
+      Type: EnumValue
+      Value: 0
+    TextureSpeed:
+      Type: Float32
+      Value: 1.0
+    Transparency:
+      Type: NumberSequence
+      Value:
+        Keypoints:
+          - Time: 0.0
+            Value: 0.5
+            Envelope: 0.0
+          - Time: 1.0
+            Value: 0.5
+            Envelope: 0.0
+    Width0:
+      Type: Float32
+      Value: 1.0
+    Width1:
+      Type: Float32
+      Value: 1.0
+    ZOffset:
+      Type: Float32
+      Value: 0.0
+  children: []

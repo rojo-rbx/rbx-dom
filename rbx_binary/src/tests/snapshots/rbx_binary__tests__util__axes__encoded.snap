@@ -20,6 +20,19 @@ chunks:
         - 7
   - Prop:
       type_id: 0
+      prop_name: Adornee
+      prop_type: Ref
+      values:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
       values:
