@@ -4,7 +4,7 @@
 
 #![allow(missing_docs)]
 
-use std::{collections::HashMap, convert::TryInto, io::Read};
+use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
@@ -12,7 +12,7 @@ use rbx_dom_weak::types::{
     NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
     Vector3,
 };
-use serde::Serialize;
+use serde::{Serialize, Serializer};
 
 use crate::{
     chunk::Chunk, core::RbxReadExt, deserializer::special_case_to_rotation,
@@ -643,6 +643,7 @@ pub enum DecodedChunk {
 
     Sstr {
         version: u32,
+        #[serde(serialize_with = "shared_string_serializer")]
         entries: Vec<SharedString>,
 
         #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
@@ -687,6 +688,25 @@ pub enum DecodedChunk {
         #[serde(with = "unknown_buffer")]
         contents: Vec<u8>,
     },
+}
+
+fn shared_string_serializer<S>(values: &Vec<SharedString>, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    let mut processed = Vec::with_capacity(values.len());
+
+    for value in values {
+        let hash = value.hash();
+        let mut hash_hex = String::with_capacity(hash.as_bytes().len() * 2);
+
+        for byte in hash.as_bytes() {
+            write!(hash_hex, "{:02x}", byte).unwrap();
+        }
+        processed.push(format!("[{} bytes] {}", value.data().len(), hash_hex))
+    }
+
+    serializer.collect_seq(processed)
 }
 
 /// Contains data that we haven't decoded for a chunk. Using `unknown_buffer`
