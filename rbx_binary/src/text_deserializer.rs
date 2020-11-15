@@ -690,7 +690,7 @@ pub enum DecodedChunk {
     },
 }
 
-fn shared_string_serializer<S>(values: &Vec<SharedString>, serializer: S) -> Result<S::Ok, S::Error>
+fn shared_string_serializer<S>(values: &[SharedString], serializer: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
