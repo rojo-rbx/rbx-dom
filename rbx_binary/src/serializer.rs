@@ -116,14 +116,7 @@ struct BinarySerializer<'a, W> {
 
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
-    ///
-    /// These are stored sorted so that we naturally iterate over them in order
-    /// and improve our chances of being deterministic.
-    type_infos: BTreeMap<String, TypeInfo>,
-
-    /// The next type ID that should be assigned if a type is discovered and
-    /// added to the serializer.
-    next_type_id: u32,
+    type_infos: TypeInfos,
 }
 
 /// An instance class that our serializer knows about. We should have one struct
@@ -196,6 +189,85 @@ struct PropInfo {
     default_value: Cow<'static, Variant>,
 }
 
+/// Contains all of the `TypeInfo` objects known to the serializer so far. This
+/// struct was broken out to help encapsulate the behavior here and to ease
+/// self-borrowing issues from BinarySerializer getting too large.
+#[derive(Debug)]
+struct TypeInfos {
+    /// A map containing one entry for each unique ClassName discovered in the
+    /// DOM.
+    ///
+    /// These are stored sorted so that we naturally iterate over them in order
+    /// and improve our chances of being deterministic.
+    values: BTreeMap<String, TypeInfo>,
+
+    /// The next type ID that should be assigned if a type is discovered and
+    /// added to the serializer.
+    next_type_id: u32,
+}
+
+impl TypeInfos {
+    fn new() -> Self {
+        Self {
+            values: BTreeMap::new(),
+            next_type_id: 0,
+        }
+    }
+
+    /// Finds the type info from the given ClassName if it exists, or creates
+    /// one and returns a reference to it if not.
+    fn get_or_create(&mut self, class: &str) -> &mut TypeInfo {
+        if !self.values.contains_key(class) {
+            let type_id = self.next_type_id;
+            self.next_type_id += 1;
+
+            let class_descriptor = rbx_reflection_database::get().classes.get(class);
+
+            let is_service;
+            if let Some(descriptor) = &class_descriptor {
+                is_service = descriptor.tags.contains(&ClassTag::Service);
+            } else {
+                log::info!("The class {} is not known to rbx_binary", class);
+                is_service = false;
+            };
+
+            let mut properties = BTreeMap::new();
+
+            // Every instance has a property named Name. Even though
+            // rbx_dom_weak encodes the name property specially, we still insert
+            // this property into the type info and handle it like a regular
+            // property during encoding.
+            //
+            // We can use a dummy default_value here because instances from
+            // rbx_dom_weak always have a name set.
+            properties.insert(
+                Cow::Borrowed("Name"),
+                PropInfo {
+                    prop_type: Type::String,
+                    serialized_name: Cow::Borrowed("Name"),
+                    aliases: BTreeSet::new(),
+                    default_value: Cow::Owned(Variant::String(String::new())),
+                },
+            );
+
+            self.values.insert(
+                class.to_owned(),
+                TypeInfo {
+                    type_id,
+                    is_service,
+                    object_refs: Vec::new(),
+                    properties,
+                    class_descriptor,
+                },
+            );
+        }
+
+        // This unwrap will not panic because we always insert this key into
+        // type_infos in this function.
+        self.values.get_mut(class).unwrap()
+    }
+}
+
 impl<'a, W: Write> BinarySerializer<'a, W> {
     fn new(dom: &'a WeakDom, output: W) -> Self {
         BinarySerializer {
@@ -203,8 +275,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             output,
             relevant_instances: Vec::new(),
             id_to_referent: HashMap::new(),
-            type_infos: BTreeMap::new(),
-            next_type_id: 0,
+            type_infos: TypeInfos::new(),
         }
     }
 
@@ -237,7 +308,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             .get_by_ref(referent)
             .ok_or_else(|| InnerError::InvalidInstanceId { referent })?;
 
-        let type_info = self.get_or_create_type_info(&instance.class);
+        let type_info = self.type_infos.get_or_create(&instance.class);
         type_info.object_refs.push(referent);
 
         for (prop_name, prop_value) in &instance.properties {
@@ -346,59 +417,6 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         Ok(())
     }
 
-    /// Finds the type info from the given class name if it exists, or creates
-    /// one and returns a reference to it if not.
-    fn get_or_create_type_info(&mut self, class: &str) -> &mut TypeInfo {
-        if !self.type_infos.contains_key(class) {
-            let type_id = self.next_type_id;
-            self.next_type_id += 1;
-
-            let class_descriptor = rbx_reflection_database::get().classes.get(class);
-
-            let is_service;
-            if let Some(descriptor) = &class_descriptor {
-                is_service = descriptor.tags.contains(&ClassTag::Service);
-            } else {
-                log::info!("The class {} is not known to rbx_binary", class);
-                is_service = false;
-            };
-
-            let mut properties = BTreeMap::new();
-
-            // Every instance has a property named Name. Even though
-            // rbx_dom_weak encodes the name property specially, we still insert
-            // this property into the type info and handle it like a regular
-            // property during encoding.
-            //
-            // We can use a dummy default_value here because instances from
-            // rbx_dom_weak always have a name set.
-            properties.insert(
-                Cow::Borrowed("Name"),
-                PropInfo {
-                    prop_type: Type::String,
-                    serialized_name: Cow::Borrowed("Name"),
-                    aliases: BTreeSet::new(),
-                    default_value: Cow::Owned(Variant::String(String::new())),
-                },
-            );
-
-            self.type_infos.insert(
-                class.to_owned(),
-                TypeInfo {
-                    type_id,
-                    is_service,
-                    object_refs: Vec::new(),
-                    properties,
-                    class_descriptor,
-                },
-            );
-        }
-
-        // This unwrap will not panic because we always insert this key into
-        // type_infos in this function.
-        self.type_infos.get_mut(class).unwrap()
-    }
-
     /// Populate the map from rbx-dom's instance ID space to the IDs that we'll
     /// be serializing to the model.
     fn generate_referents(&mut self) {
@@ -417,7 +435,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         self.output.write_all(FILE_SIGNATURE)?;
         self.output.write_le_u16(FILE_VERSION)?;
 
-        self.output.write_le_u32(self.type_infos.len() as u32)?;
+        self.output
+            .write_le_u32(self.type_infos.values.len() as u32)?;
         self.output
             .write_le_u32(self.relevant_instances.len() as u32)?;
         self.output.write_all(&[0; 8])?;
@@ -437,7 +456,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     fn serialize_instances(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing instance chunks");
 
-        for (type_name, type_info) in &self.type_infos {
+        for (type_name, type_info) in &self.type_infos.values {
             log::trace!(
                 "Writing chunk for {} ({} instances)",
                 type_name,
@@ -491,7 +510,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     fn serialize_properties(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing properties");
 
-        for (type_name, type_info) in &self.type_infos {
+        for (type_name, type_info) in &self.type_infos.values {
             for (prop_name, prop_info) in &type_info.properties {
                 log::trace!(
                     "Writing property {}.{} (type {:?})",
