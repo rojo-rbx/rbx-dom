@@ -10,7 +10,8 @@ use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Faces, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        PhysicalProperties, Ray, Rect, Ref, SharedString, UDim, UDim2, Variant, VariantType,
+        Vector2, Vector3,
     },
     WeakDom,
 };
@@ -71,6 +72,9 @@ enum InnerError {
 
     #[error("The instance with referent {referent:?} was not present in the dom.")]
     InvalidInstanceId { referent: Ref },
+
+    #[error("Too many SharedStrings in tree")]
+    TooManySharedStrings,
 }
 
 /// Serializes instances from an `WeakDom` into a writer in Roblox's binary
@@ -88,6 +92,7 @@ pub fn encode<W: Write>(dom: &WeakDom, refs: &[Ref], writer: W) -> Result<(), Er
 
     serializer.write_header()?;
     serializer.serialize_metadata()?;
+    serializer.serialize_shared_strings()?;
     serializer.serialize_instances()?;
     serializer.serialize_properties()?;
     serializer.serialize_parents()?;
@@ -117,6 +122,14 @@ struct BinarySerializer<'a, W> {
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
     type_infos: TypeInfos,
+
+    /// All of the SharedStrings in the DOM, in the order they'll be written
+    // in.
+    shared_strings: Vec<SharedString>,
+
+    /// A map of SharedStrings to where it is in the SSTR chunk. This is used
+    /// for writing PROP chunks.
+    shared_string_ids: HashMap<SharedString, u32>,
 }
 
 /// An instance class that our serializer knows about. We should have one struct
@@ -276,6 +289,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             relevant_instances: Vec::new(),
             id_to_referent: HashMap::new(),
             type_infos: TypeInfos::new(),
+            shared_strings: Vec::new(),
+            shared_string_ids: HashMap::new(),
         }
     }
 
@@ -412,6 +427,18 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     prop_info.aliases.insert(prop_name.clone());
                 }
             }
+
+            if let Variant::SharedString(shared_string) = prop_value {
+                if !self.shared_string_ids.contains_key(shared_string) {
+                    let id = self
+                        .shared_strings
+                        .len()
+                        .try_into()
+                        .map_err(|_| InnerError::TooManySharedStrings)?;
+                    self.shared_string_ids.insert(shared_string.clone(), id);
+                    self.shared_strings.push(shared_string.clone())
+                }
+            }
         }
 
         Ok(())
@@ -448,6 +475,29 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     fn serialize_metadata(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing metadata (currently no-op)");
         // TODO: There is no concept of metadata in a dom yet.
+        Ok(())
+    }
+
+    fn serialize_shared_strings(&mut self) -> Result<(), InnerError> {
+        log::trace!("Writing shared string chunk");
+
+        if self.shared_strings.is_empty() {
+            return Ok(());
+        }
+
+        let mut chunk = ChunkBuilder::new(b"SSTR", ChunkCompression::Compressed);
+
+        chunk.write_le_u32(0)?; // SSTR version number
+        chunk.write_le_u32(self.shared_strings.len() as u32)?;
+
+        for shared_string in &self.shared_strings {
+            // Better to write nothing than write half a hash
+            chunk.write_all(b"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0")?;
+            chunk.write_binary_string(shared_string.data())?;
+        }
+
+        chunk.dump(&mut self.output)?;
+
         Ok(())
     }
 
@@ -976,6 +1026,23 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_i64_array(buf.into_iter())?;
                     }
+                    Type::SharedString => {
+                        let mut entries = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::SharedString(value) = rbx_value.as_ref() {
+                                let id = self
+                                    .shared_string_ids
+                                    .get(value)
+                                    .ok_or_else(|| InnerError::TooManySharedStrings {})?;
+                                entries.push(*id);
+                            } else {
+                                return type_mismatch(i, &rbx_value, "SharedString");
+                            }
+                        }
+
+                        chunk.write_interleaved_u32_array(&entries)?;
+                    }
                     _ => {
                         return Err(InnerError::UnsupportedPropType {
                             type_name: type_name.clone(),
@@ -1113,6 +1180,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             }
             VariantType::Color3uint8 => Variant::Color3uint8(Color3uint8::new(0, 0, 0)),
             VariantType::Int64 => Variant::Int64(0),
+            VariantType::SharedString => Variant::SharedString(SharedString::new(Vec::new())),
             _ => return None,
         })
     }
