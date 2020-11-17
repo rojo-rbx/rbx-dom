@@ -9,8 +9,9 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Faces, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        ColorSequenceKeypoint, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
+        NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant,
+        VariantType, Vector2, Vector3,
     },
     WeakDom,
 };
@@ -1086,6 +1087,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 Vector3::new(0.0, 0.0, 0.0),
                 Matrix3::identity(),
             )),
+            VariantType::EnumValue => Variant::EnumValue(EnumValue::from_u32(u32::MAX)),
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
