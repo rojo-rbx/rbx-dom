@@ -478,6 +478,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
         Ok(())
     }
 
+    /// Write out all of the SharedStrings in this file, if any exist,
+    /// stored in a chunk named SSTR.
     fn serialize_shared_strings(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing shared string chunk");
 
