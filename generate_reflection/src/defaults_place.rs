@@ -61,10 +61,11 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &W
             let descriptors = match find_descriptors(database, &instance.class, prop_name) {
                 Some(descriptor) => descriptor,
                 None => {
-                    log::info!(
-                        "Property {}.{} found in default place but not API dump",
+                    log::warn!(
+                        "Found unknown property {}.{}, which is of type {:?}",
                         instance.class,
-                        prop_name
+                        prop_name,
+                        prop_value.ty(),
                     );
                     continue;
                 }
