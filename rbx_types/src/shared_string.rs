@@ -1,12 +1,13 @@
 use std::{
     collections::{hash_map::Entry, HashMap},
+    hash::{Hash, Hasher},
     sync::{Arc, Mutex, Weak},
 };
 
-use blake3::Hash;
+use blake3::Hash as Blake3Hash;
 
 lazy_static::lazy_static! {
-    static ref STRING_CACHE: Arc<Mutex<HashMap<Hash, Weak<Vec<u8>>>>> = {
+    static ref STRING_CACHE: Arc<Mutex<HashMap<Blake3Hash, Weak<Vec<u8>>>>> = {
         Arc::new(Mutex::new(HashMap::new()))
     };
 }
@@ -14,10 +15,10 @@ lazy_static::lazy_static! {
 /// A version of `BinaryString` used for data that's commonly repeated.
 /// `rbx_types` automatically deduplicates data as it's loaded into
 /// `SharedString` values.
-#[derive(Debug, Clone, Hash)]
+#[derive(Debug, Clone)]
 pub struct SharedString {
     data: Option<Arc<Vec<u8>>>,
-    hash: Hash,
+    hash: Blake3Hash,
 }
 
 impl SharedString {
@@ -73,6 +74,15 @@ impl SharedString {
     }
 }
 
+impl Hash for SharedString {
+    fn hash<H>(&self, state: &mut H)
+    where
+        H: Hasher,
+    {
+        state.write(self.hash.as_bytes());
+    }
+}
+
 impl PartialEq for SharedString {
     fn eq(&self, other: &Self) -> bool {
         self.hash == other.hash
@@ -108,7 +118,7 @@ impl Drop for SharedString {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct SharedStringHash(Hash);
+pub struct SharedStringHash(Blake3Hash);
 
 impl SharedStringHash {
     #[inline]
