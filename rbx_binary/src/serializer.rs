@@ -72,9 +72,6 @@ enum InnerError {
 
     #[error("The instance with referent {referent:?} was not present in the dom.")]
     InvalidInstanceId { referent: Ref },
-
-    #[error("Too many SharedStrings in tree")]
-    TooManySharedStrings,
 }
 
 /// Serializes instances from an `WeakDom` into a writer in Roblox's binary
@@ -430,11 +427,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
             if let Variant::SharedString(shared_string) = prop_value {
                 if !self.shared_string_ids.contains_key(shared_string) {
-                    let id = self
-                        .shared_strings
-                        .len()
-                        .try_into()
-                        .map_err(|_| InnerError::TooManySharedStrings)?;
+                    let id = self.shared_strings.len() as u32;
                     self.shared_string_ids.insert(shared_string.clone(), id);
                     self.shared_strings.push(shared_string.clone())
                 }
@@ -1033,10 +1026,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::SharedString(value) = rbx_value.as_ref() {
-                                let id = self
-                                    .shared_string_ids
-                                    .get(value)
-                                    .ok_or_else(|| InnerError::TooManySharedStrings {})?;
+                                let id = self.shared_string_ids.get(value).unwrap();
                                 entries.push(*id);
                             } else {
                                 return type_mismatch(i, &rbx_value, "SharedString");
