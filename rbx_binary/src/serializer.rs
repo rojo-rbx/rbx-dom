@@ -487,7 +487,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
         for shared_string in &self.shared_strings {
             // Better to write nothing than write half a hash
-            chunk.write_all(b"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0")?;
+            chunk.write_all(&[0; 16])?;
             chunk.write_binary_string(shared_string.data())?;
         }
 
