@@ -12,7 +12,7 @@ use rbx_dom_weak::types::{
     NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
     Vector3,
 };
-use serde::{Serialize, Serializer};
+use serde::{ser::SerializeSeq, Serialize, Serializer};
 
 use crate::{
     chunk::Chunk, core::RbxReadExt, deserializer::special_case_to_rotation,
@@ -690,23 +690,32 @@ pub enum DecodedChunk {
     },
 }
 
+#[derive(Serialize)]
+struct SerializedSharedString<'a> {
+    len: usize,
+    hash: &'a str,
+}
+
 fn shared_string_serializer<S>(values: &[SharedString], serializer: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
-    let mut processed = Vec::with_capacity(values.len());
+    let mut hash = String::with_capacity(64);
 
+    let mut state = serializer.serialize_seq(Some(values.len()))?;
     for value in values {
-        let hash = value.hash();
-        let mut hash_hex = String::with_capacity(hash.as_bytes().len() * 2);
-
-        for byte in hash.as_bytes() {
-            write!(hash_hex, "{:02x}", byte).unwrap();
+        for byte in value.hash().as_bytes() {
+            write!(hash, "{:02x}", byte).unwrap();
         }
-        processed.push(format!("[{} bytes] {}", value.data().len(), hash_hex))
+        state.serialize_element(&SerializedSharedString {
+            len: value.data().len(),
+            hash: hash.as_str(),
+        })?;
+
+        hash.clear()
     }
 
-    serializer.collect_seq(processed)
+    state.end()
 }
 
 /// Contains data that we haven't decoded for a chunk. Using `unknown_buffer`

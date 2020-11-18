@@ -12,8 +12,10 @@ chunks:
   - Sstr:
       version: 0
       entries:
-        - "[1803 bytes] db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3"
-        - "[1367 bytes] cc62d7045ec238081b7ebbd97ce5ce7dc15166e688168c307247089135718bdb"
+        - len: 1803
+          hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
+        - len: 1367
+          hash: cc62d7045ec238081b7ebbd97ce5ce7dc15166e688168c307247089135718bdb
   - Inst:
       type_id: 0
       type_name: UnionOperation
