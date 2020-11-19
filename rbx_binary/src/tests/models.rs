@@ -49,6 +49,7 @@ binary_tests! {
     three_unique_parts,
     three_vector3values,
     two_cframevalues,
+    unions,
     two_imagebuttons,
     two_particleemitters,
     two_ray_values,

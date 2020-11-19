@@ -595,9 +595,7 @@ When an array of Int64s is present, the bytes of the integers are subject to [by
 ### SharedString
 **Type ID 0x1C**
 
-SharedStrings are stored as an [Interleaved Array](#byte-interleaving) of [Int32s](#int32) that represent indices in the [`SSTR`](#sstr-chunk) string array.
-
-Any property that's a [String](#string) can also be a SharedString.
+SharedStrings are stored as an [Interleaved Array](#byte-interleaving) of `u32`s that represent indices in the [`SSTR`](#sstr-chunk) string array.
 
 ## Data Storage Notes
 

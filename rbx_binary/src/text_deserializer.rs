@@ -4,14 +4,15 @@
 
 #![allow(missing_docs)]
 
-use std::{collections::HashMap, convert::TryInto, io::Read};
+use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, UDim, UDim2, Vector2, Vector3,
+    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
+    Vector3,
 };
-use serde::Serialize;
+use serde::{ser::SerializeSeq, Serialize, Serializer};
 
 use crate::{
     chunk::Chunk, core::RbxReadExt, deserializer::special_case_to_rotation,
@@ -39,6 +40,7 @@ impl DecodedModel {
 
             match &chunk.name {
                 b"META" => chunks.push(decode_meta_chunk(chunk.data.as_slice())),
+                b"SSTR" => chunks.push(decode_sstr_chunk(chunk.data.as_slice())),
                 b"INST" => chunks.push(decode_inst_chunk(
                     chunk.data.as_slice(),
                     &mut count_by_type_id,
@@ -83,6 +85,28 @@ fn decode_meta_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     reader.read_to_end(&mut remaining).unwrap();
 
     DecodedChunk::Meta { entries, remaining }
+}
+
+fn decode_sstr_chunk<R: Read>(mut reader: R) -> DecodedChunk {
+    let version = reader.read_le_u32().unwrap();
+    let num_entries = reader.read_le_u32().unwrap();
+    let mut entries = Vec::with_capacity(num_entries as usize);
+
+    for _ in 0..num_entries {
+        let mut hash = [0; 16];
+        reader.read_exact(&mut hash).unwrap();
+        let data = reader.read_binary_string().unwrap();
+        entries.push(SharedString::new(data));
+    }
+
+    let mut remaining = Vec::new();
+    reader.read_to_end(&mut remaining).unwrap();
+
+    DecodedChunk::Sstr {
+        version,
+        entries,
+        remaining,
+    }
 }
 
 fn decode_inst_chunk<R: Read>(
@@ -198,6 +222,7 @@ pub enum DecodedValues {
     PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
+    SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
 }
 
 impl DecodedValues {
@@ -570,6 +595,13 @@ impl DecodedValues {
 
                 Some(DecodedValues::Int64(values))
             }
+            Type::SharedString => {
+                let mut values = vec![0; prop_count];
+
+                reader.read_interleaved_u32_array(&mut values).unwrap();
+
+                Some(DecodedValues::SharedString(values))
+            }
             _ => None,
         }
     }
@@ -604,6 +636,15 @@ impl From<Vec<u8>> for RobloxString {
 pub enum DecodedChunk {
     Meta {
         entries: Vec<(String, String)>,
+
+        #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
+        remaining: Vec<u8>,
+    },
+
+    Sstr {
+        version: u32,
+        #[serde(serialize_with = "shared_string_serializer")]
+        entries: Vec<SharedString>,
 
         #[serde(with = "unknown_buffer", skip_serializing_if = "Vec::is_empty")]
         remaining: Vec<u8>,
@@ -647,6 +688,34 @@ pub enum DecodedChunk {
         #[serde(with = "unknown_buffer")]
         contents: Vec<u8>,
     },
+}
+
+#[derive(Serialize)]
+struct SerializedSharedString<'a> {
+    len: usize,
+    hash: &'a str,
+}
+
+fn shared_string_serializer<S>(values: &[SharedString], serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    let mut hash = String::with_capacity(64);
+
+    let mut state = serializer.serialize_seq(Some(values.len()))?;
+    for value in values {
+        for byte in value.hash().as_bytes() {
+            write!(hash, "{:02x}", byte).unwrap();
+        }
+        state.serialize_element(&SerializedSharedString {
+            len: value.data().len(),
+            hash: hash.as_str(),
+        })?;
+
+        hash.clear()
+    }
+
+    state.end()
 }
 
 /// Contains data that we haven't decoded for a chunk. Using `unknown_buffer`

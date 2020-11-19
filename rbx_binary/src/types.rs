@@ -37,6 +37,7 @@ pub enum Type {
     PhysicalProperties = 0x19,
     Color3uint8 = 0x1A,
     Int64 = 0x1B,
+    SharedString = 0x1C,
 }
 
 impl Type {
@@ -71,6 +72,7 @@ impl Type {
             VariantType::PhysicalProperties => Type::PhysicalProperties,
             VariantType::Color3uint8 => Type::Color3uint8,
             VariantType::Int64 => Type::Int64,
+            VariantType::SharedString => Type::SharedString,
 
             _ => return None,
         })
@@ -105,6 +107,7 @@ impl Type {
             Type::PhysicalProperties => VariantType::PhysicalProperties,
             Type::Color3uint8 => VariantType::Color3uint8,
             Type::Int64 => VariantType::Int64,
+            Type::SharedString => VariantType::SharedString,
         })
     }
 }
@@ -141,6 +144,7 @@ impl TryFrom<u8> for Type {
             0x19 => PhysicalProperties,
             0x1A => Color3uint8,
             0x1B => Int64,
+            0x1C => SharedString,
             _ => return Err(InvalidTypeError(value)),
         })
     }

@@ -1,4 +1,7 @@
-use std::collections::{BTreeMap, HashMap};
+use std::{
+    collections::{BTreeMap, HashMap},
+    fmt::Write,
+};
 
 use crate::{
     types::{Ref, Variant},
@@ -93,6 +96,18 @@ impl DomViewer {
                             ViewedValue::Ref("null".to_owned())
                         }
                     }
+                    Variant::SharedString(shared_string) => {
+                        let hash = shared_string.hash();
+                        let mut hash_hex = String::with_capacity(hash.as_bytes().len() * 2);
+
+                        for byte in hash.as_bytes() {
+                            write!(hash_hex, "{:02x}", byte).unwrap();
+                        }
+                        ViewedValue::SharedString {
+                            len: shared_string.data().len(),
+                            hash: hash_hex,
+                        }
+                    }
                     other => ViewedValue::Other(other.clone()),
                 };
 
@@ -133,6 +148,7 @@ pub struct ViewedInstance {
 #[serde(untagged)]
 enum ViewedValue {
     Ref(String),
+    SharedString { len: usize, hash: String },
     Other(Variant),
 }
 
@@ -140,6 +156,7 @@ enum ViewedValue {
 mod test {
     use super::*;
 
+    use crate::types::SharedString;
     use crate::InstanceBuilder;
 
     #[test]
@@ -168,6 +185,19 @@ mod test {
         let root = InstanceBuilder::new("ObjectValue").with_name("Root");
         let root_ref = root.referent;
         let root = root.with_property("Value", root_ref);
+
+        let dom = WeakDom::new(root);
+
+        insta::assert_yaml_snapshot!(DomViewer::new().view(&dom));
+    }
+
+    #[test]
+    fn abbreviate_shared_string() {
+        let shared_string = SharedString::new("foo".into());
+
+        let root = InstanceBuilder::new("UnionOperation")
+            .with_name("Root")
+            .with_property("PhysicalConfigData", shared_string);
 
         let dom = WeakDom::new(root);
 
