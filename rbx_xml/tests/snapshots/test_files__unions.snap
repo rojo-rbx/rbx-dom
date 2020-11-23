@@ -1,0 +1,520 @@
+---
+source: rbx_xml/tests/test-files.rs
+expression: viewer.view_children(&dom)
+---
+- referent: referent-0
+  name: Red Union 1
+  class: UnionOperation
+  properties:
+    Anchored:
+      Type: Bool
+      Value: false
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    BackParamA:
+      Type: Float32
+      Value: -0.5
+    BackParamB:
+      Type: Float32
+      Value: 0.5
+    BackSurface:
+      Type: EnumValue
+      Value: 0
+    BackSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    BottomParamA:
+      Type: Float32
+      Value: -0.5
+    BottomParamB:
+      Type: Float32
+      Value: 0.5
+    BottomSurface:
+      Type: EnumValue
+      Value: 0
+    BottomSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    CFrame:
+      Type: CFrame
+      Value:
+        Position:
+          - 0.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    CanCollide:
+      Type: Bool
+      Value: true
+    CastShadow:
+      Type: Bool
+      Value: true
+    CollisionGroupId:
+      Type: Int32
+      Value: 0
+    Color:
+      Type: Color3uint8
+      Value:
+        - 196
+        - 40
+        - 28
+    CustomPhysicalProperties:
+      Type: PhysicalProperties
+      Value: Default
+    FrontParamA:
+      Type: Float32
+      Value: -0.5
+    FrontParamB:
+      Type: Float32
+      Value: 0.5
+    FrontSurface:
+      Type: EnumValue
+      Value: 0
+    FrontSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    LeftParamA:
+      Type: Float32
+      Value: -0.5
+    LeftParamB:
+      Type: Float32
+      Value: 0.5
+    LeftSurface:
+      Type: EnumValue
+      Value: 0
+    LeftSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    Locked:
+      Type: Bool
+      Value: false
+    Massless:
+      Type: Bool
+      Value: false
+    Material:
+      Type: EnumValue
+      Value: 256
+    PhysicalConfigData:
+      len: 1803
+      hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
+    Reflectance:
+      Type: Float32
+      Value: 0.0
+    RenderFidelity:
+      Type: EnumValue
+      Value: 1
+    RightParamA:
+      Type: Float32
+      Value: -0.5
+    RightParamB:
+      Type: Float32
+      Value: 0.5
+    RightSurface:
+      Type: EnumValue
+      Value: 0
+    RightSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    RootPriority:
+      Type: Int32
+      Value: 0
+    RotVelocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    Size:
+      Type: Vector3
+      Value:
+        - 5.0
+        - 2.0
+        - 2.0
+    SmoothingAngle:
+      Type: Float32
+      Value: 0.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    TopParamA:
+      Type: Float32
+      Value: -0.5
+    TopParamB:
+      Type: Float32
+      Value: 0.5
+    TopSurface:
+      Type: EnumValue
+      Value: 0
+    TopSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    UsePartColor:
+      Type: Bool
+      Value: false
+    Velocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+  children: []
+- referent: referent-1
+  name: Red Union 2
+  class: UnionOperation
+  properties:
+    Anchored:
+      Type: Bool
+      Value: false
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    BackParamA:
+      Type: Float32
+      Value: -0.5
+    BackParamB:
+      Type: Float32
+      Value: 0.5
+    BackSurface:
+      Type: EnumValue
+      Value: 0
+    BackSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    BottomParamA:
+      Type: Float32
+      Value: -0.5
+    BottomParamB:
+      Type: Float32
+      Value: 0.5
+    BottomSurface:
+      Type: EnumValue
+      Value: 0
+    BottomSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    CFrame:
+      Type: CFrame
+      Value:
+        Position:
+          - -7.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    CanCollide:
+      Type: Bool
+      Value: true
+    CastShadow:
+      Type: Bool
+      Value: true
+    CollisionGroupId:
+      Type: Int32
+      Value: 0
+    Color:
+      Type: Color3uint8
+      Value:
+        - 196
+        - 40
+        - 28
+    CustomPhysicalProperties:
+      Type: PhysicalProperties
+      Value: Default
+    FrontParamA:
+      Type: Float32
+      Value: -0.5
+    FrontParamB:
+      Type: Float32
+      Value: 0.5
+    FrontSurface:
+      Type: EnumValue
+      Value: 0
+    FrontSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    LeftParamA:
+      Type: Float32
+      Value: -0.5
+    LeftParamB:
+      Type: Float32
+      Value: 0.5
+    LeftSurface:
+      Type: EnumValue
+      Value: 0
+    LeftSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    Locked:
+      Type: Bool
+      Value: false
+    Massless:
+      Type: Bool
+      Value: false
+    Material:
+      Type: EnumValue
+      Value: 256
+    PhysicalConfigData:
+      len: 1803
+      hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
+    Reflectance:
+      Type: Float32
+      Value: 0.0
+    RenderFidelity:
+      Type: EnumValue
+      Value: 1
+    RightParamA:
+      Type: Float32
+      Value: -0.5
+    RightParamB:
+      Type: Float32
+      Value: 0.5
+    RightSurface:
+      Type: EnumValue
+      Value: 0
+    RightSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    RootPriority:
+      Type: Int32
+      Value: 0
+    RotVelocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    Size:
+      Type: Vector3
+      Value:
+        - 5.0
+        - 2.0
+        - 2.0
+    SmoothingAngle:
+      Type: Float32
+      Value: 0.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    TopParamA:
+      Type: Float32
+      Value: -0.5
+    TopParamB:
+      Type: Float32
+      Value: 0.5
+    TopSurface:
+      Type: EnumValue
+      Value: 0
+    TopSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    UsePartColor:
+      Type: Bool
+      Value: false
+    Velocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+  children: []
+- referent: referent-2
+  name: Blue Union
+  class: UnionOperation
+  properties:
+    Anchored:
+      Type: Bool
+      Value: false
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    BackParamA:
+      Type: Float32
+      Value: -0.5
+    BackParamB:
+      Type: Float32
+      Value: 0.5
+    BackSurface:
+      Type: EnumValue
+      Value: 0
+    BackSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    BottomParamA:
+      Type: Float32
+      Value: -0.5
+    BottomParamB:
+      Type: Float32
+      Value: 0.5
+    BottomSurface:
+      Type: EnumValue
+      Value: 0
+    BottomSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    CFrame:
+      Type: CFrame
+      Value:
+        Position:
+          - -4.0
+          - -3.5
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    CanCollide:
+      Type: Bool
+      Value: true
+    CastShadow:
+      Type: Bool
+      Value: true
+    CollisionGroupId:
+      Type: Int32
+      Value: 0
+    Color:
+      Type: Color3uint8
+      Value:
+        - 13
+        - 105
+        - 172
+    CustomPhysicalProperties:
+      Type: PhysicalProperties
+      Value: Default
+    FrontParamA:
+      Type: Float32
+      Value: -0.5
+    FrontParamB:
+      Type: Float32
+      Value: 0.5
+    FrontSurface:
+      Type: EnumValue
+      Value: 0
+    FrontSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    LeftParamA:
+      Type: Float32
+      Value: -0.5
+    LeftParamB:
+      Type: Float32
+      Value: 0.5
+    LeftSurface:
+      Type: EnumValue
+      Value: 0
+    LeftSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    Locked:
+      Type: Bool
+      Value: false
+    Massless:
+      Type: Bool
+      Value: false
+    Material:
+      Type: EnumValue
+      Value: 256
+    PhysicalConfigData:
+      len: 1367
+      hash: cc62d7045ec238081b7ebbd97ce5ce7dc15166e688168c307247089135718bdb
+    Reflectance:
+      Type: Float32
+      Value: 0.0
+    RenderFidelity:
+      Type: EnumValue
+      Value: 1
+    RightParamA:
+      Type: Float32
+      Value: -0.5
+    RightParamB:
+      Type: Float32
+      Value: 0.5
+    RightSurface:
+      Type: EnumValue
+      Value: 0
+    RightSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    RootPriority:
+      Type: Int32
+      Value: 0
+    RotVelocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    Size:
+      Type: Vector3
+      Value:
+        - 4.0
+        - 2.0
+        - 2.0
+    SmoothingAngle:
+      Type: Float32
+      Value: 0.0
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    TopParamA:
+      Type: Float32
+      Value: -0.5
+    TopParamB:
+      Type: Float32
+      Value: 0.5
+    TopSurface:
+      Type: EnumValue
+      Value: 0
+    TopSurfaceInput:
+      Type: EnumValue
+      Value: 0
+    Transparency:
+      Type: Float32
+      Value: 0.0
+    UsePartColor:
+      Type: Bool
+      Value: false
+    Velocity:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+  children: []
