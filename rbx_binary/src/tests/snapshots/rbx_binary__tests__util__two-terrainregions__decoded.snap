@@ -1,0 +1,62 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Region 1
+  class: TerrainRegion
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    ExtentsMax:
+      Type: Vector3int16
+      Value:
+        - 1
+        - 2
+        - 3
+    ExtentsMin:
+      Type: Vector3int16
+      Value:
+        - -1
+        - -2
+        - -3
+    SmoothGrid:
+      Type: BinaryString
+      Value: AQU=
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []
+- referent: referent-1
+  name: Region 2
+  class: TerrainRegion
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    ExtentsMax:
+      Type: Vector3int16
+      Value:
+        - 1337
+        - 100
+        - 9001
+    ExtentsMin:
+      Type: Vector3int16
+      Value:
+        - -1337
+        - -100
+        - -9001
+    SmoothGrid:
+      Type: BinaryString
+      Value: AQU=
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+  children: []

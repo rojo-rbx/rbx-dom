@@ -24,6 +24,13 @@ pub trait RbxReadExt: Read {
         Ok(u16::from_le_bytes(bytes))
     }
 
+    fn read_le_i16(&mut self) -> io::Result<i16> {
+        let mut bytes = [0; 2];
+        self.read_exact(&mut bytes)?;
+
+        Ok(i16::from_le_bytes(bytes))
+    }
+
     fn read_le_f32(&mut self) -> io::Result<f32> {
         let mut buffer = [0u8; 4];
         self.read_exact(&mut buffer)?;
@@ -177,6 +184,12 @@ pub trait RbxWriteExt: Write {
     }
 
     fn write_le_u16(&mut self, value: u16) -> io::Result<()> {
+        self.write_all(&value.to_le_bytes())?;
+
+        Ok(())
+    }
+
+    fn write_le_i16(&mut self, value: i16) -> io::Result<()> {
         self.write_all(&value.to_le_bytes())?;
 
         Ok(())

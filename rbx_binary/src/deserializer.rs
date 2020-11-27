@@ -10,7 +10,7 @@ use rbx_dom_weak::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
         NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
-        SharedString, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+        SharedString, UDim, UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     InstanceBuilder, WeakDom,
 };
@@ -963,7 +963,29 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::Vector3int16 => {}
+            Type::Vector3int16 => match canonical_type {
+                VariantType::Vector3int16 => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(
+                            &canonical_name,
+                            Vector3int16::new(
+                                chunk.read_le_i16()?,
+                                chunk.read_le_i16()?,
+                                chunk.read_le_i16()?,
+                            ),
+                        )
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Vector3int16",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
             Type::NumberSequence => match canonical_type {
                 VariantType::NumberSequence => {
                     for referent in &type_info.referents {
