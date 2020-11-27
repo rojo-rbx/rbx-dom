@@ -450,6 +450,16 @@ The **correct** interpretation of this data, with accumulation, is:
 ### Vector3int16
 **Type ID 0x14**
 
+The `Vector3int16` type is stored as two little-endian `i16`s:
+
+| Field Name | Format | Value                                |
+|:-----------|:-------|:-------------------------------------|
+| X          | i16    | The `X` component of the Vector3in16 |
+| X          | i16    | The `Y` component of the Vector3in16 |
+| X          | i16    | The `Z` component of the Vector3in16 |
+
+Multiple `Vector3int16`s are stored in sequence without any transformations or interleaving. Two `Vector3int16`s with values `1, 2, 3` and `-1, -2, -3` are stored like this: `00 01 00 02 00 03 FF FF FE FF FD FF`.
+
 ### NumberSequence
 **Type ID 0x15**
 
