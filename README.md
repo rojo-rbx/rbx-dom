@@ -60,7 +60,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 
 | Property Type      | Example Property                | rbx_types | rbx_dom_lua | rbx_xml | rbx_binary
 |:------------------ |:------------------------------- |:--:|:--:|:--:|:--:|
-| Axes               | `ArcHandles.Axes`               | ✔ | ❌ | ✔ | ✔ |
+| Axes               | `ArcHandles.Axes`               | ✔ | ✔ | ✔ | ✔ |
 | BinaryString       | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ✔ |
 | Bool               | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
 | BrickColor         | `Part.BrickColor`               | ✔ | ✔ | ✔ | ✔ |
@@ -70,7 +70,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | ColorSequence      | `Beam.Color`                    | ✔ | ✔ | ✔ | ✔ |
 | Content            | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
 | Enum               | `Part.Shape`                    | ✔ | ✔ | ✔ | ✔ |
-| Faces              | `Handles.Faces`                 | ✔ | ❌ | ✔ | ✔ |
+| Faces              | `Handles.Faces`                 | ✔ | ✔ | ✔ | ✔ |
 | Float32            | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ✔ |
 | Float64            | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ✔ |
 | Int32              | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ✔ |
@@ -79,7 +79,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | NumberSequence     | `Beam.Transparency`             | ✔ | ✔ | ✔ | ✔ |
 | PhysicalProperties | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ✔ |
 | ProtectedString    | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
-| Ray                | `RayValue.Value`                | ✔ | ❌ | ✔ | ✔ |
+| Ray                | `RayValue.Value`                | ✔ | ✔ | ✔ | ✔ |
 | Rect               | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ✔ |
 | Ref                | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ✔ |
 | Region3            | N/A                             | ✔ | ✔ | ❌ | ❌ |
