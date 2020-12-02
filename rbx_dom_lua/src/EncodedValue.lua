@@ -20,6 +20,41 @@ local function serializeFloat(value)
 	return value
 end
 
+local function enumsEncoder(enum)
+	local items = enum:GetEnumItems()
+
+	return function(flags)
+		local mask = 0
+		
+		for i, item in ipairs(items) do
+			if flags[item.Name] then
+				mask += (2 ^ item.Value)
+			end
+		end
+		
+		return mask
+	end
+end
+
+local function enumsDecoder(constructor, enum)
+	local decode = unpackDecoder(constructor)
+	local items = enum:GetEnumItems()
+
+	return function(mask)
+		local set = {}
+
+		for _,item in pairs(items) do
+			local bit = (2 ^ item.Value)
+			
+			if bit32.btest(bit, mask) then
+				table.insert(set, item)
+			end
+		end
+		
+		return decode(set)
+	end
+end
+
 local encoders
 encoders = {
 	Bool = identity,
@@ -29,6 +64,9 @@ encoders = {
 	Int32 = identity,
 	Int64 = identity,
 	String = identity,
+
+	Axes = enumsEncoder(Enum.Axis),
+	Faces = enumsEncoder(Enum.NormalId),
 
 	BinaryString = base64.encode,
 	SharedString = base64.encode,
@@ -77,8 +115,8 @@ encoders = {
 	end,
 	Rect = function(value)
 		return {
-			Min = {value.Min.X, value.Min.Y},
-			Max = {value.Max.X, value.Max.Y},
+			Min = encoders.Vector2(value.Min),
+			Max = encoders.Vector2(value.Max),
 		}
 	end,
 	UDim = function(value)
@@ -121,12 +159,20 @@ encoders = {
 		end
 	end,
 
+	Ray = function(value)
+		return {
+			Origin = encoders.Vector3(value.Origin),
+			Direction = encoders.Vector3(value.Direction),
+		}
+	end,
+
 	Ref = function(value)
 		return nil
 	end,
 }
 
-local decoders = {
+local decoders
+decoders = {
 	Bool = identity,
 	Content = identity,
 	Enum = identity,
@@ -138,6 +184,9 @@ local decoders = {
 
 	BinaryString = base64.decode,
 	SharedString = base64.decode,
+
+	Axes = enumsDecoder(Axes.new, Enum.Axis),
+	Faces = enumsDecoder(Faces.new, Enum.NormalId),
 
 	BrickColor = BrickColor.new,
 
@@ -153,7 +202,17 @@ local decoders = {
 	Vector3int16 = unpackDecoder(Vector3int16.new),
 
 	Rect = function(value)
-		return Rect.new(value.Min[1], value.Min[2], value.Max[1], value.Max[2])
+		return Rect.new(
+			decoders.Vector2(value.Min),
+			decoders.Vector2(value.Max)
+		)
+	end,
+
+	Ray = function(value)
+		return Ray.new(
+			decoders.Vector3(value.Origin),
+			decoders.Vector3(value.Direction)
+		)
 	end,
 
 	NumberSequence = function(value)

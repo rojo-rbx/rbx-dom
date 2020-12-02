@@ -47,6 +47,36 @@ return function()
 		expect(decoded).to.equal(output)
 	end)
 
+	it("should decode Face values", function()
+		local input = {
+			Type = "Faces",
+			Value = 63,
+		}
+
+		local ok, output = EncodedValue.decode(encoded)
+		assert(ok, output)
+
+		for _,normalId in pairs(Enum.NormalId:GetEnumItems()) do
+			local set = output[normalId.Name]
+			expect(set).to.equal(true)
+		end
+	end)
+
+	it("should decode Axes values", function()
+		local input = {
+			Type = "Axes",
+			Value = 7,
+		}
+
+		local ok, output = EncodedValue.decode(encoded)
+		assert(ok, output)
+
+		for _,axis in pairs(Enum.Axis:GetEnumItems()) do
+			local set = output[axis.Name]
+			expect(set).to.equal(true)
+		end
+	end)
+
 	it("should decode NumberSequence values", function()
 		local input = {
 			Type = "NumberSequence",
@@ -102,8 +132,7 @@ return function()
 		expect(decoded).to.equal(output)
 	end)
 
-	-- This part of rbx_dom_lua needs some work still.
-	itSKIP("should encode Rect values", function()
+	it("should encode Rect values", function()
 		local input = Rect.new(10, 20, 30, 40)
 
 		local output = {
