@@ -47,10 +47,10 @@ return function()
 		expect(decoded).to.equal(output)
 	end)
 
-	it("should decode Face values", function()
+	it("should decode a 'Faces' bit-mask value", function()
 		local input = {
 			Type = "Faces",
-			Value = 63,
+			Value = 0b_111111,
 		}
 
 		local ok, output = EncodedValue.decode(encoded)
@@ -62,10 +62,10 @@ return function()
 		end
 	end)
 
-	it("should decode Axes values", function()
+	it("should decode an 'Axes' bit-mask value", function()
 		local input = {
 			Type = "Axes",
-			Value = 7,
+			Value = 0b_111,
 		}
 
 		local ok, output = EncodedValue.decode(encoded)
