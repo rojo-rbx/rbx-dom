@@ -53,11 +53,11 @@ return function()
 			Value = 0b_111111,
 		}
 
-		local ok, output = EncodedValue.decode(encoded)
-		assert(ok, output)
+		local ok, decoded = EncodedValue.decode(input)
+		assert(ok, decoded)
 
 		for _,normalId in pairs(Enum.NormalId:GetEnumItems()) do
-			local set = output[normalId.Name]
+			local set = decoded[normalId.Name]
 			expect(set).to.equal(true)
 		end
 	end)
@@ -68,11 +68,11 @@ return function()
 			Value = 0b_111,
 		}
 
-		local ok, output = EncodedValue.decode(encoded)
-		assert(ok, output)
+		local ok, decoded = EncodedValue.decode(input)
+		assert(ok, decoded)
 
 		for _,axis in pairs(Enum.Axis:GetEnumItems()) do
-			local set = output[axis.Name]
+			local set = decoded[axis.Name]
 			expect(set).to.equal(true)
 		end
 	end)
