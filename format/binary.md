@@ -450,7 +450,7 @@ The **correct** interpretation of this data, with accumulation, is:
 ### Vector3int16
 **Type ID 0x14**
 
-The `Vector3int16` type is stored as two little-endian `i16`s:
+The `Vector3int16` type is stored as three little-endian `i16`s:
 
 | Field Name | Format | Value                                |
 |:-----------|:-------|:-------------------------------------|
