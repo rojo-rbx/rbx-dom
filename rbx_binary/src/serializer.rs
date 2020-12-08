@@ -1045,13 +1045,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         }
 
                         chunk.write_interleaved_u32_array(&entries)?;
-                    } // _ => {
-                      //     return Err(InnerError::UnsupportedPropType {
-                      //         type_name: type_name.clone(),
-                      //         prop_name: prop_name.to_string(),
-                      //         prop_type: format!("binary type {:?}", prop_info.prop_type),
-                      //     });
-                      // }
+                    }
                 }
 
                 chunk.dump(&mut self.output)?;

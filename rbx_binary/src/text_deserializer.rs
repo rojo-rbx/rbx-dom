@@ -615,7 +615,7 @@ impl DecodedValues {
                 reader.read_interleaved_u32_array(&mut values).unwrap();
 
                 Some(DecodedValues::SharedString(values))
-            } // _ => None,
+            }
         }
     }
 }
