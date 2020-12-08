@@ -1,0 +1,79 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 1
+num_instances: 2
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: TerrainRegion
+      object_format: 0
+      referents:
+        - 0
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: ExtentsMax
+      prop_type: Vector3int16
+      values:
+        - - 1
+          - 2
+          - 3
+        - - 1337
+          - 100
+          - 9001
+  - Prop:
+      type_id: 0
+      prop_name: ExtentsMin
+      prop_type: Vector3int16
+      values:
+        - - -1
+          - -2
+          - -3
+        - - -1337
+          - -100
+          - -9001
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Region 1
+        - Region 2
+  - Prop:
+      type_id: 0
+      prop_name: SmoothGrid
+      prop_type: String
+      values:
+        - "\u0001\u0005"
+        - "\u0001\u0005"
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+  - End

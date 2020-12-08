@@ -10,7 +10,7 @@ use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
     NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
-    Vector3,
+    Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
@@ -215,6 +215,7 @@ pub enum DecodedValues {
     CFrame(Vec<CFrame>),
     Enum(Vec<EnumValue>),
     Ref(Vec<i32>),
+    Vector3int16(Vec<Vector3int16>),
     NumberSequence(Vec<NumberSequence>),
     ColorSequence(Vec<ColorSequence>),
     NumberRange(Vec<NumberRange>),
@@ -496,6 +497,19 @@ impl DecodedValues {
 
                 Some(DecodedValues::ColorSequence(values))
             }
+            Type::Vector3int16 => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    values.push(Vector3int16::new(
+                        reader.read_le_i16().unwrap(),
+                        reader.read_le_i16().unwrap(),
+                        reader.read_le_i16().unwrap(),
+                    ));
+                }
+
+                Some(DecodedValues::Vector3int16(values))
+            }
             Type::NumberRange => {
                 let mut values = Vec::with_capacity(prop_count);
 
@@ -602,7 +616,6 @@ impl DecodedValues {
 
                 Some(DecodedValues::SharedString(values))
             }
-            _ => None,
         }
     }
 }

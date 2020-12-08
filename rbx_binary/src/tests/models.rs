@@ -53,4 +53,5 @@ binary_tests! {
     two_imagebuttons,
     two_particleemitters,
     two_ray_values,
+    two_terrainregions,
 }

@@ -11,7 +11,7 @@ use rbx_dom_weak::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, UDim, UDim2,
-        Variant, VariantType, Vector2, Vector3,
+        Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     WeakDom,
 };
@@ -899,6 +899,17 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_referent_array(buf.into_iter())?;
                     }
+                    Type::Vector3int16 => {
+                        for (i, rbx_value) in values {
+                            if let Variant::Vector3int16(value) = rbx_value.as_ref() {
+                                chunk.write_le_i16(value.x)?;
+                                chunk.write_le_i16(value.y)?;
+                                chunk.write_le_i16(value.z)?;
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Vector3int16");
+                            }
+                        }
+                    }
                     Type::NumberSequence => {
                         for (i, rbx_value) in values {
                             if let Variant::NumberSequence(value) = rbx_value.as_ref() {
@@ -1035,13 +1046,6 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_u32_array(&entries)?;
                     }
-                    _ => {
-                        return Err(InnerError::UnsupportedPropType {
-                            type_name: type_name.clone(),
-                            prop_name: prop_name.to_string(),
-                            prop_type: format!("binary type {:?}", prop_info.prop_type),
-                        });
-                    }
                 }
 
                 chunk.dump(&mut self.output)?;
@@ -1150,6 +1154,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
             VariantType::Ref => Variant::Ref(Ref::none()),
+            VariantType::Vector3int16 => Variant::Vector3int16(Vector3int16::new(0, 0, 0)),
             VariantType::NumberSequence => Variant::NumberSequence(NumberSequence {
                 keypoints: [
                     NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
