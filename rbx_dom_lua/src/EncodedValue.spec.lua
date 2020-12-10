@@ -76,7 +76,7 @@ return function()
 
 		-- Therefore, we should expect:
 		--   Front,  Left, Top   = true 
-		-- 	 Bottom, Back, Right = false
+		--   Bottom, Back, Right = false
 
 		expect(decoded.Top).to.equal(true)
 		expect(decoded.Left).to.equal(true)
