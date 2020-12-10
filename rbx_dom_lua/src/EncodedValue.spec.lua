@@ -50,31 +50,76 @@ return function()
 	it("should decode a 'Faces' bit-mask value", function()
 		local input = {
 			Type = "Faces",
-			Value = 0b_111111,
+			Value = 0b111111,
 		}
 
 		local ok, decoded = EncodedValue.decode(input)
 		assert(ok, decoded)
 
-		for _,normalId in pairs(Enum.NormalId:GetEnumItems()) do
+		for _, normalId in ipairs(Enum.NormalId:GetEnumItems()) do
 			local set = decoded[normalId.Name]
 			expect(set).to.equal(true)
 		end
 	end)
 
+	it("should decode a 'Faces' bit-mask value with a mixed bit input", function()
+		local input = {
+			Type = "Faces",
+			Value = 0b101010, 
+		}
+		
+		local ok, decoded = EncodedValue.decode(input)
+		assert(ok, decoded)
+
+		-- The bits correspond to the following NormalId EnumItems
+		-- from left to right: Front, Bottom, Left, Back, Top, Right
+
+		-- Therefore, we should expect:
+		--   Front,  Left, Top   = true 
+		-- 	 Bottom, Back, Right = false
+
+		expect(decoded.Top).to.equal(true)
+		expect(decoded.Left).to.equal(true)
+		expect(decoded.Front).to.equal(true)
+		
+		expect(decoded.Back).to.equal(false)
+		expect(decoded.Right).to.equal(false)
+		expect(decoded.Bottom).to.equal(false)
+	end)
+
 	it("should decode an 'Axes' bit-mask value", function()
 		local input = {
 			Type = "Axes",
-			Value = 0b_111,
+			Value = 0b111,
+		}
+		
+		local ok, decoded = EncodedValue.decode(input)
+		assert(ok, decoded)
+
+		expect(decoded.X).to.equal(true)
+		expect(decoded.Y).to.equal(true)
+		expect(decoded.Z).to.equal(true)
+	end)
+
+	it("should decode an 'Axes' bit-mask value with a mixed bit input", function()
+		local input = {
+			Type = "Axes",
+			Value = 0b101,
 		}
 
 		local ok, decoded = EncodedValue.decode(input)
 		assert(ok, decoded)
 
-		for _,axis in pairs(Enum.Axis:GetEnumItems()) do
-			local set = decoded[axis.Name]
-			expect(set).to.equal(true)
-		end
+		-- The bits correspond to the following Axis EnumItems
+		-- from left to right: Z, Y, X
+
+		-- Therefore, we should expect:
+		--   Z, X = true
+		--      Y = false
+		
+		expect(decoded.X).to.equal(true)
+		expect(decoded.Y).to.equal(false)
+		expect(decoded.Z).to.equal(true)
 	end)
 
 	it("should decode NumberSequence values", function()

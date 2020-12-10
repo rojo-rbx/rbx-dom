@@ -20,13 +20,19 @@ local function serializeFloat(value)
 	return value
 end
 
+-- enumsEncoder and enumsDecoder are used by datatypes that act as a bit-flag wrapper
+-- for their underlying enum. This includes the 'Axes' and 'Faces' datatypes, which
+-- act as bit-flags for 'Enum.Axis' and 'Enum.NormalId' respectively. By treating
+-- the boolean value of each EnumItem as a bit, we can represent their value with
+-- a single byte. 'Axes' uses 3 bits, while 'Faces' uses 6 bits.
+
 local function enumsEncoder(enum)
 	local items = enum:GetEnumItems()
 
 	return function(flags)
 		local mask = 0
 		
-		for i, item in ipairs(items) do
+		for _, item in ipairs(items) do
 			if flags[item.Name] then
 				mask += (2 ^ item.Value)
 			end
@@ -43,7 +49,7 @@ local function enumsDecoder(constructor, enum)
 	return function(mask)
 		local set = {}
 
-		for _,item in pairs(items) do
+		for _, item in ipairs(items) do
 			local bit = (2 ^ item.Value)
 			
 			if bit32.btest(bit, mask) then
