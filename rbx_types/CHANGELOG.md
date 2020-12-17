@@ -1,6 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Added `Display` and `FromStr` implementations for `Ref`.
 
 ## 0.2.0 (2020-04-27)
 * `Ref` can now represent null explicitly via `Ref::none` and `Ref::is_none`.

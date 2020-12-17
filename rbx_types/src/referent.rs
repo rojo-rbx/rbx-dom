@@ -1,7 +1,9 @@
 // Refs are random, and so implementing Default doesn't really make sense.
 #![allow(clippy::new_without_default)]
 
+use std::fmt;
 use std::num::NonZeroU128;
+use std::str::FromStr;
 
 /// An universally unique, optional reference to a Roblox instance.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -37,6 +39,22 @@ impl Ref {
             Some(value) => value.get(),
             None => 0,
         }
+    }
+}
+
+impl fmt::Display for Ref {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        write!(formatter, "{:032x}", self.value())
+    }
+}
+
+impl FromStr for Ref {
+    type Err = std::num::ParseIntError;
+
+    fn from_str(input: &str) -> Result<Self, Self::Err> {
+        let value = u128::from_str_radix(input, 16)?;
+
+        Ok(Ref(NonZeroU128::new(value)))
     }
 }
 
@@ -97,6 +115,45 @@ mod serde_impl {
     }
 }
 
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn display() {
+        assert_eq!(Ref::none().to_string(), "00000000000000000000000000000000");
+
+        let thirty = Ref(NonZeroU128::new(30));
+        assert_eq!(thirty.to_string(), "0000000000000000000000000000001e");
+
+        let max = Ref(NonZeroU128::new(u128::max_value()));
+        assert_eq!(max.to_string(), "ffffffffffffffffffffffffffffffff");
+    }
+
+    #[test]
+    fn from_str() {
+        assert_eq!(
+            Ref::from_str("00000000000000000000000000000000").unwrap(),
+            Ref::none()
+        );
+
+        assert_eq!(
+            Ref::from_str("00000000300000e00f00000000000001").unwrap(),
+            Ref(NonZeroU128::new(14855284604576099720297971713))
+        );
+
+        assert_eq!(
+            Ref::from_str("ffffffffffffffffffffffffffffffff").unwrap(),
+            Ref(NonZeroU128::new(u128::max_value()))
+        );
+    }
+
+    #[test]
+    fn size() {
+        assert_eq!(std::mem::size_of::<Ref>(), std::mem::size_of::<u128>());
+    }
+}
+
 #[cfg(all(test, feature = "serde"))]
 mod serde_test {
     use super::*;
@@ -131,10 +188,5 @@ mod serde_test {
         let de = bincode::deserialize(&ser).unwrap();
 
         assert_eq!(value, de);
-    }
-
-    #[test]
-    fn size() {
-        assert_eq!(std::mem::size_of::<Ref>(), std::mem::size_of::<u128>());
     }
 }
