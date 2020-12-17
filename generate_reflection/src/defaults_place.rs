@@ -286,7 +286,10 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             | "Animator"
             | "StarterPlayerScripts"
             | "StarterCharacterScripts"
-            | "Bone" => continue,
+            | "Bone"
+            | "BaseWrap"
+            | "WrapLayer"
+            | "WrapTarget" => continue,
 
             // WorldModel is not yet enabled.
             "WorldModel" => continue,
@@ -304,6 +307,13 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             }
             "Humanoid" => {
                 instance.add_child(FixtureInstance::named("Animator"));
+            }
+            "MeshPart" => {
+                // Without this special case, Studio will fail to open the
+                // resulting file, complaining about "BaseWrap".
+                instance.add_child(FixtureInstance::named("BaseWrap"));
+                instance.add_child(FixtureInstance::named("WrapLayer"));
+                instance.add_child(FixtureInstance::named("WrapTarget"));
             }
             _ => {}
         }
