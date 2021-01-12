@@ -122,6 +122,10 @@ impl ReflectionDatabase {
                     existing_property.serialized_name = Some(serialized_name.clone());
                     existing_property.serializes = true;
                 }
+
+                if let Some(scriptability) = property_change.scriptability {
+                    existing_property.scriptability = scriptability;
+                }
             }
         }
 

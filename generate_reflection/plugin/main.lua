@@ -140,7 +140,9 @@ return function(postMessage)
 								)
 							end
 						else
-							verbosePrint("Couldn't read property", propertyDescriptor.name, "on class", class.name)
+							updatedDescriptors[propertyDescriptor.name] = {
+								scriptability = "None",
+							}
 						end
 					end
 				end
