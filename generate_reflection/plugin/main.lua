@@ -69,7 +69,7 @@ end
 ]]
 local function getDefaultInstance(className)
 	if classNameBlacklist[className] then
-		return false
+		return nil
 	end
 
 	-- Can we construct one of these from Lua?
