@@ -11,6 +11,10 @@
 # Property ReflectionMetadataItem.summary doesn't look canonical
 # Property Sound.isPlaying doesn't look canonical
 
+# SourceAssetId is defined on Instance but is not writable by user code
+[change.Instance.SourceAssetId]
+scriptability = "None"
+
 # className is a deprecated alias for ClassName.
 [change.Instance.className]
 canonical_name = "ClassName"
