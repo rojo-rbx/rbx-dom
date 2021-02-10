@@ -9,8 +9,8 @@ use std::process::Command;
 use anyhow::Context;
 use rbx_dom_weak::types::VariantType;
 use rbx_reflection::{
-    ClassDescriptor, DataType, PropertyDescriptor, PropertyKind, PropertySerialization,
-    PropertyTag, ReflectionDatabase, Scriptability,
+    ClassDescriptor, DataType, EnumDescriptor, PropertyDescriptor, PropertyKind,
+    PropertySerialization, PropertyTag, ReflectionDatabase, Scriptability,
 };
 use roblox_install::RobloxStudio;
 use serde::Deserialize;
@@ -203,6 +203,20 @@ impl Dump {
             database
                 .classes
                 .insert(Cow::Owned(dump_class.name.clone()), class);
+        }
+
+        for dump_enum in &self.enums {
+            let mut descriptor = EnumDescriptor::new(dump_enum.name.clone());
+
+            for dump_item in &dump_enum.items {
+                descriptor
+                    .items
+                    .insert(Cow::Owned(dump_item.name.clone()), dump_item.value);
+            }
+
+            database
+                .enums
+                .insert(Cow::Owned(dump_enum.name.clone()), descriptor);
         }
 
         Ok(())

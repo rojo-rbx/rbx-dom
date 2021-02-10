@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    454,
+    464,
     0,
-    413308
+    417415
   ],
   "Classes": {
     "ABTestService": {
@@ -174,6 +174,30 @@
         "AttributesSerialize": {
           "Type": "BinaryString",
           "Value": ""
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        }
+      }
+    },
+    "Actor": {
+      "Name": "Actor",
+      "Tags": [],
+      "Superclass": "Model",
+      "Properties": {},
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "LevelOfDetail": {
+          "Type": "EnumValue",
+          "Value": 0
         },
         "SourceAssetId": {
           "Type": "Int64",
@@ -501,7 +525,6 @@
     "AnalyticsService": {
       "Name": "AnalyticsService",
       "Tags": [
-        "NotCreatable",
         "Service"
       ],
       "Superclass": "Instance",
@@ -882,6 +905,17 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "AppUpdateService": {
+      "Name": "AppUpdateService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "ArcHandles": {
       "Name": "ArcHandles",
       "Tags": [],
@@ -942,6 +976,17 @@
     },
     "AssetCounterService": {
       "Name": "AssetCounterService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "AssetDeliveryProxy": {
+      "Name": "AssetDeliveryProxy",
       "Tags": [
         "NotCreatable",
         "NotReplicated",
@@ -1614,6 +1659,84 @@
             }
           }
         },
+        "AssemblyAngularVelocity": {
+          "Name": "AssemblyAngularVelocity",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "AssemblyCenterOfMass": {
+          "Name": "AssemblyCenterOfMass",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "AssemblyLinearVelocity": {
+          "Name": "AssemblyLinearVelocity",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "AssemblyMass": {
+          "Name": "AssemblyMass",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "AssemblyRootPart": {
+          "Name": "AssemblyRootPart",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "BackParamA": {
           "Name": "BackParamA",
           "Scriptability": "ReadWrite",
@@ -1748,6 +1871,19 @@
         },
         "CanCollide": {
           "Name": "CanCollide",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CanTouch": {
+          "Name": "CanTouch",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -2229,7 +2365,10 @@
           "DataType": {
             "Value": "Vector3"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2356,7 +2495,10 @@
           "DataType": {
             "Value": "Vector3"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2434,6 +2576,87 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "BaseWrap": {
+      "Name": "BaseWrap",
+      "Tags": [
+        "NotCreatable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "CageMeshId": {
+          "Name": "CageMeshId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CageOrigin": {
+          "Name": "CageOrigin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CageOriginWorld": {
+          "Name": "CageOriginWorld",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ImportOrigin": {
+          "Name": "ImportOrigin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ImportOriginWorld": {
+          "Name": "ImportOriginWorld",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
@@ -5294,6 +5517,61 @@
       },
       "DefaultProperties": {}
     },
+    "Clouds": {
+      "Name": "Clouds",
+      "Tags": [],
+      "Superclass": "Instance",
+      "Properties": {
+        "Cover": {
+          "Name": "Cover",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Density": {
+          "Name": "Density",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Cover": {
+          "Type": "Float32",
+          "Value": 0.5
+        },
+        "Density": {
+          "Type": "Float32",
+          "Value": 0.7
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        }
+      }
+    },
     "ClusterPacketCache": {
       "Name": "ClusterPacketCache",
       "Tags": [
@@ -6080,6 +6358,10 @@
           }
         },
         "CanCollide": {
+          "Type": "Bool",
+          "Value": true
+        },
+        "CanTouch": {
           "Type": "Bool",
           "Value": true
         },
@@ -7180,6 +7462,190 @@
       },
       "DefaultProperties": {}
     },
+    "DataStore": {
+      "Name": "DataStore",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "GlobalDataStore",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "DataStoreEnumerationPages": {
+      "Name": "DataStoreEnumerationPages",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Pages",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "DataStoreIncrementOptions": {
+      "Name": "DataStoreIncrementOptions",
+      "Tags": [
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "DataStoreInfo": {
+      "Name": "DataStoreInfo",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "CreatedTime": {
+          "Name": "CreatedTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "DataStoreName": {
+          "Name": "DataStoreName",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "UpdatedTime": {
+          "Name": "UpdatedTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "DataStoreKeyInfo": {
+      "Name": "DataStoreKeyInfo",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "KeyName": {
+          "Name": "KeyName",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "DataStoreKeyPages": {
+      "Name": "DataStoreKeyPages",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Pages",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "DataStoreKeyVersionInfo": {
+      "Name": "DataStoreKeyVersionInfo",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "CreatedTime": {
+          "Name": "CreatedTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "UpdatedTime": {
+          "Name": "UpdatedTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Version": {
+          "Name": "Version",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "DataStorePages": {
       "Name": "DataStorePages",
       "Tags": [
@@ -7252,6 +7718,25 @@
           "Value": ""
         }
       }
+    },
+    "DataStoreSetOptions": {
+      "Name": "DataStoreSetOptions",
+      "Tags": [
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "DataStoreVersionPages": {
+      "Name": "DataStoreVersionPages",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Pages",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "Debris": {
       "Name": "Debris",
@@ -9144,6 +9629,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -10046,6 +10535,29 @@
           "Value": ""
         }
       }
+    },
+    "GetDataStoreOptions": {
+      "Name": "GetDataStoreOptions",
+      "Tags": [
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "AllScopes": {
+          "Name": "AllScopes",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "GlobalDataStore": {
       "Name": "GlobalDataStore",
@@ -11370,6 +11882,16 @@
           "Value": ""
         }
       }
+    },
+    "HeightmapImporterService": {
+      "Name": "HeightmapImporterService",
+      "Tags": [
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "HingeConstraint": {
       "Name": "HingeConstraint",
@@ -13133,6 +13655,17 @@
       "Name": "ILegacyStudioBridge",
       "Tags": [
         "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "IXPService": {
+      "Name": "IXPService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
         "Service"
       ],
       "Superclass": "Instance",
@@ -16175,7 +16708,9 @@
           "DataType": {
             "Enum": "RenderFidelity"
           },
-          "Tags": [],
+          "Tags": [
+            "NotReplicated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -16265,6 +16800,10 @@
           }
         },
         "CanCollide": {
+          "Type": "Bool",
+          "Value": true
+        },
+        "CanTouch": {
           "Type": "Bool",
           "Value": true
         },
@@ -17236,6 +17775,10 @@
           "Type": "Bool",
           "Value": false
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -17562,6 +18105,19 @@
             }
           }
         },
+        "RandomizeJoinInstanceOrder": {
+          "Name": "RandomizeJoinInstanceOrder",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "RenderStreamedRegions": {
           "Name": "RenderStreamedRegions",
           "Scriptability": "ReadWrite",
@@ -17761,6 +18317,56 @@
       },
       "DefaultProperties": {}
     },
+    "NumberPose": {
+      "Name": "NumberPose",
+      "Tags": [],
+      "Superclass": "PoseBase",
+      "Properties": {
+        "Value": {
+          "Name": "Value",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "EasingDirection": {
+          "Type": "EnumValue",
+          "Value": 0
+        },
+        "EasingStyle": {
+          "Type": "EnumValue",
+          "Value": 0
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Value": {
+          "Type": "Float64",
+          "Value": 0.0
+        },
+        "Weight": {
+          "Type": "Float32",
+          "Value": 1.0
+        }
+      }
+    },
     "NumberValue": {
       "Name": "NumberValue",
       "Tags": [],
@@ -17832,6 +18438,65 @@
           "Value": ""
         }
       }
+    },
+    "ObjectVersionInfo": {
+      "Name": "ObjectVersionInfo",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "CreatedTime": {
+          "Name": "CreatedTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "IsDeleted": {
+          "Name": "IsDeleted",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Version": {
+          "Name": "Version",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "OrderedDataStore": {
       "Name": "OrderedDataStore",
@@ -18253,6 +18918,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -18559,6 +19228,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -18855,6 +19528,19 @@
             }
           }
         },
+        "Orientation": {
+          "Name": "Orientation",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ParticleOrientation"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Rate": {
           "Name": "Rate",
           "Scriptability": "ReadWrite",
@@ -18938,6 +19624,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Content"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TimeScale": {
+          "Name": "TimeScale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
           },
           "Tags": [],
           "Kind": {
@@ -19069,6 +19768,10 @@
           "Type": "Bool",
           "Value": false
         },
+        "Orientation": {
+          "Type": "EnumValue",
+          "Value": 0
+        },
         "Rate": {
           "Type": "Float32",
           "Value": 20.0
@@ -19129,6 +19832,10 @@
         "Texture": {
           "Type": "Content",
           "Value": "rbxasset://textures/particles/sparkles_main.dds"
+        },
+        "TimeScale": {
+          "Type": "Float32",
+          "Value": 1.0
         },
         "Transparency": {
           "Type": "NumberSequence",
@@ -19437,6 +20144,19 @@
         },
         "AreTerrainReplicationRegionsShown": {
           "Name": "AreTerrainReplicationRegionsShown",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "AreTimestepsShown": {
+          "Name": "AreTimestepsShown",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -20259,13 +20979,57 @@
       "Name": "PlayerEmulatorService",
       "Tags": [
         "NotCreatable",
-        "NotReplicated",
         "Service"
       ],
       "Superclass": "Instance",
       "Properties": {
+        "EmulatedCountryCode": {
+          "Name": "EmulatedCountryCode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "EmulatedGameLocale": {
+          "Name": "EmulatedGameLocale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "PlayerEmulationEnabled": {
           "Name": "PlayerEmulationEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PlayerEmulationEnabled_deprecated": {
+          "Name": "PlayerEmulationEnabled_deprecated",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -20276,6 +21040,21 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "SerializedEmulatedPolicyInfo": {
+          "Name": "SerializedEmulatedPolicyInfo",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -20295,7 +21074,36 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "EmulatedCountryCode": {
+          "Type": "String",
+          "Value": ""
+        },
+        "EmulatedGameLocale": {
+          "Type": "String",
+          "Value": ""
+        },
+        "PlayerEmulationEnabled": {
+          "Type": "Bool",
+          "Value": false
+        },
+        "SerializedEmulatedPolicyInfo": {
+          "Type": "String",
+          "Value": ""
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        }
+      }
     },
     "PlayerGui": {
       "Name": "PlayerGui",
@@ -21192,39 +22000,13 @@
     "Pose": {
       "Name": "Pose",
       "Tags": [],
-      "Superclass": "Instance",
+      "Superclass": "PoseBase",
       "Properties": {
         "CFrame": {
           "Name": "CFrame",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "CFrame"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "EasingDirection": {
-          "Name": "EasingDirection",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "PoseEasingDirection"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "EasingStyle": {
-          "Name": "EasingStyle",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "PoseEasingStyle"
           },
           "Tags": [],
           "Kind": {
@@ -21246,19 +22028,6 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "Weight": {
-          "Name": "Weight",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
             }
           }
         }
@@ -21316,6 +22085,55 @@
           "Value": 1.0
         }
       }
+    },
+    "PoseBase": {
+      "Name": "PoseBase",
+      "Tags": [
+        "NotCreatable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "EasingDirection": {
+          "Name": "EasingDirection",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "PoseEasingDirection"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "EasingStyle": {
+          "Name": "EasingStyle",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "PoseEasingStyle"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Weight": {
+          "Name": "Weight",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "PostEffect": {
       "Name": "PostEffect",
@@ -21430,6 +22248,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "AutoLocalize": {
+          "Name": "AutoLocalize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
           },
           "Tags": [],
           "Kind": {
@@ -21555,6 +22386,19 @@
             }
           }
         },
+        "RootLocalizationTable": {
+          "Name": "RootLocalizationTable",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Style": {
           "Name": "Style",
           "Scriptability": "ReadWrite",
@@ -21590,6 +22434,10 @@
         "AttributesSerialize": {
           "Type": "BinaryString",
           "Value": ""
+        },
+        "AutoLocalize": {
+          "Type": "Bool",
+          "Value": true
         },
         "ClickablePrompt": {
           "Type": "Bool",
@@ -21922,6 +22770,10 @@
           "Type": "String",
           "Value": ""
         },
+        "PropertyOrder": {
+          "Type": "Int32",
+          "Value": 5000
+        },
         "ScriptContext": {
           "Type": "String",
           "Value": ""
@@ -22014,6 +22866,10 @@
           "Type": "Bool",
           "Value": false
         },
+        "PropertyOrder": {
+          "Type": "Int32",
+          "Value": 5000
+        },
         "ScriptContext": {
           "Type": "String",
           "Value": ""
@@ -22085,6 +22941,10 @@
         "IsBackend": {
           "Type": "Bool",
           "Value": false
+        },
+        "PropertyOrder": {
+          "Type": "Int32",
+          "Value": 5000
         },
         "ScriptContext": {
           "Type": "String",
@@ -22278,6 +23138,19 @@
             }
           }
         },
+        "PropertyOrder": {
+          "Name": "PropertyOrder",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ScriptContext": {
           "Name": "ScriptContext",
           "Scriptability": "ReadWrite",
@@ -22396,6 +23269,10 @@
         "IsBackend": {
           "Type": "Bool",
           "Value": false
+        },
+        "PropertyOrder": {
+          "Type": "Int32",
+          "Value": 5000
         },
         "ScriptContext": {
           "Type": "String",
@@ -24657,6 +25534,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -25595,6 +26476,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -26476,7 +27361,9 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -26550,7 +27437,9 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": {
@@ -26645,6 +27534,36 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "RollOffMaxDistance": {
+          "Name": "RollOffMaxDistance",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "RollOffMinDistance": {
+          "Name": "RollOffMinDistance",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -27219,6 +28138,10 @@
           }
         },
         "CanCollide": {
+          "Type": "Bool",
+          "Value": true
+        },
+        "CanTouch": {
           "Type": "Bool",
           "Value": true
         },
@@ -29307,6 +30230,21 @@
             }
           }
         },
+        "Bracket Color": {
+          "Name": "Bracket Color",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Built-in Function Color": {
           "Name": "Built-in Function Color",
           "Scriptability": "ReadWrite",
@@ -29486,6 +30424,19 @@
             }
           }
         },
+        "DisplayLanguage": {
+          "Name": "DisplayLanguage",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Drag Multiple Parts As Single Part": {
           "Name": "Drag Multiple Parts As Single Part",
           "Scriptability": "ReadWrite",
@@ -29538,22 +30489,6 @@
             }
           }
         },
-        "Enable Intellisense": {
-          "Name": "Enable Intellisense",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "Deprecated",
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
         "Enable Internal Beta Features": {
           "Name": "Enable Internal Beta Features",
           "Scriptability": "ReadWrite",
@@ -29569,6 +30504,32 @@
         },
         "Enable Internal Features": {
           "Name": "Enable Internal Features",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Enable Temporary Tabs": {
+          "Name": "Enable Temporary Tabs",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Enable Temporary Tabs In Explorer": {
+          "Name": "Enable Temporary Tabs In Explorer",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -29737,7 +30698,9 @@
           "DataType": {
             "Enum": "LanguagePreference"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -30040,6 +31003,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Scroll Past Last Line": {
+          "Name": "Scroll Past Last Line",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
           },
           "Tags": [],
           "Kind": {
@@ -30444,21 +31420,6 @@
             }
           }
         },
-        "EnableScriptCollabVersionHistoryOnLoad": {
-          "Name": "EnableScriptCollabVersionHistoryOnLoad",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "Hidden"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "SrcPlaceId": {
           "Name": "SrcPlaceId",
           "Scriptability": "ReadWrite",
@@ -30502,10 +31463,6 @@
           "Value": false
         },
         "EnableScriptCollabOnLoad": {
-          "Type": "Bool",
-          "Value": false
-        },
-        "EnableScriptCollabVersionHistoryOnLoad": {
           "Type": "Bool",
           "Value": false
         },
@@ -31488,6 +32445,120 @@
         }
       }
     },
+    "TeleportAsyncResult": {
+      "Name": "TeleportAsyncResult",
+      "Tags": [
+        "NotCreatable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "PrivateServerId": {
+          "Name": "PrivateServerId",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ReservedServerAccessCode": {
+          "Name": "ReservedServerAccessCode",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "TeleportOptions": {
+      "Name": "TeleportOptions",
+      "Tags": [],
+      "Superclass": "Instance",
+      "Properties": {
+        "ReservedServerAccessCode": {
+          "Name": "ReservedServerAccessCode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ServerInstanceId": {
+          "Name": "ServerInstanceId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ShouldReserveServer": {
+          "Name": "ShouldReserveServer",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "ReservedServerAccessCode": {
+          "Type": "String",
+          "Value": ""
+        },
+        "ServerInstanceId": {
+          "Type": "String",
+          "Value": ""
+        },
+        "ShouldReserveServer": {
+          "Type": "Bool",
+          "Value": false
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        }
+      }
+    },
     "TeleportService": {
       "Name": "TeleportService",
       "Tags": [
@@ -31733,6 +32804,10 @@
           }
         },
         "CanCollide": {
+          "Type": "Bool",
+          "Value": true
+        },
+        "CanTouch": {
           "Type": "Bool",
           "Value": true
         },
@@ -34840,6 +35915,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -36316,6 +37395,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -36467,6 +37550,107 @@
             0.0,
             0.0
           ]
+        }
+      }
+    },
+    "UniversalConstraint": {
+      "Name": "UniversalConstraint",
+      "Tags": [],
+      "Superclass": "Constraint",
+      "Properties": {
+        "LimitsEnabled": {
+          "Name": "LimitsEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MaxAngle": {
+          "Name": "MaxAngle",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Radius": {
+          "Name": "Radius",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Restitution": {
+          "Name": "Restitution",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Color": {
+          "Type": "Int32",
+          "Value": 1009
+        },
+        "Enabled": {
+          "Type": "Bool",
+          "Value": true
+        },
+        "LimitsEnabled": {
+          "Type": "Bool",
+          "Value": false
+        },
+        "MaxAngle": {
+          "Type": "Float32",
+          "Value": 45.0
+        },
+        "Radius": {
+          "Type": "Float32",
+          "Value": 0.2
+        },
+        "Restitution": {
+          "Type": "Float32",
+          "Value": 0.0
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "Visible": {
+          "Type": "Bool",
+          "Value": false
         }
       }
     },
@@ -37875,6 +39059,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -38848,6 +40036,10 @@
           "Type": "Bool",
           "Value": true
         },
+        "CanTouch": {
+          "Type": "Bool",
+          "Value": true
+        },
         "CastShadow": {
           "Type": "Bool",
           "Value": true
@@ -39305,6 +40497,21 @@
             }
           }
         },
+        "PhysicsSteppingMethod": {
+          "Name": "PhysicsSteppingMethod",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "PhysicsSteppingMethod"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "StreamingEnabled": {
           "Name": "StreamingEnabled",
           "Scriptability": "ReadWrite",
@@ -39378,6 +40585,21 @@
               "Serialization": "DoesNotSerialize"
             }
           }
+        },
+        "TouchesUseCollisionGroups": {
+          "Name": "TouchesUseCollisionGroups",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
@@ -39421,6 +40643,10 @@
           "Type": "EnumValue",
           "Value": 0
         },
+        "PhysicsSteppingMethod": {
+          "Type": "EnumValue",
+          "Value": 0
+        },
         "SourceAssetId": {
           "Type": "Int64",
           "Value": -1
@@ -39444,6 +40670,10 @@
         "Tags": {
           "Type": "BinaryString",
           "Value": ""
+        },
+        "TouchesUseCollisionGroups": {
+          "Type": "Bool",
+          "Value": false
         }
       }
     },
@@ -39462,6 +40692,3258 @@
       "Superclass": "Model",
       "Properties": {},
       "DefaultProperties": {}
+    },
+    "WrapLayer": {
+      "Name": "WrapLayer",
+      "Tags": [],
+      "Superclass": "BaseWrap",
+      "Properties": {
+        "BindOffset": {
+          "Name": "BindOffset",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Color": {
+          "Name": "Color",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "DebugMode": {
+          "Name": "DebugMode",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "WrapLayerDebugMode"
+          },
+          "Tags": [
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Enabled": {
+          "Name": "Enabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Order": {
+          "Name": "Order",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Puffiness": {
+          "Name": "Puffiness",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReferenceMeshId": {
+          "Name": "ReferenceMeshId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReferenceOrigin": {
+          "Name": "ReferenceOrigin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReferenceOriginWorld": {
+          "Name": "ReferenceOriginWorld",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ShrinkFactor": {
+          "Name": "ShrinkFactor",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "BindOffset": {
+          "Type": "CFrame",
+          "Value": {
+            "Position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "CageMeshId": {
+          "Type": "Content",
+          "Value": ""
+        },
+        "CageOrigin": {
+          "Type": "CFrame",
+          "Value": {
+            "Position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "Enabled": {
+          "Type": "Bool",
+          "Value": true
+        },
+        "ImportOrigin": {
+          "Type": "CFrame",
+          "Value": {
+            "Position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "Order": {
+          "Type": "Int32",
+          "Value": 1
+        },
+        "Puffiness": {
+          "Type": "Float32",
+          "Value": 1.0
+        },
+        "ReferenceMeshId": {
+          "Type": "Content",
+          "Value": ""
+        },
+        "ReferenceOrigin": {
+          "Type": "CFrame",
+          "Value": {
+            "Position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "ShrinkFactor": {
+          "Type": "Float32",
+          "Value": 0.0
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        }
+      }
+    },
+    "WrapTarget": {
+      "Name": "WrapTarget",
+      "Tags": [],
+      "Superclass": "BaseWrap",
+      "Properties": {
+        "Color": {
+          "Name": "Color",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "DebugMode": {
+          "Name": "DebugMode",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "WrapTargetDebugMode"
+          },
+          "Tags": [
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Stiffness": {
+          "Name": "Stiffness",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "Type": "BinaryString",
+          "Value": ""
+        },
+        "CageMeshId": {
+          "Type": "Content",
+          "Value": ""
+        },
+        "CageOrigin": {
+          "Type": "CFrame",
+          "Value": {
+            "Position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "ImportOrigin": {
+          "Type": "CFrame",
+          "Value": {
+            "Position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "SourceAssetId": {
+          "Type": "Int64",
+          "Value": -1
+        },
+        "Stiffness": {
+          "Type": "Float32",
+          "Value": 0.9
+        },
+        "Tags": {
+          "Type": "BinaryString",
+          "Value": ""
+        }
+      }
+    }
+  },
+  "Enums": {
+    "ABTestLoadingStatus": {
+      "name": "ABTestLoadingStatus",
+      "items": {
+        "Error": 3,
+        "Initialized": 2,
+        "None": 0,
+        "Pending": 1,
+        "ShutOff": 5,
+        "TimedOut": 4
+      }
+    },
+    "ActionType": {
+      "name": "ActionType",
+      "items": {
+        "Draw": 3,
+        "Lose": 2,
+        "Nothing": 0,
+        "Pause": 1,
+        "Win": 4
+      }
+    },
+    "ActuatorRelativeTo": {
+      "name": "ActuatorRelativeTo",
+      "items": {
+        "Attachment0": 0,
+        "Attachment1": 1,
+        "World": 2
+      }
+    },
+    "ActuatorType": {
+      "name": "ActuatorType",
+      "items": {
+        "Motor": 1,
+        "None": 0,
+        "Servo": 2
+      }
+    },
+    "AdornCullingMode": {
+      "name": "AdornCullingMode",
+      "items": {
+        "Automatic": 0,
+        "Never": 1
+      }
+    },
+    "AlignType": {
+      "name": "AlignType",
+      "items": {
+        "Parallel": 0,
+        "Perpendicular": 1
+      }
+    },
+    "AlphaMode": {
+      "name": "AlphaMode",
+      "items": {
+        "Overlay": 0,
+        "Transparency": 1
+      }
+    },
+    "AnalyticsEconomyAction": {
+      "name": "AnalyticsEconomyAction",
+      "items": {
+        "Acquire": 1,
+        "Default": 0,
+        "Spend": 2
+      }
+    },
+    "AnalyticsLogLevel": {
+      "name": "AnalyticsLogLevel",
+      "items": {
+        "Debug": 1,
+        "Error": 4,
+        "Fatal": 5,
+        "Information": 2,
+        "Trace": 0,
+        "Warning": 3
+      }
+    },
+    "AnalyticsProgressionStatus": {
+      "name": "AnalyticsProgressionStatus",
+      "items": {
+        "Abandon": 3,
+        "Begin": 1,
+        "Complete": 2,
+        "Default": 0,
+        "Fail": 4
+      }
+    },
+    "AnimationPriority": {
+      "name": "AnimationPriority",
+      "items": {
+        "Action": 2,
+        "Core": 1000,
+        "Idle": 0,
+        "Movement": 1
+      }
+    },
+    "AppShellActionType": {
+      "name": "AppShellActionType",
+      "items": {
+        "AvatarEditorPageLoaded": 10,
+        "GamePageLoaded": 8,
+        "HomePageLoaded": 9,
+        "None": 0,
+        "OpenApp": 1,
+        "ReadConversation": 5,
+        "TapAvatarTab": 4,
+        "TapChatTab": 2,
+        "TapConversationEntry": 3,
+        "TapGamePageTab": 6,
+        "TapHomePageTab": 7
+      }
+    },
+    "AppShellFeature": {
+      "name": "AppShellFeature",
+      "items": {
+        "AvatarEditor": 2,
+        "Chat": 1,
+        "GamePage": 3,
+        "HomePage": 4,
+        "Landing": 6,
+        "More": 5,
+        "None": 0
+      }
+    },
+    "AppUpdateStatus": {
+      "name": "AppUpdateStatus",
+      "items": {
+        "Available": 4,
+        "Failed": 2,
+        "NotAvailable": 3,
+        "NotSupported": 1,
+        "Unknown": 0
+      }
+    },
+    "AspectType": {
+      "name": "AspectType",
+      "items": {
+        "FitWithinMaxSize": 0,
+        "ScaleWithParentSize": 1
+      }
+    },
+    "AssetFetchStatus": {
+      "name": "AssetFetchStatus",
+      "items": {
+        "Failure": 1,
+        "Success": 0
+      }
+    },
+    "AssetType": {
+      "name": "AssetType",
+      "items": {
+        "Animation": 24,
+        "Audio": 3,
+        "BackAccessory": 46,
+        "Badge": 21,
+        "ClimbAnimation": 48,
+        "DeathAnimation": 49,
+        "Decal": 13,
+        "EarAccessory": 57,
+        "EmoteAnimation": 61,
+        "EyeAccessory": 58,
+        "Face": 18,
+        "FaceAccessory": 42,
+        "FallAnimation": 50,
+        "FrontAccessory": 45,
+        "GamePass": 34,
+        "Gear": 19,
+        "HairAccessory": 41,
+        "Hat": 8,
+        "Head": 17,
+        "IdleAnimation": 51,
+        "Image": 1,
+        "JumpAnimation": 52,
+        "LeftArm": 29,
+        "LeftLeg": 30,
+        "Lua": 5,
+        "Mesh": 4,
+        "MeshPart": 40,
+        "Model": 10,
+        "NeckAccessory": 43,
+        "Package": 32,
+        "Pants": 12,
+        "Place": 9,
+        "Plugin": 38,
+        "PoseAnimation": 56,
+        "RightArm": 28,
+        "RightLeg": 31,
+        "RunAnimation": 53,
+        "Shirt": 11,
+        "ShoulderAccessory": 44,
+        "SwimAnimation": 54,
+        "TeeShirt": 2,
+        "Torso": 27,
+        "Video": 62,
+        "WaistAccessory": 47,
+        "WalkAnimation": 55
+      }
+    },
+    "AssetTypeVerification": {
+      "name": "AssetTypeVerification",
+      "items": {
+        "Always": 3,
+        "ClientOnly": 2,
+        "Default": 1
+      }
+    },
+    "AutoIndentRule": {
+      "name": "AutoIndentRule",
+      "items": {
+        "Absolute": 1,
+        "Off": 0,
+        "Relative": 2
+      }
+    },
+    "AutomaticSize": {
+      "name": "AutomaticSize",
+      "items": {
+        "None": 0,
+        "X": 1,
+        "XY": 3,
+        "Y": 2
+      }
+    },
+    "AvatarAssetType": {
+      "name": "AvatarAssetType",
+      "items": {
+        "BackAccessory": 46,
+        "ClimbAnimation": 48,
+        "EmoteAnimation": 61,
+        "Face": 18,
+        "FaceAccessory": 42,
+        "FallAnimation": 50,
+        "FrontAccessory": 45,
+        "Gear": 19,
+        "HairAccessory": 41,
+        "Hat": 8,
+        "Head": 17,
+        "IdleAnimation": 51,
+        "JumpAnimation": 52,
+        "LeftArm": 29,
+        "LeftLeg": 30,
+        "NeckAccessory": 43,
+        "Pants": 12,
+        "RightArm": 28,
+        "RightLeg": 31,
+        "RunAnimation": 53,
+        "Shirt": 11,
+        "ShoulderAccessory": 44,
+        "SwimAnimation": 54,
+        "TShirt": 2,
+        "Torso": 27,
+        "WaistAccessory": 47,
+        "WalkAnimation": 55
+      }
+    },
+    "AvatarContextMenuOption": {
+      "name": "AvatarContextMenuOption",
+      "items": {
+        "Chat": 1,
+        "Emote": 2,
+        "Friend": 0,
+        "InspectMenu": 3
+      }
+    },
+    "AvatarItemType": {
+      "name": "AvatarItemType",
+      "items": {
+        "Asset": 1,
+        "Bundle": 2
+      }
+    },
+    "AvatarJointPositionType": {
+      "name": "AvatarJointPositionType",
+      "items": {
+        "ArtistIntent": 1,
+        "Fixed": 0
+      }
+    },
+    "AvatarPromptResult": {
+      "name": "AvatarPromptResult",
+      "items": {
+        "Failed": 3,
+        "PermissionDenied": 2,
+        "Success": 1
+      }
+    },
+    "Axis": {
+      "name": "Axis",
+      "items": {
+        "X": 0,
+        "Y": 1,
+        "Z": 2
+      }
+    },
+    "BinType": {
+      "name": "BinType",
+      "items": {
+        "Clone": 3,
+        "GameTool": 1,
+        "Grab": 2,
+        "Hammer": 4,
+        "Script": 0
+      }
+    },
+    "BodyPart": {
+      "name": "BodyPart",
+      "items": {
+        "Head": 0,
+        "LeftArm": 2,
+        "LeftLeg": 4,
+        "RightArm": 3,
+        "RightLeg": 5,
+        "Torso": 1
+      }
+    },
+    "BodyPartR15": {
+      "name": "BodyPartR15",
+      "items": {
+        "Head": 0,
+        "LeftFoot": 3,
+        "LeftHand": 9,
+        "LeftLowerArm": 10,
+        "LeftLowerLeg": 4,
+        "LeftUpperArm": 11,
+        "LeftUpperLeg": 5,
+        "LowerTorso": 2,
+        "RightFoot": 6,
+        "RightHand": 12,
+        "RightLowerArm": 13,
+        "RightLowerLeg": 7,
+        "RightUpperArm": 14,
+        "RightUpperLeg": 8,
+        "RootPart": 15,
+        "Unknown": 17,
+        "UpperTorso": 1
+      }
+    },
+    "BorderMode": {
+      "name": "BorderMode",
+      "items": {
+        "Inset": 2,
+        "Middle": 1,
+        "Outline": 0
+      }
+    },
+    "BreakReason": {
+      "name": "BreakReason",
+      "items": {
+        "Error": 1,
+        "Other": 0,
+        "SpecialBreakpoint": 2,
+        "UserBreakpoint": 3
+      }
+    },
+    "BulkMoveMode": {
+      "name": "BulkMoveMode",
+      "items": {
+        "FireAllEvents": 0,
+        "FireCFrameChanged": 1
+      }
+    },
+    "BundleType": {
+      "name": "BundleType",
+      "items": {
+        "Animations": 2,
+        "BodyParts": 1
+      }
+    },
+    "Button": {
+      "name": "Button",
+      "items": {
+        "Dismount": 8,
+        "Jump": 32
+      }
+    },
+    "ButtonStyle": {
+      "name": "ButtonStyle",
+      "items": {
+        "Custom": 0,
+        "RobloxButton": 2,
+        "RobloxButtonDefault": 1,
+        "RobloxRoundButton": 3,
+        "RobloxRoundDefaultButton": 4,
+        "RobloxRoundDropdownButton": 5
+      }
+    },
+    "CameraMode": {
+      "name": "CameraMode",
+      "items": {
+        "Classic": 0,
+        "LockFirstPerson": 1
+      }
+    },
+    "CameraPanMode": {
+      "name": "CameraPanMode",
+      "items": {
+        "Classic": 0,
+        "EdgeBump": 1
+      }
+    },
+    "CameraType": {
+      "name": "CameraType",
+      "items": {
+        "Attach": 1,
+        "Custom": 5,
+        "Fixed": 0,
+        "Follow": 4,
+        "Orbital": 7,
+        "Scriptable": 6,
+        "Track": 3,
+        "Watch": 2
+      }
+    },
+    "CatalogCategoryFilter": {
+      "name": "CatalogCategoryFilter",
+      "items": {
+        "Collectibles": 3,
+        "CommunityCreations": 4,
+        "Featured": 2,
+        "None": 1,
+        "Premium": 5
+      }
+    },
+    "CatalogSortType": {
+      "name": "CatalogSortType",
+      "items": {
+        "MostFavorited": 5,
+        "PriceHighToLow": 2,
+        "PriceLowToHigh": 3,
+        "RecentlyUpdated": 4,
+        "Relevance": 1
+      }
+    },
+    "CellBlock": {
+      "name": "CellBlock",
+      "items": {
+        "CornerWedge": 2,
+        "HorizontalWedge": 4,
+        "InverseCornerWedge": 3,
+        "Solid": 0,
+        "VerticalWedge": 1
+      }
+    },
+    "CellMaterial": {
+      "name": "CellMaterial",
+      "items": {
+        "Aluminum": 7,
+        "Asphalt": 5,
+        "BluePlastic": 16,
+        "Brick": 3,
+        "Cement": 14,
+        "CinderBlock": 12,
+        "Empty": 0,
+        "Gold": 8,
+        "Granite": 4,
+        "Grass": 1,
+        "Gravel": 11,
+        "Iron": 6,
+        "MossyStone": 13,
+        "RedPlastic": 15,
+        "Sand": 2,
+        "Water": 17,
+        "WoodLog": 10,
+        "WoodPlank": 9
+      }
+    },
+    "CellOrientation": {
+      "name": "CellOrientation",
+      "items": {
+        "NegX": 3,
+        "NegZ": 0,
+        "X": 1,
+        "Z": 2
+      }
+    },
+    "CenterDialogType": {
+      "name": "CenterDialogType",
+      "items": {
+        "ModalDialog": 3,
+        "PlayerInitiatedDialog": 2,
+        "QuitDialog": 4,
+        "UnsolicitedDialog": 1
+      }
+    },
+    "ChatCallbackType": {
+      "name": "ChatCallbackType",
+      "items": {
+        "OnClientFormattingMessage": 3,
+        "OnClientSendingMessage": 2,
+        "OnCreatingChatWindow": 1,
+        "OnServerReceivingMessage": 17
+      }
+    },
+    "ChatColor": {
+      "name": "ChatColor",
+      "items": {
+        "Blue": 0,
+        "Green": 1,
+        "Red": 2,
+        "White": 3
+      }
+    },
+    "ChatMode": {
+      "name": "ChatMode",
+      "items": {
+        "Menu": 0,
+        "TextAndMenu": 1
+      }
+    },
+    "ChatPrivacyMode": {
+      "name": "ChatPrivacyMode",
+      "items": {
+        "AllUsers": 0,
+        "Friends": 2,
+        "NoOne": 1
+      }
+    },
+    "ChatStyle": {
+      "name": "ChatStyle",
+      "items": {
+        "Bubble": 1,
+        "Classic": 0,
+        "ClassicAndBubble": 2
+      }
+    },
+    "CollisionFidelity": {
+      "name": "CollisionFidelity",
+      "items": {
+        "Box": 2,
+        "Default": 0,
+        "Hull": 1,
+        "PreciseConvexDecomposition": 3
+      }
+    },
+    "ComputerCameraMovementMode": {
+      "name": "ComputerCameraMovementMode",
+      "items": {
+        "CameraToggle": 4,
+        "Classic": 1,
+        "Default": 0,
+        "Follow": 2,
+        "Orbital": 3
+      }
+    },
+    "ComputerMovementMode": {
+      "name": "ComputerMovementMode",
+      "items": {
+        "ClickToMove": 2,
+        "Default": 0,
+        "KeyboardMouse": 1
+      }
+    },
+    "ConnectionError": {
+      "name": "ConnectionError",
+      "items": {
+        "DisconnectBadhash": 257,
+        "DisconnectBlockedIP": 282,
+        "DisconnectBySecurityPolicy": 281,
+        "DisconnectCloudEditKick": 270,
+        "DisconnectConnectionLost": 277,
+        "DisconnectDevMaintenance": 274,
+        "DisconnectDuplicatePlayer": 264,
+        "DisconnectDuplicateTicket": 265,
+        "DisconnectErrors": 256,
+        "DisconnectEvicted": 273,
+        "DisconnectHashTimeout": 269,
+        "DisconnectIdle": 278,
+        "DisconnectIllegalTeleport": 263,
+        "DisconnectLuaKick": 267,
+        "DisconnectNewSecurityKeyMismatch": 272,
+        "DisconnectOnRemoteSysStats": 268,
+        "DisconnectPlayerless": 271,
+        "DisconnectProtocolMismatch": 259,
+        "DisconnectRaknetErrors": 279,
+        "DisconnectReceivePacketError": 260,
+        "DisconnectReceivePacketStreamError": 261,
+        "DisconnectRejoin": 276,
+        "DisconnectRobloxMaintenance": 275,
+        "DisconnectSecurityKeyMismatch": 258,
+        "DisconnectSendPacketError": 262,
+        "DisconnectTimeout": 266,
+        "DisconnectWrongVersion": 280,
+        "OK": 0,
+        "PlacelaunchCustomMessage": 610,
+        "PlacelaunchDisabled": 515,
+        "PlacelaunchError": 516,
+        "PlacelaunchErrors": 512,
+        "PlacelaunchFlooded": 525,
+        "PlacelaunchGameEnded": 517,
+        "PlacelaunchGameFull": 518,
+        "PlacelaunchHashException": 527,
+        "PlacelaunchHashExpired": 526,
+        "PlacelaunchHttpError": 529,
+        "PlacelaunchOtherError": 611,
+        "PlacelaunchPartyCannotFit": 528,
+        "PlacelaunchRestricted": 523,
+        "PlacelaunchUnauthorized": 524,
+        "PlacelaunchUserLeft": 522,
+        "TeleportErrors": 768,
+        "TeleportFailure": 769,
+        "TeleportFlooded": 774,
+        "TeleportGameEnded": 771,
+        "TeleportGameFull": 772,
+        "TeleportGameNotFound": 770,
+        "TeleportIsTeleporting": 775,
+        "TeleportUnauthorized": 773
+      }
+    },
+    "ConnectionState": {
+      "name": "ConnectionState",
+      "items": {
+        "Connected": 0,
+        "Disconnected": 1
+      }
+    },
+    "ContextActionPriority": {
+      "name": "ContextActionPriority",
+      "items": {
+        "Default": 2000,
+        "High": 3000,
+        "Low": 1000,
+        "Medium": 2000
+      }
+    },
+    "ContextActionResult": {
+      "name": "ContextActionResult",
+      "items": {
+        "Pass": 1,
+        "Sink": 0
+      }
+    },
+    "ControlMode": {
+      "name": "ControlMode",
+      "items": {
+        "Classic": 0,
+        "MouseLockSwitch": 1
+      }
+    },
+    "CoreGuiType": {
+      "name": "CoreGuiType",
+      "items": {
+        "All": 4,
+        "Backpack": 2,
+        "Chat": 3,
+        "EmotesMenu": 5,
+        "Health": 1,
+        "PlayerList": 0
+      }
+    },
+    "CreatorType": {
+      "name": "CreatorType",
+      "items": {
+        "Group": 1,
+        "User": 0
+      }
+    },
+    "CurrencyType": {
+      "name": "CurrencyType",
+      "items": {
+        "Default": 0,
+        "Robux": 1,
+        "Tix": 2
+      }
+    },
+    "CustomCameraMode": {
+      "name": "CustomCameraMode",
+      "items": {
+        "Classic": 1,
+        "Default": 0,
+        "Follow": 2
+      }
+    },
+    "DataStoreRequestType": {
+      "name": "DataStoreRequestType",
+      "items": {
+        "GetAsync": 0,
+        "GetSortedAsync": 3,
+        "OnUpdate": 5,
+        "SetIncrementAsync": 1,
+        "SetIncrementSortedAsync": 4,
+        "UpdateAsync": 2
+      }
+    },
+    "DevCameraOcclusionMode": {
+      "name": "DevCameraOcclusionMode",
+      "items": {
+        "Invisicam": 1,
+        "Zoom": 0
+      }
+    },
+    "DevComputerCameraMovementMode": {
+      "name": "DevComputerCameraMovementMode",
+      "items": {
+        "CameraToggle": 4,
+        "Classic": 1,
+        "Follow": 2,
+        "Orbital": 3,
+        "UserChoice": 0
+      }
+    },
+    "DevComputerMovementMode": {
+      "name": "DevComputerMovementMode",
+      "items": {
+        "ClickToMove": 2,
+        "KeyboardMouse": 1,
+        "Scriptable": 3,
+        "UserChoice": 0
+      }
+    },
+    "DevTouchCameraMovementMode": {
+      "name": "DevTouchCameraMovementMode",
+      "items": {
+        "Classic": 1,
+        "Follow": 2,
+        "Orbital": 3,
+        "UserChoice": 0
+      }
+    },
+    "DevTouchMovementMode": {
+      "name": "DevTouchMovementMode",
+      "items": {
+        "ClickToMove": 4,
+        "DPad": 2,
+        "DynamicThumbstick": 6,
+        "Scriptable": 5,
+        "Thumbpad": 3,
+        "Thumbstick": 1,
+        "UserChoice": 0
+      }
+    },
+    "DeveloperMemoryTag": {
+      "name": "DeveloperMemoryTag",
+      "items": {
+        "Animation": 21,
+        "GraphicsMeshParts": 9,
+        "GraphicsParticles": 10,
+        "GraphicsParts": 11,
+        "GraphicsSolidModels": 8,
+        "GraphicsSpatialHash": 12,
+        "GraphicsTerrain": 13,
+        "GraphicsTexture": 14,
+        "GraphicsTextureCharacter": 15,
+        "Gui": 20,
+        "HttpCache": 1,
+        "Instances": 2,
+        "Internal": 0,
+        "LuaHeap": 4,
+        "Navigation": 22,
+        "PhysicsCollision": 6,
+        "PhysicsParts": 7,
+        "Script": 5,
+        "Signals": 3,
+        "Sounds": 16,
+        "StreamingSounds": 17,
+        "TerrainVoxels": 18
+      }
+    },
+    "DeviceType": {
+      "name": "DeviceType",
+      "items": {
+        "Desktop": 1,
+        "Phone": 3,
+        "Tablet": 2,
+        "Unknown": 0
+      }
+    },
+    "DialogBehaviorType": {
+      "name": "DialogBehaviorType",
+      "items": {
+        "MultiplePlayers": 1,
+        "SinglePlayer": 0
+      }
+    },
+    "DialogPurpose": {
+      "name": "DialogPurpose",
+      "items": {
+        "Help": 1,
+        "Quest": 0,
+        "Shop": 2
+      }
+    },
+    "DialogTone": {
+      "name": "DialogTone",
+      "items": {
+        "Enemy": 2,
+        "Friendly": 1,
+        "Neutral": 0
+      }
+    },
+    "DominantAxis": {
+      "name": "DominantAxis",
+      "items": {
+        "Height": 1,
+        "Width": 0
+      }
+    },
+    "DraftStatusCode": {
+      "name": "DraftStatusCode",
+      "items": {
+        "DraftCommitted": 3,
+        "DraftOutdated": 1,
+        "OK": 0,
+        "ScriptRemoved": 2
+      }
+    },
+    "EasingDirection": {
+      "name": "EasingDirection",
+      "items": {
+        "In": 0,
+        "InOut": 2,
+        "Out": 1
+      }
+    },
+    "EasingStyle": {
+      "name": "EasingStyle",
+      "items": {
+        "Back": 2,
+        "Bounce": 6,
+        "Circular": 9,
+        "Cubic": 10,
+        "Elastic": 7,
+        "Exponential": 8,
+        "Linear": 0,
+        "Quad": 3,
+        "Quart": 4,
+        "Quint": 5,
+        "Sine": 1
+      }
+    },
+    "ElasticBehavior": {
+      "name": "ElasticBehavior",
+      "items": {
+        "Always": 1,
+        "Never": 2,
+        "WhenScrollable": 0
+      }
+    },
+    "EnviromentalPhysicsThrottle": {
+      "name": "EnviromentalPhysicsThrottle",
+      "items": {
+        "Always": 2,
+        "DefaultAuto": 0,
+        "Disabled": 1,
+        "Skip16": 6,
+        "Skip2": 3,
+        "Skip4": 4,
+        "Skip8": 5
+      }
+    },
+    "ExplosionType": {
+      "name": "ExplosionType",
+      "items": {
+        "Craters": 1,
+        "NoCraters": 0
+      }
+    },
+    "FieldOfViewMode": {
+      "name": "FieldOfViewMode",
+      "items": {
+        "Diagonal": 1,
+        "MaxAxis": 2,
+        "Vertical": 0
+      }
+    },
+    "FillDirection": {
+      "name": "FillDirection",
+      "items": {
+        "Horizontal": 0,
+        "Vertical": 1
+      }
+    },
+    "FilterResult": {
+      "name": "FilterResult",
+      "items": {
+        "Accepted": 0,
+        "Rejected": 1
+      }
+    },
+    "Font": {
+      "name": "Font",
+      "items": {
+        "AmaticSC": 21,
+        "Antique": 15,
+        "Arcade": 13,
+        "Arial": 1,
+        "ArialBold": 2,
+        "Bangers": 22,
+        "Bodoni": 7,
+        "Cartoon": 9,
+        "Code": 10,
+        "Creepster": 23,
+        "DenkOne": 24,
+        "Fantasy": 14,
+        "Fondamento": 25,
+        "FredokaOne": 26,
+        "Garamond": 8,
+        "Gotham": 17,
+        "GothamBlack": 20,
+        "GothamBold": 19,
+        "GothamSemibold": 18,
+        "GrenzeGotisch": 27,
+        "Highway": 11,
+        "IndieFlower": 28,
+        "JosefinSans": 29,
+        "Jura": 30,
+        "Kalam": 31,
+        "Legacy": 0,
+        "LuckiestGuy": 32,
+        "Merriweather": 33,
+        "Michroma": 34,
+        "Nunito": 35,
+        "Oswald": 36,
+        "PatrickHand": 37,
+        "PermanentMarker": 38,
+        "Roboto": 39,
+        "RobotoCondensed": 40,
+        "RobotoMono": 41,
+        "Sarpanch": 42,
+        "SciFi": 12,
+        "SourceSans": 3,
+        "SourceSansBold": 4,
+        "SourceSansItalic": 6,
+        "SourceSansLight": 5,
+        "SourceSansSemibold": 16,
+        "SpecialElite": 43,
+        "TitilliumWeb": 44,
+        "Ubuntu": 45
+      }
+    },
+    "FontSize": {
+      "name": "FontSize",
+      "items": {
+        "Size10": 2,
+        "Size11": 3,
+        "Size12": 4,
+        "Size14": 5,
+        "Size18": 6,
+        "Size24": 7,
+        "Size28": 10,
+        "Size32": 11,
+        "Size36": 8,
+        "Size42": 12,
+        "Size48": 9,
+        "Size60": 13,
+        "Size8": 0,
+        "Size9": 1,
+        "Size96": 14
+      }
+    },
+    "FormFactor": {
+      "name": "FormFactor",
+      "items": {
+        "Brick": 1,
+        "Custom": 3,
+        "Plate": 2,
+        "Symmetric": 0
+      }
+    },
+    "FrameStyle": {
+      "name": "FrameStyle",
+      "items": {
+        "ChatBlue": 1,
+        "ChatGreen": 4,
+        "ChatRed": 5,
+        "Custom": 0,
+        "DropShadow": 6,
+        "RobloxRound": 3,
+        "RobloxSquare": 2
+      }
+    },
+    "FramerateManagerMode": {
+      "name": "FramerateManagerMode",
+      "items": {
+        "Automatic": 0,
+        "Off": 2,
+        "On": 1
+      }
+    },
+    "FriendRequestEvent": {
+      "name": "FriendRequestEvent",
+      "items": {
+        "Accept": 2,
+        "Deny": 3,
+        "Issue": 0,
+        "Revoke": 1
+      }
+    },
+    "FriendStatus": {
+      "name": "FriendStatus",
+      "items": {
+        "Friend": 2,
+        "FriendRequestReceived": 4,
+        "FriendRequestSent": 3,
+        "NotFriend": 1,
+        "Unknown": 0
+      }
+    },
+    "FunctionalTestResult": {
+      "name": "FunctionalTestResult",
+      "items": {
+        "Error": 2,
+        "Passed": 0,
+        "Warning": 1
+      }
+    },
+    "GameAvatarType": {
+      "name": "GameAvatarType",
+      "items": {
+        "PlayerChoice": 2,
+        "R15": 1,
+        "R6": 0
+      }
+    },
+    "GearGenreSetting": {
+      "name": "GearGenreSetting",
+      "items": {
+        "AllGenres": 0,
+        "MatchingGenreOnly": 1
+      }
+    },
+    "GearType": {
+      "name": "GearType",
+      "items": {
+        "BuildingTools": 7,
+        "Explosives": 2,
+        "MeleeWeapons": 0,
+        "MusicalInstruments": 5,
+        "NavigationEnhancers": 4,
+        "PowerUps": 3,
+        "RangedWeapons": 1,
+        "SocialItems": 6,
+        "Transport": 8
+      }
+    },
+    "Genre": {
+      "name": "Genre",
+      "items": {
+        "Adventure": 7,
+        "All": 0,
+        "Fantasy": 2,
+        "Funny": 9,
+        "Ninja": 4,
+        "Pirate": 6,
+        "Scary": 5,
+        "SciFi": 3,
+        "SkatePark": 12,
+        "Sports": 8,
+        "TownAndCity": 1,
+        "Tutorial": 13,
+        "War": 11,
+        "WildWest": 10
+      }
+    },
+    "GraphicsMode": {
+      "name": "GraphicsMode",
+      "items": {
+        "Automatic": 1,
+        "Direct3D11": 2,
+        "Direct3D9": 3,
+        "Metal": 5,
+        "NoGraphics": 7,
+        "OpenGL": 4,
+        "Vulkan": 6
+      }
+    },
+    "HandlesStyle": {
+      "name": "HandlesStyle",
+      "items": {
+        "Movement": 1,
+        "Resize": 0
+      }
+    },
+    "HorizontalAlignment": {
+      "name": "HorizontalAlignment",
+      "items": {
+        "Center": 0,
+        "Left": 1,
+        "Right": 2
+      }
+    },
+    "HoverAnimateSpeed": {
+      "name": "HoverAnimateSpeed",
+      "items": {
+        "Fast": 3,
+        "Medium": 2,
+        "Slow": 1,
+        "VeryFast": 4,
+        "VerySlow": 0
+      }
+    },
+    "HttpCachePolicy": {
+      "name": "HttpCachePolicy",
+      "items": {
+        "DataOnly": 2,
+        "Default": 3,
+        "Full": 1,
+        "InternalRedirectRefresh": 4,
+        "None": 0
+      }
+    },
+    "HttpContentType": {
+      "name": "HttpContentType",
+      "items": {
+        "ApplicationJson": 0,
+        "ApplicationUrlEncoded": 2,
+        "ApplicationXml": 1,
+        "TextPlain": 3,
+        "TextXml": 4
+      }
+    },
+    "HttpError": {
+      "name": "HttpError",
+      "items": {
+        "Aborted": 9,
+        "ConnectFail": 3,
+        "DnsResolve": 2,
+        "InvalidRedirect": 7,
+        "InvalidUrl": 1,
+        "NetFail": 8,
+        "OK": 0,
+        "OutOfMemory": 4,
+        "SslConnectFail": 10,
+        "SslVerificationFail": 11,
+        "TimedOut": 5,
+        "TooManyRedirects": 6,
+        "Unknown": 12
+      }
+    },
+    "HttpRequestType": {
+      "name": "HttpRequestType",
+      "items": {
+        "Analytics": 23,
+        "Avatar": 16,
+        "Chat": 15,
+        "Default": 0,
+        "Localization": 25,
+        "MarketplaceService": 2,
+        "Players": 7
+      }
+    },
+    "HumanoidCollisionType": {
+      "name": "HumanoidCollisionType",
+      "items": {
+        "InnerBox": 1,
+        "OuterBox": 0
+      }
+    },
+    "HumanoidDisplayDistanceType": {
+      "name": "HumanoidDisplayDistanceType",
+      "items": {
+        "None": 2,
+        "Subject": 1,
+        "Viewer": 0
+      }
+    },
+    "HumanoidHealthDisplayType": {
+      "name": "HumanoidHealthDisplayType",
+      "items": {
+        "AlwaysOff": 2,
+        "AlwaysOn": 1,
+        "DisplayWhenDamaged": 0
+      }
+    },
+    "HumanoidRigType": {
+      "name": "HumanoidRigType",
+      "items": {
+        "R15": 1,
+        "R6": 0
+      }
+    },
+    "HumanoidStateType": {
+      "name": "HumanoidStateType",
+      "items": {
+        "Climbing": 12,
+        "Dead": 15,
+        "FallingDown": 0,
+        "Flying": 6,
+        "Freefall": 5,
+        "GettingUp": 2,
+        "Jumping": 3,
+        "Landed": 7,
+        "None": 18,
+        "Physics": 16,
+        "PlatformStanding": 14,
+        "Ragdoll": 1,
+        "Running": 8,
+        "RunningNoPhysics": 10,
+        "Seated": 13,
+        "StrafingNoPhysics": 11,
+        "Swimming": 4
+      }
+    },
+    "IKCollisionsMode": {
+      "name": "IKCollisionsMode",
+      "items": {
+        "IncludeContactedMechanisms": 2,
+        "NoCollisions": 0,
+        "OtherMechanismsAnchored": 1
+      }
+    },
+    "IXPLoadingStatus": {
+      "name": "IXPLoadingStatus",
+      "items": {
+        "ErrorConnection": 5,
+        "ErrorInvalidUser": 4,
+        "ErrorJsonParse": 6,
+        "ErrorTimedOut": 7,
+        "Initialized": 2,
+        "None": 0,
+        "Pending": 1,
+        "ShutOff": 3
+      }
+    },
+    "InOut": {
+      "name": "InOut",
+      "items": {
+        "Center": 2,
+        "Edge": 0,
+        "Inset": 1
+      }
+    },
+    "InfoType": {
+      "name": "InfoType",
+      "items": {
+        "Asset": 0,
+        "Bundle": 4,
+        "GamePass": 2,
+        "Product": 1,
+        "Subscription": 3
+      }
+    },
+    "InitialDockState": {
+      "name": "InitialDockState",
+      "items": {
+        "Bottom": 1,
+        "Float": 4,
+        "Left": 2,
+        "Right": 3,
+        "Top": 0
+      }
+    },
+    "InputType": {
+      "name": "InputType",
+      "items": {
+        "Constant": 12,
+        "NoInput": 0,
+        "Sin": 13
+      }
+    },
+    "InterpolationThrottlingMode": {
+      "name": "InterpolationThrottlingMode",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
+      }
+    },
+    "JointCreationMode": {
+      "name": "JointCreationMode",
+      "items": {
+        "All": 0,
+        "None": 2,
+        "Surface": 1
+      }
+    },
+    "KeyCode": {
+      "name": "KeyCode",
+      "items": {
+        "A": 97,
+        "Ampersand": 38,
+        "Asterisk": 42,
+        "At": 64,
+        "B": 98,
+        "BackSlash": 92,
+        "Backquote": 96,
+        "Backspace": 8,
+        "Break": 318,
+        "ButtonA": 1002,
+        "ButtonB": 1003,
+        "ButtonL1": 1005,
+        "ButtonL2": 1007,
+        "ButtonL3": 1009,
+        "ButtonR1": 1004,
+        "ButtonR2": 1006,
+        "ButtonR3": 1008,
+        "ButtonSelect": 1011,
+        "ButtonStart": 1010,
+        "ButtonX": 1000,
+        "ButtonY": 1001,
+        "C": 99,
+        "CapsLock": 301,
+        "Caret": 94,
+        "Clear": 12,
+        "Colon": 58,
+        "Comma": 44,
+        "Compose": 314,
+        "D": 100,
+        "DPadDown": 1015,
+        "DPadLeft": 1012,
+        "DPadRight": 1013,
+        "DPadUp": 1014,
+        "Delete": 127,
+        "Dollar": 36,
+        "Down": 274,
+        "E": 101,
+        "Eight": 56,
+        "End": 279,
+        "Equals": 61,
+        "Escape": 27,
+        "Euro": 321,
+        "F": 102,
+        "F1": 282,
+        "F10": 291,
+        "F11": 292,
+        "F12": 293,
+        "F13": 294,
+        "F14": 295,
+        "F15": 296,
+        "F2": 283,
+        "F3": 284,
+        "F4": 285,
+        "F5": 286,
+        "F6": 287,
+        "F7": 288,
+        "F8": 289,
+        "F9": 290,
+        "Five": 53,
+        "Four": 52,
+        "G": 103,
+        "GreaterThan": 62,
+        "H": 104,
+        "Hash": 35,
+        "Help": 315,
+        "Home": 278,
+        "I": 105,
+        "Insert": 277,
+        "J": 106,
+        "K": 107,
+        "KeypadDivide": 267,
+        "KeypadEight": 264,
+        "KeypadEnter": 271,
+        "KeypadEquals": 272,
+        "KeypadFive": 261,
+        "KeypadFour": 260,
+        "KeypadMinus": 269,
+        "KeypadMultiply": 268,
+        "KeypadNine": 265,
+        "KeypadOne": 257,
+        "KeypadPeriod": 266,
+        "KeypadPlus": 270,
+        "KeypadSeven": 263,
+        "KeypadSix": 262,
+        "KeypadThree": 259,
+        "KeypadTwo": 258,
+        "KeypadZero": 256,
+        "L": 108,
+        "Left": 276,
+        "LeftAlt": 308,
+        "LeftBracket": 91,
+        "LeftControl": 306,
+        "LeftCurly": 123,
+        "LeftMeta": 310,
+        "LeftParenthesis": 40,
+        "LeftShift": 304,
+        "LeftSuper": 311,
+        "LessThan": 60,
+        "M": 109,
+        "Menu": 319,
+        "Minus": 45,
+        "Mode": 313,
+        "N": 110,
+        "Nine": 57,
+        "NumLock": 300,
+        "O": 111,
+        "One": 49,
+        "P": 112,
+        "PageDown": 281,
+        "PageUp": 280,
+        "Pause": 19,
+        "Percent": 37,
+        "Period": 46,
+        "Pipe": 124,
+        "Plus": 43,
+        "Power": 320,
+        "Print": 316,
+        "Q": 113,
+        "Question": 63,
+        "Quote": 39,
+        "QuotedDouble": 34,
+        "R": 114,
+        "Return": 13,
+        "Right": 275,
+        "RightAlt": 307,
+        "RightBracket": 93,
+        "RightControl": 305,
+        "RightCurly": 125,
+        "RightMeta": 309,
+        "RightParenthesis": 41,
+        "RightShift": 303,
+        "RightSuper": 312,
+        "S": 115,
+        "ScrollLock": 302,
+        "Semicolon": 59,
+        "Seven": 55,
+        "Six": 54,
+        "Slash": 47,
+        "Space": 32,
+        "SysReq": 317,
+        "T": 116,
+        "Tab": 9,
+        "Three": 51,
+        "Thumbstick1": 1016,
+        "Thumbstick2": 1017,
+        "Tilde": 126,
+        "Two": 50,
+        "U": 117,
+        "Underscore": 95,
+        "Undo": 322,
+        "Unknown": 0,
+        "Up": 273,
+        "V": 118,
+        "W": 119,
+        "World0": 160,
+        "World1": 161,
+        "World10": 170,
+        "World11": 171,
+        "World12": 172,
+        "World13": 173,
+        "World14": 174,
+        "World15": 175,
+        "World16": 176,
+        "World17": 177,
+        "World18": 178,
+        "World19": 179,
+        "World2": 162,
+        "World20": 180,
+        "World21": 181,
+        "World22": 182,
+        "World23": 183,
+        "World24": 184,
+        "World25": 185,
+        "World26": 186,
+        "World27": 187,
+        "World28": 188,
+        "World29": 189,
+        "World3": 163,
+        "World30": 190,
+        "World31": 191,
+        "World32": 192,
+        "World33": 193,
+        "World34": 194,
+        "World35": 195,
+        "World36": 196,
+        "World37": 197,
+        "World38": 198,
+        "World39": 199,
+        "World4": 164,
+        "World40": 200,
+        "World41": 201,
+        "World42": 202,
+        "World43": 203,
+        "World44": 204,
+        "World45": 205,
+        "World46": 206,
+        "World47": 207,
+        "World48": 208,
+        "World49": 209,
+        "World5": 165,
+        "World50": 210,
+        "World51": 211,
+        "World52": 212,
+        "World53": 213,
+        "World54": 214,
+        "World55": 215,
+        "World56": 216,
+        "World57": 217,
+        "World58": 218,
+        "World59": 219,
+        "World6": 166,
+        "World60": 220,
+        "World61": 221,
+        "World62": 222,
+        "World63": 223,
+        "World64": 224,
+        "World65": 225,
+        "World66": 226,
+        "World67": 227,
+        "World68": 228,
+        "World69": 229,
+        "World7": 167,
+        "World70": 230,
+        "World71": 231,
+        "World72": 232,
+        "World73": 233,
+        "World74": 234,
+        "World75": 235,
+        "World76": 236,
+        "World77": 237,
+        "World78": 238,
+        "World79": 239,
+        "World8": 168,
+        "World80": 240,
+        "World81": 241,
+        "World82": 242,
+        "World83": 243,
+        "World84": 244,
+        "World85": 245,
+        "World86": 246,
+        "World87": 247,
+        "World88": 248,
+        "World89": 249,
+        "World9": 169,
+        "World90": 250,
+        "World91": 251,
+        "World92": 252,
+        "World93": 253,
+        "World94": 254,
+        "World95": 255,
+        "X": 120,
+        "Y": 121,
+        "Z": 122,
+        "Zero": 48
+      }
+    },
+    "KeywordFilterType": {
+      "name": "KeywordFilterType",
+      "items": {
+        "Exclude": 1,
+        "Include": 0
+      }
+    },
+    "Language": {
+      "name": "Language",
+      "items": {
+        "Default": 0
+      }
+    },
+    "LanguagePreference": {
+      "name": "LanguagePreference",
+      "items": {
+        "English": 1,
+        "Korean": 3,
+        "SimplifiedChinese": 2,
+        "SystemDefault": 0
+      }
+    },
+    "LeftRight": {
+      "name": "LeftRight",
+      "items": {
+        "Center": 1,
+        "Left": 0,
+        "Right": 2
+      }
+    },
+    "LevelOfDetailSetting": {
+      "name": "LevelOfDetailSetting",
+      "items": {
+        "High": 2,
+        "Low": 0,
+        "Medium": 1
+      }
+    },
+    "Limb": {
+      "name": "Limb",
+      "items": {
+        "Head": 0,
+        "LeftArm": 2,
+        "LeftLeg": 4,
+        "RightArm": 3,
+        "RightLeg": 5,
+        "Torso": 1,
+        "Unknown": 6
+      }
+    },
+    "ListDisplayMode": {
+      "name": "ListDisplayMode",
+      "items": {
+        "Horizontal": 0,
+        "Vertical": 1
+      }
+    },
+    "ListenerType": {
+      "name": "ListenerType",
+      "items": {
+        "CFrame": 1,
+        "Camera": 0,
+        "ObjectCFrame": 3,
+        "ObjectPosition": 2
+      }
+    },
+    "Material": {
+      "name": "Material",
+      "items": {
+        "Air": 1792,
+        "Asphalt": 1376,
+        "Basalt": 788,
+        "Brick": 848,
+        "Cobblestone": 880,
+        "Concrete": 816,
+        "CorrodedMetal": 1040,
+        "CrackedLava": 804,
+        "DiamondPlate": 1056,
+        "Fabric": 1312,
+        "Foil": 1072,
+        "ForceField": 1584,
+        "Glacier": 1552,
+        "Glass": 1568,
+        "Granite": 832,
+        "Grass": 1280,
+        "Ground": 1360,
+        "Ice": 1536,
+        "LeafyGrass": 1284,
+        "Limestone": 820,
+        "Marble": 784,
+        "Metal": 1088,
+        "Mud": 1344,
+        "Neon": 288,
+        "Pavement": 836,
+        "Pebble": 864,
+        "Plastic": 256,
+        "Rock": 896,
+        "Salt": 1392,
+        "Sand": 1296,
+        "Sandstone": 912,
+        "Slate": 800,
+        "SmoothPlastic": 272,
+        "Snow": 1328,
+        "Water": 2048,
+        "Wood": 512,
+        "WoodPlanks": 528
+      }
+    },
+    "MembershipType": {
+      "name": "MembershipType",
+      "items": {
+        "BuildersClub": 1,
+        "None": 0,
+        "OutrageousBuildersClub": 3,
+        "Premium": 4,
+        "TurboBuildersClub": 2
+      }
+    },
+    "MeshPartDetailLevel": {
+      "name": "MeshPartDetailLevel",
+      "items": {
+        "DistanceBased": 0,
+        "Level01": 1,
+        "Level02": 2,
+        "Level03": 3,
+        "Level04": 4
+      }
+    },
+    "MeshPartHeads": {
+      "name": "MeshPartHeads",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
+      }
+    },
+    "MeshType": {
+      "name": "MeshType",
+      "items": {
+        "Brick": 6,
+        "CornerWedge": 11,
+        "Cylinder": 4,
+        "FileMesh": 5,
+        "Head": 0,
+        "ParallelRamp": 9,
+        "Prism": 7,
+        "Pyramid": 8,
+        "RightAngleRamp": 10,
+        "Sphere": 3,
+        "Torso": 1,
+        "Wedge": 2
+      }
+    },
+    "MessageType": {
+      "name": "MessageType",
+      "items": {
+        "MessageError": 3,
+        "MessageInfo": 1,
+        "MessageOutput": 0,
+        "MessageWarning": 2
+      }
+    },
+    "ModelLevelOfDetail": {
+      "name": "ModelLevelOfDetail",
+      "items": {
+        "Automatic": 0,
+        "Disabled": 2,
+        "StreamingMesh": 1
+      }
+    },
+    "ModifierKey": {
+      "name": "ModifierKey",
+      "items": {
+        "Alt": 2,
+        "Ctrl": 1,
+        "Meta": 3,
+        "Shift": 0
+      }
+    },
+    "MouseBehavior": {
+      "name": "MouseBehavior",
+      "items": {
+        "Default": 0,
+        "LockCenter": 1,
+        "LockCurrentPosition": 2
+      }
+    },
+    "MoveState": {
+      "name": "MoveState",
+      "items": {
+        "AirFree": 4,
+        "Coasting": 1,
+        "Pushing": 2,
+        "Stopped": 0,
+        "Stopping": 3
+      }
+    },
+    "NameOcclusion": {
+      "name": "NameOcclusion",
+      "items": {
+        "EnemyOcclusion": 1,
+        "NoOcclusion": 0,
+        "OccludeAll": 2
+      }
+    },
+    "NetworkOwnership": {
+      "name": "NetworkOwnership",
+      "items": {
+        "Automatic": 0,
+        "Manual": 1,
+        "OnContact": 2
+      }
+    },
+    "NormalId": {
+      "name": "NormalId",
+      "items": {
+        "Back": 2,
+        "Bottom": 4,
+        "Front": 5,
+        "Left": 3,
+        "Right": 0,
+        "Top": 1
+      }
+    },
+    "OutputLayoutMode": {
+      "name": "OutputLayoutMode",
+      "items": {
+        "Horizontal": 0,
+        "Vertical": 1
+      }
+    },
+    "OverrideMouseIconBehavior": {
+      "name": "OverrideMouseIconBehavior",
+      "items": {
+        "ForceHide": 2,
+        "ForceShow": 1,
+        "None": 0
+      }
+    },
+    "PacketPriority": {
+      "name": "PacketPriority",
+      "items": {
+        "HIGH_PRIORITY": 1,
+        "IMMEDIATE_PRIORITY": 0,
+        "LOW_PRIORITY": 3,
+        "MEDIUM_PRIORITY": 2
+      }
+    },
+    "PartType": {
+      "name": "PartType",
+      "items": {
+        "Ball": 0,
+        "Block": 1,
+        "Cylinder": 2
+      }
+    },
+    "ParticleOrientation": {
+      "name": "ParticleOrientation",
+      "items": {
+        "FacingCamera": 0,
+        "FacingCameraWorldUp": 1,
+        "VelocityParallel": 2,
+        "VelocityPerpendicular": 3
+      }
+    },
+    "PathStatus": {
+      "name": "PathStatus",
+      "items": {
+        "ClosestNoPath": 1,
+        "ClosestOutOfRange": 2,
+        "FailFinishNotEmpty": 4,
+        "FailStartNotEmpty": 3,
+        "NoPath": 5,
+        "Success": 0
+      }
+    },
+    "PathWaypointAction": {
+      "name": "PathWaypointAction",
+      "items": {
+        "Jump": 1,
+        "Walk": 0
+      }
+    },
+    "PermissionLevelShown": {
+      "name": "PermissionLevelShown",
+      "items": {
+        "Game": 0,
+        "Roblox": 4,
+        "RobloxGame": 1,
+        "RobloxScript": 2,
+        "Studio": 3
+      }
+    },
+    "PhysicsSimulationRate": {
+      "name": "PhysicsSimulationRate",
+      "items": {
+        "Fixed120Hz": 1,
+        "Fixed240Hz": 0,
+        "Fixed60Hz": 2
+      }
+    },
+    "PhysicsSteppingMethod": {
+      "name": "PhysicsSteppingMethod",
+      "items": {
+        "Adaptive": 2,
+        "Default": 0,
+        "Fixed": 1
+      }
+    },
+    "Platform": {
+      "name": "Platform",
+      "items": {
+        "Android": 3,
+        "AndroidTV": 11,
+        "BeOS": 17,
+        "Chromecast": 12,
+        "DOS": 16,
+        "IOS": 2,
+        "Linux": 13,
+        "NX": 9,
+        "None": 19,
+        "OSX": 1,
+        "Ouya": 10,
+        "PS3": 6,
+        "PS4": 5,
+        "SteamOS": 14,
+        "UWP": 18,
+        "WebOS": 15,
+        "WiiU": 8,
+        "Windows": 0,
+        "XBox360": 7,
+        "XBoxOne": 4
+      }
+    },
+    "PlaybackState": {
+      "name": "PlaybackState",
+      "items": {
+        "Begin": 0,
+        "Cancelled": 5,
+        "Completed": 4,
+        "Delayed": 1,
+        "Paused": 3,
+        "Playing": 2
+      }
+    },
+    "PlayerActions": {
+      "name": "PlayerActions",
+      "items": {
+        "CharacterBackward": 1,
+        "CharacterForward": 0,
+        "CharacterJump": 4,
+        "CharacterLeft": 2,
+        "CharacterRight": 3
+      }
+    },
+    "PlayerChatType": {
+      "name": "PlayerChatType",
+      "items": {
+        "All": 0,
+        "Team": 1,
+        "Whisper": 2
+      }
+    },
+    "PoseEasingDirection": {
+      "name": "PoseEasingDirection",
+      "items": {
+        "In": 0,
+        "InOut": 2,
+        "Out": 1
+      }
+    },
+    "PoseEasingStyle": {
+      "name": "PoseEasingStyle",
+      "items": {
+        "Bounce": 4,
+        "Constant": 1,
+        "Cubic": 3,
+        "Elastic": 2,
+        "Linear": 0
+      }
+    },
+    "PrivilegeType": {
+      "name": "PrivilegeType",
+      "items": {
+        "Admin": 240,
+        "Banned": 0,
+        "Member": 128,
+        "Owner": 255,
+        "Visitor": 10
+      }
+    },
+    "ProductPurchaseDecision": {
+      "name": "ProductPurchaseDecision",
+      "items": {
+        "NotProcessedYet": 0,
+        "PurchaseGranted": 1
+      }
+    },
+    "ProximityPromptExclusivity": {
+      "name": "ProximityPromptExclusivity",
+      "items": {
+        "AlwaysShow": 2,
+        "OneGlobally": 1,
+        "OnePerButton": 0
+      }
+    },
+    "ProximityPromptInputType": {
+      "name": "ProximityPromptInputType",
+      "items": {
+        "Gamepad": 1,
+        "Keyboard": 0,
+        "Touch": 2
+      }
+    },
+    "ProximityPromptStyle": {
+      "name": "ProximityPromptStyle",
+      "items": {
+        "Custom": 1,
+        "Default": 0
+      }
+    },
+    "QualityLevel": {
+      "name": "QualityLevel",
+      "items": {
+        "Automatic": 0,
+        "Level01": 1,
+        "Level02": 2,
+        "Level03": 3,
+        "Level04": 4,
+        "Level05": 5,
+        "Level06": 6,
+        "Level07": 7,
+        "Level08": 8,
+        "Level09": 9,
+        "Level10": 10,
+        "Level11": 11,
+        "Level12": 12,
+        "Level13": 13,
+        "Level14": 14,
+        "Level15": 15,
+        "Level16": 16,
+        "Level17": 17,
+        "Level18": 18,
+        "Level19": 19,
+        "Level20": 20,
+        "Level21": 21
+      }
+    },
+    "R15CollisionType": {
+      "name": "R15CollisionType",
+      "items": {
+        "InnerBox": 1,
+        "OuterBox": 0
+      }
+    },
+    "RaycastFilterType": {
+      "name": "RaycastFilterType",
+      "items": {
+        "Blacklist": 0,
+        "Whitelist": 1
+      }
+    },
+    "RenderFidelity": {
+      "name": "RenderFidelity",
+      "items": {
+        "Automatic": 0,
+        "Performance": 2,
+        "Precise": 1
+      }
+    },
+    "RenderPriority": {
+      "name": "RenderPriority",
+      "items": {
+        "Camera": 200,
+        "Character": 300,
+        "First": 0,
+        "Input": 100,
+        "Last": 2000
+      }
+    },
+    "RenderingTestComparisonMethod": {
+      "name": "RenderingTestComparisonMethod",
+      "items": {
+        "diff": 1,
+        "psnr": 0
+      }
+    },
+    "ReturnKeyType": {
+      "name": "ReturnKeyType",
+      "items": {
+        "Default": 0,
+        "Done": 1,
+        "Go": 2,
+        "Next": 3,
+        "Search": 4,
+        "Send": 5
+      }
+    },
+    "ReverbType": {
+      "name": "ReverbType",
+      "items": {
+        "Alley": 15,
+        "Arena": 10,
+        "Auditorium": 7,
+        "Bathroom": 4,
+        "CarpettedHallway": 12,
+        "Cave": 9,
+        "City": 17,
+        "ConcertHall": 8,
+        "Forest": 16,
+        "GenericReverb": 1,
+        "Hallway": 13,
+        "Hangar": 11,
+        "LivingRoom": 5,
+        "Mountains": 18,
+        "NoReverb": 0,
+        "PaddedCell": 2,
+        "ParkingLot": 21,
+        "Plain": 20,
+        "Quarry": 19,
+        "Room": 3,
+        "SewerPipe": 22,
+        "StoneCorridor": 14,
+        "StoneRoom": 6,
+        "UnderWater": 23
+      }
+    },
+    "RibbonTool": {
+      "name": "RibbonTool",
+      "items": {
+        "ColorPicker": 5,
+        "Group": 7,
+        "MaterialPicker": 6,
+        "Move": 3,
+        "None": 9,
+        "Rotate": 2,
+        "Scale": 1,
+        "Select": 0,
+        "Transform": 4,
+        "Ungroup": 8
+      }
+    },
+    "RollOffMode": {
+      "name": "RollOffMode",
+      "items": {
+        "Inverse": 0,
+        "InverseTapered": 3,
+        "Linear": 1,
+        "LinearSquare": 2
+      }
+    },
+    "RotationType": {
+      "name": "RotationType",
+      "items": {
+        "CameraRelative": 1,
+        "MovementRelative": 0
+      }
+    },
+    "RuntimeUndoBehavior": {
+      "name": "RuntimeUndoBehavior",
+      "items": {
+        "Aggregate": 0,
+        "Hybrid": 2,
+        "Snapshot": 1
+      }
+    },
+    "SaveFilter": {
+      "name": "SaveFilter",
+      "items": {
+        "SaveAll": 2,
+        "SaveGame": 1,
+        "SaveWorld": 0
+      }
+    },
+    "SavedQualitySetting": {
+      "name": "SavedQualitySetting",
+      "items": {
+        "Automatic": 0,
+        "QualityLevel1": 1,
+        "QualityLevel10": 10,
+        "QualityLevel2": 2,
+        "QualityLevel3": 3,
+        "QualityLevel4": 4,
+        "QualityLevel5": 5,
+        "QualityLevel6": 6,
+        "QualityLevel7": 7,
+        "QualityLevel8": 8,
+        "QualityLevel9": 9
+      }
+    },
+    "ScaleType": {
+      "name": "ScaleType",
+      "items": {
+        "Crop": 4,
+        "Fit": 3,
+        "Slice": 1,
+        "Stretch": 0,
+        "Tile": 2
+      }
+    },
+    "ScreenOrientation": {
+      "name": "ScreenOrientation",
+      "items": {
+        "LandscapeLeft": 0,
+        "LandscapeRight": 1,
+        "LandscapeSensor": 2,
+        "Portrait": 3,
+        "Sensor": 4
+      }
+    },
+    "ScrollBarInset": {
+      "name": "ScrollBarInset",
+      "items": {
+        "Always": 2,
+        "None": 0,
+        "ScrollBar": 1
+      }
+    },
+    "ScrollingDirection": {
+      "name": "ScrollingDirection",
+      "items": {
+        "X": 1,
+        "XY": 4,
+        "Y": 2
+      }
+    },
+    "ServerAudioBehavior": {
+      "name": "ServerAudioBehavior",
+      "items": {
+        "Enabled": 0,
+        "Muted": 1,
+        "OnlineGame": 2
+      }
+    },
+    "SizeConstraint": {
+      "name": "SizeConstraint",
+      "items": {
+        "RelativeXX": 1,
+        "RelativeXY": 0,
+        "RelativeYY": 2
+      }
+    },
+    "SortDirection": {
+      "name": "SortDirection",
+      "items": {
+        "Ascending": 0,
+        "Descending": 1
+      }
+    },
+    "SortOrder": {
+      "name": "SortOrder",
+      "items": {
+        "Custom": 1,
+        "LayoutOrder": 2,
+        "Name": 0
+      }
+    },
+    "SoundType": {
+      "name": "SoundType",
+      "items": {
+        "Boing": 1,
+        "Bomb": 2,
+        "Break": 3,
+        "Click": 4,
+        "Clock": 5,
+        "NoSound": 0,
+        "Page": 7,
+        "Ping": 8,
+        "Slingshot": 6,
+        "Snap": 9,
+        "Splat": 10,
+        "Step": 11,
+        "StepOn": 12,
+        "Swoosh": 13,
+        "Victory": 14
+      }
+    },
+    "SpecialKey": {
+      "name": "SpecialKey",
+      "items": {
+        "ChatHotkey": 5,
+        "End": 2,
+        "Home": 1,
+        "Insert": 0,
+        "PageDown": 4,
+        "PageUp": 3
+      }
+    },
+    "StartCorner": {
+      "name": "StartCorner",
+      "items": {
+        "BottomLeft": 2,
+        "BottomRight": 3,
+        "TopLeft": 0,
+        "TopRight": 1
+      }
+    },
+    "Status": {
+      "name": "Status",
+      "items": {
+        "Confusion": 1,
+        "Poison": 0
+      }
+    },
+    "StreamingPauseMode": {
+      "name": "StreamingPauseMode",
+      "items": {
+        "ClientPhysicsPause": 2,
+        "Default": 0,
+        "Disabled": 1
+      }
+    },
+    "StudioDataModelType": {
+      "name": "StudioDataModelType",
+      "items": {
+        "Edit": 0,
+        "None": 6,
+        "PlayClient": 2,
+        "PlayServer": 3,
+        "RobloxPlugin": 4,
+        "UserPlugin": 5
+      }
+    },
+    "StudioScriptEditorColorCategories": {
+      "name": "StudioScriptEditorColorCategories",
+      "items": {
+        "ActiveLine": 25,
+        "Background": 17,
+        "Bool": 10,
+        "Bracket": 29,
+        "Builtin": 6,
+        "Comment": 4,
+        "DebuggerCurrentLine": 26,
+        "DebuggerErrorLine": 27,
+        "Default": 0,
+        "Error": 23,
+        "FindSelectionBackground": 20,
+        "Function": 11,
+        "FunctionName": 15,
+        "Keyword": 5,
+        "Local": 12,
+        "LuauKeyword": 14,
+        "MatchingWordBackground": 21,
+        "Method": 7,
+        "Nil": 9,
+        "Number": 2,
+        "Operator": 1,
+        "Property": 8,
+        "Ruler": 28,
+        "SelectionBackground": 19,
+        "SelectionText": 18,
+        "Self": 13,
+        "String": 3,
+        "TODO": 16,
+        "Warning": 22,
+        "Whitespace": 24
+      }
+    },
+    "StudioScriptEditorColorPresets": {
+      "name": "StudioScriptEditorColorPresets",
+      "items": {
+        "Custom": 3,
+        "Extra1": 1,
+        "Extra2": 2,
+        "RobloxDefault": 0
+      }
+    },
+    "StudioStyleGuideColor": {
+      "name": "StudioStyleGuideColor",
+      "items": {
+        "AttributeCog": 109,
+        "Border": 25,
+        "BrightText": 33,
+        "Button": 11,
+        "ButtonBorder": 81,
+        "ButtonText": 82,
+        "CategoryItem": 18,
+        "ChatIncomingBgColor": 75,
+        "ChatIncomingTextColor": 76,
+        "ChatModeratedMessageColor": 79,
+        "ChatOutgoingBgColor": 77,
+        "ChatOutgoingTextColor": 78,
+        "CheckedFieldBackground": 84,
+        "CheckedFieldBorder": 85,
+        "CheckedFieldIndicator": 86,
+        "ColorPickerFrame": 23,
+        "CurrentMarker": 24,
+        "Dark": 28,
+        "DebuggerCurrentLine": 57,
+        "DebuggerErrorLine": 58,
+        "DialogButton": 90,
+        "DialogButtonBorder": 92,
+        "DialogButtonText": 91,
+        "DialogMainButton": 93,
+        "DialogMainButtonText": 94,
+        "DiffFilePathBackground": 73,
+        "DiffFilePathBorder": 74,
+        "DiffFilePathText": 59,
+        "DiffLineNum": 68,
+        "DiffLineNumAdditionBackground": 71,
+        "DiffLineNumDeletionBackground": 72,
+        "DiffLineNumNoChangeBackground": 70,
+        "DiffLineNumSeparatorBackground": 69,
+        "DiffTextAddition": 62,
+        "DiffTextAdditionBackground": 66,
+        "DiffTextDeletion": 63,
+        "DiffTextDeletionBackground": 67,
+        "DiffTextHunkInfo": 60,
+        "DiffTextNoChange": 61,
+        "DiffTextNoChangeBackground": 65,
+        "DiffTextSeparatorBackground": 64,
+        "DimmedText": 34,
+        "Dropdown": 2,
+        "EmulatorBar": 21,
+        "EmulatorDropDown": 22,
+        "ErrorText": 37,
+        "GameSettingsTableItem": 19,
+        "GameSettingsTooltip": 20,
+        "HeaderSection": 87,
+        "InfoBarWarningBackground": 95,
+        "InfoBarWarningText": 96,
+        "InfoText": 38,
+        "InputFieldBackground": 15,
+        "InputFieldBorder": 83,
+        "Item": 16,
+        "Light": 27,
+        "LinkText": 35,
+        "MainBackground": 0,
+        "MainButton": 12,
+        "MainText": 30,
+        "Mid": 29,
+        "Midlight": 88,
+        "Notification": 4,
+        "RibbonButton": 13,
+        "RibbonTab": 9,
+        "RibbonTabTopBar": 10,
+        "ScriptBackground": 41,
+        "ScriptBool": 101,
+        "ScriptBracket": 108,
+        "ScriptBuiltInFunction": 52,
+        "ScriptComment": 50,
+        "ScriptEditorCurrentLine": 97,
+        "ScriptError": 54,
+        "ScriptFindSelectionBackground": 45,
+        "ScriptFunction": 102,
+        "ScriptFunctionName": 106,
+        "ScriptKeyword": 51,
+        "ScriptLocal": 103,
+        "ScriptLuauKeyword": 105,
+        "ScriptMatchingWordSelectionBackground": 46,
+        "ScriptMethod": 98,
+        "ScriptNil": 100,
+        "ScriptNumber": 48,
+        "ScriptOperator": 47,
+        "ScriptProperty": 99,
+        "ScriptRuler": 56,
+        "ScriptSelectionBackground": 44,
+        "ScriptSelectionText": 43,
+        "ScriptSelf": 104,
+        "ScriptSideWidget": 40,
+        "ScriptString": 49,
+        "ScriptText": 42,
+        "ScriptTodo": 107,
+        "ScriptWarning": 53,
+        "ScriptWhitespace": 55,
+        "ScrollBar": 5,
+        "ScrollBarBackground": 6,
+        "SensitiveText": 39,
+        "Separator": 80,
+        "Shadow": 26,
+        "StatusBar": 89,
+        "SubText": 31,
+        "Tab": 8,
+        "TabBar": 7,
+        "TableItem": 17,
+        "Titlebar": 1,
+        "TitlebarText": 32,
+        "Tooltip": 3,
+        "ViewPortBackground": 14,
+        "WarningText": 36
+      }
+    },
+    "StudioStyleGuideModifier": {
+      "name": "StudioStyleGuideModifier",
+      "items": {
+        "Default": 0,
+        "Disabled": 3,
+        "Hover": 4,
+        "Pressed": 2,
+        "Selected": 1
+      }
+    },
+    "Style": {
+      "name": "Style",
+      "items": {
+        "AlternatingSupports": 0,
+        "BridgeStyleSupports": 1,
+        "NoSupports": 2
+      }
+    },
+    "SurfaceConstraint": {
+      "name": "SurfaceConstraint",
+      "items": {
+        "Hinge": 1,
+        "Motor": 3,
+        "None": 0,
+        "SteppingMotor": 2
+      }
+    },
+    "SurfaceGuiSizingMode": {
+      "name": "SurfaceGuiSizingMode",
+      "items": {
+        "FixedSize": 0,
+        "PixelsPerStud": 1
+      }
+    },
+    "SurfaceType": {
+      "name": "SurfaceType",
+      "items": {
+        "Glue": 1,
+        "Hinge": 6,
+        "Inlet": 4,
+        "Motor": 7,
+        "Smooth": 0,
+        "SmoothNoOutlines": 10,
+        "SteppingMotor": 8,
+        "Studs": 3,
+        "Universal": 5,
+        "Weld": 2
+      }
+    },
+    "SwipeDirection": {
+      "name": "SwipeDirection",
+      "items": {
+        "Down": 3,
+        "Left": 1,
+        "None": 4,
+        "Right": 0,
+        "Up": 2
+      }
+    },
+    "TableMajorAxis": {
+      "name": "TableMajorAxis",
+      "items": {
+        "ColumnMajor": 1,
+        "RowMajor": 0
+      }
+    },
+    "Technology": {
+      "name": "Technology",
+      "items": {
+        "Compatibility": 2,
+        "Future": 4,
+        "Legacy": 0,
+        "ShadowMap": 3,
+        "Voxel": 1
+      }
+    },
+    "TeleportMethod": {
+      "name": "TeleportMethod",
+      "items": {
+        "TeleportPartyAsync": 3,
+        "TeleportToPlaceInstance": 1,
+        "TeleportToPrivateServer": 2,
+        "TeleportToSpawnByName": 0,
+        "TeleportUnknown": 4
+      }
+    },
+    "TeleportResult": {
+      "name": "TeleportResult",
+      "items": {
+        "Failure": 1,
+        "Flooded": 6,
+        "GameEnded": 3,
+        "GameFull": 4,
+        "GameNotFound": 2,
+        "IsTeleporting": 7,
+        "Success": 0,
+        "Unauthorized": 5
+      }
+    },
+    "TeleportState": {
+      "name": "TeleportState",
+      "items": {
+        "Failed": 3,
+        "InProgress": 4,
+        "RequestedFromServer": 0,
+        "Started": 1,
+        "WaitingForServer": 2
+      }
+    },
+    "TeleportType": {
+      "name": "TeleportType",
+      "items": {
+        "ToInstance": 1,
+        "ToPlace": 0,
+        "ToReservedServer": 2
+      }
+    },
+    "TextFilterContext": {
+      "name": "TextFilterContext",
+      "items": {
+        "PrivateChat": 2,
+        "PublicChat": 1
+      }
+    },
+    "TextInputType": {
+      "name": "TextInputType",
+      "items": {
+        "Default": 0,
+        "Email": 3,
+        "NoSuggestions": 1,
+        "Number": 2,
+        "Password": 5,
+        "PasswordShown": 6,
+        "Phone": 4,
+        "Username": 7
+      }
+    },
+    "TextTruncate": {
+      "name": "TextTruncate",
+      "items": {
+        "AtEnd": 1,
+        "None": 0
+      }
+    },
+    "TextXAlignment": {
+      "name": "TextXAlignment",
+      "items": {
+        "Center": 2,
+        "Left": 0,
+        "Right": 1
+      }
+    },
+    "TextYAlignment": {
+      "name": "TextYAlignment",
+      "items": {
+        "Bottom": 2,
+        "Center": 1,
+        "Top": 0
+      }
+    },
+    "TextureMode": {
+      "name": "TextureMode",
+      "items": {
+        "Static": 2,
+        "Stretch": 0,
+        "Wrap": 1
+      }
+    },
+    "TextureQueryType": {
+      "name": "TextureQueryType",
+      "items": {
+        "Humanoid": 2,
+        "HumanoidOrphaned": 3,
+        "NonHumanoid": 0,
+        "NonHumanoidOrphaned": 1
+      }
+    },
+    "ThreadPoolConfig": {
+      "name": "ThreadPoolConfig",
+      "items": {
+        "Auto": 0,
+        "PerCore1": 101,
+        "PerCore2": 102,
+        "PerCore3": 103,
+        "PerCore4": 104,
+        "Threads1": 1,
+        "Threads16": 16,
+        "Threads2": 2,
+        "Threads3": 3,
+        "Threads4": 4,
+        "Threads8": 8
+      }
+    },
+    "ThrottlingPriority": {
+      "name": "ThrottlingPriority",
+      "items": {
+        "Default": 0,
+        "ElevatedOnServer": 1,
+        "Extreme": 2
+      }
+    },
+    "ThumbnailSize": {
+      "name": "ThumbnailSize",
+      "items": {
+        "Size100x100": 4,
+        "Size150x150": 5,
+        "Size180x180": 1,
+        "Size352x352": 6,
+        "Size420x420": 2,
+        "Size48x48": 0,
+        "Size60x60": 3
+      }
+    },
+    "ThumbnailType": {
+      "name": "ThumbnailType",
+      "items": {
+        "AvatarBust": 1,
+        "AvatarThumbnail": 2,
+        "HeadShot": 0
+      }
+    },
+    "TickCountSampleMethod": {
+      "name": "TickCountSampleMethod",
+      "items": {
+        "Benchmark": 1,
+        "Fast": 0,
+        "Precise": 2
+      }
+    },
+    "TopBottom": {
+      "name": "TopBottom",
+      "items": {
+        "Bottom": 2,
+        "Center": 1,
+        "Top": 0
+      }
+    },
+    "TouchCameraMovementMode": {
+      "name": "TouchCameraMovementMode",
+      "items": {
+        "Classic": 1,
+        "Default": 0,
+        "Follow": 2,
+        "Orbital": 3
+      }
+    },
+    "TouchMovementMode": {
+      "name": "TouchMovementMode",
+      "items": {
+        "ClickToMove": 4,
+        "DPad": 2,
+        "Default": 0,
+        "DynamicThumbstick": 5,
+        "Thumbpad": 3,
+        "Thumbstick": 1
+      }
+    },
+    "TriStateBoolean": {
+      "name": "TriStateBoolean",
+      "items": {
+        "False": 2,
+        "True": 1,
+        "Unknown": 0
+      }
+    },
+    "TweenStatus": {
+      "name": "TweenStatus",
+      "items": {
+        "Canceled": 0,
+        "Completed": 1
+      }
+    },
+    "UITheme": {
+      "name": "UITheme",
+      "items": {
+        "Dark": 1,
+        "Light": 0
+      }
+    },
+    "UiMessageType": {
+      "name": "UiMessageType",
+      "items": {
+        "UiMessageError": 0,
+        "UiMessageInfo": 1
+      }
+    },
+    "UserCFrame": {
+      "name": "UserCFrame",
+      "items": {
+        "Head": 0,
+        "LeftHand": 1,
+        "RightHand": 2
+      }
+    },
+    "UserInputState": {
+      "name": "UserInputState",
+      "items": {
+        "Begin": 0,
+        "Cancel": 3,
+        "Change": 1,
+        "End": 2,
+        "None": 4
+      }
+    },
+    "UserInputType": {
+      "name": "UserInputType",
+      "items": {
+        "Accelerometer": 10,
+        "Focus": 9,
+        "Gamepad1": 12,
+        "Gamepad2": 13,
+        "Gamepad3": 14,
+        "Gamepad4": 15,
+        "Gamepad5": 16,
+        "Gamepad6": 17,
+        "Gamepad7": 18,
+        "Gamepad8": 19,
+        "Gyro": 11,
+        "InputMethod": 21,
+        "Keyboard": 8,
+        "MouseButton1": 0,
+        "MouseButton2": 1,
+        "MouseButton3": 2,
+        "MouseMovement": 4,
+        "MouseWheel": 3,
+        "None": 22,
+        "TextInput": 20,
+        "Touch": 7
+      }
+    },
+    "VRTouchpad": {
+      "name": "VRTouchpad",
+      "items": {
+        "Left": 0,
+        "Right": 1
+      }
+    },
+    "VRTouchpadMode": {
+      "name": "VRTouchpadMode",
+      "items": {
+        "ABXY": 2,
+        "Touch": 0,
+        "VirtualThumbstick": 1
+      }
+    },
+    "VerticalAlignment": {
+      "name": "VerticalAlignment",
+      "items": {
+        "Bottom": 2,
+        "Center": 0,
+        "Top": 1
+      }
+    },
+    "VerticalScrollBarPosition": {
+      "name": "VerticalScrollBarPosition",
+      "items": {
+        "Left": 1,
+        "Right": 0
+      }
+    },
+    "VibrationMotor": {
+      "name": "VibrationMotor",
+      "items": {
+        "Large": 0,
+        "LeftHand": 4,
+        "LeftTrigger": 2,
+        "RightHand": 5,
+        "RightTrigger": 3,
+        "Small": 1
+      }
+    },
+    "VirtualInputMode": {
+      "name": "VirtualInputMode",
+      "items": {
+        "None": 0,
+        "Playing": 2,
+        "Recording": 1
+      }
+    },
+    "WaterDirection": {
+      "name": "WaterDirection",
+      "items": {
+        "NegX": 0,
+        "NegY": 2,
+        "NegZ": 4,
+        "X": 1,
+        "Y": 3,
+        "Z": 5
+      }
+    },
+    "WaterForce": {
+      "name": "WaterForce",
+      "items": {
+        "Max": 4,
+        "Medium": 2,
+        "None": 0,
+        "Small": 1,
+        "Strong": 3
+      }
+    },
+    "WrapLayerDebugMode": {
+      "name": "WrapLayerDebugMode",
+      "items": {
+        "BoundCage": 1,
+        "BoundCageAndLinks": 3,
+        "LayerCage": 2,
+        "None": 0,
+        "Reference": 4
+      }
+    },
+    "WrapTargetDebugMode": {
+      "name": "WrapTargetDebugMode",
+      "items": {
+        "None": 0,
+        "TargetCage": 1
+      }
+    },
+    "ZIndexBehavior": {
+      "name": "ZIndexBehavior",
+      "items": {
+        "Global": 0,
+        "Sibling": 1
+      }
     }
   }
 }

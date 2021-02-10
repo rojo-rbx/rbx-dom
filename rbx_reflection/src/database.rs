@@ -24,6 +24,10 @@ pub struct ReflectionDatabase<'a> {
     /// All of the the known classes in the database.
     #[serde(serialize_with = "crate::serde_util::ordered_map")]
     pub classes: HashMap<Cow<'a, str>, ClassDescriptor<'a>>,
+
+    /// All of the known enums in the database.
+    #[serde(default, serialize_with = "crate::serde_util::ordered_map")]
+    pub enums: HashMap<Cow<'a, str>, EnumDescriptor<'a>>,
 }
 
 impl<'a> ReflectionDatabase<'a> {
@@ -32,6 +36,7 @@ impl<'a> ReflectionDatabase<'a> {
         Self {
             version: [0, 0, 0, 0],
             classes: HashMap::new(),
+            enums: HashMap::new(),
         }
     }
 }
@@ -173,4 +178,26 @@ pub enum Scriptability {
     /// A common example is the `Tags` property, which is readable and writable
     /// through methods on `CollectionService`.
     Custom,
+}
+
+/// Describes a Roblox enum and all of its items.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[non_exhaustive]
+pub struct EnumDescriptor<'a> {
+    /// The name of the enum, like "FormFactor" or "Material".
+    pub name: Cow<'a, str>,
+
+    /// All of the members of this enum, stored as a map from names to values.
+    #[serde(serialize_with = "crate::serde_util::ordered_map")]
+    pub items: HashMap<Cow<'a, str>, u32>,
+}
+
+impl<'a> EnumDescriptor<'a> {
+    /// Create a new `EnumDescriptor` with the given name and no items.
+    pub fn new<S: Into<Cow<'a, str>>>(name: S) -> Self {
+        Self {
+            name: name.into(),
+            items: HashMap::new(),
+        }
+    }
 }
