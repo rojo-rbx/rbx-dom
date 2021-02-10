@@ -250,9 +250,14 @@ fn serialize_shared_strings<W: Write>(
     writer.write(XmlWriteEvent::start_element("SharedStrings"))?;
 
     for value in state.shared_strings_to_emit.values() {
+        // Roblox expects SharedString hashes to be the same length as an MD5
+        // hash: 16 bytes, so we truncate our larger hashes to fit.
+        let full_hash = value.hash();
+        let truncated_hash = &full_hash.as_bytes()[..16];
+
         writer.write(
             XmlWriteEvent::start_element("SharedString")
-                .attr("md5", &base64::encode(value.hash().as_bytes())),
+                .attr("md5", &base64::encode(truncated_hash)),
         )?;
 
         writer.write_string(&base64::encode(value.data()))?;

@@ -22,8 +22,13 @@ pub fn write_shared_string<W: Write>(
 ) -> Result<(), EncodeError> {
     state.add_shared_string(value.clone());
 
+    // Roblox expects SharedString hashes to be the same length as an MD5
+    // hash: 16 bytes, so we truncate our larger hashes to fit.
+    let full_hash = value.hash();
+    let truncated_hash = &full_hash.as_bytes()[..16];
+
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-    writer.write_string(&base64::encode(value.hash().as_bytes()))?;
+    writer.write_string(&base64::encode(truncated_hash))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
