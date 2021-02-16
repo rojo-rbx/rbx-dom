@@ -1,6 +1,6 @@
 //! Serializes every kind of value into a file for debugging rbx_dom_lua.
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use rbx_dom_weak::types::{
     Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
@@ -18,7 +18,7 @@ struct TestEntry {
 
 #[allow(clippy::string_lit_as_bytes)]
 pub fn encode() -> anyhow::Result<String> {
-    let mut values: HashMap<&str, Variant> = HashMap::new();
+    let mut values: BTreeMap<&str, Variant> = BTreeMap::new();
 
     values.insert("Axes", Axes::all().into());
     values.insert(
@@ -103,7 +103,7 @@ pub fn encode() -> anyhow::Result<String> {
     values.insert("Vector3", Vector3::new(-300.0, 0.0, 1500.0).into());
     values.insert("Vector3int16", Vector3int16::new(60, 37, -450).into());
 
-    let entries: HashMap<&str, TestEntry> = values
+    let entries: BTreeMap<&str, TestEntry> = values
         .into_iter()
         .map(|(key, value)| {
             (
