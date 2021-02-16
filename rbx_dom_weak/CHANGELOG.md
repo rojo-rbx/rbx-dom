@@ -1,6 +1,8 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+
+## 2.0.0-alpha.1 (2021-02-16)
 This release is a major, breaking change that introduces many fixes and features.
 
 * `RbxTree` was replaced with `WeakDom`
