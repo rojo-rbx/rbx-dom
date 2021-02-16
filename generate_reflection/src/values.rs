@@ -16,6 +16,7 @@ struct TestEntry {
     ty: VariantType,
 }
 
+#[allow(clippy::string_lit_as_bytes)]
 pub fn encode() -> anyhow::Result<String> {
     let mut values: HashMap<&str, Variant> = HashMap::new();
 
