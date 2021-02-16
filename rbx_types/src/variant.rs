@@ -1,5 +1,5 @@
 use crate::{
-    Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue,
+    Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, Content, Enum,
     Faces, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, Region3, Region3int16,
     SharedString, UDim, UDim2, Vector2, Vector2int16, Vector3, Vector3int16,
 };
@@ -100,7 +100,8 @@ make_variant! {
     Color3uint8(Color3uint8),
     ColorSequence(ColorSequence),
     Content(Content),
-    EnumValue(EnumValue),
+    #[serde(alias = "EnumValue")]
+    Enum(Enum),
     Faces(Faces),
     Float32(f32),
     Float64(f64),

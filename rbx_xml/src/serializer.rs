@@ -187,7 +187,7 @@ fn serialize_instance<'a, W: Write>(
         if let Some(serialized_descriptor) = maybe_serialized_descriptor {
             let data_type = match &serialized_descriptor.data_type {
                 DataType::Value(data_type) => *data_type,
-                DataType::Enum(_enum_name) => VariantType::EnumValue,
+                DataType::Enum(_enum_name) => VariantType::Enum,
 
                 // FIXME?
                 _ => unimplemented!(),

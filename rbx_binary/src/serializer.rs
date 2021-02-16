@@ -9,7 +9,7 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
+        ColorSequenceKeypoint, Enum, Faces, Matrix3, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, UDim, UDim2,
         Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
@@ -342,7 +342,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                     serialized_ty = match &serialized.data_type {
                         DataType::Value(ty) => *ty,
-                        DataType::Enum(_) => VariantType::EnumValue,
+                        DataType::Enum(_) => VariantType::Enum,
 
                         unknown_ty => {
                             // rbx_binary is not new enough to handle this kind
@@ -873,7 +873,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::EnumValue(value) = rbx_value.as_ref() {
+                            if let Variant::Enum(value) = rbx_value.as_ref() {
                                 buf.push(value.to_u32());
                             } else {
                                 return type_mismatch(i, &rbx_value, "Enum");
@@ -1149,7 +1149,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                 Vector3::new(0.0, 0.0, 0.0),
                 Matrix3::identity(),
             )),
-            VariantType::EnumValue => Variant::EnumValue(EnumValue::from_u32(u32::MAX)),
+            VariantType::Enum => Variant::Enum(Enum::from_u32(u32::MAX)),
             VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
             VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
             VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),

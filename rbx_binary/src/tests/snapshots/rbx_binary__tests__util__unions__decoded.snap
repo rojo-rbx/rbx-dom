@@ -22,10 +22,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     BackSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BackSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BottomParamA:
       Type: Float32
@@ -34,10 +34,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     BottomSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BottomSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     CFrame:
       Type: CFrame
@@ -78,7 +78,7 @@ expression: decoded_viewed
       Type: PhysicalProperties
       Value: Default
     FormFactor:
-      Type: EnumValue
+      Type: Enum
       Value: 3
     FrontParamA:
       Type: Float32
@@ -87,10 +87,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     FrontSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     FrontSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     InitialSize:
       Type: Vector3
@@ -108,10 +108,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     LeftSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     LeftSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Locked:
       Type: Bool
@@ -120,7 +120,7 @@ expression: decoded_viewed
       Type: Bool
       Value: false
     Material:
-      Type: EnumValue
+      Type: Enum
       Value: 256
     MeshData:
       Type: BinaryString
@@ -135,7 +135,7 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.0
     RenderFidelity:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     RightParamA:
       Type: Float32
@@ -144,10 +144,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     RightSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     RightSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     RootPriority:
       Type: Int32
@@ -180,10 +180,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     TopSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     TopSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Transparency:
       Type: Float32
@@ -218,10 +218,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     BackSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BackSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BottomParamA:
       Type: Float32
@@ -230,10 +230,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     BottomSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BottomSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     CFrame:
       Type: CFrame
@@ -274,7 +274,7 @@ expression: decoded_viewed
       Type: PhysicalProperties
       Value: Default
     FormFactor:
-      Type: EnumValue
+      Type: Enum
       Value: 3
     FrontParamA:
       Type: Float32
@@ -283,10 +283,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     FrontSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     FrontSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     InitialSize:
       Type: Vector3
@@ -304,10 +304,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     LeftSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     LeftSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Locked:
       Type: Bool
@@ -316,7 +316,7 @@ expression: decoded_viewed
       Type: Bool
       Value: false
     Material:
-      Type: EnumValue
+      Type: Enum
       Value: 256
     MeshData:
       Type: BinaryString
@@ -331,7 +331,7 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.0
     RenderFidelity:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     RightParamA:
       Type: Float32
@@ -340,10 +340,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     RightSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     RightSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     RootPriority:
       Type: Int32
@@ -376,10 +376,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     TopSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     TopSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Transparency:
       Type: Float32
@@ -414,10 +414,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     BackSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BackSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BottomParamA:
       Type: Float32
@@ -426,10 +426,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     BottomSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BottomSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     CFrame:
       Type: CFrame
@@ -470,7 +470,7 @@ expression: decoded_viewed
       Type: PhysicalProperties
       Value: Default
     FormFactor:
-      Type: EnumValue
+      Type: Enum
       Value: 3
     FrontParamA:
       Type: Float32
@@ -479,10 +479,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     FrontSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     FrontSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     InitialSize:
       Type: Vector3
@@ -500,10 +500,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     LeftSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     LeftSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Locked:
       Type: Bool
@@ -512,7 +512,7 @@ expression: decoded_viewed
       Type: Bool
       Value: false
     Material:
-      Type: EnumValue
+      Type: Enum
       Value: 256
     MeshData:
       Type: BinaryString
@@ -527,7 +527,7 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.0
     RenderFidelity:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     RightParamA:
       Type: Float32
@@ -536,10 +536,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     RightSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     RightSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     RootPriority:
       Type: Int32
@@ -572,10 +572,10 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.5
     TopSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     TopSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Transparency:
       Type: Float32

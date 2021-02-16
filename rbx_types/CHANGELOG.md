@@ -1,6 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Renamed `EnumValue` to `Enum`.
 * Added `Display` and `FromStr` implementations for `Ref`.
 
 ## 0.2.0 (2020-04-27)

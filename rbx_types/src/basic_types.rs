@@ -11,11 +11,11 @@
     derive(serde::Serialize, serde::Deserialize),
     serde(transparent)
 )]
-pub struct EnumValue {
+pub struct Enum {
     value: u32,
 }
 
-impl EnumValue {
+impl Enum {
     pub fn from_u32(value: u32) -> Self {
         Self { value }
     }

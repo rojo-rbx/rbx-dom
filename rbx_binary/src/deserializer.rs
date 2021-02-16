@@ -8,7 +8,7 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, CustomPhysicalProperties, EnumValue, Faces, Matrix3,
+        ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Matrix3,
         NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
         SharedString, UDim, UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
@@ -455,7 +455,7 @@ impl<R: Read> BinaryDeserializer<R> {
                 canonical_name = descriptor.name.clone().into_owned();
                 canonical_type = match &descriptor.data_type {
                     DataType::Value(ty) => *ty,
-                    DataType::Enum(_) => VariantType::EnumValue,
+                    DataType::Enum(_) => VariantType::Enum,
                     _ => {
                         // TODO: Configurable handling of unknown types?
                         return Ok(());
@@ -918,7 +918,7 @@ impl<R: Read> BinaryDeserializer<R> {
                 }
             },
             Type::Enum => match canonical_type {
-                VariantType::EnumValue => {
+                VariantType::Enum => {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_u32_array(&mut values)?;
 
@@ -926,7 +926,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance
                             .builder
-                            .add_property(&canonical_name, EnumValue::from_u32(value));
+                            .add_property(&canonical_name, Enum::from_u32(value));
                     }
                 }
                 invalid_type => {

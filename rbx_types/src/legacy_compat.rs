@@ -12,7 +12,7 @@ use rbx_dom_weak::{
 
 use crate::{
     BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
-    CustomPhysicalProperties, EnumValue, Matrix3, NumberRange, NumberSequence,
+    CustomPhysicalProperties, Enum, Matrix3, NumberRange, NumberSequence,
     NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Variant,
     Vector2, Vector2int16, Vector3, Vector3int16,
 };
@@ -66,7 +66,7 @@ impl TryFrom<RbxValue> for Variant {
             }
 
             RbxValue::Content { value } => Variant::Content(value.into()),
-            RbxValue::Enum { value } => Variant::EnumValue(EnumValue::from_u32(value)),
+            RbxValue::Enum { value } => Variant::Enum(Enum::from_u32(value)),
             RbxValue::NumberRange { value } => Variant::NumberRange(NumberRange {
                 min: value.0,
                 max: value.1,
@@ -205,7 +205,7 @@ impl TryFrom<Variant> for RbxValue {
             Variant::Content(value) => RbxValue::Content {
                 value: value.into_string(),
             },
-            Variant::EnumValue(value) => RbxValue::Enum {
+            Variant::Enum(value) => RbxValue::Enum {
                 value: value.to_u32(),
             },
             Variant::NumberRange(value) => RbxValue::NumberRange {

@@ -24,7 +24,7 @@ expression: decoded_viewed
       Type: Bool
       Value: true
     AutomaticSize:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BackgroundColor3:
       Type: Color3
@@ -42,7 +42,7 @@ expression: decoded_viewed
         - 0.16470588743686677
         - 0.20784315466880799
     BorderMode:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BorderSizePixel:
       Type: Int32
@@ -103,7 +103,7 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.0
     ScaleType:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     Selectable:
       Type: Bool
@@ -120,7 +120,7 @@ expression: decoded_viewed
         - - 0.0
           - 100
     SizeConstraint:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     SliceCenter:
       Type: Rect
@@ -136,7 +136,7 @@ expression: decoded_viewed
       Type: Int64
       Value: -1
     Style:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Tags:
       Type: BinaryString
@@ -177,7 +177,7 @@ expression: decoded_viewed
       Type: Bool
       Value: true
     AutomaticSize:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BackgroundColor3:
       Type: Color3
@@ -195,7 +195,7 @@ expression: decoded_viewed
         - 0.16470588743686677
         - 0.20784315466880799
     BorderMode:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BorderSizePixel:
       Type: Int32
@@ -256,7 +256,7 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.0
     ScaleType:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     Selectable:
       Type: Bool
@@ -273,7 +273,7 @@ expression: decoded_viewed
         - - 0.0
           - 100
     SizeConstraint:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     SliceCenter:
       Type: Rect
@@ -289,7 +289,7 @@ expression: decoded_viewed
       Type: Int64
       Value: -1
     Style:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Tags:
       Type: BinaryString

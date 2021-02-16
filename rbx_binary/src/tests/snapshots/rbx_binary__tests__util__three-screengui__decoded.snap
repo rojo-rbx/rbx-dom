@@ -29,7 +29,7 @@ expression: decoded_viewed
       Type: BinaryString
       Value: ""
     ZIndexBehavior:
-      Type: EnumValue
+      Type: Enum
       Value: 1
   children: []
 - referent: referent-1
@@ -59,7 +59,7 @@ expression: decoded_viewed
       Type: BinaryString
       Value: ""
     ZIndexBehavior:
-      Type: EnumValue
+      Type: Enum
       Value: 1
   children: []
 - referent: referent-2
@@ -89,6 +89,6 @@ expression: decoded_viewed
       Type: BinaryString
       Value: ""
     ZIndexBehavior:
-      Type: EnumValue
+      Type: Enum
       Value: 1
   children: []

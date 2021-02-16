@@ -19,10 +19,10 @@ expression: viewer.view_children(&dom)
       Type: Float32
       Value: 0.5
     BackSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BackSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BottomParamA:
       Type: Float32
@@ -31,10 +31,10 @@ expression: viewer.view_children(&dom)
       Type: Float32
       Value: 0.5
     BottomSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BottomSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     CFrame:
       Type: CFrame
@@ -72,7 +72,7 @@ expression: viewer.view_children(&dom)
       Type: PhysicalProperties
       Value: Default
     FormFactor:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     FrontParamA:
       Type: Float32
@@ -81,10 +81,10 @@ expression: viewer.view_children(&dom)
       Type: Float32
       Value: 0.5
     FrontSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     FrontSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     LeftParamA:
       Type: Float32
@@ -93,10 +93,10 @@ expression: viewer.view_children(&dom)
       Type: Float32
       Value: 0.5
     LeftSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     LeftSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Locked:
       Type: Bool
@@ -105,7 +105,7 @@ expression: viewer.view_children(&dom)
       Type: Bool
       Value: false
     Material:
-      Type: EnumValue
+      Type: Enum
       Value: 256
     Reflectance:
       Type: Float32
@@ -117,10 +117,10 @@ expression: viewer.view_children(&dom)
       Type: Float32
       Value: 0.5
     RightSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     RightSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     RootPriority:
       Type: Int32
@@ -132,7 +132,7 @@ expression: viewer.view_children(&dom)
         - 0.0
         - 0.0
     Shape:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     Size:
       Type: Vector3
@@ -150,10 +150,10 @@ expression: viewer.view_children(&dom)
       Type: Float32
       Value: 0.5
     TopSurface:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     TopSurfaceInput:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Transparency:
       Type: Float32

@@ -24,25 +24,25 @@ expression: decoded_viewed
         - - -0.30000001192092898
           - 300
     FillDirection:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     FillDirectionMaxCells:
       Type: Int32
       Value: 0
     HorizontalAlignment:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     SortOrder:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     StartCorner:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Tags:
       Type: BinaryString
       Value: ""
     VerticalAlignment:
-      Type: EnumValue
+      Type: Enum
       Value: 1
   children: []
 - referent: referent-1
@@ -67,25 +67,25 @@ expression: decoded_viewed
         - - -0.699999988079071
           - 1000
     FillDirection:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     FillDirectionMaxCells:
       Type: Int32
       Value: 0
     HorizontalAlignment:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     SortOrder:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     StartCorner:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Tags:
       Type: BinaryString
       Value: ""
     VerticalAlignment:
-      Type: EnumValue
+      Type: Enum
       Value: 1
   children: []
 - referent: referent-2
@@ -110,24 +110,24 @@ expression: decoded_viewed
         - - -1.100000023841858
           - 1200
     FillDirection:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     FillDirectionMaxCells:
       Type: Int32
       Value: 0
     HorizontalAlignment:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     SortOrder:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     StartCorner:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Tags:
       Type: BinaryString
       Value: ""
     VerticalAlignment:
-      Type: EnumValue
+      Type: Enum
       Value: 1
   children: []

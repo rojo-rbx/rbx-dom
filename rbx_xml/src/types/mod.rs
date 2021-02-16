@@ -31,7 +31,7 @@ mod vectors;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, EnumValue, Faces,
+    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, Enum, Faces,
     NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, Vector2,
     Vector2int16, Vector3, Vector3int16,
 };
@@ -119,7 +119,7 @@ declare_rbx_types! {
     Color3uint8: Color3uint8,
     ColorSequence: ColorSequence,
     Content: Content,
-    EnumValue: EnumValue,
+    Enum: Enum,
     Faces: Faces,
     Float32: f32,
     Float64: f64,

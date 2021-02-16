@@ -36,7 +36,7 @@ expression: decoded_viewed
         - 0.0
         - 0.49803921580314639
     BorderMode:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BorderSizePixel:
       Type: Int32
@@ -77,10 +77,10 @@ expression: decoded_viewed
         - - 0.20000000298023225
           - 4
     SizeConstraint:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     Style:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Tags:
       Type: BinaryString
@@ -126,7 +126,7 @@ expression: decoded_viewed
         - 0.0
         - 1.0
     BorderMode:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BorderSizePixel:
       Type: Int32
@@ -167,10 +167,10 @@ expression: decoded_viewed
         - - 0.4000000059604645
           - 32
     SizeConstraint:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Style:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Tags:
       Type: BinaryString
@@ -216,7 +216,7 @@ expression: decoded_viewed
         - 1.0
         - 0.0
     BorderMode:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     BorderSizePixel:
       Type: Int32
@@ -257,10 +257,10 @@ expression: decoded_viewed
         - - 0.6000000238418579
           - 128
     SizeConstraint:
-      Type: EnumValue
+      Type: Enum
       Value: 2
     Style:
-      Type: EnumValue
+      Type: Enum
       Value: 0
     Tags:
       Type: BinaryString

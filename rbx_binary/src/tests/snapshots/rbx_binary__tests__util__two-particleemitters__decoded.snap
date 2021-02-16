@@ -33,7 +33,7 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.0
     EmissionDirection:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     Enabled:
       Type: Bool
@@ -151,7 +151,7 @@ expression: decoded_viewed
       Type: Float32
       Value: 0.0
     EmissionDirection:
-      Type: EnumValue
+      Type: Enum
       Value: 1
     Enabled:
       Type: Bool

@@ -8,7 +8,7 @@ use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
-    CustomPhysicalProperties, EnumValue, Faces, Matrix3, NumberRange, NumberSequence,
+    CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange, NumberSequence,
     NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
     Vector3, Vector3int16,
 };
@@ -213,7 +213,7 @@ pub enum DecodedValues {
     Vector2(Vec<Vector2>),
     Vector3(Vec<Vector3>),
     CFrame(Vec<CFrame>),
-    Enum(Vec<EnumValue>),
+    Enum(Vec<Enum>),
     Ref(Vec<i32>),
     Vector3int16(Vec<Vector3int16>),
     NumberSequence(Vec<NumberSequence>),
@@ -410,7 +410,7 @@ impl DecodedValues {
                 let mut ints = vec![0; prop_count];
                 reader.read_interleaved_u32_array(&mut ints).unwrap();
 
-                let values = ints.into_iter().map(EnumValue::from_u32).collect();
+                let values = ints.into_iter().map(Enum::from_u32).collect();
 
                 Some(DecodedValues::Enum(values))
             }

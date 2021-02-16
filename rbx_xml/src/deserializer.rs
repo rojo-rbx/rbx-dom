@@ -553,7 +553,7 @@ fn deserialize_properties<R: Read>(
             // - BrickColor properties turning into Color3
             let expected_type = match &descriptor.data_type {
                 DataType::Value(data_type) => *data_type,
-                DataType::Enum(_enum_name) => VariantType::EnumValue,
+                DataType::Enum(_enum_name) => VariantType::Enum,
 
                 // FIXME?
                 _ => unimplemented!(),
