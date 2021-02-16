@@ -10,7 +10,7 @@ expression: decoded_viewed
       Type: Bool
       Value: false
     AssetId:
-      Type: BinaryString
+      Type: Content
       Value: ""
     AttributesSerialize:
       Type: BinaryString
@@ -206,7 +206,7 @@ expression: decoded_viewed
       Type: Bool
       Value: false
     AssetId:
-      Type: BinaryString
+      Type: Content
       Value: ""
     AttributesSerialize:
       Type: BinaryString
@@ -402,7 +402,7 @@ expression: decoded_viewed
       Type: Bool
       Value: false
     AssetId:
-      Type: BinaryString
+      Type: Content
       Value: ""
     AttributesSerialize:
       Type: BinaryString
