@@ -8,5 +8,6 @@ if [ "$1" = "--dry-run" ]; then
 else
 	cargo run --bin generate_reflection -- \
 		--msgpack rbx_reflection_database/database.msgpack \
-		--json rbx_dom_lua/src/database.json
+		--json rbx_dom_lua/src/database.json \
+		--values rbx_dom_lua/src/allValues.json
 fi

@@ -2,6 +2,7 @@ mod api_dump;
 mod defaults_place;
 mod plugin_injector;
 mod property_patches;
+mod values;
 
 use std::fs;
 use std::path::PathBuf;
@@ -20,6 +21,9 @@ struct Options {
 
     #[structopt(long = "msgpack")]
     msgpack_path: Option<PathBuf>,
+
+    #[structopt(long = "values")]
+    values_path: Option<PathBuf>,
 }
 
 fn run(options: Options) -> anyhow::Result<()> {
@@ -44,6 +48,10 @@ fn run(options: Options) -> anyhow::Result<()> {
     if let Some(path) = &options.json_path {
         let encoded = serde_json::to_string_pretty(&database)?;
         fs::write(&path, encoded)?;
+    }
+
+    if let Some(path) = &options.values_path {
+        fs::write(&path, values::encode()?)?;
     }
 
     Ok(())
