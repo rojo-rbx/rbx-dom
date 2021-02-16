@@ -2,6 +2,12 @@
 
 ## Unreleased Changes
 
+## 4.0.0-alpha.1 (2021-02-16)
+This is a major breaking change as part of the rbx-dom v2 initiative!
+
+* Changed library's role to only contain datatypes, not actual data.
+  * Data has moved to the rbx\_reflection_database crate.
+
 ## 3.3.418 (2020-02-08)
 * Updated reflection database to client 0.418.1.380321
 
