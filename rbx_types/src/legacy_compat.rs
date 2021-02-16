@@ -12,9 +12,9 @@ use rbx_dom_weak::{
 
 use crate::{
     BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
-    CustomPhysicalProperties, Enum, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Variant,
-    Vector2, Vector2int16, Vector3, Vector3int16,
+    CustomPhysicalProperties, Enum, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+    PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Variant, Vector2, Vector2int16,
+    Vector3, Vector3int16,
 };
 
 impl TryFrom<RbxValue> for Variant {
