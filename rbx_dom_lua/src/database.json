@@ -14755,7 +14755,7 @@
         },
         "SourceAssetId": {
           "Name": "SourceAssetId",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
