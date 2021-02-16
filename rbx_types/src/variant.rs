@@ -100,7 +100,6 @@ make_variant! {
     Color3uint8(Color3uint8),
     ColorSequence(ColorSequence),
     Content(Content),
-    #[serde(alias = "EnumValue")]
     Enum(Enum),
     Faces(Faces),
     Float32(f32),
