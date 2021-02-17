@@ -22,7 +22,7 @@ name = "rbx-util"
 [dependencies]
 anyhow = "1.0.31"
 fs-err = "2.3.0"
-rbx_binary = { path = "../rbx_binary", version = "0.6.0-dev", features = ["unstable_text_format"] }
-rbx_xml = { path = "../rbx_xml", version = "0.12.0-dev" }
+rbx_binary = { path = "../rbx_binary", features = ["unstable_text_format"] }
+rbx_xml = { path = "../rbx_xml" }
 serde_yaml = "0.8.13"
 structopt = "0.3.15"

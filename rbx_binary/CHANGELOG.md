@@ -1,20 +1,13 @@
 # rbx_binary Changelog
 
 ## Unreleased
-This release is a major, breaking change that upgrades rbx_xml's underlying DOM implementation from rbx_dom_weak 1.0 to 2.0. This release also realigned rbx_binary's API to match rbx_xml.
 
-* Breaking: ported crate to rbx_dom_weak 2.0
+## 0.6.0-alpha.1 (2021-02-16)
+This release is a major, breaking change that upgrades rbx\_xml's underlying DOM implementation from rbx\_dom\_weak 1.0 to 2.0. This release also realigned rbx\_binary's API to match rbx_xml.
+
+* Breaking: ported crate to rbx\_dom_weak 2.0
 * Breaking: updated top-level API to match rbx_xml.
-* Added support for many new types:
-	* `BinaryString` and `Content`
-	* `Axes`
-	* `CFrame`
-	* `Color3` and `Color3uint8`
-	* `Enum`
-	* `Faces`
-	* `Float32`, `Float64`, `Int32`, and `Int64`
-	* `UDim` and `UDim2`
-	* `Vector2` and `Vector3`
+* Added support for all remaining types.
 
 ## 0.5.0 (2019-12-18)
 0.5.0 is intended to be mostly API-compatible with previous rbx_binary releases because it makes a lot of foundational changes. 0.6.0 will break the rbx_binary API significantly.
