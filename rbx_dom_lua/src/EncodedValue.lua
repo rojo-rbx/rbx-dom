@@ -252,7 +252,7 @@ types = {
 	
 	PhysicalProperties = {
 		fromPod = function(pod)
-			if pod == nil then
+			if pod == "Default" then
 				return nil
 			else
 				return PhysicalProperties.new(
@@ -267,7 +267,7 @@ types = {
 
 		toPod = function(roblox)
 			if roblox == nil then
-				return nil
+				return "Default"
 			else
 				return {
 					Density = roblox.Density,

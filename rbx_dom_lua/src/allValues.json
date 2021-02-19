@@ -195,7 +195,7 @@
     },
     "ty": "NumberSequence"
   },
-  "PhysicalProperties": {
+  "PhysicalProperties-Custom": {
     "value": {
       "Type": "PhysicalProperties",
       "Value": {
@@ -205,6 +205,13 @@
         "FrictionWeight": 50.0,
         "ElasticityWeight": 25.0
       }
+    },
+    "ty": "PhysicalProperties"
+  },
+  "PhysicalProperties-Default": {
+    "value": {
+      "Type": "PhysicalProperties",
+      "Value": "Default"
     },
     "ty": "PhysicalProperties"
   },

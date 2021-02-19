@@ -70,7 +70,7 @@ pub fn encode() -> anyhow::Result<String> {
         .into(),
     );
     values.insert(
-        "PhysicalProperties",
+        "PhysicalProperties-Custom",
         PhysicalProperties::Custom(CustomPhysicalProperties {
             density: 0.5,
             friction: 1.0,
@@ -79,6 +79,10 @@ pub fn encode() -> anyhow::Result<String> {
             elasticity_weight: 25.0,
         })
         .into(),
+    );
+    values.insert(
+        "PhysicalProperties-Default",
+        PhysicalProperties::Default.into(),
     );
     values.insert(
         "Ray",
