@@ -563,6 +563,7 @@ The `Rect` type is a struct composed of two Vector2s:
 Two encoded Rects with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0, 1, 5, 6)` look like this: `7f 00 00 00 00 00 01 00 82 7f 40 00 00 00 01 00 82 81 00 40 00 00 00 00 82 81 20 80 00 00 00 00`.
 
 ### PhysicalProperties
+**Type ID 0x19**
 
 The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five f32s:
 
@@ -577,8 +578,6 @@ The `PhysicalProperties` type contains a flag which may be followed by a `Custom
 If there is no `CustomPhysicalProperties` value, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by a `CustomPhysicalProperties` stored as little-endian floats (in the same order as the above table). When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
 
 A default `PhysicalProperties` (i.e. no custom properties set) followed by a `PhysicalProperties` of value `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)` looks like this: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`.
-
-**Type ID 0x19**
 
 ### Color3uint8
 **Type ID 0x1A**
