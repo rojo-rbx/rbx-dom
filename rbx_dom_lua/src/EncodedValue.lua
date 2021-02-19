@@ -71,17 +71,18 @@ types = {
 
 	CFrame = {
 		fromPod = function(pod)
-			return CFrame.fromMatrix(
-				types.Vector3.fromPod(pod.Position),
-				types.Vector3.fromPod(pod.Orientation[1]),
-				types.Vector3.fromPod(pod.Orientation[2]),
-				types.Vector3.fromPod(pod.Orientation[3])
+			local pos = pod.Position
+			local orient = pod.Orientation
+
+			return CFrame.new(
+				pos[1], pos[2], pos[3],
+				orient[1][1], orient[1][2], orient[1][3],
+				orient[2][1], orient[2][2], orient[2][3],
+				orient[3][1], orient[3][2], orient[3][3]
 			)
 		end,
 
 		toPod = function(roblox)
-			-- FIXME: Use X, Y, Z, XVector, YVector, and ZVector instead for
-			-- clarity.
 			local x, y, z,
 				r00, r01, r02,
 				r10, r11, r12,
@@ -90,14 +91,14 @@ types = {
 			return {
 				Position = {x, y, z},
 				Orientation = {
-					{r00, r10, r20},
-					{r01, r11, r21},
-					{r02, r12, r22},
+					{r00, r01, r02},
+					{r10, r11, r12},
+					{r20, r21, r22},
 				},
 			}
 		end,
 	},
-	
+
 	Color3 = {
 		fromPod = unpackDecoder(Color3.new),
 
@@ -105,7 +106,7 @@ types = {
 			return {roblox.r, roblox.g, roblox.b}
 		end,
 	},
-	
+
 	Color3uint8 = {
 		fromPod = unpackDecoder(Color3.fromRGB),
 
@@ -117,7 +118,7 @@ types = {
 			}
 		end,
 	},
-	
+
 	ColorSequence = {
 		fromPod = function(pod)
 			local keypoints = {}
@@ -147,12 +148,12 @@ types = {
 			}
 		end,
 	},
-	
+
 	Content = {
 		fromPod = identity,
 		toPod = identity,
 	},
-	
+
 	Enum = {
 		fromPod = identity,
 
@@ -165,7 +166,7 @@ types = {
 			end
 		end,
 	},
-	
+
 	Faces = {
 		fromPod = function(pod)
 			local faces = {}
@@ -189,27 +190,27 @@ types = {
 			return pod
 		end,
 	},
-	
+
 	Float32 = {
 		fromPod = identity,
 		toPod = serializeFloat,
 	},
-	
+
 	Float64 = {
 		fromPod = identity,
 		toPod = serializeFloat,
 	},
-	
+
 	Int32 = {
 		fromPod = identity,
 		toPod = identity,
 	},
-	
+
 	Int64 = {
 		fromPod = identity,
 		toPod = identity,
 	},
-	
+
 	NumberRange = {
 		fromPod = unpackDecoder(NumberRange.new),
 
@@ -217,7 +218,7 @@ types = {
 			return {roblox.Min, roblox.Max}
 		end,
 	},
-	
+
 	NumberSequence = {
 		fromPod = function(pod)
 			local keypoints = {}
@@ -249,7 +250,7 @@ types = {
 			}
 		end,
 	},
-	
+
 	PhysicalProperties = {
 		fromPod = function(pod)
 			if pod == "Default" then
@@ -279,7 +280,7 @@ types = {
 			end
 		end,
 	},
-	
+
 	Ray = {
 		fromPod = function(pod)
 			return Ray.new(
@@ -295,7 +296,7 @@ types = {
 			}
 		end,
 	},
-	
+
 	Rect = {
 		fromPod = function(pod)
 			return Rect.new(
@@ -311,7 +312,7 @@ types = {
 			}
 		end,
 	},
-	
+
 	Ref = {
 		fromPod = function(_pod)
 			error("Ref cannot be decoded on its own")
@@ -321,7 +322,7 @@ types = {
 			error("Ref can not be encoded on its own")
 		end,
 	},
-	
+
 	Region3 = {
 		fromPod = function(pod)
 			error("Region3 is not implemented")
@@ -331,7 +332,7 @@ types = {
 			error("Region3 is not implemented")
 		end,
 	},
-	
+
 	Region3int16 = {
 		fromPod = function(pod)
 			return Region3int16.new(
@@ -347,7 +348,7 @@ types = {
 			}
 		end,
 	},
-	
+
 	SharedString = {
 		fromPod = function(pod)
 			error("SharedString is not supported")
@@ -357,12 +358,12 @@ types = {
 			error("SharedString is not supported")
 		end,
 	},
-	
+
 	String = {
 		fromPod = identity,
 		toPod = identity,
 	},
-	
+
 	UDim = {
 		fromPod = unpackDecoder(UDim.new),
 
@@ -370,7 +371,7 @@ types = {
 			return {roblox.Scale, roblox.Offset}
 		end,
 	},
-	
+
 	UDim2 = {
 		fromPod = function(pod)
 			return UDim2.new(
@@ -386,7 +387,7 @@ types = {
 			}
 		end,
 	},
-	
+
 	Vector2 = {
 		fromPod = unpackDecoder(Vector2.new),
 
@@ -397,7 +398,7 @@ types = {
 			}
 		end,
 	},
-	
+
 	Vector2int16 = {
 		fromPod = unpackDecoder(Vector2int16.new),
 
@@ -405,7 +406,7 @@ types = {
 			return {roblox.X, roblox.Y}
 		end,
 	},
-	
+
 	Vector3 = {
 		fromPod = unpackDecoder(Vector3.new),
 
@@ -417,7 +418,7 @@ types = {
 			}
 		end,
 	},
-	
+
 	Vector3int16 = {
 		fromPod = unpackDecoder(Vector3int16.new),
 
