@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Added support for widening integer types when serializing.
+    * `Int32` will widen to `Int64`, `Float32` will widen to `Float64`.
 
 ## 0.6.0-alpha.1 (2021-02-16)
 This release is a major, breaking change that upgrades rbx\_xml's underlying DOM implementation from rbx\_dom\_weak 1.0 to 2.0. This release also realigned rbx\_binary's API to match rbx_xml.

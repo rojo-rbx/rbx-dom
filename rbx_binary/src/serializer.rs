@@ -682,10 +682,14 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     }
                     Type::Float64 => {
                         for (i, rbx_value) in values {
-                            if let Variant::Float64(value) = rbx_value.as_ref() {
-                                chunk.write_le_f64(*value)?;
-                            } else {
-                                return type_mismatch(i, &rbx_value, "Float64");
+                            match rbx_value.as_ref() {
+                                Variant::Float64(value) => {
+                                    chunk.write_le_f64(*value)?;
+                                }
+                                Variant::Float32(value) => {
+                                    chunk.write_le_f64(*value as f64)?;
+                                }
+                                _ => return type_mismatch(i, &rbx_value, "Float64"),
                             }
                         }
                     }
@@ -1020,10 +1024,14 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Int64(value) = rbx_value.as_ref() {
-                                buf.push(*value);
-                            } else {
-                                return type_mismatch(i, &rbx_value, "Int64");
+                            match rbx_value.as_ref() {
+                                Variant::Int64(value) => {
+                                    buf.push(*value);
+                                }
+                                Variant::Int32(value) => {
+                                    buf.push(*value as i64);
+                                }
+                                _ => return type_mismatch(i, &rbx_value, "Int64"),
                             }
                         }
 
