@@ -96,8 +96,8 @@ macro_rules! declare_rbx_types {
 
                 // BrickColor values just encode as 32-bit ints, and have no
                 // unique appearance for reading.
-                // Variant::BrickColor(value) =>
-                //     self::numbers::Int32Type::write_xml(writer, xml_property_name, &(*value as i32)),
+                Variant::BrickColor(value) =>
+                    (*value as i32).write_outer_xml(xml_property_name, writer),
 
                 Variant::Ref(value) => write_ref(writer, xml_property_name, *value, state),
                 Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),

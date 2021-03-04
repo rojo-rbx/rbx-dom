@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Fixed support for writing `BrickColor` values.
 
 ## 0.12.0-alpha.1 (2021-02-16)
 This release is a major, breaking change that upgrades rbx_xml's underlying DOM implementation from rbx_dom_weak 1.0 to 2.0.

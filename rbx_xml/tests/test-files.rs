@@ -24,6 +24,7 @@ macro_rules! test_models {
 }
 
 test_models! {
+    ball_socket_constraint: "ball-socket-constraint",
     default_inserted_folder: "default-inserted-folder",
     default_inserted_part: "default-inserted-part",
     // faces: "faces",
