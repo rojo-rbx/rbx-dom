@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.6.0-alpha.2 (2021-03-04)
 * Added support for widening integer types when serializing.
     * `Int32` will widen to `Int64`, `Float32` will widen to `Float64`.
 
