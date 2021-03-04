@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.12.0-alpha.2 (2021-03-04)
 * Fixed support for writing `BrickColor` values.
 
 ## 0.12.0-alpha.1 (2021-02-16)
