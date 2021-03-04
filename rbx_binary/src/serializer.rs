@@ -647,13 +647,10 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                     }
                     Type::Bool => {
                         for (i, rbx_value) in values {
-                            match rbx_value.as_ref() {
-                                Variant::Bool(value) => {
-                                    chunk.write_bool(*value)?;
-                                }
-                                _ => {
-                                    return type_mismatch(i, &rbx_value, "Bool");
-                                }
+                            if let Variant::Bool(value) = rbx_value.as_ref() {
+                                chunk.write_bool(*value)?;
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Bool");
                             }
                         }
                     }
