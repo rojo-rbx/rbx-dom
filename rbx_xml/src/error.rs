@@ -91,6 +91,7 @@ pub(crate) enum DecodeErrorKind {
         property_name: String,
         expected_type: VariantType,
         actual_type: VariantType,
+        message: String,
     },
 }
 
@@ -134,10 +135,12 @@ impl fmt::Display for DecodeErrorKind {
                 property_name,
                 expected_type,
                 actual_type,
+                message,
             } => write!(
                 output,
-                "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
-                class_name, property_name, expected_type, actual_type
+                "Property {}.{} is expected to be of type {:?}, but it was of type {:?} \
+                 When trying to convert, this error occured: {}",
+                class_name, property_name, expected_type, actual_type, message
             ),
         }
     }
@@ -235,6 +238,7 @@ pub(crate) enum EncodeErrorKind {
         property_name: String,
         expected_type: VariantType,
         actual_type: VariantType,
+        message: String,
     },
 }
 
@@ -262,10 +266,12 @@ impl fmt::Display for EncodeErrorKind {
                 property_name,
                 expected_type,
                 actual_type,
+                message,
             } => write!(
                 output,
-                "Property {}.{} is expected to be of type {:?}, but it was of type {:?}",
-                class_name, property_name, expected_type, actual_type
+                "Property {}.{} is expected to be of type {:?}, but it was of type {:?} \
+                 When trying to convert the value, this error occured: {}",
+                class_name, property_name, expected_type, actual_type, message
             ),
         }
     }

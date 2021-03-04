@@ -1,4 +1,4 @@
-use std::{borrow::Cow, collections::HashMap, io::Write};
+use std::{collections::HashMap, io::Write};
 
 use rbx_dom_weak::{
     types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
@@ -7,7 +7,7 @@ use rbx_dom_weak::{
 use rbx_reflection::DataType;
 
 use crate::{
-    compat::{TodoValueConversion, TodoValueConversionType},
+    conversion::ConvertVariant,
     core::find_serialized_property_descriptor,
     error::{EncodeError as NewEncodeError, EncodeErrorKind},
     types::write_value_xml,
@@ -188,21 +188,19 @@ fn serialize_instance<'a, W: Write>(
             let data_type = match &serialized_descriptor.data_type {
                 DataType::Value(data_type) => *data_type,
                 DataType::Enum(_enum_name) => VariantType::Enum,
-
-                // FIXME?
                 _ => unimplemented!(),
             };
 
             let converted_value = match value.try_convert_ref(data_type) {
-                TodoValueConversionType::Converted(converted) => Cow::Owned(converted),
-                TodoValueConversionType::Unnecessary => Cow::Borrowed(value),
-                TodoValueConversionType::Failed => {
+                Ok(value) => value,
+                Err(message) => {
                     return Err(
                         writer.error(EncodeErrorKind::UnsupportedPropertyConversion {
                             class_name: instance.class.clone(),
                             property_name: property_name.to_string(),
                             expected_type: data_type,
                             actual_type: value.ty(),
+                            message,
                         }),
                     )
                 }

@@ -8,7 +8,7 @@ use rbx_dom_weak::{
 use rbx_reflection::DataType;
 
 use crate::{
-    compat::{TodoValueConversion, TodoValueConversionType},
+    conversion::ConvertVariant,
     core::find_canonical_property_descriptor,
     error::{DecodeError, DecodeErrorKind},
     types::read_value_xml,
@@ -539,8 +539,10 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let xml_value =
+            let value =
                 read_value_xml(reader, state, &xml_type_name, instance_id, &descriptor.name)?;
+
+            let xml_ty = value.ty();
 
             // The property descriptor might specify a different type than the
             // one we saw in the XML.
@@ -554,30 +556,22 @@ fn deserialize_properties<R: Read>(
             let expected_type = match &descriptor.data_type {
                 DataType::Value(data_type) => *data_type,
                 DataType::Enum(_enum_name) => VariantType::Enum,
-
-                // FIXME?
                 _ => unimplemented!(),
             };
 
-            let value = match xml_value.try_convert_ref(expected_type) {
-                // In this case, the property descriptor disagreed with the type
-                // in the file, but there was a conversion available.
-                TodoValueConversionType::Converted(value) => value,
-
-                // The property descriptor agreed with the type from the file,
-                // or the type in the descriptor was unknown and the
-                // deserializer is configured to ignore those issues
-                TodoValueConversionType::Unnecessary => xml_value,
+            let value = match value.try_convert(expected_type) {
+                Ok(value) => value,
 
                 // The property descriptor disagreed, and there was no
                 // conversion available. This is always an error.
-                TodoValueConversionType::Failed => {
+                Err(message) => {
                     return Err(
                         reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
                             class_name: class_name.clone(),
                             property_name: descriptor.name.to_string(),
                             expected_type,
-                            actual_type: xml_value.ty(),
+                            actual_type: xml_ty,
+                            message,
                         }),
                     );
                 }

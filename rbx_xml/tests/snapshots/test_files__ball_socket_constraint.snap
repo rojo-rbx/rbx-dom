@@ -12,7 +12,7 @@ expression: viewer.view_children(&dom)
       Type: BinaryString
       Value: ""
     Color:
-      Type: Int32
+      Type: BrickColor
       Value: 1009
     Enabled:
       Type: Bool

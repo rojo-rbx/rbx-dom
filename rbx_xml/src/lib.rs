@@ -105,8 +105,7 @@
 
 #![deny(missing_docs)]
 
-mod compat;
-
+mod conversion;
 mod core;
 mod deserializer;
 mod deserializer_core;
