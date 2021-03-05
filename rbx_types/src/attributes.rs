@@ -146,7 +146,7 @@ pub fn get_attributes<R: Read>(
 
                 Variant::BrickColor(
                     BrickColor::from_number(color as u16)
-                        .ok_or_else(|| AttributeDeserializeError::InvalidBrickColor(color))?,
+                        .ok_or(AttributeDeserializeError::InvalidBrickColor(color))?,
                 )
             }
 
