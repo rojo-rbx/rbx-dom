@@ -121,7 +121,7 @@ mod tests {
         let attributes =
             get_attributes(&attributes_value[..]).expect("couldn't deserialize attributes");
 
-        let mut attributes_stable_order = attributes.clone().into_iter().collect::<Vec<_>>();
+        let mut attributes_stable_order = attributes.into_iter().collect::<Vec<_>>();
         attributes_stable_order.sort_by_cached_key(|(key, _)| key.to_owned());
         insta::assert_yaml_snapshot!(attributes_stable_order);
 
