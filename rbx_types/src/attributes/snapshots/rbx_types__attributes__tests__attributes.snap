@@ -1,5 +1,5 @@
 ---
-source: rbx_types/src/attributes.rs
+source: rbx_types/src/attributes/mod.rs
 expression: attributes_stable_order
 ---
 - - Boolean
