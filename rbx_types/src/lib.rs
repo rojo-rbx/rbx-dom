@@ -5,6 +5,7 @@ mod serde_util;
 #[cfg(feature = "legacy-compat")]
 mod legacy_compat;
 
+mod attributes;
 mod axes;
 mod basic_types;
 mod binary_string;
@@ -17,6 +18,7 @@ mod referent;
 mod shared_string;
 mod variant;
 
+pub use attributes::*;
 pub use axes::*;
 pub use basic_types::*;
 pub use binary_string::*;
