@@ -2,19 +2,51 @@
 source: rbx_types/src/attributes/mod.rs
 expression: attributes_stable_order
 ---
-- - Boolean
+- - - 66
+    - 111
+    - 111
+    - 108
+    - 101
+    - 97
+    - 110
   - Type: Bool
     Value: true
-- - BrickColor
+- - - 66
+    - 114
+    - 105
+    - 99
+    - 107
+    - 67
+    - 111
+    - 108
+    - 111
+    - 114
   - Type: BrickColor
     Value: 1004
-- - Color3
+- - - 67
+    - 111
+    - 108
+    - 111
+    - 114
+    - 51
   - Type: Color3
     Value:
       - 0.6352941393852234
       - 0.0
       - 1.0
-- - ColorSequence
+- - - 67
+    - 111
+    - 108
+    - 111
+    - 114
+    - 83
+    - 101
+    - 113
+    - 117
+    - 101
+    - 110
+    - 99
+    - 101
   - Type: ColorSequence
     Value:
       Keypoints:
@@ -33,21 +65,58 @@ expression: attributes_stable_order
             - 0.0
             - 0.0
             - 1.0
-- - Infinity
+- - - 73
+    - 110
+    - 102
+    - 105
+    - 110
+    - 105
+    - 116
+    - 121
   - Type: Float64
     Value: .inf
-- - "NaN"
+- - - 78
+    - 97
+    - 78
   - Type: Float64
     Value: .nan
-- - Number
+- - - 78
+    - 117
+    - 109
+    - 98
+    - 101
+    - 114
   - Type: Float64
     Value: 12345.0
-- - NumberRange
+- - - 78
+    - 117
+    - 109
+    - 98
+    - 101
+    - 114
+    - 82
+    - 97
+    - 110
+    - 103
+    - 101
   - Type: NumberRange
     Value:
       - 5.0
       - 10.0
-- - NumberSequence
+- - - 78
+    - 117
+    - 109
+    - 98
+    - 101
+    - 114
+    - 83
+    - 101
+    - 113
+    - 117
+    - 101
+    - 110
+    - 99
+    - 101
   - Type: NumberSequence
     Value:
       Keypoints:
@@ -60,34 +129,61 @@ expression: attributes_stable_order
         - Time: 1.0
           Value: 1.0
           Envelope: 0.0
-- - Rect
+- - - 82
+    - 101
+    - 99
+    - 116
   - Type: Rect
     Value:
       - - 1.0
         - 2.0
       - - 3.0
         - 4.0
-- - String
-  - Type: String
-    Value: "Hello, world!"
-- - UDim
+- - - 83
+    - 116
+    - 114
+    - 105
+    - 110
+    - 103
+  - Type: BinaryString
+    Value: SGVsbG8sIHdvcmxkIQ==
+- - - 85
+    - 68
+    - 105
+    - 109
   - Type: UDim
     Value:
       - 0.5
       - 100
-- - UDim2
+- - - 85
+    - 68
+    - 105
+    - 109
+    - 50
   - Type: UDim2
     Value:
       - - 0.5
         - 10
       - - 0.699999988079071
         - 30
-- - Vector2
+- - - 86
+    - 101
+    - 99
+    - 116
+    - 111
+    - 114
+    - 50
   - Type: Vector2
     Value:
       - 10.0
       - 50.0
-- - Vector3
+- - - 86
+    - 101
+    - 99
+    - 116
+    - 111
+    - 114
+    - 51
   - Type: Vector3
     Value:
       - 1.0

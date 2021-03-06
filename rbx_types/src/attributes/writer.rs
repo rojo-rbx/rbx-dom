@@ -20,10 +20,10 @@ fn write_color3<W: Write>(mut writer: W, color: Color3) {
     write_f32(&mut writer, color.b);
 }
 
-fn write_string<W: Write>(mut writer: W, string: &str) {
+fn write_string<W: Write>(mut writer: W, string: Vec<u8>) {
     write_u32(&mut writer, string.len() as u32);
     writer
-        .write_all(&string.bytes().collect::<Vec<_>>())
+        .write_all(&string)
         .expect("couldn't write string to buffer");
 }
 
@@ -41,7 +41,7 @@ fn write_vector2<W: Write>(mut writer: W, vector2: Vector2) {
 
 /// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
 pub fn attributes_from_map<
-    K: Into<String>,
+    K: Into<Vec<u8>>,
     V: Into<Variant>,
     I: Iterator<Item = (K, V)> + ExactSizeIterator,
     M: IntoIterator<IntoIter = I, Item = (K, V)>,
@@ -58,7 +58,7 @@ pub fn attributes_from_map<
     for (name, variant) in map {
         let variant = variant.into();
 
-        write_string(&mut bytes, &name.into());
+        write_string(&mut bytes, name.into());
 
         let attribute_type = AttributeType::try_from(variant.ty())?;
         bytes.push(attribute_type as u8);
@@ -103,8 +103,8 @@ pub fn attributes_from_map<
                 write_vector2(&mut bytes, rect.min);
                 write_vector2(&mut bytes, rect.max);
             }
-            (AttributeType::String, Variant::String(string)) => {
-                write_string(&mut bytes, &string);
+            (AttributeType::BinaryString, Variant::BinaryString(string)) => {
+                write_string(&mut bytes, string.into_vec());
             }
             (AttributeType::UDim, Variant::UDim(udim)) => {
                 write_udim(&mut bytes, udim);

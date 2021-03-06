@@ -52,7 +52,7 @@ macro_rules! create_attribute_type {
 }
 
 create_attribute_type!({
-    String = 0x02,
+    BinaryString = 0x02,
     Bool = 0x03,
     Float32 = 0x05,
     Float64 = 0x06,
