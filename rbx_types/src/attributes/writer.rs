@@ -82,7 +82,9 @@ pub fn attributes_from_map<
                 write_f32(&mut bytes, float);
             }
             (AttributeType::Float64, Variant::Float64(float)) => {
-                bytes.append(&mut float.to_le_bytes().to_vec());
+                bytes
+                    .write_all(&float.to_le_bytes().to_vec())
+                    .expect("couldn't write double to buffer");
             }
             (AttributeType::NumberRange, Variant::NumberRange(range)) => {
                 write_f32(&mut bytes, range.min);
