@@ -106,7 +106,7 @@ pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<String, Variant>,
             }
 
             AttributeType::Float32 => {
-                Variant::Float32(read_f32(&mut value).map_err(|_| AttributeError::Other("falot"))?)
+                Variant::Float32(read_f32(&mut value).map_err(|_| AttributeError::Other("float"))?)
             }
 
             AttributeType::Float64 => {

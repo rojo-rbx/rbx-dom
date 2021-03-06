@@ -1,35 +1,42 @@
 use super::*;
 use crate::{basic_types::*, variant::Variant};
+use std::io::Write;
 
-fn write_f32(bytes: &mut Vec<u8>, n: f32) {
-    bytes.append(&mut n.to_le_bytes().to_vec());
+fn write_f32<W: Write>(mut writer: W, n: f32) {
+    writer
+        .write_all(&mut n.to_le_bytes().to_vec())
+        .expect("couldn't write f32 to buffer");
 }
 
-fn write_u32(bytes: &mut Vec<u8>, n: u32) {
-    bytes.append(&mut n.to_le_bytes().to_vec());
+fn write_u32<W: Write>(mut writer: W, n: u32) {
+    writer
+        .write_all(&mut n.to_le_bytes().to_vec())
+        .expect("couldn't write u32 to buffer");
 }
 
-fn write_color3(bytes: &mut Vec<u8>, color: Color3) {
-    write_f32(bytes, color.r);
-    write_f32(bytes, color.g);
-    write_f32(bytes, color.b);
+fn write_color3<W: Write>(mut writer: W, color: Color3) {
+    write_f32(&mut writer, color.r);
+    write_f32(&mut writer, color.g);
+    write_f32(&mut writer, color.b);
 }
 
-fn write_string(bytes: &mut Vec<u8>, string: &str) {
-    write_u32(bytes, string.len() as u32);
-    for byte in string.bytes() {
-        bytes.push(byte);
-    }
+fn write_string<W: Write>(mut writer: W, string: &str) {
+    write_u32(&mut writer, string.len() as u32);
+    writer
+        .write_all(&string.bytes().collect::<Vec<_>>())
+        .expect("couldn't write string to buffer");
 }
 
-fn write_udim(bytes: &mut Vec<u8>, udim: UDim) {
-    write_f32(bytes, udim.scale);
-    bytes.append(&mut udim.offset.to_le_bytes().to_vec());
+fn write_udim<W: Write>(mut writer: W, udim: UDim) {
+    write_f32(&mut writer, udim.scale);
+    writer
+        .write_all(&mut udim.offset.to_le_bytes().to_vec())
+        .expect("couldn't write UDim to buffer");
 }
 
-fn write_vector2(bytes: &mut Vec<u8>, vector2: Vector2) {
-    write_f32(bytes, vector2.x);
-    write_f32(bytes, vector2.y);
+fn write_vector2<W: Write>(mut writer: W, vector2: Vector2) {
+    write_f32(&mut writer, vector2.x);
+    write_f32(&mut writer, vector2.y);
 }
 
 /// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
@@ -44,7 +51,10 @@ pub fn attributes_from_map<
     let map = map.into_iter();
     let mut bytes = Vec::new();
 
-    bytes.extend((map.len() as u32).to_le_bytes().iter());
+    bytes
+        .write_all(&(map.len() as u32).to_le_bytes())
+        .expect("couldn't write map length to buffer");
+
     for (name, variant) in map {
         let variant = variant.into();
 
