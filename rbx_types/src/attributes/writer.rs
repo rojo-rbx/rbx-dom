@@ -4,13 +4,13 @@ use std::io::Write;
 
 fn write_f32<W: Write>(mut writer: W, n: f32) {
     writer
-        .write_all(&mut n.to_le_bytes().to_vec())
+        .write_all(&n.to_le_bytes().to_vec())
         .expect("couldn't write f32 to buffer");
 }
 
 fn write_u32<W: Write>(mut writer: W, n: u32) {
     writer
-        .write_all(&mut n.to_le_bytes().to_vec())
+        .write_all(&n.to_le_bytes().to_vec())
         .expect("couldn't write u32 to buffer");
 }
 
@@ -30,7 +30,7 @@ fn write_string<W: Write>(mut writer: W, string: &str) {
 fn write_udim<W: Write>(mut writer: W, udim: UDim) {
     write_f32(&mut writer, udim.scale);
     writer
-        .write_all(&mut udim.offset.to_le_bytes().to_vec())
+        .write_all(&udim.offset.to_le_bytes().to_vec())
         .expect("couldn't write UDim to buffer");
 }
 
