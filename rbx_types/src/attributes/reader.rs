@@ -98,7 +98,7 @@ pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<String, Variant>,
                 let mut keypoints = Vec::with_capacity(size as usize);
 
                 for _ in 0..size {
-                    // `envelope` is not represented in rbx_types, apparently it's always zero.
+                    // `envelope` is always zero and can be ignored.
                     let _envelope = read_f32(&mut value)
                         .map_err(|_| AttributeError::Other("ColorSequenceKeypoint envelope"))?;
 
