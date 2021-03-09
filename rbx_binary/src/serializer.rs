@@ -768,7 +768,9 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::BrickColor(value) = rbx_value.as_ref() {
-                                numbers.push(*value as u32)
+                                numbers.push(*value as u32);
+                            } else if let Variant::Int32(value) = rbx_value.as_ref() {
+                                numbers.push(*value as u32);
                             } else {
                                 return type_mismatch(i, &rbx_value, "BrickColor");
                             }

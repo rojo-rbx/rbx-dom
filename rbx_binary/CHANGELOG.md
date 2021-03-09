@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Added support for encoding `Int32` values as `BrickColor`.
+  * This helps improve compatibility when decoding XML models and reencoding them as binary.
 
 ## 0.6.0-alpha.2 (2021-03-04)
 * Added support for widening integer types when serializing.
