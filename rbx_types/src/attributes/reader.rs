@@ -64,10 +64,10 @@ pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<String, Variant>,
             String::from_utf8(read_string(&mut value).map_err(|_| AttributeError::InvalidName)?)
                 .map_err(AttributeError::MalformedEntryKey)?;
 
-        let attribute_key =
+        let attribute_type =
             AttributeType::try_from(read_u8(&mut value).map_err(|_| AttributeError::NoValueType)?)?;
 
-        let value = match attribute_key {
+        let value = match attribute_type {
             AttributeType::BrickColor => {
                 let color =
                     read_u32(&mut value).map_err(|_| AttributeError::Other("BrickColor"))?;
