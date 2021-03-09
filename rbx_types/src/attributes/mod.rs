@@ -23,7 +23,7 @@ use writer::attributes_from_map;
 macro_rules! create_attribute_type {
     ({
         $(
-            $key:ident = $number:tt,
+            $key:ident = $number:literal,
         )+
     }) => {
         #[derive(Clone, Copy, Debug, Eq, PartialEq)]
