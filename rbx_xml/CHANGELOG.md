@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.12.0-alpha.3 (2021-03-08)
 * BrickColor properties will now deserialize as the `BrickColor` type.
 
 ## 0.12.0-alpha.2 (2021-03-04)
