@@ -43,7 +43,7 @@ fn write_vector2<W: Write>(mut writer: W, vector2: Vector2) {
 }
 
 /// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
-pub fn attributes_from_map<
+pub(crate) fn attributes_from_map<
     K: Borrow<String>,
     V: Borrow<Variant>,
     I: Iterator<Item = (K, V)> + ExactSizeIterator,

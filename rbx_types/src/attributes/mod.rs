@@ -7,7 +7,10 @@ use std::{
     string::FromUtf8Error,
 };
 
-use crate::variant::{self, VariantType};
+use crate::{
+    error::Error,
+    variant::{self, VariantType},
+};
 
 use thiserror::Error;
 
@@ -106,18 +109,19 @@ impl Attributes {
     }
 
     /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
-    pub fn from_reader<R: Read>(reader: R) -> Result<Self, AttributeError> {
+    pub fn from_reader<R: Read>(reader: R) -> Result<Self, Error> {
         Ok(Attributes {
             data: get_attributes(reader)?,
         })
     }
 
     /// Writes the attributes as a serialized string to the writer.
-    pub fn to_writer<W: Write>(&self, mut writer: W) -> Result<(), AttributeError> {
+    pub fn to_writer<W: Write>(&self, mut writer: W) -> Result<(), Error> {
         let bytes = attributes_from_map(self.data.iter())?;
         writer
             .write_all(&bytes)
             .map_err(AttributeError::ToWriterFail)
+            .map_err(Into::into)
     }
 
     /// Get the attribute with the following key.
@@ -171,15 +175,12 @@ impl Iterator for AttributesIntoIter {
 }
 
 #[derive(Debug, Error)]
-pub enum AttributeError {
+pub(crate) enum AttributeError {
     #[error("invalid value type: {0}")]
     InvalidValueType(u8),
 
     #[error("invalid brick color: {0}")]
     InvalidBrickColor(u32),
-
-    #[error("invalid entry key")]
-    InvalidEntryKey,
 
     #[error("invalid name")]
     InvalidName,
