@@ -39,6 +39,12 @@ fn read_f32<R: Read>(mut reader: R) -> io::Result<f32> {
     Ok(f32::from_le_bytes(bytes))
 }
 
+fn read_f64<R: Read>(mut reader: R) -> io::Result<f64> {
+    let mut bytes = [0u8; 8];
+    reader.read_exact(&mut bytes)?;
+    Ok(f64::from_le_bytes(bytes))
+}
+
 fn read_string<R: Read>(mut reader: R) -> io::Result<Vec<u8>> {
     let size = read_u32(&mut reader)? as usize;
     let mut characters = vec![0u8; size];
@@ -118,13 +124,9 @@ pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<String, Variant>,
                 .map_err(|_| AttributeError::Other("float32"))?
                 .into(),
 
-            AttributeType::Float64 => {
-                let mut bytes = [0u8; 8];
-                value
-                    .read_exact(&mut bytes)
-                    .map_err(|_| AttributeError::Other("float64"))?;
-                f64::from_le_bytes(bytes).into()
-            }
+            AttributeType::Float64 => read_f64(&mut value)
+                .map_err(|_| AttributeError::Other("float64"))?
+                .into(),
 
             AttributeType::NumberRange => NumberRange::new(
                 read_f32(&mut value).map_err(|_| AttributeError::Other("NumberRange min"))?,
