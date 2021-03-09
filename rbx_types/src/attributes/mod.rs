@@ -205,6 +205,8 @@ pub enum AttributeError {
 
 #[cfg(all(feature = "serde", test))]
 mod tests {
+    use std::collections::BTreeMap;
+
     use super::*;
 
     // This is taken from rbx-test-files/models/attributes/xml.rbxmx.
@@ -220,23 +222,25 @@ mod tests {
     QAcAAABCb29sZWFuAwEGAAAAU3RyaW5nAg0AAABIZWxsbywgd29ybGQh";
 
     #[test]
-    fn test_attributes() {
+    fn test_round_trip_attributes() {
         let attributes_value =
             base64::decode(ATTRIBUTES_BASE64).expect("bad base64 for attributes");
 
-        let attributes =
-            get_attributes(&attributes_value[..]).expect("couldn't deserialize attributes");
+        let attributes = Attributes::from_reader(&attributes_value[..])
+            .expect("couldn't deserialize attributes");
 
-        let mut attributes_stable_order = attributes.into_iter().collect::<Vec<_>>();
-        attributes_stable_order.sort_by_cached_key(|(key, _)| key.to_owned());
+        let attributes_stable_order = BTreeMap::from_iter(attributes.clone().into_iter());
         insta::assert_yaml_snapshot!(attributes_stable_order);
 
-        let new_attribute_bytes = attributes_from_map(attributes_stable_order.to_owned())
-            .expect("couldn't get attributes from map");
-        let new_attributes = get_attributes(&new_attribute_bytes[..])
+        let mut new_attribute_bytes = Vec::<u8>::new();
+        attributes
+            .to_writer(&mut new_attribute_bytes)
+            .expect("couldn't write attributes to buffer");
+
+        let new_attributes = Attributes::from_reader(new_attribute_bytes.as_slice())
             .expect("couldn't deserialize crate produced binary");
-        let mut new_attributes_stable_order = new_attributes.into_iter().collect::<Vec<_>>();
-        new_attributes_stable_order.sort_by_cached_key(|(key, _)| key.to_owned());
+
+        let new_attributes_stable_order = BTreeMap::from_iter(new_attributes.into_iter());
 
         // They are not checked directly against each other because the data contains NaN.
         assert_eq!(
