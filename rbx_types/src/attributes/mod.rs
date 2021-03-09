@@ -1,12 +1,24 @@
-use crate::variant::VariantType;
-use std::convert::TryFrom;
+use crate::variant::{self, VariantType};
+
+use std::{
+    borrow::Borrow,
+    collections::HashMap,
+    convert::TryFrom,
+    io::{self, Read, Write},
+    iter::FromIterator,
+    string::FromUtf8Error,
+};
+
 use thiserror::Error;
+
+use variant::Variant;
 
 mod reader;
 mod writer;
 
-pub use reader::get_attributes;
-pub use writer::attributes_from_map;
+use reader::get_attributes;
+
+use writer::attributes_from_map;
 
 macro_rules! create_attribute_type {
     ({
@@ -82,7 +94,83 @@ create_attribute_type!({
     Rect = 0x1C,
 });
 
-#[derive(Debug, Clone, Error, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, PartialEq)]
+pub struct Attributes {
+    data: HashMap<String, Variant>,
+}
+
+impl Attributes {
+    /// Creates an empty `Attributes` struct
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
+    pub fn from_reader<R: Read>(reader: R) -> Result<Self, AttributeError> {
+        Ok(Attributes {
+            data: get_attributes(reader)?,
+        })
+    }
+
+    /// Writes the attributes as a serialized string to the writer.
+    pub fn to_writer<W: Write>(&self, mut writer: W) -> Result<(), AttributeError> {
+        let bytes = attributes_from_map(self.data.iter())?;
+        writer
+            .write_all(&bytes)
+            .map_err(AttributeError::ToWriterFail)
+    }
+
+    /// Get the attribute with the following key.
+    pub fn get<K: Borrow<str>>(&self, key: K) -> Option<&Variant> {
+        self.data.get(key.borrow())
+    }
+
+    /// Inserts an attribute with the given key and value.
+    /// Will return the attribute that used to be there if one existed.
+    pub fn insert(&mut self, key: String, value: Variant) -> Option<Variant> {
+        self.data.insert(key, value)
+    }
+
+    /// Returns an iterator of borrowed attributes.
+    pub fn iter(&self) -> impl Iterator<Item = (&String, &Variant)> {
+        self.data.iter()
+    }
+}
+
+impl IntoIterator for Attributes {
+    type IntoIter = AttributesIntoIter;
+    type Item = (String, Variant);
+
+    fn into_iter(self) -> Self::IntoIter {
+        AttributesIntoIter {
+            iter: self.data.into_iter(),
+        }
+    }
+}
+
+impl FromIterator<(String, Variant)> for Attributes {
+    fn from_iter<T: IntoIterator<Item = (String, Variant)>>(iter: T) -> Self {
+        Self {
+            data: iter.into_iter().collect(),
+        }
+    }
+}
+
+/// An owning iterator over the entries of an `Attributes`.
+/// This is created by [`Attributes::into_iter`].
+pub struct AttributesIntoIter {
+    iter: std::collections::hash_map::IntoIter<String, Variant>,
+}
+
+impl Iterator for AttributesIntoIter {
+    type Item = (String, Variant);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.iter.next()
+    }
+}
+
+#[derive(Debug, Error)]
 pub enum AttributeError {
     #[error("invalid value type: {0}")]
     InvalidValueType(u8),
@@ -104,6 +192,12 @@ pub enum AttributeError {
 
     #[error("no value type was found")]
     NoValueType,
+
+    #[error("malformed attribute key")]
+    MalformedEntryKey(FromUtf8Error),
+
+    #[error("couldn't write to writer: {0}")]
+    ToWriterFail(io::Error),
 
     #[error("couldn't read bytes to deserialize {0}")]
     Other(&'static str),

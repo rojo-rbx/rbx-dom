@@ -1,6 +1,8 @@
 use super::*;
+
 use crate::{basic_types::*, variant::Variant};
-use std::io::Write;
+
+use std::{borrow::Borrow, io::Write};
 
 fn write_f32<W: Write>(mut writer: W, n: f32) {
     writer
@@ -20,10 +22,11 @@ fn write_color3<W: Write>(mut writer: W, color: Color3) {
     write_f32(&mut writer, color.b);
 }
 
-fn write_string<W: Write>(mut writer: W, string: Vec<u8>) {
-    write_u32(&mut writer, string.len() as u32);
+fn write_string<T: AsRef<[u8]>, W: Write>(mut writer: W, string: T) {
+    let bytes = string.as_ref();
+    write_u32(&mut writer, bytes.len() as u32);
     writer
-        .write_all(&string)
+        .write_all(bytes)
         .expect("couldn't write string to buffer");
 }
 
@@ -41,8 +44,8 @@ fn write_vector2<W: Write>(mut writer: W, vector2: Vector2) {
 
 /// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
 pub fn attributes_from_map<
-    K: Into<Vec<u8>>,
-    V: Into<Variant>,
+    K: Borrow<String>,
+    V: Borrow<Variant>,
     I: Iterator<Item = (K, V)> + ExactSizeIterator,
     M: IntoIterator<IntoIter = I, Item = (K, V)>,
 >(
@@ -56,19 +59,19 @@ pub fn attributes_from_map<
         .expect("couldn't write map length to buffer");
 
     for (name, variant) in map {
-        let variant = variant.into();
+        let variant = variant.borrow();
 
-        write_string(&mut bytes, name.into());
+        write_string(&mut bytes, name.borrow());
 
         let attribute_type = AttributeType::try_from(variant.ty())?;
         bytes.push(attribute_type as u8);
 
         match (attribute_type, variant) {
-            (AttributeType::Bool, Variant::Bool(bool)) => bytes.push(bool as u8),
+            (AttributeType::Bool, Variant::Bool(bool)) => bytes.push(*bool as u8),
             (AttributeType::BrickColor, Variant::BrickColor(color)) => {
-                write_u32(&mut bytes, color as u32)
+                write_u32(&mut bytes, *color as u32)
             }
-            (AttributeType::Color3, Variant::Color3(color)) => write_color3(&mut bytes, color),
+            (AttributeType::Color3, Variant::Color3(color)) => write_color3(&mut bytes, *color),
             (AttributeType::ColorSequence, Variant::ColorSequence(sequence)) => {
                 write_u32(&mut bytes, sequence.keypoints.len() as u32);
 
@@ -79,7 +82,7 @@ pub fn attributes_from_map<
                 }
             }
             (AttributeType::Float32, Variant::Float32(float)) => {
-                write_f32(&mut bytes, float);
+                write_f32(&mut bytes, *float);
             }
             (AttributeType::Float64, Variant::Float64(float)) => {
                 bytes
@@ -104,17 +107,17 @@ pub fn attributes_from_map<
                 write_vector2(&mut bytes, rect.max);
             }
             (AttributeType::BinaryString, Variant::BinaryString(string)) => {
-                write_string(&mut bytes, string.into_vec());
+                write_string(&mut bytes, string);
             }
             (AttributeType::UDim, Variant::UDim(udim)) => {
-                write_udim(&mut bytes, udim);
+                write_udim(&mut bytes, *udim);
             }
             (AttributeType::UDim2, Variant::UDim2(udim2)) => {
                 write_udim(&mut bytes, udim2.x);
                 write_udim(&mut bytes, udim2.y);
             }
             (AttributeType::Vector2, Variant::Vector2(vector2)) => {
-                write_vector2(&mut bytes, vector2);
+                write_vector2(&mut bytes, *vector2);
             }
             (AttributeType::Vector3, Variant::Vector3(vector3)) => {
                 write_f32(&mut bytes, vector3.x);

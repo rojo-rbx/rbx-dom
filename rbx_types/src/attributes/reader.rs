@@ -55,12 +55,14 @@ fn read_vector2<R: Read>(mut reader: R) -> io::Result<Vector2> {
 }
 
 /// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
-pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<Vec<u8>, Variant>, AttributeError> {
+pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<String, Variant>, AttributeError> {
     let size = read_u32(&mut value).map_err(|_| AttributeError::InvalidSize)?;
     let mut attributes = HashMap::with_capacity(size as usize);
 
     for _ in 0..size {
-        let name = read_string(&mut value).map_err(|_| AttributeError::InvalidName)?;
+        let name =
+            String::from_utf8(read_string(&mut value).map_err(|_| AttributeError::InvalidName)?)
+                .map_err(AttributeError::MalformedEntryKey)?;
 
         let attribute_key =
             AttributeType::try_from(read_u8(&mut value).map_err(|_| AttributeError::NoValueType)?)?;
