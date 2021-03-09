@@ -237,6 +237,12 @@ mod tests {
             .to_writer(&mut new_attribute_bytes)
             .expect("couldn't write attributes to buffer");
 
+        let byte_string = new_attribute_bytes
+            .iter()
+            .map(|byte| format!("{:x?}", byte))
+            .collect::<String>();
+        insta::assert_snapshot!(byte_string);
+
         let new_attributes = Attributes::from_reader(new_attribute_bytes.as_slice())
             .expect("couldn't deserialize crate produced binary");
 
