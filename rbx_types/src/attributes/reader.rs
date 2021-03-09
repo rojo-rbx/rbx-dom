@@ -1,7 +1,15 @@
 // Thanks to Anaminus! https://github.com/RobloxAPI/rbxattr/blob/master/spec.md
 
 use super::*;
-use crate::{basic_types::*, brick_color::BrickColor, variant::Variant};
+use crate::{
+    basic_types::{
+        Color3, ColorSequence, ColorSequenceKeypoint, NumberRange, NumberSequence,
+        NumberSequenceKeypoint, Rect, UDim, UDim2, Vector2, Vector3,
+    },
+    brick_color::BrickColor,
+    variant::Variant,
+    BinaryString,
+};
 use std::{
     collections::HashMap,
     io::{self, Read},
@@ -72,19 +80,18 @@ pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<String, Variant>,
                 let color =
                     read_u32(&mut value).map_err(|_| AttributeError::Other("BrickColor"))?;
 
-                Variant::BrickColor(
-                    BrickColor::from_number(color as u16)
-                        .ok_or(AttributeError::InvalidBrickColor(color))?,
-                )
+                BrickColor::from_number(color as u16)
+                    .ok_or(AttributeError::InvalidBrickColor(color))?
+                    .into()
             }
 
             AttributeType::Bool => {
-                Variant::Bool(read_u8(&mut value).map_err(|_| AttributeError::Other("bool"))? != 0)
+                (read_u8(&mut value).map_err(|_| AttributeError::Other("bool"))? != 0).into()
             }
 
-            AttributeType::Color3 => Variant::Color3(
-                read_color3(&mut value).map_err(|_| AttributeError::Other("Color3"))?,
-            ),
+            AttributeType::Color3 => read_color3(&mut value)
+                .map_err(|_| AttributeError::Other("Color3"))?
+                .into(),
 
             AttributeType::ColorSequence => {
                 let size = read_u32(&mut value).map_err(|_| AttributeError::InvalidSize)?;
@@ -104,25 +111,26 @@ pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<String, Variant>,
                     keypoints.push(ColorSequenceKeypoint::new(time, color));
                 }
 
-                Variant::ColorSequence(ColorSequence { keypoints })
+                ColorSequence { keypoints }.into()
             }
 
-            AttributeType::Float32 => {
-                Variant::Float32(read_f32(&mut value).map_err(|_| AttributeError::Other("float"))?)
-            }
+            AttributeType::Float32 => read_f32(&mut value)
+                .map_err(|_| AttributeError::Other("float32"))?
+                .into(),
 
             AttributeType::Float64 => {
                 let mut bytes = [0u8; 8];
                 value
                     .read_exact(&mut bytes)
-                    .map_err(|_| AttributeError::Other("double"))?;
-                Variant::Float64(f64::from_le_bytes(bytes))
+                    .map_err(|_| AttributeError::Other("float64"))?;
+                f64::from_le_bytes(bytes).into()
             }
 
-            AttributeType::NumberRange => Variant::NumberRange(NumberRange::new(
+            AttributeType::NumberRange => NumberRange::new(
                 read_f32(&mut value).map_err(|_| AttributeError::Other("NumberRange min"))?,
                 read_f32(&mut value).map_err(|_| AttributeError::Other("NumberRange max"))?,
-            )),
+            )
+            .into(),
 
             AttributeType::NumberSequence => {
                 let size = read_u32(&mut value).map_err(|_| AttributeError::InvalidSize)?;
@@ -142,39 +150,44 @@ pub fn get_attributes<R: Read>(mut value: R) -> Result<HashMap<String, Variant>,
                     keypoints.push(NumberSequenceKeypoint::new(time, value, envelope));
                 }
 
-                Variant::NumberSequence(NumberSequence { keypoints })
+                NumberSequence { keypoints }.into()
             }
 
-            AttributeType::Rect => Variant::Rect(Rect::new(
+            AttributeType::Rect => Rect::new(
                 read_vector2(&mut value).map_err(|_| AttributeError::Other("Rect min"))?,
                 read_vector2(&mut value).map_err(|_| AttributeError::Other("Rect max"))?,
-            )),
+            )
+            .into(),
 
-            AttributeType::BinaryString => Variant::BinaryString(
-                read_string(&mut value)
+            AttributeType::BinaryString => {
+                let binary_string: BinaryString = read_string(&mut value)
                     .map_err(|_| AttributeError::Other("string"))?
-                    .into(),
-            ),
-
-            AttributeType::UDim => {
-                Variant::UDim(read_udim(&mut value).map_err(|_| AttributeError::Other("UDim"))?)
+                    .into();
+                binary_string.into()
             }
 
-            AttributeType::UDim2 => Variant::UDim2(UDim2::new(
+            AttributeType::UDim => read_udim(&mut value)
+                .map_err(|_| AttributeError::Other("UDim"))?
+                .into(),
+
+            AttributeType::UDim2 => UDim2::new(
                 read_udim(&mut value).map_err(|_| AttributeError::Other("UDim2 X"))?,
                 read_udim(&mut value).map_err(|_| AttributeError::Other("UDim2 Y"))?,
-            )),
+            )
+            .into(),
 
-            AttributeType::Vector2 => Variant::Vector2(Vector2::new(
+            AttributeType::Vector2 => Vector2::new(
                 read_f32(&mut value).map_err(|_| AttributeError::Other("Vector2 X"))?,
                 read_f32(&mut value).map_err(|_| AttributeError::Other("Vector2 Y"))?,
-            )),
+            )
+            .into(),
 
-            AttributeType::Vector3 => Variant::Vector3(Vector3::new(
+            AttributeType::Vector3 => Vector3::new(
                 read_f32(&mut value).map_err(|_| AttributeError::Other("Vector3 X"))?,
                 read_f32(&mut value).map_err(|_| AttributeError::Other("Vector3 Y"))?,
                 read_f32(&mut value).map_err(|_| AttributeError::Other("Vector3 Z"))?,
-            )),
+            )
+            .into(),
         };
 
         attributes.insert(name, value);
