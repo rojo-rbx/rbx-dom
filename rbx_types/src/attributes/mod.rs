@@ -2,6 +2,7 @@ use std::{
     borrow::Borrow,
     collections::HashMap,
     convert::TryFrom,
+    hash::Hash,
     io::{self, Read, Write},
     iter::FromIterator,
     string::FromUtf8Error,
@@ -133,6 +134,16 @@ impl Attributes {
     /// Will return the attribute that used to be there if one existed.
     pub fn insert(&mut self, key: String, value: Variant) -> Option<Variant> {
         self.data.insert(key, value)
+    }
+
+    /// Removes an attribute with the given key.
+    /// Will return the value that was there if one existed.
+    pub fn remove<K>(&mut self, key: K) -> Option<Variant>
+    where
+        K: Hash + Eq,
+        String: Borrow<K>,
+    {
+        self.data.remove(&key)
     }
 
     /// Returns an iterator of borrowed attributes.
