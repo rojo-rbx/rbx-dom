@@ -209,17 +209,17 @@ mod tests {
 
     use super::*;
 
-    // This is taken from rbx-test-files/models/attributes/xml.rbxmx.
+    // This is taken from rbx-test-files/models/attributes/xml.rbxmx, but with the NaN removed.
     // This is pasted raw as to not create a circular dependency in test (rbx_types -> rbx_xml/rbx_binary -> rbx_types)
     const ATTRIBUTES_BASE64: &str = "\
-    DwAAAAMAAABOYU4GAAAAAAAA+P8IAAAASW5maW5pdHkGAAAAAAAA8H8NAAAAQ29sb3JTZXF1\
-    ZW5jZRkDAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAPwAAAAAAAIA/AAAAAAAAAAAA\
-    AIA/AAAAAAAAAAAAAIA/BwAAAFZlY3RvcjMRAACAPwAAAEAAAEBABwAAAFZlY3RvcjIQAAAg\
-    QQAASEIOAAAATnVtYmVyU2VxdWVuY2UXAwAAAAAAAAAAAAAAAACAPwAAAAAAAAA/AAAAAAAA\
-    AAAAAIA/AACAPwYAAABDb2xvcjMPo6IiPwAAAAAAAIA/CgAAAEJyaWNrQ29sb3IO7AMAAAQA\
-    AABSZWN0HAAAgD8AAABAAABAQAAAgEAFAAAAVURpbTIKAAAAPwoAAAAzMzM/HgAAAAQAAABV\
-    RGltCQAAAD9kAAAACwAAAE51bWJlclJhbmdlGwAAoEAAACBBBgAAAE51bWJlcgYAAAAAgBzI\
-    QAcAAABCb29sZWFuAwEGAAAAU3RyaW5nAg0AAABIZWxsbywgd29ybGQh";
+    DgAAAAYAAABTdHJpbmcCDQAAAEhlbGxvLCB3b3JsZCEHAAAAQm9vbGVhbgMBBgAAAE51bWJl\
+    cgYAAAAAgBzIQAsAAABOdW1iZXJSYW5nZRsAAKBAAAAgQQQAAABVRGltCQAAAD9kAAAABQAA\
+    AFVEaW0yCgAAAD8KAAAAMzMzPx4AAAAEAAAAUmVjdBwAAIA/AAAAQAAAQEAAAIBACgAAAEJy\
+    aWNrQ29sb3IO7AMAAAYAAABDb2xvcjMPo6IiPwAAAAAAAIA/DgAAAE51bWJlclNlcXVlbmNl\
+    FwMAAAAAAAAAAAAAAAAAgD8AAAAAAAAAPwAAAAAAAAAAAACAPwAAgD8HAAAAVmVjdG9yMhAA\
+    ACBBAABIQgcAAABWZWN0b3IzEQAAgD8AAABAAABAQA0AAABDb2xvclNlcXVlbmNlGQMAAAAA\
+    AAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAA/AAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAA\
+    AAAAgD8IAAAASW5maW5pdHkGAAAAAAAA8H8=";
 
     #[test]
     fn test_round_trip_attributes() {
@@ -242,10 +242,6 @@ mod tests {
 
         let new_attributes_stable_order = BTreeMap::from_iter(new_attributes.into_iter());
 
-        // They are not checked directly against each other because the data contains NaN.
-        assert_eq!(
-            format!("{:#?}", attributes_stable_order),
-            format!("{:#?}", new_attributes_stable_order)
-        );
+        assert_eq!(attributes_stable_order, new_attributes_stable_order);
     }
 }
