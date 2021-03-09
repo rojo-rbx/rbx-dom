@@ -1,5 +1,3 @@
-use crate::variant::{self, VariantType};
-
 use std::{
     borrow::Borrow,
     collections::HashMap,
@@ -8,6 +6,8 @@ use std::{
     iter::FromIterator,
     string::FromUtf8Error,
 };
+
+use crate::variant::{self, VariantType};
 
 use thiserror::Error;
 

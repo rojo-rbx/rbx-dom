@@ -1,6 +1,10 @@
 // Thanks to Anaminus! https://github.com/RobloxAPI/rbxattr/blob/master/spec.md
 
-use super::*;
+use std::{
+    collections::HashMap,
+    io::{self, Read},
+};
+
 use crate::{
     basic_types::{
         Color3, ColorSequence, ColorSequenceKeypoint, NumberRange, NumberSequence,
@@ -10,10 +14,8 @@ use crate::{
     variant::Variant,
     BinaryString,
 };
-use std::{
-    collections::HashMap,
-    io::{self, Read},
-};
+
+use super::*;
 
 fn read_u8<R: Read>(mut reader: R) -> io::Result<u8> {
     let mut bytes = [0u8; 1];
