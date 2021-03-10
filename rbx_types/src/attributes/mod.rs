@@ -20,9 +20,11 @@ use variant::Variant;
 mod reader;
 mod writer;
 
-use reader::get_attributes;
+use reader::read_attributes;
 
-use writer::attributes_from_map;
+use writer::write_attributes;
+
+pub(crate) type AttributeData = HashMap<String, Variant>;
 
 macro_rules! create_attribute_type {
     ({
@@ -100,7 +102,7 @@ create_attribute_type!({
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct Attributes {
-    data: HashMap<String, Variant>,
+    data: AttributeData,
 }
 
 impl Attributes {
@@ -112,17 +114,13 @@ impl Attributes {
     /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
     pub fn from_reader<R: Read>(reader: R) -> Result<Self, Error> {
         Ok(Attributes {
-            data: get_attributes(reader)?,
+            data: read_attributes(reader)?,
         })
     }
 
     /// Writes the attributes as a serialized string to the writer.
     pub fn to_writer<W: Write>(&self, mut writer: W) -> Result<(), Error> {
-        let bytes = attributes_from_map(self.data.iter())?;
-        writer
-            .write_all(&bytes)
-            .map_err(AttributeError::ToWriterFail)
-            .map_err(Into::into)
+        write_attributes(&self.data, &mut writer).map_err(Into::into)
     }
 
     /// Get the attribute with the following key.
@@ -208,8 +206,12 @@ pub(crate) enum AttributeError {
     #[error("malformed attribute key")]
     MalformedEntryKey(FromUtf8Error),
 
-    #[error("couldn't write to writer: {0}")]
-    ToWriterFail(io::Error),
+    #[error("couldn't write to writer")]
+    ToWriterFail(
+        #[from]
+        #[source]
+        io::Error,
+    ),
 
     #[error("couldn't read bytes to deserialize {0}")]
     Other(&'static str),
