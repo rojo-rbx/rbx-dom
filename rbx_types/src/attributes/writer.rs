@@ -15,6 +15,10 @@ fn write_f32<W: Write>(mut writer: W, n: f32) -> io::Result<()> {
     writer.write_all(&n.to_le_bytes()[..])
 }
 
+fn write_f64<W: Write>(mut writer: W, n: f64) -> io::Result<()> {
+    writer.write_all(&n.to_le_bytes()[..])
+}
+
 fn write_u32<W: Write>(mut writer: W, n: u32) -> io::Result<()> {
     writer.write_all(&n.to_le_bytes()[..])
 }
@@ -74,9 +78,7 @@ pub(crate) fn write_attributes<W: Write>(
                 }
             }
             (AttributeType::Float32, Variant::Float32(float)) => write_f32(&mut writer, *float)?,
-            (AttributeType::Float64, Variant::Float64(float)) => {
-                writer.write_all(&float.to_le_bytes()[..])?
-            }
+            (AttributeType::Float64, Variant::Float64(float)) => write_f64(&mut writer, *float)?,
             (AttributeType::NumberRange, Variant::NumberRange(range)) => {
                 write_f32(&mut writer, range.min)?;
                 write_f32(&mut writer, range.max)?;
