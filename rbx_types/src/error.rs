@@ -30,6 +30,6 @@ pub(crate) enum InnerError {
     #[error(transparent)]
     AttributeError {
         #[from]
-        source: crate::attributes::AttributeError,
+        source: AttributeError,
     },
 }
