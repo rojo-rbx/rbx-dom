@@ -136,12 +136,8 @@ impl Attributes {
 
     /// Removes an attribute with the given key.
     /// Will return the value that was there if one existed.
-    pub fn remove<K>(&mut self, key: K) -> Option<Variant>
-    where
-        K: Hash + Eq,
-        String: Borrow<K>,
-    {
-        self.data.remove(&key)
+    pub fn remove<K: Hash + Eq + Borrow<str>>(&mut self, key: K) -> Option<Variant> {
+        self.data.remove(key.borrow())
     }
 
     /// Returns an iterator of borrowed attributes.
