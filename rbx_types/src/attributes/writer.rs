@@ -1,14 +1,14 @@
+use std::{
+    borrow::Borrow,
+    convert::TryFrom,
+    io::{self, Write},
+};
+
 use super::{AttributeData, AttributeError, AttributeType};
 
 use crate::{
     basic_types::{Color3, UDim, Vector2},
     variant::Variant,
-};
-
-use std::{
-    borrow::Borrow,
-    convert::TryFrom,
-    io::{self, Write},
 };
 
 fn write_f32<W: Write>(mut writer: W, n: f32) -> io::Result<()> {
