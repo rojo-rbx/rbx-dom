@@ -12,11 +12,11 @@ use crate::{
 };
 
 fn write_f32<W: Write>(mut writer: W, n: f32) -> io::Result<()> {
-    writer.write_all(&n.to_le_bytes().to_vec())
+    writer.write_all(&n.to_le_bytes()[..])
 }
 
 fn write_u32<W: Write>(mut writer: W, n: u32) -> io::Result<()> {
-    writer.write_all(&n.to_le_bytes().to_vec())
+    writer.write_all(&n.to_le_bytes()[..])
 }
 
 fn write_color3<W: Write>(mut writer: W, color: Color3) -> io::Result<()> {
@@ -33,7 +33,7 @@ fn write_string<T: AsRef<[u8]>, W: Write>(mut writer: W, string: T) -> io::Resul
 
 fn write_udim<W: Write>(mut writer: W, udim: UDim) -> io::Result<()> {
     write_f32(&mut writer, udim.scale)?;
-    writer.write_all(&udim.offset.to_le_bytes().to_vec())
+    writer.write_all(&udim.offset.to_le_bytes()[..])
 }
 
 fn write_vector2<W: Write>(mut writer: W, vector2: Vector2) -> io::Result<()> {
@@ -75,7 +75,7 @@ pub(crate) fn write_attributes<W: Write>(
             }
             (AttributeType::Float32, Variant::Float32(float)) => write_f32(&mut writer, *float)?,
             (AttributeType::Float64, Variant::Float64(float)) => {
-                writer.write_all(&float.to_le_bytes().to_vec())?
+                writer.write_all(&float.to_le_bytes()[..])?
             }
             (AttributeType::NumberRange, Variant::NumberRange(range)) => {
                 write_f32(&mut writer, range.min)?;
