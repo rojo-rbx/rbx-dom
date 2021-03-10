@@ -213,45 +213,57 @@ pub(crate) enum AttributeError {
     Other(&'static str),
 }
 
-#[cfg(all(feature = "serde", test))]
+#[cfg(test)]
 mod tests {
     use std::collections::BTreeMap;
 
     use super::*;
 
-    // This is taken from rbx-test-files/models/attributes/xml.rbxmx, but with the NaN removed.
-    // This is pasted raw as to not create a circular dependency in test (rbx_types -> rbx_xml/rbx_binary -> rbx_types)
-    const ATTRIBUTES_BASE64: &str = "\
-    DgAAAAYAAABTdHJpbmcCDQAAAEhlbGxvLCB3b3JsZCEHAAAAQm9vbGVhbgMBBgAAAE51bWJl\
-    cgYAAAAAgBzIQAsAAABOdW1iZXJSYW5nZRsAAKBAAAAgQQQAAABVRGltCQAAAD9kAAAABQAA\
-    AFVEaW0yCgAAAD8KAAAAMzMzPx4AAAAEAAAAUmVjdBwAAIA/AAAAQAAAQEAAAIBACgAAAEJy\
-    aWNrQ29sb3IO7AMAAAYAAABDb2xvcjMPo6IiPwAAAAAAAIA/DgAAAE51bWJlclNlcXVlbmNl\
-    FwMAAAAAAAAAAAAAAAAAgD8AAAAAAAAAPwAAAAAAAAAAAACAPwAAgD8HAAAAVmVjdG9yMhAA\
-    ACBBAABIQgcAAABWZWN0b3IzEQAAgD8AAABAAABAQA0AAABDb2xvclNlcXVlbmNlGQMAAAAA\
-    AAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAA/AAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAA\
-    AAAAgD8IAAAASW5maW5pdHkGAAAAAAAA8H8=";
+    #[cfg(feature = "serde")]
+    mod snapshot_tests {
+        use super::*;
+
+        // This is taken from rbx-test-files/models/attributes/xml.rbxmx, but with the NaN removed.
+        // This is pasted raw as to not create a circular dependency in test (rbx_types -> rbx_xml/rbx_binary -> rbx_types)
+        const ATTRIBUTES_BASE64: &str = "\
+        DgAAAAYAAABTdHJpbmcCDQAAAEhlbGxvLCB3b3JsZCEHAAAAQm9vbGVhbgMBBgAAAE51bWJl\
+        cgYAAAAAgBzIQAsAAABOdW1iZXJSYW5nZRsAAKBAAAAgQQQAAABVRGltCQAAAD9kAAAABQAA\
+        AFVEaW0yCgAAAD8KAAAAMzMzPx4AAAAEAAAAUmVjdBwAAIA/AAAAQAAAQEAAAIBACgAAAEJy\
+        aWNrQ29sb3IO7AMAAAYAAABDb2xvcjMPo6IiPwAAAAAAAIA/DgAAAE51bWJlclNlcXVlbmNl\
+        FwMAAAAAAAAAAAAAAAAAgD8AAAAAAAAAPwAAAAAAAAAAAACAPwAAgD8HAAAAVmVjdG9yMhAA\
+        ACBBAABIQgcAAABWZWN0b3IzEQAAgD8AAABAAABAQA0AAABDb2xvclNlcXVlbmNlGQMAAAAA\
+        AAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAA/AAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAA\
+        AAAAgD8IAAAASW5maW5pdHkGAAAAAAAA8H8=";
+
+        #[test]
+        fn test_round_trip_attributes() {
+            let attributes_value =
+                base64::decode(ATTRIBUTES_BASE64).expect("bad base64 for attributes");
+
+            let attributes = Attributes::from_reader(&attributes_value[..])
+                .expect("couldn't deserialize attributes");
+
+            let attributes_stable_order = BTreeMap::from_iter(attributes.clone().into_iter());
+            insta::assert_yaml_snapshot!(attributes_stable_order);
+
+            let mut new_attribute_bytes = Vec::<u8>::new();
+            attributes
+                .to_writer(&mut new_attribute_bytes)
+                .expect("couldn't write attributes to buffer");
+
+            let new_attributes = Attributes::from_reader(new_attribute_bytes.as_slice())
+                .expect("couldn't deserialize crate produced binary");
+
+            let new_attributes_stable_order = BTreeMap::from_iter(new_attributes.into_iter());
+
+            assert_eq!(attributes_stable_order, new_attributes_stable_order);
+        }
+    }
 
     #[test]
-    fn test_round_trip_attributes() {
-        let attributes_value =
-            base64::decode(ATTRIBUTES_BASE64).expect("bad base64 for attributes");
-
-        let attributes = Attributes::from_reader(&attributes_value[..])
-            .expect("couldn't deserialize attributes");
-
-        let attributes_stable_order = BTreeMap::from_iter(attributes.clone().into_iter());
-        insta::assert_yaml_snapshot!(attributes_stable_order);
-
-        let mut new_attribute_bytes = Vec::<u8>::new();
-        attributes
-            .to_writer(&mut new_attribute_bytes)
-            .expect("couldn't write attributes to buffer");
-
-        let new_attributes = Attributes::from_reader(new_attribute_bytes.as_slice())
-            .expect("couldn't deserialize crate produced binary");
-
-        let new_attributes_stable_order = BTreeMap::from_iter(new_attributes.into_iter());
-
-        assert_eq!(attributes_stable_order, new_attributes_stable_order);
+    fn test_attribute_removal() {
+        let mut attributes = Attributes::new();
+        attributes.insert("key".to_owned(), Variant::Bool(true));
+        assert_eq!(attributes.remove("key"), Some(Variant::Bool(true)));
     }
 }
