@@ -50,8 +50,6 @@ pub(crate) fn write_attributes<W: Write>(
     map: &AttributeData,
     mut writer: W,
 ) -> Result<(), AttributeError> {
-    let map = map.into_iter();
-
     writer.write_all(&(map.len() as u32).to_le_bytes())?;
 
     for (name, variant) in map {
