@@ -79,6 +79,7 @@ macro_rules! declare_rbx_types {
 
                 _ => {
                     state.unknown_type_visited(instance_id, property_name, xml_type_name);
+                    reader.eat_unknown_tag()?;
 
                     Ok(None)
                 },
