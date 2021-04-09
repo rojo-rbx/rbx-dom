@@ -1,4 +1,7 @@
-use std::{collections::HashMap, io::Read};
+use std::{
+    collections::{HashMap, HashSet},
+    io::Read,
+};
 
 use log::trace;
 use rbx_dom_weak::{
@@ -136,6 +139,10 @@ pub struct ParseState<'a> {
     /// pass. This works just like referent rewriting since the shared string
     /// dictionary is usually at the end of the XML file.
     shared_string_rewrites: Vec<SharedStringRewrite>,
+
+    /// Contains all of the unknown types that have been found so far. Tracking
+    /// them here helps ensure that we only output a warning once per type.
+    unknown_type_names: HashSet<String>,
 }
 
 struct ReferentRewrite {
@@ -160,7 +167,26 @@ impl<'a> ParseState<'a> {
             referent_rewrites: Vec::new(),
             known_shared_strings: HashMap::new(),
             shared_string_rewrites: Vec::new(),
+            unknown_type_names: HashSet::new(),
         }
+    }
+
+    /// Called when the deserializer encounters an unknown property type.
+    pub fn unknown_type_visited(&mut self, id: RbxId, property_name: &str, type_name: &str) {
+        if self.unknown_type_names.contains(type_name) {
+            return;
+        }
+
+        self.unknown_type_names.insert(type_name.to_owned());
+        let instance = self.tree.get_instance(id).unwrap();
+
+        log::warn!(
+            "Unknown value type name \"{name}\" in Roblox XML model file. \
+             Found in property {class}.{prop}.",
+            name = type_name,
+            class = instance.class_name,
+            prop = property_name,
+        );
     }
 
     /// Marks that a property on this instance needs to be rewritten once we
@@ -548,13 +574,16 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let xml_value = read_value_xml(
+            let xml_value = match read_value_xml(
                 reader,
                 state,
                 &xml_type_name,
                 instance_id,
                 descriptor.name(),
-            )?;
+            )? {
+                Some(value) => value,
+                None => continue,
+            };
 
             // The property descriptor might specify a different type than the
             // one we saw in the XML.
@@ -640,13 +669,16 @@ fn deserialize_properties<R: Read>(
                     // We'll take this value as-is with no conversions on either
                     // the name or value.
 
-                    let value = read_value_xml(
+                    let value = match read_value_xml(
                         reader,
                         state,
                         &xml_type_name,
                         instance_id,
                         &xml_property_name,
-                    )?;
+                    )? {
+                        Some(value) => value,
+                        None => continue,
+                    };
                     props.insert(xml_property_name, value);
                 }
                 DecodePropertyBehavior::ErrorOnUnknown => {

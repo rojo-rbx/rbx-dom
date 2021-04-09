@@ -34,7 +34,7 @@ use crate::{
     core::XmlType,
     deserializer::ParseState,
     deserializer_core::XmlEventReader,
-    error::{DecodeError, DecodeErrorKind, EncodeError, EncodeErrorKind},
+    error::{DecodeError, EncodeError, EncodeErrorKind},
     serializer::EmitState,
     serializer_core::XmlEventWriter,
 };
@@ -58,18 +58,21 @@ macro_rules! declare_rbx_types {
             xml_type_name: &str,
             instance_id: RbxId,
             property_name: &str,
-        ) -> Result<RbxValue, DecodeError> {
+        ) -> Result<Option<RbxValue>, DecodeError> {
             match xml_type_name {
-                $(<$typedef>::XML_TAG_NAME => <$typedef>::read_xml(reader),)*
+                $(<$typedef>::XML_TAG_NAME => <$typedef>::read_xml(reader).map(Some),)*
 
                 // Protected strings are only read, never written
-                self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader),
+                self::strings::ProtectedStringType::XML_TAG_NAME => self::strings::ProtectedStringType::read_xml(reader).map(Some),
 
-                self::referent::XML_TAG_NAME => read_ref(reader, instance_id, property_name, state),
-                self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state),
+                self::referent::XML_TAG_NAME => read_ref(reader, instance_id, property_name, state).map(Some),
+                self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state).map(Some),
 
                 _ => {
-                    Err(reader.error(DecodeErrorKind::UnknownPropertyType(xml_type_name.to_owned())))
+                    state.unknown_type_visited(instance_id, property_name, xml_type_name);
+                    reader.eat_unknown_tag()?;
+
+                    Ok(None)
                 },
             }
         }

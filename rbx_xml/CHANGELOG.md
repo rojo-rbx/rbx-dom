@@ -2,6 +2,10 @@
 
 ## Unreleased
 * Added support for serializing the `Ray` type, used in the `RayValue` instance.
+* rbx_xml now ignore unknown property types. (backport [#170][pr-170])
+	* This fixes our interactions with the new, partially-released `OptionalCoordinateFrame` type that is now showing up in place and model files.
+
+[pr-170]: https://github.com/rojo-rbx/rbx-dom/pull/170
 
 ## 0.11.4 (2019-12-18)
 * Updated `base64` dependency

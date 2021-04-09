@@ -83,7 +83,6 @@ pub(crate) enum DecodeErrorKind {
         class_name: String,
         property_name: String,
     },
-    UnknownPropertyType(String),
     InvalidContent(&'static str),
     NameMustBeString(RbxValueType),
     UnsupportedPropertyConversion {
@@ -120,9 +119,6 @@ impl fmt::Display for DecodeErrorKind {
                 "Property {}.{} is unknown",
                 class_name, property_name
             ),
-            UnknownPropertyType(prop_name) => {
-                write!(output, "Unknown property type '{}'", prop_name)
-            }
             InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
             NameMustBeString(ty) => write!(
                 output,
@@ -158,7 +154,6 @@ impl std::error::Error for DecodeErrorKind {
             | UnexpectedXmlEvent(_)
             | MissingAttribute(_)
             | UnknownProperty { .. }
-            | UnknownPropertyType(_)
             | InvalidContent(_)
             | NameMustBeString(_)
             | UnsupportedPropertyConversion { .. } => None,
