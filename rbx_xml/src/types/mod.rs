@@ -54,7 +54,7 @@ use self::{
 /// rbx_xml uses to read/write values inside of `read_value_xml` and
 /// `write_value_xml`.
 macro_rules! declare_rbx_types {
-    { $($variant_name: ident : $inner_type: ident,)* } => {
+    { $($variant_name: ident : $inner_type: ty,)* } => {
 
         /// Reads a Roblox property value with the given type from the XML event
         /// stream.
