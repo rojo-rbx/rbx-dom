@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.11.5 (2020-04-09)
 * Added support for serializing the `Ray` type, used in the `RayValue` instance.
 * rbx_xml now ignore unknown property types. (backport [#170][pr-170])
 	* This fixes our interactions with the new, partially-released `OptionalCoordinateFrame` type that is now showing up in place and model files.
