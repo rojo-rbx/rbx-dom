@@ -1,6 +1,10 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* rbx_xml now ignore unknown property types. ([#170][pr-170])
+	* This fixes our interactions with the new, partially-released `OptionalCoordinateFrame` type that is now showing up in place and model files.
+
+[pr-170]: https://github.com/rojo-rbx/rbx-dom/pull/170
 
 ## 0.12.0-alpha.3 (2021-03-08)
 * BrickColor properties will now deserialize as the `BrickColor` type.
