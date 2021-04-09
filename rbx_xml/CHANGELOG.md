@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.12.0-alpha.4 (2021-04-09)
 * rbx_xml now ignore unknown property types. ([#170][pr-170])
 	* This fixes our interactions with the new, partially-released `OptionalCoordinateFrame` type that is now showing up in place and model files.
 
