@@ -19,6 +19,7 @@ mod faces;
 mod number_range;
 mod number_sequence;
 mod numbers;
+mod optional_cframe;
 mod physical_properties;
 mod ray;
 mod rect;
@@ -127,6 +128,7 @@ declare_rbx_types! {
     Int64: i64,
     NumberRange: NumberRange,
     NumberSequence: NumberSequence,
+    // OptionalCFrame: Option<CFrame>,
     PhysicalProperties: PhysicalProperties,
     Ray: Ray,
     Rect: Rect,
