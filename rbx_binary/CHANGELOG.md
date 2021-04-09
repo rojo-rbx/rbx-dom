@@ -1,6 +1,9 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Improve resiliency when encountering unknown property types ([#168][pr-168])
+
+[pr-168]: https://github.com/rojo-rbx/rbx-dom/pull/168
 
 ## 0.5.0 (2019-12-18)
 0.5.0 is intended to be mostly API-compatible with previous rbx_binary releases because it makes a lot of foundational changes. 0.6.0 will break the rbx_binary API significantly.
