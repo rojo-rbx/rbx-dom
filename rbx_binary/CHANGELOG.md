@@ -1,6 +1,12 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Unknown property types will no longer fail deserialization ([#168][pr-168])
+  * This makes rbx_binary more resilient to new types being added by Roblox.
+* `PROP` chunks that end after their prop name are now silently ignored. ([#168][pr-168])
+  * This matches Roblox's behavior and fixes our handling of `OptionalCoordinateFrame`, added in the most recent Roblox Studio release.
+
+[pr-168]: https://github.com/rojo-rbx/rbx-dom/pull/168
 
 ## 0.6.0-alpha.3 (2021-03-08)
 * Added support for encoding `Int32` values as `BrickColor`.
