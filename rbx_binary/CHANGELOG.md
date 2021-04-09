@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.6.0-alpha.4 (2021-04-09)
 * Unknown property types will no longer fail deserialization ([#168][pr-168])
   * This makes rbx_binary more resilient to new types being added by Roblox.
 * `PROP` chunks that end after their prop name are now silently ignored. ([#168][pr-168])
