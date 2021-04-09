@@ -175,7 +175,7 @@ impl<'a> ParseState<'a> {
 
         log::warn!(
             "Unknown value type name \"{name}\" in Roblox XML model file. \
-                 Found in property {class}.{prop}.",
+             Found in property {class}.{prop}.",
             name = type_name,
             class = instance.class,
             prop = property_name,
