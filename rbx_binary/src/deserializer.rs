@@ -1,5 +1,5 @@
 use std::{
-    collections::{HashMap, VecDeque},
+    collections::{HashMap, HashSet, VecDeque},
     convert::TryInto,
     io::{self, Read},
     str,
@@ -16,7 +16,7 @@ use crate::{
         find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
         FILE_VERSION,
     },
-    types::Type,
+    types::{InvalidTypeError, Type},
 };
 
 /// Represents an error that occurred during deserialization.
@@ -47,6 +47,9 @@ pub(crate) enum InnerError {
         version: u8,
     },
 
+    #[snafu(display("{}", source))]
+    InvalidType { source: InvalidTypeError },
+
     #[snafu(display(
         "Type mismatch: Property {}.{} should be {}, but it was {}",
         type_name,
@@ -68,6 +71,12 @@ pub(crate) enum InnerError {
 impl From<io::Error> for InnerError {
     fn from(source: io::Error) -> Self {
         InnerError::Io { source }
+    }
+}
+
+impl From<InvalidTypeError> for InnerError {
+    fn from(source: InvalidTypeError) -> Self {
+        InnerError::InvalidType { source }
     }
 }
 
@@ -145,6 +154,11 @@ struct BinaryDeserializer<R> {
     /// Referents for all of the instances with no parent, in order they appear
     /// in the file.
     root_instance_refs: Vec<i32>,
+
+    /// Contains a set of unknown type IDs that we've encountered so far while
+    /// deserializing this file. We use this map in order to ensure we only
+    /// print one warning per unknown type ID when deserializing a file.
+    unknown_type_ids: HashSet<u8>,
 }
 
 /// All the information contained in the header before any chunks are read from
@@ -205,6 +219,7 @@ impl<R: Read> BinaryDeserializer<R> {
             type_infos,
             instances_by_ref,
             root_instance_refs: Vec::new(),
+            unknown_type_ids: HashSet::new(),
         })
     }
 
@@ -267,12 +282,40 @@ impl<R: Read> BinaryDeserializer<R> {
     fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_u32::<LittleEndian>()?;
         let prop_name = chunk.read_string()?;
-        let data_type: Type = chunk.read_u8()?.try_into().unwrap();
 
         let type_info = self
             .type_infos
             .get(&type_id)
             .ok_or(InnerError::InvalidTypeId { type_id })?;
+
+        // PROP chunks that contain no type byte are ignored by Roblox. This can
+        // happen when a new type is introduced.
+        //
+        // On 2021-04-08, OptionalCoordinateFrame was introduced, but its
+        // serialized format was just a type ID followed by the prop name. This
+        // leads us to believe that Roblox will silently ignore any PROP chunks
+        // that end immediately after the prop name, so we do the same.
+        let binary_type_byte = match chunk.read_u8() {
+            Ok(byte) => byte,
+            Err(_) => return Ok(()),
+        };
+
+        let binary_type: Type = match binary_type_byte.try_into() {
+            Ok(ty) => ty,
+            Err(_) => {
+                if self.unknown_type_ids.insert(binary_type_byte) {
+                    log::warn!(
+                        "Unknown value type ID {byte:#04x} ({byte}) in Roblox \
+                         binary model file. Found in property {class}.{prop}.",
+                        byte = binary_type_byte,
+                        class = type_info.type_name,
+                        prop = prop_name,
+                    );
+                }
+
+                return Ok(());
+            }
+        };
 
         log::trace!(
             "PROP chunk ({}.{}, instance type {}, prop type {}",
@@ -308,10 +351,10 @@ impl<R: Read> BinaryDeserializer<R> {
             None => {
                 canonical_name = prop_name.clone();
 
-                match data_type.to_default_rbx_type() {
+                match binary_type.to_default_rbx_type() {
                     Some(rbx_type) => canonical_type = rbx_type,
                     None => {
-                        log::warn!("Unsupported prop type {:?}, skipping property", data_type);
+                        log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
 
                         return Ok(());
                     }
@@ -321,7 +364,7 @@ impl<R: Read> BinaryDeserializer<R> {
             }
         }
 
-        match data_type {
+        match binary_type {
             Type::String => match canonical_type {
                 RbxValueType::String => {
                     for referent in &type_info.referents {
