@@ -19,6 +19,7 @@ use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
 use thiserror::Error;
 
 use crate::{
+    cframe::to_basic_rotation_id,
     chunk::{ChunkBuilder, ChunkCompression},
     core::{
         find_property_descriptors, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
@@ -850,22 +851,23 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
                         }
 
                         for matrix in rotations {
-                            // TODO write special cases; see: https://github.com/rojo-rbx/rbx-dom/issues/129
-                            // Right now all CFrames are written as `0x00`,
-                            // which means that their rotation matrix is written fully.
-                            chunk.write_u8(0x00)?;
+                            if let Some(id) = to_basic_rotation_id(matrix) {
+                                chunk.write_u8(id)?;
+                            } else {
+                                chunk.write_u8(0x00)?;
 
-                            chunk.write_le_f32(matrix.x.x)?;
-                            chunk.write_le_f32(matrix.x.y)?;
-                            chunk.write_le_f32(matrix.x.z)?;
+                                chunk.write_le_f32(matrix.x.x)?;
+                                chunk.write_le_f32(matrix.x.y)?;
+                                chunk.write_le_f32(matrix.x.z)?;
 
-                            chunk.write_le_f32(matrix.y.x)?;
-                            chunk.write_le_f32(matrix.y.y)?;
-                            chunk.write_le_f32(matrix.y.z)?;
+                                chunk.write_le_f32(matrix.y.x)?;
+                                chunk.write_le_f32(matrix.y.y)?;
+                                chunk.write_le_f32(matrix.y.z)?;
 
-                            chunk.write_le_f32(matrix.z.x)?;
-                            chunk.write_le_f32(matrix.z.y)?;
-                            chunk.write_le_f32(matrix.z.z)?;
+                                chunk.write_le_f32(matrix.z.x)?;
+                                chunk.write_le_f32(matrix.z.y)?;
+                                chunk.write_le_f32(matrix.z.z)?;
+                            }
                         }
 
                         chunk.write_interleaved_f32_array(x.into_iter())?;
