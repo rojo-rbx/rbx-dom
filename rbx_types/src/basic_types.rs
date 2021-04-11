@@ -1,3 +1,5 @@
+use approx::abs_diff_eq;
+
 /// Represents any Roblox enum value.
 ///
 /// Roblox enums are not strongly typed, so the meaning of a value depends on
@@ -74,9 +76,44 @@ pub struct Vector3 {
     pub z: f32,
 }
 
+fn approx_unit_or_zero(value: f32) -> Option<i32> {
+    if abs_diff_eq!(value.abs(), 1.0) {
+        if value.is_sign_positive() {
+            Some(1)
+        } else {
+            Some(-1)
+        }
+    } else if abs_diff_eq!(value.abs(), 0.0) {
+        Some(0)
+    } else {
+        None
+    }
+}
+
+fn get_normal_id(position: u8, value: i32) -> Option<u8> {
+    match value {
+        1 => Some(position),
+        -1 => Some(position + 3),
+        _ => None,
+    }
+}
+
 impl Vector3 {
     pub fn new(x: f32, y: f32, z: f32) -> Self {
         Self { x, y, z }
+    }
+
+    pub fn into_normal_id(&self) -> Option<u8> {
+        let x = approx_unit_or_zero(self.x);
+        let y = approx_unit_or_zero(self.y);
+        let z = approx_unit_or_zero(self.z);
+
+        match (x, y, z) {
+            (Some(x), Some(0), Some(0)) => get_normal_id(0, x),
+            (Some(0), Some(y), Some(0)) => get_normal_id(1, y),
+            (Some(0), Some(0), Some(z)) => get_normal_id(2, z),
+            _ => None,
+        }
     }
 }
 
