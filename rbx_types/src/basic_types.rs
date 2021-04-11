@@ -178,7 +178,7 @@ impl Matrix3 {
 
     pub fn identity() -> Self {
         Self {
-            x: Vector3::new(1.0, 0.0, 1.0),
+            x: Vector3::new(1.0, 0.0, 0.0),
             y: Vector3::new(0.0, 1.0, 0.0),
             z: Vector3::new(0.0, 0.0, 1.0),
         }
