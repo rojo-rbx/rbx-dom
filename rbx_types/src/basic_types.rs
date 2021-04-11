@@ -103,7 +103,7 @@ impl Vector3 {
         Self { x, y, z }
     }
 
-    pub fn into_normal_id(&self) -> Option<u8> {
+    pub fn to_normal_id(&self) -> Option<u8> {
         let x = approx_unit_or_zero(self.x);
         let y = approx_unit_or_zero(self.y);
         let z = approx_unit_or_zero(self.z);
