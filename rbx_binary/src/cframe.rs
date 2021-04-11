@@ -1,16 +1,16 @@
 use rbx_dom_weak::types::{Matrix3, Vector3};
 
 pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
-    let right_vector_id = matrix3.right_vector().into_normal_id()?;
-    let up_vector_id = matrix3.up_vector().into_normal_id()?;
-    let look_vector_id = matrix3.negative_look_vector().into_normal_id()?;
+    let right_vector_id = matrix3.right_vector().to_normal_id()?;
+    let up_vector_id = matrix3.up_vector().to_normal_id()?;
+    let look_vector_id = matrix3.negative_look_vector().to_normal_id()?;
 
     let basic_rotation_id = (6 * right_vector_id) + up_vector_id + 1;
     let rotation = from_basic_rotation_id(basic_rotation_id)?;
     // This might be overkill?
-    if rotation.right_vector().into_normal_id()? == right_vector_id
-        && rotation.up_vector().into_normal_id()? == up_vector_id
-        && rotation.negative_look_vector().into_normal_id()? == look_vector_id
+    if rotation.right_vector().to_normal_id()? == right_vector_id
+        && rotation.up_vector().to_normal_id()? == up_vector_id
+        && rotation.negative_look_vector().to_normal_id()? == look_vector_id
     {
         Some(basic_rotation_id)
     } else {
