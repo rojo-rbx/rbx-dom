@@ -183,6 +183,18 @@ impl Matrix3 {
             z: Vector3::new(0.0, 0.0, 1.0),
         }
     }
+
+    pub fn right_vector(&self) -> Vector3 {
+        Vector3::new(self.x.x, self.y.x, self.z.x)
+    }
+
+    pub fn up_vector(&self) -> Vector3 {
+        Vector3::new(self.x.y, self.y.y, self.z.y)
+    }
+
+    pub fn negative_look_vector(&self) -> Vector3 {
+        Vector3::new(self.x.z, self.y.z, self.z.z)
+    }
 }
 
 /// Represents any color, including HDR colors.
