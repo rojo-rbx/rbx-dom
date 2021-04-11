@@ -7,11 +7,7 @@ pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
 
     let basic_rotation_id = (6 * right_vector_id) + up_vector_id + 1;
     let rotation = from_basic_rotation_id(basic_rotation_id)?;
-    // This might be overkill?
-    if rotation.right_vector().to_normal_id()? == right_vector_id
-        && rotation.up_vector().to_normal_id()? == up_vector_id
-        && rotation.negative_look_vector().to_normal_id()? == look_vector_id
-    {
+    if rotation.negative_look_vector().to_normal_id()? == look_vector_id {
         Some(basic_rotation_id)
     } else {
         None
