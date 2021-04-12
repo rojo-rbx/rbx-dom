@@ -6,15 +6,18 @@ pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
     let look_vector_id = matrix3.negative_look_vector().to_normal_id()?;
     let basic_rotation_id = (6 * right_vector_id) + up_vector_id + 1;
 
-    // TODO: There's probably a way to test for orthogonality using
-    // only the above normal ids, obviating this
-    // from_basic_rotation_id call.
-    let rotation = from_basic_rotation_id(basic_rotation_id)?;
-    // This checks for the edge case where the look vector does map to
-    // a normal id, but yet is not orthogonal to the other two
-    // vectors. Roblox will never output anything like this, but we
-    // should avoid altering the value of such a matrix here.
-    if rotation.negative_look_vector().to_normal_id()? == look_vector_id {
+    // Because we don't enforce orthonormality, it's still possible at
+    // this point for the look vector to differ from the basic
+    // rotation's look vector. Roblox will never output a matrix like
+    // this, but we check for it anyway to avoid altering its value.
+
+    // TODO: There's probably a way to test for orthogonality using only
+    // the above normal ids, obviating this from_basic_rotation_id call.
+    if from_basic_rotation_id(basic_rotation_id)?
+        .negative_look_vector()
+        .to_normal_id()?
+        == look_vector_id
+    {
         Some(basic_rotation_id)
     } else {
         None
