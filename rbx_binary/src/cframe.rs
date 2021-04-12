@@ -3,16 +3,17 @@ use rbx_dom_weak::types::{Matrix3, Vector3};
 pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
     let right_vector_id = matrix3.right_vector().to_normal_id()?;
     let up_vector_id = matrix3.up_vector().to_normal_id()?;
+    let look_vector_id = matrix3.negative_look_vector().to_normal_id()?;
     let basic_rotation_id = (6 * right_vector_id) + up_vector_id + 1;
 
-    // This handles the edge case where the look vector does map to a
-    // normal id, but yet is not orthogonal to the other two
+    // TODO: There's probably a way to test for orthogonality using
+    // only the above normal ids, obviating this
+    // from_basic_rotation_id call.
+    let rotation = from_basic_rotation_id(basic_rotation_id)?;
+    // This checks for the edge case where the look vector does map to
+    // a normal id, but yet is not orthogonal to the other two
     // vectors. Roblox will never output anything like this, but we
     // should avoid altering the value of such a matrix here.
-    let look_vector_id = matrix3.negative_look_vector().to_normal_id()?;
-    // TODO: There's probably a way to test for orthogonality using
-    // only the normal ids, obviating this from_basic_rotation_id call.
-    let rotation = from_basic_rotation_id(basic_rotation_id)?;
     if rotation.negative_look_vector().to_normal_id()? == look_vector_id {
         Some(basic_rotation_id)
     } else {
