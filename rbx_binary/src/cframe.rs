@@ -22,132 +22,20 @@ pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
 }
 
 pub(crate) fn from_basic_rotation_id(id: u8) -> Option<Matrix3> {
-    match id {
-        0x02 => Some(Matrix3::identity()),
-        0x03 => Some(Matrix3::new(
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(0.0, 1.0, 0.0),
-        )),
-        0x05 => Some(Matrix3::new(
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-        )),
-        0x06 => Some(Matrix3::new(
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(0.0, -1.0, 0.0),
-        )),
-        0x07 => Some(Matrix3::new(
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-        )),
-        0x09 => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 1.0, 0.0),
-        )),
-        0x0a => Some(Matrix3::new(
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-        )),
-        0x0c => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, -1.0, 0.0),
-        )),
-        0x0d => Some(Matrix3::new(
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(1.0, 0.0, 0.0),
-        )),
-        0x0e => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(1.0, 0.0, 0.0),
-        )),
-        0x10 => Some(Matrix3::new(
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(1.0, 0.0, 0.0),
-        )),
-        0x11 => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(1.0, 0.0, 0.0),
-        )),
-        0x14 => Some(Matrix3::new(
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-        )),
-        0x15 => Some(Matrix3::new(
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(0.0, 1.0, 0.0),
-        )),
-        0x17 => Some(Matrix3::new(
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-        )),
-        0x18 => Some(Matrix3::new(
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(0.0, -1.0, 0.0),
-        )),
-        0x19 => Some(Matrix3::new(
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-        )),
-        0x1b => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 1.0, 0.0),
-        )),
-        0x1c => Some(Matrix3::new(
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-        )),
-        0x1e => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, -1.0, 0.0),
-        )),
-        0x1f => Some(Matrix3::new(
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-        )),
-        0x20 => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-        )),
-        0x22 => Some(Matrix3::new(
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-        )),
-        0x23 => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-        )),
-        _ => None,
-    }
+    let right = Vector3::from_normal_id((id - 1) / 6)?;
+    let up = Vector3::from_normal_id((id - 1) % 6)?;
+    let back = right.cross(up);
+
+    Some(Matrix3::from_columns(right, up, back))
 }
 
 #[test]
 fn basic_rotation_id_round_trip() {
     for id in 0x02..0x24 {
         if let Some(rotation) = from_basic_rotation_id(id) {
-            assert!(id == to_basic_rotation_id(rotation).unwrap())
+            if let Some(encoded) = to_basic_rotation_id(rotation) {
+                assert!(encoded == id)
+            }
         }
     }
 }
