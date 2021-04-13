@@ -103,18 +103,6 @@ impl Vector3 {
         Self { x, y, z }
     }
 
-    pub fn from_normal_id(id: u8) -> Option<Self> {
-        match id {
-            0 => Some(Self::new(1.0, 0.0, 0.0)),
-            1 => Some(Self::new(0.0, 1.0, 0.0)),
-            2 => Some(Self::new(0.0, 0.0, 1.0)),
-            3 => Some(Self::new(-1.0, 0.0, 0.0)),
-            4 => Some(Self::new(0.0, -1.0, 0.0)),
-            5 => Some(Self::new(0.0, 0.0, -1.0)),
-            _ => None,
-        }
-    }
-
     pub fn to_normal_id(&self) -> Option<u8> {
         let x = approx_unit_or_zero(self.x);
         let y = approx_unit_or_zero(self.y);
