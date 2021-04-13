@@ -10,9 +10,6 @@ pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
     // this point for the back vector to differ from the basic
     // rotation's back vector. Roblox will never output a matrix like
     // this, but we check for it anyway to avoid altering its value.
-
-    // TODO: There's probably a way to test for orthogonality using only
-    // the above normal ids, obviating this from_basic_rotation_id call.
     if from_basic_rotation_id(basic_rotation_id)?
         .back_vector()
         .to_normal_id()?
