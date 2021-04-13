@@ -1,10 +1,10 @@
 use rbx_dom_weak::types::{Matrix3, Vector3};
 
 pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
-    let right_vector_id = matrix3.right_vector().to_normal_id()?;
-    let up_vector_id = matrix3.up_vector().to_normal_id()?;
-    let back_vector_id = matrix3.back_vector().to_normal_id()?;
-    let basic_rotation_id = (6 * right_vector_id) + up_vector_id + 1;
+    let right_id = matrix3.right_vector().to_normal_id()?;
+    let up_id = matrix3.up_vector().to_normal_id()?;
+    let back_id = matrix3.back_vector().to_normal_id()?;
+    let basic_rotation_id = (6 * right_id) + up_id + 1;
 
     // Because we don't enforce orthonormality, it's still possible at
     // this point for the back vector to differ from the basic
@@ -13,7 +13,7 @@ pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
     if from_basic_rotation_id(basic_rotation_id)?
         .back_vector()
         .to_normal_id()?
-        == back_vector_id
+        == back_id
     {
         Some(basic_rotation_id)
     } else {
