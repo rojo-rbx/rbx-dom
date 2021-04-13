@@ -127,14 +127,6 @@ impl Vector3 {
             _ => None,
         }
     }
-
-    pub fn cross(&self, other: Vector3) -> Vector3 {
-        Self::new(
-            (self.y * other.z - self.z * other.y) + 0.0,
-            (self.z * other.x - self.x * other.z) + 0.0,
-            (self.x * other.y - self.y * other.x) + 0.0,
-        )
-    }
 }
 
 /// A version of [`Vector3`][Vector3] whose coordinates are signed 16-bit
