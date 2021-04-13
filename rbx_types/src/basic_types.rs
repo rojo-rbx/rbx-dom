@@ -204,6 +204,14 @@ impl Matrix3 {
         }
     }
 
+    pub fn from_columns(right: Vector3, up: Vector3, back: Vector3) -> Matrix3 {
+        Self::new(
+            Vector3::new(right.x, up.x, back.x),
+            Vector3::new(right.y, up.y, back.y),
+            Vector3::new(right.z, up.z, back.z),
+        )
+    }
+
     pub fn right_vector(&self) -> Vector3 {
         Vector3::new(self.x.x, self.y.x, self.z.x)
     }
