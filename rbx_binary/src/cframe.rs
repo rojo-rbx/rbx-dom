@@ -7,9 +7,9 @@ pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
     let basic_rotation_id = (6 * x_id) + y_id + 1;
 
     // Because we don't enforce orthonormality, it's still possible at
-    // this point for the back vector to differ from the basic
-    // rotation's back vector. Roblox will never output a matrix like
-    // this, but we check for it anyway to avoid altering its value.
+    // this point for the z row to differ from the basic rotation's z
+    // row. Roblox will never output a matrix like this, but we check
+    // for it anyway to avoid altering its value.
     if from_basic_rotation_id(basic_rotation_id)?
         .z_row()
         .to_normal_id()?
