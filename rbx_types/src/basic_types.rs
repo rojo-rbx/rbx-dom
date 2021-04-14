@@ -184,15 +184,15 @@ impl Matrix3 {
         }
     }
 
-    pub fn right_vector(&self) -> Vector3 {
+    pub fn x_row(&self) -> Vector3 {
         Vector3::new(self.x.x, self.y.x, self.z.x)
     }
 
-    pub fn up_vector(&self) -> Vector3 {
+    pub fn y_row(&self) -> Vector3 {
         Vector3::new(self.x.y, self.y.y, self.z.y)
     }
 
-    pub fn back_vector(&self) -> Vector3 {
+    pub fn z_row(&self) -> Vector3 {
         Vector3::new(self.x.z, self.y.z, self.z.z)
     }
 }

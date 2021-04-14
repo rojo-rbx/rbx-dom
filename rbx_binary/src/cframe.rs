@@ -1,19 +1,19 @@
 use rbx_dom_weak::types::{Matrix3, Vector3};
 
 pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
-    let right_id = matrix3.right_vector().to_normal_id()?;
-    let up_id = matrix3.up_vector().to_normal_id()?;
-    let back_id = matrix3.back_vector().to_normal_id()?;
-    let basic_rotation_id = (6 * right_id) + up_id + 1;
+    let x_id = matrix3.x_row().to_normal_id()?;
+    let y_id = matrix3.y_row().to_normal_id()?;
+    let z_id = matrix3.z_row().to_normal_id()?;
+    let basic_rotation_id = (6 * x_id) + y_id + 1;
 
     // Because we don't enforce orthonormality, it's still possible at
     // this point for the back vector to differ from the basic
     // rotation's back vector. Roblox will never output a matrix like
     // this, but we check for it anyway to avoid altering its value.
     if from_basic_rotation_id(basic_rotation_id)?
-        .back_vector()
+        .z_row()
         .to_normal_id()?
-        == back_id
+        == z_id
     {
         Some(basic_rotation_id)
     } else {
