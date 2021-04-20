@@ -41869,7 +41869,7 @@
         },
         "ExplicitAutoJoints": {
           "Name": "ExplicitAutoJoints",
-          "Scriptability": "Custom",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
