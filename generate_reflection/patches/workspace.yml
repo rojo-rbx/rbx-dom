@@ -13,4 +13,4 @@ Add:
         Type: Serializes
       DataType:
         Value: Bool
-      Scriptability: Custom
+      Scriptability: None
