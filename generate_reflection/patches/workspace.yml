@@ -8,3 +8,9 @@ Add:
       DataType:
         Value: String
       Scriptability: Custom
+    ExplicitAutoJoints:
+      Serialization:
+        Type: Serializes
+      DataType:
+        Value: Bool
+      Scriptability: Custom
