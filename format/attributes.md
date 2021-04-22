@@ -29,8 +29,7 @@ The first 4 bytes of the blob are a `u32` which indicates how many attributes th
 
 ## Data Types
 
-For every possible data type that attributes can be, there's a corresponding `Type` byte. Despite similiarities to the binary file format, these are not transferable between the two (e.g. in the binary format, String is `0x01` but here it is `0x02`). The following are attribute types supported by Roblox Studio.
-
+For every data type that attributes can be, there's a corresponding value of `Type` that's used to indicate an attribute is of that type. Despite similiarities to the binary file format, these are not transferable between the two (e.g. in the binary format, String is `0x01` but here it is `0x02`). The following are attribute types supported by Roblox Studio.
 
 ### String
 **Type ID `0x02`**
