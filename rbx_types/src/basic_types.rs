@@ -103,6 +103,16 @@ impl Vector3 {
         Self { x, y, z }
     }
 
+    /// If the vector is a positive or negative basis vector, returns
+    /// its corresponding ID. Otherwise, returns None.
+
+    /// The mapping goes like this:
+    /// (1.0, 0.0, 0.0) -> 0
+    /// (0.0, 1.0, 0.0) -> 1
+    /// (0.0, 0.0, 1.0) -> 2
+    /// (-1.0, 0.0, 0.0) -> 3
+    /// (0.0, -1.0, 0.0) -> 4
+    /// (0.0, 0.0, -1.0) -> 5
     pub fn to_normal_id(&self) -> Option<u8> {
         let x = approx_unit_or_zero(self.x);
         let y = approx_unit_or_zero(self.y);
