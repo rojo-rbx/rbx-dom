@@ -15,11 +15,11 @@ Unless otherwise noted, all structs in this document are assumed to be stored wi
 
 ## File Structure
 
-Unlike the [normal binary format](binary.md), the attribute format is not chunk based. Instead, it follows a basic type-value pairing.
+Unlike the [normal binary format](binary.md), the attribute format is not chunk based. Instead, it follows a basic name-type-value sequence.
 
-The exception to this is the beginning of the blob, which instead is a dictionary mapping an attribute's name to its value.
+The exception to this is the beginning of the blob, which indicates how many attributes are stored in the blob.
 
-The first 4 bytes of the blob are a `u32` which indicate how many attributes there are in the blob (the `Length`). Following that, there are `Length` attributes in the layout:
+The first 4 bytes of the blob are a `u32` which indicates how many attributes there are in the blob (the `Length`). Following that, there are `Length` attributes in the layout:
 
 | Field Name | Format            | Value                                                   |
 |:-----------|:------------------|:--------------------------------------------------------|
