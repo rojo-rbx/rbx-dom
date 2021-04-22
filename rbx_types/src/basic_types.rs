@@ -83,7 +83,7 @@ fn approx_unit_or_zero(value: f32) -> Option<i32> {
         } else {
             Some(-1)
         }
-    } else if abs_diff_eq!(value.abs(), 0.0) {
+    } else if abs_diff_eq!(value, 0.0) {
         Some(0)
     } else {
         None
