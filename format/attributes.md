@@ -2,6 +2,25 @@
 
 This document describes the Attribute binary format. In this format there is no field for Version, so it is assumed that any future changes will be additions to the existing format or a new format entirely.
 
+# Contents
+- [Document Conventions](#document-conventions)
+- [File Structure](#file-structure)
+- [Data Types](#data-types)
+    - [String](#string)
+    - [Bool](#bool)
+    - [Float32](#float32)
+    - [Float64](#float64)
+    - [UDim](#udim)
+    - [UDim2](#udim2)
+    - [BrickColor](#brickcolor)
+    - [Color3](#color3)
+    - [Vector2](#vector2)
+    - [Vector3](#vector3)
+    - [NumberSequence](#numbersequence)
+    - [ColorSequence](#colorsequence)
+    - [NumberRange](#numberrange)
+    - [Rect](#rect)
+
 ## Document Conventions
 
 This document assumes a basic understanding of Rust's convention for numeric types. For example: 
