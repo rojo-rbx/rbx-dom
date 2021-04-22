@@ -15,7 +15,7 @@ Unless otherwise noted, all structs in this document are assumed to be stored wi
 
 ## File Structure
 
-Unlike the [normal binary format](format/binary.md), the attribute format is not chunk based. Instead, it follows a basic type-value pairing. The file is 
+Unlike the [normal binary format](binary.md), the attribute format is not chunk based. Instead, it follows a basic type-value pairing. The file is 
 
 The exception to this is the beginning of the blob, which instead is a dictionary mapping an attribute's name to its value.
 
