@@ -28,7 +28,7 @@ This document assumes a basic understanding of Rust's convention for numeric typ
 - `u32` is an unsigned 32-bit integer
 - `f32` is a 32-bit floating point
 
-All numeric types are little endian and signed integers are stored using two's complement. All floats are stored according to IEEE-754 standard.
+All numeric types are little endian and signed integers are stored using two's complement. All floats are stored according to the IEEE-754 standard.
 
 Unless otherwise noted, all structs in this document are assumed to be stored with their components in the sequence listed without any modification. That is, if a struct is listed as being composed of an `i32` and an `f32`, it can be assumed that it is stored as an `i32` followed by an `f32`.
 
