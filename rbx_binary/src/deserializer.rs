@@ -18,7 +18,7 @@ use rbx_reflection::DataType;
 use thiserror::Error;
 
 use crate::{
-    cframe::from_basic_rotation_id,
+    cframe,
     chunk::Chunk,
     core::{
         find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
@@ -783,13 +783,14 @@ impl<R: Read> BinaryDeserializer<R> {
                                 ),
                             ));
                         } else {
-                            let special_case = from_basic_rotation_id(id).ok_or_else(|| {
-                                InnerError::BadCFrameOrientationId {
-                                    type_name: type_info.type_name.clone(),
-                                    prop_name: prop_name.clone(),
-                                    id,
-                                }
-                            })?;
+                            let special_case =
+                                cframe::from_basic_rotation_id(id).ok_or_else(|| {
+                                    InnerError::BadCFrameOrientationId {
+                                        type_name: type_info.type_name.clone(),
+                                        prop_name: prop_name.clone(),
+                                        id,
+                                    }
+                                })?;
 
                             rotations.push(special_case);
                         }
