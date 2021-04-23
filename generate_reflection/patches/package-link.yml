@@ -1,0 +1,8 @@
+Add:
+  PackageLink:
+    PackageIdSerialize:
+      DataType:
+        Value: Content
+      Serialization:
+        Type: Serializes
+      Scriptability: None

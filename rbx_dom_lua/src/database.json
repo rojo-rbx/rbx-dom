@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    474,
+    475,
     0,
-    420553
+    420862
   ],
   "Classes": {
     "ABTestService": {
@@ -16741,6 +16741,16 @@
         }
       }
     },
+    "MemoryStoreSortedMap": {
+      "Name": "MemoryStoreSortedMap",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "MeshContentProvider": {
       "Name": "MeshContentProvider",
       "Tags": [
@@ -18258,6 +18268,22 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "EmulatedTotalMemoryInMB": {
+          "Name": "EmulatedTotalMemoryInMB",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "ExtraMemoryUsed": {
           "Name": "ExtraMemoryUsed",
           "Scriptability": "ReadWrite",
@@ -18951,6 +18977,19 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "PackageIdSerialize": {
+          "Name": "PackageIdSerialize",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -23059,6 +23098,17 @@
           "Value": ""
         }
       }
+    },
+    "PublishService": {
+      "Name": "PublishService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "QWidgetPluginGui": {
       "Name": "QWidgetPluginGui",
@@ -41824,6 +41874,19 @@
             }
           }
         },
+        "ClientAnimatorThrottling": {
+          "Name": "ClientAnimatorThrottling",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ClientAnimatorThrottlingMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "CollisionGroups": {
           "Name": "CollisionGroups",
           "Scriptability": "Custom",
@@ -42091,6 +42154,10 @@
         "AttributesSerialize": {
           "Type": "BinaryString",
           "Value": ""
+        },
+        "ClientAnimatorThrottling": {
+          "Type": "Enum",
+          "Value": 0
         },
         "CollisionGroups": {
           "Type": "String",
@@ -42769,6 +42836,7 @@
         "ClimbAnimation": 48,
         "DeathAnimation": 49,
         "Decal": 13,
+        "DressSkirtAccessory": 71,
         "EarAccessory": 57,
         "EmoteAnimation": 61,
         "EyeAccessory": 58,
@@ -42783,9 +42851,11 @@
         "Head": 17,
         "IdleAnimation": 51,
         "Image": 1,
+        "JacketAccessory": 66,
         "JumpAnimation": 52,
         "LeftArm": 29,
         "LeftLeg": 30,
+        "LeftShoeAccessory": 69,
         "Lua": 5,
         "Mesh": 4,
         "MeshPart": 40,
@@ -42793,16 +42863,22 @@
         "NeckAccessory": 43,
         "Package": 32,
         "Pants": 12,
+        "PantsAccessory": 65,
         "Place": 9,
         "Plugin": 38,
         "PoseAnimation": 56,
         "RightArm": 28,
         "RightLeg": 31,
+        "RightShoeAccessory": 70,
         "RunAnimation": 53,
         "Shirt": 11,
+        "ShirtAccessory": 64,
+        "ShortsAccessory": 68,
         "ShoulderAccessory": 44,
+        "SweaterAccessory": 67,
         "SwimAnimation": 54,
         "TeeShirt": 2,
+        "TeeShirtAccessory": 63,
         "Torso": 27,
         "Video": 62,
         "WaistAccessory": 47,
@@ -42839,6 +42915,7 @@
       "items": {
         "BackAccessory": 46,
         "ClimbAnimation": 48,
+        "DressSkirtAccessory": 71,
         "EmoteAnimation": 61,
         "Face": 18,
         "FaceAccessory": 42,
@@ -42849,18 +42926,26 @@
         "Hat": 8,
         "Head": 17,
         "IdleAnimation": 51,
+        "JacketAccessory": 66,
         "JumpAnimation": 52,
         "LeftArm": 29,
         "LeftLeg": 30,
+        "LeftShoeAccessory": 69,
         "NeckAccessory": 43,
         "Pants": 12,
+        "PantsAccessory": 65,
         "RightArm": 28,
         "RightLeg": 31,
+        "RightShoeAccessory": 70,
         "RunAnimation": 53,
         "Shirt": 11,
+        "ShirtAccessory": 64,
+        "ShortsAccessory": 68,
         "ShoulderAccessory": 44,
+        "SweaterAccessory": 67,
         "SwimAnimation": 54,
         "TShirt": 2,
+        "TeeShirtAccessory": 63,
         "Torso": 27,
         "WaistAccessory": 47,
         "WalkAnimation": 55
@@ -42995,6 +43080,13 @@
         "RobloxRoundButton": 3,
         "RobloxRoundDefaultButton": 4,
         "RobloxRoundDropdownButton": 5
+      }
+    },
+    "CageType": {
+      "name": "CageType",
+      "items": {
+        "Inner": 0,
+        "Outer": 1
       }
     },
     "CameraMode": {
@@ -43134,6 +43226,14 @@
         "Bubble": 1,
         "Classic": 0,
         "ClassicAndBubble": 2
+      }
+    },
+    "ClientAnimatorThrottlingMode": {
+      "name": "ClientAnimatorThrottlingMode",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
       }
     },
     "CollisionFidelity": {
