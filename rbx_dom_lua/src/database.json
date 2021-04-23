@@ -18990,8 +18990,8 @@
           },
           "Tags": [],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "PackageId"
             }
           }
         },

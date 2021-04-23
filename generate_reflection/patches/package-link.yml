@@ -3,9 +3,8 @@ Add:
     PackageIdSerialize:
       DataType:
         Value: Content
-      Serialization:
-        Type: Serializes
       Scriptability: None
+      AliasFor: PackageId
 
 Change:
   PackageLink:
