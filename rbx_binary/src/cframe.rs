@@ -142,12 +142,16 @@ pub(crate) fn from_basic_rotation_id(id: u8) -> Option<Matrix3> {
         _ => None,
     }
 }
+#[cfg(test)]
+mod test {
+    use super::*;
 
-#[test]
-fn basic_rotation_id_round_trip() {
-    for id in 0x02..0x24 {
-        if let Some(rotation) = from_basic_rotation_id(id) {
-            assert!(id == to_basic_rotation_id(rotation).unwrap())
+    #[test]
+    fn basic_rotation_id_round_trip() {
+        for id in 0x02..0x24 {
+            if let Some(rotation) = from_basic_rotation_id(id) {
+                assert!(id == to_basic_rotation_id(rotation).unwrap())
+            }
         }
     }
 }
