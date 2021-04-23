@@ -6,3 +6,10 @@ Add:
       Serialization:
         Type: Serializes
       Scriptability: None
+
+Change:
+  PackageLink:
+    PackageId:
+      Serialization:
+        Type: SerializesAs
+        As: PackageIdSerialize

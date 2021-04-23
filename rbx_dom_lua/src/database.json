@@ -18976,7 +18976,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "PackageIdSerialize"
+              }
             }
           }
         },
