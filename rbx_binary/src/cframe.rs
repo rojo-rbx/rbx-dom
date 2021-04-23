@@ -1,9 +1,10 @@
 use rbx_dom_weak::types::{Matrix3, Vector3};
 
 pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
-    let x_id = matrix3.x_row().to_normal_id()?;
-    let y_id = matrix3.y_row().to_normal_id()?;
-    let z_id = matrix3.z_row().to_normal_id()?;
+    let transpose = matrix3.transpose();
+    let x_id = transpose.x.to_normal_id()?;
+    let y_id = transpose.y.to_normal_id()?;
+    let z_id = transpose.z.to_normal_id()?;
     let basic_rotation_id = (6 * x_id) + y_id + 1;
 
     // Because we don't enforce orthonormality, it's still possible at
@@ -11,7 +12,8 @@ pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
     // row. Roblox will never output a matrix like this, but we check
     // for it anyway to avoid altering its value.
     if from_basic_rotation_id(basic_rotation_id)?
-        .z_row()
+        .transpose()
+        .z
         .to_normal_id()?
         == z_id
     {

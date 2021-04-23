@@ -189,16 +189,12 @@ impl Matrix3 {
         }
     }
 
-    pub fn x_row(&self) -> Vector3 {
-        Vector3::new(self.x.x, self.y.x, self.z.x)
-    }
-
-    pub fn y_row(&self) -> Vector3 {
-        Vector3::new(self.x.y, self.y.y, self.z.y)
-    }
-
-    pub fn z_row(&self) -> Vector3 {
-        Vector3::new(self.x.z, self.y.z, self.z.z)
+    pub fn transpose(&self) -> Self {
+        Self {
+            x: Vector3::new(self.x.x, self.y.x, self.z.x),
+            y: Vector3::new(self.x.y, self.y.y, self.z.y),
+            z: Vector3::new(self.x.z, self.y.z, self.z.z),
+        }
     }
 }
 
