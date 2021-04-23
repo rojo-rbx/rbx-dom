@@ -3,6 +3,7 @@
 
 #![deny(missing_docs)]
 
+mod cframe;
 mod chunk;
 mod core;
 mod deserializer;

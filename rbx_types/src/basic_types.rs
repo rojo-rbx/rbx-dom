@@ -74,9 +74,50 @@ pub struct Vector3 {
     pub z: f32,
 }
 
+fn approx_unit_or_zero(value: f32) -> Option<i32> {
+    if value.abs() <= std::f32::EPSILON {
+        Some(0)
+    } else if value.abs() - 1.0 <= std::f32::EPSILON {
+        Some(1.0f32.copysign(value) as i32)
+    } else {
+        None
+    }
+}
+
 impl Vector3 {
     pub fn new(x: f32, y: f32, z: f32) -> Self {
         Self { x, y, z }
+    }
+
+    /// If the vector is a positive or negative basis vector, returns
+    /// its corresponding ID. Otherwise, returns None.
+
+    /// The mapping goes like this:
+    /// (1.0, 0.0, 0.0) -> 0
+    /// (0.0, 1.0, 0.0) -> 1
+    /// (0.0, 0.0, 1.0) -> 2
+    /// (-1.0, 0.0, 0.0) -> 3
+    /// (0.0, -1.0, 0.0) -> 4
+    /// (0.0, 0.0, -1.0) -> 5
+    pub fn to_normal_id(&self) -> Option<u8> {
+        fn get_normal_id(position: u8, value: i32) -> Option<u8> {
+            match value {
+                1 => Some(position),
+                -1 => Some(position + 3),
+                _ => None,
+            }
+        }
+
+        let x = approx_unit_or_zero(self.x);
+        let y = approx_unit_or_zero(self.y);
+        let z = approx_unit_or_zero(self.z);
+
+        match (x, y, z) {
+            (Some(x), Some(0), Some(0)) => get_normal_id(0, x),
+            (Some(0), Some(y), Some(0)) => get_normal_id(1, y),
+            (Some(0), Some(0), Some(z)) => get_normal_id(2, z),
+            _ => None,
+        }
     }
 }
 
@@ -141,9 +182,17 @@ impl Matrix3 {
 
     pub fn identity() -> Self {
         Self {
-            x: Vector3::new(1.0, 0.0, 1.0),
+            x: Vector3::new(1.0, 0.0, 0.0),
             y: Vector3::new(0.0, 1.0, 0.0),
             z: Vector3::new(0.0, 0.0, 1.0),
+        }
+    }
+
+    pub fn transpose(&self) -> Self {
+        Self {
+            x: Vector3::new(self.x.x, self.y.x, self.z.x),
+            y: Vector3::new(self.x.y, self.y.y, self.z.y),
+            z: Vector3::new(self.x.z, self.y.z, self.z.z),
         }
     }
 }
