@@ -85,14 +85,6 @@ fn approx_unit_or_zero(value: f32) -> Option<i32> {
     }
 }
 
-fn get_normal_id(position: u8, value: i32) -> Option<u8> {
-    match value {
-        1 => Some(position),
-        -1 => Some(position + 3),
-        _ => None,
-    }
-}
-
 impl Vector3 {
     pub fn new(x: f32, y: f32, z: f32) -> Self {
         Self { x, y, z }
@@ -109,6 +101,14 @@ impl Vector3 {
     /// (0.0, -1.0, 0.0) -> 4
     /// (0.0, 0.0, -1.0) -> 5
     pub fn to_normal_id(&self) -> Option<u8> {
+        fn get_normal_id(position: u8, value: i32) -> Option<u8> {
+            match value {
+                1 => Some(position),
+                -1 => Some(position + 3),
+                _ => None,
+            }
+        }
+
         let x = approx_unit_or_zero(self.x);
         let y = approx_unit_or_zero(self.y);
         let z = approx_unit_or_zero(self.z);
