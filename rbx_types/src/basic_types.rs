@@ -1,5 +1,3 @@
-use approx::abs_diff_eq;
-
 /// Represents any Roblox enum value.
 ///
 /// Roblox enums are not strongly typed, so the meaning of a value depends on
@@ -77,14 +75,14 @@ pub struct Vector3 {
 }
 
 fn approx_unit_or_zero(value: f32) -> Option<i32> {
-    if abs_diff_eq!(value.abs(), 1.0) {
+    if value.abs() <= f32::EPSILON {
+        Some(0)
+    } else if value.abs() - 1.0 <= f32::EPSILON {
         if value.is_sign_positive() {
             Some(1)
         } else {
             Some(-1)
         }
-    } else if abs_diff_eq!(value, 0.0) {
-        Some(0)
     } else {
         None
     }
