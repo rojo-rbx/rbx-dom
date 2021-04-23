@@ -78,11 +78,8 @@ fn approx_unit_or_zero(value: f32) -> Option<i32> {
     if value.abs() <= f32::EPSILON {
         Some(0)
     } else if value.abs() - 1.0 <= f32::EPSILON {
-        if value.is_sign_positive() {
-            Some(1)
-        } else {
-            Some(-1)
-        }
+        let one: f32 = 1.0;
+        Some(one.copysign(value) as i32)
     } else {
         None
     }
