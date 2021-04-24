@@ -1200,7 +1200,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         return Err(InnerError::PropTypeMismatch {
                             type_name: type_info.type_name.clone(),
                             prop_name,
-                            valid_type_names: "CFrame",
+                            valid_type_names: "OptionalCFrame",
                             actual_type_name: format!("{:?}", invalid_type),
                         });
                     }
