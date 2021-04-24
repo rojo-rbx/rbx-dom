@@ -166,6 +166,8 @@ impl CFrame {
     }
 }
 
+pub type OptionalCFrame = Option<CFrame>;
+
 /// Used to represent the `orientation` field of `CFrame` and not a standalone
 /// type in Roblox.
 #[derive(Debug, Clone, Copy, PartialEq)]
