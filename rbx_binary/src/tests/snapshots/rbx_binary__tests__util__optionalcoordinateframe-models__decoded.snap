@@ -1,0 +1,233 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: None
+  class: Model
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    LevelOfDetail:
+      Type: Enum
+      Value: 0
+    ModelInPrimary:
+      Type: CFrame
+      Value:
+        Position:
+          - 0.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    ModelMeshCFrame:
+      Type: CFrame
+      Value:
+        Position:
+          - 0.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    NeedsPivotMigration:
+      Type: Bool
+      Value: false
+    PrimaryPart: "null"
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    WorldPivotData:
+      Type: OptionalCFrame
+      Value: ~
+  children: []
+- referent: referent-1
+  name: Some
+  class: Model
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    LevelOfDetail:
+      Type: Enum
+      Value: 0
+    ModelInPrimary:
+      Type: CFrame
+      Value:
+        Position:
+          - 0.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    ModelMeshCFrame:
+      Type: CFrame
+      Value:
+        Position:
+          - 0.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    NeedsPivotMigration:
+      Type: Bool
+      Value: false
+    PrimaryPart: "null"
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    WorldPivotData:
+      Type: OptionalCFrame
+      Value:
+        Position:
+          - 1.0
+          - -1.0
+          - 0.5
+        Orientation:
+          - - 0.06294725090265274
+            - 0.4031980037689209
+            - 0.9129452705383301
+          - - 0.7524184584617615
+            - -0.620145320892334
+            - 0.22200526297092439
+          - - 0.6556707620620728
+            - 0.6729422211647034
+            - -0.34241002798080447
+  children: []
+- referent: referent-2
+  name: SomeInfNaN
+  class: Model
+  properties:
+    AttributesSerialize:
+      Type: BinaryString
+      Value: ""
+    LevelOfDetail:
+      Type: Enum
+      Value: 0
+    ModelInPrimary:
+      Type: CFrame
+      Value:
+        Position:
+          - 0.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    ModelMeshCFrame:
+      Type: CFrame
+      Value:
+        Position:
+          - 0.0
+          - 0.0
+          - 0.0
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Type: Vector3
+      Value:
+        - 0.0
+        - 0.0
+        - 0.0
+    NeedsPivotMigration:
+      Type: Bool
+      Value: false
+    PrimaryPart: "null"
+    SourceAssetId:
+      Type: Int64
+      Value: -1
+    Tags:
+      Type: BinaryString
+      Value: ""
+    WorldPivotData:
+      Type: OptionalCFrame
+      Value:
+        Position:
+          - -0.5
+          - .inf
+          - .nan
+        Orientation:
+          - - 1.0
+            - 0.0
+            - 0.0
+          - - 0.0
+            - 1.0
+            - 0.0
+          - - 0.0
+            - 0.0
+            - 1.0
+  children: []
