@@ -1055,6 +1055,62 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         chunk.write_interleaved_u32_array(&entries)?;
                     }
+                    Type::OptionalCFrame => {
+                        let mut rotations = Vec::with_capacity(values.len());
+                        let mut bools = Vec::with_capacity(values.len());
+                        let mut x = Vec::with_capacity(values.len());
+                        let mut y = Vec::with_capacity(values.len());
+                        let mut z = Vec::with_capacity(values.len());
+
+                        chunk.write_u8(Type::CFrame as u8)?;
+
+                        for (i, rbx_value) in values {
+                            if let Variant::OptionalCFrame(value) = rbx_value.as_ref() {
+                                if let Some(value) = value {
+                                    rotations.push(value.orientation);
+                                    x.push(value.position.x);
+                                    y.push(value.position.y);
+                                    z.push(value.position.z);
+                                    bools.push(0x01);
+                                } else {
+                                    rotations.push(Matrix3::identity());
+                                    x.push(0.0);
+                                    y.push(0.0);
+                                    z.push(0.0);
+                                    bools.push(0x00);
+                                }
+                            } else {
+                                return type_mismatch(i, &rbx_value, "OptionalCFrame");
+                            }
+                        }
+
+                        for matrix in rotations {
+                            if let Some(id) = cframe::to_basic_rotation_id(matrix) {
+                                chunk.write_u8(id)?;
+                            } else {
+                                chunk.write_u8(0x00)?;
+
+                                chunk.write_le_f32(matrix.x.x)?;
+                                chunk.write_le_f32(matrix.x.y)?;
+                                chunk.write_le_f32(matrix.x.z)?;
+
+                                chunk.write_le_f32(matrix.y.x)?;
+                                chunk.write_le_f32(matrix.y.y)?;
+                                chunk.write_le_f32(matrix.y.z)?;
+
+                                chunk.write_le_f32(matrix.z.x)?;
+                                chunk.write_le_f32(matrix.z.y)?;
+                                chunk.write_le_f32(matrix.z.z)?;
+                            }
+                        }
+
+                        chunk.write_interleaved_f32_array(x.into_iter())?;
+                        chunk.write_interleaved_f32_array(y.into_iter())?;
+                        chunk.write_interleaved_f32_array(z.into_iter())?;
+
+                        chunk.write_u8(Type::Bool as u8)?;
+                        chunk.write_all(bools.as_slice())?;
+                    }
                 }
 
                 chunk.dump(&mut self.output)?;
@@ -1188,6 +1244,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             VariantType::Color3uint8 => Variant::Color3uint8(Color3uint8::new(0, 0, 0)),
             VariantType::Int64 => Variant::Int64(0),
             VariantType::SharedString => Variant::SharedString(SharedString::new(Vec::new())),
+            VariantType::OptionalCFrame => Variant::OptionalCFrame(None),
             _ => return None,
         })
     }
