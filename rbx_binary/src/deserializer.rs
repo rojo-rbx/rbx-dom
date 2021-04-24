@@ -89,8 +89,8 @@ pub(crate) enum InnerError {
     #[error("File referred to type ID {type_id}, which was not declared")]
     InvalidTypeId { type_id: u32 },
 
-    #[error("Invalid property data: CFrame property {type_name}.{prop_name} had an invalid orientation ID {id:02x}")]
-    BadCFrameOrientationId {
+    #[error("Invalid property data: CFrame property {type_name}.{prop_name} had an invalid rotation ID {id:02x}")]
+    BadRotationId {
         type_name: String,
         prop_name: String,
         id: u8,
@@ -757,75 +757,75 @@ impl<R: Read> BinaryDeserializer<R> {
                     });
                 }
             },
-            Type::CFrame => match canonical_type {
-                VariantType::CFrame => {
-                    let referents = &type_info.referents;
-                    let mut rotations = Vec::with_capacity(referents.len());
+            Type::CFrame => {
+                match canonical_type {
+                    VariantType::CFrame => {
+                        let referents = &type_info.referents;
+                        let mut rotations = Vec::with_capacity(referents.len());
 
-                    for _ in 0..referents.len() {
-                        let id = chunk.read_u8()?;
-                        if id == 0 {
-                            rotations.push(Matrix3::new(
-                                Vector3::new(
-                                    chunk.read_le_f32()?,
-                                    chunk.read_le_f32()?,
-                                    chunk.read_le_f32()?,
-                                ),
-                                Vector3::new(
-                                    chunk.read_le_f32()?,
-                                    chunk.read_le_f32()?,
-                                    chunk.read_le_f32()?,
-                                ),
-                                Vector3::new(
-                                    chunk.read_le_f32()?,
-                                    chunk.read_le_f32()?,
-                                    chunk.read_le_f32()?,
-                                ),
-                            ));
-                        } else {
-                            let special_case =
-                                cframe::from_basic_rotation_id(id).ok_or_else(|| {
-                                    InnerError::BadCFrameOrientationId {
+                        for _ in 0..referents.len() {
+                            let id = chunk.read_u8()?;
+                            if id == 0 {
+                                rotations.push(Matrix3::new(
+                                    Vector3::new(
+                                        chunk.read_le_f32()?,
+                                        chunk.read_le_f32()?,
+                                        chunk.read_le_f32()?,
+                                    ),
+                                    Vector3::new(
+                                        chunk.read_le_f32()?,
+                                        chunk.read_le_f32()?,
+                                        chunk.read_le_f32()?,
+                                    ),
+                                    Vector3::new(
+                                        chunk.read_le_f32()?,
+                                        chunk.read_le_f32()?,
+                                        chunk.read_le_f32()?,
+                                    ),
+                                ));
+                            } else {
+                                let basic_rotation = cframe::from_basic_rotation_id(id)
+                                    .ok_or_else(|| InnerError::BadRotationId {
                                         type_name: type_info.type_name.clone(),
                                         prop_name: prop_name.clone(),
                                         id,
-                                    }
-                                })?;
+                                    })?;
 
-                            rotations.push(special_case);
+                                rotations.push(basic_rotation);
+                            }
+                        }
+
+                        let mut x = vec![0.0; referents.len()];
+                        let mut y = vec![0.0; referents.len()];
+                        let mut z = vec![0.0; referents.len()];
+
+                        chunk.read_interleaved_f32_array(&mut x)?;
+                        chunk.read_interleaved_f32_array(&mut y)?;
+                        chunk.read_interleaved_f32_array(&mut z)?;
+
+                        let values = x
+                            .into_iter()
+                            .zip(y)
+                            .zip(z)
+                            .map(|((x, y), z)| Vector3::new(x, y, z))
+                            .zip(rotations)
+                            .map(|(position, rotation)| CFrame::new(position, rotation));
+
+                        for (cframe, referent) in values.zip(referents) {
+                            let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                            instance.builder.add_property(&canonical_name, cframe);
                         }
                     }
-
-                    let mut x = vec![0.0; referents.len()];
-                    let mut y = vec![0.0; referents.len()];
-                    let mut z = vec![0.0; referents.len()];
-
-                    chunk.read_interleaved_f32_array(&mut x)?;
-                    chunk.read_interleaved_f32_array(&mut y)?;
-                    chunk.read_interleaved_f32_array(&mut z)?;
-
-                    let values = x
-                        .into_iter()
-                        .zip(y)
-                        .zip(z)
-                        .map(|((x, y), z)| Vector3::new(x, y, z))
-                        .zip(rotations)
-                        .map(|(position, rotation)| CFrame::new(position, rotation));
-
-                    for (cframe, referent) in values.zip(referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, cframe);
+                    invalid_type => {
+                        return Err(InnerError::PropTypeMismatch {
+                            type_name: type_info.type_name.clone(),
+                            prop_name,
+                            valid_type_names: "CFrame",
+                            actual_type_name: format!("{:?}", invalid_type),
+                        });
                     }
                 }
-                invalid_type => {
-                    return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
-                        prop_name,
-                        valid_type_names: "CFrame",
-                        actual_type_name: format!("{:?}", invalid_type),
-                    });
-                }
-            },
+            }
             Type::Enum => match canonical_type {
                 VariantType::Enum => {
                     let mut values = vec![0; type_info.referents.len()];
