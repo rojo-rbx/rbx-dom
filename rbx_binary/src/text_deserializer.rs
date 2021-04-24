@@ -14,10 +14,7 @@ use rbx_dom_weak::types::{
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
-use crate::{
-    cframe::from_basic_rotation_id, chunk::Chunk, core::RbxReadExt, deserializer::FileHeader,
-    types::Type,
-};
+use crate::{cframe, chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
 
 #[derive(Debug, Serialize)]
 pub struct DecodedModel {
@@ -384,7 +381,7 @@ impl DecodedValues {
                             ),
                         );
                     } else {
-                        *rotation = from_basic_rotation_id(id).unwrap();
+                        *rotation = cframe::from_basic_rotation_id(id).unwrap();
                     }
                 }
 
