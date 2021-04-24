@@ -9,8 +9,8 @@ use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
-    Vector3, Vector3int16,
+    NumberSequenceKeypoint, OptionalCFrame, PhysicalProperties, Ray, Rect, SharedString, UDim,
+    UDim2, Vector2, Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
@@ -221,6 +221,7 @@ pub enum DecodedValues {
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
     SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
+    OptionalCFrame(Vec<OptionalCFrame>),
 }
 
 impl DecodedValues {
@@ -612,6 +613,62 @@ impl DecodedValues {
                 reader.read_interleaved_u32_array(&mut values).unwrap();
 
                 Some(DecodedValues::SharedString(values))
+            }
+            Type::OptionalCFrame => {
+                let mut rotations = vec![Matrix3::identity(); prop_count];
+
+                reader.read_u8().unwrap();
+
+                for rotation in rotations.iter_mut() {
+                    let id = reader.read_u8().unwrap();
+                    if id == 0 {
+                        *rotation = Matrix3::new(
+                            Vector3::new(
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                            ),
+                            Vector3::new(
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                            ),
+                            Vector3::new(
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                                reader.read_le_f32().unwrap(),
+                            ),
+                        );
+                    } else {
+                        *rotation = cframe::from_basic_rotation_id(id).unwrap();
+                    }
+                }
+
+                let mut x = vec![0.0; prop_count];
+                let mut y = vec![0.0; prop_count];
+                let mut z = vec![0.0; prop_count];
+
+                reader.read_interleaved_f32_array(&mut x).unwrap();
+                reader.read_interleaved_f32_array(&mut y).unwrap();
+                reader.read_interleaved_f32_array(&mut z).unwrap();
+
+                reader.read_u8().unwrap();
+
+                let values = x
+                    .into_iter()
+                    .zip(y)
+                    .zip(z)
+                    .zip(rotations)
+                    .map(|(((x, y), z), rotation)| {
+                        if reader.read_u8().unwrap() == 0 {
+                            None
+                        } else {
+                            Some(CFrame::new(Vector3::new(x, y, z), rotation))
+                        }
+                    })
+                    .collect();
+
+                Some(DecodedValues::OptionalCFrame(values))
             }
         }
     }
