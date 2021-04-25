@@ -614,7 +614,7 @@ SharedStrings are stored as an [Interleaved Array](#byte-interleaving) of `u32`s
 * Immediately following OptionalCoordinateFrame's type ID is CFrame's type ID (`10`);
 * At the end of the chunk there is an array of Bools (preceded by Bool's type ID, `02`) that indicates which OptionalCoordinateFrames have a value.
 
-An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`.
+An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`. Note that the valueless `OptionalCoordinateFrame` is written as the identity `CFrame` with its corresponding boolean `00` codifying its valuelessness.
 
 ## Data Storage Notes
 
