@@ -44,7 +44,7 @@ This document is based on:
 	- [Color3uint8](#color3uint8)
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
-	- [OptionalCoordinateFrame](#optionalcooordinateframe)
+	- [OptionalCoordinateFrame](#optionalcoordinateframe)
 	- [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
