@@ -45,7 +45,7 @@ This document is based on:
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
-	- [Data Storage Notes](#data-storage-notes)
+- [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
 	- [Roblox Float Format](#roblox-float-format)
