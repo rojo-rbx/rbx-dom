@@ -44,7 +44,8 @@ This document is based on:
 	- [Color3uint8](#color3uint8)
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
-- [Data Storage Notes](#data-storage-notes)
+	- [OptionalCoordinateFrame](#optionalcooordinateframe)
+	- [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
 	- [Roblox Float Format](#roblox-float-format)
@@ -605,6 +606,15 @@ When an array of Int64s is present, the bytes of the integers are subject to [by
 **Type ID 0x1C**
 
 SharedStrings are stored as an [Interleaved Array](#byte-interleaving) of `u32`s that represent indices in the [`SSTR`](#sstr-chunk) string array.
+
+### OptionalCoordinateFrame
+**Type ID 0x1E**
+
+`OptionalCoordinateFrame` is stored the same way as [CFrame](#cframe), but with a couple interesting differences:
+* Immediately following OptionalCoordinateFrame's type ID is CFrame's type ID (0x10);
+* At the end of the chunk there is an array of Bools (preceded by Bool's type ID, 0x02) that indicates which OptionalCoordinateFrames have a value.
+
+An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `1e 10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`.
 
 ## Data Storage Notes
 
