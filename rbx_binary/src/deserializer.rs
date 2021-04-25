@@ -787,7 +787,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         } else {
                             return Err(InnerError::BadRotationId {
                                 type_name: type_info.type_name.clone(),
-                                prop_name: prop_name.clone(),
+                                prop_name,
                                 id,
                             });
                         }
@@ -1154,7 +1154,7 @@ impl<R: Read> BinaryDeserializer<R> {
                         } else {
                             return Err(InnerError::BadRotationId {
                                 type_name: type_info.type_name.clone(),
-                                prop_name: prop_name.clone(),
+                                prop_name,
                                 id,
                             });
                         }
