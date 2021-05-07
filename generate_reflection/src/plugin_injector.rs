@@ -41,17 +41,16 @@ impl<'a> PluginInjector<'a> {
         }
     }
 
-    pub fn receive_info(self, database: &ReflectionDatabase) -> StudioInfo {
+    pub fn receive_info(self, database: &ReflectionDatabase) -> anyhow::Result<StudioInfo> {
         log::info!("Waiting to hear back from Studio plugin...");
 
         self.http_server
             .recv_timeout(Duration::from_secs(30))
             .expect("error receiving HTTP request")
             .expect("plugin did not send a request within 30 seconds")
-            .respond(Response::from_string(
-                serde_json::to_string(&database.classes).unwrap(),
-            ))
-            .unwrap();
+            .respond(Response::from_string(serde_json::to_string(
+                &database.classes,
+            )?))?;
 
         let mut request = self
             .http_server
@@ -59,10 +58,10 @@ impl<'a> PluginInjector<'a> {
             .expect("error receiving HTTP request")
             .expect("plugin did not send a request within 30 seconds");
 
-        let studio_info: StudioInfo = serde_json::from_reader(request.as_reader()).unwrap();
-        request.respond(Response::empty(200)).unwrap();
+        let studio_info: StudioInfo = serde_json::from_reader(request.as_reader())?;
+        request.respond(Response::empty(200))?;
 
-        studio_info
+        Ok(studio_info)
     }
 }
 
