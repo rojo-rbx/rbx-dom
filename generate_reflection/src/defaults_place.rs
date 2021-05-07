@@ -21,20 +21,24 @@ use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, Re
 use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
-use crate::plugin_injector::{PluginInjector, StudioInfo};
+use crate::{
+    plugin_injector::{PluginInjector, StudioInfo},
+    property_patches::PropertyPatches,
+};
 
 /// Use Roblox Studio to populate the reflection database with default values
-/// for as many properties as possible.
-pub fn measure_default_properties(database: &mut ReflectionDatabase) -> anyhow::Result<()> {
+/// for as many properties as possible and return any property patches received
+/// from the plugin.
+pub fn measure_properties(database: &mut ReflectionDatabase) -> anyhow::Result<PropertyPatches> {
     let fixture_place = generate_fixture_place(database);
-    let output = roundtrip_place_through_studio(&fixture_place)?;
+    let output = roundtrip_place_through_studio(&fixture_place, database)?;
 
     database.version = output.info.version;
 
     log::info!("Applying defaults from place file into reflection database...");
     apply_defaults_from_fixture_place(database, &output.tree);
 
-    Ok(())
+    Ok(output.info.property_patches)
 }
 
 fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &WeakDom) {
@@ -203,7 +207,10 @@ struct StudioOutput {
 
 /// Generate a new fixture place from the given reflection database, open it in
 /// Studio, coax Studio to re-save it, and reads back the resulting place.
-fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<StudioOutput> {
+fn roundtrip_place_through_studio(
+    place_contents: &str,
+    database: &ReflectionDatabase,
+) -> anyhow::Result<StudioOutput> {
     let output_dir = tempdir()?;
     let output_path = output_dir.path().join("roundtrip.rbxlx");
     log::info!("Generating place at {}", output_path.display());
@@ -218,7 +225,7 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
         .arg(output_path.display().to_string())
         .spawn()?;
 
-    let info = injector.receive_info();
+    let info = injector.receive_info(database);
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;

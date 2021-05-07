@@ -6,15 +6,20 @@ use std::io::BufWriter;
 use std::time::Duration;
 
 use rbx_dom_weak::{InstanceBuilder, WeakDom};
+use rbx_reflection::ReflectionDatabase;
 use roblox_install::RobloxStudio;
 use serde::Deserialize;
 use tiny_http::Response;
 
+use crate::property_patches::PropertyPatches;
+
 static PLUGIN_SOURCE: &str = include_str!("../plugin/main.lua");
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "PascalCase", deny_unknown_fields)]
 pub struct StudioInfo {
     pub version: [u32; 4],
+    pub property_patches: PropertyPatches,
 }
 
 pub struct PluginInjector<'a> {
@@ -36,8 +41,18 @@ impl<'a> PluginInjector<'a> {
         }
     }
 
-    pub fn receive_info(self) -> StudioInfo {
+    pub fn receive_info(self, database: &ReflectionDatabase) -> StudioInfo {
         log::info!("Waiting to hear back from Studio plugin...");
+
+        self.http_server
+            .recv_timeout(Duration::from_secs(30))
+            .expect("error receiving HTTP request")
+            .expect("plugin did not send a request within 30 seconds")
+            .respond(Response::from_string(
+                serde_json::to_string(&database.classes).unwrap(),
+            ))
+            .unwrap();
+
         let mut request = self
             .http_server
             .recv_timeout(Duration::from_secs(30))
