@@ -9,8 +9,8 @@ use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, OptionalCFrame, PhysicalProperties, Ray, Rect, SharedString, UDim,
-    UDim2, Vector2, Vector3, Vector3int16,
+    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
+    Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
@@ -221,7 +221,7 @@ pub enum DecodedValues {
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
     SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
-    OptionalCFrame(Vec<OptionalCFrame>),
+    OptionalCFrame(Vec<Option<CFrame>>),
 }
 
 impl DecodedValues {
