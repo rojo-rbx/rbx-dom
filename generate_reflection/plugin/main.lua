@@ -69,7 +69,7 @@ local function shouldSkip(propertyDescriptor)
 		or propertyDescriptor.Kind.Canonical == nil
 end
 
-local function measureScriptability(instance, propertyDescriptor)
+local function getPropertyChange(instance, propertyDescriptor)
 	local propertyName = propertyDescriptor.Name
 	local readSuccess, value = pcall(get, instance, propertyName)
 	local writeSuccess = pcall(set, instance, propertyName, value)
@@ -86,17 +86,8 @@ local function measureScriptability(instance, propertyDescriptor)
 	end
 
 	if measuredScriptability ~= propertyDescriptor.Scriptability then
-		return measuredScriptability
-	else
-		return nil
-	end
-end
-
-local function getPropertyChange(instance, propertyDescriptor)
-	local scriptability = measureScriptability(instance, propertyDescriptor)
-	if scriptability then
 		return {
-			Scriptability = scriptability,
+			Scriptability = measuredScriptability,
 		}
 	else
 		return nil
