@@ -10949,7 +10949,7 @@
         },
         "ClippedRect": {
           "Name": "ClippedRect",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Rect"
           },
@@ -10966,7 +10966,7 @@
         },
         "IsNotOccluded": {
           "Name": "IsNotOccluded",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -11000,7 +11000,7 @@
         },
         "RawRect2D": {
           "Name": "RawRect2D",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Rect"
           },
@@ -11030,7 +11030,7 @@
         },
         "TotalGroupScale": {
           "Name": "TotalGroupScale",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -18578,7 +18578,7 @@
       "Properties": {
         "IsLuaChatEnabled": {
           "Name": "IsLuaChatEnabled",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -18595,7 +18595,7 @@
         },
         "IsLuaGameDetailsEnabled": {
           "Name": "IsLuaGameDetailsEnabled",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -25600,7 +25600,7 @@
       "Properties": {
         "AbsoluteCanvasSize": {
           "Name": "AbsoluteCanvasSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -25698,7 +25698,7 @@
         },
         "HorizontalBarRect": {
           "Name": "HorizontalBarRect",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Rect"
           },
@@ -25728,7 +25728,7 @@
         },
         "MaxCanvasPosition": {
           "Name": "MaxCanvasPosition",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -25836,7 +25836,7 @@
         },
         "VerticalBarRect": {
           "Name": "VerticalBarRect",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Rect"
           },
@@ -26376,7 +26376,7 @@
       "Properties": {
         "ActiveInstance": {
           "Name": "ActiveInstance",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -29072,7 +29072,7 @@
       "Properties": {
         "PlaybackLoudness": {
           "Name": "PlaybackLoudness",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float64"
           },
@@ -32527,7 +32527,7 @@
         },
         "AlignDraggedObjects": {
           "Name": "AlignDraggedObjects",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -32608,7 +32608,7 @@
         },
         "InstalledPluginData": {
           "Name": "InstalledPluginData",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -32625,7 +32625,7 @@
         },
         "PivotSnapToGeometry": {
           "Name": "PivotSnapToGeometry",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39753,7 +39753,7 @@
         },
         "BottomBarSize": {
           "Name": "BottomBarSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -39919,7 +39919,7 @@
         },
         "NavBarSize": {
           "Name": "NavBarSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -39936,7 +39936,7 @@
         },
         "OnScreenKeyboardAnimationDuration": {
           "Name": "OnScreenKeyboardAnimationDuration",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float64"
           },
@@ -40016,7 +40016,7 @@
         },
         "RightBarSize": {
           "Name": "RightBarSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -40033,7 +40033,7 @@
         },
         "StatusBarSize": {
           "Name": "StatusBarSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -40153,7 +40153,7 @@
         },
         "VRDeviceName": {
           "Name": "VRDeviceName",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
