@@ -1127,7 +1127,6 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     // Roblox writes a type marker for CFrame here that we don't
                     // need to use.
-
                     let cframe_type_id = chunk.read_u8()?;
                     assert!(
                         cframe_type_id == Type::CFrame as u8,
