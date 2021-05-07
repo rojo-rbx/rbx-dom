@@ -95,6 +95,13 @@ pub(crate) enum InnerError {
         prop_name: String,
         id: u8,
     },
+
+    #[error("Expected type id for {expected_type_name}, ({expected_type_id}) when reading OptionalCFrame; got {actual_type_id}")]
+    BadOptionalCFrameFormat {
+        expected_type_name: String,
+        expected_type_id: u8,
+        actual_type_id: u8,
+    },
 }
 
 pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
@@ -1126,14 +1133,16 @@ impl<R: Read> BinaryDeserializer<R> {
                     let mut rotations = Vec::with_capacity(referents.len());
 
                     // Roblox writes a type marker for CFrame here that we don't
-                    // need to use.
-                    let cframe_type_id = chunk.read_u8()?;
-                    assert!(
-                        cframe_type_id == Type::CFrame as u8,
-                        "Expected type id for CFrame ({}) when reading OptionalCFrame; got {}",
-                        Type::CFrame as u8,
-                        cframe_type_id,
-                    );
+                    // need to use. We explicitly check for this right now just
+                    // in case we're wrong and we do need it!
+                    let actual_type_id = chunk.read_u8()?;
+                    if actual_type_id != Type::CFrame as u8 {
+                        return Err(InnerError::BadOptionalCFrameFormat {
+                            expected_type_name: String::from("CFrame"),
+                            expected_type_id: Type::CFrame as u8,
+                            actual_type_id,
+                        });
+                    }
 
                     for _ in 0..referents.len() {
                         let id = chunk.read_u8()?;
@@ -1175,14 +1184,16 @@ impl<R: Read> BinaryDeserializer<R> {
                     chunk.read_interleaved_f32_array(&mut z)?;
 
                     // Roblox writes a type marker for Bool here that we don't
-                    // need to use.
-                    let bool_type_id = chunk.read_u8()?;
-                    assert!(
-                        bool_type_id == Type::Bool as u8,
-                        "Expected type id for Bool ({}) when reading OptionalCFrame; got {}",
-                        Type::Bool as u8,
-                        bool_type_id,
-                    );
+                    // need to use. We explicitly check for this right now just
+                    // in case we're wrong and we do need it!
+                    let actual_type_id = chunk.read_u8()?;
+                    if actual_type_id != Type::Bool as u8 {
+                        return Err(InnerError::BadOptionalCFrameFormat {
+                            expected_type_name: String::from("Bool"),
+                            expected_type_id: Type::Bool as u8,
+                            actual_type_id,
+                        });
+                    }
 
                     let values = x
                         .into_iter()
