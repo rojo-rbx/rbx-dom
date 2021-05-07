@@ -69,23 +69,37 @@ local function shouldSkip(propertyDescriptor)
 		or propertyDescriptor.Kind.Canonical == nil
 end
 
-local function measure(instance, propertyDescriptor)
-	local readSuccess, value = pcall(get, instance, propertyDescriptor.Name)
-	local writeSuccess = pcall(set, instance, propertyDescriptor.Name, value)
-	local scriptability
+local function measureScriptability(instance, propertyDescriptor)
+	local propertyName = propertyDescriptor.Name
+	local readSuccess, value = pcall(get, instance, propertyName)
+	local writeSuccess = pcall(set, instance, propertyName, value)
+	local measuredScriptability
 
 	if readSuccess and writeSuccess then
-		scriptability = "ReadWrite"
+		measuredScriptability = "ReadWrite"
 	elseif readSuccess then
-		scriptability = "Read"
+		measuredScriptability = "Read"
 	else
-		scriptability = "None"
+		-- TODO: Are there any properties that are writable, but not
+		-- readable?
+		measuredScriptability = "None"
 	end
 
-	if scriptability ~= propertyDescriptor.Scriptability then
+	if measuredScriptability ~= propertyDescriptor.Scriptability then
+		return measuredScriptability
+	else
+		return nil
+	end
+end
+
+local function getPropertyChange(instance, propertyDescriptor)
+	local scriptability = measureScriptability(instance, propertyDescriptor)
+	if scriptability then
 		return {
 			Scriptability = scriptability,
 		}
+	else
+		return nil
 	end
 end
 
