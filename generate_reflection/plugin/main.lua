@@ -42,7 +42,7 @@ end
 
 local function getInstance(className)
 	if classNameBlacklist[className] then
-		return false
+		return nil
 	end
 
 	local canCreate, instance = pcall(Instance.new, className)
