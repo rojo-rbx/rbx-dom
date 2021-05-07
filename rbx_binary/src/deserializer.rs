@@ -1127,7 +1127,14 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     // Roblox writes a type marker for CFrame here that we don't
                     // need to use.
-                    assert!(chunk.read_u8()? == Type::CFrame as u8);
+
+                    let cframe_type_id = chunk.read_u8()?;
+                    assert!(
+                        cframe_type_id == Type::CFrame as u8,
+                        "Expected type id for CFrame ({}) when reading OptionalCFrame; got {}",
+                        Type::CFrame as u8,
+                        cframe_type_id,
+                    );
 
                     for _ in 0..referents.len() {
                         let id = chunk.read_u8()?;
@@ -1170,7 +1177,13 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     // Roblox writes a type marker for Bool here that we don't
                     // need to use.
-                    assert!(chunk.read_u8()? == Type::Bool as u8);
+                    let bool_type_id = chunk.read_u8()?;
+                    assert!(
+                        bool_type_id == Type::Bool as u8,
+                        "Expected type id for Bool ({}) when reading OptionalCFrame; got {}",
+                        Type::Bool as u8,
+                        bool_type_id,
+                    );
 
                     let values = x
                         .into_iter()

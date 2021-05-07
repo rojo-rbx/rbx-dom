@@ -617,7 +617,13 @@ impl DecodedValues {
             Type::OptionalCFrame => {
                 let mut rotations = vec![Matrix3::identity(); prop_count];
 
-                assert!(reader.read_u8().unwrap() == Type::CFrame as u8);
+                let cframe_type_id = reader.read_u8().unwrap();
+                assert!(
+                    cframe_type_id == Type::CFrame as u8,
+                    "Expected type id for CFrame ({}) when reading OptionalCFrame; got {}",
+                    Type::CFrame as u8,
+                    cframe_type_id,
+                );
 
                 for rotation in rotations.iter_mut() {
                     let id = reader.read_u8().unwrap();
@@ -652,7 +658,13 @@ impl DecodedValues {
                 reader.read_interleaved_f32_array(&mut y).unwrap();
                 reader.read_interleaved_f32_array(&mut z).unwrap();
 
-                assert!(reader.read_u8().unwrap() == Type::Bool as u8);
+                let bool_type_id = reader.read_u8().unwrap();
+                assert!(
+                    bool_type_id == Type::Bool as u8,
+                    "Expected type id for Bool ({}) when reading OptionalCFrame; got {}",
+                    Type::Bool as u8,
+                    bool_type_id,
+                );
 
                 let values = x
                     .into_iter()
