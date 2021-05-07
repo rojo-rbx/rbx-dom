@@ -96,7 +96,7 @@ pub(crate) enum InnerError {
         id: u8,
     },
 
-    #[error("Expected type id for {expected_type_name}, ({expected_type_id}) when reading OptionalCFrame; got {actual_type_id}")]
+    #[error("Expected type id for {expected_type_name}, ({expected_type_id:02x}) when reading OptionalCFrame; got {actual_type_id:02x}")]
     BadOptionalCFrameFormat {
         expected_type_name: String,
         expected_type_id: u8,
