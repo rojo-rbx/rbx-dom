@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    476,
+    477,
     0,
-    421371
+    421956
   ],
   "Classes": {
     "ABTestService": {
@@ -13089,6 +13089,21 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
+        "AccessoryBlob": {
+          "Name": "AccessoryBlob",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "BackAccessory": {
           "Name": "BackAccessory",
           "Scriptability": "ReadWrite",
@@ -13587,6 +13602,10 @@
         }
       },
       "DefaultProperties": {
+        "AccessoryBlob": {
+          "Type": "String",
+          "Value": ""
+        },
         "AttributesSerialize": {
           "Type": "BinaryString",
           "Value": ""
@@ -30359,6 +30378,21 @@
             }
           }
         },
+        "LoadCharacterLayeredClothing": {
+          "Name": "LoadCharacterLayeredClothing",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "LoadCharacterLayeredClothing"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "NameDisplayDistance": {
           "Name": "NameDisplayDistance",
           "Scriptability": "ReadWrite",
@@ -30545,6 +30579,10 @@
         "LoadCharacterAppearance": {
           "Type": "Bool",
           "Value": true
+        },
+        "LoadCharacterLayeredClothing": {
+          "Type": "Enum",
+          "Value": 0
         },
         "NameDisplayDistance": {
           "Type": "Float32",
@@ -30763,7 +30801,25 @@
         "NotCreatable"
       ],
       "Superclass": "Instance",
-      "Properties": {},
+      "Properties": {
+        "DisplayName": {
+          "Name": "DisplayName",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "Status": {
@@ -42703,6 +42759,28 @@
         "TimedOut": 4
       }
     },
+    "AccessoryType": {
+      "name": "AccessoryType",
+      "items": {
+        "Back": 6,
+        "DressSkirt": 16,
+        "Face": 2,
+        "Front": 5,
+        "Hair": 1,
+        "Hat": 0,
+        "Jacket": 11,
+        "LeftShoe": 14,
+        "Neck": 3,
+        "Pants": 10,
+        "RightShoe": 15,
+        "Shirt": 9,
+        "Shorts": 13,
+        "Shoulder": 4,
+        "Sweater": 12,
+        "TeeShirt": 8,
+        "Waist": 7
+      }
+    },
     "ActionType": {
       "name": "ActionType",
       "items": {
@@ -44319,6 +44397,14 @@
         "Camera": 0,
         "ObjectCFrame": 3,
         "ObjectPosition": 2
+      }
+    },
+    "LoadCharacterLayeredClothing": {
+      "name": "LoadCharacterLayeredClothing",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
       }
     },
     "Material": {
