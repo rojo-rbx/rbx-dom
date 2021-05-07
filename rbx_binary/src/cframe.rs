@@ -144,6 +144,7 @@ pub(crate) fn from_basic_rotation_id(id: u8) -> Option<Matrix3> {
         _ => None,
     }
 }
+
 #[cfg(test)]
 mod test {
     use super::*;

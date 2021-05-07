@@ -38,6 +38,7 @@ pub enum Type {
     Color3uint8 = 0x1A,
     Int64 = 0x1B,
     SharedString = 0x1C,
+    OptionalCFrame = 0x1E,
 }
 
 impl Type {
@@ -73,7 +74,7 @@ impl Type {
             VariantType::Color3uint8 => Type::Color3uint8,
             VariantType::Int64 => Type::Int64,
             VariantType::SharedString => Type::SharedString,
-
+            VariantType::OptionalCFrame => Type::OptionalCFrame,
             _ => return None,
         })
     }
@@ -108,6 +109,7 @@ impl Type {
             Type::Color3uint8 => VariantType::Color3uint8,
             Type::Int64 => VariantType::Int64,
             Type::SharedString => VariantType::SharedString,
+            Type::OptionalCFrame => VariantType::OptionalCFrame,
         })
     }
 }
@@ -145,6 +147,7 @@ impl TryFrom<u8> for Type {
             0x1A => Color3uint8,
             0x1B => Int64,
             0x1C => SharedString,
+            0x1E => OptionalCFrame,
             _ => return Err(InvalidTypeError(value)),
         })
     }

@@ -89,11 +89,18 @@ pub(crate) enum InnerError {
     #[error("File referred to type ID {type_id}, which was not declared")]
     InvalidTypeId { type_id: u32 },
 
-    #[error("Invalid property data: CFrame property {type_name}.{prop_name} had an invalid orientation ID {id:02x}")]
-    BadCFrameOrientationId {
+    #[error("Invalid property data: CFrame property {type_name}.{prop_name} had an invalid rotation ID {id:02x}")]
+    BadRotationId {
         type_name: String,
         prop_name: String,
         id: u8,
+    },
+
+    #[error("Expected type id for {expected_type_name} ({expected_type_id:02x}) when reading OptionalCFrame; got {actual_type_id:02x}")]
+    BadOptionalCFrameFormat {
+        expected_type_name: String,
+        expected_type_id: u8,
+        actual_type_id: u8,
     },
 }
 
@@ -782,17 +789,14 @@ impl<R: Read> BinaryDeserializer<R> {
                                     chunk.read_le_f32()?,
                                 ),
                             ));
+                        } else if let Some(basic_rotation) = cframe::from_basic_rotation_id(id) {
+                            rotations.push(basic_rotation);
                         } else {
-                            let special_case =
-                                cframe::from_basic_rotation_id(id).ok_or_else(|| {
-                                    InnerError::BadCFrameOrientationId {
-                                        type_name: type_info.type_name.clone(),
-                                        prop_name: prop_name.clone(),
-                                        id,
-                                    }
-                                })?;
-
-                            rotations.push(special_case);
+                            return Err(InnerError::BadRotationId {
+                                type_name: type_info.type_name.clone(),
+                                prop_name,
+                                id,
+                            });
                         }
                     }
 
@@ -1121,6 +1125,102 @@ impl<R: Read> BinaryDeserializer<R> {
                         valid_type_names: "SharedString",
                         actual_type_name: format!("{:?}", invalid_type),
                     })
+                }
+            },
+            Type::OptionalCFrame => match canonical_type {
+                VariantType::OptionalCFrame => {
+                    let referents = &type_info.referents;
+                    let mut rotations = Vec::with_capacity(referents.len());
+
+                    // Roblox writes a type marker for CFrame here that we don't
+                    // need to use. We explicitly check for this right now just
+                    // in case we're wrong and we do need it!
+                    let actual_type_id = chunk.read_u8()?;
+                    if actual_type_id != Type::CFrame as u8 {
+                        return Err(InnerError::BadOptionalCFrameFormat {
+                            expected_type_name: String::from("CFrame"),
+                            expected_type_id: Type::CFrame as u8,
+                            actual_type_id,
+                        });
+                    }
+
+                    for _ in 0..referents.len() {
+                        let id = chunk.read_u8()?;
+                        if id == 0 {
+                            rotations.push(Matrix3::new(
+                                Vector3::new(
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                ),
+                                Vector3::new(
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                ),
+                                Vector3::new(
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                ),
+                            ));
+                        } else if let Some(basic_rotation) = cframe::from_basic_rotation_id(id) {
+                            rotations.push(basic_rotation);
+                        } else {
+                            return Err(InnerError::BadRotationId {
+                                type_name: type_info.type_name.clone(),
+                                prop_name,
+                                id,
+                            });
+                        }
+                    }
+
+                    let mut x = vec![0.0; referents.len()];
+                    let mut y = vec![0.0; referents.len()];
+                    let mut z = vec![0.0; referents.len()];
+
+                    chunk.read_interleaved_f32_array(&mut x)?;
+                    chunk.read_interleaved_f32_array(&mut y)?;
+                    chunk.read_interleaved_f32_array(&mut z)?;
+
+                    // Roblox writes a type marker for Bool here that we don't
+                    // need to use. We explicitly check for this right now just
+                    // in case we're wrong and we do need it!
+                    let actual_type_id = chunk.read_u8()?;
+                    if actual_type_id != Type::Bool as u8 {
+                        return Err(InnerError::BadOptionalCFrameFormat {
+                            expected_type_name: String::from("Bool"),
+                            expected_type_id: Type::Bool as u8,
+                            actual_type_id,
+                        });
+                    }
+
+                    let values = x
+                        .into_iter()
+                        .zip(y)
+                        .zip(z)
+                        .map(|((x, y), z)| Vector3::new(x, y, z))
+                        .zip(rotations)
+                        .map(|(position, rotation)| {
+                            if chunk.read_u8().ok()? == 0 {
+                                None
+                            } else {
+                                Some(CFrame::new(position, rotation))
+                            }
+                        });
+
+                    for (cframe, referent) in values.zip(referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(&canonical_name, cframe);
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "OptionalCFrame",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
                 }
             },
         }
