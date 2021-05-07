@@ -109,25 +109,47 @@ local function getPropertyPatches(classes)
 	for className, classDescriptor in pairs(classes) do
 		local instance = getInstance(className)
 
-		if instance ~= nil then
-			local currentClass = className
-			local changes = {}
+		if instance == nil then
+			continue
+		end
 
-			while currentClass ~= nil do
-				for propertyName, propertyDescriptor in pairs(classDescriptor.Properties) do
-					if shouldSkip(propertyDescriptor) then
-						continue
-					end
+		local changes = {}
 
-					changes[propertyName] = measure(instance, propertyDescriptor)
+		for propertyName, propertyDescriptor in pairs(classDescriptor.Properties) do
+			if shouldSkip(propertyDescriptor) then
+				continue
+			end
+
+			changes[propertyName] = getPropertyChange(instance, propertyDescriptor)
+		end
+
+		if next(changes) then
+			propertyChanges[className] = changes
+		end
+
+		local superclassName = classDescriptor.Superclass
+
+		while superclassName ~= nil do
+			if propertyChanges[superclassName] ~= nil then
+				break
+			end
+
+			local superclassDescriptor = classes[superclassName]
+			local superclassChanges = {}
+
+			for propertyName, propertyDescriptor in pairs(superclassDescriptor.Properties) do
+				if shouldSkip(propertyDescriptor) then
+					continue
 				end
 
-				currentClass = classes[currentClass.Superclass]
+				superclassChanges[propertyName] = getPropertyChange(instance, propertyDescriptor)
 			end
 
-			if next(changes) then
-				propertyChanges[className] = changes
+			if next(superclassChanges) then
+				propertyChanges[superclassName] = superclassChanges
 			end
+
+			superclassName = superclassDescriptor.Superclass
 		end
 	end
 
