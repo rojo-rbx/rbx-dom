@@ -170,8 +170,7 @@ impl Dump {
                     }
 
                     let read_scriptability = match dump_property.security.read {
-                        Security::None => Scriptability::Read,
-                        Security::PluginSecurity => Scriptability::Read,
+                        Security::None | Security::PluginSecurity => Scriptability::Read,
                         _ => Scriptability::None,
                     };
 
@@ -179,8 +178,7 @@ impl Dump {
                         Scriptability::None
                     } else {
                         match dump_property.security.write {
-                            Security::None => Scriptability::Write,
-                            Security::PluginSecurity => Scriptability::Write,
+                            Security::None | Security::PluginSecurity => Scriptability::Write,
                             _ => Scriptability::None,
                         }
                     };
