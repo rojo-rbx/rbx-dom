@@ -88,7 +88,7 @@ pub enum ValueCategory {
 }
 
 #[derive(Debug, Clone, Copy, Deserialize)]
-pub enum SecurityEnum {
+pub enum Security {
     None,
     LocalUserSecurity,
     PluginSecurity,
@@ -100,8 +100,8 @@ pub enum SecurityEnum {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct PropertySecurity {
-    read: SecurityEnum,
-    write: SecurityEnum,
+    read: Security,
+    write: Security,
 }
 
 #[derive(Debug, Deserialize)]
@@ -169,8 +169,7 @@ impl Dump {
                         tags.insert(dump_tag.parse().unwrap());
                     }
 
-                    let read_scriptability = if let SecurityEnum::None
-                    | SecurityEnum::PluginSecurity =
+                    let read_scriptability = if let Security::None | Security::PluginSecurity =
                         dump_property.security.read
                     {
                         Scriptability::Read
@@ -180,7 +179,7 @@ impl Dump {
 
                     let write_scriptability = if tags.contains(&PropertyTag::ReadOnly) {
                         Scriptability::None
-                    } else if let SecurityEnum::None | SecurityEnum::PluginSecurity =
+                    } else if let Security::None | Security::PluginSecurity =
                         dump_property.security.write
                     {
                         Scriptability::Write
