@@ -9,7 +9,6 @@ local propertyBlacklist = {
 	RequestQueueSize = true, -- on ContentProvider, mistakenly marked serializable
 
 	-- Stuff that doesn't have meaningful defaults
-	Name = true,
 	ClassName = true,
 	Archivable = true,
 	Parent = true,
