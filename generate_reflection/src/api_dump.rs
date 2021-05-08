@@ -169,22 +169,20 @@ impl Dump {
                         tags.insert(dump_tag.parse().unwrap());
                     }
 
-                    let read_scriptability = if let Security::None | Security::PluginSecurity =
-                        dump_property.security.read
-                    {
-                        Scriptability::Read
-                    } else {
-                        Scriptability::None
+                    let read_scriptability = match dump_property.security.read {
+                        Security::None => Scriptability::Read,
+                        Security::PluginSecurity => Scriptability::Read,
+                        _ => Scriptability::None,
                     };
 
                     let write_scriptability = if tags.contains(&PropertyTag::ReadOnly) {
                         Scriptability::None
-                    } else if let Security::None | Security::PluginSecurity =
-                        dump_property.security.write
-                    {
-                        Scriptability::Write
                     } else {
-                        Scriptability::None
+                        match dump_property.security.write {
+                            Security::None => Scriptability::Write,
+                            Security::PluginSecurity => Scriptability::Write,
+                            _ => Scriptability::None,
+                        }
                     };
 
                     let scriptability = if tags.contains(&PropertyTag::NotScriptable) {
