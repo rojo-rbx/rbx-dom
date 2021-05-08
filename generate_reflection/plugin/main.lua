@@ -103,7 +103,7 @@ local function getPropertyChange(instance, propertyDescriptor)
 	end
 end
 
-local function getPropertyPatches(classes)
+local function getPropertyChanges(classes)
 	local propertyChanges = {}
 
 	for className, classDescriptor in pairs(classes) do
@@ -131,12 +131,12 @@ local function getPropertyPatches(classes)
 		end
 	end
 
-	return {
-		Change = propertyChanges,
-	}
+	return propertyChanges
 end
 
 HttpService:PostAsync(SERVER_URL, HttpService:JSONEncode({
 	Version = getVersion(),
-	PropertyPatches = getPropertyPatches(reflectionClasses),
+	PropertyPatches = {
+		Change = getPropertyChanges(reflectionClasses),
+	},
 }))
