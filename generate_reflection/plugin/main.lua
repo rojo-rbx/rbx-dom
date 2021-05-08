@@ -59,14 +59,15 @@ local function getInstance(className)
 end
 
 local function shouldSkip(propertyDescriptor)
-	local scriptability = propertyDescriptor.Scriptability
-	local isBlacklisted = propertyBlacklist[propertyDescriptor.Name]
+	if propertyBlacklist[propertyDescriptor.Name] then
+		return true
+	end
 
-	return
-		isBlacklisted
-		or scriptability == "None"
-		or scriptability == "Custom"
-		or propertyDescriptor.Kind.Canonical == nil
+	if propertyDescriptor.Scriptability ~= "ReadWrite" then
+		return true
+	end
+
+	return propertyDescriptor.Kind.Canonical == nil
 end
 
 local function measure(instance, propertyDescriptor)
