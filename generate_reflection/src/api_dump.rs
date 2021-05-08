@@ -59,6 +59,7 @@ pub struct DumpClassProperty {
     pub name: String,
     pub value_type: ValueType,
     pub serialization: Serialization,
+    pub security: PropertySecurity,
 
     #[serde(default)]
     pub tags: Vec<String>,
@@ -84,6 +85,23 @@ pub enum ValueCategory {
 
     /// An instance reference
     Class,
+}
+
+#[derive(Debug, Clone, Copy, Deserialize)]
+pub enum SecurityEnum {
+    None,
+    LocalUserSecurity,
+    PluginSecurity,
+    RobloxScriptSecurity,
+    NotAccessibleSecurity,
+    RobloxSecurity,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct PropertySecurity {
+    read: SecurityEnum,
+    write: SecurityEnum,
 }
 
 #[derive(Debug, Deserialize)]
@@ -151,12 +169,31 @@ impl Dump {
                         tags.insert(dump_tag.parse().unwrap());
                     }
 
+                    let read_security = match dump_property.security.read {
+                        SecurityEnum::None => Scriptability::Read,
+                        SecurityEnum::PluginSecurity => Scriptability::Read,
+                        _ => Scriptability::None,
+                    };
+
+                    let write_security = if tags.contains(&PropertyTag::ReadOnly) {
+                        Scriptability::None
+                    } else {
+                        match dump_property.security.write {
+                            SecurityEnum::None => Scriptability::Write,
+                            SecurityEnum::PluginSecurity => Scriptability::Write,
+                            _ => Scriptability::None,
+                        }
+                    };
+
                     let scriptability = if tags.contains(&PropertyTag::NotScriptable) {
                         Scriptability::None
-                    } else if tags.contains(&PropertyTag::ReadOnly) {
-                        Scriptability::Read
                     } else {
-                        Scriptability::ReadWrite
+                        match (read_security, write_security) {
+                            (Scriptability::Read, Scriptability::Write) => Scriptability::ReadWrite,
+                            (Scriptability::Read, Scriptability::None) => Scriptability::Read,
+                            (Scriptability::None, Scriptability::Write) => Scriptability::Write,
+                            _ => Scriptability::None,
+                        }
                     };
 
                     let can_serialize = !tags.contains(&PropertyTag::ReadOnly)
