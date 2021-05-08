@@ -11,7 +11,7 @@ use rbx_reflection::ReflectionDatabase;
 use structopt::StructOpt;
 
 use crate::api_dump::Dump;
-use crate::defaults_place::measure_properties;
+use crate::defaults_place::measure_default_properties;
 use crate::property_patches::PropertyPatches;
 
 #[derive(Debug, StructOpt)]
@@ -32,11 +32,10 @@ fn run(options: Options) -> anyhow::Result<()> {
     let dump = Dump::read()?;
     dump.apply(&mut database)?;
 
-    let default_property_patches = PropertyPatches::load()?;
-    default_property_patches.apply(&mut database)?;
+    let property_patches = PropertyPatches::load()?;
+    property_patches.apply(&mut database)?;
 
-    let studio_property_patches = measure_properties(&mut database)?;
-    studio_property_patches.apply(&mut database)?;
+    measure_default_properties(&mut database)?;
 
     // TODO
     // database.validate();
