@@ -169,7 +169,8 @@ impl Dump {
                         tags.insert(dump_tag.parse().unwrap());
                     }
 
-                    let read_security = if let SecurityEnum::None | SecurityEnum::PluginSecurity =
+                    let read_scriptability = if let SecurityEnum::None
+                    | SecurityEnum::PluginSecurity =
                         dump_property.security.read
                     {
                         Scriptability::Read
@@ -177,7 +178,7 @@ impl Dump {
                         Scriptability::None
                     };
 
-                    let write_security = if tags.contains(&PropertyTag::ReadOnly) {
+                    let write_scriptability = if tags.contains(&PropertyTag::ReadOnly) {
                         Scriptability::None
                     } else if let SecurityEnum::None | SecurityEnum::PluginSecurity =
                         dump_property.security.write
@@ -190,7 +191,7 @@ impl Dump {
                     let scriptability = if tags.contains(&PropertyTag::NotScriptable) {
                         Scriptability::None
                     } else {
-                        match (read_security, write_security) {
+                        match (read_scriptability, write_scriptability) {
                             (Scriptability::Read, Scriptability::Write) => Scriptability::ReadWrite,
                             (Scriptability::Read, Scriptability::None) => Scriptability::Read,
                             (Scriptability::None, Scriptability::Write) => Scriptability::Write,
