@@ -32,8 +32,8 @@ fn run(options: Options) -> anyhow::Result<()> {
     let dump = Dump::read()?;
     dump.apply(&mut database)?;
 
-    let manual_property_patches = PropertyPatches::load()?;
-    manual_property_patches.apply(&mut database)?;
+    let default_property_patches = PropertyPatches::load()?;
+    default_property_patches.apply(&mut database)?;
 
     let studio_property_patches = measure_properties(&mut database)?;
     studio_property_patches.apply(&mut database)?;
