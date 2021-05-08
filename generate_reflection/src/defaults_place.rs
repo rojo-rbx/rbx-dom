@@ -225,7 +225,7 @@ fn roundtrip_place_through_studio(
         .arg(output_path.display().to_string())
         .spawn()?;
 
-    let info = injector.receive_info(database)?;
+    let info = injector.receive_info(database);
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
