@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    475,
+    477,
     0,
-    420862
+    421956
   ],
   "Classes": {
     "ABTestService": {
@@ -531,7 +531,7 @@
       "Properties": {
         "ApiKey": {
           "Name": "ApiKey",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -5338,7 +5338,7 @@
         },
         "LoadDefaultChat": {
           "Name": "LoadDefaultChat",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Bool"
           },
@@ -6246,7 +6246,7 @@
       "Properties": {
         "SelectionImageObject": {
           "Name": "SelectionImageObject",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -7259,7 +7259,7 @@
         },
         "IsSFFlagsLoaded": {
           "Name": "IsSFFlagsLoaded",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -7502,7 +7502,7 @@
       "Properties": {
         "CurrentDataModelType": {
           "Name": "CurrentDataModelType",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "StudioDataModelType"
           },
@@ -7519,7 +7519,7 @@
         },
         "SessionId": {
           "Name": "SessionId",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -7742,7 +7742,7 @@
       "Properties": {
         "AutomaticRetry": {
           "Name": "AutomaticRetry",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -7757,7 +7757,7 @@
         },
         "LegacyNamingScheme": {
           "Name": "LegacyNamingScheme",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -10526,7 +10526,7 @@
       "Properties": {
         "AdditionalCoreIncludeDirs": {
           "Name": "AdditionalCoreIncludeDirs",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "String"
           },
@@ -10539,7 +10539,7 @@
         },
         "OverrideStarterScript": {
           "Name": "OverrideStarterScript",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "String"
           },
@@ -10565,7 +10565,7 @@
         },
         "VideoRecording": {
           "Name": "VideoRecording",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -10591,7 +10591,7 @@
       "Properties": {
         "GamepadCursorEnabled": {
           "Name": "GamepadCursorEnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -10949,7 +10949,7 @@
         },
         "ClippedRect": {
           "Name": "ClippedRect",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Rect"
           },
@@ -10966,7 +10966,7 @@
         },
         "IsNotOccluded": {
           "Name": "IsNotOccluded",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -11000,7 +11000,7 @@
         },
         "RawRect2D": {
           "Name": "RawRect2D",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Rect"
           },
@@ -11030,7 +11030,7 @@
         },
         "TotalGroupScale": {
           "Name": "TotalGroupScale",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -11618,7 +11618,7 @@
         },
         "CoreEffectFolder": {
           "Name": "CoreEffectFolder",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -11634,7 +11634,7 @@
         },
         "CoreGuiFolder": {
           "Name": "CoreGuiFolder",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -11726,7 +11726,7 @@
         },
         "SelectedCoreObject": {
           "Name": "SelectedCoreObject",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -12433,7 +12433,7 @@
       "Properties": {
         "HttpEnabled": {
           "Name": "HttpEnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -13089,6 +13089,21 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
+        "AccessoryBlob": {
+          "Name": "AccessoryBlob",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "BackAccessory": {
           "Name": "BackAccessory",
           "Scriptability": "ReadWrite",
@@ -13377,7 +13392,7 @@
         },
         "NumberEmotesLoaded": {
           "Name": "NumberEmotesLoaded",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -13587,6 +13602,10 @@
         }
       },
       "DefaultProperties": {
+        "AccessoryBlob": {
+          "Type": "String",
+          "Value": ""
+        },
         "AttributesSerialize": {
           "Type": "BinaryString",
           "Value": ""
@@ -14830,7 +14849,7 @@
         },
         "DataCost": {
           "Name": "DataCost",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -16220,7 +16239,7 @@
       "Properties": {
         "ForcePlayModeGameLocaleId": {
           "Name": "ForcePlayModeGameLocaleId",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -16236,7 +16255,7 @@
         },
         "ForcePlayModeRobloxLocaleId": {
           "Name": "ForcePlayModeRobloxLocaleId",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -16252,7 +16271,7 @@
         },
         "IsTextScraperRunning": {
           "Name": "IsTextScraperRunning",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -16267,7 +16286,7 @@
         },
         "RobloxForcePlayModeGameLocaleId": {
           "Name": "RobloxForcePlayModeGameLocaleId",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -16283,7 +16302,7 @@
         },
         "RobloxForcePlayModeRobloxLocaleId": {
           "Name": "RobloxForcePlayModeRobloxLocaleId",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -16782,7 +16801,7 @@
         },
         "HasJointOffset": {
           "Name": "HasJointOffset",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Bool"
           },
@@ -16797,7 +16816,7 @@
         },
         "HasSkinnedMesh": {
           "Name": "HasSkinnedMesh",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Bool"
           },
@@ -16812,7 +16831,7 @@
         },
         "JointOffset": {
           "Name": "JointOffset",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Vector3"
           },
@@ -16843,7 +16862,7 @@
         },
         "MeshId": {
           "Name": "MeshId",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Content"
           },
@@ -17923,7 +17942,7 @@
       "Properties": {
         "FocusedDataModelSession": {
           "Name": "FocusedDataModelSession",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -18319,7 +18338,7 @@
         },
         "HttpProxyEnabled": {
           "Name": "HttpProxyEnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Bool"
           },
@@ -18332,7 +18351,7 @@
         },
         "HttpProxyURL": {
           "Name": "HttpProxyURL",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "String"
           },
@@ -18559,7 +18578,7 @@
       "Properties": {
         "IsLuaChatEnabled": {
           "Name": "IsLuaChatEnabled",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -18576,7 +18595,7 @@
         },
         "IsLuaGameDetailsEnabled": {
           "Name": "IsLuaGameDetailsEnabled",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -18592,7 +18611,7 @@
         },
         "SelectedTheme": {
           "Name": "SelectedTheme",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -19014,7 +19033,7 @@
         },
         "Status": {
           "Name": "Status",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -19030,7 +19049,7 @@
         },
         "VersionNumber": {
           "Name": "VersionNumber",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Int64"
           },
@@ -19137,7 +19156,7 @@
       "Properties": {
         "A": {
           "Name": "A",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -19152,7 +19171,7 @@
         },
         "B": {
           "Name": "B",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -19167,7 +19186,7 @@
         },
         "C": {
           "Name": "C",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -19182,7 +19201,7 @@
         },
         "Range": {
           "Name": "Range",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -19197,7 +19216,7 @@
         },
         "Thickness": {
           "Name": "Thickness",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -20660,7 +20679,7 @@
         },
         "AreTimestepsShown": {
           "Name": "AreTimestepsShown",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -20898,7 +20917,7 @@
         },
         "AppearanceDidLoad": {
           "Name": "AppearanceDidLoad",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -21023,7 +21042,7 @@
         },
         "ChatMode": {
           "Name": "ChatMode",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "ChatMode"
           },
@@ -21058,7 +21077,7 @@
         },
         "DataComplexityLimit": {
           "Name": "DataComplexityLimit",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -21200,7 +21219,7 @@
         },
         "GameplayPaused": {
           "Name": "GameplayPaused",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Bool"
           },
@@ -21213,7 +21232,7 @@
         },
         "Guest": {
           "Name": "Guest",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -21260,7 +21279,7 @@
         },
         "MaximumSimulationRadius": {
           "Name": "MaximumSimulationRadius",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -21318,7 +21337,7 @@
         },
         "OsPlatform": {
           "Name": "OsPlatform",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -21334,7 +21353,7 @@
         },
         "PlatformName": {
           "Name": "PlatformName",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -21375,7 +21394,7 @@
         },
         "SimulationRadius": {
           "Name": "SimulationRadius",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
           },
@@ -21418,7 +21437,7 @@
         },
         "Teleported": {
           "Name": "Teleported",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -21435,7 +21454,7 @@
         },
         "TeleportedIn": {
           "Name": "TeleportedIn",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -21463,7 +21482,7 @@
         },
         "VRDevice": {
           "Name": "VRDevice",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -21502,9 +21521,24 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "DEPRECATED_SerializedEmulatedPolicyInfo": {
+          "Name": "DEPRECATED_SerializedEmulatedPolicyInfo",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "EmulatedCountryCode": {
           "Name": "EmulatedCountryCode",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -21519,7 +21553,7 @@
         },
         "EmulatedGameLocale": {
           "Name": "EmulatedGameLocale",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -21534,7 +21568,7 @@
         },
         "PlayerEmulationEnabled": {
           "Name": "PlayerEmulationEnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -21549,7 +21583,7 @@
         },
         "PlayerEmulationEnabled_deprecated": {
           "Name": "PlayerEmulationEnabled_deprecated",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -21565,9 +21599,9 @@
         },
         "SerializedEmulatedPolicyInfo": {
           "Name": "SerializedEmulatedPolicyInfo",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
-            "Value": "String"
+            "Value": "BinaryString"
           },
           "Tags": [
             "Hidden"
@@ -21580,7 +21614,7 @@
         },
         "StudioEmulatedCountryRegionCode": {
           "Name": "StudioEmulatedCountryRegionCode",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -21600,6 +21634,10 @@
           "Type": "BinaryString",
           "Value": ""
         },
+        "DEPRECATED_SerializedEmulatedPolicyInfo": {
+          "Type": "String",
+          "Value": ""
+        },
         "EmulatedCountryCode": {
           "Type": "String",
           "Value": ""
@@ -21613,7 +21651,7 @@
           "Value": false
         },
         "SerializedEmulatedPolicyInfo": {
-          "Type": "String",
+          "Type": "BinaryString",
           "Value": ""
         },
         "SourceAssetId": {
@@ -21789,7 +21827,7 @@
         },
         "MaxPlayersInternal": {
           "Name": "MaxPlayersInternal",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -21839,7 +21877,7 @@
         },
         "PreferredPlayersInternal": {
           "Name": "PreferredPlayersInternal",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -21974,7 +22012,7 @@
         },
         "HostDataModelType": {
           "Name": "HostDataModelType",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "StudioDataModelType"
           },
@@ -21991,7 +22029,7 @@
         },
         "HostDataModelTypeIsCurrent": {
           "Name": "HostDataModelTypeIsCurrent",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -22008,7 +22046,7 @@
         },
         "MultipleDocumentInterfaceInstance": {
           "Name": "MultipleDocumentInterfaceInstance",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -22025,7 +22063,7 @@
         },
         "UsesAssetInsertionDrag": {
           "Name": "UsesAssetInsertionDrag",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -22083,7 +22121,7 @@
         },
         "Checked": {
           "Name": "Checked",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -22099,7 +22137,7 @@
         },
         "DefaultShortcut": {
           "Name": "DefaultShortcut",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -22115,7 +22153,7 @@
         },
         "Enabled": {
           "Name": "Enabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -22509,7 +22547,7 @@
       "Properties": {
         "IsLuobuServer": {
           "Name": "IsLuobuServer",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "TriStateBoolean"
           },
@@ -22524,7 +22562,7 @@
         },
         "LuobuWhitelisted": {
           "Name": "LuobuWhitelisted",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "TriStateBoolean"
           },
@@ -25332,7 +25370,7 @@
         },
         "OnTopOfCoreBlur": {
           "Name": "OnTopOfCoreBlur",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -25442,7 +25480,7 @@
       "Properties": {
         "ScriptsDisabled": {
           "Name": "ScriptsDisabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -25562,7 +25600,7 @@
       "Properties": {
         "AbsoluteCanvasSize": {
           "Name": "AbsoluteCanvasSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -25660,7 +25698,7 @@
         },
         "HorizontalBarRect": {
           "Name": "HorizontalBarRect",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Rect"
           },
@@ -25690,7 +25728,7 @@
         },
         "MaxCanvasPosition": {
           "Name": "MaxCanvasPosition",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -25798,7 +25836,7 @@
         },
         "VerticalBarRect": {
           "Name": "VerticalBarRect",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Rect"
           },
@@ -26338,7 +26376,7 @@
       "Properties": {
         "ActiveInstance": {
           "Name": "ActiveInstance",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -29834,7 +29872,7 @@
       "Properties": {
         "AllowCustomAnimations": {
           "Name": "AllowCustomAnimations",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Bool"
           },
@@ -30044,7 +30082,7 @@
         },
         "GameSettingsAssetIDFace": {
           "Name": "GameSettingsAssetIDFace",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30060,7 +30098,7 @@
         },
         "GameSettingsAssetIDHead": {
           "Name": "GameSettingsAssetIDHead",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30076,7 +30114,7 @@
         },
         "GameSettingsAssetIDLeftArm": {
           "Name": "GameSettingsAssetIDLeftArm",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30092,7 +30130,7 @@
         },
         "GameSettingsAssetIDLeftLeg": {
           "Name": "GameSettingsAssetIDLeftLeg",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30108,7 +30146,7 @@
         },
         "GameSettingsAssetIDPants": {
           "Name": "GameSettingsAssetIDPants",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30124,7 +30162,7 @@
         },
         "GameSettingsAssetIDRightArm": {
           "Name": "GameSettingsAssetIDRightArm",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30140,7 +30178,7 @@
         },
         "GameSettingsAssetIDRightLeg": {
           "Name": "GameSettingsAssetIDRightLeg",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30156,7 +30194,7 @@
         },
         "GameSettingsAssetIDShirt": {
           "Name": "GameSettingsAssetIDShirt",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30172,7 +30210,7 @@
         },
         "GameSettingsAssetIDTeeShirt": {
           "Name": "GameSettingsAssetIDTeeShirt",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30188,7 +30226,7 @@
         },
         "GameSettingsAssetIDTorso": {
           "Name": "GameSettingsAssetIDTorso",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -30204,7 +30242,7 @@
         },
         "GameSettingsAvatar": {
           "Name": "GameSettingsAvatar",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "GameAvatarType"
           },
@@ -30220,7 +30258,7 @@
         },
         "GameSettingsR15Collision": {
           "Name": "GameSettingsR15Collision",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "R15CollisionType"
           },
@@ -30236,7 +30274,7 @@
         },
         "GameSettingsScaleRangeBodyType": {
           "Name": "GameSettingsScaleRangeBodyType",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "NumberRange"
           },
@@ -30252,7 +30290,7 @@
         },
         "GameSettingsScaleRangeHead": {
           "Name": "GameSettingsScaleRangeHead",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "NumberRange"
           },
@@ -30268,7 +30306,7 @@
         },
         "GameSettingsScaleRangeHeight": {
           "Name": "GameSettingsScaleRangeHeight",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "NumberRange"
           },
@@ -30284,7 +30322,7 @@
         },
         "GameSettingsScaleRangeProportion": {
           "Name": "GameSettingsScaleRangeProportion",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "NumberRange"
           },
@@ -30300,7 +30338,7 @@
         },
         "GameSettingsScaleRangeWidth": {
           "Name": "GameSettingsScaleRangeWidth",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "NumberRange"
           },
@@ -30334,6 +30372,21 @@
             "Value": "Bool"
           },
           "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LoadCharacterLayeredClothing": {
+          "Name": "LoadCharacterLayeredClothing",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "LoadCharacterLayeredClothing"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -30526,6 +30579,10 @@
         "LoadCharacterAppearance": {
           "Type": "Bool",
           "Value": true
+        },
+        "LoadCharacterLayeredClothing": {
+          "Type": "Enum",
+          "Value": 0
         },
         "NameDisplayDistance": {
           "Type": "Float32",
@@ -30744,7 +30801,25 @@
         "NotCreatable"
       ],
       "Superclass": "Instance",
-      "Properties": {},
+      "Properties": {
+        "DisplayName": {
+          "Name": "DisplayName",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "Status": {
@@ -31259,7 +31334,7 @@
         },
         "DisplayLanguage": {
           "Name": "DisplayLanguage",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -31699,7 +31774,7 @@
         },
         "OverrideCoreScripts": {
           "Name": "OverrideCoreScripts",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Bool"
           },
@@ -31725,7 +31800,7 @@
         },
         "Physical Draggers Select Scope By Default": {
           "Name": "Physical Draggers Select Scope By Default",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -32341,7 +32416,7 @@
       "Properties": {
         "EnableScriptCollabByDefaultOnLoad": {
           "Name": "EnableScriptCollabByDefaultOnLoad",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -32356,7 +32431,7 @@
         },
         "SrcPlaceId": {
           "Name": "SrcPlaceId",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -32372,7 +32447,7 @@
         },
         "SrcUniverseId": {
           "Name": "SrcUniverseId",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int64"
           },
@@ -32452,7 +32527,7 @@
         },
         "AlignDraggedObjects": {
           "Name": "AlignDraggedObjects",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -32517,7 +32592,7 @@
         },
         "HoverInstance": {
           "Name": "HoverInstance",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Ref"
           },
@@ -32533,7 +32608,7 @@
         },
         "InstalledPluginData": {
           "Name": "InstalledPluginData",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -32550,7 +32625,7 @@
         },
         "PivotSnapToGeometry": {
           "Name": "PivotSnapToGeometry",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -32583,7 +32658,7 @@
         },
         "ShowActiveInstanceHighlight": {
           "Name": "ShowActiveInstanceHighlight",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -32723,7 +32798,7 @@
       "Properties": {
         "AlphaMode": {
           "Name": "AlphaMode",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "AlphaMode"
           },
@@ -32736,7 +32811,7 @@
         },
         "ColorMap": {
           "Name": "ColorMap",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Content"
           },
@@ -32749,7 +32824,7 @@
         },
         "MetalnessMap": {
           "Name": "MetalnessMap",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Content"
           },
@@ -32762,7 +32837,7 @@
         },
         "NormalMap": {
           "Name": "NormalMap",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Content"
           },
@@ -32775,7 +32850,7 @@
         },
         "RoughnessMap": {
           "Name": "RoughnessMap",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Content"
           },
@@ -32788,7 +32863,7 @@
         },
         "TexturePack": {
           "Name": "TexturePack",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Content"
           },
@@ -33318,7 +33393,7 @@
         },
         "ChildOrder": {
           "Name": "ChildOrder",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -33602,7 +33677,7 @@
         },
         "LastUsedModificationMethod": {
           "Name": "LastUsedModificationMethod",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "TerrainAcquisitionMethod"
           },
@@ -34301,7 +34376,7 @@
         },
         "EnableRealtimeFilteringHints": {
           "Name": "EnableRealtimeFilteringHints",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -34359,7 +34434,7 @@
         },
         "ManualFocusRelease": {
           "Name": "ManualFocusRelease",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -34401,7 +34476,7 @@
         },
         "OverlayNativeInput": {
           "Name": "OverlayNativeInput",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -34443,7 +34518,7 @@
         },
         "ReturnKeyType": {
           "Name": "ReturnKeyType",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "ReturnKeyType"
           },
@@ -34586,7 +34661,7 @@
         },
         "TextInputType": {
           "Name": "TextInputType",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "TextInputType"
           },
@@ -39129,7 +39204,7 @@
       "Properties": {
         "AllTutorialsDisabled": {
           "Name": "AllTutorialsDisabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39142,7 +39217,7 @@
         },
         "CameraMode": {
           "Name": "CameraMode",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "CustomCameraMode"
           },
@@ -39155,7 +39230,7 @@
         },
         "CameraYInverted": {
           "Name": "CameraYInverted",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39171,7 +39246,7 @@
         },
         "ChatVisible": {
           "Name": "ChatVisible",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39223,7 +39298,7 @@
         },
         "Fullscreen": {
           "Name": "Fullscreen",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39249,7 +39324,7 @@
         },
         "GraphicsQualityLevel": {
           "Name": "GraphicsQualityLevel",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -39262,7 +39337,7 @@
         },
         "HasEverUsedVR": {
           "Name": "HasEverUsedVR",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39275,7 +39350,7 @@
         },
         "IsUsingCameraYInverted": {
           "Name": "IsUsingCameraYInverted",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39292,7 +39367,7 @@
         },
         "IsUsingGamepadCameraSensitivity": {
           "Name": "IsUsingGamepadCameraSensitivity",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39322,7 +39397,7 @@
         },
         "MicroProfilerWebServerEnabled": {
           "Name": "MicroProfilerWebServerEnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39337,7 +39412,7 @@
         },
         "MicroProfilerWebServerIP": {
           "Name": "MicroProfilerWebServerIP",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -39354,7 +39429,7 @@
         },
         "MicroProfilerWebServerPort": {
           "Name": "MicroProfilerWebServerPort",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -39384,7 +39459,7 @@
         },
         "MouseSensitivityFirstPerson": {
           "Name": "MouseSensitivityFirstPerson",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -39400,7 +39475,7 @@
         },
         "MouseSensitivityThirdPerson": {
           "Name": "MouseSensitivityThirdPerson",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -39416,7 +39491,7 @@
         },
         "OnScreenProfilerEnabled": {
           "Name": "OnScreenProfilerEnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39431,7 +39506,7 @@
         },
         "OnboardingsCompleted": {
           "Name": "OnboardingsCompleted",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -39444,7 +39519,7 @@
         },
         "PerformanceStatsVisible": {
           "Name": "PerformanceStatsVisible",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39585,7 +39660,7 @@
         },
         "UsedCoreGuiIsVisibleToggle": {
           "Name": "UsedCoreGuiIsVisibleToggle",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39598,7 +39673,7 @@
         },
         "UsedCustomGuiIsVisibleToggle": {
           "Name": "UsedCustomGuiIsVisibleToggle",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39611,7 +39686,7 @@
         },
         "UsedHideHudShortcut": {
           "Name": "UsedHideHudShortcut",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39624,7 +39699,7 @@
         },
         "VREnabled": {
           "Name": "VREnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39637,7 +39712,7 @@
         },
         "VRRotationIntensity": {
           "Name": "VRRotationIntensity",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Int32"
           },
@@ -39678,7 +39753,7 @@
         },
         "BottomBarSize": {
           "Name": "BottomBarSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -39711,7 +39786,7 @@
         },
         "GazeSelectionEnabled": {
           "Name": "GazeSelectionEnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39759,7 +39834,7 @@
         },
         "LegacyInputEventsEnabled": {
           "Name": "LegacyInputEventsEnabled",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -39844,7 +39919,7 @@
         },
         "NavBarSize": {
           "Name": "NavBarSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -39861,7 +39936,7 @@
         },
         "OnScreenKeyboardAnimationDuration": {
           "Name": "OnScreenKeyboardAnimationDuration",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Float64"
           },
@@ -39926,7 +40001,7 @@
         },
         "OverrideMouseIconBehavior": {
           "Name": "OverrideMouseIconBehavior",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Enum": "OverrideMouseIconBehavior"
           },
@@ -39941,7 +40016,7 @@
         },
         "RightBarSize": {
           "Name": "RightBarSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -39958,7 +40033,7 @@
         },
         "StatusBarSize": {
           "Name": "StatusBarSize",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Vector2"
           },
@@ -40078,7 +40153,7 @@
         },
         "VRDeviceName": {
           "Name": "VRDeviceName",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -41387,7 +41462,7 @@
       "Properties": {
         "AdditionalLuaState": {
           "Name": "AdditionalLuaState",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
             "Value": "String"
           },
@@ -42682,6 +42757,28 @@
         "Pending": 1,
         "ShutOff": 5,
         "TimedOut": 4
+      }
+    },
+    "AccessoryType": {
+      "name": "AccessoryType",
+      "items": {
+        "Back": 6,
+        "DressSkirt": 16,
+        "Face": 2,
+        "Front": 5,
+        "Hair": 1,
+        "Hat": 0,
+        "Jacket": 11,
+        "LeftShoe": 14,
+        "Neck": 3,
+        "Pants": 10,
+        "RightShoe": 15,
+        "Shirt": 9,
+        "Shorts": 13,
+        "Shoulder": 4,
+        "Sweater": 12,
+        "TeeShirt": 8,
+        "Waist": 7
       }
     },
     "ActionType": {
@@ -44300,6 +44397,14 @@
         "Camera": 0,
         "ObjectCFrame": 3,
         "ObjectPosition": 2
+      }
+    },
+    "LoadCharacterLayeredClothing": {
+      "name": "LoadCharacterLayeredClothing",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
       }
     },
     "Material": {
