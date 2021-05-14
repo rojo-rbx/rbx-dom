@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    477,
-    0,
-    421956
+    478,
+    1,
+    422443
   ],
   "Classes": {
     "ABTestService": {
@@ -1743,7 +1743,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -1756,7 +1759,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -1782,7 +1788,10 @@
           "DataType": {
             "Enum": "InputType"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -1795,7 +1804,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -1808,7 +1820,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -1834,7 +1849,10 @@
           "DataType": {
             "Enum": "InputType"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2033,7 +2051,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2046,7 +2067,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2072,7 +2096,10 @@
           "DataType": {
             "Enum": "InputType"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2085,7 +2112,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2098,7 +2128,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2124,7 +2157,10 @@
           "DataType": {
             "Enum": "InputType"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2313,7 +2349,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2326,7 +2365,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2352,7 +2394,10 @@
           "DataType": {
             "Enum": "InputType"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2443,7 +2488,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2456,7 +2504,10 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2482,7 +2533,10 @@
           "DataType": {
             "Enum": "InputType"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -41951,6 +42005,21 @@
             }
           }
         },
+        "AnimationWeightedBlendFix": {
+          "Name": "AnimationWeightedBlendFix",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "NewAnimationRuntimeSetting"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ClientAnimatorThrottling": {
           "Name": "ClientAnimatorThrottling",
           "Scriptability": "ReadWrite",
@@ -42039,7 +42108,9 @@
           "DataType": {
             "Value": "Bool"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -42227,6 +42298,10 @@
         "AllowThirdPartySales": {
           "Type": "Bool",
           "Value": false
+        },
+        "AnimationWeightedBlendFix": {
+          "Type": "Enum",
+          "Value": 0
         },
         "AttributesSerialize": {
           "Type": "BinaryString",
@@ -44552,6 +44627,14 @@
         "Automatic": 0,
         "Manual": 1,
         "OnContact": 2
+      }
+    },
+    "NewAnimationRuntimeSetting": {
+      "name": "NewAnimationRuntimeSetting",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
       }
     },
     "NormalId": {
