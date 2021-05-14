@@ -2,11 +2,18 @@
 
 ## Unreleased
 
+## 0.6.0-alpha.5 (2021-05-14)
+* Added `OptionalCoordinateFrame` support. ([#176][pr-176])
+* Added support for writing CFrame basic rotation IDs. ([#171][pr-171])
+
+[pr-171]: https://github.com/rojo-rbx/rbx-dom/pull/171
+[pr-176]: https://github.com/rojo-rbx/rbx-dom/pull/176
+
 ## 0.6.0-alpha.4 (2021-04-09)
 * Unknown property types will no longer fail deserialization ([#168][pr-168])
-  * This makes rbx_binary more resilient to new types being added by Roblox.
+    * This makes rbx_binary more resilient to new types being added by Roblox.
 * `PROP` chunks that end after their prop name are now silently ignored. ([#168][pr-168])
-  * This matches Roblox's behavior and fixes our handling of `OptionalCoordinateFrame`, added in the most recent Roblox Studio release.
+    * This matches Roblox's behavior and fixes our handling of `OptionalCoordinateFrame`, added in the most recent Roblox Studio release.
 
 [pr-168]: https://github.com/rojo-rbx/rbx-dom/pull/168
 
