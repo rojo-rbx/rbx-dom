@@ -474,10 +474,71 @@ serde_tuple! {
 mod serde_test {
     use super::*;
 
+    use std::fmt::Debug;
+
+    use serde::{de::DeserializeOwned, Serialize};
+
+    fn test_ser<T: Debug + PartialEq + Serialize + DeserializeOwned>(value: T, output: &str) {
+        let serialized = serde_json::to_string(&value).unwrap();
+        assert_eq!(serialized, output);
+
+        let deserialized: T = serde_json::from_str(output).unwrap();
+        assert_eq!(deserialized, value);
+    }
+
     #[test]
     fn vec2_json() {
-        let out = serde_json::to_string(&Vector2 { x: 2.0, y: 3.5 }).unwrap();
+        test_ser(Vector2 { x: 2.0, y: 3.5 }, "[2.0,3.5]");
+    }
 
-        assert_eq!(out, "[2.0,3.5]");
+    #[test]
+    fn udim_json() {
+        test_ser(
+            UDim {
+                scale: 1.0,
+                offset: 175,
+            },
+            "[1.0,175]",
+        );
+    }
+
+    #[test]
+    fn udim2_json() {
+        test_ser(
+            UDim2 {
+                x: UDim {
+                    scale: 0.0,
+                    offset: 30,
+                },
+                y: UDim {
+                    scale: 1.0,
+                    offset: 60,
+                },
+            },
+            "[[0.0,30],[1.0,60]]",
+        );
+    }
+
+    #[test]
+    fn region3_json() {
+        test_ser(
+            Region3 {
+                min: Vector3::new(-1.0, -2.0, -3.0),
+                max: Vector3::new(4.0, 5.0, 6.0),
+            },
+            "[[-1.0,-2.0,-3.0],[4.0,5.0,6.0]]",
+        );
+    }
+
+    #[test]
+    fn matrix3_json() {
+        test_ser(
+            Matrix3 {
+                x: Vector3::new(1.0, 2.0, 3.0),
+                y: Vector3::new(4.0, 5.0, 6.0),
+                z: Vector3::new(7.0, 8.0, 9.0),
+            },
+            "[[1.0,2.0,3.0],[4.0,5.0,6.0],[7.0,8.0,9.0]]",
+        );
     }
 }
