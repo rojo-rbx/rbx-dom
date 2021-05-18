@@ -91,7 +91,6 @@ impl Vector3 {
 
     /// If the vector is a positive or negative basis vector, returns
     /// its corresponding ID. Otherwise, returns None.
-
     /// The mapping goes like this:
     /// (1.0, 0.0, 0.0) -> 0
     /// (0.0, 1.0, 0.0) -> 1
