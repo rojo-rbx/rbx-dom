@@ -9,7 +9,7 @@ macro_rules! test_models {
             fn $test_name() {
                 let _ = env_logger::try_init();
 
-                let mut path = Path::new("../test-files/models").join($file_name);
+                let mut path = Path::new("../test-files").join($file_name);
                 path.push("xml.rbxmx");
 
                 let contents = fs::read_to_string(path).unwrap();
@@ -24,14 +24,13 @@ macro_rules! test_models {
 }
 
 test_models! {
-    ball_socket_constraint: "ball-socket-constraint",
-    default_inserted_folder: "default-inserted-folder",
-    default_inserted_part: "default-inserted-part",
-    // faces: "faces",
-    // axes: "axes",
-    ref_adjacent: "ref-adjacent",
-    ref_child: "ref-child",
-    ref_parent: "ref-parent",
-    body_movers: "body-movers",
-    // default_inserted_modulescript: "default-inserted-modulescript",
+    ball_socket_constraint: "models/ball-socket-constraint",
+    default_inserted_folder: "models/default-inserted-folder",
+    default_inserted_part: "models/default-inserted-part",
+    ref_adjacent: "models/ref-adjacent",
+    ref_child: "models/ref-child",
+    ref_parent: "models/ref-parent",
+    body_movers: "models/body-movers",
+
+    unknown_type: "edge-cases/xml-unknown-type",
 }

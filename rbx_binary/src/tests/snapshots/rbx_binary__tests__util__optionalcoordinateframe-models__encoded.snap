@@ -1,0 +1,236 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 1
+num_instances: 3
+chunks:
+  - Sstr:
+      version: 0
+      entries:
+        - len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+  - Inst:
+      type_id: 0
+      type_name: Model
+      object_format: 0
+      referents:
+        - 0
+        - 1
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: LevelOfDetail
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ModelInPrimary
+      prop_type: CFrame
+      values:
+        - Position:
+            - 0.0
+            - 0.0
+            - 0.0
+          Orientation:
+            - - 1.0
+              - 0.0
+              - 0.0
+            - - 0.0
+              - 1.0
+              - 0.0
+            - - 0.0
+              - 0.0
+              - 1.0
+        - Position:
+            - 0.0
+            - 0.0
+            - 0.0
+          Orientation:
+            - - 1.0
+              - 0.0
+              - 0.0
+            - - 0.0
+              - 1.0
+              - 0.0
+            - - 0.0
+              - 0.0
+              - 1.0
+        - Position:
+            - 0.0
+            - 0.0
+            - 0.0
+          Orientation:
+            - - 1.0
+              - 0.0
+              - 0.0
+            - - 0.0
+              - 1.0
+              - 0.0
+            - - 0.0
+              - 0.0
+              - 1.0
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshCFrame
+      prop_type: CFrame
+      values:
+        - Position:
+            - 0.0
+            - 0.0
+            - 0.0
+          Orientation:
+            - - 1.0
+              - 0.0
+              - 0.0
+            - - 0.0
+              - 1.0
+              - 0.0
+            - - 0.0
+              - 0.0
+              - 1.0
+        - Position:
+            - 0.0
+            - 0.0
+            - 0.0
+          Orientation:
+            - - 1.0
+              - 0.0
+              - 0.0
+            - - 0.0
+              - 1.0
+              - 0.0
+            - - 0.0
+              - 0.0
+              - 1.0
+        - Position:
+            - 0.0
+            - 0.0
+            - 0.0
+          Orientation:
+            - - 1.0
+              - 0.0
+              - 0.0
+            - - 0.0
+              - 1.0
+              - 0.0
+            - - 0.0
+              - 0.0
+              - 1.0
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshData
+      prop_type: SharedString
+      values:
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshSize
+      prop_type: Vector3
+      values:
+        - - 0.0
+          - 0.0
+          - 0.0
+        - - 0.0
+          - 0.0
+          - 0.0
+        - - 0.0
+          - 0.0
+          - 0.0
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - None
+        - Some
+        - SomeInfNaN
+  - Prop:
+      type_id: 0
+      prop_name: NeedsPivotMigration
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: PrimaryPart
+      prop_type: Ref
+      values:
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: WorldPivotData
+      prop_type: OptionalCFrame
+      values:
+        - ~
+        - Position:
+            - 1.0
+            - -1.0
+            - 0.5
+          Orientation:
+            - - 0.06294725090265274
+              - 0.4031980037689209
+              - 0.9129452705383301
+            - - 0.7524184584617615
+              - -0.620145320892334
+              - 0.22200526297092439
+            - - 0.6556707620620728
+              - 0.6729422211647034
+              - -0.34241002798080447
+        - Position:
+            - -0.5
+            - .inf
+            - .nan
+          Orientation:
+            - - 1.0
+              - 0.0
+              - 0.0
+            - - 0.0
+              - 1.0
+              - 0.0
+            - - 0.0
+              - 0.0
+              - 1.0
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+  - End

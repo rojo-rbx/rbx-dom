@@ -41,7 +41,7 @@ use crate::{
     core::XmlType,
     deserializer::ParseState,
     deserializer_core::XmlEventReader,
-    error::{DecodeError, DecodeErrorKind, EncodeError, EncodeErrorKind},
+    error::{DecodeError, EncodeError, EncodeErrorKind},
     serializer::EmitState,
     serializer_core::XmlEventWriter,
 };
@@ -65,21 +65,24 @@ macro_rules! declare_rbx_types {
             xml_type_name: &str,
             instance_id: Ref,
             property_name: &str,
-        ) -> Result<Variant, DecodeError> {
+        ) -> Result<Option<Variant>, DecodeError> {
             match xml_type_name {
-                $(<$inner_type>::XML_TAG_NAME => Ok(Variant::$variant_name(<$inner_type>::read_outer_xml(reader)?)),)*
+                $(<$inner_type>::XML_TAG_NAME => Ok(Some(Variant::$variant_name(<$inner_type>::read_outer_xml(reader)?))),)*
 
                 // Protected strings are only read, never written
                 self::strings::ProtectedStringDummy::XML_TAG_NAME => {
                     let value = self::strings::ProtectedStringDummy::read_outer_xml(reader)?;
-                    Ok(Variant::String(value.0))
+                    Ok(Some(Variant::String(value.0)))
                 },
 
-                self::referent::XML_TAG_NAME => Ok(Variant::Ref(read_ref(reader, instance_id, property_name, state)?)),
-                self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state),
+                self::referent::XML_TAG_NAME => Ok(Some(Variant::Ref(read_ref(reader, instance_id, property_name, state)?))),
+                self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state).map(Some),
 
                 _ => {
-                    Err(reader.error(DecodeErrorKind::UnknownPropertyType(xml_type_name.to_owned())))
+                    state.unknown_type_visited(instance_id, property_name, xml_type_name);
+                    reader.eat_unknown_tag()?;
+
+                    Ok(None)
                 },
             }
         }

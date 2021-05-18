@@ -126,6 +126,7 @@ make_variant! {
     Vector2int16(Vector2int16),
     Vector3(Vector3),
     Vector3int16(Vector3int16),
+    OptionalCFrame(Option<CFrame>),
 }
 
 impl From<&'_ str> for Variant {

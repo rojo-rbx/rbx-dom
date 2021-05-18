@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+## 0.3.1 (2021-05-14)
+* Added `Variant::OptionalCoordinateFrame`.
+
 ## 0.3.0 (2021-02-16)
 * Renamed `EnumValue` to `Enum`.
 * Added `Display` and `FromStr` implementations for `Ref`.

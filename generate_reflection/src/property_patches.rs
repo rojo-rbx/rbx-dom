@@ -20,6 +20,7 @@ const PATCHES: &[&str] = &[
     include_str!("../patches/instance.yml"),
     include_str!("../patches/joint-instance.yml"),
     include_str!("../patches/localization-table.yml"),
+    include_str!("../patches/package-link.yml"),
     include_str!("../patches/parts.yml"),
     include_str!("../patches/players.yml"),
     include_str!("../patches/sound.yml"),
