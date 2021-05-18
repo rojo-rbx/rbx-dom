@@ -131,7 +131,7 @@ declare_rbx_types! {
     Int64: i64,
     NumberRange: NumberRange,
     NumberSequence: NumberSequence,
-    // OptionalCFrame: Option<CFrame>,
+    OptionalCFrame: Option<CFrame>,
     PhysicalProperties: PhysicalProperties,
     Ray: Ray,
     Rect: Rect,
