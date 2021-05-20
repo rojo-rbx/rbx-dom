@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 0.6.0-alpha.5 (2021-05-14)
+* Added `OptionalCoordinateFrame` support. ([#176][pr-176])
+* Added support for writing CFrame basic rotation IDs. ([#171][pr-171])
+
+[pr-171]: https://github.com/rojo-rbx/rbx-dom/pull/171
+[pr-176]: https://github.com/rojo-rbx/rbx-dom/pull/176
+
+## 0.6.0-alpha.4 (2021-04-09)
+* Unknown property types will no longer fail deserialization ([#168][pr-168])
+    * This makes rbx_binary more resilient to new types being added by Roblox.
+* `PROP` chunks that end after their prop name are now silently ignored. ([#168][pr-168])
+    * This matches Roblox's behavior and fixes our handling of `OptionalCoordinateFrame`, added in the most recent Roblox Studio release.
+
+[pr-168]: https://github.com/rojo-rbx/rbx-dom/pull/168
+
+## 0.6.0-alpha.3 (2021-03-08)
+* Added support for encoding `Int32` values as `BrickColor`.
+  * This helps improve compatibility when decoding XML models and reencoding them as binary.
+
 ## 0.6.0-alpha.2 (2021-03-04)
 * Added support for widening integer types when serializing.
     * `Int32` will widen to `Int64`, `Float32` will widen to `Float64`.

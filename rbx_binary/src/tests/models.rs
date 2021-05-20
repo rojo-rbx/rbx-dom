@@ -34,6 +34,7 @@ binary_tests! {
     faces,
     funny_numbervalue,
     funny_uipadding,
+    optionalcoordinateframe_models,
     three_beams,
     ref_adjacent,
     ref_child,
