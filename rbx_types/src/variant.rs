@@ -24,8 +24,7 @@ macro_rules! make_variant {
         #[non_exhaustive]
         #[cfg_attr(
             feature = "serde",
-            // derive(serde::Serialize, serde::Deserialize),
-            derive(serde::Serialize),
+            derive(serde::Serialize, serde::Deserialize),
         )]
         pub enum Variant {
             $(
@@ -34,36 +33,6 @@ macro_rules! make_variant {
                 )*
                 $variant_name($inner_type),
             )*
-        }
-
-        #[cfg_attr(
-            feature = "serde",
-            derive(serde::Deserialize),
-            serde(tag = "Type", content = "Value"),
-        )]
-        enum VariantDe {
-            $(
-                $(
-                    #[$attr]
-                )*
-                $variant_name($inner_type),
-            )*
-        }
-
-        impl From<VariantDe> for Variant {
-            fn from(value: VariantDe) -> Variant {
-                match value {
-                    $(
-                        VariantDe::$variant_name(inner) => Variant::$variant_name(inner),
-                    )*
-                }
-            }
-        }
-
-        impl<'de> serde::Deserialize<'de> for Variant {
-            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: serde::Deserializer<'de> {
-                Ok(VariantDe::deserialize(deserializer)?.into())
-            }
         }
 
         impl Variant {
@@ -170,7 +139,6 @@ mod serde_test {
     use super::*;
 
     #[test]
-    #[ignore]
     fn human() {
         let vec2 = Variant::Vector2(Vector2::new(5.0, 7.0));
 
@@ -182,7 +150,6 @@ mod serde_test {
     }
 
     #[test]
-    #[ignore]
     fn non_human() {
         let vec2 = Variant::Vector2(Vector2::new(5.0, 7.0));
 
