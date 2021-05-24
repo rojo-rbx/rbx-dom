@@ -1,60 +1,51 @@
 ---
 source: rbx_xml/tests/test-files.rs
 expression: viewer.view_children(&dom)
+
 ---
 - referent: referent-0
   name: BodyAngularVelocity
   class: BodyAngularVelocity
   properties:
     AngularVelocity:
-      Type: Vector3
-      Value:
+      Vector3:
         - 0.0
         - 2.0
         - 0.0
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     MaxTorque:
-      Type: Vector3
-      Value:
+      Vector3:
         - 4000.0
         - 4000.0
         - 4000.0
     P:
-      Type: Float32
-      Value: 1250.0
+      Float32: 1250.0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
   children: []
 - referent: referent-1
   name: BodyForce
   class: BodyForce
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Force:
-      Type: Vector3
-      Value:
+      Vector3:
         - 0.0
         - 1.0
         - 0.0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
   children: []
 - referent: referent-2
   name: BodyGyro
   class: BodyGyro
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     CFrame:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -70,96 +61,78 @@ expression: viewer.view_children(&dom)
             - 0.0
             - 1.0
     D:
-      Type: Float32
-      Value: 500.0
+      Float32: 500.0
     MaxTorque:
-      Type: Vector3
-      Value:
+      Vector3:
         - 400000.0
         - 0.0
         - 400000.0
     P:
-      Type: Float32
-      Value: 3000.0
+      Float32: 3000.0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
   children: []
 - referent: referent-3
   name: BodyPosition
   class: BodyPosition
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     D:
-      Type: Float32
-      Value: 1250.0
+      Float32: 1250.0
     MaxForce:
-      Type: Vector3
-      Value:
+      Vector3:
         - 4000.0
         - 4000.0
         - 4000.0
     P:
-      Type: Float32
-      Value: 10000.0
+      Float32: 10000.0
     Position:
-      Type: Vector3
-      Value:
+      Vector3:
         - 0.0
         - 50.0
         - 0.0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
   children: []
 - referent: referent-4
   name: BodyThrust
   class: BodyThrust
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Force:
-      Type: Vector3
-      Value:
+      Vector3:
         - 0.0
         - 1.0
         - 0.0
     Location:
-      Type: Vector3
-      Value:
+      Vector3:
         - 0.0
         - 0.0
         - 0.0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
   children: []
 - referent: referent-5
   name: BodyVelocity
   class: BodyVelocity
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     MaxForce:
-      Type: Vector3
-      Value:
+      Vector3:
         - 4000.0
         - 4000.0
         - 4000.0
     P:
-      Type: Float32
-      Value: 1250.0
+      Float32: 1250.0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Velocity:
-      Type: Vector3
-      Value:
+      Vector3:
         - 0.0
         - 2.0
         - 0.0
   children: []
+

@@ -1,23 +1,20 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: "02"
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -38,17 +35,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -69,17 +62,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -100,17 +89,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -131,17 +116,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -162,17 +143,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -193,17 +170,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -224,17 +197,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -255,17 +224,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -286,17 +251,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -317,17 +278,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -348,17 +305,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -379,17 +332,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -410,17 +359,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -441,17 +386,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -472,17 +413,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -503,17 +440,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -534,17 +467,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -565,17 +494,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -596,17 +521,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -627,17 +548,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -658,17 +575,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -689,17 +602,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -720,17 +629,13 @@ expression: decoded_viewed
   class: CFrameValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: CFrame
-      Value:
+      CFrame:
         Position:
           - 0.0
           - 0.0
@@ -746,3 +651,4 @@ expression: decoded_viewed
             - 0.0
             - 0.0
   children: []
+

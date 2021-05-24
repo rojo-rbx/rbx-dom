@@ -1,94 +1,72 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: DisplayOrder0
   class: ScreenGui
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     AutoLocalize:
-      Type: Bool
-      Value: true
+      Bool: true
     DisplayOrder:
-      Type: Int32
-      Value: 0
+      Int32: 0
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     IgnoreGuiInset:
-      Type: Bool
-      Value: false
+      Bool: false
     ResetOnSpawn:
-      Type: Bool
-      Value: true
+      Bool: true
     RootLocalizationTable: "null"
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     ZIndexBehavior:
-      Type: Enum
-      Value: 1
+      Enum: 1
   children: []
 - referent: referent-1
   name: DisplayOrder1
   class: ScreenGui
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     AutoLocalize:
-      Type: Bool
-      Value: true
+      Bool: true
     DisplayOrder:
-      Type: Int32
-      Value: 1
+      Int32: 1
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     IgnoreGuiInset:
-      Type: Bool
-      Value: false
+      Bool: false
     ResetOnSpawn:
-      Type: Bool
-      Value: true
+      Bool: true
     RootLocalizationTable: "null"
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     ZIndexBehavior:
-      Type: Enum
-      Value: 1
+      Enum: 1
   children: []
 - referent: referent-2
   name: DisplayOrder2
   class: ScreenGui
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     AutoLocalize:
-      Type: Bool
-      Value: true
+      Bool: true
     DisplayOrder:
-      Type: Int32
-      Value: 2
+      Int32: 2
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     IgnoreGuiInset:
-      Type: Bool
-      Value: false
+      Bool: false
     ResetOnSpawn:
-      Type: Bool
-      Value: true
+      Bool: true
     RootLocalizationTable: "null"
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     ZIndexBehavior:
-      Type: Enum
-      Value: 1
+      Enum: 1
   children: []
+

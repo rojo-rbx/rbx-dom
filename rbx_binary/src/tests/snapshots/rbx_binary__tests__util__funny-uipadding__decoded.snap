@@ -1,35 +1,31 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: UIPadding
   class: UIPadding
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     PaddingBottom:
-      Type: UDim
-      Value:
+      UDim:
         - 13.369999885559082
         - 42
     PaddingLeft:
-      Type: UDim
-      Value:
+      UDim:
         - -13.369999885559082
         - 42
     PaddingRight:
-      Type: UDim
-      Value:
+      UDim:
         - 13.369999885559082
         - -42
     PaddingTop:
-      Type: UDim
-      Value:
+      UDim:
         - -13.369999885559082
         - -42
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
   children: []
+

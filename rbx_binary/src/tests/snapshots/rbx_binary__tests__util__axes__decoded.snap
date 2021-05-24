@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: ""
@@ -8,26 +9,20 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Axes:
-      Type: Axes
-      Value: []
+      Axes: []
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-1
   name: X
@@ -35,27 +30,21 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Axes:
-      Type: Axes
-      Value:
+      Axes:
         - X
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-2
   name: "X, Y"
@@ -63,28 +52,22 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Axes:
-      Type: Axes
-      Value:
+      Axes:
         - X
         - Y
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-3
   name: "X, Y, Z"
@@ -92,29 +75,23 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Axes:
-      Type: Axes
-      Value:
+      Axes:
         - X
         - Y
         - Z
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-4
   name: "X, Z"
@@ -122,28 +99,22 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Axes:
-      Type: Axes
-      Value:
+      Axes:
         - X
         - Z
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-5
   name: Y
@@ -151,27 +122,21 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Axes:
-      Type: Axes
-      Value:
+      Axes:
         - Y
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-6
   name: "Y, Z"
@@ -179,28 +144,22 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Axes:
-      Type: Axes
-      Value:
+      Axes:
         - Y
         - Z
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-7
   name: Z
@@ -208,25 +167,20 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Axes:
-      Type: Axes
-      Value:
+      Axes:
         - Z
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
+

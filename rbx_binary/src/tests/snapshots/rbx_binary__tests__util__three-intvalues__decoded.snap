@@ -1,46 +1,39 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: Value=1234567
   class: IntValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: Int64
-      Value: 1234567
+      Int64: 1234567
   children: []
 - referent: referent-1
   name: Value=1337
   class: IntValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: Int64
-      Value: 1337
+      Int64: 1337
   children: []
 - referent: referent-2
   name: Value=-7654321
   class: IntValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: Int64
-      Value: -7654321
+      Int64: -7654321
   children: []
+
