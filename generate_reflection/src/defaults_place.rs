@@ -21,7 +21,10 @@ use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, Re
 use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
-use crate::plugin_injector::{PluginInjector, StudioInfo};
+use crate::{
+    plugin_injector::{PluginInjector, StudioInfo},
+    studio_keyboard::{Key, StudioKeyboard},
+};
 
 /// Use Roblox Studio to populate the reflection database with default values
 /// for as many properties as possible.
@@ -225,10 +228,8 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
     watcher.watch(&output_path, notify::RecursiveMode::NonRecursive)?;
 
     log::info!("Waiting for Roblox Studio to re-save place...");
-    println!("Please save the opened place in Roblox Studio (ctrl+s).");
-
-    // TODO: User currently has to manually save the place. We could use a crate
-    // like enigo or maybe raw input calls to do this for them.
+    let keyboard = StudioKeyboard::new(&studio_process);
+    keyboard.send_chord(&[Key::Control, Key::S]);
 
     loop {
         if let DebouncedEvent::Write(_) = rx.recv()? {

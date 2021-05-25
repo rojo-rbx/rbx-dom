@@ -2,6 +2,7 @@ mod api_dump;
 mod defaults_place;
 mod plugin_injector;
 mod property_patches;
+mod studio_keyboard;
 mod values;
 
 use std::fs;
