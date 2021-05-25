@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: ""
@@ -8,29 +9,22 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value: []
+      Faces: []
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-1
   name: Right
@@ -38,30 +32,23 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-2
   name: "Right, Top"
@@ -69,31 +56,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-3
   name: "Right, Top, Back"
@@ -101,32 +81,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Back
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-4
   name: "Right, Top, Back, Left"
@@ -134,33 +107,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Back
         - Left
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-5
   name: "Right, Top, Back, Left, Bottom"
@@ -168,34 +134,27 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Back
         - Left
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-6
   name: "Right, Top, Back, Left, Bottom, Front"
@@ -203,17 +162,14 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Back
@@ -221,17 +177,13 @@ expression: decoded_viewed
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-7
   name: "Right, Top, Back, Left, Front"
@@ -239,34 +191,27 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Back
         - Left
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-8
   name: "Right, Top, Back, Bottom"
@@ -274,33 +219,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Back
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-9
   name: "Right, Top, Back, Bottom, Front"
@@ -308,34 +246,27 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Back
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-10
   name: "Right, Top, Back, Front"
@@ -343,33 +274,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Back
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-11
   name: "Right, Top, Left"
@@ -377,32 +301,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Left
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-12
   name: "Right, Top, Left, Bottom"
@@ -410,33 +327,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Left
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-13
   name: "Right, Top, Left, Bottom, Front"
@@ -444,34 +354,27 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Left
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-14
   name: "Right, Top, Left, Front"
@@ -479,33 +382,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Left
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-15
   name: "Right, Top, Bottom"
@@ -513,32 +409,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-16
   name: "Right, Top, Bottom, Front"
@@ -546,33 +435,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-17
   name: "Right, Top, Front"
@@ -580,32 +462,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Top
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-18
   name: "Right, Back"
@@ -613,31 +488,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Back
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-19
   name: "Right, Back, Left"
@@ -645,32 +513,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Back
         - Left
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-20
   name: "Right, Back, Left, Bottom"
@@ -678,33 +539,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Back
         - Left
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-21
   name: "Right, Back, Left, Bottom, Front"
@@ -712,34 +566,27 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Back
         - Left
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-22
   name: "Right, Back, Left, Front"
@@ -747,33 +594,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Back
         - Left
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-23
   name: "Right, Back, Bottom"
@@ -781,32 +621,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Back
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-24
   name: "Right, Back, Bottom, Front"
@@ -814,33 +647,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Back
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-25
   name: "Right, Back, Front"
@@ -848,32 +674,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Back
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-26
   name: "Right, Left"
@@ -881,31 +700,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Left
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-27
   name: "Right, Left, Bottom"
@@ -913,32 +725,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Left
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-28
   name: "Right, Left, Bottom, Front"
@@ -946,33 +751,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Left
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-29
   name: "Right, Left, Front"
@@ -980,32 +778,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Left
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-30
   name: "Right, Bottom"
@@ -1013,31 +804,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-31
   name: "Right, Bottom, Front"
@@ -1045,32 +829,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-32
   name: "Right, Front"
@@ -1078,31 +855,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Right
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-33
   name: Top
@@ -1110,30 +880,23 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-34
   name: "Top, Back"
@@ -1141,31 +904,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Back
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-35
   name: "Top, Back, Left"
@@ -1173,32 +929,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Back
         - Left
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-36
   name: "Top, Back, Left, Bottom"
@@ -1206,33 +955,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Back
         - Left
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-37
   name: "Top, Back, Left, Bottom, Front"
@@ -1240,34 +982,27 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Back
         - Left
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-38
   name: "Top, Back, Left, Front"
@@ -1275,33 +1010,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Back
         - Left
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-39
   name: "Top, Back, Bottom"
@@ -1309,32 +1037,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Back
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-40
   name: "Top, Back, Bottom, Front"
@@ -1342,33 +1063,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Back
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-41
   name: "Top, Back, Front"
@@ -1376,32 +1090,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Back
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-42
   name: "Top, Left"
@@ -1409,31 +1116,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Left
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-43
   name: "Top, Left, Bottom"
@@ -1441,32 +1141,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Left
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-44
   name: "Top, Left, Bottom, Front"
@@ -1474,33 +1167,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Left
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-45
   name: "Top, Left, Front"
@@ -1508,32 +1194,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Left
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-46
   name: "Top, Bottom"
@@ -1541,31 +1220,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-47
   name: "Top, Bottom, Front"
@@ -1573,32 +1245,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-48
   name: "Top, Front"
@@ -1606,31 +1271,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Top
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-49
   name: Back
@@ -1638,30 +1296,23 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Back
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-50
   name: "Back, Left"
@@ -1669,31 +1320,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Back
         - Left
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-51
   name: "Back, Left, Bottom"
@@ -1701,32 +1345,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Back
         - Left
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-52
   name: "Back, Left, Bottom, Front"
@@ -1734,33 +1371,26 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Back
         - Left
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-53
   name: "Back, Left, Front"
@@ -1768,32 +1398,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Back
         - Left
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-54
   name: "Back, Bottom"
@@ -1801,31 +1424,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Back
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-55
   name: "Back, Bottom, Front"
@@ -1833,32 +1449,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Back
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-56
   name: "Back, Front"
@@ -1866,31 +1475,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Back
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-57
   name: Left
@@ -1898,30 +1500,23 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Left
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-58
   name: "Left, Bottom"
@@ -1929,31 +1524,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Left
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-59
   name: "Left, Bottom, Front"
@@ -1961,32 +1549,25 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Left
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-60
   name: "Left, Front"
@@ -1994,31 +1575,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Left
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-61
   name: Bottom
@@ -2026,30 +1600,23 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Bottom
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-62
   name: "Bottom, Front"
@@ -2057,31 +1624,24 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Bottom
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
 - referent: referent-63
   name: Front
@@ -2089,28 +1649,22 @@ expression: decoded_viewed
   properties:
     Adornee: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.05098039656877518
         - 0.4117647409439087
         - 0.6745098233222961
     Faces:
-      Type: Faces
-      Value:
+      Faces:
         - Front
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
   children: []
+

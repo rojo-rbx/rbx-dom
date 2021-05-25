@@ -1,274 +1,213 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: Frame1
   class: Frame
   properties:
     Active:
-      Type: Bool
-      Value: false
+      Bool: false
     AnchorPoint:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.10000000149011612
         - 0.20000000298023225
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     AutoLocalize:
-      Type: Bool
-      Value: true
+      Bool: true
     BackgroundColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 1.0
         - 0.49803921580314639
         - 0.0
     BackgroundTransparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     BorderColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 1.0
         - 0.0
         - 0.49803921580314639
     BorderMode:
-      Type: Enum
-      Value: 0
+      Enum: 0
     BorderSizePixel:
-      Type: Int32
-      Value: 1
+      Int32: 1
     ClipsDescendants:
-      Type: Bool
-      Value: false
+      Bool: false
     Draggable:
-      Type: Bool
-      Value: false
+      Bool: false
     LayoutOrder:
-      Type: Int32
-      Value: 0
+      Int32: 0
     NextSelectionDown: "null"
     NextSelectionLeft: "null"
     NextSelectionRight: "null"
     NextSelectionUp: "null"
     Position:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.10000000149011612
           - 2
         - - 0.20000000298023225
           - 4
     RootLocalizationTable: "null"
     Rotation:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Selectable:
-      Type: Bool
-      Value: false
+      Bool: false
     SelectionImageObject: "null"
     Size:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.10000000149011612
           - 2
         - - 0.20000000298023225
           - 4
     SizeConstraint:
-      Type: Enum
-      Value: 1
+      Enum: 1
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
     ZIndex:
-      Type: Int32
-      Value: 1
+      Int32: 1
   children: []
 - referent: referent-1
   name: Frame2
   class: Frame
   properties:
     Active:
-      Type: Bool
-      Value: false
+      Bool: false
     AnchorPoint:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.30000001192092898
         - 0.4000000059604645
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     AutoLocalize:
-      Type: Bool
-      Value: true
+      Bool: true
     BackgroundColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.0
         - 1.0
         - 0.0
     BackgroundTransparency:
-      Type: Float32
-      Value: 0.10000000149011612
+      Float32: 0.10000000149011612
     BorderColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.0
         - 0.0
         - 1.0
     BorderMode:
-      Type: Enum
-      Value: 0
+      Enum: 0
     BorderSizePixel:
-      Type: Int32
-      Value: 2
+      Int32: 2
     ClipsDescendants:
-      Type: Bool
-      Value: false
+      Bool: false
     Draggable:
-      Type: Bool
-      Value: false
+      Bool: false
     LayoutOrder:
-      Type: Int32
-      Value: 1
+      Int32: 1
     NextSelectionDown: "null"
     NextSelectionLeft: "null"
     NextSelectionRight: "null"
     NextSelectionUp: "null"
     Position:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.30000001192092898
           - 16
         - - 0.4000000059604645
           - 32
     RootLocalizationTable: "null"
     Rotation:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Selectable:
-      Type: Bool
-      Value: false
+      Bool: false
     SelectionImageObject: "null"
     Size:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.30000001192092898
           - 16
         - - 0.4000000059604645
           - 32
     SizeConstraint:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
     ZIndex:
-      Type: Int32
-      Value: 1
+      Int32: 1
   children: []
 - referent: referent-2
   name: Frame3
   class: Frame
   properties:
     Active:
-      Type: Bool
-      Value: false
+      Bool: false
     AnchorPoint:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.5
         - 0.6000000238418579
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     AutoLocalize:
-      Type: Bool
-      Value: true
+      Bool: true
     BackgroundColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 1.0
         - 0.0
         - 1.0
     BackgroundTransparency:
-      Type: Float32
-      Value: 0.20000000298023225
+      Float32: 0.20000000298023225
     BorderColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 1.0
         - 1.0
         - 0.0
     BorderMode:
-      Type: Enum
-      Value: 0
+      Enum: 0
     BorderSizePixel:
-      Type: Int32
-      Value: 3
+      Int32: 3
     ClipsDescendants:
-      Type: Bool
-      Value: false
+      Bool: false
     Draggable:
-      Type: Bool
-      Value: false
+      Bool: false
     LayoutOrder:
-      Type: Int32
-      Value: 2
+      Int32: 2
     NextSelectionDown: "null"
     NextSelectionLeft: "null"
     NextSelectionRight: "null"
     NextSelectionUp: "null"
     Position:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.5
           - 64
         - - 0.6000000238418579
           - 128
     RootLocalizationTable: "null"
     Rotation:
-      Type: Float32
-      Value: 2.0
+      Float32: 2.0
     Selectable:
-      Type: Bool
-      Value: false
+      Bool: false
     SelectionImageObject: "null"
     Size:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.5
           - 64
         - - 0.6000000238418579
           - 128
     SizeConstraint:
-      Type: Enum
-      Value: 2
+      Enum: 2
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
     ZIndex:
-      Type: Int32
-      Value: 1
+      Int32: 1
   children: []
+

@@ -1,17 +1,16 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: UIGradient
   class: UIGradient
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color:
-      Type: ColorSequence
-      Value:
+      ColorSequence:
         Keypoints:
           - Time: 0.0
             Color:
@@ -24,25 +23,19 @@ expression: decoded_viewed
               - 1.0
               - 1.0
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     Offset:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     Rotation:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: NumberSequence
-      Value:
+      NumberSequence:
         Keypoints:
           - Time: 0.0
             Value: 0.5
@@ -65,11 +58,9 @@ expression: decoded_viewed
   class: UIGradient
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color:
-      Type: ColorSequence
-      Value:
+      ColorSequence:
         Keypoints:
           - Time: 0.0
             Color:
@@ -82,25 +73,19 @@ expression: decoded_viewed
               - 1.0
               - 1.0
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     Offset:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     Rotation:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: NumberSequence
-      Value:
+      NumberSequence:
         Keypoints:
           - Time: 0.0
             Value: 0.0
@@ -117,11 +102,9 @@ expression: decoded_viewed
   class: UIGradient
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color:
-      Type: ColorSequence
-      Value:
+      ColorSequence:
         Keypoints:
           - Time: 0.0
             Color:
@@ -134,25 +117,19 @@ expression: decoded_viewed
               - 1.0
               - 1.0
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     Offset:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     Rotation:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Transparency:
-      Type: NumberSequence
-      Value:
+      NumberSequence:
         Keypoints:
           - Time: 0.0
             Value: 0.0
@@ -161,3 +138,4 @@ expression: decoded_viewed
             Value: 0.0
             Envelope: 0.0
   children: []
+

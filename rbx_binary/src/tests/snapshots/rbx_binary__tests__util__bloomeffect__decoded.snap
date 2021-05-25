@@ -1,27 +1,23 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: Bloom
   class: BloomEffect
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     Intensity:
-      Type: Float32
-      Value: 0.44999998807907107
+      Float32: 0.44999998807907107
     Size:
-      Type: Float32
-      Value: 24.700000762939454
+      Float32: 24.700000762939454
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Threshold:
-      Type: Float32
-      Value: 2.2850000858306886
+      Float32: 2.2850000858306886
   children: []
+
