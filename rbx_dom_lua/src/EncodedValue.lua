@@ -435,7 +435,7 @@ function EncodedValue.decode(encodedValue)
 
 	local typeImpl = types[ty]
 	if typeImpl == nil then
-		return false, "Couldn't decode value " .. tostring(encodedValue.Type)
+		return false, "Couldn't decode value " .. tostring(ty)
 	end
 
 	return true, typeImpl.fromPod(value)
