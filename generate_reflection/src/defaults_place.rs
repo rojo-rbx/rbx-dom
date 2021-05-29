@@ -14,7 +14,6 @@ use std::{
 };
 
 use anyhow::Context;
-use dirs;
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::types::VariantType;
 use rbx_dom_weak::WeakDom;
@@ -214,7 +213,7 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
         .join("AutoSaves");
 
     let output_path = output_dir.path().join(id.clone() + ".rbxlx");
-    let autosave_path = autosave_dir.join(id.clone() + "_AutoRecovery_0.rbxl");
+    let autosave_path = autosave_dir.join(id + "_AutoRecovery_0.rbxl");
 
     log::info!("Generating place at {}", output_path.display());
     fs::write(&output_path, place_contents)?;
