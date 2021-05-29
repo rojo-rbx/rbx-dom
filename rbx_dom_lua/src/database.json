@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    478,
+    480,
     1,
-    422443
+    423489
   ],
   "Classes": {
     "ABTestService": {
@@ -319,7 +319,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 23
+          "BrickColor": 23
         },
         "Enabled": {
           "Bool": true
@@ -445,7 +445,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 194
+          "BrickColor": 194
         },
         "Enabled": {
           "Bool": true
@@ -593,7 +593,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 23
+          "BrickColor": 23
         },
         "Enabled": {
           "Bool": true
@@ -1335,6 +1335,17 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "AvatarImportService": {
+      "Name": "AvatarImportService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "Backpack": {
       "Name": "Backpack",
       "Tags": [],
@@ -1500,7 +1511,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 1009
+          "BrickColor": 1009
         },
         "Enabled": {
           "Bool": true
@@ -3016,6 +3027,19 @@
             }
           }
         },
+        "Brightness": {
+          "Name": "Brightness",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ClipsDescendants": {
           "Name": "ClipsDescendants",
           "Scriptability": "ReadWrite",
@@ -3214,6 +3238,9 @@
         },
         "AutoLocalize": {
           "Bool": true
+        },
+        "Brightness": {
+          "Float32": 1.0
         },
         "ClipsDescendants": {
           "Bool": false
@@ -4586,7 +4613,7 @@
           "BinaryString": ""
         },
         "Value": {
-          "Int32": 194
+          "BrickColor": 194
         }
       }
     },
@@ -6711,7 +6738,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 1009
+          "BrickColor": 1009
         },
         "Enabled": {
           "Bool": true
@@ -9114,7 +9141,7 @@
           "BinaryString": ""
         },
         "TeamColor": {
-          "Int32": 194
+          "BrickColor": 194
         },
         "TextureId": {
           "Content": ""
@@ -9328,7 +9355,7 @@
           "BinaryString": ""
         },
         "TeamColor": {
-          "Int32": 194
+          "BrickColor": 194
         },
         "TopParamA": {
           "Float32": -0.5
@@ -11575,7 +11602,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 1009
+          "BrickColor": 1009
         },
         "Enabled": {
           "Bool": true
@@ -14148,7 +14175,17 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "BinaryString": ""
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        }
+      }
     },
     "InstanceAdornment": {
       "Name": "InstanceAdornment",
@@ -15158,7 +15195,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 23
+          "BrickColor": 23
         },
         "Enabled": {
           "Bool": true
@@ -17225,22 +17262,6 @@
       "Properties": {
         "EmulatedTotalMemoryInMB": {
           "Name": "EmulatedTotalMemoryInMB",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Int32"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "ExtraMemoryUsed": {
-          "Name": "ExtraMemoryUsed",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Int32"
@@ -21491,7 +21512,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 1009
+          "BrickColor": 1009
         },
         "Enabled": {
           "Bool": true
@@ -23453,7 +23474,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 26
+          "BrickColor": 26
         },
         "Enabled": {
           "Bool": true
@@ -23550,7 +23571,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 25
+          "BrickColor": 25
         },
         "Enabled": {
           "Bool": true
@@ -25673,7 +25694,7 @@
           "BinaryString": ""
         },
         "SkinColor": {
-          "Int32": 226
+          "BrickColor": 226
         },
         "SourceAssetId": {
           "Int64": -1
@@ -27215,7 +27236,7 @@
           "BinaryString": ""
         },
         "TeamColor": {
-          "Int32": 194
+          "BrickColor": 194
         },
         "TopParamA": {
           "Float32": -0.5
@@ -27767,7 +27788,7 @@
           "Float32": 3.0
         },
         "Color": {
-          "Int32": 200
+          "BrickColor": 200
         },
         "Damping": {
           "Float32": 0.0
@@ -27937,6 +27958,21 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "VirtualCursorMode": {
+          "Name": "VirtualCursorMode",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "VirtualCursorMode"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
@@ -27957,6 +27993,9 @@
         },
         "Tags": {
           "BinaryString": ""
+        },
+        "VirtualCursorMode": {
+          "Enum": 0
         }
       }
     },
@@ -31009,6 +31048,19 @@
             }
           }
         },
+        "Brightness": {
+          "Name": "Brightness",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "CanvasSize": {
           "Name": "CanvasSize",
           "Scriptability": "ReadWrite",
@@ -31126,6 +31178,9 @@
         },
         "AutoLocalize": {
           "Bool": true
+        },
+        "Brightness": {
+          "Float32": 1.0
         },
         "CanvasSize": {
           "Vector2": [
@@ -31465,7 +31520,7 @@
           "BinaryString": ""
         },
         "TeamColor": {
-          "Int32": 1
+          "BrickColor": 1
         }
       }
     },
@@ -34223,7 +34278,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 23
+          "BrickColor": 23
         },
         "Enabled": {
           "Bool": true
@@ -34383,7 +34438,7 @@
           "Float32": 8.0
         },
         "Color": {
-          "Int32": 200
+          "BrickColor": 200
         },
         "Damping": {
           "Float32": 0.01
@@ -36676,7 +36731,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 1009
+          "BrickColor": 1009
         },
         "Enabled": {
           "Bool": true
@@ -37827,7 +37882,7 @@
           "BinaryString": ""
         },
         "Color": {
-          "Int32": 23
+          "BrickColor": 23
         },
         "Enabled": {
           "Bool": true
@@ -38903,6 +38958,33 @@
       ],
       "Superclass": "Instance",
       "Properties": {},
+      "DefaultProperties": {}
+    },
+    "VoiceSource": {
+      "Name": "VoiceSource",
+      "Tags": [
+        "Deprecated",
+        "NotCreatable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "UserId": {
+          "Name": "UserId",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "WedgePart": {
@@ -42066,6 +42148,14 @@
         "Visitor": 10
       }
     },
+    "ProductLocationRestriction": {
+      "name": "ProductLocationRestriction",
+      "items": {
+        "AllGames": 2,
+        "AllowedGames": 1,
+        "AvatarShop": 0
+      }
+    },
     "ProductPurchaseDecision": {
       "name": "ProductPurchaseDecision",
       "items": {
@@ -42393,6 +42483,14 @@
         "ClientPhysicsPause": 2,
         "Default": 0,
         "Disabled": 1
+      }
+    },
+    "StudioCloseMode": {
+      "name": "StudioCloseMode",
+      "items": {
+        "CloseDoc": 2,
+        "CloseStudio": 1,
+        "None": 0
       }
     },
     "StudioDataModelType": {
@@ -42964,6 +43062,14 @@
         "RightHand": 5,
         "RightTrigger": 3,
         "Small": 1
+      }
+    },
+    "VirtualCursorMode": {
+      "name": "VirtualCursorMode",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
       }
     },
     "VirtualInputMode": {
