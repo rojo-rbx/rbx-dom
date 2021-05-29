@@ -36,9 +36,8 @@ pub struct StudioKeyboard<'a> {
     process: &'a process::Child,
 }
 
-#[derive(Clone, Copy)]
-struct KeyEvent<'a> {
-    func: &'a dyn Fn(),
+struct KeyEvent<F: Fn()> {
+    func: F,
     process_id: u32,
 }
 
@@ -56,32 +55,32 @@ impl<'a> StudioKeyboard<'a> {
         };
     }
 
-    unsafe fn hook<F>(&self, func: F)
-    where
-        F: Fn(),
-    {
+    unsafe fn hook<F: Fn()>(&self, func: F) {
         let key_event = KeyEvent {
-            func: &func,
+            func,
             process_id: self.process.id(),
         };
 
-        unsafe extern "system" fn callback(window: *mut HWND__, event_ptr: LPARAM) -> BOOL {
+        unsafe extern "system" fn callback<F: Fn()>(
+            window: *mut HWND__,
+            event_ptr: LPARAM,
+        ) -> BOOL {
             let mut window_process: DWORD = 0;
             let window_thread = GetWindowThreadProcessId(window, &mut window_process as *mut _);
-            let key_event = event_ptr as *const KeyEvent;
+            let key_event = event_ptr as *const KeyEvent<F>;
 
             if window_process == (*key_event).process_id && IsWindowVisible(window) == TRUE {
-                StudioKeyboard::try_attach(window_thread, *key_event);
+                StudioKeyboard::try_attach(window_thread, &*key_event);
                 FALSE
             } else {
                 TRUE
             }
         }
 
-        EnumWindows(Some(callback), &key_event as *const _ as LPARAM);
+        EnumWindows(Some(callback::<F>), &key_event as *const _ as LPARAM);
     }
 
-    fn try_attach(thread: DWORD, key_event: KeyEvent) {
+    fn try_attach<F: Fn()>(thread: DWORD, key_event: &KeyEvent<F>) {
         let foreground_window = unsafe { GetForegroundWindow() };
         let foreground_thread =
             unsafe { GetWindowThreadProcessId(GetForegroundWindow(), ptr::null_mut()) };
