@@ -6,7 +6,7 @@ use std::{
     borrow::Cow,
     collections::{HashSet, VecDeque},
     fmt::{self, Write},
-    fs::{self, File},
+    fs::{self, remove_file, File},
     io::BufReader,
     process::Command,
     sync::mpsc,
@@ -14,12 +14,14 @@ use std::{
 };
 
 use anyhow::Context;
+use dirs;
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::types::VariantType;
 use rbx_dom_weak::WeakDom;
 use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
-use roblox_install::RobloxStudio;
+use roblox_install::{Error, RobloxStudio};
 use tempfile::tempdir;
+use uuid::Uuid;
 
 use crate::plugin_injector::{PluginInjector, StudioInfo};
 
@@ -204,8 +206,16 @@ struct StudioOutput {
 /// Generate a new fixture place from the given reflection database, open it in
 /// Studio, coax Studio to re-save it, and reads back the resulting place.
 fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<StudioOutput> {
+    let id = Uuid::new_v4().to_string();
     let output_dir = tempdir()?;
-    let output_path = output_dir.path().join("roundtrip.rbxlx");
+    let autosave_dir = dirs::document_dir()
+        .ok_or(Error::DocumentsDirectoryNotFound)?
+        .join("ROBLOX")
+        .join("AutoSaves");
+
+    let output_path = output_dir.path().join(id.clone() + ".rbxlx");
+    let autosave_path = autosave_dir.join(id.clone() + "_AutoRecovery_0.rbxl");
+
     log::info!("Generating place at {}", output_path.display());
     fs::write(&output_path, place_contents)?;
 
@@ -222,39 +232,37 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
-    watcher.watch(&output_path, notify::RecursiveMode::NonRecursive)?;
+    watcher.watch(&autosave_dir, notify::RecursiveMode::NonRecursive)?;
 
     log::info!("Waiting for Roblox Studio to re-save place...");
     println!("Please save the opened place in Roblox Studio (ctrl+s).");
 
-    // TODO: User currently has to manually save the place. We could use a crate
-    // like enigo or maybe raw input calls to do this for them.
-
     loop {
-        if let DebouncedEvent::Write(_) = rx.recv()? {
+        if let DebouncedEvent::Create(_) = rx.recv()? {
             break;
         }
     }
 
     log::info!("Place saved, killing Studio...");
+    injector.finish();
     studio_process.kill()?;
 
     log::info!("Reading back place file...");
 
-    let file = BufReader::new(File::open(&output_path)?);
+    let file = BufReader::new(File::open(&autosave_path)?);
 
-    let decode_options = rbx_xml::DecodeOptions::new()
-        .property_behavior(rbx_xml::DecodePropertyBehavior::NoReflection);
-
-    let tree = match rbx_xml::from_reader(file, decode_options) {
+    let tree = match rbx_binary::from_reader_default(file) {
         Ok(tree) => tree,
         Err(err) => {
-            let _ = fs::copy(output_path, "defaults-place.rbxlx");
+            let _ = fs::copy(autosave_path, "defaults-place.rbxlx");
             return Err(err).context(
                 "failed to decode defaults place; it has been copied to defaults-place.rbxlx",
             );
         }
     };
+
+    remove_file(output_path)?;
+    remove_file(autosave_path)?;
 
     Ok(StudioOutput { info, tree })
 }

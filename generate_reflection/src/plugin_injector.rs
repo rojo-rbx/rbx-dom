@@ -36,7 +36,7 @@ impl<'a> PluginInjector<'a> {
         }
     }
 
-    pub fn receive_info(self) -> StudioInfo {
+    pub fn receive_info(&self) -> StudioInfo {
         log::info!("Waiting to hear back from Studio plugin...");
         let mut request = self
             .http_server
@@ -48,6 +48,15 @@ impl<'a> PluginInjector<'a> {
         request.respond(Response::empty(200)).unwrap();
 
         studio_info
+    }
+
+    pub fn finish(self) {
+        self.http_server
+            .recv_timeout(Duration::from_secs(30))
+            .expect("error receiving HTTP request")
+            .expect("plugin did not send a request within 30 seconds")
+            .respond(Response::empty(200))
+            .unwrap();
     }
 }
 
