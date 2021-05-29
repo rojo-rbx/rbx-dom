@@ -48,13 +48,15 @@ impl<'a> StudioKeyboard<'a> {
     }
 
     pub fn send_chord(&self, keys: &[Key]) {
-        self.hook(|| {
-            Self::send_input(keys, Flags::KeyDown);
-            Self::send_input(keys, Flags::KeyUp);
-        });
+        unsafe {
+            self.hook(|| {
+                Self::send_input(keys, Flags::KeyDown);
+                Self::send_input(keys, Flags::KeyUp);
+            })
+        };
     }
 
-    fn hook<F>(&self, func: F)
+    unsafe fn hook<F>(&self, func: F)
     where
         F: Fn(),
     {
@@ -76,7 +78,7 @@ impl<'a> StudioKeyboard<'a> {
             }
         }
 
-        unsafe { EnumWindows(Some(callback), &key_event as *const _ as LPARAM) };
+        EnumWindows(Some(callback), &key_event as *const _ as LPARAM);
     }
 
     fn try_attach(thread: DWORD, key_event: KeyEvent) {
