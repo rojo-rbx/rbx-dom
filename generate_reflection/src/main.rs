@@ -2,8 +2,6 @@ mod api_dump;
 mod defaults_place;
 mod plugin_injector;
 mod property_patches;
-#[cfg(target_os = "windows")]
-mod studio_keyboard;
 mod values;
 
 use std::fs;

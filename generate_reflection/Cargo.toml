@@ -26,4 +26,3 @@ structopt = "0.3.9"
 tempfile = "3.1.0"
 tiny_http = "0.7.0"
 toml = "0.5.0"
-winapi = { version = "0.3.9", features = ["winuser", "impl-default"] }
