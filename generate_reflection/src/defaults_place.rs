@@ -229,18 +229,23 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
     let info = injector.receive_info();
 
     let (tx, rx) = mpsc::channel();
-    let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
-    watcher.watch(&output_dir, notify::RecursiveMode::NonRecursive)?;
 
-    log::info!("Waiting one minute for Studio to auto-save the place...");
+    let mut place_watcher = notify::watcher(tx.clone(), Duration::from_millis(300))?;
+    place_watcher.watch(&place_path, notify::RecursiveMode::NonRecursive)?;
 
-    loop {
-        if let DebouncedEvent::Create(path) = rx.recv_timeout(Duration::from_secs(61))? {
-            if path == autosave_path {
-                break;
-            }
+    let mut autosave_watcher = notify::watcher(tx, Duration::from_millis(300))?;
+    autosave_watcher.watch(&output_dir, notify::RecursiveMode::NonRecursive)?;
+
+    log::info!("Waiting for the place to be saved...");
+    println!("Please save the open place. Studio will automatically save it after one minute.");
+
+    let file_path = loop {
+        match rx.recv_timeout(Duration::from_secs(61))? {
+            DebouncedEvent::Write(path) if path == place_path => break path,
+            DebouncedEvent::Create(path) if path == autosave_path => break path,
+            _ => continue,
         }
-    }
+    };
 
     log::info!("Place saved, killing Studio");
 
@@ -251,7 +256,7 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
 
     log::info!("Reading back place file...");
 
-    let file = BufReader::new(File::open(&autosave_path)?);
+    let file = BufReader::new(File::open(&file_path)?);
 
     let tree = match rbx_binary::from_reader_default(file) {
         Ok(tree) => tree,
