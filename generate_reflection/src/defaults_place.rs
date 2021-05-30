@@ -19,8 +19,7 @@ use rbx_dom_weak::types::VariantType;
 use rbx_dom_weak::WeakDom;
 use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
 use roblox_install::{Error, RobloxStudio};
-use tempfile::tempdir;
-use uuid::Uuid;
+//use tempfile::tempdir;
 
 use crate::plugin_injector::{PluginInjector, StudioInfo};
 
@@ -203,20 +202,20 @@ struct StudioOutput {
 }
 
 /// Generate a new fixture place from the given reflection database, open it in
-/// Studio, coax Studio to re-save it, and reads back the resulting place.
+/// Studio, coax Studio to re-save it, and read back the resulting place.
 fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<StudioOutput> {
-    let id = Uuid::new_v4().to_string();
-    let output_dir = tempdir()?;
-    let autosave_dir = dirs::document_dir()
+    // TODO: Find out where Roblox Studio keeps its settings so we can set the
+    // auto-save directory to a temp directory
+    let output_dir = dirs::document_dir()
         .ok_or(Error::DocumentsDirectoryNotFound)?
         .join("ROBLOX")
         .join("AutoSaves");
 
-    let output_path = output_dir.path().join(id.clone() + ".rbxlx");
-    let autosave_path = autosave_dir.join(id + "_AutoRecovery_0.rbxl");
+    let autosave_path = output_dir.join("GenerateReflectionFixturePlace_AutoRecovery_0.rbxl");
+    let place_path = output_dir.join("GenerateReflectionFixturePlace.rbxlx");
 
-    log::info!("Generating place at {}", output_path.display());
-    fs::write(&output_path, place_contents)?;
+    log::info!("Generating place at {}", place_path.display());
+    fs::write(&place_path, place_contents)?;
 
     let studio_install = RobloxStudio::locate()?;
     let injector = PluginInjector::start(&studio_install);
@@ -224,26 +223,30 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
     log::info!("Starting Roblox Studio...");
 
     let mut studio_process = Command::new(studio_install.application_path())
-        .arg(output_path.display().to_string())
+        .arg(place_path.display().to_string())
         .spawn()?;
 
     let info = injector.receive_info();
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
-    watcher.watch(&autosave_dir, notify::RecursiveMode::NonRecursive)?;
+    watcher.watch(&output_dir, notify::RecursiveMode::NonRecursive)?;
 
-    log::info!("Waiting for Roblox Studio to re-save place...");
-    println!("Please save the opened place in Roblox Studio (ctrl+s).");
+    log::info!("Waiting one minute for Studio to auto-save the place...");
 
     loop {
-        if let DebouncedEvent::Create(_) = rx.recv()? {
-            break;
+        if let DebouncedEvent::Create(path) = rx.recv_timeout(Duration::from_secs(61))? {
+            if path == autosave_path {
+                break;
+            }
         }
     }
 
-    log::info!("Place saved, killing Studio...");
+    log::info!("Place saved, killing Studio");
+
+    // TODO: We don't have to talk to the plugin again if we can set the settings from here
     injector.finish();
+
     studio_process.kill()?;
 
     log::info!("Reading back place file...");
@@ -260,8 +263,9 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
         }
     };
 
-    remove_file(output_path)?;
+    // TODO: Delete these two lines when we set the auto-save directory
     remove_file(autosave_path)?;
+    remove_file(place_path)?;
 
     Ok(StudioOutput { info, tree })
 }
