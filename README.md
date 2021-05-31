@@ -93,7 +93,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Vector2int16            | N/A                             | ✔ | ✔ | ✔ | ❌ |
 | Vector3                 | `Part.Size`                     | ✔ | ✔ | ✔ | ✔ |
 | Vector3int16            | `TerrainRegion.ExtentsMax`      | ✔ | ✔ | ✔ | ✔ |
-| QDir                    | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ | ⛔ |
+| QDir                    | `Studio.Auto-Save Path`         | ✔ | ⛔ | ✔ | ⛔ |
 | QFont                   | `Studio.Font`                   | ⛔ | ⛔ | ⛔ | ⛔ |
 
 ✔ Implemented | ❌ Unimplemented | ➖ Partially Implemented | ⛔ Never
