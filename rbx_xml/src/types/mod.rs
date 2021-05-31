@@ -21,6 +21,7 @@ mod number_sequence;
 mod numbers;
 mod optional_cframe;
 mod physical_properties;
+mod qdir;
 mod ray;
 mod rect;
 mod referent;
@@ -133,6 +134,7 @@ declare_rbx_types! {
     NumberSequence: NumberSequence,
     OptionalCFrame: Option<CFrame>,
     PhysicalProperties: PhysicalProperties,
+    QDir: std::path::PathBuf,
     Ray: Ray,
     Rect: Rect,
     String: String,
