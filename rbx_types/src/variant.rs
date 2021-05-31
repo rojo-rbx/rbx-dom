@@ -126,6 +126,7 @@ make_variant! {
     Vector3(Vector3),
     Vector3int16(Vector3int16),
     OptionalCFrame(Option<CFrame>),
+    QDir(std::path::PathBuf),
 }
 
 impl From<&'_ str> for Variant {
