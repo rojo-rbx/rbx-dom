@@ -1,6 +1,7 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Added an option to disable property reflection in the deserializer.
 
 ## 0.6.0-alpha.5 (2021-05-14)
 * Added `OptionalCoordinateFrame` support. ([#176][pr-176])
