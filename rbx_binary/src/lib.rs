@@ -30,10 +30,20 @@ pub mod text_format {
 
 pub use crate::{deserializer::Error as DecodeError, serializer::Error as EncodeError};
 
+pub use deserializer::DecodePropertyBehavior;
+
 /// Decodes an binary format model or place from something that implements the
 /// `std::io::Read` trait.
 pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
-    decode(reader)
+    decode(reader, DecodePropertyBehavior::Default)
+}
+
+/// Decodes a binary format model or place using the provided decode behavior.
+pub fn from_reader<R: Read>(
+    reader: R,
+    decode_behavior: DecodePropertyBehavior,
+) -> Result<WeakDom, DecodeError> {
+    decode(reader, decode_behavior)
 }
 
 /// Serializes a subset of the given DOM to a binary format model or place,

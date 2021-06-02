@@ -104,11 +104,26 @@ pub(crate) enum InnerError {
     },
 }
 
-pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
-    Ok(decode_inner(reader)?)
+/// Control whether the deserializer consults the reflection database when reading properties.
+#[derive(Clone, Copy)]
+pub enum DecodePropertyBehavior {
+    /// Consult the reflection database when reading properties.
+    Default,
+    /// Do not attempt to consult the reflection database; read property names and types as-is.
+    NoReflection,
 }
 
-pub(crate) fn decode_inner<R: Read>(reader: R) -> Result<WeakDom, InnerError> {
+pub(crate) fn decode<R: Read>(
+    reader: R,
+    decode_behavior: DecodePropertyBehavior,
+) -> Result<WeakDom, Error> {
+    Ok(decode_inner(reader, decode_behavior)?)
+}
+
+pub(crate) fn decode_inner<R: Read>(
+    reader: R,
+    decode_behavior: DecodePropertyBehavior,
+) -> Result<WeakDom, InnerError> {
     let mut deserializer = BinaryDeserializer::new(reader)?;
 
     loop {
@@ -118,7 +133,7 @@ pub(crate) fn decode_inner<R: Read>(reader: R) -> Result<WeakDom, InnerError> {
             b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
             b"SSTR" => deserializer.decode_sstr_chunk(&chunk.data)?,
             b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
-            b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
+            b"PROP" => deserializer.decode_prop_chunk(&chunk.data, decode_behavior)?,
             b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
             b"END\0" => {
                 deserializer.decode_end_chunk(&chunk.data)?;
@@ -300,7 +315,11 @@ impl<R: Read> BinaryDeserializer<R> {
         Ok(())
     }
 
-    fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode_prop_chunk(
+        &mut self,
+        mut chunk: &[u8],
+        decode_behavior: DecodePropertyBehavior,
+    ) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
 
@@ -365,37 +384,55 @@ impl<R: Read> BinaryDeserializer<R> {
         let canonical_name;
         let canonical_type;
 
-        match find_canonical_property_descriptor(&type_info.type_name, &prop_name) {
-            Some(descriptor) => {
-                canonical_name = descriptor.name.clone().into_owned();
-                canonical_type = match &descriptor.data_type {
-                    DataType::Value(ty) => *ty,
-                    DataType::Enum(_) => VariantType::Enum,
-                    _ => {
-                        // TODO: Configurable handling of unknown types?
-                        return Ok(());
+        match decode_behavior {
+            DecodePropertyBehavior::Default => {
+                match find_canonical_property_descriptor(&type_info.type_name, &prop_name) {
+                    Some(descriptor) => {
+                        canonical_name = descriptor.name.clone().into_owned();
+                        canonical_type = match &descriptor.data_type {
+                            DataType::Value(ty) => *ty,
+                            DataType::Enum(_) => VariantType::Enum,
+                            _ => {
+                                // TODO: Configurable handling of unknown types?
+
+                                return Ok(());
+                            }
+                        };
+
+                        log::trace!(
+                            "Known prop, canonical name {} and type {:?}",
+                            canonical_name,
+                            canonical_type
+                        );
                     }
-                };
-
-                log::trace!(
-                    "Known prop, canonical name {} and type {:?}",
-                    canonical_name,
-                    canonical_type
-                );
-            }
-            None => {
-                canonical_name = prop_name.clone();
-
-                match binary_type.to_default_rbx_type() {
-                    Some(rbx_type) => canonical_type = rbx_type,
                     None => {
-                        log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
+                        canonical_name = prop_name.clone();
 
-                        return Ok(());
+                        match binary_type.to_default_rbx_type() {
+                            Some(rbx_type) => canonical_type = rbx_type,
+                            None => {
+                                log::warn!(
+                                    "Unsupported prop type {:?}, skipping property",
+                                    binary_type
+                                );
+
+                                return Ok(());
+                            }
+                        }
+
+                        log::trace!("Unknown prop, using type {:?}", canonical_type);
                     }
                 }
+            }
+            DecodePropertyBehavior::NoReflection => {
+                canonical_name = prop_name.clone();
 
-                log::trace!("Unknown prop, using type {:?}", canonical_type);
+                canonical_type = if let Some(rbx_type) = binary_type.to_default_rbx_type() {
+                    rbx_type
+                } else {
+                    log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
+                    return Ok(());
+                }
             }
         }
 

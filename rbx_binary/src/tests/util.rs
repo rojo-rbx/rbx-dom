@@ -2,7 +2,11 @@ use std::{fs, path::Path};
 
 use rbx_dom_weak::DomViewer;
 
-use crate::{deserializer::decode, encode, text_deserializer::DecodedModel};
+use crate::{
+    deserializer::{decode, DecodePropertyBehavior},
+    encode,
+    text_deserializer::DecodedModel,
+};
 
 /// Run a basic gauntlet of tests to verify that the serializer and deserializer
 /// can handle this model correctly.
@@ -28,7 +32,7 @@ pub fn run_model_base_suite(model_path: impl AsRef<Path>) {
 
     // Decode the test file and snapshot a stable version of the resulting tree.
     // This should properly test the deserializer.
-    let decoded = decode(contents.as_slice()).unwrap();
+    let decoded = decode(contents.as_slice(), DecodePropertyBehavior::Default).unwrap();
     let decoded_viewed = DomViewer::new().view_children(&decoded);
     insta::assert_yaml_snapshot!(format!("{}__decoded", model_stem), decoded_viewed);
 
@@ -51,5 +55,5 @@ pub fn run_model_base_suite(model_path: impl AsRef<Path>) {
     // We don't make any assertions about the result right now, as our format
     // support is still lacking. In the future, we should assert that this is
     // the same as the original decoding of the test file.
-    decode(encoded.as_slice()).unwrap();
+    decode(encoded.as_slice(), DecodePropertyBehavior::Default).unwrap();
 }
