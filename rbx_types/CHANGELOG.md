@@ -4,6 +4,7 @@
 * Changed `Variant` serialization to use Serde's default enum representation.
   * Before: `{ "type": "Vector2", "value": [1.0, 2.0] }`
   * After: `{ "Vector2": [1.0, 2.0] }`
+* Added `QDir`, a wrapper over `PathBuf`.
 
 ## 0.3.1 (2021-05-14)
 * Added `Variant::OptionalCoordinateFrame`.

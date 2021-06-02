@@ -2,6 +2,7 @@
 
 ## Unreleased
 * Added support for `OptionalCoordinateFrame` type.
+* Added support for the `QDir` type.
 
 ## 0.12.0-alpha.4 (2021-04-09)
 * rbx_xml now ignore unknown property types. ([#170][pr-170])
