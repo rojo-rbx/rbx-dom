@@ -1,4 +1,9 @@
-use std::io::{Read, Write};
+use std::{
+    io::{Read, Write},
+    path::PathBuf,
+};
+
+use rbx_dom_weak::types::QDir;
 
 use crate::{
     core::XmlType,
@@ -7,8 +12,6 @@ use crate::{
     serializer_core::XmlEventWriter,
 };
 
-use rbx_dom_weak::types::QDir;
-
 // This type is only implemented here because generate_reflection needs to set
 // Roblox Studio's auto-recovery path in the global settings file (which is
 // basically a .rbxmx). It's probably not useful otherwise.
@@ -16,11 +19,11 @@ impl XmlType for QDir {
     const XML_TAG_NAME: &'static str = "QDir";
 
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
-        writer.write_string(self.to_str().unwrap_or_default())
+        writer.write_string(self.into_path_buf().to_str().unwrap_or_default())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        Ok(QDir::from(reader.read_characters()?))
+        Ok(QDir::from(PathBuf::from(reader.read_characters()?)))
     }
 }
 

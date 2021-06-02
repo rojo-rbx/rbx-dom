@@ -1,11 +1,4 @@
-use std::{
-    borrow::Borrow,
-    convert::Infallible,
-    ffi::{OsStr, OsString},
-    ops::Deref,
-    path::{Path, PathBuf},
-    str::FromStr,
-};
+use std::path::{Path, PathBuf};
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[cfg_attr(
@@ -17,21 +10,15 @@ pub struct QDir {
     path_buf: PathBuf,
 }
 
-impl QDir {
+impl<'a> QDir {
     pub fn new() -> Self {
         QDir {
             path_buf: PathBuf::new(),
         }
     }
 
-    pub fn into_path_buf(self) -> PathBuf {
-        self.path_buf
-    }
-}
-
-impl AsRef<OsStr> for QDir {
-    fn as_ref(&self) -> &OsStr {
-        self.path_buf.as_os_str()
+    pub fn into_path_buf(&'a self) -> &'a PathBuf {
+        &self.path_buf
     }
 }
 
@@ -41,66 +28,16 @@ impl AsRef<Path> for QDir {
     }
 }
 
-impl Borrow<Path> for QDir {
-    fn borrow(&self) -> &Path {
-        self.deref()
-    }
-}
-
-impl Deref for QDir {
-    type Target = Path;
-
-    fn deref(&self) -> &Path {
-        self.path_buf.as_path()
-    }
-}
-
-impl<T: ?Sized + AsRef<OsStr>> From<&'_ T> for QDir {
-    fn from(path: &T) -> Self {
-        Self::from(path.as_ref().to_os_string())
-    }
-}
-
-impl From<OsString> for QDir {
-    fn from(path: OsString) -> Self {
-        Self {
-            path_buf: PathBuf::from(path),
-        }
-    }
-}
-
-impl From<QDir> for Box<Path> {
-    fn from(q_dir: QDir) -> Box<Path> {
-        q_dir.path_buf.into_boxed_path()
-    }
-}
-
-impl From<QDir> for OsString {
-    fn from(q_dir: QDir) -> OsString {
-        q_dir.path_buf.into_os_string()
-    }
-}
-
-impl From<String> for QDir {
-    fn from(path: String) -> Self {
-        Self {
-            path_buf: PathBuf::from(path),
-        }
-    }
-}
-
 impl From<PathBuf> for QDir {
     fn from(path: PathBuf) -> Self {
         Self { path_buf: path }
     }
 }
 
-impl FromStr for QDir {
-    type Err = Infallible;
-
-    fn from_str(path: &str) -> Result<Self, Infallible> {
-        Ok(Self {
+impl From<&Path> for QDir {
+    fn from(path: &Path) -> Self {
+        Self {
             path_buf: PathBuf::from(path),
-        })
+        }
     }
 }
