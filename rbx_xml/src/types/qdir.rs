@@ -19,7 +19,7 @@ impl XmlType for QDir {
     const XML_TAG_NAME: &'static str = "QDir";
 
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
-        writer.write_string(self.into_path_buf().to_str().unwrap_or_default())
+        writer.write_string(self.path_buf().to_str().unwrap_or_default())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {

@@ -17,7 +17,7 @@ impl<'a> QDir {
         }
     }
 
-    pub fn into_path_buf(&'a self) -> &'a PathBuf {
+    pub fn path_buf(&'a self) -> &'a PathBuf {
         &self.path_buf
     }
 }
