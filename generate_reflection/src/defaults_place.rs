@@ -18,6 +18,7 @@ use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::types::VariantType;
 use rbx_dom_weak::WeakDom;
 use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
+use rbx_xml::{DecodeOptions, DecodePropertyBehavior};
 use roblox_install::{Error, RobloxStudio};
 //use tempfile::tempdir;
 
@@ -258,18 +259,41 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
 
     let file = BufReader::new(File::open(&file_path)?);
 
-    let tree = match rbx_binary::from_reader_default(file) {
-        Ok(tree) => tree,
-        Err(err) => {
-            let _ = fs::copy(autosave_path, "defaults-place.rbxlx");
-            return Err(err).context(
-                "failed to decode defaults place; it has been copied to defaults-place.rbxlx",
-            );
+    let tree = match file_path.extension().and_then(std::ffi::OsStr::to_str) {
+        Some("rbxl") => match rbx_binary::from_reader_default(file) {
+            Ok(tree) => tree,
+            Err(err) => {
+                let _ = fs::copy(file_path, "defaults-place.rbxl");
+                return Err(err).context(
+                    "failed to decode defaults place; it has been copied to defaults-place.rbxl",
+                );
+            }
+        },
+        Some("rbxlx") => {
+            match rbx_xml::from_reader(
+                file,
+                DecodeOptions::new().property_behavior(DecodePropertyBehavior::NoReflection),
+            ) {
+                Ok(tree) => tree,
+                Err(err) => {
+                    let _ = fs::copy(file_path, "defaults-place.rbxlx");
+                    return Err(err).context(
+                    "failed to decode defaults place; it has been copied to defaults-place.rbxlx",
+                );
+                }
+            }
+        }
+        _ => {
+            return Err(anyhow::anyhow!(
+                "Failed to extract file extension from fixture place path"
+            ))
         }
     };
 
-    // TODO: Delete these two lines when we set the auto-save directory
-    remove_file(autosave_path)?;
+    // TODO: Delete these four lines when we set the auto-save directory
+    if autosave_path.exists() {
+        remove_file(autosave_path)?
+    }
     remove_file(place_path)?;
 
     Ok(StudioOutput { info, tree })
