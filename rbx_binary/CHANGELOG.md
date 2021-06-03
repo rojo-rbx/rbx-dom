@@ -1,7 +1,7 @@
 # rbx_binary Changelog
 
 ## Unreleased
-* Fixed null Refs not being written for unserialized instances. [#184][pr-184]
+* Fixed null Refs not being written for unserialized instances.
 
 ## 0.6.0-alpha.5 (2021-05-14)
 * Added `OptionalCoordinateFrame` support. ([#176][pr-176])
