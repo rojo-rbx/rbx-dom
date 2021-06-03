@@ -892,10 +892,10 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::Ref(value) = rbx_value.as_ref() {
-                                if value.is_none() {
-                                    buf.push(-1);
-                                } else if let Some(id) = self.id_to_referent.get(value) {
+                                if let Some(id) = self.id_to_referent.get(value) {
                                     buf.push(*id);
+                                } else {
+                                    buf.push(-1);
                                 }
                             } else {
                                 return type_mismatch(i, &rbx_value, "Ref");
