@@ -1,7 +1,13 @@
+mod chunk_inst;
+mod chunk_meta;
+mod chunk_sstr;
+mod error;
+mod header;
+
 use std::{
     collections::{HashMap, HashSet, VecDeque},
     convert::TryInto,
-    io::{self, Read},
+    io::Read,
     str,
 };
 
@@ -14,127 +20,77 @@ use rbx_dom_weak::{
     },
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::DataType;
-use thiserror::Error;
+use rbx_reflection::{DataType, ReflectionDatabase};
 
 use crate::{
     cframe,
     chunk::Chunk,
-    core::{
-        find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
-        FILE_VERSION,
-    },
-    types::{InvalidTypeError, Type},
+    core::{find_canonical_property_descriptor, RbxReadExt},
+    types::Type,
 };
 
-/// Represents an error that occurred during deserialization.
-#[derive(Debug, Error)]
-#[error(transparent)]
-pub struct Error {
-    source: Box<InnerError>,
+pub(crate) use self::{error::InnerError, header::FileHeader};
+
+pub use self::error::Error;
+
+pub struct Deserializer<'a> {
+    /// The reflection database to use.
+    database: Option<&'a ReflectionDatabase<'a>>,
+
+    /// A function to call when a non-fatal error occurs during deserialization.
+    /// If not specified, all errors will terminate deserialization immediately.
+    #[allow(unused)]
+    error_callback: Option<Box<dyn FnMut(Error) + 'a>>,
 }
 
-impl From<InnerError> for Error {
-    fn from(inner: InnerError) -> Self {
+impl<'a> Deserializer<'a> {
+    pub fn new() -> Self {
         Self {
-            source: Box::new(inner),
+            database: None,
+            error_callback: None,
         }
     }
-}
 
-#[derive(Debug, Error)]
-pub(crate) enum InnerError {
-    #[error(transparent)]
-    Io {
-        #[from]
-        source: io::Error,
-    },
+    pub fn deserialize<R: Read>(&mut self, reader: R) -> Result<WeakDom, Error> {
+        let mut deserializer = DeserializerState::new(self, reader)?;
 
-    #[error("Invalid file header")]
-    BadHeader,
+        loop {
+            let chunk = Chunk::decode(&mut deserializer.input)?;
 
-    #[error("Unknown file version {version}. Known versions are: 0")]
-    UnknownFileVersion { version: u16 },
-
-    #[error("Unknown version {version} for chunk {chunk_name}")]
-    UnknownChunkVersion {
-        chunk_name: &'static str,
-        version: u32,
-    },
-
-    #[error(transparent)]
-    InvalidTypeError {
-        #[from]
-        source: InvalidTypeError,
-    },
-
-    #[error(
-        "Type mismatch: Property {type_name}.{prop_name} should be {valid_type_names}, but it was {actual_type_name}",
-    )]
-    PropTypeMismatch {
-        type_name: String,
-        prop_name: String,
-        valid_type_names: &'static str,
-        actual_type_name: String,
-    },
-
-    #[error("Invalid property data: Property {type_name}.{prop_name} was expected to be {valid_value}, but it was {actual_value}")]
-    InvalidPropData {
-        type_name: String,
-        prop_name: String,
-        valid_value: &'static str,
-        actual_value: String,
-    },
-
-    #[error("File referred to type ID {type_id}, which was not declared")]
-    InvalidTypeId { type_id: u32 },
-
-    #[error("Invalid property data: CFrame property {type_name}.{prop_name} had an invalid rotation ID {id:02x}")]
-    BadRotationId {
-        type_name: String,
-        prop_name: String,
-        id: u8,
-    },
-
-    #[error("Expected type id for {expected_type_name} ({expected_type_id:02x}) when reading OptionalCFrame; got {actual_type_id:02x}")]
-    BadOptionalCFrameFormat {
-        expected_type_name: String,
-        expected_type_id: u8,
-        actual_type_id: u8,
-    },
-}
-
-pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
-    Ok(decode_inner(reader)?)
-}
-
-pub(crate) fn decode_inner<R: Read>(reader: R) -> Result<WeakDom, InnerError> {
-    let mut deserializer = BinaryDeserializer::new(reader)?;
-
-    loop {
-        let chunk = Chunk::decode(&mut deserializer.input)?;
-
-        match &chunk.name {
-            b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
-            b"SSTR" => deserializer.decode_sstr_chunk(&chunk.data)?,
-            b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
-            b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
-            b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
-            b"END\0" => {
-                deserializer.decode_end_chunk(&chunk.data)?;
-                break;
+            match &chunk.name {
+                b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
+                b"SSTR" => deserializer.decode_sstr_chunk(&chunk.data)?,
+                b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
+                b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
+                b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
+                b"END\0" => {
+                    deserializer.decode_end_chunk(&chunk.data)?;
+                    break;
+                }
+                _ => match str::from_utf8(&chunk.name) {
+                    Ok(name) => log::info!("Unknown binary chunk name {}", name),
+                    Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
+                },
             }
-            _ => match str::from_utf8(&chunk.name) {
-                Ok(name) => log::info!("Unknown binary chunk name {}", name),
-                Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
-            },
         }
+
+        Ok(deserializer.finish())
     }
 
-    Ok(deserializer.finish())
+    pub fn set_reflection_database(&mut self, database: Option<&'a ReflectionDatabase<'a>>) {
+        self.database = database;
+    }
+
+    #[allow(unused)]
+    fn set_error_callback<F: FnMut(Error) + 'a>(&mut self, callback: F) {
+        self.error_callback = Some(Box::new(callback));
+    }
 }
 
-struct BinaryDeserializer<R> {
+struct DeserializerState<'a, R> {
+    /// The user-provided configuration to be used by this deserializer.
+    config: &'a Deserializer<'a>,
+
     /// The input data encoded as a binary model.
     input: R,
 
@@ -166,18 +122,6 @@ struct BinaryDeserializer<R> {
     unknown_type_ids: HashSet<u8>,
 }
 
-/// All the information contained in the header before any chunks are read from
-/// the file.
-pub(crate) struct FileHeader {
-    /// The number of instance types (represented for us as `TypeInfo`) that are
-    /// in this file. Generally useful to pre-size some containers before
-    /// reading the file.
-    pub(crate) num_types: u32,
-
-    /// The total number of instances described by this file.
-    pub(crate) num_instances: u32,
-}
-
 /// Represents a unique instance class. Binary models define all their instance
 /// types up front and give them a short u32 identifier.
 struct TypeInfo {
@@ -203,8 +147,8 @@ struct Instance {
     children: Vec<i32>,
 }
 
-impl<R: Read> BinaryDeserializer<R> {
-    fn new(mut input: R) -> Result<Self, InnerError> {
+impl<'a, R: Read> DeserializerState<'a, R> {
+    fn new(config: &'a Deserializer<'a>, mut input: R) -> Result<Self, InnerError> {
         let tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
         let header = FileHeader::decode(&mut input)?;
@@ -212,7 +156,8 @@ impl<R: Read> BinaryDeserializer<R> {
         let type_infos = HashMap::with_capacity(header.num_types as usize);
         let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
 
-        Ok(BinaryDeserializer {
+        Ok(DeserializerState {
+            config,
             input,
             tree,
             metadata: HashMap::new(),
@@ -224,38 +169,13 @@ impl<R: Read> BinaryDeserializer<R> {
         })
     }
 
-    fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
-        let len = chunk.read_le_u32()?;
-        self.metadata.reserve(len as usize);
-
-        for _ in 0..len {
-            let key = chunk.read_string()?;
-            let value = chunk.read_string()?;
-
-            self.metadata.insert(key, value);
-        }
-
+    fn decode_meta_chunk(&mut self, chunk: &[u8]) -> Result<(), Error> {
+        self.metadata = chunk_meta::deserialize(chunk)?;
         Ok(())
     }
 
-    fn decode_sstr_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
-        let version = chunk.read_le_u32()?;
-
-        if version != 0 {
-            return Err(InnerError::UnknownChunkVersion {
-                chunk_name: "SSTR",
-                version,
-            });
-        }
-
-        let num_entries = chunk.read_le_u32()?;
-
-        for _ in 0..num_entries {
-            chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
-            let data = chunk.read_binary_string()?;
-            self.shared_strings.push(SharedString::new(data));
-        }
-
+    fn decode_sstr_chunk(&mut self, chunk: &[u8]) -> Result<(), Error> {
+        self.shared_strings = chunk_sstr::deserialize(chunk)?;
         Ok(())
     }
 
@@ -1298,44 +1218,5 @@ impl<R: Read> BinaryDeserializer<R> {
         }
 
         self.tree
-    }
-}
-
-impl FileHeader {
-    pub(crate) fn decode<R: Read>(mut source: R) -> Result<Self, InnerError> {
-        let mut magic_header = [0; 8];
-        source.read_exact(&mut magic_header)?;
-
-        if magic_header != FILE_MAGIC_HEADER {
-            return Err(InnerError::BadHeader);
-        }
-
-        let mut signature = [0; 6];
-        source.read_exact(&mut signature)?;
-
-        if signature != FILE_SIGNATURE {
-            return Err(InnerError::BadHeader);
-        }
-
-        let version = source.read_le_u16()?;
-
-        if version != FILE_VERSION {
-            return Err(InnerError::UnknownFileVersion { version });
-        }
-
-        let num_types = source.read_le_u32()?;
-        let num_instances = source.read_le_u32()?;
-
-        let mut reserved = [0; 8];
-        source.read_exact(&mut reserved)?;
-
-        if reserved != [0; 8] {
-            return Err(InnerError::BadHeader);
-        }
-
-        Ok(Self {
-            num_types,
-            num_instances,
-        })
     }
 }
