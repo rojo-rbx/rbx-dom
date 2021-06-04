@@ -18,7 +18,7 @@ use rbx_reflection::DataType;
 use crate::{
     cframe,
     chunk::Chunk,
-    core::{find_canonical_property_descriptor, RbxReadExt},
+    core::{find_property_descriptors, RbxReadExt},
     types::Type,
 };
 
@@ -254,10 +254,14 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         let canonical_name;
         let canonical_type;
 
-        match find_canonical_property_descriptor(&type_info.type_name, &prop_name) {
-            Some(descriptor) => {
-                canonical_name = descriptor.name.clone().into_owned();
-                canonical_type = match &descriptor.data_type {
+        match find_property_descriptors(
+            self.deserializer.database.unwrap(),
+            &type_info.type_name,
+            &prop_name,
+        ) {
+            Some(descriptors) => {
+                canonical_name = descriptors.canonical.name.clone().into_owned();
+                canonical_type = match &descriptors.canonical.data_type {
                     DataType::Value(ty) => *ty,
                     DataType::Enum(_) => VariantType::Enum,
                     _ => {

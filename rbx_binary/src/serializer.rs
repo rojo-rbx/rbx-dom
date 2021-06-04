@@ -329,7 +329,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             let serialized_name;
             let serialized_ty;
 
-            match find_property_descriptors(&instance.class, prop_name) {
+            let database = rbx_reflection_database::get();
+            match find_property_descriptors(database, &instance.class, prop_name) {
                 Some(descriptors) => {
                     // For any properties that do not serialize, we can skip
                     // adding them to the set of type_infos.
