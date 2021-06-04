@@ -1,4 +1,5 @@
 mod error;
+mod header;
 
 use std::{
     collections::{HashMap, HashSet, VecDeque},
@@ -21,14 +22,13 @@ use rbx_reflection::DataType;
 use crate::{
     cframe,
     chunk::Chunk,
-    core::{
-        find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
-        FILE_VERSION,
-    },
+    core::{find_canonical_property_descriptor, RbxReadExt},
     types::Type,
 };
 
 use self::error::InnerError;
+
+pub(crate) use self::header::FileHeader;
 
 pub use self::error::Error;
 
@@ -92,18 +92,6 @@ struct DeserializerState<R> {
     /// deserializing this file. We use this map in order to ensure we only
     /// print one warning per unknown type ID when deserializing a file.
     unknown_type_ids: HashSet<u8>,
-}
-
-/// All the information contained in the header before any chunks are read from
-/// the file.
-pub(crate) struct FileHeader {
-    /// The number of instance types (represented for us as `TypeInfo`) that are
-    /// in this file. Generally useful to pre-size some containers before
-    /// reading the file.
-    pub(crate) num_types: u32,
-
-    /// The total number of instances described by this file.
-    pub(crate) num_instances: u32,
 }
 
 /// Represents a unique instance class. Binary models define all their instance
@@ -1226,44 +1214,5 @@ impl<R: Read> DeserializerState<R> {
         }
 
         self.tree
-    }
-}
-
-impl FileHeader {
-    pub(crate) fn decode<R: Read>(mut source: R) -> Result<Self, InnerError> {
-        let mut magic_header = [0; 8];
-        source.read_exact(&mut magic_header)?;
-
-        if magic_header != FILE_MAGIC_HEADER {
-            return Err(InnerError::BadHeader);
-        }
-
-        let mut signature = [0; 6];
-        source.read_exact(&mut signature)?;
-
-        if signature != FILE_SIGNATURE {
-            return Err(InnerError::BadHeader);
-        }
-
-        let version = source.read_le_u16()?;
-
-        if version != FILE_VERSION {
-            return Err(InnerError::UnknownFileVersion { version });
-        }
-
-        let num_types = source.read_le_u32()?;
-        let num_instances = source.read_le_u32()?;
-
-        let mut reserved = [0; 8];
-        source.read_exact(&mut reserved)?;
-
-        if reserved != [0; 8] {
-            return Err(InnerError::BadHeader);
-        }
-
-        Ok(Self {
-            num_types,
-            num_instances,
-        })
     }
 }
