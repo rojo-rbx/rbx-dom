@@ -37,7 +37,7 @@ pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
 }
 
 fn decode_inner<R: Read>(reader: R) -> Result<WeakDom, InnerError> {
-    let mut deserializer = BinaryDeserializer::new(reader)?;
+    let mut deserializer = DeserializerState::new(reader)?;
 
     loop {
         let chunk = Chunk::decode(&mut deserializer.input)?;
@@ -62,7 +62,7 @@ fn decode_inner<R: Read>(reader: R) -> Result<WeakDom, InnerError> {
     Ok(deserializer.finish())
 }
 
-struct BinaryDeserializer<R> {
+struct DeserializerState<R> {
     /// The input data encoded as a binary model.
     input: R,
 
@@ -131,7 +131,7 @@ struct Instance {
     children: Vec<i32>,
 }
 
-impl<R: Read> BinaryDeserializer<R> {
+impl<R: Read> DeserializerState<R> {
     fn new(mut input: R) -> Result<Self, InnerError> {
         let tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
@@ -140,7 +140,7 @@ impl<R: Read> BinaryDeserializer<R> {
         let type_infos = HashMap::with_capacity(header.num_types as usize);
         let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
 
-        Ok(BinaryDeserializer {
+        Ok(DeserializerState {
             input,
             tree,
             metadata: HashMap::new(),
