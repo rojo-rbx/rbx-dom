@@ -22,9 +22,12 @@ use crate::{
     types::Type,
 };
 
-use super::{error::InnerError, header::FileHeader};
+use super::{error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<R> {
+pub(super) struct DeserializerState<'a, R> {
+    /// The user-provided configuration that we should use.
+    deserializer: &'a Deserializer<'a>,
+
     /// The input data encoded as a binary model.
     input: R,
 
@@ -81,8 +84,11 @@ struct Instance {
     children: Vec<i32>,
 }
 
-impl<R: Read> DeserializerState<R> {
-    pub(super) fn new(mut input: R) -> Result<Self, InnerError> {
+impl<'a, R: Read> DeserializerState<'a, R> {
+    pub(super) fn new(
+        deserializer: &'a Deserializer<'a>,
+        mut input: R,
+    ) -> Result<Self, InnerError> {
         let tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
         let header = FileHeader::decode(&mut input)?;
@@ -91,6 +97,7 @@ impl<R: Read> DeserializerState<R> {
         let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
 
         Ok(DeserializerState {
+            deserializer,
             input,
             tree,
             metadata: HashMap::new(),
