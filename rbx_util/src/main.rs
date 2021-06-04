@@ -65,7 +65,7 @@ fn convert(input_path: &Path, output_path: &Path) -> anyhow::Result<()> {
                 .with_context(|| format!("Failed to read {}", input_path.display()))?
         }
 
-        ModelKind::Binary => rbx_binary::from_reader_default(input_file)
+        ModelKind::Binary => rbx_binary::from_reader(input_file)
             .with_context(|| format!("Failed to read {}", input_path.display()))?,
     };
 

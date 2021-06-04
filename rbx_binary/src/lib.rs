@@ -20,7 +20,7 @@ use std::io::{Read, Write};
 
 use rbx_dom_weak::{types::Ref, WeakDom};
 
-use crate::{deserializer::decode, serializer::encode};
+use crate::serializer::encode;
 
 /// An unstable textual format that can be used to debug binary models.
 #[cfg(feature = "unstable_text_format")]
@@ -28,12 +28,14 @@ pub mod text_format {
     pub use crate::text_deserializer::*;
 }
 
-pub use crate::{deserializer::Error as DecodeError, serializer::Error as EncodeError};
+pub use crate::{
+    deserializer::{Deserializer, Error as DecodeError},
+    serializer::Error as EncodeError,
+};
 
-/// Decodes an binary format model or place from something that implements the
-/// `std::io::Read` trait.
-pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
-    decode(reader)
+/// Deserialize a Roblox binary model or place from a stream.
+pub fn from_reader<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
+    Deserializer::new().deserialize(reader)
 }
 
 /// Serializes a subset of the given DOM to a binary format model or place,

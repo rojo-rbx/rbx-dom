@@ -2,6 +2,9 @@
 
 ## Unreleased
 * Fixed null Refs not being written for unserialized instances. ([#184][pr-184])
+* Changed interface:
+  * Renamed `from_reader_default` to `from_reader`.
+  * Added `Deserializer` type.
 
 [pr-184]: https://github.com/rojo-rbx/rbx-dom/pull/184
 
