@@ -23,7 +23,7 @@ use tempfile::tempdir;
 
 use crate::plugin_injector::{PluginInjector, StudioInfo};
 
-static AHK_AUTOSAVE_EXE: &'static [u8] =
+static AHK_AUTOSAVE_EXE: &[u8] =
     include_bytes!("./fixture_place_autosave/ahk/save_roundtrip_rbxlx.exe");
 
 /// Use Roblox Studio to populate the reflection database with default values
