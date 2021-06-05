@@ -6,7 +6,7 @@ use std::{
     borrow::Cow,
     collections::{HashSet, VecDeque},
     fmt::{self, Write},
-    fs::{self, remove_file, File},
+    fs::{self, File},
     io::BufReader,
     process::Command,
     sync::mpsc,
@@ -18,11 +18,13 @@ use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::types::VariantType;
 use rbx_dom_weak::WeakDom;
 use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
-use rbx_xml::{DecodeOptions, DecodePropertyBehavior};
-use roblox_install::{Error, RobloxStudio};
-//use tempfile::tempdir;
+use roblox_install::RobloxStudio;
+use tempfile::tempdir;
 
 use crate::plugin_injector::{PluginInjector, StudioInfo};
+
+static AHK_AUTOSAVE_EXE: &'static [u8] =
+    include_bytes!("./fixture_place_autosave/ahk/save_roundtrip_rbxlx.exe");
 
 /// Use Roblox Studio to populate the reflection database with default values
 /// for as many properties as possible.
@@ -203,20 +205,12 @@ struct StudioOutput {
 }
 
 /// Generate a new fixture place from the given reflection database, open it in
-/// Studio, coax Studio to re-save it, and read back the resulting place.
+/// Studio, coax Studio to re-save it, and reads back the resulting place.
 fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<StudioOutput> {
-    // TODO: Find out where Roblox Studio keeps its settings so we can set the
-    // auto-save directory to a temp directory
-    let output_dir = dirs::document_dir()
-        .ok_or(Error::DocumentsDirectoryNotFound)?
-        .join("ROBLOX")
-        .join("AutoSaves");
-
-    let autosave_path = output_dir.join("GenerateReflectionFixturePlace_AutoRecovery_0.rbxl");
-    let place_path = output_dir.join("GenerateReflectionFixturePlace.rbxlx");
-
-    log::info!("Generating place at {}", place_path.display());
-    fs::write(&place_path, place_contents)?;
+    let output_dir = tempdir()?;
+    let output_path = output_dir.path().join("GenerateReflectionRoundtrip.rbxlx");
+    log::info!("Generating place at {}", output_path.display());
+    fs::write(&output_path, place_contents)?;
 
     let studio_install = RobloxStudio::locate()?;
     let injector = PluginInjector::start(&studio_install);
@@ -224,77 +218,51 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
     log::info!("Starting Roblox Studio...");
 
     let mut studio_process = Command::new(studio_install.application_path())
-        .arg(place_path.display().to_string())
+        .arg(output_path.display().to_string())
         .spawn()?;
 
     let info = injector.receive_info();
 
     let (tx, rx) = mpsc::channel();
+    let mut watcher = notify::watcher(tx, Duration::from_millis(300))?;
+    watcher.watch(&output_path, notify::RecursiveMode::NonRecursive)?;
 
-    let mut place_watcher = notify::watcher(tx.clone(), Duration::from_millis(300))?;
-    place_watcher.watch(&place_path, notify::RecursiveMode::NonRecursive)?;
+    log::info!("Waiting for Roblox Studio to re-save place...");
 
-    let mut autosave_watcher = notify::watcher(tx, Duration::from_millis(300))?;
-    autosave_watcher.watch(&output_dir, notify::RecursiveMode::NonRecursive)?;
+    if cfg!(target_os = "windows") {
+        let script_path = output_dir.path().join("autosave.exe");
 
-    log::info!("Waiting for the place to be saved...");
-    println!("Please save the open place. Studio will automatically save it after one minute.");
-
-    let file_path = loop {
-        match rx.recv_timeout(Duration::from_secs(61))? {
-            DebouncedEvent::Write(path) if path == place_path => break path,
-            DebouncedEvent::Create(path) if path == autosave_path => break path,
-            _ => continue,
-        }
+        fs::write(&script_path, AHK_AUTOSAVE_EXE)?;
+        Command::new(script_path).spawn()?;
+    } else {
+        println!("Please save the opened place in Roblox Studio (ctrl+s).");
     };
 
-    log::info!("Place saved, killing Studio");
+    loop {
+        if let DebouncedEvent::Write(_) = rx.recv()? {
+            break;
+        }
+    }
 
-    // TODO: We don't have to talk to the plugin again if we can set the settings from here
-    injector.finish();
-
+    log::info!("Place saved, killing Studio...");
     studio_process.kill()?;
 
     log::info!("Reading back place file...");
 
-    let file = BufReader::new(File::open(&file_path)?);
+    let file = BufReader::new(File::open(&output_path)?);
 
-    let tree = match file_path.extension().and_then(std::ffi::OsStr::to_str) {
-        Some("rbxl") => match rbx_binary::from_reader_default(file) {
-            Ok(tree) => tree,
-            Err(err) => {
-                let _ = fs::copy(file_path, "defaults-place.rbxl");
-                return Err(err).context(
-                    "failed to decode defaults place; it has been copied to defaults-place.rbxl",
-                );
-            }
-        },
-        Some("rbxlx") => {
-            match rbx_xml::from_reader(
-                file,
-                DecodeOptions::new().property_behavior(DecodePropertyBehavior::NoReflection),
-            ) {
-                Ok(tree) => tree,
-                Err(err) => {
-                    let _ = fs::copy(file_path, "defaults-place.rbxlx");
-                    return Err(err).context(
-                    "failed to decode defaults place; it has been copied to defaults-place.rbxlx",
-                );
-                }
-            }
-        }
-        _ => {
-            return Err(anyhow::anyhow!(
-                "Failed to extract file extension from fixture place path"
-            ))
+    let decode_options = rbx_xml::DecodeOptions::new()
+        .property_behavior(rbx_xml::DecodePropertyBehavior::NoReflection);
+
+    let tree = match rbx_xml::from_reader(file, decode_options) {
+        Ok(tree) => tree,
+        Err(err) => {
+            let _ = fs::copy(output_path, "defaults-place.rbxlx");
+            return Err(err).context(
+                "failed to decode defaults place; it has been copied to defaults-place.rbxlx",
+            );
         }
     };
-
-    // TODO: Delete these four lines when we set the auto-save directory
-    if autosave_path.exists() {
-        remove_file(autosave_path)?
-    }
-    remove_file(place_path)?;
 
     Ok(StudioOutput { info, tree })
 }
