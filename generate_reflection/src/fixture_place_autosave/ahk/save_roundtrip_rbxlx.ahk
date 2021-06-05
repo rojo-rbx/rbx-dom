@@ -2,7 +2,7 @@
 ; comes bundled with every AutoHotKey installation.
 
 SetTitleMatchMode, 2
-if WinExist("GenerateReflectionRoundtrip.rbxlx")
+if WinExist("GenerateReflectionRoundtrip.rbxlx - Roblox Studio")
 {
 	WinActivate
 	SendInput ^s
