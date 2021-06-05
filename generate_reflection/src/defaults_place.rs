@@ -231,8 +231,8 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
 
     if cfg!(target_os = "windows") {
         let script_path = output_dir.path().join("autosave.exe");
-
         fs::write(&script_path, AHK_AUTOSAVE_EXE)?;
+
         Command::new(script_path).spawn()?;
     } else {
         println!("Please save the opened place in Roblox Studio (ctrl+s).");

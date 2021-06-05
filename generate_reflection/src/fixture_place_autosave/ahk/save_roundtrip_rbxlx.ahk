@@ -1,7 +1,7 @@
 ; The accompanying save_roundtrip_rbxlx.exe was compiled with Ahk2Exe, which
 ; comes bundled with every AutoHotKey installation.
-
 SetTitleMatchMode, 2
+
 if WinExist("GenerateReflectionRoundtrip.rbxlx - Roblox Studio")
 {
 	WinActivate
