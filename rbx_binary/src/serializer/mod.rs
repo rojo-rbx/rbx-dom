@@ -11,6 +11,7 @@ pub use self::error::Error;
 
 /// A configurable serializer for Roblox binary models and places.
 ///
+/// ## Example
 /// ```no_run
 /// # use std::fs::File;
 /// # use std::io::BufWriter;
@@ -19,7 +20,7 @@ pub use self::error::Error;
 ///
 /// let dom = WeakDom::new(InstanceBuilder::new("Folder"));
 ///
-/// let output = BufWriter::new(File::open("PlainFolder.rbxm")?);
+/// let output = BufWriter::new(File::create("PlainFolder.rbxm")?);
 /// let serializer = Serializer::new();
 /// serializer.serialize(output, &dom, &[dom.root_ref()])?;
 ///

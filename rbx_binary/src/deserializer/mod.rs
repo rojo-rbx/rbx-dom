@@ -14,6 +14,28 @@ pub(crate) use self::header::FileHeader;
 pub use self::error::Error;
 
 /// A configurable deserializer for Roblox binary models and places.
+///
+/// ## Example
+/// ```no_run
+/// # use std::fs::File;
+/// # use std::io::BufReader;
+/// # use rbx_binary::Serializer;
+/// let input = BufReader::new(File::open("File.rbxm")?);
+///
+/// let deserializer = Deserializer::new();
+/// let dom = deserializer.deserialize(input)?;
+///
+/// // rbx_binary always returns a DOM with a DataModel at the top level.
+/// // To get to the instances from our file, we need to go one level deeper.
+///
+/// println!("Root instances in file:");
+/// for &referent in dom.root_ref().children() {
+///     let instance = dom.get_by_ref(referent);
+///     println!("- {}", instance.name);
+/// }
+///
+/// # Ok::<(), Box<dyn std::error::Error>>(())
+/// ```
 pub struct Deserializer<'a> {
     database: Option<&'a ReflectionDatabase<'a>>,
 }
