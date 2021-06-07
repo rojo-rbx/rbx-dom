@@ -37,7 +37,7 @@ static FILE_FOOTER: &[u8] = b"</roblox>";
 /// Serializes instances from an `WeakDom` into a writer in Roblox's binary
 /// model format.
 pub fn encode<W: Write>(dom: &WeakDom, refs: &[Ref], writer: W) -> Result<(), Error> {
-    let mut serializer = BinarySerializer::new(dom, writer);
+    let mut serializer = SerializerState::new(dom, writer);
 
     serializer.add_instances(refs)?;
 
@@ -61,7 +61,7 @@ pub fn encode<W: Write>(dom: &WeakDom, refs: &[Ref], writer: W) -> Result<(), Er
 /// Represents all of the state during a single serialization session. A new
 /// `BinarySerializer` object should be created every time we want to serialize
 /// a binary model file.
-struct BinarySerializer<'a, W> {
+struct SerializerState<'a, W> {
     /// The dom containing all of the instances that we're serializing.
     dom: &'a WeakDom,
 
@@ -238,9 +238,9 @@ impl TypeInfos {
     }
 }
 
-impl<'a, W: Write> BinarySerializer<'a, W> {
+impl<'a, W: Write> SerializerState<'a, W> {
     fn new(dom: &'a WeakDom, output: W) -> Self {
-        BinarySerializer {
+        SerializerState {
             dom,
             output,
             relevant_instances: Vec::new(),
