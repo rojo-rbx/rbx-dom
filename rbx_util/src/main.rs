@@ -83,7 +83,7 @@ fn convert(input_path: &Path, output_path: &Path) -> anyhow::Result<()> {
         }
 
         ModelKind::Binary => {
-            rbx_binary::to_writer_default(output_file, &dom, root_ids)
+            rbx_binary::to_writer(output_file, &dom, root_ids)
                 .with_context(|| format!("Failed to write {}", output_path.display()))?;
         }
     }

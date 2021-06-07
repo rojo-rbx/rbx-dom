@@ -9,20 +9,49 @@ use self::state::SerializerState;
 
 pub use self::error::Error;
 
-/// Serializes instances from an `WeakDom` into a writer in Roblox's binary
-/// model format.
-pub fn encode<W: Write>(dom: &WeakDom, refs: &[Ref], writer: W) -> Result<(), Error> {
-    let mut serializer = SerializerState::new(dom, writer);
+/// A configurable serializer for Roblox binary models and places.
+///
+/// ```no_run
+/// # use std::fs::File;
+/// # use std::io::BufWriter;
+/// # use rbx_binary::Serializer;
+/// use rbx_dom_weak::{InstanceBuilder, WeakDom};
+///
+/// let dom = WeakDom::new(InstanceBuilder::new("Folder"));
+///
+/// let output = BufWriter::new(File::open("PlainFolder.rbxm")?);
+/// let serializer = Serializer::new();
+/// serializer.serialize(output, &dom, &[dom.root_ref()])?;
+///
+/// # Ok::<(), Box<dyn std::error::Error>>(())
+/// ```
+// future settings:
+// * reflection_database: Option<ReflectionDatabase> = default
+// * recursive: bool = true
+#[non_exhaustive]
+pub struct Serializer {}
 
-    serializer.add_instances(refs)?;
-    serializer.generate_referents();
-    serializer.write_header()?;
-    serializer.serialize_metadata()?;
-    serializer.serialize_shared_strings()?;
-    serializer.serialize_instances()?;
-    serializer.serialize_properties()?;
-    serializer.serialize_parents()?;
-    serializer.serialize_end()?;
+impl Serializer {
+    /// Create a new `Serializer` with the default settings.
+    pub fn new() -> Self {
+        Serializer {}
+    }
 
-    Ok(())
+    /// Serialize a Roblox binary model or place into the given stream using
+    /// this serializer.
+    pub fn serialize<W: Write>(&self, writer: W, dom: &WeakDom, refs: &[Ref]) -> Result<(), Error> {
+        let mut serializer = SerializerState::new(dom, writer);
+
+        serializer.add_instances(refs)?;
+        serializer.generate_referents();
+        serializer.write_header()?;
+        serializer.serialize_metadata()?;
+        serializer.serialize_shared_strings()?;
+        serializer.serialize_instances()?;
+        serializer.serialize_properties()?;
+        serializer.serialize_parents()?;
+        serializer.serialize_end()?;
+
+        Ok(())
+    }
 }

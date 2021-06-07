@@ -5,6 +5,8 @@
 * Changed interface:
   * Renamed `from_reader_default` to `from_reader`.
   * Added `Deserializer` type.
+  * Renamed `from_writer_default` to `from_writer` and reordered arguments.
+  * Added `Serializer` type.
 
 [pr-184]: https://github.com/rojo-rbx/rbx-dom/pull/184
 

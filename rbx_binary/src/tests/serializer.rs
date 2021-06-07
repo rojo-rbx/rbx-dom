@@ -3,7 +3,7 @@ use rbx_dom_weak::{
     InstanceBuilder, WeakDom,
 };
 
-use crate::{encode, text_deserializer::DecodedModel};
+use crate::{text_deserializer::DecodedModel, to_writer};
 
 /// A basic test to make sure we can serialize the simplest instance: a Folder.
 #[test]
@@ -11,7 +11,7 @@ fn just_folder() {
     let tree = WeakDom::new(InstanceBuilder::new("Folder"));
     let mut buffer = Vec::new();
 
-    encode(&tree, &[tree.root_ref()], &mut buffer).expect("failed to encode model");
+    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -31,7 +31,7 @@ fn partially_present() {
     let root_refs = tree.root().children();
 
     let mut buffer = Vec::new();
-    encode(&tree, root_refs, &mut buffer).expect("failed to encode model");
+    to_writer(&mut buffer, &tree, root_refs).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -44,7 +44,7 @@ fn unknown_property() {
         WeakDom::new(InstanceBuilder::new("Folder").with_property("WILL_NEVER_EXIST", "Hi, mom!"));
 
     let mut buffer = Vec::new();
-    encode(&tree, &[tree.root_ref()], &mut buffer).expect("failed to encode model");
+    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -62,7 +62,7 @@ fn unimplemented_type_known_property() {
     ));
 
     let mut buffer = Vec::new();
-    let result = encode(&tree, &[tree.root_ref()], &mut buffer);
+    let result = to_writer(&mut buffer, &tree, &[tree.root_ref()]);
 
     assert!(result.is_err());
 }
@@ -82,7 +82,7 @@ fn unimplemented_type_unknown_property() {
     ));
 
     let mut buffer = Vec::new();
-    let result = encode(&tree, &[tree.root_ref()], &mut buffer);
+    let result = to_writer(&mut buffer, &tree, &[tree.root_ref()]);
 
     assert!(result.is_err());
 }
@@ -94,7 +94,7 @@ fn unknown_id() {
     let tree = WeakDom::new(InstanceBuilder::new("Folder"));
 
     let mut buffer = Vec::new();
-    let result = encode(&tree, &[Ref::new()], &mut buffer);
+    let result = to_writer(&mut buffer, &tree, &[Ref::new()]);
 
     assert!(result.is_err());
 }
@@ -119,7 +119,7 @@ fn logical_properties_basepart_size() {
     );
 
     let mut buffer = Vec::new();
-    encode(&tree, tree.root().children(), &mut buffer).expect("failed to encode model");
+    to_writer(&mut buffer, &tree, tree.root().children()).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -148,7 +148,7 @@ fn part_color() {
     );
 
     let mut buf = Vec::new();
-    let _ = encode(&tree, tree.root().children(), &mut buf);
+    let _ = to_writer(&mut buf, &tree, tree.root().children());
 
     let decoded = DecodedModel::from_reader(buf.as_slice());
     insta::assert_yaml_snapshot!(decoded);
