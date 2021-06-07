@@ -13,9 +13,10 @@ pub use self::error::Error;
 ///
 /// ## Example
 /// ```no_run
-/// # use std::fs::File;
-/// # use std::io::BufWriter;
-/// # use rbx_binary::Serializer;
+/// use std::fs::File;
+/// use std::io::BufWriter;
+///
+/// use rbx_binary::Serializer;
 /// use rbx_dom_weak::{InstanceBuilder, WeakDom};
 ///
 /// let dom = WeakDom::new(InstanceBuilder::new("Folder"));

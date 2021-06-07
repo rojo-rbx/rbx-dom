@@ -17,9 +17,11 @@ pub use self::error::Error;
 ///
 /// ## Example
 /// ```no_run
-/// # use std::fs::File;
-/// # use std::io::BufReader;
-/// # use rbx_binary::Serializer;
+/// use std::fs::File;
+/// use std::io::BufReader;
+///
+/// use rbx_binary::Deserializer;
+///
 /// let input = BufReader::new(File::open("File.rbxm")?);
 ///
 /// let deserializer = Deserializer::new();
@@ -29,8 +31,8 @@ pub use self::error::Error;
 /// // To get to the instances from our file, we need to go one level deeper.
 ///
 /// println!("Root instances in file:");
-/// for &referent in dom.root_ref().children() {
-///     let instance = dom.get_by_ref(referent);
+/// for &referent in dom.root().children() {
+///     let instance = dom.get_by_ref(referent).unwrap();
 ///     println!("- {}", instance.name);
 /// }
 ///
