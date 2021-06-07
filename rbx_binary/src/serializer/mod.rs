@@ -57,3 +57,9 @@ impl Serializer {
         Ok(())
     }
 }
+
+impl Default for Serializer {
+    fn default() -> Self {
+        Self::new()
+    }
+}
