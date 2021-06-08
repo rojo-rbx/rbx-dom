@@ -241,7 +241,7 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
         }
     }
 
-    #[cfg(not(target_os = "window"))]
+    #[cfg(not(target_os = "windows"))]
     println!("Please save the opened place in Roblox Studio (ctrl+s).");
 
     loop {
