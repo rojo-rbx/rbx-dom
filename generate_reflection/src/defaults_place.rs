@@ -14,6 +14,8 @@ use std::{
 };
 
 use anyhow::Context;
+#[cfg(target_os = "windows")]
+use innerput::{Innerput, Key, Keyboard};
 use notify::{DebouncedEvent, Watcher};
 use rbx_dom_weak::types::VariantType;
 use rbx_dom_weak::WeakDom;
@@ -22,9 +24,6 @@ use roblox_install::RobloxStudio;
 use tempfile::tempdir;
 
 use crate::plugin_injector::{PluginInjector, StudioInfo};
-
-static AHK_AUTOSAVE_EXE: &[u8] =
-    include_bytes!("./fixture_place_autosave/ahk/save_roundtrip_rbxlx.exe");
 
 /// Use Roblox Studio to populate the reflection database with default values
 /// for as many properties as possible.
@@ -230,13 +229,18 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
     log::info!("Waiting for Roblox Studio to re-save place...");
 
     if cfg!(target_os = "windows") {
-        let script_path = output_dir.path().join("autosave.exe");
-        fs::write(&script_path, AHK_AUTOSAVE_EXE)?;
+        let did_send_chord =
+            Innerput::new().send_chord(&[Key::Control, Key::Char('s')], &studio_process);
 
-        Command::new(script_path).spawn()?;
+        match did_send_chord {
+            Ok(()) => (),
+            Err(_) => println!(
+                "Failed to send key chord to Roblox Studio. Please save the opened place manually."
+            ),
+        }
     } else {
         println!("Please save the opened place in Roblox Studio (ctrl+s).");
-    };
+    }
 
     loop {
         if let DebouncedEvent::Write(_) = rx.recv()? {
