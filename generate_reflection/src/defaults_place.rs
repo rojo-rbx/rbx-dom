@@ -228,7 +228,8 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
 
     log::info!("Waiting for Roblox Studio to re-save place...");
 
-    if cfg!(target_os = "windows") {
+    #[cfg(target_os = "windows")]
+    {
         let did_send_chord =
             Innerput::new().send_chord(&[Key::Control, Key::Char('s')], &studio_process);
 
@@ -238,9 +239,10 @@ fn roundtrip_place_through_studio(place_contents: &str) -> anyhow::Result<Studio
                 "Failed to send key chord to Roblox Studio. Please save the opened place manually."
             ),
         }
-    } else {
-        println!("Please save the opened place in Roblox Studio (ctrl+s).");
     }
+
+    #[cfg(not(target_os = "window"))]
+    println!("Please save the opened place in Roblox Studio (ctrl+s).");
 
     loop {
         if let DebouncedEvent::Write(_) = rx.recv()? {
