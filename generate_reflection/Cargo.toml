@@ -28,4 +28,4 @@ tiny_http = "0.7.0"
 toml = "0.5.0"
 
 [target.'cfg(windows)'.dependencies]
-innerput = "0.0.1"
+innerput = "0.0.2"
