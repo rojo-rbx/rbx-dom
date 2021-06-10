@@ -1,6 +1,8 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+
+## 3.3.482 (2021-06-10)
 * Fixed generate_reflection reflecting `Int64` properties as `Int32`
 * Updated reflection database to client 0.482.0.424268
 
