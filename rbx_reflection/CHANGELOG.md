@@ -1,6 +1,7 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+* Update reflection database to client 0.482.0.424268
 
 ## 3.3.454 (2020-10-28)
 * Updated reflection database to client 0.454.0.413308
