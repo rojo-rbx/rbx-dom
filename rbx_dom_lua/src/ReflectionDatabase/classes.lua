@@ -90,6 +90,7 @@ return {
 			LevelOfDetail = 0,
 			Name = "Actor",
 			PrimaryPart = nil,
+			WorldPivot = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 		},
 	},
 	AdService = {
@@ -762,6 +763,14 @@ return {
 			Name = "AvatarEditorService",
 		},
 	},
+	AvatarImportService = {
+		name = "AvatarImportService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+		},
+	},
 	Backpack = {
 		name = "Backpack",
 		superclass = "Instance",
@@ -1263,6 +1272,15 @@ return {
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = false,
+			},
+			PivotOffset = {
+				name = "PivotOffset",
+				type = {type = "Data", name = "CFrame"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			Position = {
 				name = "Position",
@@ -1781,6 +1799,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			Brightness = {
+				name = "Brightness",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			ClipsDescendants = {
 				name = "ClipsDescendants",
 				type = {type = "Data", name = "Bool"},
@@ -1913,6 +1940,7 @@ return {
 			Adornee = nil,
 			AlwaysOnTop = false,
 			AutoLocalize = true,
+			Brightness = 1,
 			ClipsDescendants = false,
 			DistanceLowerLimit = 0,
 			DistanceStep = 0,
@@ -2661,6 +2689,14 @@ return {
 		defaults = {
 		},
 	},
+	CalloutService = {
+		name = "CalloutService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+		},
+	},
 	Camera = {
 		name = "Camera",
 		superclass = "Instance",
@@ -2837,7 +2873,7 @@ return {
 		properties = {
 			BaseTextureId = {
 				name = "BaseTextureId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -2855,7 +2891,7 @@ return {
 			},
 			MeshId = {
 				name = "MeshId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -2864,7 +2900,7 @@ return {
 			},
 			OverlayTextureId = {
 				name = "OverlayTextureId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -3453,6 +3489,7 @@ return {
 			Material = 256,
 			Name = "CornerWedge",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -3592,6 +3629,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			AngularResponsiveness = {
+				name = "AngularResponsiveness",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			AngularRestitution = {
 				name = "AngularRestitution",
 				type = {type = "Data", name = "Float32"},
@@ -3714,6 +3760,7 @@ return {
 			ActuatorType = 0,
 			AngularActuatorType = 0,
 			AngularLimitsEnabled = false,
+			AngularResponsiveness = 45,
 			AngularRestitution = 0,
 			AngularSpeed = 0,
 			AngularVelocity = 0,
@@ -3723,6 +3770,7 @@ return {
 			Enabled = true,
 			InclinationAngle = 0,
 			LimitsEnabled = false,
+			LinearResponsiveness = 45,
 			LowerAngle = -45,
 			LowerLimit = 0,
 			MotorMaxAcceleration = 1000000000,
@@ -3750,7 +3798,7 @@ return {
 		properties = {
 			CreatorId = {
 				name = "CreatorId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -3768,7 +3816,7 @@ return {
 			},
 			GameId = {
 				name = "GameId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -3813,7 +3861,7 @@ return {
 			},
 			PlaceId = {
 				name = "PlaceId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -3840,7 +3888,7 @@ return {
 			},
 			PrivateServerOwnerId = {
 				name = "PrivateServerOwnerId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -3858,7 +3906,7 @@ return {
 			},
 			VIPServerOwnerId = {
 				name = "VIPServerOwnerId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -3957,6 +4005,126 @@ return {
 		defaults = {
 		},
 	},
+	DataStore = {
+		name = "DataStore",
+		superclass = "GlobalDataStore",
+		properties = {
+		},
+		defaults = {
+		},
+	},
+	DataStoreEnumerationPages = {
+		name = "DataStoreEnumerationPages",
+		superclass = "Pages",
+		properties = {
+		},
+		defaults = {
+		},
+	},
+	DataStoreIncrementOptions = {
+		name = "DataStoreIncrementOptions",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "Instance",
+		},
+	},
+	DataStoreInfo = {
+		name = "DataStoreInfo",
+		superclass = "Instance",
+		properties = {
+			CreatedTime = {
+				name = "CreatedTime",
+				type = {type = "Data", name = "Int64"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			DataStoreName = {
+				name = "DataStoreName",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			UpdatedTime = {
+				name = "UpdatedTime",
+				type = {type = "Data", name = "Int64"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+		},
+		defaults = {
+		},
+	},
+	DataStoreKeyInfo = {
+		name = "DataStoreKeyInfo",
+		superclass = "Instance",
+		properties = {
+			KeyName = {
+				name = "KeyName",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+		},
+		defaults = {
+		},
+	},
+	DataStoreKeyPages = {
+		name = "DataStoreKeyPages",
+		superclass = "Pages",
+		properties = {
+		},
+		defaults = {
+		},
+	},
+	DataStoreKeyVersionInfo = {
+		name = "DataStoreKeyVersionInfo",
+		superclass = "Instance",
+		properties = {
+			CreatedTime = {
+				name = "CreatedTime",
+				type = {type = "Data", name = "Int64"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			UpdatedTime = {
+				name = "UpdatedTime",
+				type = {type = "Data", name = "Int64"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			Version = {
+				name = "Version",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+		},
+		defaults = {
+		},
+	},
 	DataStorePages = {
 		name = "DataStorePages",
 		superclass = "Pages",
@@ -3990,6 +4158,23 @@ return {
 		},
 		defaults = {
 			Name = "DataStoreService",
+		},
+	},
+	DataStoreSetOptions = {
+		name = "DataStoreSetOptions",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "Instance",
+		},
+	},
+	DataStoreVersionPages = {
+		name = "DataStoreVersionPages",
+		superclass = "Pages",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 	Debris = {
@@ -4552,6 +4737,160 @@ return {
 			Name = "Dragger",
 		},
 	},
+	DraggerService = {
+		name = "DraggerService",
+		superclass = "Instance",
+		properties = {
+			AlignDraggedObjects = {
+				name = "AlignDraggedObjects",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			AngleSnapEnabled = {
+				name = "AngleSnapEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			AngleSnapIncrement = {
+				name = "AngleSnapIncrement",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			AnimateHover = {
+				name = "AnimateHover",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			CollisionsEnabled = {
+				name = "CollisionsEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			DraggerCoordinateSpace = {
+				name = "DraggerCoordinateSpace",
+				type = {type = "Enum", name = "DraggerCoordinateSpace"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			DraggerMovementMode = {
+				name = "DraggerMovementMode",
+				type = {type = "Enum", name = "DraggerMovementMode"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			GeometrySnapColor = {
+				name = "GeometrySnapColor",
+				type = {type = "Data", name = "Color3"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			HoverAnimateFrequency = {
+				name = "HoverAnimateFrequency",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			HoverThickness = {
+				name = "HoverThickness",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			JointsEnabled = {
+				name = "JointsEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			LinearSnapEnabled = {
+				name = "LinearSnapEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			LinearSnapIncrement = {
+				name = "LinearSnapIncrement",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			PivotSnapToGeometry = {
+				name = "PivotSnapToGeometry",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			ShowHover = {
+				name = "ShowHover",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			ShowPivotIndicator = {
+				name = "ShowPivotIndicator",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
+		},
+		defaults = {
+			Name = "DraggerService",
+			ShowPivotIndicator = false,
+		},
+	},
 	DynamicRotate = {
 		name = "DynamicRotate",
 		superclass = "JointInstance",
@@ -4822,7 +5161,7 @@ return {
 			},
 			FileSize = {
 				name = "FileSize",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -4831,7 +5170,7 @@ return {
 			},
 			Size = {
 				name = "Size",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -5040,6 +5379,7 @@ return {
 			Material = 256,
 			Name = "FlagStand",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -5443,6 +5783,25 @@ return {
 		},
 		defaults = {
 			Name = "Geometry",
+		},
+	},
+	GetDataStoreOptions = {
+		name = "GetDataStoreOptions",
+		superclass = "Instance",
+		properties = {
+			AllScopes = {
+				name = "AllScopes",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+			AllScopes = false,
+			Name = "Instance",
 		},
 	},
 	GlobalDataStore = {
@@ -6243,6 +6602,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			AngularResponsiveness = {
+				name = "AngularResponsiveness",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			AngularSpeed = {
 				name = "AngularSpeed",
 				type = {type = "Data", name = "Float32"},
@@ -6354,6 +6722,7 @@ return {
 		},
 		defaults = {
 			ActuatorType = 0,
+			AngularResponsiveness = 45,
 			AngularSpeed = 0,
 			AngularVelocity = 0,
 			Attachment0 = nil,
@@ -6847,6 +7216,15 @@ return {
 		name = "HumanoidDescription",
 		superclass = "Instance",
 		properties = {
+			AccessoryBlob = {
+				name = "AccessoryBlob",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
 			BackAccessory = {
 				name = "BackAccessory",
 				type = {type = "Data", name = "String"},
@@ -6867,7 +7245,7 @@ return {
 			},
 			ClimbAnimation = {
 				name = "ClimbAnimation",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -6885,7 +7263,7 @@ return {
 			},
 			Face = {
 				name = "Face",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -6903,7 +7281,7 @@ return {
 			},
 			FallAnimation = {
 				name = "FallAnimation",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -6921,7 +7299,7 @@ return {
 			},
 			GraphicTShirt = {
 				name = "GraphicTShirt",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -6948,7 +7326,7 @@ return {
 			},
 			Head = {
 				name = "Head",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -6984,7 +7362,7 @@ return {
 			},
 			IdleAnimation = {
 				name = "IdleAnimation",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -6993,7 +7371,7 @@ return {
 			},
 			JumpAnimation = {
 				name = "JumpAnimation",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7002,7 +7380,7 @@ return {
 			},
 			LeftArm = {
 				name = "LeftArm",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7020,7 +7398,7 @@ return {
 			},
 			LeftLeg = {
 				name = "LeftLeg",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7056,7 +7434,7 @@ return {
 			},
 			Pants = {
 				name = "Pants",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7074,7 +7452,7 @@ return {
 			},
 			RightArm = {
 				name = "RightArm",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7092,7 +7470,7 @@ return {
 			},
 			RightLeg = {
 				name = "RightLeg",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7110,7 +7488,7 @@ return {
 			},
 			RunAnimation = {
 				name = "RunAnimation",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7119,7 +7497,7 @@ return {
 			},
 			Shirt = {
 				name = "Shirt",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7137,7 +7515,7 @@ return {
 			},
 			SwimAnimation = {
 				name = "SwimAnimation",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7146,7 +7524,7 @@ return {
 			},
 			Torso = {
 				name = "Torso",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7173,7 +7551,7 @@ return {
 			},
 			WalkAnimation = {
 				name = "WalkAnimation",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7233,6 +7611,14 @@ return {
 	},
 	ILegacyStudioBridge = {
 		name = "ILegacyStudioBridge",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+		},
+	},
+	IXPService = {
+		name = "IXPService",
 		superclass = "Instance",
 		properties = {
 		},
@@ -7576,6 +7962,14 @@ return {
 			ZIndex = 1,
 		},
 	},
+	IncrementalPatchBuilder = {
+		name = "IncrementalPatchBuilder",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+		},
+	},
 	InputObject = {
 		name = "InputObject",
 		superclass = "Instance",
@@ -7717,7 +8111,7 @@ return {
 			},
 			SourceAssetId = {
 				name = "SourceAssetId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7778,7 +8172,7 @@ return {
 		properties = {
 			ConstrainedValue = {
 				name = "ConstrainedValue",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7787,7 +8181,7 @@ return {
 			},
 			MaxValue = {
 				name = "MaxValue",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7796,7 +8190,7 @@ return {
 			},
 			MinValue = {
 				name = "MinValue",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7805,7 +8199,7 @@ return {
 			},
 			Value = {
 				name = "Value",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -7827,7 +8221,7 @@ return {
 		properties = {
 			Value = {
 				name = "Value",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -8606,15 +9000,6 @@ return {
 				scriptability = "None",
 				serializes = false,
 			},
-			IsDifferentFromFileSystem = {
-				name = "IsDifferentFromFileSystem",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "None",
-				serializes = false,
-			},
 		},
 		defaults = {
 		},
@@ -8688,6 +9073,31 @@ return {
 		},
 		defaults = {
 			Name = "MemStorageService",
+		},
+	},
+	MemoryStoreQueue = {
+		name = "MemoryStoreQueue",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+		},
+	},
+	MemoryStoreService = {
+		name = "MemoryStoreService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "MemoryStoreService",
+		},
+	},
+	MemoryStoreSortedMap = {
+		name = "MemoryStoreSortedMap",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 	MeshContentProvider = {
@@ -8826,6 +9236,7 @@ return {
 			MeshId = "",
 			Name = "MeshPart",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RenderFidelity = 1,
@@ -8896,11 +9307,21 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			WorldPivot = {
+				name = "WorldPivot",
+				type = {type = "Data", name = "CFrame"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
 		},
 		defaults = {
 			LevelOfDetail = 0,
 			Name = "Model",
 			PrimaryPart = nil,
+			WorldPivot = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 		},
 	},
 	ModuleScript = {
@@ -9226,6 +9647,7 @@ return {
 			Material = 256,
 			Name = "NegativePart",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RenderFidelity = 1,
@@ -9291,8 +9713,8 @@ return {
 		name = "NetworkSettings",
 		superclass = "Instance",
 		properties = {
-			ExtraMemoryUsed = {
-				name = "ExtraMemoryUsed",
+			EmulatedTotalMemoryInMB = {
+				name = "EmulatedTotalMemoryInMB",
 				type = {type = "Data", name = "Int32"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9356,6 +9778,15 @@ return {
 			},
 			PrintStreamInstanceQuota = {
 				name = "PrintStreamInstanceQuota",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			RandomizeJoinInstanceOrder = {
+				name = "RandomizeJoinInstanceOrder",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -9546,6 +9977,41 @@ return {
 			Value = nil,
 		},
 	},
+	ObjectVersionInfo = {
+		name = "ObjectVersionInfo",
+		superclass = "Instance",
+		properties = {
+			CreatedTime = {
+				name = "CreatedTime",
+				type = {type = "Data", name = "Int64"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			IsDeleted = {
+				name = "IsDeleted",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			Version = {
+				name = "Version",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+		},
+		defaults = {
+		},
+	},
 	OrderedDataStore = {
 		name = "OrderedDataStore",
 		superclass = "GlobalDataStore",
@@ -9600,6 +10066,24 @@ return {
 				scriptability = "None",
 				serializes = true,
 			},
+			Creator = {
+				name = "Creator",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = false,
+			},
+			PackageAssetName = {
+				name = "PackageAssetName",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = false,
+			},
 			PackageId = {
 				name = "PackageId",
 				type = {type = "Data", name = "Content"},
@@ -9607,6 +10091,15 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "Read",
+				serializes = false,
+			},
+			PermissionLevel = {
+				name = "PermissionLevel",
+				type = {type = "Enum", name = "PackagePermission"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
 				serializes = false,
 			},
 			Status = {
@@ -9620,7 +10113,7 @@ return {
 			},
 			VersionNumber = {
 				name = "VersionNumber",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -9789,6 +10282,7 @@ return {
 			Material = 256,
 			Name = "Part",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -9902,6 +10396,7 @@ return {
 			Material = 256,
 			Name = "PartOperation",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RenderFidelity = 1,
@@ -10017,6 +10512,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			Orientation = {
+				name = "Orientation",
+				type = {type = "Enum", name = "ParticleOrientation"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			Rate = {
 				name = "Rate",
 				type = {type = "Data", name = "Float32"},
@@ -10080,6 +10584,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			TimeScale = {
+				name = "TimeScale",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			Transparency = {
 				name = "Transparency",
 				type = {type = "Data", name = "NumberSequence"},
@@ -10128,6 +10641,7 @@ return {
 			LightInfluence = 0,
 			LockedToPart = false,
 			Name = "ParticleEmitter",
+			Orientation = 0,
 			Rate = 20,
 			RotSpeed = NumberRange.new(0, 0),
 			Rotation = NumberRange.new(0, 0),
@@ -10135,6 +10649,7 @@ return {
 			Speed = NumberRange.new(5, 5),
 			SpreadAngle = Vector2.new(0, 0),
 			Texture = "rbxasset://textures/particles/sparkles_main.dds",
+			TimeScale = 1,
 			Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0, 0, 0), NumberSequenceKeypoint.new(1, 0, 0)}),
 			VelocityInheritance = 0,
 			VelocitySpread = 0,
@@ -10318,6 +10833,15 @@ return {
 			},
 			AreTerrainReplicationRegionsShown = {
 				name = "AreTerrainReplicationRegionsShown",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			AreTimestepsShown = {
+				name = "AreTimestepsShown",
 				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
@@ -10544,7 +11068,7 @@ return {
 			},
 			CharacterAppearanceId = {
 				name = "CharacterAppearanceId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -10652,7 +11176,7 @@ return {
 			},
 			FollowUserId = {
 				name = "FollowUserId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -10814,7 +11338,7 @@ return {
 			},
 			UserId = {
 				name = "UserId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -10832,7 +11356,7 @@ return {
 			},
 			userId = {
 				name = "userId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -10847,6 +11371,15 @@ return {
 		name = "PlayerEmulatorService",
 		superclass = "Instance",
 		properties = {
+			DEPRECATED_SerializedEmulatedPolicyInfo = {
+				name = "DEPRECATED_SerializedEmulatedPolicyInfo",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
 			EmulatedCountryCode = {
 				name = "EmulatedCountryCode",
 				type = {type = "Data", name = "String"},
@@ -10885,7 +11418,7 @@ return {
 			},
 			SerializedEmulatedPolicyInfo = {
 				name = "SerializedEmulatedPolicyInfo",
-				type = {type = "Data", name = "String"},
+				type = {type = "Data", name = "BinaryString"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -11215,6 +11748,7 @@ return {
 		properties = {
 		},
 		defaults = {
+			Name = "PluginDebugService",
 		},
 	},
 	PluginDragEvent = {
@@ -11332,6 +11866,14 @@ return {
 	PluginMouse = {
 		name = "PluginMouse",
 		superclass = "Mouse",
+		properties = {
+		},
+		defaults = {
+		},
+	},
+	PluginPolicyService = {
+		name = "PluginPolicyService",
+		superclass = "Instance",
 		properties = {
 		},
 		defaults = {
@@ -11535,6 +12077,7 @@ return {
 			Color = BrickColor.new(1009),
 			Enabled = true,
 			LimitsEnabled = false,
+			LinearResponsiveness = 45,
 			LowerLimit = 0,
 			MotorMaxAcceleration = 1000000000,
 			MotorMaxForce = 0,
@@ -11727,6 +12270,15 @@ return {
 			Name = "ProximityPromptService",
 		},
 	},
+	PublishService = {
+		name = "PublishService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
+			Name = "Instance",
+		},
+	},
 	QWidgetPluginGui = {
 		name = "QWidgetPluginGui",
 		superclass = "PluginGui",
@@ -11833,6 +12385,7 @@ return {
 			IsBackend = false,
 			Name = "Instance",
 			PreferredParent = "",
+			PropertyOrder = 5000,
 			ScriptContext = "",
 			ServerOnly = false,
 			UIMaximum = 0,
@@ -11864,6 +12417,7 @@ return {
 			EditingDisabled = false,
 			IsBackend = false,
 			Name = "Instance",
+			PropertyOrder = 5000,
 			ScriptContext = "",
 			ServerOnly = false,
 			UIMaximum = 0,
@@ -11886,6 +12440,7 @@ return {
 			EditingDisabled = false,
 			IsBackend = false,
 			Name = "Instance",
+			PropertyOrder = 5000,
 			ScriptContext = "",
 			ServerOnly = false,
 			UIMaximum = 0,
@@ -11988,6 +12543,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			PropertyOrder = {
+				name = "PropertyOrder",
+				type = {type = "Data", name = "Int32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			ScriptContext = {
 				name = "ScriptContext",
 				type = {type = "Data", name = "String"},
@@ -12060,6 +12624,7 @@ return {
 			EditingDisabled = false,
 			IsBackend = false,
 			Name = "Instance",
+			PropertyOrder = 5000,
 			ScriptContext = "",
 			ServerOnly = false,
 			UIMaximum = 0,
@@ -12593,6 +13158,33 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			LimitAngle0 = {
+				name = "LimitAngle0",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			LimitAngle1 = {
+				name = "LimitAngle1",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			LimitsEnabled = {
+				name = "LimitsEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			Thickness = {
 				name = "Thickness",
 				type = {type = "Data", name = "Float32"},
@@ -12609,6 +13201,9 @@ return {
 			Color = BrickColor.new(26),
 			Enabled = true,
 			Length = 5,
+			LimitAngle0 = 90,
+			LimitAngle1 = 90,
+			LimitsEnabled = false,
 			Name = "RodConstraint",
 			Thickness = 0.1,
 			Visible = false,
@@ -13181,6 +13776,7 @@ return {
 			Material = 256,
 			Name = "Seat",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -13594,6 +14190,7 @@ return {
 			Material = 256,
 			Name = "SkateboardPlatform",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -13789,6 +14386,15 @@ return {
 			LimitsEnabled = {
 				name = "LimitsEnabled",
 				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			LinearResponsiveness = {
+				name = "LinearResponsiveness",
+				type = {type = "Data", name = "Float32"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14462,6 +15068,7 @@ return {
 			Name = "SpawnLocation",
 			Neutral = true,
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -14486,6 +15093,77 @@ return {
 		name = "SpawnerService",
 		superclass = "Instance",
 		properties = {
+		},
+		defaults = {
+		},
+	},
+	Speaker = {
+		name = "Speaker",
+		superclass = "Instance",
+		properties = {
+			PlaybackLoudness = {
+				name = "PlaybackLoudness",
+				type = {type = "Data", name = "Float64"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			RollOffMaxDistance = {
+				name = "RollOffMaxDistance",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = false,
+			},
+			RollOffMinDistance = {
+				name = "RollOffMinDistance",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = false,
+			},
+			RollOffMode = {
+				name = "RollOffMode",
+				type = {type = "Enum", name = "RollOffMode"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
+			SoundGroup = {
+				name = "SoundGroup",
+				type = {type = "Data", name = "Ref"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
+			Source = {
+				name = "Source",
+				type = {type = "Data", name = "Ref"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
+			Volume = {
+				name = "Volume",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
 		},
 		defaults = {
 		},
@@ -14783,6 +15461,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			VirtualCursorMode = {
+				name = "VirtualCursorMode",
+				type = {type = "Enum", name = "VirtualCursorMode"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
 		},
 		defaults = {
 			Name = "StarterGui",
@@ -14951,7 +15638,7 @@ return {
 			},
 			GameSettingsAssetIDFace = {
 				name = "GameSettingsAssetIDFace",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14960,7 +15647,7 @@ return {
 			},
 			GameSettingsAssetIDHead = {
 				name = "GameSettingsAssetIDHead",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14969,7 +15656,7 @@ return {
 			},
 			GameSettingsAssetIDLeftArm = {
 				name = "GameSettingsAssetIDLeftArm",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14978,7 +15665,7 @@ return {
 			},
 			GameSettingsAssetIDLeftLeg = {
 				name = "GameSettingsAssetIDLeftLeg",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14987,7 +15674,7 @@ return {
 			},
 			GameSettingsAssetIDPants = {
 				name = "GameSettingsAssetIDPants",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -14996,7 +15683,7 @@ return {
 			},
 			GameSettingsAssetIDRightArm = {
 				name = "GameSettingsAssetIDRightArm",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15005,7 +15692,7 @@ return {
 			},
 			GameSettingsAssetIDRightLeg = {
 				name = "GameSettingsAssetIDRightLeg",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15014,7 +15701,7 @@ return {
 			},
 			GameSettingsAssetIDShirt = {
 				name = "GameSettingsAssetIDShirt",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15023,7 +15710,7 @@ return {
 			},
 			GameSettingsAssetIDTeeShirt = {
 				name = "GameSettingsAssetIDTeeShirt",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15032,7 +15719,7 @@ return {
 			},
 			GameSettingsAssetIDTorso = {
 				name = "GameSettingsAssetIDTorso",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15118,6 +15805,15 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			LoadCharacterLayeredClothing = {
+				name = "LoadCharacterLayeredClothing",
+				type = {type = "Enum", name = "LoadCharacterLayeredClothing"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
 				serializes = true,
 			},
 			NameDisplayDistance = {
@@ -15274,6 +15970,15 @@ return {
 		name = "StatsItem",
 		superclass = "Instance",
 		properties = {
+			DisplayName = {
+				name = "DisplayName",
+				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
 		},
 		defaults = {
 		},
@@ -15344,18 +16049,18 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
-			Font = {
-				name = "Font",
-				type = {type = "Unimplemented", name = "QFont"},
+			DisplayLanguage = {
+				name = "DisplayLanguage",
+				type = {type = "Data", name = "String"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
-			Language = {
-				name = "Language",
-				type = {type = "Enum", name = "LanguagePreference"},
+			Font = {
+				name = "Font",
+				type = {type = "Unimplemented", name = "QFont"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15452,6 +16157,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			ScriptEditorShouldShowPluginMethods = {
+				name = "ScriptEditorShouldShowPluginMethods",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
 			ScriptTimeoutLength = {
 				name = "ScriptTimeoutLength",
 				type = {type = "Data", name = "Int32"},
@@ -15487,18 +16201,9 @@ return {
 				scriptability = "None",
 				serializes = true,
 			},
-			EnableScriptCollabOnLoad = {
-				name = "EnableScriptCollabOnLoad",
-				type = {type = "Data", name = "Bool"},
-				isCanonical = true,
-				canonicalName = nil,
-				serializedName = nil,
-				scriptability = "None",
-				serializes = true,
-			},
 			SrcPlaceId = {
 				name = "SrcPlaceId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15507,13 +16212,21 @@ return {
 			},
 			SrcUniverseId = {
 				name = "SrcUniverseId",
-				type = {type = "Data", name = "Int32"},
+				type = {type = "Data", name = "Int64"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "None",
 				serializes = true,
 			},
+		},
+		defaults = {
+		},
+	},
+	StudioDeviceEmulatorService = {
+		name = "StudioDeviceEmulatorService",
+		superclass = "Instance",
+		properties = {
 		},
 		defaults = {
 		},
@@ -15579,6 +16292,15 @@ return {
 			InstalledPluginData = {
 				name = "InstalledPluginData",
 				type = {type = "Data", name = "String"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			PivotSnapToGeometry = {
+				name = "PivotSnapToGeometry",
+				type = {type = "Data", name = "Bool"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -15768,6 +16490,15 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
+			Brightness = {
+				name = "Brightness",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			CanvasSize = {
 				name = "CanvasSize",
 				type = {type = "Data", name = "Vector2"},
@@ -15846,6 +16577,7 @@ return {
 			Adornee = nil,
 			AlwaysOnTop = false,
 			AutoLocalize = true,
+			Brightness = 1,
 			CanvasSize = Vector2.new(800, 600),
 			ClipsDescendants = false,
 			Enabled = true,
@@ -16146,6 +16878,15 @@ return {
 				scriptability = "Read",
 				serializes = false,
 			},
+			LastUsedModificationMethod = {
+				name = "LastUsedModificationMethod",
+				type = {type = "Enum", name = "TerrainAcquisitionMethod"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = false,
+			},
 			MaterialColors = {
 				name = "MaterialColors",
 				type = {type = "Data", name = "BinaryString"},
@@ -16433,6 +17174,15 @@ return {
 				scriptability = "None",
 				serializes = false,
 			},
+			MaxVisibleGraphemes = {
+				name = "MaxVisibleGraphemes",
+				type = {type = "Data", name = "Int32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
 			MultiLine = {
 				name = "MultiLine",
 				type = {type = "Data", name = "Bool"},
@@ -16680,6 +17430,7 @@ return {
 			LayoutOrder = 0,
 			LineHeight = 1,
 			Localize = true,
+			MaxVisibleGraphemes = -1,
 			MultiLine = false,
 			Name = "TextBox",
 			NextSelectionDown = nil,
@@ -16756,6 +17507,15 @@ return {
 				serializedName = nil,
 				scriptability = "Read",
 				serializes = false,
+			},
+			MaxVisibleGraphemes = {
+				name = "MaxVisibleGraphemes",
+				type = {type = "Data", name = "Int32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RichText = {
 				name = "RichText",
@@ -16922,6 +17682,7 @@ return {
 			LayoutOrder = 0,
 			LineHeight = 1,
 			Localize = true,
+			MaxVisibleGraphemes = -1,
 			Modal = false,
 			Name = "TextButton",
 			NextSelectionDown = nil,
@@ -17003,6 +17764,15 @@ return {
 				serializedName = nil,
 				scriptability = "Read",
 				serializes = false,
+			},
+			MaxVisibleGraphemes = {
+				name = "MaxVisibleGraphemes",
+				type = {type = "Data", name = "Int32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
 			},
 			RichText = {
 				name = "RichText",
@@ -17168,6 +17938,7 @@ return {
 			LayoutOrder = 0,
 			LineHeight = 1,
 			Localize = true,
+			MaxVisibleGraphemes = -1,
 			Name = "TextLabel",
 			NextSelectionDown = nil,
 			NextSelectionLeft = nil,
@@ -17279,6 +18050,14 @@ return {
 		},
 		defaults = {
 			Name = "Instance",
+		},
+	},
+	ToastNotificationService = {
+		name = "ToastNotificationService",
+		superclass = "Instance",
+		properties = {
+		},
+		defaults = {
 		},
 	},
 	Tool = {
@@ -17422,6 +18201,109 @@ return {
 			Name = "Torque",
 			RelativeTo = 0,
 			Torque = Vector3.new(0, 0, 0),
+			Visible = false,
+		},
+	},
+	TorsionSpringConstraint = {
+		name = "TorsionSpringConstraint",
+		superclass = "Constraint",
+		properties = {
+			Coils = {
+				name = "Coils",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			CurrentAngle = {
+				name = "CurrentAngle",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+			Damping = {
+				name = "Damping",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			LimitEnabled = {
+				name = "LimitEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			MaxAngle = {
+				name = "MaxAngle",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			MaxTorque = {
+				name = "MaxTorque",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Radius = {
+				name = "Radius",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Restitution = {
+				name = "Restitution",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Stiffness = {
+				name = "Stiffness",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+			Attachment0 = nil,
+			Attachment1 = nil,
+			Coils = 8,
+			Color = BrickColor.new(200),
+			Damping = 0.01,
+			Enabled = true,
+			LimitEnabled = false,
+			MaxAngle = 45,
+			MaxTorque = 1000000000,
+			Name = "TorsionSpringConstraint",
+			Radius = 0.4,
+			Restitution = 0,
+			Stiffness = 100,
 			Visible = false,
 		},
 	},
@@ -17741,6 +18623,7 @@ return {
 			Material = 256,
 			Name = "Truss",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -18327,6 +19210,75 @@ return {
 			Name = "UISizeConstraint",
 		},
 	},
+	UIStroke = {
+		name = "UIStroke",
+		superclass = "UIComponent",
+		properties = {
+			ApplyStrokeMode = {
+				name = "ApplyStrokeMode",
+				type = {type = "Enum", name = "ApplyStrokeMode"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Color = {
+				name = "Color",
+				type = {type = "Data", name = "Color3"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Enabled = {
+				name = "Enabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			LineJoinMode = {
+				name = "LineJoinMode",
+				type = {type = "Enum", name = "LineJoinMode"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Thickness = {
+				name = "Thickness",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Transparency = {
+				name = "Transparency",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+			ApplyStrokeMode = 0,
+			Color = Color3.new(0, 0, 0),
+			Enabled = true,
+			LineJoinMode = 0,
+			Name = "UIStroke",
+			Thickness = 1,
+			Transparency = 0,
+		},
+	},
 	UITableLayout = {
 		name = "UITableLayout",
 		superclass = "UIGridStyleLayout",
@@ -18450,6 +19402,7 @@ return {
 			Material = 256,
 			Name = "Union",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RenderFidelity = 1,
@@ -18469,6 +19422,60 @@ return {
 			Transparency = 0,
 			UsePartColor = false,
 			Velocity = Vector3.new(0, 0, 0),
+		},
+	},
+	UniversalConstraint = {
+		name = "UniversalConstraint",
+		superclass = "Constraint",
+		properties = {
+			LimitsEnabled = {
+				name = "LimitsEnabled",
+				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			MaxAngle = {
+				name = "MaxAngle",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Radius = {
+				name = "Radius",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			Restitution = {
+				name = "Restitution",
+				type = {type = "Data", name = "Float32"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+		},
+		defaults = {
+			Attachment0 = nil,
+			Attachment1 = nil,
+			Color = BrickColor.new(1009),
+			Enabled = true,
+			LimitsEnabled = false,
+			MaxAngle = 45,
+			Name = "UniversalConstraint",
+			Radius = 0.2,
+			Restitution = 0,
+			Visible = false,
 		},
 	},
 	UnvalidatedAssetService = {
@@ -19324,6 +20331,7 @@ return {
 			MaxSpeed = 25,
 			Name = "VehicleSeat",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -19659,6 +20667,23 @@ return {
 			Name = "Visit",
 		},
 	},
+	VoiceSource = {
+		name = "VoiceSource",
+		superclass = "Instance",
+		properties = {
+			UserId = {
+				name = "UserId",
+				type = {type = "Data", name = "Int64"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "Read",
+				serializes = false,
+			},
+		},
+		defaults = {
+		},
+	},
 	WedgePart = {
 		name = "WedgePart",
 		superclass = "FormFactorPart",
@@ -19700,6 +20725,7 @@ return {
 			Material = 256,
 			Name = "Wedge",
 			Orientation = Vector3.new(0, 0, 0),
+			PivotOffset = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Position = Vector3.new(0, 0, 0),
 			Reflectance = 0,
 			RightParamA = -0.5,
@@ -19752,7 +20778,7 @@ return {
 				canonicalName = nil,
 				serializedName = nil,
 				scriptability = "ReadWrite",
-				serializes = true,
+				serializes = false,
 			},
 			Part0 = {
 				name = "Part0",
@@ -19787,6 +20813,24 @@ return {
 			AllowThirdPartySales = {
 				name = "AllowThirdPartySales",
 				type = {type = "Data", name = "Bool"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "ReadWrite",
+				serializes = true,
+			},
+			AnimationWeightedBlendFix = {
+				name = "AnimationWeightedBlendFix",
+				type = {type = "Enum", name = "NewAnimationRuntimeSetting"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
+			ClientAnimatorThrottling = {
+				name = "ClientAnimatorThrottling",
+				type = {type = "Enum", name = "ClientAnimatorThrottlingMode"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -19856,9 +20900,9 @@ return {
 				scriptability = "ReadWrite",
 				serializes = true,
 			},
-			MeshPartHeads = {
-				name = "MeshPartHeads",
-				type = {type = "Enum", name = "MeshPartHeads"},
+			MeshPartHeadsAndAccessories = {
+				name = "MeshPartHeadsAndAccessories",
+				type = {type = "Enum", name = "MeshPartHeadsAndAccessories"},
 				isCanonical = true,
 				canonicalName = nil,
 				serializedName = nil,
@@ -19873,6 +20917,24 @@ return {
 				serializedName = nil,
 				scriptability = "None",
 				serializes = false,
+			},
+			PhysicsSteppingMethod = {
+				name = "PhysicsSteppingMethod",
+				type = {type = "Enum", name = "PhysicsSteppingMethod"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
+			},
+			SignalBehavior = {
+				name = "SignalBehavior",
+				type = {type = "Enum", name = "SignalBehavior"},
+				isCanonical = true,
+				canonicalName = nil,
+				serializedName = nil,
+				scriptability = "None",
+				serializes = true,
 			},
 			StreamingEnabled = {
 				name = "StreamingEnabled",
@@ -19931,16 +20993,18 @@ return {
 		},
 		defaults = {
 			AllowThirdPartySales = false,
+			ClientAnimatorThrottling = 0,
 			CurrentCamera = nil,
 			DistributedGameTime = 0,
 			FallenPartsDestroyHeight = -500,
-			FilteringEnabled = false,
+			FilteringEnabled = true,
 			Gravity = 196.2,
 			InterpolationThrottling = 0,
 			LevelOfDetail = 0,
 			Name = "Workspace",
 			PrimaryPart = nil,
 			StreamingEnabled = false,
+			WorldPivot = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 		},
 	},
 	WorldModel = {
@@ -19952,6 +21016,7 @@ return {
 			LevelOfDetail = 0,
 			Name = "WorldModel",
 			PrimaryPart = nil,
+			WorldPivot = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 		},
 	},
 	WorldRoot = {
@@ -20108,7 +21173,7 @@ return {
 			CageOrigin = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			ImportOrigin = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 			Name = "WrapTarget",
-			Stiffness = 0.9,
+			Stiffness = 0,
 		},
 	},
 }
