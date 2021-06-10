@@ -81,7 +81,7 @@ impl<'a> From<&'a ValueType> for RbxPropertyTypeDescriptor {
                     "int" => RbxValueType::Int32,
                     "float" => RbxValueType::Float32,
                     "double" => RbxValueType::Float64,
-                    "int64" => RbxValueType::Int32,
+                    "int64" => RbxValueType::Int64,
 
                     unknown => {
                         println!("Can't emit primitives of type {}", unknown);
