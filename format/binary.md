@@ -71,14 +71,14 @@ Integers are assumed to be little endian and 2's complement unless otherwise spe
 ## File Header
 Every file starts with a 32 byte header.
 
-| Field Name          | Format  | Value                                         |
-|:--------------------|:--------|:----------------------------------------------|
-| Magic Number        | 8 bytes | Always `<roblox!`                             |
-| Signature           | 6 bytes | Always `89 ff 0a 1a 0a`                       |
-| Version             | u16     | Always `0`                                    |
-| Instance Type Count | i32     | Number of distinct instance types in the file |
-| Instance Count      | i32     | Number of instances in the file               |
-| Reserved            | 8 bytes | Always `0`                                    |
+| Field Name     | Format  | Value                                                                     |
+|:---------------|:--------|:--------------------------------------------------------------------------|
+| Magic Number   | 8 bytes | Always `<roblox!`                                                         |
+| Signature      | 6 bytes | Always `89 ff 0a 1a 0a`                                                   |
+| Version        | u16     | Always `0`                                                                |
+| Class Count    | i32     | Number of distinct classes in the file (i.e. the number of `INST` chunks) |
+| Instance Count | i32     | Number of instances in the file                                           |
+| Reserved       | 8 bytes | Always `0`                                                                |
 
 ## Chunks
 Every chunk starts with a 16 byte header followed by the chunk's data.
