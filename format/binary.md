@@ -146,16 +146,14 @@ There should be zero or one `SSTR` chunks.
 ### `INST` Chunk
 The `INST` chunk has this layout:
 
-| Field Name         | Format           | Value                                           |
-|:-------------------|:-----------------|:------------------------------------------------|
-| Type ID            | u32              | An arbitrarily-chosen ID to refer to this type  |
-| Type Name          | String           | The type's name, like `Folder` or `Part`        |
-| Object Format      | u8               | Always `0` (regular instance) or `1` (service)  |
-| Number Instances   | u32              | The number of instances of this type            |
-| Instance Referents | Array(Referent)  | The instance referents in the file of this type |
-| Service Markers    | Array(u8)        | If **Object Format** is `1`, contains the byte `1` once for each instance in the chunk. Otherwise, not present. |
-
-The Instance chunk (`INST`) defines a type of instance, how many of them there are in this file, and what referent IDs they have.
+| Field Name      | Format                         | Value                                                                  |
+|:----------------|:-------------------------------|:-----------------------------------------------------------------------|
+| Class ID        | `u32`                          | An arbitrarily-chosen ID referring to a Roblox class                   |
+| Class Name      | [`String`](#string)            | The class name, like `Folder` or `Part`                                |
+| Object Format   | `u8`                           | `1` if the class is a service, otherwise `0`                           |
+| Instance Count  | `u32`                          | The number of instances belonging to the class                         |
+| Referents       | Array([`Referent`](#referent)) | The referents of instances belonging to the class                      |
+| Service Markers | Array(`u8`)                    | `1` for each instance if the class is a service, otherwise not present |
 
 There should be one `INST` chunk for each type of instance defined.
 
@@ -168,11 +166,11 @@ If the **Object Format** is **regular**, the service markers section will not be
 
 If the **Object Format** is **service**, the service markers section contains `1` repeated for the number of instances of that type in the file. If this field is not set, Roblox may create duplicate copies of services, like in [rojo-rbx/rbx-dom#11](https://github.com/rojo-rbx/rbx-dom/issues/11).
 
-**Type ID** must be unique and ideally sorted monotonically among all `INST` chunks. It's used later in the file to refer to this type.
+**Class ID** must be unique and ideally sorted monotonically among all `INST` chunks. It's used later in the file to refer to this type.
 
-**Type Name** should match the `ClassName` specified on an instance in Roblox.
+**Class Name** should match the `ClassName` specified on an instance in Roblox.
 
-The length of the **Instance Referents** array must match the **Number of Instances** field.
+The length of **Referents** must equal **Instance Count**.
 
 ### `PROP` Chunk
 The `PROP` chunk has this layout:
