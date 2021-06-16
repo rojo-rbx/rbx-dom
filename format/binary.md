@@ -283,7 +283,7 @@ The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an
 
 When an array of UDims is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
 
-As an example, the UDims `{1, 2}` and `{3, 4}` when stored would look like this: `7f 80 00 80 00 00 00 00 00 00 00 00 00 00 04 08`.
+Two UDims with values `{1, 2}` and `{3, 4}` look like this: `7f 80 00 80 00 00 00 00 00 00 00 00 00 00 04 08`.
 
 The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the UDims. The latter 8 bytes (`00 00 00 00 00 00 04 08`) represent the Offset values. From there, the values are paired off, so that the first value in each array make up the components of the first UDim, and so on.
 
@@ -329,7 +329,7 @@ Three encoded `Faces` with values `Front`, `Back, Top` and `Bottom, Left, Right`
 
 The `Axes` type is a single byte used as a bit field. The low three bits represent the `X`, `Y`, and `Z` axes, in that order. The remaining five bits have no meaning. `Axes` is stored as an array of bytes with no transformations or interleaving.
 
-Three encoded `Axes` with values `X`, `X Y`, and `X Z` would look like this: `01 03 05`.
+Three encoded `Axes` with values `X`, `X Y`, and `X Z` look like this: `01 03 05`.
 
 ### BrickColor
 **Type Marker `0x0b`**
@@ -416,7 +416,7 @@ If the `ID` is **not** `00`, it will be a value from the following table. In thi
 
 When an array of CFrames is present, for each value the `ID` is stored followed by the `Rotation` field if it's present. Then, an array of [Vector3s](#vector3) that represent the `Position` field of each CFrame.
 
-As an example, two CFrames with the components `CFrame.new(1, 2, 3)` and `CFrame.new(4, 5, 6)*CFrame.Angles(7, 8, 9)` would be stored as `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD 7F 81 00 00 00 00 00 00 80 7F 00 22 00 D4 00 B2 80 81 80 80 00 00 00 00`.
+Two CFrames with the components `CFrame.new(1, 2, 3)` and `CFrame.new(4, 5, 6)*CFrame.Angles(7, 8, 9)` are stored as `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD 7F 81 00 00 00 00 00 00 80 7F 00 22 00 D4 00 B2 80 81 80 80 00 00 00 00`.
 
 The first part (the `ID` and `Rotation` array) is: `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD`, which is an split into `02` and `00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD`.
 
@@ -429,8 +429,7 @@ The `Enum` type is an unsigned 32-bit integer. It is stored as big endian and is
 
 ### Referent
 **Type Marker `0x13`**
-
-The `Referent` type represents a specific Instance in the file and is stored as an [Int32](#int32). After untransforming a referent, a value of `-1` represents the so-called 'null referent'. In a `PROP` chunk, a null referent represents a property with no set value (an example would `ObjectValue.Value` by default).
+The `Referent` type represents a specific Instance in the file and is stored as an [Int32](#int32). After untransforming a referent, a value of `-1` represents the so-called 'null referent'. In a `PROP` chunk, a null referent represents a property with no set value: for example, the default value of `ObjectValue.Value`.
 
 An array of Referents is stored as an array of Int32s, and as a result they are subject to [byte interleaving](#byte-interleaving). When reading an array of Referents, they must be read accumulatively. That is to say that the 'actual' value of the referent is the value of the read value plus the preceding one.
 
@@ -630,7 +629,7 @@ Untransforming with bitwise operators requires casting to an unsigned integer in
 
 When stored as arrays, some data types have their bytes interleaved to help with compression. Cases where byte interleaving is present are explicitly noted.
 
-When the bytes of an array are interleaved, they're stored with the first bytes all in sequence, then the second bytes, then the third, and so on. As an example, a sequence of bytes that looks like `A0 A1 B0 B1 C0 C1` would be stored as `A0 B0 C0 A1 B1 C1`.
+When the bytes of an array are interleaved, they're stored with the first bytes all in sequence, then the second bytes, then the third, and so on. As an example, the sequence `A0 A1 B0 B1 C0 C1` is stored as `A0 B0 C0 A1 B1 C1`.
 
 Viewed another way, it means that the bytes are effectively stored in 'columns' rather than 'rows'. If an array of four 32-bit integers were viewed as a 4x4 matrix, for example, it would normally look like this:
 
