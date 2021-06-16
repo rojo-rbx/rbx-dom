@@ -90,11 +90,11 @@ Every chunk starts with a 16 byte header followed by the chunk's data.
 | Uncompressed Length | u32     | Length of the chunk's data after decompression    |
 | Reserved            | 4 bytes | Always `0`                                        |
 
-If **chunk name** is less than four bytes, the remainder is filled with zeros.
+If **Chunk Name** is less than four bytes, the remainder is filled with zeros.
 
-If **compressed length** is zero, **chunk data** contains **uncompressed length** bytes of data for the chunk.
+If **Compressed Length** is zero, **Chunk Data** contains **Uncompressed Length** bytes of data for the chunk.
 
-If **compressed length** is nonzero, **chunk data** contains an LZ4 compressed block. It is **compressed length** bytes long and will expand to **uncompressed length** bytes when decompressed.
+If **Compressed Length** is nonzero, **Chunk Data** contains an LZ4 compressed block. It is **Compressed Length** bytes long and will expand to **Uncompressed Length** bytes when decompressed.
 
 When the **chunk data** is compressed, it is done so using the [LZ4](https://github.com/lz4/lz4) compression algorithm.
 
