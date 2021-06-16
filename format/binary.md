@@ -77,9 +77,9 @@ Every file starts with a 32 byte header.
 |:---------------|:--------|:--------------------------------------------------------------------------|
 | Magic Number   | 8 bytes | Always `<roblox!`                                                         |
 | Signature      | 6 bytes | Always `89 ff 0a 1a 0a`                                                   |
-| Version        | u16     | Always `0`                                                                |
-| Class Count    | i32     | Number of distinct classes in the file (i.e. the number of `INST` chunks) |
-| Instance Count | i32     | Number of instances in the file                                           |
+| Version        | `u16`   | Always `0`                                                                |
+| Class Count    | `i32`   | Number of distinct classes in the file (i.e. the number of `INST` chunks) |
+| Instance Count | `i32`   | Number of instances in the file                                           |
 | Reserved       | 8 bytes | Always `0`                                                                |
 
 ## Chunks
@@ -88,8 +88,8 @@ Every chunk starts with a 16 byte header followed by the chunk's data.
 | Field Name          | Format  | Value                                             |
 |:--------------------|:--------|:--------------------------------------------------|
 | Chunk Name          | 4 bytes | The chunk's name, like `META` or `INST`           |
-| Compressed Length   | u32     | Length of the chunk in bytes, if it is compressed |
-| Uncompressed Length | u32     | Length of the chunk's data after decompression    |
+| Compressed Length   | `u32`   | Length of the chunk in bytes, if it is compressed |
+| Uncompressed Length | `u32`   | Length of the chunk's data after decompression    |
 | Reserved            | 4 bytes | Always `0`                                        |
 
 If **Chunk Name** is less than four bytes, the remainder is filled with zeros.
@@ -105,15 +105,15 @@ The `META` chunk has this layout:
 
 | Field Name                 | Format         | Value                                       |
 |:---------------------------|:---------------|:--------------------------------------------|
-| Number of Metadata Entries | u32            | The number of metadata entries in the chunk |
+| Number of Metadata Entries | `u32`            | The number of metadata entries in the chunk |
 | Metadata Entries           | Array(Entries) | The actual metadata entries                 |
 
 Each metadata entry has the following format:
 
-| Field Name     | Format | Value                                    |
-|:---------------|:-------|:-----------------------------------------|
-| Metadata Key   | String | The metadata key, which should be unique |
-| Metadata Value | String | The value for this metadata key          |
+| Field Name     | Format              | Value                                    |
+|:---------------|:--------------------|:-----------------------------------------|
+| Metadata Key   | [`String`](#string) | The metadata key, which should be unique |
+| Metadata Value | [`String`](#string) | The value for this metadata key          |
 
 The Metadata chunk (`META`) is a map of strings to strings. It represents metadata about the model, such as whether it was authored with `ExplicitAutoJoints` enabled.
 
@@ -128,16 +128,16 @@ The `SSTR` chunk has this layout:
 
 | Field Name          | Format                | Value                                        |
 |:--------------------|:----------------------|:---------------------------------------------|
-| Version             | u32                   | The version of the `SSTR` chunk (always `0`) |
-| Shared String Count | u32                   | The number of SharedStrings in the chunk     |
+| Version             | `u32`                 | The version of the `SSTR` chunk (always `0`) |
+| Shared String Count | `u32`                 | The number of SharedStrings in the chunk     |
 | Strings             | Array(Shared Strings) | The actual shared string entries             |
 
 A shared string entry looks like this:
 
-| Field Name    | Format   | Value                                                                   |
-|:--------------|:---------|:------------------------------------------------------------------------|
-| MD5 Hash      | 16 bytes | An [MD5](https://en.wikipedia.org/wiki/MD5) hash of the `Shared String` |
-| Shared String | String   | The string that's used by a later `PROP` chunk                          |
+| Field Name    | Format              | Value                                                                   |
+|:--------------|:--------------------|:------------------------------------------------------------------------|
+| MD5 Hash      | 16 bytes            | An [MD5](https://en.wikipedia.org/wiki/MD5) hash of the `Shared String` |
+| Shared String | [`String`](#string) | The string that's used by a later `PROP` chunk                          |
 
 The Shared String chunk (`SSTR`) is an array of strings. It's used to reduce the overall size of a file by allowing large strings to be reused in [`PROP`](#prop-chunk) chunks. The `MD5 Hash` isn't used by Roblox Studio when loading the file.
 
@@ -175,12 +175,12 @@ The length of **Referents** must equal **Instance Count**.
 ### `PROP` Chunk
 The `PROP` chunk has this layout:
 
-| Field Name    | Format       | Value                                                        |
-|:--------------|:-------------|:-------------------------------------------------------------|
-| Class ID      | u32          | The class ID assigned in the `INST` chunk                    |
-| Property Name | String       | The name of the property, like `CFrame`                      |
-| Type Marker   | u8           | The [Data Type](#data-types) of the property                 |
-| Values        | Array(value) | A list of values whose type is determined by **Type Marker** |
+| Field Name    | Format              | Value                                                        |
+|:--------------|:--------------------|:-------------------------------------------------------------|
+| Class ID      | `u32`               | The class ID assigned in the `INST` chunk                    |
+| Property Name | [`String`](#string) | The name of the property, like `CFrame`                      |
+| Type Marker   | `u8`                | The [Data Type](#data-types) of the property                 |
+| Values        | Array(Value)        | A list of values whose type is determined by **Type Marker** |
 
 The property chunk (`PROP`) defines a single property for a single instance type.
 
@@ -199,12 +199,12 @@ Because of the shape of this chunk, every instance of a given class must have th
 ### `PRNT` Chunk
 The `PRNT` chunk has this layout:
 
-| Field Name       | Format                       | Value                                       |
-|:-----------------|:-----------------------------|:--------------------------------------------|
-| Version          | u8                           | Always `0`                                  |
-| Instance Count   | u32                          | Number of instances described in this chunk |
-| Child Referents  | Array([Referent](#referent)) | Referents of child instances                |
-| Parent Referents | Array([Referent](#referent)) | Referents of parent instances               |
+| Field Name       | Format                         | Value                                       |
+|:-----------------|:-------------------------------|:--------------------------------------------|
+| Version          | `u8`                           | Always `0`                                  |
+| Instance Count   | `u32`                          | Number of instances described in this chunk |
+| Child Referents  | Array([`Referent`](#referent)) | Referents of child instances                |
+| Parent Referents | Array([`Referent`](#referent)) | Referents of parent instances               |
 
 The parent chunk (`PRNT`) defines the hierarchy relationship between every instance in the file.
 
@@ -241,7 +241,7 @@ The `String` type is stored as a length-prefixed sequence of bytes. The length i
 | Length     | `u32`        | The length of the string                 |
 | Data       | Array(Bytes) | The actual bytes that make up the string |
 
-When an array of strings is present, they are stored in sequence without any modification.
+When an array of Strings is present, they are stored in sequence without any modification.
 
 ### Bool
 **Type Marker `0x02`**
@@ -276,10 +276,10 @@ When an array of Float64s is present, they are in sequence with no transformatio
 
 The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an [`Int32`](#int32):
 
-| Field Name  | Format              | Value                             |
-|:------------|:--------------------|:----------------------------------|
-| Scale       | [Float32](#float32) | The `Scale` component of the UDim |
-| Offset      | [Int32](#int32)      | The `Offset` component of the UDim |
+| Field Name | Format                | Value                              |
+|:-----------|:----------------------|:-----------------------------------|
+| Scale      | [`Float32`](#float32) | The `Scale` component of the UDim  |
+| Offset     | [`Int32`](#int32)     | The `Offset` component of the UDim |
 
 When an array of UDims is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
 
@@ -290,12 +290,12 @@ The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the 
 ### UDim2
 **Type Marker `0x07`**
 
-The `UDim2` type is a struct composed of two `UDim`s, one for each axis:
+The `UDim2` type is a struct composed of two UDims, one for each axis:
 
-| Field Name  | Format              | Value                             |
-|:------------|:--------------------|:----------------------------------|
-| X           | [UDim](#udim)       | The `X` component of the UDim2    |
-| Y           | [UDim](#udim)       | The `Y` component of the UDim2    |
+| Field Name | Format          | Value                          |
+|:-----------|:----------------|:-------------------------------|
+| X          | [`UDim`](#udim) | The `X` component of the UDim2 |
+| Y          | [`UDim`](#udim) | The `Y` component of the UDim2 |
 
 `UDim2` is stored as four arrays of component values in the order `X.Scale`, `Y.Scale`, `X.Offset`, `Y.Offset`. Each array is separately [byte interleaved](#byte-interleaving).
 
@@ -341,13 +341,13 @@ As an example, three encoded BrickColors with values `Really red (1004)`, `Brigh
 ### Color3
 **Type Marker `0x0c`**
 
-The `Color3` type is a struct composed of three `Float32`s:
+The `Color3` type is a struct composed of three Float32s:
 
-| Field Name  | Format              | Value                             |
-|:------------|:--------------------|:----------------------------------|
-| R           | [Float32](#float32) | The `R` component of the Color3   |
-| G           | [Float32](#float32) | The `G` component of the Color3   |
-| B           | [Float32](#float32) | The `B` component of the Color3   |
+| Field Name | Format                | Value                           |
+|:-----------|:----------------------|:--------------------------------|
+| R          | [`Float32`](#float32) | The `R` component of the Color3 |
+| G          | [`Float32`](#float32) | The `G` component of the Color3 |
+| B          | [`Float32`](#float32) | The `B` component of the Color3 |
 
 `Color3` is stored as three arrays of components in the order `R`, `G`, `B`. Each array is separately [byte interleaved](#byte-interleaving).
 
@@ -356,31 +356,31 @@ An encoded `Color3` with RGB value `255, 180, 20` looks like this: `7f 00 00 00 
 ### Vector2
 **Type Marker `0x0d`**
 
-The `Vector2` type is a struct composed of two `Float32`s:
+The `Vector2` type is a struct composed of two Float32s:
 
-| Field Name  | Format              | Value                             |
-|:------------|:--------------------|:----------------------------------|
-| X           | [Float32](#float32) | The `X` component of the Vector2  |
-| Y           | [Float32](#float32) | The `Y` component of the Vector2  |
+| Field Name | Format                | Value                            |
+|:-----------|:----------------------|:---------------------------------|
+| X          | [`Float32`](#float32) | The `X` component of the Vector2 |
+| Y          | [`Float32`](#float32) | The `Y` component of the Vector2 |
 
 `Vector2` is stored as two arrays of components in the order `X`, `Y`. Each array is separately [byte interleaved](#byte-interleaving).
 
-Two encoded `Vector2`s with values `-100.80, 200.55`, `200.55, -100.80` look like this: `85 86 93 91 33 19 35 9a 86 85 91 93 19 33 9a 35`
+Two encoded Vector2s with values `-100.80, 200.55`, `200.55, -100.80` look like this: `85 86 93 91 33 19 35 9a 86 85 91 93 19 33 9a 35`
 
 ### Vector3
 **Type Marker `0x0e`**
 
-The `Vector3` type is a struct composed of three `Float32`s:
+The `Vector3` type is a struct composed of three Float32s:
 
-| Field Name  | Format              | Value                             |
-|:------------|:--------------------|:----------------------------------|
-| X           | [Float32](#float32) | The `X` component of the Vector3  |
-| Y           | [Float32](#float32) | The `Y` component of the Vector3  |
-| Z           | [Float32](#float32) | The `Z` component of the Vector3  |
+| Field Name | Format                | Value                            |
+|:-----------|:----------------------|:---------------------------------|
+| X          | [`Float32`](#float32) | The `X` component of the Vector3 |
+| Y          | [`Float32`](#float32) | The `Y` component of the Vector3 |
+| Z          | [`Float32`](#float32) | The `Z` component of the Vector3 |
 
 `Vector3` is stored as three arrays of components in the order `X`, `Y`, `Z`. Each array is separately [byte interleaved](#byte-interleaving).
 
-Two encoded `Vector3`s with values `1, 2, 3` and `-1, -2, -3` look like this: `7F 7F 00 00 00 00 00 01 80 80 00 00 00 00 00 01 80 80 80 80 00 00 00 01`.
+Two encoded Vector3s with values `1, 2, 3` and `-1, -2, -3` look like this: `7F 7F 00 00 00 00 00 01 80 80 00 00 00 00 00 01 80 80 80 80 00 00 00 01`.
 
 ### CFrame
 **Type Marker `0x10`**
@@ -389,11 +389,11 @@ The `CFrame` type is more complicated than other types. To save space, there are
 
 If the byte is `00`, a CFrame looks like this:
 
-| Field Name  | Format              | Value                                                                                                      |
-|:------------|:--------------------|:-----------------------------------------------------------------------------------------------------------|
-| ID          | `u8`                | Always `00` in this case.                                                                                  |
-| Orientation | Array of 9 `f32`s   | The rotation matrix of the CFrame. It represents the RightVector, UpVector, and LookVector, in that order. |
-| Position    | [Vector3](#vector3) | The position of the CFrame.                                                                                |
+| Field Name  | Format                | Value                                                                                                      |
+|:------------|:----------------------|:-----------------------------------------------------------------------------------------------------------|
+| ID          | `u8`                  | Always `00` in this case.                                                                                  |
+| Orientation | Array of 9 f32s       | The rotation matrix of the CFrame. It represents the RightVector, UpVector, and LookVector, in that order. |
+| Position    | [`Vector3`](#vector3) | The position of the CFrame.                                                                                |
 
 In this case, the `Orientation` field is stored as nine untransformed [IEEE-754 standard](https://en.wikipedia.org/wiki/Single-precision_floating-point_format) 32-bit floats.
 
@@ -448,15 +448,15 @@ The **correct** interpretation of this data, with accumulation, is:
 ### Vector3int16
 **Type Marker `0x14`**
 
-The `Vector3int16` type is stored as three little-endian `i16`s:
+The `Vector3int16` type is stored as three little-endian i16s:
 
 | Field Name | Format | Value                                |
 |:-----------|:-------|:-------------------------------------|
-| X          | i16    | The `X` component of the Vector3in16 |
-| X          | i16    | The `Y` component of the Vector3in16 |
-| X          | i16    | The `Z` component of the Vector3in16 |
+| X          | `i16`    | The `X` component of the Vector3in16 |
+| X          | `i16`    | The `Y` component of the Vector3in16 |
+| X          | `i16`    | The `Z` component of the Vector3in16 |
 
-Multiple `Vector3int16`s are stored in sequence without any transformations or interleaving. Two `Vector3int16`s with values `1, 2, 3` and `-1, -2, -3` are stored like this: `00 01 00 02 00 03 FF FF FE FF FD FF`.
+Multiple Vector3int16s are stored in sequence without any transformations or interleaving. Two Vector3int16s with values `1, 2, 3` and `-1, -2, -3` are stored like this: `00 01 00 02 00 03 FF FF FE FF FD FF`.
 
 ### NumberSequence
 **Type Marker `0x15`**
@@ -465,16 +465,16 @@ The `NumberSequence` type is stored as a `u32` indicating how many NumberSequenc
 
 | Field Name     | Format                        | Value                                   |
 |:---------------|:------------------------------|:----------------------------------------|
-| Keypoint count | u32                           | The number of keypoints in the sequence |
-| Keypoints      | Array(NumberSequenceKeypoint) | The data for the keypoints              |
+| Keypoint count | `u32`                           | The number of keypoints in the sequence |
+| Keypoints      | Array(`NumberSequenceKeypoint`) | The data for the keypoints              |
 
 `NumberSequenceKeypoint` is a struct composed of the following fields:
 
 | Field Name | Format | Value                         |
 |:-----------|:-------|:------------------------------|
-| Time       | f32    | The time for the keypoint     |
-| Value      | f32    | The value of the keypoint     |
-| Envelope   | f32    | The envelope for the keypoint |
+| Time       | `f32`  | The time for the keypoint     |
+| Value      | `f32`  | The value of the keypoint     |
+| Envelope   | `f32`  | The envelope for the keypoint |
 
 When multiple NumberSequences are present, they are stored in sequence with no transformation or interleaving. Two NumberSequences with values
 
@@ -503,16 +503,16 @@ The `ColorSequence` type is stored as a `u32` indicating how many ColorSequenceK
 
 | Field Name     | Format                       | Value                                   |
 |:---------------|:-----------------------------|:----------------------------------------|
-| Keypoint count | u32                          | The number of keypoints in the sequence |
-| Keypoints      | Array(ColorSequenceKeypoint) | The data for each keypoint              |
+| Keypoint count | `u32`                          | The number of keypoints in the sequence |
+| Keypoints      | Array(`ColorSequenceKeypoint`) | The data for each keypoint              |
 
 `ColorSequenceKeypoint` is a struct composed of the following fields:
 
 | Field Name        | Format            | Value                                        |
 |:------------------|:------------------|:---------------------------------------------|
-| Time              | f32               | The time value of the ColorSequenceKeypoint  |
-| Color             | [Color3](#Color3) | The color value of the ColorSequenceKeypoint |
-| Envelope (unused) | f32               | n/a; serialized, but not used                |
+| Time              | `f32`               | The time value of the ColorSequenceKeypoint  |
+| Color             | [`Color3`](#Color3) | The color value of the ColorSequenceKeypoint |
+| Envelope (unused) | `f32`               | n/a; serialized, but not used                |
 
 Note that `Color` is **not** subject to interleaving like a normal `Color3`. When multiple ColorSequences are present, they are stored in sequence with no transformation or interleaving. Two ColorSequences with values
 
@@ -541,8 +541,8 @@ The `NumberRange` type is stored as two little-endian floats:
 
 | Field Name | Format | Value                          |
 |:-----------|:-------|:-------------------------------|
-| Min        | f32    | The minimum value of the range |
-| Max        | f32    | The maximum value of the range |
+| Min        | `f32`  | The minimum value of the range |
+| Max        | `f32`  | The maximum value of the range |
 
 Multiple NumberRanges are stored in sequence with no transformation or interleaving. Two NumberRanges with values `NumberRange.new(0, 0.5)` and `NumberRange.new(0.5, 1)` look like this: `00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 80 3f`.
 
@@ -551,10 +551,10 @@ Multiple NumberRanges are stored in sequence with no transformation or interleav
 
 The `Rect` type is a struct composed of two Vector2s:
 
-| Field Name | Format              | Value                         |
-|:-----------|:--------------------|:------------------------------|
-| Min        | [Vector2](#vector2) | The minimum value of the Rect |
-| Max        | [Vector2](#vector2) | The maximum value of the Rect |
+| Field Name | Format                | Value                         |
+|:-----------|:----------------------|:------------------------------|
+| Min        | [`Vector2`](#vector2) | The minimum value of the Rect |
+| Max        | [`Vector2`](#vector2) | The maximum value of the Rect |
 
 `Rect` is stored as four arrays of [Float32](#float32)s in the order `Min.X`, `Min.Y`, `Max.X`, `Max.Y`. Each array is subject to [byte interleaving](#byte-interleaving).
 
@@ -567,11 +567,11 @@ The `PhysicalProperties` type contains a flag which may be followed by a `Custom
 
 | Field Name       | Format | Value                                                        |
 |:-----------------|:-------|:-------------------------------------------------------------|
-| Density          | f32    | The density set for the custom physical properties           |
-| Friction         | f32    | The friction set for the custom physical properties          |
-| Elasticity       | f32    | The elasticity set for the custom physical properties        |
-| FrictionWeight   | f32    | The friction weight set for the custom physical properties   |
-| ElasticityWeight | f32    | The elasticity weight set for the custom physical properties |
+| Density          | `f32`  | The density set for the custom physical properties           |
+| Friction         | `f32`  | The friction set for the custom physical properties          |
+| Elasticity       | `f32`  | The elasticity set for the custom physical properties        |
+| FrictionWeight   | `f32`  | The friction weight set for the custom physical properties   |
+| ElasticityWeight | `f32`  | The elasticity weight set for the custom physical properties |
 
 If there is no `CustomPhysicalProperties` value, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by a `CustomPhysicalProperties` stored as little-endian floats (in the same order as the above table). When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
 
@@ -582,11 +582,11 @@ A default `PhysicalProperties` (i.e. no custom properties set) followed by a `Ph
 
 The `Color3uint8` type is a struct made up of three bytes, one for each component:
 
-| Field Name  | Format | Value                                |
-|:------------|:-------|:-------------------------------------|
-| R           | u8     | The `R` component of the Color3uint8 |
-| G           | u8     | The `G` component of the Color3uint8 |
-| B           | u8     | The `B` component of the Color3uint8 |
+| Field Name | Format | Value                                |
+|:-----------|:-------|:-------------------------------------|
+| R          | `u8`   | The `R` component of the Color3uint8 |
+| G          | `u8`   | The `G` component of the Color3uint8 |
+| B          | `u8`   | The `B` component of the Color3uint8 |
 
 `Color3uint8` is stored as three consecutive arrays of components in the order `R`, `G`, `B`. It is not subject to any transformation or byte interleaving.
 
@@ -602,7 +602,7 @@ When an array of Int64s is present, the bytes of the integers are subject to [by
 ### SharedString
 **Type Marker `0x1c`**
 
-SharedStrings are stored as an [Interleaved Array](#byte-interleaving) of `u32`s that represent indices in the [`SSTR`](#sstr-chunk) string array.
+SharedStrings are stored as an [Interleaved Array](#byte-interleaving) of u32s that represent indices in the [`SSTR`](#sstr-chunk) string array.
 
 ### OptionalCoordinateFrame
 **Type Marker `0x1e`**
