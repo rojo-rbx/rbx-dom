@@ -201,12 +201,12 @@ Because of the shape of this chunk, every instance of a given type must have the
 ### `PRNT` Chunk
 The `PRNT` chunk has this layout:
 
-| Field Name        | Format                       | Value                                     |
-|:------------------|:-----------------------------|:------------------------------------------|
-| Version           | u8                           | Always `0`                                |
-| Number of Objects | u32                          | Number of objects described in this chunk |
-| Objects           | Array([Referent](#referent)) | Objects to be parented                    |
-| Parents           | Array(Referent)              | Parents for objects                       |
+| Field Name       | Format                       | Value                                       |
+|:-----------------|:-----------------------------|:--------------------------------------------|
+| Version          | u8                           | Always `0`                                  |
+| Instance Count   | u32                          | Number of instances described in this chunk |
+| Child Referents  | Array([Referent](#referent)) | Referents of child instances                |
+| Parent Referents | Array([Referent](#referent)) | Referents of parent instances               |
 
 The parent chunk (`PRNT`) defines the hierarchy relationship between every instance in the file.
 
@@ -214,9 +214,9 @@ There should be exactly one `PRNT` chunk.
 
 **Version** field should currently always be zero.
 
-**Number of Objects** should be the same as the number of instances in the file header chunk, since each object should have a parent.
+**Instance Count** should be equal to the number of instances in the file header chunk, since each object should have a parent.
 
-**Object Array** and **Parent Array** should both have length equal to **Number of Objects**. The parent of the ID at position *N* in the **Object Array** is a child of the ID at position *N* in the **Parent Array**.
+**Child Referents** and **Parent Referents** should both have length equal to **Instance Count**. The parent of the ID at position *N* in **Child Referents** is a child of the ID at position *N* in **Parent Referents**.
 
 A null parent referent (`-1`) indicates that the object is a root instance. In a place, that means the object is a child of `DataModel`. In a model, that means the object should be placed directly under the object the model is being inserted into.
 
