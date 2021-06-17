@@ -1,23 +1,20 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: "{1, 2, 3}, {-4, -5, -6}"
   class: RayValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: Ray
-      Value:
+      Ray:
         Origin:
           - 1.0
           - 2.0
@@ -32,17 +29,13 @@ expression: decoded_viewed
   class: RayValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value:
-      Type: Ray
-      Value:
+      Ray:
         Origin:
           - .inf
           - -.inf
@@ -52,3 +45,4 @@ expression: decoded_viewed
           - 0.15625
           - 0.10000000149011612
   children: []
+

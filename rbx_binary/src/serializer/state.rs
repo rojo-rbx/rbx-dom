@@ -2,7 +2,7 @@ use std::{
     borrow::{Borrow, Cow},
     collections::{BTreeMap, BTreeSet, HashMap, VecDeque},
     convert::TryInto,
-    io::{self, Write},
+    io::Write,
     u32,
 };
 
@@ -16,7 +16,6 @@ use rbx_dom_weak::{
     WeakDom,
 };
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
-use thiserror::Error;
 
 use crate::{
     cframe,
@@ -27,82 +26,14 @@ use crate::{
     types::Type,
 };
 
+use super::error::InnerError;
+
 static FILE_FOOTER: &[u8] = b"</roblox>";
-
-/// Represents an error that occurred during serialization.
-#[derive(Debug, Error)]
-#[error(transparent)]
-pub struct Error {
-    source: Box<InnerError>,
-}
-
-impl From<InnerError> for Error {
-    fn from(inner: InnerError) -> Self {
-        Self {
-            source: Box::new(inner),
-        }
-    }
-}
-
-#[derive(Debug, Error)]
-enum InnerError {
-    #[error(transparent)]
-    Io {
-        #[from]
-        source: io::Error,
-    },
-
-    #[error(
-        "Property type mismatch: Expected {type_name}.{prop_name} to be of type {valid_type_names}, \
-        but it was of type {actual_type_name} on instance {instance_full_name}",
-    )]
-    PropTypeMismatch {
-        type_name: String,
-        prop_name: String,
-        valid_type_names: &'static str,
-        actual_type_name: String,
-        instance_full_name: String,
-    },
-
-    #[error("Unsupported property type: {type_name}.{prop_name} is of type {prop_type}")]
-    UnsupportedPropType {
-        type_name: String,
-        prop_name: String,
-        prop_type: String,
-    },
-
-    #[error("The instance with referent {referent:?} was not present in the dom.")]
-    InvalidInstanceId { referent: Ref },
-}
-
-/// Serializes instances from an `WeakDom` into a writer in Roblox's binary
-/// model format.
-pub fn encode<W: Write>(dom: &WeakDom, refs: &[Ref], writer: W) -> Result<(), Error> {
-    let mut serializer = BinarySerializer::new(dom, writer);
-
-    serializer.add_instances(refs)?;
-
-    log::debug!("Type info discovered: {:#?}", serializer.type_infos);
-
-    serializer.generate_referents();
-
-    log::trace!("Referents constructed: {:#?}", serializer.id_to_referent);
-
-    serializer.write_header()?;
-    serializer.serialize_metadata()?;
-    serializer.serialize_shared_strings()?;
-    serializer.serialize_instances()?;
-    serializer.serialize_properties()?;
-    serializer.serialize_parents()?;
-    serializer.serialize_end()?;
-
-    Ok(())
-}
 
 /// Represents all of the state during a single serialization session. A new
 /// `BinarySerializer` object should be created every time we want to serialize
 /// a binary model file.
-struct BinarySerializer<'a, W> {
+pub(super) struct SerializerState<'a, W> {
     /// The dom containing all of the instances that we're serializing.
     dom: &'a WeakDom,
 
@@ -279,9 +210,9 @@ impl TypeInfos {
     }
 }
 
-impl<'a, W: Write> BinarySerializer<'a, W> {
-    fn new(dom: &'a WeakDom, output: W) -> Self {
-        BinarySerializer {
+impl<'a, W: Write> SerializerState<'a, W> {
+    pub fn new(dom: &'a WeakDom, output: W) -> Self {
+        SerializerState {
             dom,
             output,
             relevant_instances: Vec::new(),
@@ -294,7 +225,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Mark the given instance IDs and all of their descendants as intended for
     /// serialization with this serializer.
-    fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
+    pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
         let mut to_visit = VecDeque::new();
         to_visit.extend(referents);
 
@@ -307,6 +238,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             to_visit.extend(instance.children());
         }
 
+        log::debug!("Type info discovered: {:#?}", self.type_infos);
+
         Ok(())
     }
 
@@ -315,7 +248,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     // Using the entry API here, as Clippy suggests, would require us to
     // clone canonical_name in a cold branch. We don't want to do that.
     #[allow(clippy::map_entry)]
-    fn collect_type_info(&mut self, referent: Ref) -> Result<(), InnerError> {
+    pub fn collect_type_info(&mut self, referent: Ref) -> Result<(), InnerError> {
         let instance = self
             .dom
             .get_by_ref(referent)
@@ -329,7 +262,8 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
             let serialized_name;
             let serialized_ty;
 
-            match find_property_descriptors(&instance.class, prop_name) {
+            let database = rbx_reflection_database::get();
+            match find_property_descriptors(database, &instance.class, prop_name) {
                 Some(descriptors) => {
                     // For any properties that do not serialize, we can skip
                     // adding them to the set of type_infos.
@@ -440,16 +374,18 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Populate the map from rbx-dom's instance ID space to the IDs that we'll
     /// be serializing to the model.
-    fn generate_referents(&mut self) {
+    pub fn generate_referents(&mut self) {
         self.id_to_referent.reserve(self.relevant_instances.len());
 
         for (next_referent, id) in self.relevant_instances.iter().enumerate() {
             self.id_to_referent
                 .insert(*id, next_referent.try_into().unwrap());
         }
+
+        log::trace!("Referents constructed: {:#?}", self.id_to_referent);
     }
 
-    fn write_header(&mut self) -> Result<(), InnerError> {
+    pub fn write_header(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing header");
 
         self.output.write_all(FILE_MAGIC_HEADER)?;
@@ -466,7 +402,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     }
 
     /// Write out any metadata about this file, stored in a chunk named META.
-    fn serialize_metadata(&mut self) -> Result<(), InnerError> {
+    pub fn serialize_metadata(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing metadata (currently no-op)");
         // TODO: There is no concept of metadata in a dom yet.
         Ok(())
@@ -474,7 +410,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Write out all of the SharedStrings in this file, if any exist,
     /// stored in a chunk named SSTR.
-    fn serialize_shared_strings(&mut self) -> Result<(), InnerError> {
+    pub fn serialize_shared_strings(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing shared string chunk");
 
         if self.shared_strings.is_empty() {
@@ -499,7 +435,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Write out the declarations of all instances, stored in a series of
     /// chunks named INST.
-    fn serialize_instances(&mut self) -> Result<(), InnerError> {
+    pub fn serialize_instances(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing instance chunks");
 
         for (type_name, type_info) in &self.type_infos.values {
@@ -553,7 +489,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write out batch declarations of property values for the instances
     /// previously defined in the INST chunks. Property data is contained in
     /// chunks named PROP.
-    fn serialize_properties(&mut self) -> Result<(), InnerError> {
+    pub fn serialize_properties(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing properties");
 
         for (type_name, type_info) in &self.type_infos.values {
@@ -892,10 +828,10 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::Ref(value) = rbx_value.as_ref() {
-                                if value.is_none() {
-                                    buf.push(-1);
-                                } else if let Some(id) = self.id_to_referent.get(value) {
+                                if let Some(id) = self.id_to_referent.get(value) {
                                     buf.push(*id);
+                                } else {
+                                    buf.push(-1);
                                 }
                             } else {
                                 return type_mismatch(i, &rbx_value, "Ref");
@@ -1122,7 +1058,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
 
     /// Write out the hierarchical relations between instances, stored in a
     /// chunk named PRNT.
-    fn serialize_parents(&mut self) -> Result<(), InnerError> {
+    pub fn serialize_parents(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing parent relationships");
 
         let mut chunk = ChunkBuilder::new(b"PRNT", ChunkCompression::Compressed);
@@ -1162,7 +1098,7 @@ impl<'a, W: Write> BinarySerializer<'a, W> {
     /// Write the fixed, uncompressed end chunk used to verify that the file
     /// hasn't been truncated mistakenly. This chunk is named END\0, with a zero
     /// byte at the end.
-    fn serialize_end(&mut self) -> Result<(), InnerError> {
+    pub fn serialize_end(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing file end");
 
         let mut end = ChunkBuilder::new(b"END\0", ChunkCompression::Uncompressed);

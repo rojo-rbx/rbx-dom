@@ -3,7 +3,9 @@ use std::{
     mem,
 };
 
-use rbx_reflection::{ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization};
+use rbx_reflection::{
+    ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
+};
 
 pub static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
 pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
@@ -323,25 +325,19 @@ pub fn untransform_i64(value: i64) -> i64 {
     ((value as u64) >> 1) as i64 ^ -(value & 1)
 }
 
-pub fn find_canonical_property_descriptor(
-    class_name: &str,
-    property_name: &str,
-) -> Option<&'static PropertyDescriptor<'static>> {
-    find_property_descriptors(class_name, property_name).map(|descriptors| descriptors.canonical)
-}
-
-pub struct PropertyDescriptors {
-    pub canonical: &'static PropertyDescriptor<'static>,
-    pub serialized: Option<&'static PropertyDescriptor<'static>>,
+pub struct PropertyDescriptors<'a> {
+    pub canonical: &'a PropertyDescriptor<'a>,
+    pub serialized: Option<&'a PropertyDescriptor<'a>>,
 }
 
 /// Find both the canonical and serialized property descriptors for a given
 /// class and property name pair. These might be the same descriptor!
-pub fn find_property_descriptors(
+pub fn find_property_descriptors<'a>(
+    database: &'a ReflectionDatabase<'a>,
     class_name: &str,
     property_name: &str,
-) -> Option<PropertyDescriptors> {
-    let mut class_descriptor = rbx_reflection_database::get().classes.get(class_name)?;
+) -> Option<PropertyDescriptors<'a>> {
+    let mut class_descriptor = database.classes.get(class_name)?;
 
     // We need to find the canonical property descriptor associated with
     // the property we're working with.
@@ -414,7 +410,7 @@ pub fn find_property_descriptors(
             // If a property descriptor isn't found in our class, check our
             // superclass.
 
-            class_descriptor = rbx_reflection_database::get()
+            class_descriptor = database
                 .classes
                 .get(superclass_name)
                 .expect("Superclass in reflection database didn't exist");
@@ -430,11 +426,11 @@ pub fn find_property_descriptors(
 /// Given the canonical property descriptor for a logical property along with
 /// its serialization, returns the serialized form of the logical property if
 /// this property is serializable.
-fn find_serialized_from_canonical(
-    class: &'static ClassDescriptor<'static>,
-    canonical: &'static PropertyDescriptor<'static>,
-    serialization: &'static PropertySerialization<'static>,
-) -> Option<&'static PropertyDescriptor<'static>> {
+fn find_serialized_from_canonical<'a>(
+    class: &'a ClassDescriptor<'a>,
+    canonical: &'a PropertyDescriptor<'a>,
+    serialization: &'a PropertySerialization<'a>,
+) -> Option<&'a PropertyDescriptor<'a>> {
     match serialization {
         // This property serializes as-is. This is the happiest path: both the
         // canonical and serialized descriptors are the same!

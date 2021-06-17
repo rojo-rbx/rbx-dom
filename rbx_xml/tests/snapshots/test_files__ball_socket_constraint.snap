@@ -1,6 +1,7 @@
 ---
 source: rbx_xml/tests/test-files.rs
 expression: viewer.view_children(&dom)
+
 ---
 - referent: referent-0
   name: BallSocketConstraint
@@ -9,42 +10,30 @@ expression: viewer.view_children(&dom)
     Attachment0: "null"
     Attachment1: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color:
-      Type: BrickColor
-      Value: 1009
+      BrickColor: 1009
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     LimitsEnabled:
-      Type: Bool
-      Value: false
+      Bool: false
     Radius:
-      Type: Float32
-      Value: 0.15000000596046449
+      Float32: 0.15000000596046449
     Restitution:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     TwistLimitsEnabled:
-      Type: Bool
-      Value: false
+      Bool: false
     TwistLowerAngle:
-      Type: Float32
-      Value: -45.0
+      Float32: -45.0
     TwistUpperAngle:
-      Type: Float32
-      Value: 45.0
+      Float32: 45.0
     UpperAngle:
-      Type: Float32
-      Value: 45.0
+      Float32: 45.0
     Visible:
-      Type: Bool
-      Value: false
+      Bool: false
   children: []
+

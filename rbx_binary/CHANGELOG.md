@@ -1,6 +1,14 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Fixed null Refs not being written for unserialized instances. ([#184][pr-184])
+* Changed interface:
+  * Renamed `from_reader_default` to `from_reader`.
+  * Added `Deserializer` type.
+  * Renamed `from_writer_default` to `from_writer` and reordered arguments.
+  * Added `Serializer` type.
+
+[pr-184]: https://github.com/rojo-rbx/rbx-dom/pull/184
 
 ## 0.6.0-alpha.5 (2021-05-14)
 * Added `OptionalCoordinateFrame` support. ([#176][pr-176])

@@ -1,37 +1,33 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: Grandparent
   class: Folder
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
   children:
     - referent: referent-1
       name: Parent
       class: Folder
       properties:
         AttributesSerialize:
-          Type: BinaryString
-          Value: ""
+          BinaryString: ""
         Tags:
-          Type: BinaryString
-          Value: ""
+          BinaryString: ""
       children:
         - referent: referent-2
           name: Child
           class: Folder
           properties:
             AttributesSerialize:
-              Type: BinaryString
-              Value: ""
+              BinaryString: ""
             Tags:
-              Type: BinaryString
-              Value: ""
+              BinaryString: ""
           children: []
+

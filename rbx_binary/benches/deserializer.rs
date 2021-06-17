@@ -32,7 +32,7 @@ pub fn de_modulescripts_100_lines_100(c: &mut Criterion) {
 
 #[inline(always)]
 fn deserialize_bench(buffer: &[u8]) {
-    rbx_binary::from_reader_default(buffer).unwrap();
+    rbx_binary::from_reader(buffer).unwrap();
 }
 
 criterion_group!(

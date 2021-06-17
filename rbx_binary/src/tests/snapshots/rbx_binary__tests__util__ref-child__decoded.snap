@@ -1,17 +1,16 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: Value
   class: ObjectValue
   properties:
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Value: referent-1
   children:
     - referent: referent-1
@@ -19,9 +18,8 @@ expression: decoded_viewed
       class: Folder
       properties:
         AttributesSerialize:
-          Type: BinaryString
-          Value: ""
+          BinaryString: ""
         Tags:
-          Type: BinaryString
-          Value: ""
+          BinaryString: ""
       children: []
+

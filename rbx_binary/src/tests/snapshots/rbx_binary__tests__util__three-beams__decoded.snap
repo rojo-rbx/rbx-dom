@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: Beam
@@ -9,11 +10,9 @@ expression: decoded_viewed
     Attachment0: "null"
     Attachment1: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color:
-      Type: ColorSequence
-      Value:
+      ColorSequence:
         Keypoints:
           - Time: 0.0
             Color:
@@ -31,47 +30,33 @@ expression: decoded_viewed
               - 1.0
               - 1.0
     CurveSize0:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     CurveSize1:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     FaceCamera:
-      Type: Bool
-      Value: false
+      Bool: false
     LightEmission:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     LightInfluence:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Segments:
-      Type: Int32
-      Value: 10
+      Int32: 10
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Texture:
-      Type: Content
-      Value: ""
+      Content: ""
     TextureLength:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     TextureMode:
-      Type: Enum
-      Value: 0
+      Enum: 0
     TextureSpeed:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Transparency:
-      Type: NumberSequence
-      Value:
+      NumberSequence:
         Keypoints:
           - Time: 0.0
             Value: 0.5
@@ -80,14 +65,11 @@ expression: decoded_viewed
             Value: 0.5
             Envelope: 0.0
     Width0:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Width1:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     ZOffset:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
   children: []
 - referent: referent-1
   name: Beam
@@ -96,11 +78,9 @@ expression: decoded_viewed
     Attachment0: "null"
     Attachment1: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color:
-      Type: ColorSequence
-      Value:
+      ColorSequence:
         Keypoints:
           - Time: 0.0
             Color:
@@ -113,47 +93,33 @@ expression: decoded_viewed
               - 1.0
               - 1.0
     CurveSize0:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     CurveSize1:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Enabled:
-      Type: Bool
-      Value: false
+      Bool: false
     FaceCamera:
-      Type: Bool
-      Value: false
+      Bool: false
     LightEmission:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     LightInfluence:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Segments:
-      Type: Int32
-      Value: 10
+      Int32: 10
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Texture:
-      Type: Content
-      Value: ""
+      Content: ""
     TextureLength:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     TextureMode:
-      Type: Enum
-      Value: 0
+      Enum: 0
     TextureSpeed:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Transparency:
-      Type: NumberSequence
-      Value:
+      NumberSequence:
         Keypoints:
           - Time: 0.0
             Value: 0.5
@@ -162,14 +128,11 @@ expression: decoded_viewed
             Value: 0.5
             Envelope: 0.0
     Width0:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Width1:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     ZOffset:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
   children: []
 - referent: referent-2
   name: Beam
@@ -178,11 +141,9 @@ expression: decoded_viewed
     Attachment0: "null"
     Attachment1: "null"
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Color:
-      Type: ColorSequence
-      Value:
+      ColorSequence:
         Keypoints:
           - Time: 0.0
             Color:
@@ -200,47 +161,33 @@ expression: decoded_viewed
               - 0.0
               - 1.0
     CurveSize0:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     CurveSize1:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     Enabled:
-      Type: Bool
-      Value: true
+      Bool: true
     FaceCamera:
-      Type: Bool
-      Value: false
+      Bool: false
     LightEmission:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     LightInfluence:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Segments:
-      Type: Int32
-      Value: 10
+      Int32: 10
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     Texture:
-      Type: Content
-      Value: ""
+      Content: ""
     TextureLength:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     TextureMode:
-      Type: Enum
-      Value: 0
+      Enum: 0
     TextureSpeed:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Transparency:
-      Type: NumberSequence
-      Value:
+      NumberSequence:
         Keypoints:
           - Time: 0.0
             Value: 0.5
@@ -249,12 +196,10 @@ expression: decoded_viewed
             Value: 0.5
             Envelope: 0.0
     Width0:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     Width1:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     ZOffset:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
   children: []
+

@@ -3,8 +3,8 @@ use std::collections::HashMap;
 use rbx_types::{Ref, Variant};
 
 /**
-Represents an instance that can be turned into a new `WeakDom`, or inserted
-into an existing one.
+Represents an instance that can be turned into a new
+[`WeakDom`][crate::WeakDom], or inserted into an existing one.
 
 ## Examples
 Instances have the given ClassName and Name and no properties by default.
@@ -144,10 +144,10 @@ impl InstanceBuilder {
     }
 }
 
-/// An instance contained inside of a `WeakDom`.
+/// An instance contained inside of a [`WeakDom`][crate::WeakDom].
 ///
-/// Operations that could affect other instances contained in the `WeakDom`
-/// cannot be performed on an `Instance` correctly.
+/// Operations that could affect other instances contained in the
+/// [`WeakDom`][crate::WeakDom] cannot be performed on an `Instance` correctly.
 #[derive(Debug)]
 pub struct Instance {
     pub(crate) referent: Ref,
@@ -173,15 +173,15 @@ impl Instance {
 
     /// Returns a list of the referents corresponding to the instance's
     /// children. All referents returned will be non-null and point to valid
-    /// instances in the same [`WeakDom`].
+    /// instances in the same [`WeakDom`][crate::WeakDom].
     #[inline]
     pub fn children(&self) -> &[Ref] {
         &self.children
     }
 
     /// Returns the referent corresponding to this instance's parent. This
-    /// referent will either point to an instance in the same [`WeakDom`] or be
-    /// null.
+    /// referent will either point to an instance in the same
+    /// [`WeakDom`][crate::WeakDom] or be null.
     #[inline]
     pub fn parent(&self) -> Ref {
         self.parent

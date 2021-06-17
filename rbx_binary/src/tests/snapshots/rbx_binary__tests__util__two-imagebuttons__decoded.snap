@@ -1,310 +1,238 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
+
 ---
 - referent: referent-0
   name: ImageButton
   class: ImageButton
   properties:
     Active:
-      Type: Bool
-      Value: true
+      Bool: true
     AnchorPoint:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     AutoButtonColor:
-      Type: Bool
-      Value: true
+      Bool: true
     AutoLocalize:
-      Type: Bool
-      Value: true
+      Bool: true
     AutomaticSize:
-      Type: Enum
-      Value: 0
+      Enum: 0
     BackgroundColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 1.0
         - 1.0
         - 1.0
     BackgroundTransparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     BorderColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.10588236153125763
         - 0.16470588743686677
         - 0.20784315466880799
     BorderMode:
-      Type: Enum
-      Value: 0
+      Enum: 0
     BorderSizePixel:
-      Type: Int32
-      Value: 1
+      Int32: 1
     ClipsDescendants:
-      Type: Bool
-      Value: false
+      Bool: false
     Draggable:
-      Type: Bool
-      Value: false
+      Bool: false
     HoverImage:
-      Type: Content
-      Value: ""
+      Content: ""
     Image:
-      Type: Content
-      Value: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+      Content: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 1.0
         - 1.0
         - 1.0
     ImageRectOffset:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     ImageRectSize:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     ImageTransparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     LayoutOrder:
-      Type: Int32
-      Value: 0
+      Int32: 0
     Modal:
-      Type: Bool
-      Value: false
+      Bool: false
     NextSelectionDown: "null"
     NextSelectionLeft: "null"
     NextSelectionRight: "null"
     NextSelectionUp: "null"
     Position:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.0
           - 0
         - - 0.0
           - 0
     PressedImage:
-      Type: Content
-      Value: ""
+      Content: ""
     RootLocalizationTable: "null"
     Rotation:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     ScaleType:
-      Type: Enum
-      Value: 1
+      Enum: 1
     Selectable:
-      Type: Bool
-      Value: true
+      Bool: true
     Selected:
-      Type: Bool
-      Value: false
+      Bool: false
     SelectionImageObject: "null"
     Size:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.0
           - 100
         - - 0.0
           - 100
     SizeConstraint:
-      Type: Enum
-      Value: 0
+      Enum: 0
     SliceCenter:
-      Type: Rect
-      Value:
+      Rect:
         - - -1.0
           - -10.0
         - - 8.0
           - 9.0
     SliceScale:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     TileSize:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 1.0
           - 0
         - - 1.0
           - 0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
     ZIndex:
-      Type: Int32
-      Value: 1
+      Int32: 1
   children: []
 - referent: referent-1
   name: ImageButton
   class: ImageButton
   properties:
     Active:
-      Type: Bool
-      Value: true
+      Bool: true
     AnchorPoint:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     AttributesSerialize:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     AutoButtonColor:
-      Type: Bool
-      Value: true
+      Bool: true
     AutoLocalize:
-      Type: Bool
-      Value: true
+      Bool: true
     AutomaticSize:
-      Type: Enum
-      Value: 0
+      Enum: 0
     BackgroundColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 1.0
         - 1.0
         - 1.0
     BackgroundTransparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     BorderColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 0.10588236153125763
         - 0.16470588743686677
         - 0.20784315466880799
     BorderMode:
-      Type: Enum
-      Value: 0
+      Enum: 0
     BorderSizePixel:
-      Type: Int32
-      Value: 1
+      Int32: 1
     ClipsDescendants:
-      Type: Bool
-      Value: false
+      Bool: false
     Draggable:
-      Type: Bool
-      Value: false
+      Bool: false
     HoverImage:
-      Type: Content
-      Value: ""
+      Content: ""
     Image:
-      Type: Content
-      Value: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+      Content: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageColor3:
-      Type: Color3
-      Value:
+      Color3:
         - 1.0
         - 1.0
         - 1.0
     ImageRectOffset:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     ImageRectSize:
-      Type: Vector2
-      Value:
+      Vector2:
         - 0.0
         - 0.0
     ImageTransparency:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     LayoutOrder:
-      Type: Int32
-      Value: 0
+      Int32: 0
     Modal:
-      Type: Bool
-      Value: false
+      Bool: false
     NextSelectionDown: "null"
     NextSelectionLeft: "null"
     NextSelectionRight: "null"
     NextSelectionUp: "null"
     Position:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.0
           - 0
         - - 0.0
           - 0
     PressedImage:
-      Type: Content
-      Value: ""
+      Content: ""
     RootLocalizationTable: "null"
     Rotation:
-      Type: Float32
-      Value: 0.0
+      Float32: 0.0
     ScaleType:
-      Type: Enum
-      Value: 1
+      Enum: 1
     Selectable:
-      Type: Bool
-      Value: true
+      Bool: true
     Selected:
-      Type: Bool
-      Value: false
+      Bool: false
     SelectionImageObject: "null"
     Size:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 0.0
           - 100
         - - 0.0
           - 100
     SizeConstraint:
-      Type: Enum
-      Value: 0
+      Enum: 0
     SliceCenter:
-      Type: Rect
-      Value:
+      Rect:
         - - 0.0
           - 1.0
         - - 5.0
           - 6.0
     SliceScale:
-      Type: Float32
-      Value: 1.0
+      Float32: 1.0
     SourceAssetId:
-      Type: Int64
-      Value: -1
+      Int64: -1
     Style:
-      Type: Enum
-      Value: 0
+      Enum: 0
     Tags:
-      Type: BinaryString
-      Value: ""
+      BinaryString: ""
     TileSize:
-      Type: UDim2
-      Value:
+      UDim2:
         - - 1.0
           - 0
         - - 1.0
           - 0
     Visible:
-      Type: Bool
-      Value: true
+      Bool: true
     ZIndex:
-      Type: Int32
-      Value: 1
+      Int32: 1
   children: []
+

@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 * Added an `Attributes` struct to facilitate reading and writing of attribute values.
+* Changed `Variant` serialization to use Serde's default enum representation.
+  * Before: `{ "type": "Vector2", "value": [1.0, 2.0] }`
+  * After: `{ "Vector2": [1.0, 2.0] }`
 
 ## 0.3.1 (2021-05-14)
 * Added `Variant::OptionalCoordinateFrame`.
