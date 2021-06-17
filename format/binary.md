@@ -175,12 +175,12 @@ The length of **Referents** must equal **Instance Count**.
 ### `PROP` Chunk
 The `PROP` chunk has this layout:
 
-| Field Name    | Format              | Value                                                        |
-|:--------------|:--------------------|:-------------------------------------------------------------|
-| Class ID      | `u32`               | The class ID assigned in the `INST` chunk                    |
-| Property Name | [`String`](#string) | The name of the property, like `CFrame`                      |
-| Type Marker   | `u8`                | The [Data Type](#data-types) of the property                 |
-| Values        | Array(Value)        | A list of values whose type is determined by **Type Marker** |
+| Field Name    | Format              | Value                                                    |
+|:--------------|:--------------------|:---------------------------------------------------------|
+| Class ID      | `u32`               | The class ID assigned in the `INST` chunk                |
+| Property Name | [`String`](#string) | The name of the property, like `CFrame`                  |
+| Type ID       | `u8`                | The [Data Type](#data-types) of the property             |
+| Values        | Array(Value)        | A list of values whose type is determined by **Type ID** |
 
 The property chunk (`PROP`) defines a single property for a single instance type.
 
@@ -192,9 +192,9 @@ Because of the shape of this chunk, every instance of a given class must have th
 
 **Property Name** defines the serializable name of the property. Note that this is not necessarily the same as the name reflected to Lua, which is sometimes referred to as the _canonical name_.
 
-**Type Marker** corresponds to a [Data Type's](#data-types) **Type Marker**.
+**Type ID** corresponds to a [Data Type's](#data-types) **Type ID**.
 
-**Values** contains an array of values whose type is determined by **Type Marker** and whose length is equal to the number of instances belonging to **Class ID**.
+**Values** contains an array of values whose type is determined by **Type ID** and whose length is equal to the number of instances belonging to **Class ID**.
 
 ### `PRNT` Chunk
 The `PRNT` chunk has this layout:
@@ -232,7 +232,7 @@ The `END` chunk must not be compressed. It is used as a rough form of file valid
 ## Data Types
 
 ### String
-**Type Marker `0x01`**
+**Type ID `0x01`**
 
 The `String` type is stored as a length-prefixed sequence of bytes. The length is stored as an untransformed 32-bit integer. Strings are UTF-8 encoded.
 
@@ -244,35 +244,35 @@ The `String` type is stored as a length-prefixed sequence of bytes. The length i
 When an array of Strings is present, they are stored in sequence without any modification.
 
 ### Bool
-**Type Marker `0x02`**
+**Type ID `0x02`**
 
 The `Bool` type is stored as a single byte. If the byte is `0x00`, the bool is `false`. If it is `0x01`, it is `true`.
 
 When an array of Bools is present, they are stored in sequence.
 
 ### Int32
-**Type Marker `0x03`**
+**Type ID `0x03`**
 
 The `Int32` type is stored as a big-endian [transformed 32-bit integer](#integer-transformations).
 
 When an array of Int32s is present, the bytes of the integers are subject to [byte interleaving](#byte-interleaving).
 
 ### Float32
-**Type Marker `0x04`**
+**Type ID `0x04`**
 
 The `Float32` type is stored using the [Roblox float format](#roblox-float-format) and is little-endian. This datatype is also called `float` or `single`.
 
 When an array of Float32s is present, the bytes of the floats are subject to [byte interleaving](#byte-interleaving).
 
 ### Float64
-**Type Marker `0x05`**
+**Type ID `0x05`**
 
 The `Float64` type is stored using the [IEEE-754 format](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) and is little-endian. This datatype is also called `double`.
 
 When an array of Float64s is present, they are in sequence with no transformations.
 
 ### UDim
-**Type Marker `0x06`**
+**Type ID `0x06`**
 
 The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an [`Int32`](#int32):
 
@@ -288,7 +288,7 @@ Two UDims with values `{1, 2}` and `{3, 4}` look like this: `7f 80 00 80 00 00 0
 The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the UDims. The latter 8 bytes (`00 00 00 00 00 00 04 08`) represent the Offset values. From there, the values are paired off, so that the first value in each array make up the components of the first UDim, and so on.
 
 ### UDim2
-**Type Marker `0x07`**
+**Type ID `0x07`**
 
 The `UDim2` type is a struct composed of two UDims, one for each axis:
 
@@ -302,7 +302,7 @@ The `UDim2` type is a struct composed of two UDims, one for each axis:
 An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00 00 7f 80 00 01 00 00 00 3b 00 00 00 78`.
 
 ### Ray
-**Type Marker `0x08`**
+**Type ID `0x08`**
 
 The `Ray` type is a struct composed of six little-endian f32s, making up the components of the `Origin` and then the `Direction` of the Ray:
 
@@ -318,28 +318,28 @@ The `Ray` type is a struct composed of six little-endian f32s, making up the com
 The components are stored in order without any additional transformations. When an array of `Rays` is present, they're stored in order but otherwise without transformation.
 
 ### Faces
-**Type Marker `0x09`**
+**Type ID `0x09`**
 
 The `Faces` type is a single byte used as a bit field. The low 6 bits represent the `Front`, `Bottom`, `Left`, `Back`, `Top`, and `Right` faces, in that order. The remaining two bits have no meaning. `Faces` is stored as an array of bytes with no transformations or interleaving.
 
 Three encoded `Faces` with values `Front`, `Back, Top` and `Bottom, Left, Right` looks like this: `01 18 26`.
 
 ### Axes
-**Type Marker `0x0a`**
+**Type ID `0x0a`**
 
 The `Axes` type is a single byte used as a bit field. The low three bits represent the `X`, `Y`, and `Z` axes, in that order. The remaining five bits have no meaning. `Axes` is stored as an array of bytes with no transformations or interleaving.
 
 Three encoded `Axes` with values `X`, `X Y`, and `X Z` look like this: `01 03 05`.
 
 ### BrickColor
-**Type Marker `0x0b`**
+**Type ID `0x0b`**
 
 The `BrickColor` type is a single untransformed big-endian `u32` that represents the `Number` of a BrickColor. When an array of BrickColors is present, the Numbers are [byte interleaved](#byte-interleaving) but otherwise are unchanged.
 
 As an example, three encoded BrickColors with values `Really red (1004)`, `Bright green (37)`, and `Really blue (1010)` look like this: `00 00 00 00 00 00 03 00 03 EC 25 F2`.
 
 ### Color3
-**Type Marker `0x0c`**
+**Type ID `0x0c`**
 
 The `Color3` type is a struct composed of three Float32s:
 
@@ -354,7 +354,7 @@ The `Color3` type is a struct composed of three Float32s:
 An encoded `Color3` with RGB value `255, 180, 20` looks like this: `7f 00 00 00 7e 69 69 6a 7b 41 41 42`.
 
 ### Vector2
-**Type Marker `0x0d`**
+**Type ID `0x0d`**
 
 The `Vector2` type is a struct composed of two Float32s:
 
@@ -368,7 +368,7 @@ The `Vector2` type is a struct composed of two Float32s:
 Two encoded Vector2s with values `-100.80, 200.55`, `200.55, -100.80` look like this: `85 86 93 91 33 19 35 9a 86 85 91 93 19 33 9a 35`
 
 ### Vector3
-**Type Marker `0x0e`**
+**Type ID `0x0e`**
 
 The `Vector3` type is a struct composed of three Float32s:
 
@@ -383,7 +383,7 @@ The `Vector3` type is a struct composed of three Float32s:
 Two encoded Vector3s with values `1, 2, 3` and `-1, -2, -3` look like this: `7F 7F 00 00 00 00 00 01 80 80 00 00 00 00 00 01 80 80 80 80 00 00 00 01`.
 
 ### CFrame
-**Type Marker `0x10`**
+**Type ID `0x10`**
 
 The `CFrame` type is more complicated than other types. To save space, there are 24 special cases where only the CFrame's position is saved. The special case's ID is written as a single byte.
 
@@ -423,12 +423,12 @@ The first part (the `ID` and `Rotation` array) is: `02 00 4B C0 07 3E 08 9C 75 3
 The second part (the `Position` array) is: `7F 81 00 00 00 00 00 00 80 7F 00 22 00 D4 00 B2 80 81 80 80 00 00 00 00`.
 
 ### Enum
-**Type Marker `0x12`**
+**Type ID `0x12`**
 
 The `Enum` type is an unsigned 32-bit integer. It is stored as big endian and is subject to [byte interleaving](#byte-interleaving).
 
 ### Referent
-**Type Marker `0x13`**
+**Type ID `0x13`**
 The `Referent` type represents a specific Instance in the file and is stored as an [Int32](#int32). After untransforming a referent, a value of `-1` represents the so-called 'null referent'. In a `PROP` chunk, a null referent represents a property with no set value: for example, the default value of `ObjectValue.Value`.
 
 An array of Referents is stored as an array of Int32s, and as a result they are subject to [byte interleaving](#byte-interleaving). When reading an array of Referents, they must be read accumulatively. That is to say that the 'actual' value of the referent is the value of the read value plus the preceding one.
@@ -446,7 +446,7 @@ The **correct** interpretation of this data, with accumulation, is:
 | 1619       | 1620       | 1624       | 1626       | 1629       | 1634       |
 
 ### Vector3int16
-**Type Marker `0x14`**
+**Type ID `0x14`**
 
 The `Vector3int16` type is stored as three little-endian i16s:
 
@@ -459,7 +459,7 @@ The `Vector3int16` type is stored as three little-endian i16s:
 Multiple Vector3int16s are stored in sequence without any transformations or interleaving. Two Vector3int16s with values `1, 2, 3` and `-1, -2, -3` are stored like this: `00 01 00 02 00 03 FF FF FE FF FD FF`.
 
 ### NumberSequence
-**Type Marker `0x15`**
+**Type ID `0x15`**
 
 The `NumberSequence` type is stored as a `u32` indicating how many NumberSequenceKeypoints are in the sequence followed by an array of NumberSequenceKeypoints:
 
@@ -497,7 +497,7 @@ NumberSequence.new(
 look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 80 3f 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 00 3f 03 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 00 3f 00 00 80 3f 00 00 00 3f 00 00 00 00`
 
 ### ColorSequence
-**Type Marker `0x16`**
+**Type ID `0x16`**
 
 The `ColorSequence` type is stored as a `u32` indicating how many ColorSequenceKeypoints are in the `ColorSequence` followed by an array of ColorSequenceKeypoints:
 
@@ -535,7 +535,7 @@ ColorSequence.new(
 look like this: `03 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 80 3f 00 00 00 00 03 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00`.
 
 ### NumberRange
-**Type Marker `0x17`**
+**Type ID `0x17`**
 
 The `NumberRange` type is stored as two little-endian floats:
 
@@ -547,7 +547,7 @@ The `NumberRange` type is stored as two little-endian floats:
 Multiple NumberRanges are stored in sequence with no transformation or interleaving. Two NumberRanges with values `NumberRange.new(0, 0.5)` and `NumberRange.new(0.5, 1)` look like this: `00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 80 3f`.
 
 ### Rect
-**Type Marker `0x18`**
+**Type ID `0x18`**
 
 The `Rect` type is a struct composed of two Vector2s:
 
@@ -561,7 +561,7 @@ The `Rect` type is a struct composed of two Vector2s:
 Two encoded Rects with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0, 1, 5, 6)` look like this: `7f 00 00 00 00 00 01 00 82 7f 40 00 00 00 01 00 82 81 00 40 00 00 00 00 82 81 20 80 00 00 00 00`.
 
 ### PhysicalProperties
-**Type Marker `0x19`**
+**Type ID `0x19`**
 
 The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five f32s:
 
@@ -578,7 +578,7 @@ If there is no `CustomPhysicalProperties` value, a `PhysicalProperties` is store
 A default `PhysicalProperties` (i.e. no custom properties set) followed by a `PhysicalProperties` of value `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)` looks like this: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`.
 
 ### Color3uint8
-**Type Marker `0x1a`**
+**Type ID `0x1a`**
 
 The `Color3uint8` type is a struct made up of three bytes, one for each component:
 
@@ -593,23 +593,23 @@ The `Color3uint8` type is a struct made up of three bytes, one for each componen
 Two Color3uint8s with the values `0, 255, 255` and `63, 0, 127`, respectively, look like this: `00 3f ff 00 ff 7f`.
 
 ### Int64
-**Type Marker `0x1b`**
+**Type ID `0x1b`**
 
 The `Int64` type is stored as a big-endian [transformed 64-bit integer](#integer-transformations).
 
 When an array of Int64s is present, the bytes of the integers are subject to [byte interleaving](#byte-interleaving).
 
 ### SharedString
-**Type Marker `0x1c`**
+**Type ID `0x1c`**
 
 SharedStrings are stored as an [Interleaved Array](#byte-interleaving) of u32s that represent indices in the [`SSTR`](#sstr-chunk) string array.
 
 ### OptionalCoordinateFrame
-**Type Marker `0x1e`**
+**Type ID `0x1e`**
 
 `OptionalCoordinateFrame` is stored the same way as [CFrame](#cframe), but with a couple interesting differences:
-* Immediately following OptionalCoordinateFrame's type marker is CFrame's type marker (`10`);
-* At the end of the chunk there is an array of Bools (preceded by Bool's type marker, `02`) that indicates which OptionalCoordinateFrames have a value.
+* Immediately following OptionalCoordinateFrame's type ID is CFrame's type ID (`10`);
+* At the end of the chunk there is an array of Bools (preceded by Bool's type ID, `02`) that indicates which OptionalCoordinateFrames have a value.
 
 An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`. Note that the valueless `OptionalCoordinateFrame` is written as the identity `CFrame` with its corresponding boolean `00` codifying its valuelessness.
 
