@@ -51,14 +51,14 @@ This document is based on:
 	- [Roblox Float Format](#roblox-float-format)
 
 ## Document Conventions
-We assume a basic understanding of Rust's conventions for numeric types. For example:
+This document assumes a basic understanding of Rust's conventions for numeric types. For example:
 
 - `u16` is an unsigned 16-bit integer
 - `i32` is a signed 32-bit integer
 
-Integers are assumed to be little endian and 2's complement unless otherwise specified. We explicitly note the presence of big endian integers and integers with interesting transformations.
+Integers are assumed to be little endian and 2's complement unless otherwise specified. The presence of big endian integers and integers with interesting transformations are explicitly noted.
 
-The data contained in a chunk may be compressed. When we use the term "chunk data," it refers to the decompressed contents.
+The data contained in a chunk may be compressed. The term "chunk data" refers to the decompressed contents.
 
 ## File Structure
 1. File Header
