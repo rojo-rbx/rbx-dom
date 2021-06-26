@@ -12,8 +12,9 @@ th {
     font-weight: 700;
 }
 
-tr, th {
+td, th {
     padding: 6px;
+    border: none;
 }
 
 tbody tr:nth-child(even) {
