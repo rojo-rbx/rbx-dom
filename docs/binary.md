@@ -111,7 +111,7 @@ The `META` chunk has this layout:
 
 | Field Name                 | Format         | Value                                       |
 |:---------------------------|:---------------|:--------------------------------------------|
-| Number of Metadata Entries | `u32`            | The number of metadata entries in the chunk |
+| Number of Metadata Entries | `u32`          | The number of metadata entries in the chunk |
 | Metadata Entries           | Array(Entries) | The actual metadata entries                 |
 
 Each metadata entry has the following format:
@@ -282,10 +282,10 @@ When an array of `Float64` values is present, they are in sequence with no trans
 
 The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an [`Int32`](#int32):
 
-| Field Name | Format                | Value                              |
-|:-----------|:----------------------|:-----------------------------------|
-| Scale      | [`Float32`](#float32) | The `Scale` component of the UDim  |
-| Offset     | [`Int32`](#int32)     | The `Offset` component of the UDim |
+| Field Name | Format                | Value                                |
+|:-----------|:----------------------|:-------------------------------------|
+| Scale      | [`Float32`](#float32) | The `Scale` component of the `UDim`  |
+| Offset     | [`Int32`](#int32)     | The `Offset` component of the `UDim` |
 
 When an array of `UDim` values is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
 
@@ -296,12 +296,12 @@ The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the 
 ### UDim2
 **Type ID `0x07`**
 
-The `UDim2` type is a struct composed of two UDims, one for each axis:
+The `UDim2` type is a struct composed of two `UDim` values, one for each axis:
 
-| Field Name | Format          | Value                          |
-|:-----------|:----------------|:-------------------------------|
-| X          | [`UDim`](#udim) | The `X` component of the UDim2 |
-| Y          | [`UDim`](#udim) | The `Y` component of the UDim2 |
+| Field Name | Format          | Value                            |
+|:-----------|:----------------|:---------------------------------|
+| X          | [`UDim`](#udim) | The `X` component of the `UDim2` |
+| Y          | [`UDim`](#udim) | The `Y` component of the `UDim2` |
 
 `UDim2` is stored as four arrays of component values in the order `X.Scale`, `Y.Scale`, `X.Offset`, `Y.Offset`. Each array is separately [byte interleaved](#byte-interleaving).
 
@@ -310,16 +310,16 @@ An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00
 ### Ray
 **Type ID `0x08`**
 
-The `Ray` type is a struct composed of six little-endian f32 values, making up the components of the `Origin` and then the `Direction` of the Ray:
+The `Ray` type is a struct composed of six little-endian `f32` values, making up the components of the `Origin` and then the `Direction` of the `Ray`:
 
-| Field Name  | Format | Value                                      |
-|:------------|:-------|:-------------------------------------------|
-| Origin X    | `f32`  | The `X` component of the Ray's `Origin`    |
-| Origin Y    | `f32`  | The `Y` component of the Ray's `Origin`    |
-| Origin Z    | `f32`  | The `Z` component of the Ray's `Origin`    |
-| Direction X | `f32`  | The `X` component of the Ray's `Direction` |
-| Direction Y | `f32`  | The `Y` component of the Ray's `Direction` |
-| Direction Z | `f32`  | The `Z` component of the Ray's `Direction` |
+| Field Name  | Format | Value                                             |
+|:------------|:-------|:--------------------------------------------------|
+| Origin X    | `f32`  | The `X` component of the `Origin` of the `Ray`    |
+| Origin Y    | `f32`  | The `Y` component of the `Origin` of the `Ray`    |
+| Origin Z    | `f32`  | The `Z` component of the `Origin` of the `Ray`    |
+| Direction X | `f32`  | The `X` component of the `Direction` of the `Ray` |
+| Direction Y | `f32`  | The `Y` component of the `Direction` of the `Ray` |
+| Direction Z | `f32`  | The `Z` component of the `Direction` of the `Ray` |
 
 The components are stored in order without any additional transformations. When an array of `Ray` values is present, they're stored in order but otherwise without transformation.
 
@@ -349,11 +349,11 @@ As an example, three encoded `BrickColor` values `Really red (1004)`, `Bright gr
 
 The `Color3` type is a struct composed of three `Float32` values:
 
-| Field Name | Format                | Value                           |
-|:-----------|:----------------------|:--------------------------------|
-| R          | [`Float32`](#float32) | The `R` component of the Color3 |
-| G          | [`Float32`](#float32) | The `G` component of the Color3 |
-| B          | [`Float32`](#float32) | The `B` component of the Color3 |
+| Field Name | Format                | Value                             |
+|:-----------|:----------------------|:----------------------------------|
+| R          | [`Float32`](#float32) | The `R` component of the `Color3` |
+| G          | [`Float32`](#float32) | The `G` component of the `Color3` |
+| B          | [`Float32`](#float32) | The `B` component of the `Color3` |
 
 `Color3` is stored as three arrays of components in the order `R`, `G`, `B`. Each array is separately [byte interleaved](#byte-interleaving).
 
@@ -362,12 +362,12 @@ An encoded `Color3` with RGB value `255, 180, 20` looks like this: `7f 00 00 00 
 ### Vector2
 **Type ID `0x0d`**
 
-The `Vector2` type is a struct composed of two Float32s:
+The `Vector2` type is a struct composed of two `Float32` values:
 
-| Field Name | Format                | Value                            |
-|:-----------|:----------------------|:---------------------------------|
-| X          | [`Float32`](#float32) | The `X` component of the Vector2 |
-| Y          | [`Float32`](#float32) | The `Y` component of the Vector2 |
+| Field Name | Format                | Value                              |
+|:-----------|:----------------------|:-----------------------------------|
+| X          | [`Float32`](#float32) | The `X` component of the `Vector2` |
+| Y          | [`Float32`](#float32) | The `Y` component of the `Vector2` |
 
 `Vector2` is stored as two arrays of components in the order `X`, `Y`. Each array is separately [byte interleaved](#byte-interleaving).
 
@@ -376,13 +376,13 @@ Two encoded `Vector2` values `-100.80, 200.55`, `200.55, -100.80` look like this
 ### Vector3
 **Type ID `0x0e`**
 
-The `Vector3` type is a struct composed of three Float32s:
+The `Vector3` type is a struct composed of three `Float32` values:
 
-| Field Name | Format                | Value                            |
-|:-----------|:----------------------|:---------------------------------|
-| X          | [`Float32`](#float32) | The `X` component of the Vector3 |
-| Y          | [`Float32`](#float32) | The `Y` component of the Vector3 |
-| Z          | [`Float32`](#float32) | The `Z` component of the Vector3 |
+| Field Name | Format                | Value                              |
+|:-----------|:----------------------|:-----------------------------------|
+| X          | [`Float32`](#float32) | The `X` component of the `Vector3` |
+| Y          | [`Float32`](#float32) | The `Y` component of the `Vector3` |
+| Z          | [`Float32`](#float32) | The `Z` component of the `Vector3` |
 
 `Vector3` is stored as three arrays of components in the order `X`, `Y`, `Z`. Each array is separately [byte interleaved](#byte-interleaving).
 
@@ -395,11 +395,11 @@ The `CFrame` type is more complicated than other types. To save space, there are
 
 If the byte is `00`, a `CFrame` looks like this:
 
-| Field Name  | Format                | Value                                                                                                      |
-|:------------|:----------------------|:-----------------------------------------------------------------------------------------------------------|
-| ID          | `u8`                  | Always `00` in this case.                                                                                  |
-| Orientation | Array of 9 f32 values | The rotation matrix of the CFrame. It represents the RightVector, UpVector, and LookVector, in that order. |
-| Position    | [`Vector3`](#vector3) | The position of the CFrame.                                                                                |
+| Field Name  | Format                  | Value                                                                                                        |
+|:------------|:------------------------|:-------------------------------------------------------------------------------------------------------------|
+| ID          | `u8`                    | Always `00` in this case.                                                                                    |
+| Orientation | Array of 9 `f32` values | The rotation matrix of the `CFrame`. It represents the RightVector, UpVector, and LookVector, in that order. |
+| Position    | [`Vector3`](#vector3)   | The position of the `CFrame`.                                                                                |
 
 In this case, the `Orientation` field is stored as nine untransformed [IEEE-754 standard](https://en.wikipedia.org/wiki/Single-precision_floating-point_format) 32-bit floats.
 
@@ -420,7 +420,7 @@ If the `ID` is **not** `00`, it will be a value from the following table. In thi
 | `10` | (90, -90, 0)   | `22` | (-90, 90, 0)   |
 | `11` | (0, 90, 180)   | `23` | (0, -90, 180)  |
 
-When an array of `CFrame` values is present, for each value the `ID` is stored followed by the `Rotation` field if it's present. Then, an array of [Vector3s](#vector3) that represent the `Position` field of each `CFrame`.
+When an array of `CFrame` values is present, for each value the `ID` is stored followed by the `Rotation` field if it's present. Then, an array of [`Vector3`](#vector3) values that represent the `Position` field of each `CFrame`.
 
 Two `CFrame` values with the components `CFrame.new(1, 2, 3)` and `CFrame.new(4, 5, 6)*CFrame.Angles(7, 8, 9)` are stored as `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD 7F 81 00 00 00 00 00 00 80 7F 00 22 00 D4 00 B2 80 81 80 80 00 00 00 00`.
 
@@ -437,7 +437,7 @@ The `Enum` type is an unsigned 32-bit integer. It is stored as big endian and is
 **Type ID `0x13`**
 The `Referent` type represents a specific Instance in the file and is stored as an [`Int32`](#int32). After untransforming a `Referent`, a value of `-1` represents the so-called 'null referent'. In a `PROP` chunk, a null referent represents a property with no set value: for example, the default value of `ObjectValue.Value`.
 
-An array of `Referent` values is stored as an array of Int32s, and as a result they are subject to [byte interleaving](#byte-interleaving). When reading an array of `Referent` values, they must be read accumulatively. That is to say that the 'actual' value of the `Referent` is the value of the read value plus the preceding one.
+An array of `Referent` values is stored as an array of `Int32` values, and as a result they are subject to [byte interleaving](#byte-interleaving). When reading an array of `Referent` values, they must be read accumulatively. That is to say that the 'actual' value of the `Referent` is the value of the read value plus the preceding one.
 
 Without accumulation, `Referent` values read from a file may look like this. This is **incorrect**:
 
@@ -454,13 +454,13 @@ The **correct** interpretation of this data, with accumulation, is:
 ### Vector3int16
 **Type ID `0x14`**
 
-The `Vector3int16` type is stored as three little-endian i16 values:
+The `Vector3int16` type is stored as three little-endian `i16` values:
 
-| Field Name | Format | Value                                 |
-|:-----------|:-------|:--------------------------------------|
-| X          | `i16`  | The `X` component of the Vector3int16 |
-| Y          | `i16`  | The `Y` component of the Vector3int16 |
-| Z          | `i16`  | The `Z` component of the Vector3int16 |
+| Field Name | Format | Value                                   |
+|:-----------|:-------|:----------------------------------------|
+| X          | `i16`  | The `X` component of the `Vector3int16` |
+| Y          | `i16`  | The `Y` component of the `Vector3int16` |
+| Z          | `i16`  | The `Z` component of the `Vector3int16` |
 
 Multiple `Vector3int16` values are stored in sequence without any transformations or interleaving. Two `Vector3int16` values `1, 2, 3` and `-1, -2, -3` are stored like this: `00 01 00 02 00 03 FF FF FE FF FD FF`.
 
@@ -469,8 +469,8 @@ Multiple `Vector3int16` values are stored in sequence without any transformation
 
 The `NumberSequence` type is stored as a `u32` indicating how many `NumberSequenceKeypoint` values are in the sequence followed by an array of `NumberSequenceKeypoint` values:
 
-| Field Name     | Format                        | Value                                   |
-|:---------------|:------------------------------|:----------------------------------------|
+| Field Name     | Format                          | Value                                   |
+|:---------------|:--------------------------------|:----------------------------------------|
 | Keypoint count | `u32`                           | The number of keypoints in the sequence |
 | Keypoints      | Array(`NumberSequenceKeypoint`) | The data for the keypoints              |
 
@@ -507,18 +507,18 @@ look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 
 
 The `ColorSequence` type is stored as a `u32` indicating how many `ColorSequenceKeypoint` values are in the `ColorSequence` followed by an array of `ColorSequenceKeypoint` values:
 
-| Field Name     | Format                       | Value                                   |
-|:---------------|:-----------------------------|:----------------------------------------|
+| Field Name     | Format                         | Value                                   |
+|:---------------|:-------------------------------|:----------------------------------------|
 | Keypoint count | `u32`                          | The number of keypoints in the sequence |
 | Keypoints      | Array(`ColorSequenceKeypoint`) | The data for each keypoint              |
 
 `ColorSequenceKeypoint` is a struct composed of the following fields:
 
-| Field Name        | Format              | Value                                        |
-|:------------------|:--------------------|:---------------------------------------------|
-| Time              | `f32`               | The time value of the ColorSequenceKeypoint  |
-| Color             | [`Color3`](#Color3) | The color value of the ColorSequenceKeypoint |
-| Envelope (unused) | `f32`               | n/a; serialized, but not used                |
+| Field Name        | Format              | Value                                          |
+|:------------------|:--------------------|:-----------------------------------------------|
+| Time              | `f32`               | The time value of the `ColorSequenceKeypoint`  |
+| Color             | [`Color3`](#Color3) | The color value of the `ColorSequenceKeypoint` |
+| Envelope (unused) | `f32`               | n/a; serialized, but not used                  |
 
 Note that `Color` is **not** subject to interleaving like a normal `Color3`. When multiple `ColorSequence` values are present, they are stored in sequence with no transformation or interleaving. Two `ColorSequence` values
 
@@ -555,12 +555,12 @@ Multiple `NumberRange` values are stored in sequence with no transformation or i
 ### Rect
 **Type ID `0x18`**
 
-The `Rect` type is a struct composed of two Vector2s:
+The `Rect` type is a struct composed of two `Vector2` values:
 
-| Field Name | Format                | Value                         |
-|:-----------|:----------------------|:------------------------------|
-| Min        | [`Vector2`](#vector2) | The minimum value of the Rect |
-| Max        | [`Vector2`](#vector2) | The maximum value of the Rect |
+| Field Name | Format                | Value                           |
+|:-----------|:----------------------|:--------------------------------|
+| Min        | [`Vector2`](#vector2) | The minimum value of the `Rect` |
+| Max        | [`Vector2`](#vector2) | The maximum value of the `Rect` |
 
 `Rect` is stored as four arrays of [`Float32`](#float32)s in the order `Min.X`, `Min.Y`, `Max.X`, `Max.Y`. Each array is subject to [byte interleaving](#byte-interleaving).
 
@@ -569,7 +569,7 @@ Two encoded `Rect` values with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0,
 ### PhysicalProperties
 **Type ID `0x19`**
 
-The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five f32 values:
+The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five `f32` values:
 
 | Field Name       | Format | Value                                                        |
 |:-----------------|:-------|:-------------------------------------------------------------|
@@ -588,11 +588,11 @@ A default `PhysicalProperties` (i.e. no custom properties set) followed by a `Ph
 
 The `Color3uint8` type is a struct made up of three bytes, one for each component:
 
-| Field Name | Format | Value                                |
-|:-----------|:-------|:-------------------------------------|
-| R          | `u8`   | The `R` component of the Color3uint8 |
-| G          | `u8`   | The `G` component of the Color3uint8 |
-| B          | `u8`   | The `B` component of the Color3uint8 |
+| Field Name | Format | Value                                  |
+|:-----------|:-------|:---------------------------------------|
+| R          | `u8`   | The `R` component of the `Color3uint8` |
+| G          | `u8`   | The `G` component of the `Color3uint8` |
+| B          | `u8`   | The `B` component of the `Color3uint8` |
 
 `Color3uint8` is stored as three consecutive arrays of components in the order `R`, `G`, `B`. It is not subject to any transformation or byte interleaving.
 
@@ -613,7 +613,7 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 ### OptionalCoordinateFrame
 **Type ID `0x1e`**
 
-`OptionalCoordinateFrame` is stored the same way as [CFrame](#cframe), but with a couple interesting differences:
+`OptionalCoordinateFrame` is stored the same way as [`CFrame`](#cframe), but with a couple interesting differences:
 * Immediately following the type ID for `OptionalCoordinateFrame` is the type ID for `CFrame` (`10`);
 * At the end of the chunk there is an array of `Bool` values (preceded by the respective type ID, `02`) that indicates which `OptionalCoordinateFrame` values have a value.
 
