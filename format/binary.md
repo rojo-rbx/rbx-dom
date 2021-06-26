@@ -234,14 +234,14 @@ The `END` chunk must not be compressed. It is used as a rough form of file valid
 ### String
 **Type ID `0x01`**
 
-The `String` type is stored as a length-prefixed sequence of bytes. The length is stored as an untransformed 32-bit integer. `String`s are UTF-8 encoded.
+The `String` type is stored as a length-prefixed sequence of bytes. The length is stored as an untransformed 32-bit integer. `String` values are UTF-8 encoded.
 
 | Field Name | Format       | Value                                    |
 |:-----------|:-------------|:-----------------------------------------|
 | Length     | `u32`        | The length of the string                 |
 | Data       | Array(Bytes) | The actual bytes that make up the string |
 
-When an array of `String`s is present, they are stored in sequence without any modification.
+When an array of `String` values is present, they are stored in sequence without any modification.
 
 ### Bool
 **Type ID `0x02`**
@@ -255,14 +255,14 @@ When an array of `Bool`s is present, they are stored in sequence.
 
 The `Int32` type is stored as a big-endian [transformed 32-bit integer](#integer-transformations).
 
-When an array of `Int32`s is present, the bytes of the integers are subject to [byte interleaving](#byte-interleaving).
+When an array of `Int32` values is present, the bytes of the integers are subject to [byte interleaving](#byte-interleaving).
 
 ### Float32
 **Type ID `0x04`**
 
 The `Float32` type is stored using the [Roblox float format](#roblox-float-format) and is little-endian. This datatype is also called `float` or `single`.
 
-When an array of `Float32`s is present, the bytes of the floats are subject to [byte interleaving](#byte-interleaving).
+When an array of `Float32` values is present, the bytes of the floats are subject to [byte interleaving](#byte-interleaving).
 
 ### Float64
 **Type ID `0x05`**
@@ -281,11 +281,11 @@ The `UDim` type is stored as a struct composed of a [`Float32`](#float32) and an
 | Scale      | [`Float32`](#float32) | The `Scale` component of the UDim  |
 | Offset     | [`Int32`](#int32)     | The `Offset` component of the UDim |
 
-When an array of `UDim`s is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
+When an array of `UDim` values is present, the bytes of each individual components are stored as arrays, meaning their bytes are subject to [byte interleaving](#byte-interleaving).
 
 Two `UDim`s with values `{1, 2}` and `{3, 4}` look like this: `7f 80 00 80 00 00 00 00 00 00 00 00 00 00 04 08`.
 
-The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the `UDim`s. The latter 8 bytes (`00 00 00 00 00 00 04 08`) represent the Offset values. From there, the values are paired off, so that the first value in each array make up the components of the first `UDim`, and so on.
+The first 8 bytes (`7f 80 00 80 00 00 00 00`) represent the Scale values of the `UDim` values. The latter 8 bytes (`00 00 00 00 00 00 04 08`) represent the Offset values. From there, the values are paired off, so that the first value in each array make up the components of the first `UDim`, and so on.
 
 ### UDim2
 **Type ID `0x07`**
@@ -334,14 +334,14 @@ Three encoded `Axes` with values `X`, `X Y`, and `X Z` look like this: `01 03 05
 ### BrickColor
 **Type ID `0x0b`**
 
-The `BrickColor` type is a single untransformed big-endian `u32` that represents the `Number` of a `BrickColor`. When an array of `BrickColor`s is present, the Numbers are [byte interleaved](#byte-interleaving) but otherwise are unchanged.
+The `BrickColor` type is a single untransformed big-endian `u32` that represents the `Number` of a `BrickColor`. When an array of `BrickColor` values is present, the Numbers are [byte interleaved](#byte-interleaving) but otherwise are unchanged.
 
 As an example, three encoded `BrickColor`s with values `Really red (1004)`, `Bright green (37)`, and `Really blue (1010)` look like this: `00 00 00 00 00 00 03 00 03 EC 25 F2`.
 
 ### Color3
 **Type ID `0x0c`**
 
-The `Color3` type is a struct composed of three `Float32`s:
+The `Color3` type is a struct composed of three `Float32` values:
 
 | Field Name | Format                | Value                           |
 |:-----------|:----------------------|:--------------------------------|
@@ -380,7 +380,7 @@ The `Vector3` type is a struct composed of three Float32s:
 
 `Vector3` is stored as three arrays of components in the order `X`, `Y`, `Z`. Each array is separately [byte interleaved](#byte-interleaving).
 
-Two encoded `Vector3`s with values `1, 2, 3` and `-1, -2, -3` look like this: `7F 7F 00 00 00 00 00 01 80 80 00 00 00 00 00 01 80 80 80 80 00 00 00 01`.
+Two encoded `Vector3` values with values `1, 2, 3` and `-1, -2, -3` look like this: `7F 7F 00 00 00 00 00 01 80 80 00 00 00 00 00 01 80 80 80 80 00 00 00 01`.
 
 ### CFrame
 **Type ID `0x10`**
@@ -416,7 +416,7 @@ If the `ID` is **not** `00`, it will be a value from the following table. In thi
 
 When an array of `CFrame`s is present, for each value the `ID` is stored followed by the `Rotation` field if it's present. Then, an array of [Vector3s](#vector3) that represent the `Position` field of each `CFrame`.
 
-Two `CFrame`s with the components `CFrame.new(1, 2, 3)` and `CFrame.new(4, 5, 6)*CFrame.Angles(7, 8, 9)` are stored as `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD 7F 81 00 00 00 00 00 00 80 7F 00 22 00 D4 00 B2 80 81 80 80 00 00 00 00`.
+Two `CFrame` values with the components `CFrame.new(1, 2, 3)` and `CFrame.new(4, 5, 6)*CFrame.Angles(7, 8, 9)` are stored as `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD 7F 81 00 00 00 00 00 00 80 7F 00 22 00 D4 00 B2 80 81 80 80 00 00 00 00`.
 
 The first part (the `ID` and `Rotation` array) is: `02 00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD`, which is an split into `02` and `00 4B C0 07 3E 08 9C 75 3D 95 46 7D 3F 1D 25 90 BE 58 6C 74 BF 84 C5 C3 3D 1E 4A 73 3F 6F 19 95 BE 9F A6 E0 BD`.
 
@@ -431,7 +431,7 @@ The `Enum` type is an unsigned 32-bit integer. It is stored as big endian and is
 **Type ID `0x13`**
 The `Referent` type represents a specific Instance in the file and is stored as an [`Int32`](#int32). After untransforming a `Referent`, a value of `-1` represents the so-called 'null referent'. In a `PROP` chunk, a null referent represents a property with no set value: for example, the default value of `ObjectValue.Value`.
 
-An array of `Referent`s is stored as an array of Int32s, and as a result they are subject to [byte interleaving](#byte-interleaving). When reading an array of `Referent`s, they must be read accumulatively. That is to say that the 'actual' value of the `Referent` is the value of the read value plus the preceding one.
+An array of `Referent`s is stored as an array of Int32s, and as a result they are subject to [byte interleaving](#byte-interleaving). When reading an array of `Referent` values, they must be read accumulatively. That is to say that the 'actual' value of the `Referent` is the value of the read value plus the preceding one.
 
 Without accumulation, `Referent`s read from a file may look like this. This is **incorrect**:
 
@@ -456,12 +456,12 @@ The `Vector3int16` type is stored as three little-endian i16s:
 | Y          | `i16`  | The `Y` component of the Vector3int16 |
 | Z          | `i16`  | The `Z` component of the Vector3int16 |
 
-Multiple `Vector3int16`s are stored in sequence without any transformations or interleaving. Two `Vector3int16`s with values `1, 2, 3` and `-1, -2, -3` are stored like this: `00 01 00 02 00 03 FF FF FE FF FD FF`.
+Multiple `Vector3int16` values are stored in sequence without any transformations or interleaving. Two `Vector3int16`s with values `1, 2, 3` and `-1, -2, -3` are stored like this: `00 01 00 02 00 03 FF FF FE FF FD FF`.
 
 ### NumberSequence
 **Type ID `0x15`**
 
-The `NumberSequence` type is stored as a `u32` indicating how many `NumberSequenceKeypoint`s are in the sequence followed by an array of `NumberSequenceKeypoint`s:
+The `NumberSequence` type is stored as a `u32` indicating how many `NumberSequenceKeypoint` values are in the sequence followed by an array of `NumberSequenceKeypoint`s:
 
 | Field Name     | Format                        | Value                                   |
 |:---------------|:------------------------------|:----------------------------------------|
@@ -476,7 +476,7 @@ The `NumberSequence` type is stored as a `u32` indicating how many `NumberSequen
 | Value      | `f32`  | The value of the keypoint     |
 | Envelope   | `f32`  | The envelope for the keypoint |
 
-When multiple `NumberSequence`s are present, they are stored in sequence with no transformation or interleaving. Two `NumberSequence`s with values
+When multiple `NumberSequence` values are present, they are stored in sequence with no transformation or interleaving. Two `NumberSequence`s with values
 
 ```
 NumberSequence.new(
@@ -499,7 +499,7 @@ look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 
 ### ColorSequence
 **Type ID `0x16`**
 
-The `ColorSequence` type is stored as a `u32` indicating how many `ColorSequenceKeypoint`s are in the `ColorSequence` followed by an array of `ColorSequenceKeypoint`s:
+The `ColorSequence` type is stored as a `u32` indicating how many `ColorSequenceKeypoint` values are in the `ColorSequence` followed by an array of `ColorSequenceKeypoint`s:
 
 | Field Name     | Format                       | Value                                   |
 |:---------------|:-----------------------------|:----------------------------------------|
@@ -514,7 +514,7 @@ The `ColorSequence` type is stored as a `u32` indicating how many `ColorSequence
 | Color             | [`Color3`](#Color3) | The color value of the ColorSequenceKeypoint |
 | Envelope (unused) | `f32`               | n/a; serialized, but not used                |
 
-Note that `Color` is **not** subject to interleaving like a normal `Color3`. When multiple `ColorSequence`s are present, they are stored in sequence with no transformation or interleaving. Two `ColorSequence`s with values
+Note that `Color` is **not** subject to interleaving like a normal `Color3`. When multiple `ColorSequence` values are present, they are stored in sequence with no transformation or interleaving. Two `ColorSequence`s with values
 
 ```
 ColorSequence.new(
@@ -544,7 +544,7 @@ The `NumberRange` type is stored as two little-endian floats:
 | Min        | `f32`  | The minimum value of the range |
 | Max        | `f32`  | The maximum value of the range |
 
-Multiple `NumberRange`s are stored in sequence with no transformation or interleaving. Two `NumberRange`s with values `NumberRange.new(0, 0.5)` and `NumberRange.new(0.5, 1)` look like this: `00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 80 3f`.
+Multiple `NumberRange` values are stored in sequence with no transformation or interleaving. Two `NumberRange`s with values `NumberRange.new(0, 0.5)` and `NumberRange.new(0.5, 1)` look like this: `00 00 00 00 00 00 00 3f 00 00 00 3f 00 00 80 3f`.
 
 ### Rect
 **Type ID `0x18`**
@@ -558,7 +558,7 @@ The `Rect` type is a struct composed of two Vector2s:
 
 `Rect` is stored as four arrays of [`Float32`](#float32)s in the order `Min.X`, `Min.Y`, `Max.X`, `Max.Y`. Each array is subject to [byte interleaving](#byte-interleaving).
 
-Two encoded `Rect`s with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0, 1, 5, 6)` look like this: `7f 00 00 00 00 00 01 00 82 7f 40 00 00 00 01 00 82 81 00 40 00 00 00 00 82 81 20 80 00 00 00 00`.
+Two encoded `Rect` values with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0, 1, 5, 6)` look like this: `7f 00 00 00 00 00 01 00 82 7f 40 00 00 00 01 00 82 81 00 40 00 00 00 00 82 81 20 80 00 00 00 00`.
 
 ### PhysicalProperties
 **Type ID `0x19`**
@@ -590,7 +590,7 @@ The `Color3uint8` type is a struct made up of three bytes, one for each componen
 
 `Color3uint8` is stored as three consecutive arrays of components in the order `R`, `G`, `B`. It is not subject to any transformation or byte interleaving.
 
-Two `Color3uint8`s with the values `0, 255, 255` and `63, 0, 127`, respectively, look like this: `00 3f ff 00 ff 7f`.
+Two `Color3uint8` values with the values `0, 255, 255` and `63, 0, 127`, respectively, look like this: `00 3f ff 00 ff 7f`.
 
 ### Int64
 **Type ID `0x1b`**
@@ -602,14 +602,14 @@ When an array of `Int64`s is present, the bytes of the integers are subject to [
 ### SharedString
 **Type ID `0x1c`**
 
-`SharedString`s are stored as an [Interleaved Array](#byte-interleaving) of `u32`s that represent indices in the [`SSTR`](#sstr-chunk) string array.
+`SharedString` values are stored as an [Interleaved Array](#byte-interleaving) of `u32`s that represent indices in the [`SSTR`](#sstr-chunk) string array.
 
 ### OptionalCoordinateFrame
 **Type ID `0x1e`**
 
 `OptionalCoordinateFrame` is stored the same way as [CFrame](#cframe), but with a couple interesting differences:
 * Immediately following `OptionalCoordinateFrame`'s type ID is `CFrame`'s type ID (`10`);
-* At the end of the chunk there is an array of `Bool`s (preceded by `Bool`'s type ID, `02`) that indicates which `OptionalCoordinateFrame`s have a value.
+* At the end of the chunk there is an array of `Bool` values (preceded by `Bool`'s type ID, `02`) that indicates which `OptionalCoordinateFrame`s have a value.
 
 An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`. Note that the valueless `OptionalCoordinateFrame` is written as the identity `CFrame` with its corresponding boolean `00` codifying its valuelessness.
 
