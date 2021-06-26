@@ -130,13 +130,7 @@ impl SharedStringHash {
 
 impl Ord for SharedStringHash {
     fn cmp(&self, other: &Self) -> Ordering {
-        if self.as_bytes() == other.as_bytes() {
-            Ordering::Equal
-        } else if self.as_bytes() < other.as_bytes() {
-            Ordering::Less
-        } else {
-            Ordering::Greater
-        }
+        self.as_bytes().cmp(other.as_bytes())
     }
 }
 
