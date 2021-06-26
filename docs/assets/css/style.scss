@@ -1,0 +1,21 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Make list bullets align with the page instead of hanging off the left.
+ul, ol {
+    margin-left: 20px;
+}
+
+th {
+    font-weight: 700;
+}
+
+tr, th {
+    padding: 6px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
