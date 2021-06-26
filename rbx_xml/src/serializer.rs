@@ -1,4 +1,7 @@
-use std::{collections::HashMap, io::Write};
+use std::{
+    collections::{BTreeMap, HashMap},
+    io::Write,
+};
 
 use rbx_dom_weak::{
     types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
@@ -113,7 +116,7 @@ pub struct EmitState {
 
     /// A map of all shared strings referenced so far while generating XML. This
     /// map will be written as the file's SharedString dictionary.
-    shared_strings_to_emit: HashMap<SharedStringHash, SharedString>,
+    shared_strings_to_emit: BTreeMap<SharedStringHash, SharedString>,
 }
 
 impl EmitState {
@@ -122,7 +125,7 @@ impl EmitState {
             options,
             referent_map: HashMap::new(),
             next_referent: 0,
-            shared_strings_to_emit: HashMap::new(),
+            shared_strings_to_emit: BTreeMap::new(),
         }
     }
 
