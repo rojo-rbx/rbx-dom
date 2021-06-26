@@ -1,3 +1,3 @@
 # rbx-dom
-* [Binary Format][binary]
-* [Attributes Format][attributes]
+* [Binary Format](binary)
+* [Attributes Format](attributes)
