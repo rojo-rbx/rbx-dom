@@ -3,9 +3,12 @@
 
 @import "{{ site.theme }}";
 
-// Make list bullets align with the page instead of hanging off the left.
+// Switch out list padding for margins.
 ul, ol {
     margin-left: 20px;
+}
+ul li, ol li {
+    padding-left: 3px;
 }
 
 // Need more padding around tables!
