@@ -31,6 +31,7 @@ test_models! {
     ref_child: "models/ref-child",
     ref_parent: "models/ref-parent",
     body_movers: "models/body-movers",
+    union: "models/unions",
 
     unknown_type: "edge-cases/xml-unknown-type",
 }
