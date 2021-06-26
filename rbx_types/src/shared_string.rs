@@ -1,4 +1,5 @@
 use std::{
+    cmp::Ordering,
     collections::{hash_map::Entry, HashMap},
     hash::{Hash, Hasher},
     sync::{Arc, Mutex, Weak},
@@ -124,6 +125,24 @@ impl SharedStringHash {
     #[inline]
     pub fn as_bytes(&self) -> &[u8] {
         self.0.as_bytes().as_ref()
+    }
+}
+
+impl Ord for SharedStringHash {
+    fn cmp(&self, other: &Self) -> Ordering {
+        if self.as_bytes() == other.as_bytes() {
+            Ordering::Equal
+        } else if self.as_bytes() < other.as_bytes() {
+            Ordering::Less
+        } else {
+            Ordering::Greater
+        }
+    }
+}
+
+impl PartialOrd for SharedStringHash {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
     }
 }
 
