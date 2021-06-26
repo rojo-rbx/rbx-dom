@@ -1,4 +1,8 @@
 # Roblox Binary Model Format, Version 0
+This is unofficial documentation for Roblox's binary model format. The binary model format is used for places (`.rbxl` files), models (`.rbxm` files), and many objects uploaded to Roblox's asset storage.
+
+The binary model format intended to supersede Roblox's older [XML model format](/xml).
+
 This document is based on:
 - [*ROBLOX File Format* by Gregory Comer](http://www.classy-studios.com/Downloads/RobloxFileSpec.pdf)
 - [LibRbxl by Gregory Comer](https://github.com/GregoryComer/LibRbxl)
@@ -61,6 +65,8 @@ Integers are assumed to be little endian and 2's complement unless otherwise spe
 The data contained in a chunk may be compressed. The term "chunk data" refers to the decompressed contents.
 
 ## File Structure
+Binary model files consist of a short header, followed by a series of chunks. Each chunk has the same framing, enabling consumers to partialy decode a file.
+
 1. File Header
 2. Chunks
 	1. Zero or one `META` chunks
@@ -478,7 +484,7 @@ The `NumberSequence` type is stored as a `u32` indicating how many `NumberSequen
 
 When multiple `NumberSequence` values are present, they are stored in sequence with no transformation or interleaving. Two `NumberSequence` values
 
-```
+```lua
 NumberSequence.new(
 	NumberSequenceKeypoint.new(0, 0),
 	NumberSequenceKeypoint.new(0.5, 1),
@@ -486,7 +492,7 @@ NumberSequence.new(
 )
 ```
 
-```
+```lua
 NumberSequence.new(
 	NumberSequenceKeypoint.new(0, 1),
 	NumberSequenceKeypoint.new(0.5, 0.5, 0.5),
@@ -516,7 +522,7 @@ The `ColorSequence` type is stored as a `u32` indicating how many `ColorSequence
 
 Note that `Color` is **not** subject to interleaving like a normal `Color3`. When multiple `ColorSequence` values are present, they are stored in sequence with no transformation or interleaving. Two `ColorSequence` values
 
-```
+```lua
 ColorSequence.new(
 	ColorSequenceKeypoint.new(0, Color3.FromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(0.5, Color3.FromRGB(0, 0, 0)),
@@ -524,7 +530,7 @@ ColorSequence.new(
 )
 ```
 
-```
+```lua
 ColorSequence.new(
 	ColorSequenceKeypoint.new(0, Color3.FromRGB(255, 0, 0)),
 	ColorSequenceKeypoint.new(0.5, Color3.FromRGB(0, 255, 0))
@@ -616,7 +622,6 @@ An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 
 ## Data Storage Notes
 
 ### Integer Transformations
-
 Some integers may be subject to a transformation to make them more compressable.
 
 To transform an integer: if `x` greater than or equal to zero, transform it with `2 * x`. Otherwise, use `2 * |x| - 1`. In most compilers this is equivalent to `(x << 1) ^ (x >> 31)` for 32-bit integers. For 64-bit integers, the same format is used but with `63` instead of `31`.
@@ -626,7 +631,6 @@ To untransform one: if `x` is divisible by 2, untransform it with `x / 2`. Other
 Untransforming with bitwise operators requires casting to an unsigned integer in some cases because `x >> 1` will result in a negative number if `x` is negative.
 
 ### Byte Interleaving
-
 When stored as arrays, some data types have their bytes interleaved to help with compression. Cases where byte interleaving is present are explicitly noted.
 
 When the bytes of an array are interleaved, they're stored with the first bytes all in sequence, then the second bytes, then the third, and so on. As an example, the sequence `A0 A1 B0 B1 C0 C1` is stored as `A0 B0 C0 A1 B1 C1`.
@@ -650,7 +654,6 @@ When interleaved, the same array would instead look like this:
 | Row 4 | `A3`     | `B3`     | `C3`     | `D3`     |
 
 ### Roblox Float Format
-
 Some data types do not follow the [IEEE-754 standard](https://en.wikipedia.org/wiki/Single-precision_floating-point_format) format for 32-bit floating point numbers. Instead, they use a proprietary format where the sign bit is after the mantissa.
 
 | Format   | Bit Layout                            |
