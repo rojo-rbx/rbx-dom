@@ -304,7 +304,7 @@ An encoded `UDim2` with value `{0.75, -30, -1.5, 60}` looks like this: `7e 80 00
 ### Ray
 **Type ID `0x08`**
 
-The `Ray` type is a struct composed of six little-endian f32s, making up the components of the `Origin` and then the `Direction` of the Ray:
+The `Ray` type is a struct composed of six little-endian f32 values, making up the components of the `Origin` and then the `Direction` of the Ray:
 
 | Field Name  | Format | Value                                      |
 |:------------|:-------|:-------------------------------------------|
@@ -392,7 +392,7 @@ If the byte is `00`, a `CFrame` looks like this:
 | Field Name  | Format                | Value                                                                                                      |
 |:------------|:----------------------|:-----------------------------------------------------------------------------------------------------------|
 | ID          | `u8`                  | Always `00` in this case.                                                                                  |
-| Orientation | Array of 9 f32s       | The rotation matrix of the CFrame. It represents the RightVector, UpVector, and LookVector, in that order. |
+| Orientation | Array of 9 f32 values | The rotation matrix of the CFrame. It represents the RightVector, UpVector, and LookVector, in that order. |
 | Position    | [`Vector3`](#vector3) | The position of the CFrame.                                                                                |
 
 In this case, the `Orientation` field is stored as nine untransformed [IEEE-754 standard](https://en.wikipedia.org/wiki/Single-precision_floating-point_format) 32-bit floats.
@@ -563,7 +563,7 @@ Two encoded `Rect` values with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0,
 ### PhysicalProperties
 **Type ID `0x19`**
 
-The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five f32s:
+The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five f32 values:
 
 | Field Name       | Format | Value                                                        |
 |:-----------------|:-------|:-------------------------------------------------------------|
