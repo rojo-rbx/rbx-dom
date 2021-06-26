@@ -36,8 +36,8 @@ impl WeakDom {
         );
 
         let mut dom = WeakDom {
-            root_ref,
             instances,
+            root_ref,
         };
 
         for child in builder.children {

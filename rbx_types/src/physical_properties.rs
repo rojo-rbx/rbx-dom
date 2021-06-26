@@ -60,9 +60,9 @@ mod serde_impl {
         }
     }
 
-    impl Into<PhysicalProperties> for TaggedPhysicalProperties {
-        fn into(self) -> PhysicalProperties {
-            match self {
+    impl From<TaggedPhysicalProperties> for PhysicalProperties {
+        fn from(value: TaggedPhysicalProperties) -> Self {
+            match value {
                 TaggedPhysicalProperties::Default => PhysicalProperties::Default,
                 TaggedPhysicalProperties::Custom(custom) => PhysicalProperties::Custom(custom),
             }

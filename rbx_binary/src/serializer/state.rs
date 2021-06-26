@@ -252,7 +252,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
         let instance = self
             .dom
             .get_by_ref(referent)
-            .ok_or_else(|| InnerError::InvalidInstanceId { referent })?;
+            .ok_or(InnerError::InvalidInstanceId { referent })?;
 
         let type_info = self.type_infos.get_or_create(&instance.class);
         type_info.object_refs.push(referent);
