@@ -16,7 +16,7 @@ unstable_text_format = ["serde"]
 [dependencies]
 rbx_dom_weak = { version = "2.0.0", path = "../rbx_dom_weak" }
 rbx_reflection = { version = "4.0.0", path = "../rbx_reflection" }
-rbx_reflection_database = { version = "0.1.0", path = "../rbx_reflection_database" }
+rbx_reflection_database = { version = "0.2.0", path = "../rbx_reflection_database" }
 
 log = "0.4.6"
 lz4 = "1.23.1"

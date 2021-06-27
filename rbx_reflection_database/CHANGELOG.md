@@ -1,5 +1,8 @@
 # rbx\_reflection_database Changelog
 
+## 0.2.0+roblox-478 (2021-06-26)
+* Updated to rbx_reflection 4.0 stable.
+
 ## 0.1.1+roblox-478 (2021-05-14)
 * Updated to Roblox version 478.
 * Fixed scriptability of properties ([#177][pr-177])
