@@ -1,9 +1,12 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 0.4.0 (2021-06-26)
 * Changed `Variant` serialization to use Serde's default enum representation.
   * Before: `{ "type": "Vector2", "value": [1.0, 2.0] }`
   * After: `{ "Vector2": [1.0, 2.0] }`
+* Implemented `PartialOrd` and `Ord` for `SharedStringHash`.
 
 ## 0.3.1 (2021-05-14)
 * Added `Variant::OptionalCoordinateFrame`.
