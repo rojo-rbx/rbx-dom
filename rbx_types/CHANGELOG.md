@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+## 1.0.0 (2021-06-26)
+* Removed `legacy-compact` feature, which added conversions from rbx\_dom\_weak 1.x types.
+
 ## 0.4.0 (2021-06-26)
 * Changed `Variant` serialization to use Serde's default enum representation.
   * Before: `{ "type": "Vector2", "value": [1.0, 2.0] }`
