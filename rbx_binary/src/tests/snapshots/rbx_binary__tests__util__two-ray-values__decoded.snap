@@ -15,11 +15,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       Ray:
-        Origin:
+        origin:
           - 1.0
           - 2.0
           - 3.0
-        Direction:
+        direction:
           - -4.0
           - -5.0
           - -6.0
@@ -36,11 +36,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       Ray:
-        Origin:
+        origin:
           - .inf
           - -.inf
           - .nan
-        Direction:
+        direction:
           - 0.5
           - 0.15625
           - 0.10000000149011612

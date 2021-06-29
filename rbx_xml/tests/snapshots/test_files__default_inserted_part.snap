@@ -29,11 +29,11 @@ expression: viewer.view_children(&dom)
       Enum: 0
     CFrame:
       CFrame:
-        Position:
+        position:
           - -14.0
           - 15.5
           - -7.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
