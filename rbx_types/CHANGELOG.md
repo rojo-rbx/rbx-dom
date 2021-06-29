@@ -1,6 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Changed serde serialization of fields from PascalCase to camelCase.
 
 ## 1.0.0 (2021-06-26)
 * Removed `legacy-compact` feature, which added conversions from rbx\_dom\_weak 1.x types.

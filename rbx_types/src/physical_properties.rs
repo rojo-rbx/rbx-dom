@@ -28,7 +28,7 @@ impl From<CustomPhysicalProperties> for PhysicalProperties {
 /// [PhysicalProperties]: https://developer.roblox.com/en-us/api-reference/datatype/PhysicalProperties
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(rename_all = "PascalCase"))]
+#[cfg_attr(feature = "serde", serde(rename_all = "camelCase"))]
 pub struct CustomPhysicalProperties {
     pub density: f32,
     pub friction: f32,
