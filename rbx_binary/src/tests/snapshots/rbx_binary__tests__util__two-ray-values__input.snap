@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
+
 ---
 num_types: 1
 num_instances: 2
@@ -49,19 +50,19 @@ chunks:
       prop_name: Value
       prop_type: Ray
       values:
-        - Origin:
+        - origin:
             - 1.0
             - 2.0
             - 3.0
-          Direction:
+          direction:
             - -4.0
             - -5.0
             - -6.0
-        - Origin:
+        - origin:
             - .inf
             - -.inf
             - .nan
-          Direction:
+          direction:
             - 0.5
             - 0.15625
             - 0.10000000149011612
@@ -73,3 +74,4 @@ chunks:
         - - 1
           - -1
   - End
+

@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_roundtrip
+
 ---
 num_types: 1
 num_instances: 3
@@ -98,11 +99,11 @@ chunks:
       prop_name: CFrame
       prop_type: CFrame
       values:
-        - Position:
+        - position:
             - -5.5
             - 4.0
             - -12.5
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -112,11 +113,11 @@ chunks:
             - - 0.0
               - 0.0
               - 1.0
-        - Position:
+        - position:
             - -11.5
             - -0.4999929964542389
             - -17.5
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -126,11 +127,11 @@ chunks:
             - - 0.0
               - 0.0
               - 1.0
-        - Position:
+        - position:
             - 5.5
             - 8.5
             - -25.5
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -184,16 +185,16 @@ chunks:
       prop_type: PhysicalProperties
       values:
         - Default
-        - Density: 0.699999988079071
-          Friction: 0.30000001192092898
-          Elasticity: 0.5
-          FrictionWeight: 1.0
-          ElasticityWeight: 1.0
-        - Density: 90.66000366210938
-          Friction: 1.440000057220459
-          Elasticity: 0.6499999761581421
-          FrictionWeight: 50.5
-          ElasticityWeight: 40.5
+        - density: 0.699999988079071
+          friction: 0.30000001192092898
+          elasticity: 0.5
+          frictionWeight: 1.0
+          elasticityWeight: 1.0
+        - density: 90.66000366210938
+          friction: 1.440000057220459
+          elasticity: 0.6499999761581421
+          frictionWeight: 50.5
+          elasticityWeight: 40.5
   - Prop:
       type_id: 0
       prop_name: formFactorRaw
@@ -462,3 +463,4 @@ chunks:
         - - 2
           - -1
   - End
+
