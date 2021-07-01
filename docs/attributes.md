@@ -182,6 +182,7 @@ A `ColorSequenceKeypoint` is stored as a struct composed of three `f32`s:
 | Envelope\*   | f32                 | The envelope for the keypoint |
 | Time         | f32                 | The time for the keypoint     |
 | Value        | [`Color3`](#color3) | The value of the keypoint     |
+
 \*ColorSequenceKeypoint has a field for Envelope despite not having one; it will always be `00 00 00 00`
 
 A ColorSequence with the keypoints `0, RGB(255, 0, 0)`, `0.5, RGB(0, 255, 0)`, and `1, RGB(0, 0, 255)` would look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f`
