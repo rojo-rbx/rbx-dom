@@ -1,7 +1,11 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
-* Changed serde serialization of fields from PascalCase to camelCase.
+
+## 1.1.0 (2021-07-02)
+* Critical fix: changed serde serialization of fields from PascalCase to camelCase. ([#191][#191])
+
+[#191]: https://github.com/rojo-rbx/rbx-dom/pull/191
 
 ## 1.0.0 (2021-06-26)
 * Removed `legacy-compact` feature, which added conversions from rbx\_dom\_weak 1.x types.
