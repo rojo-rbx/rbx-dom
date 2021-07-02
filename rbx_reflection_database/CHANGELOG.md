@@ -1,9 +1,12 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+
+## 0.2.1+roblox-484 (2021-07-02)
+* Updated to rbx_types 1.1.
 * Updated to Roblox version 484.
 
-## 0.2.0+roblox-478 (2021-06-26)
+## 0.2.0+roblox-478 (2021-06-26) (yanked)
 * Updated to rbx_reflection 4.0 stable.
 
 ## 0.1.1+roblox-478 (2021-05-14)

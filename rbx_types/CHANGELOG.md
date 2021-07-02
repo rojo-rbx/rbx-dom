@@ -7,7 +7,7 @@
 
 [#191]: https://github.com/rojo-rbx/rbx-dom/pull/191
 
-## 1.0.0 (2021-06-26)
+## 1.0.0 (2021-06-26) (yanked)
 * Removed `legacy-compact` feature, which added conversions from rbx\_dom\_weak 1.x types.
 
 ## 0.4.0 (2021-06-26)
