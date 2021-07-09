@@ -31,11 +31,11 @@ expression: decoded_viewed
       Enum: 0
     CFrame:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -174,11 +174,11 @@ expression: decoded_viewed
       Enum: 0
     CFrame:
       CFrame:
-        Position:
+        position:
           - -7.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -317,11 +317,11 @@ expression: decoded_viewed
       Enum: 0
     CFrame:
       CFrame:
-        Position:
+        position:
           - -4.0
           - -3.5
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0

@@ -1,6 +1,12 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.6.1 (2021-07-02)
+* Upgraded to rbx\_dom\_weak 2.1.
+
+## 0.6.0 (2021-06-26) (yanked)
+* Upgraded to rbx\_dom\_weak 2.0 stable.
 * Fixed null Refs not being written for unserialized instances. ([#184][pr-184])
 * Changed interface:
   * Renamed `from_reader_default` to `from_reader`.

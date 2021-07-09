@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
+
 ---
 num_types: 1
 num_instances: 3
@@ -46,46 +47,46 @@ chunks:
       prop_name: Color
       prop_type: ColorSequence
       values:
-        - Keypoints:
-            - Time: 0.0
-              Color:
+        - keypoints:
+            - time: 0.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-            - Time: 0.5
-              Color:
+            - time: 0.5
+              color:
                 - 0.0
                 - 0.0
                 - 0.0
-            - Time: 1.0
-              Color:
+            - time: 1.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-        - Keypoints:
-            - Time: 0.0
-              Color:
+        - keypoints:
+            - time: 0.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-            - Time: 1.0
-              Color:
+            - time: 1.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-        - Keypoints:
-            - Time: 0.0
-              Color:
-                - 1.0
-                - 0.0
-                - 0.0
-            - Time: 0.5
-              Color:
-                - 0.0
+        - keypoints:
+            - time: 0.0
+              color:
                 - 1.0
                 - 0.0
-            - Time: 1.0
-              Color:
+                - 0.0
+            - time: 0.5
+              color:
+                - 0.0
+                - 1.0
+                - 0.0
+            - time: 1.0
+              color:
                 - 0.0
                 - 0.0
                 - 1.0
@@ -206,27 +207,27 @@ chunks:
       prop_name: Transparency
       prop_type: NumberSequence
       values:
-        - Keypoints:
-            - Time: 0.0
-              Value: 0.5
-              Envelope: 0.0
-            - Time: 1.0
-              Value: 0.5
-              Envelope: 0.0
-        - Keypoints:
-            - Time: 0.0
-              Value: 0.5
-              Envelope: 0.0
-            - Time: 1.0
-              Value: 0.5
-              Envelope: 0.0
-        - Keypoints:
-            - Time: 0.0
-              Value: 0.5
-              Envelope: 0.0
-            - Time: 1.0
-              Value: 0.5
-              Envelope: 0.0
+        - keypoints:
+            - time: 0.0
+              value: 0.5
+              envelope: 0.0
+            - time: 1.0
+              value: 0.5
+              envelope: 0.0
+        - keypoints:
+            - time: 0.0
+              value: 0.5
+              envelope: 0.0
+            - time: 1.0
+              value: 0.5
+              envelope: 0.0
+        - keypoints:
+            - time: 0.0
+              value: 0.5
+              envelope: 0.0
+            - time: 1.0
+              value: 0.5
+              envelope: 0.0
   - Prop:
       type_id: 0
       prop_name: Width0
@@ -261,3 +262,4 @@ chunks:
         - - 2
           - -1
   - End
+

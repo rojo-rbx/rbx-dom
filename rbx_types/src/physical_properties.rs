@@ -28,7 +28,7 @@ impl From<CustomPhysicalProperties> for PhysicalProperties {
 /// [PhysicalProperties]: https://developer.roblox.com/en-us/api-reference/datatype/PhysicalProperties
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(rename_all = "PascalCase"))]
+#[cfg_attr(feature = "serde", serde(rename_all = "camelCase"))]
 pub struct CustomPhysicalProperties {
     pub density: f32,
     pub friction: f32,
@@ -60,9 +60,9 @@ mod serde_impl {
         }
     }
 
-    impl Into<PhysicalProperties> for TaggedPhysicalProperties {
-        fn into(self) -> PhysicalProperties {
-            match self {
+    impl From<TaggedPhysicalProperties> for PhysicalProperties {
+        fn from(value: TaggedPhysicalProperties) -> Self {
+            match value {
                 TaggedPhysicalProperties::Default => PhysicalProperties::Default,
                 TaggedPhysicalProperties::Custom(custom) => PhysicalProperties::Custom(custom),
             }
@@ -145,7 +145,7 @@ mod serde_test {
         });
 
         let ser = serde_json::to_string(&custom).unwrap();
-        assert_eq!(ser, "{\"Density\":1.0,\"Friction\":0.5,\"Elasticity\":0.0,\"FrictionWeight\":6.0,\"ElasticityWeight\":5.0}");
+        assert_eq!(ser, "{\"density\":1.0,\"friction\":0.5,\"elasticity\":0.0,\"frictionWeight\":6.0,\"elasticityWeight\":5.0}");
 
         let de: PhysicalProperties = serde_json::from_str(&ser).unwrap();
         assert_eq!(de, custom);

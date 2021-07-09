@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
+
 ---
 num_types: 1
 num_instances: 3
@@ -43,11 +44,11 @@ chunks:
       prop_name: ModelInPrimary
       prop_type: CFrame
       values:
-        - Position:
+        - position:
             - 0.0
             - 0.0
             - 0.0
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -57,11 +58,11 @@ chunks:
             - - 0.0
               - 0.0
               - 1.0
-        - Position:
+        - position:
             - 0.0
             - 0.0
             - 0.0
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -71,11 +72,11 @@ chunks:
             - - 0.0
               - 0.0
               - 1.0
-        - Position:
+        - position:
             - 0.0
             - 0.0
             - 0.0
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -90,11 +91,11 @@ chunks:
       prop_name: ModelMeshCFrame
       prop_type: CFrame
       values:
-        - Position:
+        - position:
             - 0.0
             - 0.0
             - 0.0
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -104,11 +105,11 @@ chunks:
             - - 0.0
               - 0.0
               - 1.0
-        - Position:
+        - position:
             - 0.0
             - 0.0
             - 0.0
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -118,11 +119,11 @@ chunks:
             - - 0.0
               - 0.0
               - 1.0
-        - Position:
+        - position:
             - 0.0
             - 0.0
             - 0.0
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -200,11 +201,11 @@ chunks:
       prop_type: OptionalCFrame
       values:
         - ~
-        - Position:
+        - position:
             - 1.0
             - -1.0
             - 0.5
-          Orientation:
+          orientation:
             - - 0.06294725090265274
               - 0.4031980037689209
               - 0.9129452705383301
@@ -214,11 +215,11 @@ chunks:
             - - 0.6556707620620728
               - 0.6729422211647034
               - -0.34241002798080447
-        - Position:
+        - position:
             - -0.5
             - .inf
             - .nan
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -238,3 +239,4 @@ chunks:
         - - 2
           - -1
   - End
+

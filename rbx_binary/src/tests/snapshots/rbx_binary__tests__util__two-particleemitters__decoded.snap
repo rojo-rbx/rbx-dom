@@ -16,14 +16,14 @@ expression: decoded_viewed
       BinaryString: ""
     Color:
       ColorSequence:
-        Keypoints:
-          - Time: 0.0
-            Color:
+        keypoints:
+          - time: 0.0
+            color:
               - 1.0
               - 1.0
               - 1.0
-          - Time: 1.0
-            Color:
+          - time: 1.0
+            color:
               - 1.0
               - 1.0
               - 1.0
@@ -55,22 +55,22 @@ expression: decoded_viewed
         - 6.659999847412109
     Size:
       NumberSequence:
-        Keypoints:
-          - Time: 0.0
-            Value: 1.0
-            Envelope: 0.0
-          - Time: 0.08036739379167557
-            Value: 0.5624997615814209
-            Envelope: 0.0
-          - Time: 0.12169919162988663
-            Value: 1.9374996423721314
-            Envelope: 0.0
-          - Time: 0.14351320266723634
-            Value: 3.75
-            Envelope: 0.0
-          - Time: 1.0
-            Value: 1.0
-            Envelope: 0.0
+        keypoints:
+          - time: 0.0
+            value: 1.0
+            envelope: 0.0
+          - time: 0.08036739379167557
+            value: 0.5624997615814209
+            envelope: 0.0
+          - time: 0.12169919162988663
+            value: 1.9374996423721314
+            envelope: 0.0
+          - time: 0.14351320266723634
+            value: 3.75
+            envelope: 0.0
+          - time: 1.0
+            value: 1.0
+            envelope: 0.0
     SourceAssetId:
       Int64: -1
     Speed:
@@ -87,13 +87,13 @@ expression: decoded_viewed
       Content: "rbxasset://textures/particles/sparkles_main.dds"
     Transparency:
       NumberSequence:
-        Keypoints:
-          - Time: 0.0
-            Value: 0.0
-            Envelope: 0.0
-          - Time: 1.0
-            Value: 0.0
-            Envelope: 0.0
+        keypoints:
+          - time: 0.0
+            value: 0.0
+            envelope: 0.0
+          - time: 1.0
+            value: 0.0
+            envelope: 0.0
     VelocityInheritance:
       Float32: 0.0
     ZOffset:
@@ -112,14 +112,14 @@ expression: decoded_viewed
       BinaryString: ""
     Color:
       ColorSequence:
-        Keypoints:
-          - Time: 0.0
-            Color:
+        keypoints:
+          - time: 0.0
+            color:
               - 1.0
               - 1.0
               - 1.0
-          - Time: 1.0
-            Color:
+          - time: 1.0
+            color:
               - 1.0
               - 1.0
               - 1.0
@@ -151,22 +151,22 @@ expression: decoded_viewed
         - 6.659999847412109
     Size:
       NumberSequence:
-        Keypoints:
-          - Time: 0.0
-            Value: 1.0
-            Envelope: 0.0
-          - Time: 0.08036739379167557
-            Value: 0.5624997615814209
-            Envelope: 0.0
-          - Time: 0.12169919162988663
-            Value: 1.9374996423721314
-            Envelope: 0.0
-          - Time: 0.14351320266723634
-            Value: 3.75
-            Envelope: 0.0
-          - Time: 1.0
-            Value: 1.0
-            Envelope: 0.0
+        keypoints:
+          - time: 0.0
+            value: 1.0
+            envelope: 0.0
+          - time: 0.08036739379167557
+            value: 0.5624997615814209
+            envelope: 0.0
+          - time: 0.12169919162988663
+            value: 1.9374996423721314
+            envelope: 0.0
+          - time: 0.14351320266723634
+            value: 3.75
+            envelope: 0.0
+          - time: 1.0
+            value: 1.0
+            envelope: 0.0
     SourceAssetId:
       Int64: -1
     Speed:
@@ -183,13 +183,13 @@ expression: decoded_viewed
       Content: "rbxasset://textures/particles/sparkles_main.dds"
     Transparency:
       NumberSequence:
-        Keypoints:
-          - Time: 0.0
-            Value: 0.0
-            Envelope: 0.0
-          - Time: 1.0
-            Value: 0.0
-            Envelope: 0.0
+        keypoints:
+          - time: 0.0
+            value: 0.0
+            envelope: 0.0
+          - time: 1.0
+            value: 0.0
+            envelope: 0.0
     VelocityInheritance:
       Float32: 0.0
     ZOffset:

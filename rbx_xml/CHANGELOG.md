@@ -1,6 +1,12 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.12.1 (2021-07-02)
+* Upgraded to rbx\_dom\_weak 2.1.
+
+## 0.12.0 (2021-06-26) (yanked)
+* Upgraded to rbx\_dom\_weak 2.0 stable.
 * Added support for `OptionalCoordinateFrame` type.
 
 ## 0.12.0-alpha.4 (2021-04-09)

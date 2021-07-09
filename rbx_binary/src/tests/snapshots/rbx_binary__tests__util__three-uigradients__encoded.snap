@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_roundtrip
+
 ---
 num_types: 1
 num_instances: 3
@@ -26,36 +27,36 @@ chunks:
       prop_name: Color
       prop_type: ColorSequence
       values:
-        - Keypoints:
-            - Time: 0.0
-              Color:
+        - keypoints:
+            - time: 0.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-            - Time: 1.0
-              Color:
+            - time: 1.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-        - Keypoints:
-            - Time: 0.0
-              Color:
+        - keypoints:
+            - time: 0.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-            - Time: 1.0
-              Color:
+            - time: 1.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-        - Keypoints:
-            - Time: 0.0
-              Color:
+        - keypoints:
+            - time: 0.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
-            - Time: 1.0
-              Color:
+            - time: 1.0
+              color:
                 - 1.0
                 - 1.0
                 - 1.0
@@ -115,39 +116,39 @@ chunks:
       prop_name: Transparency
       prop_type: NumberSequence
       values:
-        - Keypoints:
-            - Time: 0.0
-              Value: 0.5
-              Envelope: 0.0
-            - Time: 0.20000000298023225
-              Value: 0.75
-              Envelope: 0.0
-            - Time: 0.5
-              Value: 0.0
-              Envelope: 0.0
-            - Time: 0.6000000238418579
-              Value: 0.800000011920929
-              Envelope: 0.0
-            - Time: 1.0
-              Value: 1.0
-              Envelope: 0.0
-        - Keypoints:
-            - Time: 0.0
-              Value: 0.0
-              Envelope: 0.0
-            - Time: 0.5
-              Value: 1.0
-              Envelope: 0.0
-            - Time: 1.0
-              Value: 0.0
-              Envelope: 0.0
-        - Keypoints:
-            - Time: 0.0
-              Value: 0.0
-              Envelope: 0.0
-            - Time: 1.0
-              Value: 0.0
-              Envelope: 0.0
+        - keypoints:
+            - time: 0.0
+              value: 0.5
+              envelope: 0.0
+            - time: 0.20000000298023225
+              value: 0.75
+              envelope: 0.0
+            - time: 0.5
+              value: 0.0
+              envelope: 0.0
+            - time: 0.6000000238418579
+              value: 0.800000011920929
+              envelope: 0.0
+            - time: 1.0
+              value: 1.0
+              envelope: 0.0
+        - keypoints:
+            - time: 0.0
+              value: 0.0
+              envelope: 0.0
+            - time: 0.5
+              value: 1.0
+              envelope: 0.0
+            - time: 1.0
+              value: 0.0
+              envelope: 0.0
+        - keypoints:
+            - time: 0.0
+              value: 0.0
+              envelope: 0.0
+            - time: 1.0
+              value: 0.0
+              envelope: 0.0
   - Prnt:
       version: 0
       links:
@@ -158,3 +159,4 @@ chunks:
         - - 2
           - -1
   - End
+

@@ -1,0 +1,41 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Switch out list padding for margins.
+ul, ol {
+    margin-left: 20px;
+}
+ul li, ol li {
+    padding-left: 3px;
+}
+
+// Need more padding around tables!
+table {
+    margin-bottom: 20px;
+    border: none;
+}
+
+// Bold table headings!
+th {
+    font-weight: 700;
+}
+
+// Add a little more padding and axe the strange white borders.
+td, th {
+    padding: 6px;
+    border: none;
+}
+
+// Row highlighting for readability.
+tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+// Make code style a little cleaner.
+code {
+    border: none;
+    padding: 2px;
+    background: none;
+}

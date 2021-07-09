@@ -1,14 +1,16 @@
 ---
-source: rbx_binary/src/tests/util.rs
-expression: decoded_viewed
+source: rbx_xml/tests/test-files.rs
+expression: viewer.view_children(&dom)
 
 ---
 - referent: referent-0
-  name: Brush your teeth
-  class: Part
+  name: Red Union 1
+  class: UnionOperation
   properties:
     Anchored:
       Bool: false
+    AssetId:
+      Content: ""
     AttributesSerialize:
       BinaryString: ""
     BackParamA:
@@ -30,9 +32,9 @@ expression: decoded_viewed
     CFrame:
       CFrame:
         position:
-          - -5.5
-          - 4.0
-          - -12.5
+          - 0.0
+          - 0.0
+          - 0.0
         orientation:
           - - 1.0
             - 0.0
@@ -51,13 +53,11 @@ expression: decoded_viewed
       Int32: 0
     Color:
       Color3uint8:
-        - 0
-        - 255
-        - 255
+        - 196
+        - 40
+        - 28
     CustomPhysicalProperties:
       PhysicalProperties: Default
-    FormFactor:
-      Enum: 1
     FrontParamA:
       Float32: -0.5
     FrontParamB:
@@ -80,8 +80,13 @@ expression: decoded_viewed
       Bool: false
     Material:
       Enum: 256
+    PhysicalConfigData:
+      len: 1803
+      hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
     Reflectance:
       Float32: 0.0
+    RenderFidelity:
+      Enum: 1
     RightParamA:
       Float32: -0.5
     RightParamB:
@@ -97,13 +102,13 @@ expression: decoded_viewed
         - 0.0
         - 0.0
         - 0.0
-    Shape:
-      Enum: 1
     Size:
       Vector3:
-        - 1.0
+        - 5.0
         - 2.0
-        - 3.0
+        - 2.0
+    SmoothingAngle:
+      Float32: 0.0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -118,6 +123,8 @@ expression: decoded_viewed
       Enum: 0
     Transparency:
       Float32: 0.0
+    UsePartColor:
+      Bool: false
     Velocity:
       Vector3:
         - 0.0
@@ -125,11 +132,13 @@ expression: decoded_viewed
         - 0.0
   children: []
 - referent: referent-1
-  name: Eat your greens
-  class: Part
+  name: Red Union 2
+  class: UnionOperation
   properties:
     Anchored:
       Bool: false
+    AssetId:
+      Content: ""
     AttributesSerialize:
       BinaryString: ""
     BackParamA:
@@ -151,9 +160,9 @@ expression: decoded_viewed
     CFrame:
       CFrame:
         position:
-          - -11.5
-          - -0.4999929964542389
-          - -17.5
+          - -7.0
+          - 0.0
+          - 0.0
         orientation:
           - - 1.0
             - 0.0
@@ -172,18 +181,11 @@ expression: decoded_viewed
       Int32: 0
     Color:
       Color3uint8:
-        - 44
-        - 101
-        - 29
+        - 196
+        - 40
+        - 28
     CustomPhysicalProperties:
-      PhysicalProperties:
-        density: 0.699999988079071
-        friction: 0.30000001192092898
-        elasticity: 0.5
-        frictionWeight: 1.0
-        elasticityWeight: 1.0
-    FormFactor:
-      Enum: 1
+      PhysicalProperties: Default
     FrontParamA:
       Float32: -0.5
     FrontParamB:
@@ -206,8 +208,13 @@ expression: decoded_viewed
       Bool: false
     Material:
       Enum: 256
+    PhysicalConfigData:
+      len: 1803
+      hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
     Reflectance:
       Float32: 0.0
+    RenderFidelity:
+      Enum: 1
     RightParamA:
       Float32: -0.5
     RightParamB:
@@ -223,13 +230,13 @@ expression: decoded_viewed
         - 0.0
         - 0.0
         - 0.0
-    Shape:
-      Enum: 1
     Size:
       Vector3:
-        - 4.0
         - 5.0
-        - 6.0
+        - 2.0
+        - 2.0
+    SmoothingAngle:
+      Float32: 0.0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -244,6 +251,8 @@ expression: decoded_viewed
       Enum: 0
     Transparency:
       Float32: 0.0
+    UsePartColor:
+      Bool: false
     Velocity:
       Vector3:
         - 0.0
@@ -251,11 +260,13 @@ expression: decoded_viewed
         - 0.0
   children: []
 - referent: referent-2
-  name: Live wildly
-  class: Part
+  name: Blue Union
+  class: UnionOperation
   properties:
     Anchored:
       Bool: false
+    AssetId:
+      Content: ""
     AttributesSerialize:
       BinaryString: ""
     BackParamA:
@@ -277,9 +288,9 @@ expression: decoded_viewed
     CFrame:
       CFrame:
         position:
-          - 5.5
-          - 8.5
-          - -25.5
+          - -4.0
+          - -3.5
+          - 0.0
         orientation:
           - - 1.0
             - 0.0
@@ -298,18 +309,11 @@ expression: decoded_viewed
       Int32: 0
     Color:
       Color3uint8:
-        - 255
-        - 0
-        - 191
+        - 13
+        - 105
+        - 172
     CustomPhysicalProperties:
-      PhysicalProperties:
-        density: 90.66000366210938
-        friction: 1.440000057220459
-        elasticity: 0.6499999761581421
-        frictionWeight: 50.5
-        elasticityWeight: 40.5
-    FormFactor:
-      Enum: 1
+      PhysicalProperties: Default
     FrontParamA:
       Float32: -0.5
     FrontParamB:
@@ -332,8 +336,13 @@ expression: decoded_viewed
       Bool: false
     Material:
       Enum: 256
+    PhysicalConfigData:
+      len: 1367
+      hash: cc62d7045ec238081b7ebbd97ce5ce7dc15166e688168c307247089135718bdb
     Reflectance:
       Float32: 0.0
+    RenderFidelity:
+      Enum: 1
     RightParamA:
       Float32: -0.5
     RightParamB:
@@ -349,13 +358,13 @@ expression: decoded_viewed
         - 0.0
         - 0.0
         - 0.0
-    Shape:
-      Enum: 1
     Size:
       Vector3:
-        - 7.0
-        - 8.0
-        - 9.0
+        - 4.0
+        - 2.0
+        - 2.0
+    SmoothingAngle:
+      Float32: 0.0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -370,6 +379,8 @@ expression: decoded_viewed
       Enum: 0
     Transparency:
       Float32: 0.0
+    UsePartColor:
+      Bool: false
     Velocity:
       Vector3:
         - 0.0

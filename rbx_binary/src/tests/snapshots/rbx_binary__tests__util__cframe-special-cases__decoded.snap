@@ -15,11 +15,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -42,11 +42,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -69,11 +69,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -96,11 +96,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -123,11 +123,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 1.0
             - 0.0
@@ -150,11 +150,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 0.0
             - 1.0
@@ -177,11 +177,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - -1.0
             - 0.0
@@ -204,11 +204,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 0.0
             - -1.0
@@ -231,11 +231,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 1.0
             - 0.0
@@ -258,11 +258,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 0.0
             - -1.0
@@ -285,11 +285,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - -1.0
             - 0.0
@@ -312,11 +312,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 0.0
             - 1.0
@@ -339,11 +339,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - -1.0
             - 0.0
             - 0.0
@@ -366,11 +366,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - -1.0
             - 0.0
             - 0.0
@@ -393,11 +393,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - -1.0
             - 0.0
             - 0.0
@@ -420,11 +420,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - -1.0
             - 0.0
             - 0.0
@@ -447,11 +447,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 1.0
             - 0.0
@@ -474,11 +474,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 0.0
             - -1.0
@@ -501,11 +501,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - -1.0
             - 0.0
@@ -528,11 +528,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 0.0
             - 1.0
@@ -555,11 +555,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 1.0
             - 0.0
@@ -582,11 +582,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 0.0
             - 1.0
@@ -609,11 +609,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - -1.0
             - 0.0
@@ -636,11 +636,11 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 0.0
             - 0.0
             - -1.0

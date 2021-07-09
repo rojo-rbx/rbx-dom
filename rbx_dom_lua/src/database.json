@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    478,
-    1,
-    422443
+    484,
+    0,
+    425477
   ],
   "Classes": {
     "ABTestService": {
@@ -25,12 +25,12 @@
       "DefaultProperties": {
         "AttachmentPoint": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -142,12 +142,12 @@
       "DefaultProperties": {
         "AttachmentPoint": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -928,6 +928,17 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "AssetImportService": {
+      "Name": "AssetImportService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "AssetManagerService": {
       "Name": "AssetManagerService",
       "Tags": [
@@ -1289,12 +1300,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -1326,6 +1337,17 @@
     },
     "AvatarEditorService": {
       "Name": "AvatarEditorService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "AvatarImportService": {
+      "Name": "AvatarImportService",
       "Tags": [
         "NotCreatable",
         "NotReplicated",
@@ -1788,6 +1810,19 @@
         },
         "CanCollide": {
           "Name": "CanCollide",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CanQuery": {
+          "Name": "CanQuery",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -2875,18 +2910,18 @@
         },
         "Color": {
           "ColorSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Color": [
+                "time": 0.0,
+                "color": [
                   1.0,
                   1.0,
                   1.0
                 ]
               },
               {
-                "Time": 1.0,
-                "Color": [
+                "time": 1.0,
+                "color": [
                   1.0,
                   1.0,
                   1.0
@@ -2936,16 +2971,16 @@
         },
         "Transparency": {
           "NumberSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Value": 0.5,
-                "Envelope": 0.0
+                "time": 0.0,
+                "value": 0.5,
+                "envelope": 0.0
               },
               {
-                "Time": 1.0,
-                "Value": 0.5,
-                "Envelope": 0.0
+                "time": 1.0,
+                "value": 0.5,
+                "envelope": 0.0
               }
             ]
           }
@@ -3008,6 +3043,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Brightness": {
+          "Name": "Brightness",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
           },
           "Tags": [],
           "Kind": {
@@ -3214,6 +3262,9 @@
         },
         "AutoLocalize": {
           "Bool": true
+        },
+        "Brightness": {
+          "Float32": 1.0
         },
         "ClipsDescendants": {
           "Bool": false
@@ -3963,12 +4014,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -4394,12 +4445,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -4494,12 +4545,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -4643,12 +4694,12 @@
         },
         "Value": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -4923,12 +4974,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               20.0,
               20.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -4958,12 +5009,12 @@
         },
         "Focus": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               -5.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -5524,6 +5575,167 @@
         }
       }
     },
+    "CommandInstance": {
+      "Name": "CommandInstance",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "AllowGUIAccessPoints": {
+          "Name": "AllowGUIAccessPoints",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Checked": {
+          "Name": "Checked",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "DefaultShortcut": {
+          "Name": "DefaultShortcut",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Enabled": {
+          "Name": "Enabled",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Group": {
+          "Name": "Group",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Icon": {
+          "Name": "Icon",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Name": {
+          "Name": "Name",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "StatusTip": {
+          "Name": "StatusTip",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Text": {
+          "Name": "Text",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "CommandService": {
+      "Name": "CommandService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "CompressorSoundEffect": {
       "Name": "CompressorSoundEffect",
       "Tags": [],
@@ -5685,12 +5897,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -6069,12 +6281,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -6094,6 +6306,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -6150,12 +6365,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -6361,12 +6576,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -7802,6 +8017,19 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "ZIndex": {
+          "Name": "ZIndex",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
@@ -7829,6 +8057,9 @@
         },
         "Transparency": {
           "Float32": 0.0
+        },
+        "ZIndex": {
+          "Int32": 1
         }
       }
     },
@@ -8344,6 +8575,273 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {},
+      "DefaultProperties": {}
+    },
+    "DraggerService": {
+      "Name": "DraggerService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "AlignDraggedObjects": {
+          "Name": "AlignDraggedObjects",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "AngleSnapEnabled": {
+          "Name": "AngleSnapEnabled",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "AngleSnapIncrement": {
+          "Name": "AngleSnapIncrement",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "AnimateHover": {
+          "Name": "AnimateHover",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "CollisionsEnabled": {
+          "Name": "CollisionsEnabled",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "DraggerCoordinateSpace": {
+          "Name": "DraggerCoordinateSpace",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "DraggerCoordinateSpace"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "DraggerMovementMode": {
+          "Name": "DraggerMovementMode",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "DraggerMovementMode"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "GeometrySnapColor": {
+          "Name": "GeometrySnapColor",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "HoverAnimateFrequency": {
+          "Name": "HoverAnimateFrequency",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "HoverThickness": {
+          "Name": "HoverThickness",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "JointsEnabled": {
+          "Name": "JointsEnabled",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "LinearSnapEnabled": {
+          "Name": "LinearSnapEnabled",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "LinearSnapIncrement": {
+          "Name": "LinearSnapIncrement",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "PivotSnapToGeometry": {
+          "Name": "PivotSnapToGeometry",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ShowHover": {
+          "Name": "ShowHover",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ShowPivotIndicator": {
+          "Name": "ShowPivotIndicator",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "DynamicRotate": {
@@ -9077,12 +9575,12 @@
         },
         "Grip": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -9178,12 +9676,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -9203,6 +9701,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -9262,12 +9763,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -10149,12 +10650,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -10175,12 +10676,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -11322,12 +11823,12 @@
       "DefaultProperties": {
         "AttachmentPoint": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -13455,12 +13956,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -15230,12 +15731,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -15632,12 +16133,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -15658,12 +16159,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -15713,12 +16214,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -15739,12 +16240,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -16025,12 +16526,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -16050,6 +16551,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -16128,12 +16632,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -16464,12 +16968,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -16490,12 +16994,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -16593,12 +17097,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -16619,12 +17123,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -16986,12 +17490,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -17012,6 +17516,9 @@
         },
         "CanCollide": {
           "Bool": false
+        },
+        "CanQuery": {
+          "Bool": true
         },
         "CanTouch": {
           "Bool": true
@@ -17067,12 +17574,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -17225,22 +17732,6 @@
       "Properties": {
         "EmulatedTotalMemoryInMB": {
           "Name": "EmulatedTotalMemoryInMB",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Int32"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "ExtraMemoryUsed": {
-          "Name": "ExtraMemoryUsed",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Int32"
@@ -18234,12 +18725,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -18259,6 +18750,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -18318,12 +18812,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -18540,12 +19034,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -18565,6 +19059,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -18621,12 +19118,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -19041,18 +19538,18 @@
         },
         "Color": {
           "ColorSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Color": [
+                "time": 0.0,
+                "color": [
                   1.0,
                   1.0,
                   1.0
                 ]
               },
               {
-                "Time": 1.0,
-                "Color": [
+                "time": 1.0,
+                "color": [
                   1.0,
                   1.0,
                   1.0
@@ -19105,16 +19602,16 @@
         },
         "Size": {
           "NumberSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Value": 1.0,
-                "Envelope": 0.0
+                "time": 0.0,
+                "value": 1.0,
+                "envelope": 0.0
               },
               {
-                "Time": 1.0,
-                "Value": 1.0,
-                "Envelope": 0.0
+                "time": 1.0,
+                "value": 1.0,
+                "envelope": 0.0
               }
             ]
           }
@@ -19145,16 +19642,16 @@
         },
         "Transparency": {
           "NumberSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Value": 0.0,
-                "Envelope": 0.0
+                "time": 0.0,
+                "value": 0.0,
+                "envelope": 0.0
               },
               {
-                "Time": 1.0,
-                "Value": 0.0,
-                "Envelope": 0.0
+                "time": 1.0,
+                "value": 0.0,
+                "envelope": 0.0
               }
             ]
           }
@@ -21365,12 +21862,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -21890,12 +22387,12 @@
         },
         "Value": {
           "Ray": {
-            "Origin": [
+            "origin": [
               0.0,
               0.0,
               0.0
             ],
-            "Direction": [
+            "direction": [
               0.0,
               0.0,
               0.0
@@ -22034,6 +22531,9 @@
         "ExplorerOrder": {
           "Int32": 2147483647
         },
+        "FFlag": {
+          "String": ""
+        },
         "Insertable": {
           "Bool": true
         },
@@ -22116,6 +22616,9 @@
         "EditingDisabled": {
           "Bool": false
         },
+        "FFlag": {
+          "String": ""
+        },
         "IsBackend": {
           "Bool": false
         },
@@ -22174,6 +22677,9 @@
         },
         "EditingDisabled": {
           "Bool": false
+        },
+        "FFlag": {
+          "String": ""
         },
         "IsBackend": {
           "Bool": false
@@ -22343,6 +22849,19 @@
             }
           }
         },
+        "FFlag": {
+          "Name": "FFlag",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "IsBackend": {
           "Name": "IsBackend",
           "Scriptability": "ReadWrite",
@@ -22476,6 +22995,9 @@
         },
         "EditingDisabled": {
           "Bool": false
+        },
+        "FFlag": {
+          "String": ""
         },
         "IsBackend": {
           "Bool": false
@@ -22920,12 +23442,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -23586,12 +24108,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -23612,12 +24134,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -23661,12 +24183,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -23687,12 +24209,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -23736,12 +24258,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -23762,12 +24284,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -23805,7 +24327,24 @@
         "Service"
       ],
       "Superclass": "Instance",
-      "Properties": {},
+      "Properties": {
+        "ClientGitHash": {
+          "Name": "ClientGitHash",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "RunningAverageItemDouble": {
@@ -24596,12 +25135,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -24621,6 +25160,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -24683,12 +25225,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -25465,12 +26007,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -25490,6 +26032,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -25549,12 +26094,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -26252,12 +26797,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -26278,12 +26823,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -27056,12 +27601,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -27081,6 +27626,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -27149,12 +27697,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -27467,12 +28015,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -27937,6 +28485,21 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "VirtualCursorMode": {
+          "Name": "VirtualCursorMode",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "VirtualCursorMode"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
@@ -27957,6 +28520,9 @@
         },
         "Tags": {
           "BinaryString": ""
+        },
+        "VirtualCursorMode": {
+          "Enum": 0
         }
       }
     },
@@ -29493,6 +30059,32 @@
             }
           }
         },
+        "Enable Linting": {
+          "Name": "Enable Linting",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Enable Signature Help": {
+          "Name": "Enable Signature Help",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Enable Temporary Tabs": {
           "Name": "Enable Temporary Tabs",
           "Scriptability": "ReadWrite",
@@ -29509,6 +30101,19 @@
         "Enable Temporary Tabs In Explorer": {
           "Name": "Enable Temporary Tabs In Explorer",
           "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Enable Type Hover": {
+          "Name": "Enable Type Hover",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -29621,6 +30226,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Enum": "HoverAnimateSpeed"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Hover Box Thickness": {
+          "Name": "Hover Box Thickness",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float32"
           },
           "Tags": [],
           "Kind": {
@@ -29881,6 +30499,19 @@
             }
           }
         },
+        "Pivot Snap To Geometry Color": {
+          "Name": "Pivot Snap To Geometry Color",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "PluginDebuggingEnabled": {
           "Name": "PluginDebuggingEnabled",
           "Scriptability": "ReadWrite",
@@ -30026,6 +30657,22 @@
             "Value": "Color3"
           },
           "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ScriptEditorShouldShowPluginMethods": {
+          "Name": "ScriptEditorShouldShowPluginMethods",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -30200,19 +30847,6 @@
             }
           }
         },
-        "Show CorePackages": {
-          "Name": "Show CorePackages",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "Show Deployment Warnings": {
           "Name": "Show Deployment Warnings",
           "Scriptability": "ReadWrite",
@@ -30333,6 +30967,19 @@
         "Show plus button on hover in Explorer": {
           "Name": "Show plus button on hover in Explorer",
           "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ShowCorePackagesInExplorer": {
+          "Name": "ShowCorePackagesInExplorer",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
           },
@@ -31009,6 +31656,19 @@
             }
           }
         },
+        "Brightness": {
+          "Name": "Brightness",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "CanvasSize": {
           "Name": "CanvasSize",
           "Scriptability": "ReadWrite",
@@ -31126,6 +31786,9 @@
         },
         "AutoLocalize": {
           "Bool": true
+        },
+        "Brightness": {
+          "Float32": 1.0
         },
         "CanvasSize": {
           "Vector2": [
@@ -31819,12 +32482,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -31844,6 +32507,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -31906,12 +32572,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -33941,6 +34607,9 @@
         },
         "Transparency": {
           "Float32": 0.0
+        },
+        "ZIndex": {
+          "Int32": 1
         }
       }
     },
@@ -34142,12 +34811,12 @@
         },
         "Grip": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -34677,18 +35346,18 @@
         },
         "Color": {
           "ColorSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Color": [
+                "time": 0.0,
+                "color": [
                   1.0,
                   1.0,
                   1.0
                 ]
               },
               {
-                "Time": 1.0,
-                "Color": [
+                "time": 1.0,
+                "color": [
                   1.0,
                   1.0,
                   1.0
@@ -34735,32 +35404,32 @@
         },
         "Transparency": {
           "NumberSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Value": 0.5,
-                "Envelope": 0.0
+                "time": 0.0,
+                "value": 0.5,
+                "envelope": 0.0
               },
               {
-                "Time": 1.0,
-                "Value": 0.5,
-                "Envelope": 0.0
+                "time": 1.0,
+                "value": 0.5,
+                "envelope": 0.0
               }
             ]
           }
         },
         "WidthScale": {
           "NumberSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Value": 1.0,
-                "Envelope": 0.0
+                "time": 0.0,
+                "value": 1.0,
+                "envelope": 0.0
               },
               {
-                "Time": 1.0,
-                "Value": 1.0,
-                "Envelope": 0.0
+                "time": 1.0,
+                "value": 1.0,
+                "envelope": 0.0
               }
             ]
           }
@@ -34945,12 +35614,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -34970,6 +35639,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -35026,12 +35698,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -35411,18 +36083,18 @@
         },
         "Color": {
           "ColorSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Color": [
+                "time": 0.0,
+                "color": [
                   1.0,
                   1.0,
                   1.0
                 ]
               },
               {
-                "Time": 1.0,
-                "Color": [
+                "time": 1.0,
+                "color": [
                   1.0,
                   1.0,
                   1.0
@@ -35451,16 +36123,16 @@
         },
         "Transparency": {
           "NumberSequence": {
-            "Keypoints": [
+            "keypoints": [
               {
-                "Time": 0.0,
-                "Value": 0.0,
-                "Envelope": 0.0
+                "time": 0.0,
+                "value": 0.0,
+                "envelope": 0.0
               },
               {
-                "Time": 1.0,
-                "Value": 0.0,
-                "Envelope": 0.0
+                "time": 1.0,
+                "value": 0.0,
+                "envelope": 0.0
               }
             ]
           }
@@ -36437,12 +37109,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -36462,6 +37134,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -36518,12 +37193,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -38058,12 +38733,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -38083,6 +38758,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -38148,12 +38826,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -38316,12 +38994,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -38342,12 +39020,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -38905,6 +39583,33 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "VoiceSource": {
+      "Name": "VoiceSource",
+      "Tags": [
+        "Deprecated",
+        "NotCreatable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "UserId": {
+          "Name": "UserId",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "WedgePart": {
       "Name": "WedgePart",
       "Tags": [],
@@ -38943,12 +39648,12 @@
         },
         "CFrame": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -38968,6 +39673,9 @@
           }
         },
         "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
           "Bool": true
         },
         "CanTouch": {
@@ -39027,12 +39735,12 @@
         },
         "PivotOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -39124,12 +39832,12 @@
         },
         "C0": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -39150,12 +39858,12 @@
         },
         "C1": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -39391,11 +40099,13 @@
             "Value": "Bool"
           },
           "Tags": [
-            "Deprecated"
+            "Deprecated",
+            "Hidden",
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -39590,7 +40300,7 @@
           "Enum": 0
         },
         "CollisionGroups": {
-          "String": "Default^0^1"
+          "String": "Default^0^-1"
         },
         "DistributedGameTime": {
           "Float64": 0.0
@@ -39600,9 +40310,6 @@
         },
         "FallenPartsDestroyHeight": {
           "Float32": -500.0
-        },
-        "FilteringEnabled": {
-          "Bool": false
         },
         "Gravity": {
           "Float32": 196.2
@@ -39812,12 +40519,12 @@
         },
         "BindOffset": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -39841,12 +40548,12 @@
         },
         "CageOrigin": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -39870,12 +40577,12 @@
         },
         "ImportOrigin": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -39905,12 +40612,12 @@
         },
         "ReferenceOrigin": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -40000,12 +40707,12 @@
         },
         "CageOrigin": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -40026,12 +40733,12 @@
         },
         "ImportOrigin": {
           "CFrame": {
-            "Position": [
+            "position": [
               0.0,
               0.0,
               0.0
             ],
-            "Orientation": [
+            "orientation": [
               [
                 1.0,
                 0.0,
@@ -40250,7 +40957,7 @@
         "ClimbAnimation": 48,
         "DeathAnimation": 49,
         "Decal": 13,
-        "DressSkirtAccessory": 71,
+        "DressSkirtAccessory": 72,
         "EarAccessory": 57,
         "EmoteAnimation": 61,
         "EyeAccessory": 58,
@@ -40265,11 +40972,11 @@
         "Head": 17,
         "IdleAnimation": 51,
         "Image": 1,
-        "JacketAccessory": 66,
+        "JacketAccessory": 67,
         "JumpAnimation": 52,
         "LeftArm": 29,
         "LeftLeg": 30,
-        "LeftShoeAccessory": 69,
+        "LeftShoeAccessory": 70,
         "Lua": 5,
         "Mesh": 4,
         "MeshPart": 40,
@@ -40277,22 +40984,22 @@
         "NeckAccessory": 43,
         "Package": 32,
         "Pants": 12,
-        "PantsAccessory": 65,
+        "PantsAccessory": 66,
         "Place": 9,
         "Plugin": 38,
         "PoseAnimation": 56,
         "RightArm": 28,
         "RightLeg": 31,
-        "RightShoeAccessory": 70,
+        "RightShoeAccessory": 71,
         "RunAnimation": 53,
         "Shirt": 11,
-        "ShirtAccessory": 64,
-        "ShortsAccessory": 68,
+        "ShirtAccessory": 65,
+        "ShortsAccessory": 69,
         "ShoulderAccessory": 44,
-        "SweaterAccessory": 67,
+        "SweaterAccessory": 68,
         "SwimAnimation": 54,
         "TeeShirt": 2,
-        "TeeShirtAccessory": 63,
+        "TeeShirtAccessory": 64,
         "Torso": 27,
         "Video": 62,
         "WaistAccessory": 47,
@@ -40329,7 +41036,7 @@
       "items": {
         "BackAccessory": 46,
         "ClimbAnimation": 48,
-        "DressSkirtAccessory": 71,
+        "DressSkirtAccessory": 72,
         "EmoteAnimation": 61,
         "Face": 18,
         "FaceAccessory": 42,
@@ -40340,26 +41047,26 @@
         "Hat": 8,
         "Head": 17,
         "IdleAnimation": 51,
-        "JacketAccessory": 66,
+        "JacketAccessory": 67,
         "JumpAnimation": 52,
         "LeftArm": 29,
         "LeftLeg": 30,
-        "LeftShoeAccessory": 69,
+        "LeftShoeAccessory": 70,
         "NeckAccessory": 43,
         "Pants": 12,
-        "PantsAccessory": 65,
+        "PantsAccessory": 66,
         "RightArm": 28,
         "RightLeg": 31,
-        "RightShoeAccessory": 70,
+        "RightShoeAccessory": 71,
         "RunAnimation": 53,
         "Shirt": 11,
-        "ShirtAccessory": 64,
-        "ShortsAccessory": 68,
+        "ShirtAccessory": 65,
+        "ShortsAccessory": 69,
         "ShoulderAccessory": 44,
-        "SweaterAccessory": 67,
+        "SweaterAccessory": 68,
         "SwimAnimation": 54,
         "TShirt": 2,
-        "TeeShirtAccessory": 63,
+        "TeeShirtAccessory": 64,
         "Torso": 27,
         "WaistAccessory": 47,
         "WalkAnimation": 55
@@ -40537,7 +41244,8 @@
         "CommunityCreations": 4,
         "Featured": 2,
         "None": 1,
-        "Premium": 5
+        "Premium": 5,
+        "Recommended": 6
       }
     },
     "CatalogSortType": {
@@ -40774,6 +41482,14 @@
         "PlayerList": 0
       }
     },
+    "CreateOutfitFailure": {
+      "name": "CreateOutfitFailure",
+      "items": {
+        "InvalidName": 1,
+        "Other": 3,
+        "OutfitLimitReached": 2
+      }
+    },
     "CreatorType": {
       "name": "CreatorType",
       "items": {
@@ -40928,6 +41644,20 @@
         "DraftOutdated": 1,
         "OK": 0,
         "ScriptRemoved": 2
+      }
+    },
+    "DraggerCoordinateSpace": {
+      "name": "DraggerCoordinateSpace",
+      "items": {
+        "Object": 0,
+        "World": 1
+      }
+    },
+    "DraggerMovementMode": {
+      "name": "DraggerMovementMode",
+      "items": {
+        "Geometric": 0,
+        "Physical": 1
       }
     },
     "EasingDirection": {
@@ -41888,6 +42618,14 @@
         "Top": 1
       }
     },
+    "OutfitSource": {
+      "name": "OutfitSource",
+      "items": {
+        "All": 1,
+        "Created": 2,
+        "Purchased": 3
+      }
+    },
     "OutputLayoutMode": {
       "name": "OutputLayoutMode",
       "items": {
@@ -42064,6 +42802,14 @@
         "Member": 128,
         "Owner": 255,
         "Visitor": 10
+      }
+    },
+    "ProductLocationRestriction": {
+      "name": "ProductLocationRestriction",
+      "items": {
+        "AllGames": 2,
+        "AllowedGames": 1,
+        "AvatarShop": 0
       }
     },
     "ProductPurchaseDecision": {
@@ -42393,6 +43139,14 @@
         "ClientPhysicsPause": 2,
         "Default": 0,
         "Disabled": 1
+      }
+    },
+    "StudioCloseMode": {
+      "name": "StudioCloseMode",
+      "items": {
+        "CloseDoc": 2,
+        "CloseStudio": 1,
+        "None": 0
       }
     },
     "StudioDataModelType": {
@@ -42726,6 +43480,7 @@
         "Email": 3,
         "NoSuggestions": 1,
         "Number": 2,
+        "OneTimePassword": 8,
         "Password": 5,
         "PasswordShown": 6,
         "Phone": 4,
@@ -42964,6 +43719,14 @@
         "RightHand": 5,
         "RightTrigger": 3,
         "Small": 1
+      }
+    },
+    "VirtualCursorMode": {
+      "name": "VirtualCursorMode",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
       }
     },
     "VirtualInputMode": {

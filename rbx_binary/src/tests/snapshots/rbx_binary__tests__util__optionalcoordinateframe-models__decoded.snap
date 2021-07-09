@@ -13,11 +13,11 @@ expression: decoded_viewed
       Enum: 0
     ModelInPrimary:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -29,11 +29,11 @@ expression: decoded_viewed
             - 1.0
     ModelMeshCFrame:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -71,11 +71,11 @@ expression: decoded_viewed
       Enum: 0
     ModelInPrimary:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -87,11 +87,11 @@ expression: decoded_viewed
             - 1.0
     ModelMeshCFrame:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -118,11 +118,11 @@ expression: decoded_viewed
       BinaryString: ""
     WorldPivotData:
       OptionalCFrame:
-        Position:
+        position:
           - 1.0
           - -1.0
           - 0.5
-        Orientation:
+        orientation:
           - - 0.06294725090265274
             - 0.4031980037689209
             - 0.9129452705383301
@@ -143,11 +143,11 @@ expression: decoded_viewed
       Enum: 0
     ModelInPrimary:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -159,11 +159,11 @@ expression: decoded_viewed
             - 1.0
     ModelMeshCFrame:
       CFrame:
-        Position:
+        position:
           - 0.0
           - 0.0
           - 0.0
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0
@@ -190,11 +190,11 @@ expression: decoded_viewed
       BinaryString: ""
     WorldPivotData:
       OptionalCFrame:
-        Position:
+        position:
           - -0.5
           - .inf
           - .nan
-        Orientation:
+        orientation:
           - - 1.0
             - 0.0
             - 0.0

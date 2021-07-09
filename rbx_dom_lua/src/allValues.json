@@ -30,12 +30,12 @@
   "CFrame": {
     "value": {
       "CFrame": {
-        "Position": [
+        "position": [
           1.0,
           2.0,
           3.0
         ],
-        "Orientation": [
+        "orientation": [
           [
             4.0,
             5.0,
@@ -79,18 +79,18 @@
   "ColorSequence": {
     "value": {
       "ColorSequence": {
-        "Keypoints": [
+        "keypoints": [
           {
-            "Time": 0.0,
-            "Color": [
+            "time": 0.0,
+            "color": [
               1.0,
               1.0,
               0.5
             ]
           },
           {
-            "Time": 1.0,
-            "Color": [
+            "time": 1.0,
+            "color": [
               0.0,
               0.0,
               0.0
@@ -162,16 +162,16 @@
   "NumberSequence": {
     "value": {
       "NumberSequence": {
-        "Keypoints": [
+        "keypoints": [
           {
-            "Time": 0.0,
-            "Value": 5.0,
-            "Envelope": 2.0
+            "time": 0.0,
+            "value": 5.0,
+            "envelope": 2.0
           },
           {
-            "Time": 1.0,
-            "Value": 22.0,
-            "Envelope": 0.0
+            "time": 1.0,
+            "value": 22.0,
+            "envelope": 0.0
           }
         ]
       }
@@ -181,11 +181,11 @@
   "PhysicalProperties-Custom": {
     "value": {
       "PhysicalProperties": {
-        "Density": 0.5,
-        "Friction": 1.0,
-        "Elasticity": 0.0,
-        "FrictionWeight": 50.0,
-        "ElasticityWeight": 25.0
+        "density": 0.5,
+        "friction": 1.0,
+        "elasticity": 0.0,
+        "frictionWeight": 50.0,
+        "elasticityWeight": 25.0
       }
     },
     "ty": "PhysicalProperties"
@@ -199,12 +199,12 @@
   "Ray": {
     "value": {
       "Ray": {
-        "Origin": [
+        "origin": [
           1.0,
           2.0,
           3.0
         ],
-        "Direction": [
+        "direction": [
           4.0,
           5.0,
           6.0

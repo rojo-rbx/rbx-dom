@@ -149,7 +149,7 @@ impl Vector3int16 {
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
-    serde(rename_all = "PascalCase")
+    serde(rename_all = "camelCase")
 )]
 pub struct CFrame {
     pub position: Vector3,
@@ -250,7 +250,7 @@ impl Color3uint8 {
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
-    serde(rename_all = "PascalCase")
+    serde(rename_all = "camelCase")
 )]
 pub struct Ray {
     pub origin: Vector3,
@@ -374,7 +374,7 @@ impl NumberRange {
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
-    serde(rename_all = "PascalCase")
+    serde(rename_all = "camelCase")
 )]
 pub struct ColorSequence {
     pub keypoints: Vec<ColorSequenceKeypoint>,
@@ -390,7 +390,7 @@ pub struct ColorSequence {
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
-    serde(rename_all = "PascalCase")
+    serde(rename_all = "camelCase")
 )]
 pub struct ColorSequenceKeypoint {
     pub time: f32,
@@ -412,7 +412,7 @@ impl ColorSequenceKeypoint {
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
-    serde(rename_all = "PascalCase")
+    serde(rename_all = "camelCase")
 )]
 pub struct NumberSequence {
     pub keypoints: Vec<NumberSequenceKeypoint>,
@@ -429,7 +429,7 @@ pub struct NumberSequence {
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
-    serde(rename_all = "PascalCase")
+    serde(rename_all = "camelCase")
 )]
 pub struct NumberSequenceKeypoint {
     pub time: f32,

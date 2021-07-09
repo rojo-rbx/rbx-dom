@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
+
 ---
 num_types: 1
 num_instances: 2
@@ -49,11 +50,11 @@ chunks:
       prop_name: Value
       prop_type: CFrame
       values:
-        - Position:
+        - position:
             - 0.0
             - 0.0
             - 0.0
-          Orientation:
+          orientation:
             - - 1.0
               - 0.0
               - 0.0
@@ -63,11 +64,11 @@ chunks:
             - - 0.0
               - 1.0
               - 0.0
-        - Position:
+        - position:
             - 0.15625
             - -0.15625
             - 0.10000000149011612
-          Orientation:
+          orientation:
             - - -0.10000000149011612
               - 0.0
               - 0.0
@@ -85,3 +86,4 @@ chunks:
         - - 1
           - -1
   - End
+
