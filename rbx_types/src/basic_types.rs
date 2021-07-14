@@ -216,11 +216,11 @@ impl Color3 {
 }
 
 impl From<Color3uint8> for Color3 {
-    fn from(color3uint8: Color3uint8) -> Self {
+    fn from(value: Color3uint8) -> Self {
         Self {
-            r: color3uint8.r as f32 / 255.0,
-            g: color3uint8.g as f32 / 255.0,
-            b: color3uint8.b as f32 / 255.0,
+            r: value.r as f32 / 255.0,
+            g: value.g as f32 / 255.0,
+            b: value.b as f32 / 255.0,
         }
     }
 }
@@ -249,11 +249,11 @@ impl Color3uint8 {
 }
 
 impl From<Color3> for Color3uint8 {
-    fn from(color3: Color3) -> Self {
+    fn from(value: Color3) -> Self {
         Self {
-            r: ((color3.r.max(0.0).min(1.0)) * 255.0).round() as u8,
-            g: ((color3.g.max(0.0).min(1.0)) * 255.0).round() as u8,
-            b: ((color3.b.max(0.0).min(1.0)) * 255.0).round() as u8,
+            r: ((value.r.max(0.0).min(1.0)) * 255.0).round() as u8,
+            g: ((value.g.max(0.0).min(1.0)) * 255.0).round() as u8,
+            b: ((value.b.max(0.0).min(1.0)) * 255.0).round() as u8,
         }
     }
 }
