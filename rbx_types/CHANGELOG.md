@@ -1,6 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Implemented `From<Color3>` for `Color3uint8` and `From<Color3uint8>` for `Color3`.
 
 ## 1.1.0 (2021-07-02)
 * Critical fix: changed serde serialization of fields from PascalCase to camelCase. ([#191][#191])
