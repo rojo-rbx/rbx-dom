@@ -79,7 +79,7 @@ impl Type {
         })
     }
 
-    pub fn to_default_rbx_type(&self) -> Option<VariantType> {
+    pub fn to_default_rbx_type(self) -> Option<VariantType> {
         Some(match self {
             // Since many buffers aren't going to be valid UTF-8, it's safer to
             // pick BinaryString for unknown property types instead of String.
