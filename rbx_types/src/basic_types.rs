@@ -215,6 +215,16 @@ impl Color3 {
     }
 }
 
+impl From<Color3uint8> for Color3 {
+    fn from(color3uint8: Color3uint8) -> Self {
+        Self {
+            r: color3uint8.r as f32 / 255.0,
+            g: color3uint8.g as f32 / 255.0,
+            b: color3uint8.b as f32 / 255.0,
+        }
+    }
+}
+
 /// Represents non-HDR colors, i.e. those whose individual color channels do not
 /// exceed 1. This type is used for serializing properties like
 /// [`BasePart.Color`][BasePart.Color], but is not exposed as a distinct type to
