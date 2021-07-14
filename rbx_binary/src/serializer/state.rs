@@ -948,9 +948,11 @@ impl<'a, W: Write> SerializerState<'a, W> {
                                     b.push(value.b);
                                 }
                                 Variant::Color3(value) => {
-                                    r.push((value.r.max(0.0).min(1.0) * 255.0).round() as u8);
-                                    g.push((value.g.max(0.0).min(1.0) * 255.0).round() as u8);
-                                    b.push((value.b.max(0.0).min(1.0) * 255.0).round() as u8);
+                                    let color3uint8: Color3uint8 = (*value).into();
+
+                                    r.push(color3uint8.r);
+                                    g.push(color3uint8.g);
+                                    b.push(color3uint8.b);
                                 }
                                 _ => return type_mismatch(i, &rbx_value, "Color3uint8 or Color3"),
                             }
