@@ -248,6 +248,16 @@ impl Color3uint8 {
     }
 }
 
+impl From<Color3> for Color3uint8 {
+    fn from(color3: Color3) -> Self {
+        Self {
+            r: ((color3.r.max(0.0).min(1.0)) * 255.0).round() as u8,
+            g: ((color3.g.max(0.0).min(1.0)) * 255.0).round() as u8,
+            b: ((color3.b.max(0.0).min(1.0)) * 255.0).round() as u8,
+        }
+    }
+}
+
 /// Represents a ray in 3D space. Direction does not have to be a unit vector,
 /// and is used by APIs like [`Workspace:FindPartOnRay`][FindPartOnRay] to set a
 /// max distance.
