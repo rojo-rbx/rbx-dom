@@ -948,11 +948,11 @@ impl<'a, W: Write> SerializerState<'a, W> {
                                     b.push(value.b);
                                 }
                                 Variant::Color3(value) => {
-                                    let color3uint8: Color3uint8 = (*value).into();
+                                    let color: Color3uint8 = (*value).into();
 
-                                    r.push(color3uint8.r);
-                                    g.push(color3uint8.g);
-                                    b.push(color3uint8.b);
+                                    r.push(color.r);
+                                    g.push(color.g);
+                                    b.push(color.b);
                                 }
                                 _ => return type_mismatch(i, &rbx_value, "Color3uint8 or Color3"),
                             }
