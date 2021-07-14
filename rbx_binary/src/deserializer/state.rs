@@ -939,7 +939,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                 }
             },
             Type::Color3uint8 => match canonical_type {
-                VariantType::Color3 => {
+                VariantType::Color3 | VariantType::Color3uint8 => {
                     let len = type_info.referents.len();
                     let mut r = vec![0; len];
                     let mut g = vec![0; len];
