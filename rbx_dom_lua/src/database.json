@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    484,
+    485,
     0,
-    425477
+    425755
   ],
   "Classes": {
     "ABTestService": {
@@ -928,6 +928,40 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "AssetImportItemSettings": {
+      "Name": "AssetImportItemSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "ShouldImport": {
+          "Name": "ShouldImport",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "AssetImportMeshSettings": {
+      "Name": "AssetImportMeshSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "AssetImportItemSettings",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "AssetImportService": {
       "Name": "AssetImportService",
       "Tags": [
@@ -936,6 +970,43 @@
         "Service"
       ],
       "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "AssetImportSettings": {
+      "Name": "AssetImportSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Hierarchy": {
+          "Name": "Hierarchy",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "AssetImportTextureSettings": {
+      "Name": "AssetImportTextureSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "AssetImportItemSettings",
       "Properties": {},
       "DefaultProperties": {}
     },
@@ -1906,7 +1977,7 @@
           "Name": "Color",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Color3"
+            "Value": "Color3uint8"
           },
           "Tags": [
             "NotReplicated"
@@ -4607,6 +4678,102 @@
         }
       }
     },
+    "Breakpoint": {
+      "Name": "Breakpoint",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Condition": {
+          "Name": "Condition",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Enabled": {
+          "Name": "Enabled",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Line": {
+          "Name": "Line",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Script": {
+          "Name": "Script",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Valid": {
+          "Name": "Valid",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "BrickColorValue": {
       "Name": "BrickColorValue",
       "Tags": [],
@@ -5372,6 +5539,19 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
+        "Color": {
+          "Name": "Color",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Cover": {
           "Name": "Cover",
           "Scriptability": "ReadWrite",
@@ -5397,17 +5577,40 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "Enabled": {
+          "Name": "Enabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
         "AttributesSerialize": {
           "BinaryString": ""
         },
+        "Color": {
+          "Color3": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
         "Cover": {
           "Float32": 0.5
         },
         "Density": {
           "Float32": 0.7
+        },
+        "Enabled": {
+          "Bool": true
         },
         "SourceAssetId": {
           "Int64": -1
@@ -5680,6 +5883,22 @@
           "Scriptability": "Read",
           "DataType": {
             "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Permission": {
+          "Name": "Permission",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "CommandPermission"
           },
           "Tags": [
             "NotReplicated",
@@ -7877,6 +8096,79 @@
       },
       "DefaultProperties": {}
     },
+    "DebuggerConnection": {
+      "Name": "DebuggerConnection",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Id": {
+          "Name": "Id",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "IsPaused": {
+          "Name": "IsPaused",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "DebuggerConnectionManager": {
+      "Name": "DebuggerConnectionManager",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Timeout": {
+          "Name": "Timeout",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "DebuggerManager": {
       "Name": "DebuggerManager",
       "Tags": [
@@ -9162,6 +9454,45 @@
         },
         "Visible": {
           "Bool": true
+        }
+      }
+    },
+    "Expression": {
+      "Name": "Expression",
+      "Tags": [
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Expression": {
+          "Name": "Expression",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "BinaryString": ""
+        },
+        "Expression": {
+          "String": ""
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
         }
       }
     },
@@ -15483,6 +15814,22 @@
             }
           }
         },
+        "TempUseNewSkyRemovalBehaviour": {
+          "Name": "TempUseNewSkyRemovalBehaviour",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "TimeOfDay": {
           "Name": "TimeOfDay",
           "Scriptability": "ReadWrite",
@@ -19719,6 +20066,158 @@
       },
       "DefaultProperties": {}
     },
+    "PausedState": {
+      "Name": "PausedState",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "IsValid": {
+          "Name": "IsValid",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Reason": {
+          "Name": "Reason",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "DebuggerPauseReason"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ThreadCount": {
+          "Name": "ThreadCount",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "PausedStateBreakpoint": {
+      "Name": "PausedStateBreakpoint",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "PausedState",
+      "Properties": {
+        "Breakpoint": {
+          "Name": "Breakpoint",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "BreakpointThread": {
+          "Name": "BreakpointThread",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "PausedStateException": {
+      "Name": "PausedStateException",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "PausedState",
+      "Properties": {
+        "ExceptionText": {
+          "Name": "ExceptionText",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ExceptionThread": {
+          "Name": "ExceptionThread",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "PermissionsService": {
       "Name": "PermissionsService",
       "Tags": [
@@ -23065,6 +23564,17 @@
         }
       }
     },
+    "RemoteDebuggerServer": {
+      "Name": "RemoteDebuggerServer",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "RemoteEvent": {
       "Name": "RemoteEvent",
       "Tags": [],
@@ -24601,6 +25111,16 @@
           }
         }
       },
+      "DefaultProperties": {}
+    },
+    "ScriptRef": {
+      "Name": "ScriptRef",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
       "DefaultProperties": {}
     },
     "ScriptService": {
@@ -34624,6 +35144,34 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "ThreadState": {
+      "Name": "ThreadState",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "ThreadId": {
+          "Name": "ThreadId",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "TimerService": {
       "Name": "TimerService",
       "Tags": [
@@ -40122,6 +40670,21 @@
             }
           }
         },
+        "HumanoidOnlySetCollisionsOnStateChange": {
+          "Name": "HumanoidOnlySetCollisionsOnStateChange",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "HumanoidOnlySetCollisionsOnStateChange"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "InterpolationThrottling": {
           "Name": "InterpolationThrottling",
           "Scriptability": "ReadWrite",
@@ -40313,6 +40876,9 @@
         },
         "Gravity": {
           "Float32": 196.2
+        },
+        "HumanoidOnlySetCollisionsOnStateChange": {
+          "Enum": 0
         },
         "InterpolationThrottling": {
           "Enum": 0
@@ -40799,7 +41365,7 @@
         "Shorts": 13,
         "Shoulder": 4,
         "Sweater": 12,
-        "TeeShirt": 8,
+        "TShirt": 8,
         "Waist": 7
       }
     },
@@ -40998,8 +41564,8 @@
         "ShoulderAccessory": 44,
         "SweaterAccessory": 68,
         "SwimAnimation": 54,
-        "TeeShirt": 2,
-        "TeeShirtAccessory": 64,
+        "TShirt": 2,
+        "TShirtAccessory": 64,
         "Torso": 27,
         "Video": 62,
         "WaistAccessory": 47,
@@ -41066,7 +41632,7 @@
         "SweaterAccessory": 68,
         "SwimAnimation": 54,
         "TShirt": 2,
-        "TeeShirtAccessory": 64,
+        "TShirtAccessory": 64,
         "Torso": 27,
         "WaistAccessory": 47,
         "WalkAnimation": 55
@@ -41086,13 +41652,6 @@
       "items": {
         "Asset": 1,
         "Bundle": 2
-      }
-    },
-    "AvatarJointPositionType": {
-      "name": "AvatarJointPositionType",
-      "items": {
-        "ArtistIntent": 1,
-        "Fixed": 0
       }
     },
     "AvatarPromptResult": {
@@ -41169,6 +41728,14 @@
         "Other": 0,
         "SpecialBreakpoint": 2,
         "UserBreakpoint": 3
+      }
+    },
+    "BreakpointRemoveReason": {
+      "name": "BreakpointRemoveReason",
+      "items": {
+        "Requested": 0,
+        "ScriptChanged": 1,
+        "ScriptRemoved": 2
       }
     },
     "BulkMoveMode": {
@@ -41367,6 +41934,13 @@
         "PreciseConvexDecomposition": 3
       }
     },
+    "CommandPermission": {
+      "name": "CommandPermission",
+      "items": {
+        "LocalUser": 1,
+        "Plugin": 0
+      }
+    },
     "ComputerCameraMovementMode": {
       "name": "ComputerCameraMovementMode",
       "items": {
@@ -41522,6 +42096,49 @@
         "SetIncrementAsync": 1,
         "SetIncrementSortedAsync": 4,
         "UpdateAsync": 2
+      }
+    },
+    "DebuggerEndReason": {
+      "name": "DebuggerEndReason",
+      "items": {
+        "ClientRequest": 0,
+        "ConfigurationFailed": 6,
+        "Disconnected": 3,
+        "InvalidHost": 2,
+        "RpcError": 7,
+        "ServerProtocolMismatch": 5,
+        "ServerShutdown": 4,
+        "Timeout": 1
+      }
+    },
+    "DebuggerFrameType": {
+      "name": "DebuggerFrameType",
+      "items": {
+        "C": 0,
+        "Lua": 1
+      }
+    },
+    "DebuggerPauseReason": {
+      "name": "DebuggerPauseReason",
+      "items": {
+        "Breakpoint": 2,
+        "Entrypoint": 5,
+        "Exception": 3,
+        "Requested": 1,
+        "SingleStep": 4,
+        "Unknown": 0
+      }
+    },
+    "DebuggerStatus": {
+      "name": "DebuggerStatus",
+      "items": {
+        "ConnectionLost": 2,
+        "InternalError": 4,
+        "InvalidResponse": 3,
+        "InvalidState": 5,
+        "RpcError": 6,
+        "Success": 0,
+        "Timeout": 1
       }
     },
     "DevCameraOcclusionMode": {
@@ -42016,6 +42633,14 @@
         "AlwaysOff": 2,
         "AlwaysOn": 1,
         "DisplayWhenDamaged": 0
+      }
+    },
+    "HumanoidOnlySetCollisionsOnStateChange": {
+      "name": "HumanoidOnlySetCollisionsOnStateChange",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
       }
     },
     "HumanoidRigType": {
