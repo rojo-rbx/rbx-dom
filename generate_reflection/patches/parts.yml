@@ -42,6 +42,8 @@ Change:
     BrickColor:
       AliasFor: Color
     Color:
+      DataType:
+        Value: Color3uint8
       Serialization:
         Type: SerializesAs
         As: Color3uint8
