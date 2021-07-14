@@ -22,12 +22,12 @@ impl XmlType for Content {
         if as_str.is_empty() {
             // This doesn't feel like a great XML idiom
             writer.write(XmlWriteEvent::start_element("null"))?;
-            writer.write(XmlWriteEvent::end_element())?;
         } else {
             writer.write(XmlWriteEvent::start_element("url"))?;
             writer.write_string(self.as_ref())?;
-            writer.write(XmlWriteEvent::end_element())?;
         }
+
+        writer.write(XmlWriteEvent::end_element())?;
 
         Ok(())
     }
