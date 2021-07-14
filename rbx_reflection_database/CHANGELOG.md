@@ -1,6 +1,7 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Changed type of `BasePart.Color` to `Color3uint8`.
 
 ## 0.2.1+roblox-484 (2021-07-02)
 * Updated to rbx_types 1.1.
