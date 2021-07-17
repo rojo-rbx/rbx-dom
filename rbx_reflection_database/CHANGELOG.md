@@ -3,7 +3,7 @@
 ## Unreleased Changes
 * Added aliases `Part0` and `Part1` for `WeldConstraint.Part0Internal` and `WeldConstraint.Part1Internal`.
 * Updated to Roblox version 489.
-* Changed type of `Instance.Tags` from `BinaryString` to `Tags`. [#199][pr-199]
+* Changed type of `Instance.Tags` from `BinaryString` to `Tags`. ([#199][pr-199])
 
 [pr-199]: https://github.com/rojo-rbx/rbx-dom/pull/199
 

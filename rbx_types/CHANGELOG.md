@@ -1,7 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
-* Implemented `Tags` [#199][#199].
+* Implemented `Tags`. ([#199][#199])
 
 [#199]: https://github.com/rojo-rbx/rbx-dom/199
 
