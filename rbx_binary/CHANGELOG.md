@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 0.6.2 (2021-07-19)
+* Upgraded to rbx\_dom\_weak 2.2.
+
 ## 0.6.1 (2021-07-02)
 * Upgraded to rbx\_dom\_weak 2.1.
 
