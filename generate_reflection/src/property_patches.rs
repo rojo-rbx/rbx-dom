@@ -24,6 +24,7 @@ const PATCHES: &[&str] = &[
     include_str!("../patches/parts.yml"),
     include_str!("../patches/players.yml"),
     include_str!("../patches/sound.yml"),
+    include_str!("../patches/weld-constraint.yml"),
     include_str!("../patches/workspace.yml"),
 ];
 
