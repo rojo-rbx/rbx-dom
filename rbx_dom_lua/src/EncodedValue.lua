@@ -391,7 +391,7 @@ types = {
 	Tags = {
 		fromPod = identity,
 		toPod = identity,
-	}
+	},
 
 	Vector2 = {
 		fromPod = unpackDecoder(Vector2.new),
