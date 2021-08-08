@@ -44,8 +44,8 @@ return {
 				local existingCollisionGroups = PhysicsService:GetCollisionGroups()
 
 				-- The simplest thing to do right now is remove all the existing collision
-				-- groups writing the new ones. This is similar to the Tags writer's
-				-- behavior of removing any unknown tags.
+				-- groups prior to writing the new ones. This is similar to the Tags
+				-- writer's behavior of removing any unknown tags.
 				for _, existingCollisionGroup in ipairs(existingCollisionGroups) do
 					if existingCollisionGroup.name ~= "Default" then
 						PhysicsService:RemoveCollisionGroup(existingCollisionGroup.name)
