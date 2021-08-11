@@ -1,6 +1,9 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Implemented `CollisionGroups`. ([#206][#206])
+
+[#206]: https://github.com/rojo-rbx/rbx-dom/pull/206
 
 ## 1.2.0 (2021-07-19)
 * Implemented `From<Color3>` for `Color3uint8` and `From<Color3uint8>` for `Color3`. ([#198][#198])
