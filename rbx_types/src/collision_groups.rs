@@ -144,6 +144,29 @@ mod serde_impl {
                 serialized_groups.push(group);
             }
 
+            if let None = serialized_groups
+                .iter()
+                .find(|group| group.name == "Default")
+            {
+                serialized_groups.insert(
+                    0,
+                    SerializedCollisionGroup {
+                        name: "Default",
+                        id: 0,
+                        not_collidable_with: serialized_groups
+                            .iter()
+                            .filter_map(|group| {
+                                group
+                                    .not_collidable_with
+                                    .iter()
+                                    .find(|name| *name == &"Default")
+                            })
+                            .map(|name| *name)
+                            .collect(),
+                    },
+                );
+            };
+
             let groups = serialized_groups
                 .iter()
                 .map(|serialized_group| {
@@ -152,18 +175,13 @@ mod serde_impl {
                             .not_collidable_with
                             .iter()
                             .fold(-1, |mask, group_name| {
-                                if *group_name == "Default" {
-                                    mask & !1
-                                } else {
-                                    let found_group = serialized_groups
-                                        .iter()
-                                        .find(|group| group.name == *group_name);
+                                let found_group = serialized_groups
+                                    .iter()
+                                    .find(|group| group.name == *group_name);
 
-                                    if let Some(group) = found_group {
-                                        mask & !(1 << group.id)
-                                    } else {
-                                        mask
-                                    }
+                                match found_group {
+                                    Some(group) => mask & !(1 << group.id),
+                                    None => mask,
                                 }
                             });
 
@@ -241,7 +259,14 @@ mod serde_test {
 
     #[test]
     fn round_trip_json() {
-        let test_groups = create_test_groups();
+        let mut test_groups = create_test_groups();
+
+        test_groups.groups.insert(CollisionGroup {
+            name: "Default".to_string(),
+            id: 0,
+            mask: -2,
+        });
+
         let serialized = serde_json::to_string(&test_groups).unwrap();
         let deserialized: CollisionGroups = serde_json::from_str(&serialized).unwrap();
 
