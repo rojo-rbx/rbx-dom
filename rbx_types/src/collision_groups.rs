@@ -144,9 +144,10 @@ mod serde_impl {
                 serialized_groups.push(group);
             }
 
-            if let None = serialized_groups
+            if serialized_groups
                 .iter()
                 .find(|group| group.name == "Default")
+                .is_none()
             {
                 serialized_groups.insert(
                     0,
@@ -161,7 +162,7 @@ mod serde_impl {
                                     .iter()
                                     .find(|name| *name == &"Default")
                             })
-                            .map(|name| *name)
+                            .copied()
                             .collect(),
                     },
                 );
