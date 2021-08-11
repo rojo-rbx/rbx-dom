@@ -144,10 +144,9 @@ mod serde_impl {
                 serialized_groups.push(group);
             }
 
-            if serialized_groups
+            if !serialized_groups
                 .iter()
-                .find(|group| group.name == "Default")
-                .is_none()
+                .any(|group| group.name == "Default")
             {
                 serialized_groups.insert(
                     0,
