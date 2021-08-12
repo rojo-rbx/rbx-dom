@@ -85,7 +85,7 @@ mod serde_impl {
 
     #[derive(Serialize, Deserialize)]
     #[serde(rename_all = "camelCase")]
-    pub struct SerializedCollisionGroup<'a> {
+    struct SerializedCollisionGroup<'a> {
         name: &'a str,
         id: i32,
 
