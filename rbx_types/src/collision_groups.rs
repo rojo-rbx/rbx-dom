@@ -102,7 +102,7 @@ mod serde_impl {
 
             for group in self.groups.iter() {
                 let not_collidable_with = (0..31)
-                    .filter(|id| ((group.mask & (1 << id)) >> id == 0))
+                    .filter(|id| (group.mask & (1 << id) == 0))
                     .filter_map(|id| {
                         let group_from_id = self.groups.iter().find(|group| group.id == id);
 
