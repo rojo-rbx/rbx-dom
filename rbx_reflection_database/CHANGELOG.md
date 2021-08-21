@@ -1,6 +1,8 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Added aliases `Part0` and `Part1` for `WeldConstraint.Part0Internal` and `WeldConstraint.Part1Internal`.
+* Updated to Roblox version 489.
 
 ## 0.2.1+roblox-484 (2021-07-02)
 * Updated to rbx_types 1.1.
