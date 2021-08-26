@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    489,
+    492,
     0,
-    4890336
+    4920395
   ],
   "Classes": {
     "ABTestService": {
@@ -945,40 +945,6 @@
       "Properties": {},
       "DefaultProperties": {}
     },
-    "AssetImportItemSettings": {
-      "Name": "AssetImportItemSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "ShouldImport": {
-          "Name": "ShouldImport",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
-    "AssetImportMeshSettings": {
-      "Name": "AssetImportMeshSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "AssetImportItemSettings",
-      "Properties": {},
-      "DefaultProperties": {}
-    },
     "AssetImportService": {
       "Name": "AssetImportService",
       "Tags": [
@@ -987,43 +953,6 @@
         "Service"
       ],
       "Superclass": "Instance",
-      "Properties": {},
-      "DefaultProperties": {}
-    },
-    "AssetImportSettings": {
-      "Name": "AssetImportSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "Hierarchy": {
-          "Name": "Hierarchy",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Ref"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
-    "AssetImportTextureSettings": {
-      "Name": "AssetImportTextureSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "AssetImportItemSettings",
       "Properties": {},
       "DefaultProperties": {}
     },
@@ -4715,7 +4644,6 @@
     "Breakpoint": {
       "Name": "Breakpoint",
       "Tags": [
-        "NotCreatable",
         "NotReplicated"
       ],
       "Superclass": "Instance",
@@ -4724,12 +4652,11 @@
           "Name": "Condition",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Ref"
+            "Value": "String"
           },
           "Tags": [
             "Hidden",
-            "NotReplicated",
-            "ReadOnly"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -4742,6 +4669,22 @@
           "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Id": {
+          "Name": "Id",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
           },
           "Tags": [
             "Hidden",
@@ -4771,6 +4714,22 @@
             }
           }
         },
+        "LogMessage": {
+          "Name": "LogMessage",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Script": {
           "Name": "Script",
           "Scriptability": "None",
@@ -4788,8 +4747,8 @@
             }
           }
         },
-        "Valid": {
-          "Name": "Valid",
+        "Verified": {
+          "Name": "Verified",
           "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
@@ -5267,6 +5226,48 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {}
+    },
+    "ChannelSelectorSoundEffect": {
+      "Name": "ChannelSelectorSoundEffect",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "SoundEffect",
+      "Properties": {
+        "Channel": {
+          "Name": "Channel",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "BinaryString": ""
+        },
+        "Channel": {
+          "Int32": 1
+        },
+        "Enabled": {
+          "Bool": true
+        },
+        "Priority": {
+          "Int32": 0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        }
+      }
     },
     "CharacterAppearance": {
       "Name": "CharacterAppearance",
@@ -5874,22 +5875,6 @@
           },
           "Tags": [
             "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "Group": {
-          "Name": "Group",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
           ],
           "Kind": {
             "Canonical": {
@@ -9599,45 +9584,6 @@
         }
       }
     },
-    "Expression": {
-      "Name": "Expression",
-      "Tags": [
-        "NotReplicated"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "Expression": {
-          "Name": "Expression",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {
-        "AttributesSerialize": {
-          "BinaryString": ""
-        },
-        "Expression": {
-          "String": ""
-        },
-        "SourceAssetId": {
-          "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
-        }
-      }
-    },
     "FaceControls": {
       "Name": "FaceControls",
       "Tags": [
@@ -9647,13 +9593,12 @@
       "Properties": {
         "ChinRaiser": {
           "Name": "ChinRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9663,13 +9608,12 @@
         },
         "ChinRaiserUpperLip": {
           "Name": "ChinRaiserUpperLip",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9679,13 +9623,12 @@
         },
         "Corrugator": {
           "Name": "Corrugator",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9695,13 +9638,12 @@
         },
         "EyesLookDown": {
           "Name": "EyesLookDown",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9711,13 +9653,12 @@
         },
         "EyesLookLeft": {
           "Name": "EyesLookLeft",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9727,13 +9668,12 @@
         },
         "EyesLookRight": {
           "Name": "EyesLookRight",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9743,13 +9683,12 @@
         },
         "EyesLookUp": {
           "Name": "EyesLookUp",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9759,13 +9698,12 @@
         },
         "FlatPucker": {
           "Name": "FlatPucker",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9775,13 +9713,12 @@
         },
         "Funneler": {
           "Name": "Funneler",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9791,13 +9728,12 @@
         },
         "JawDrop": {
           "Name": "JawDrop",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9807,13 +9743,12 @@
         },
         "JawLeft": {
           "Name": "JawLeft",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9823,13 +9758,12 @@
         },
         "JawRight": {
           "Name": "JawRight",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9839,13 +9773,12 @@
         },
         "LeftBrowLowerer": {
           "Name": "LeftBrowLowerer",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9855,13 +9788,12 @@
         },
         "LeftCheekPuff": {
           "Name": "LeftCheekPuff",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9871,13 +9803,12 @@
         },
         "LeftCheekRaiser": {
           "Name": "LeftCheekRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9887,13 +9818,12 @@
         },
         "LeftDimpler": {
           "Name": "LeftDimpler",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9903,13 +9833,12 @@
         },
         "LeftEyeClosed": {
           "Name": "LeftEyeClosed",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9919,13 +9848,12 @@
         },
         "LeftEyeUpperLidRaiser": {
           "Name": "LeftEyeUpperLidRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9935,13 +9863,12 @@
         },
         "LeftInnerBrowRaiser": {
           "Name": "LeftInnerBrowRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9951,13 +9878,12 @@
         },
         "LeftLipCornerDown": {
           "Name": "LeftLipCornerDown",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9967,13 +9893,12 @@
         },
         "LeftLipCornerPuller": {
           "Name": "LeftLipCornerPuller",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9983,13 +9908,12 @@
         },
         "LeftLipStretcher": {
           "Name": "LeftLipStretcher",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -9999,13 +9923,12 @@
         },
         "LeftLowerLipDepressor": {
           "Name": "LeftLowerLipDepressor",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10015,13 +9938,12 @@
         },
         "LeftNoseWrinkler": {
           "Name": "LeftNoseWrinkler",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10031,13 +9953,12 @@
         },
         "LeftOuterBrowRaiser": {
           "Name": "LeftOuterBrowRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10047,13 +9968,12 @@
         },
         "LeftUpperLipRaiser": {
           "Name": "LeftUpperLipRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10063,13 +9983,12 @@
         },
         "LipPresser": {
           "Name": "LipPresser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10079,13 +9998,12 @@
         },
         "LipsTogether": {
           "Name": "LipsTogether",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10095,13 +10013,12 @@
         },
         "LowerLipSuck": {
           "Name": "LowerLipSuck",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10111,13 +10028,12 @@
         },
         "MouthLeft": {
           "Name": "MouthLeft",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10127,13 +10043,12 @@
         },
         "MouthRight": {
           "Name": "MouthRight",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10143,13 +10058,12 @@
         },
         "Pucker": {
           "Name": "Pucker",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10159,13 +10073,12 @@
         },
         "RightBrowLowerer": {
           "Name": "RightBrowLowerer",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10175,13 +10088,12 @@
         },
         "RightCheekPuff": {
           "Name": "RightCheekPuff",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10191,13 +10103,12 @@
         },
         "RightCheekRaiser": {
           "Name": "RightCheekRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10207,13 +10118,12 @@
         },
         "RightDimpler": {
           "Name": "RightDimpler",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10223,13 +10133,12 @@
         },
         "RightEyeClosed": {
           "Name": "RightEyeClosed",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10239,13 +10148,12 @@
         },
         "RightEyeUpperLidRaiser": {
           "Name": "RightEyeUpperLidRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10255,13 +10163,12 @@
         },
         "RightInnerBrowRaiser": {
           "Name": "RightInnerBrowRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10271,13 +10178,12 @@
         },
         "RightLipCornerDown": {
           "Name": "RightLipCornerDown",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10287,13 +10193,12 @@
         },
         "RightLipCornerPuller": {
           "Name": "RightLipCornerPuller",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10303,13 +10208,12 @@
         },
         "RightLipStretcher": {
           "Name": "RightLipStretcher",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10319,13 +10223,12 @@
         },
         "RightLowerLipDepressor": {
           "Name": "RightLowerLipDepressor",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10335,13 +10238,12 @@
         },
         "RightNoseWrinkler": {
           "Name": "RightNoseWrinkler",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10351,13 +10253,12 @@
         },
         "RightOuterBrowRaiser": {
           "Name": "RightOuterBrowRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10367,13 +10268,12 @@
         },
         "RightUpperLipRaiser": {
           "Name": "RightUpperLipRaiser",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10383,13 +10283,12 @@
         },
         "TongueDown": {
           "Name": "TongueDown",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10399,13 +10298,12 @@
         },
         "TongueOut": {
           "Name": "TongueOut",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10415,13 +10313,12 @@
         },
         "TongueUp": {
           "Name": "TongueUp",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10431,13 +10328,12 @@
         },
         "UpperLipSuck": {
           "Name": "UpperLipSuck",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Float32"
           },
           "Tags": [
-            "NotReplicated",
-            "NotScriptable"
+            "NotReplicated"
           ],
           "Kind": {
             "Canonical": {
@@ -10552,42 +10448,6 @@
       ],
       "Superclass": "Instance",
       "Properties": {
-        "FileName": {
-          "Name": "FileName",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [
-            "Deprecated",
-            "Hidden",
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "FileSize": {
-          "Name": "FileSize",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Int64"
-          },
-          "Tags": [
-            "Deprecated",
-            "Hidden",
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
         "Size": {
           "Name": "Size",
           "Scriptability": "Read",
@@ -13640,7 +13500,9 @@
           "DataType": {
             "Enum": "HumanoidCollisionType"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -14958,6 +14820,19 @@
             }
           }
         },
+        "ResampleMode": {
+          "Name": "ResampleMode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ResamplerMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ScaleType": {
           "Name": "ScaleType",
           "Scriptability": "ReadWrite",
@@ -15110,6 +14985,9 @@
         },
         "PressedImage": {
           "Content": ""
+        },
+        "ResampleMode": {
+          "Enum": 0
         },
         "Rotation": {
           "Float32": 0.0
@@ -15376,6 +15254,19 @@
             }
           }
         },
+        "ResampleMode": {
+          "Name": "ResampleMode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ResamplerMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ScaleType": {
           "Name": "ScaleType",
           "Scriptability": "ReadWrite",
@@ -15517,6 +15408,9 @@
             ]
           ]
         },
+        "ResampleMode": {
+          "Enum": 0
+        },
         "Rotation": {
           "Float32": 0.0
         },
@@ -15581,6 +15475,221 @@
           "Int32": 1
         }
       }
+    },
+    "ImporterBaseSettings": {
+      "Name": "ImporterBaseSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Id": {
+          "Name": "Id",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ImportName": {
+          "Name": "ImportName",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ShouldImport": {
+          "Name": "ShouldImport",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "ImporterGroupSettings": {
+      "Name": "ImporterGroupSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "ImporterBaseSettings",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "ImporterJointSettings": {
+      "Name": "ImporterJointSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "ImporterBaseSettings",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "ImporterMeshSettings": {
+      "Name": "ImporterMeshSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "ImporterBaseSettings",
+      "Properties": {
+        "DoubleSided": {
+          "Name": "DoubleSided",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "ImporterRootSettings": {
+      "Name": "ImporterRootSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "ImporterBaseSettings",
+      "Properties": {
+        "FileDimensions": {
+          "Name": "FileDimensions",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "FlattenAll": {
+          "Name": "FlattenAll",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PolygonCount": {
+          "Name": "PolygonCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ScaleUnit": {
+          "Name": "ScaleUnit",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "MeshScaleUnit"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WorldForward": {
+          "Name": "WorldForward",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "NormalId"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WorldUp": {
+          "Name": "WorldUp",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "NormalId"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ZeroOrigin": {
+          "Name": "ZeroOrigin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "ImporterTextureSettings": {
+      "Name": "ImporterTextureSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "ImporterBaseSettings",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "IncrementalPatchBuilder": {
       "Name": "IncrementalPatchBuilder",
@@ -15875,7 +15984,7 @@
           "Name": "Tags",
           "Scriptability": "Custom",
           "DataType": {
-            "Value": "BinaryString"
+            "Value": "Tags"
           },
           "Tags": [],
           "Kind": {
@@ -17078,6 +17187,196 @@
         }
       }
     },
+    "LinearVelocityConstraint": {
+      "Name": "LinearVelocityConstraint",
+      "Tags": [],
+      "Superclass": "Constraint",
+      "Properties": {
+        "LineDirection": {
+          "Name": "LineDirection",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LineVelocity": {
+          "Name": "LineVelocity",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MaxForce": {
+          "Name": "MaxForce",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PlaneVelocity": {
+          "Name": "PlaneVelocity",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector2"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PrimaryTangentAxis": {
+          "Name": "PrimaryTangentAxis",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RelativeTo": {
+          "Name": "RelativeTo",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ActuatorRelativeTo"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "SecondaryTangentAxis": {
+          "Name": "SecondaryTangentAxis",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "VectorVelocity": {
+          "Name": "VectorVelocity",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "VelocityConstraintMode": {
+          "Name": "VelocityConstraintMode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "VelocityConstraintMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "BinaryString": ""
+        },
+        "Color": {
+          "Int32": 26
+        },
+        "Enabled": {
+          "Bool": true
+        },
+        "LineDirection": {
+          "Vector3": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LineVelocity": {
+          "Float32": -0.0
+        },
+        "MaxForce": {
+          "Float32": 1000.0
+        },
+        "PlaneVelocity": {
+          "Vector2": [
+            0.0,
+            0.0
+          ]
+        },
+        "PrimaryTangentAxis": {
+          "Vector3": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RelativeTo": {
+          "Enum": 2
+        },
+        "SecondaryTangentAxis": {
+          "Vector3": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        },
+        "VectorVelocity": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "VelocityConstraintMode": {
+          "Enum": 2
+        },
+        "Visible": {
+          "Bool": false
+        }
+      }
+    },
     "LocalScript": {
       "Name": "LocalScript",
       "Tags": [],
@@ -18045,6 +18344,27 @@
           "String": ""
         }
       }
+    },
+    "MessageBusConnection": {
+      "Name": "MessageBusConnection",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "MessageBusService": {
+      "Name": "MessageBusService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "MessagingService": {
       "Name": "MessagingService",
@@ -28435,6 +28755,23 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
+        "ChannelCount": {
+          "Name": "ChannelCount",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotBrowsable",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "EmitterSize": {
           "Name": "EmitterSize",
           "Scriptability": "ReadWrite",
@@ -29356,6 +29693,23 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "ChannelCount": {
+          "Name": "ChannelCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotBrowsable",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "PlaybackLoudness": {
           "Name": "PlaybackLoudness",
           "Scriptability": "Read",
@@ -31462,19 +31816,6 @@
             }
           }
         },
-        "DEPRECATED_DisableAccuratePlaySolo": {
-          "Name": "DEPRECATED_DisableAccuratePlaySolo",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "Debugger Current Line Color": {
           "Name": "Debugger Current Line Color",
           "Scriptability": "ReadWrite",
@@ -32243,7 +32584,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": "Serializes"
             }
           }
         },
@@ -41235,6 +41576,43 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "VoiceChatService": {
+      "Name": "VoiceChatService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "VoiceChatState": {
+          "Name": "VoiceChatState",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "VoiceChatState"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AttributesSerialize": {
+          "BinaryString": ""
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        }
+      }
+    },
     "VoiceSource": {
       "Name": "VoiceSource",
       "Tags": [
@@ -41889,6 +42267,21 @@
             }
           }
         },
+        "StreamOutBehavior": {
+          "Name": "StreamOutBehavior",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "StreamOutBehavior"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "StreamingEnabled": {
           "Name": "StreamingEnabled",
           "Scriptability": "ReadWrite",
@@ -42027,6 +42420,9 @@
         },
         "SourceAssetId": {
           "Int64": -1
+        },
+        "StreamOutBehavior": {
+          "Enum": 0
         },
         "StreamingEnabled": {
           "Bool": false
@@ -44280,6 +44676,17 @@
         "Enabled": 2
       }
     },
+    "MeshScaleUnit": {
+      "name": "MeshScaleUnit",
+      "items": {
+        "CM": 2,
+        "Foot": 4,
+        "Inch": 5,
+        "MM": 3,
+        "Meter": 1,
+        "Stud": 0
+      }
+    },
     "MeshType": {
       "name": "MeshType",
       "items": {
@@ -44666,6 +45073,13 @@
         "psnr": 0
       }
     },
+    "ResamplerMode": {
+      "name": "ResamplerMode",
+      "items": {
+        "Default": 0,
+        "Pixelated": 1
+      }
+    },
     "ReturnKeyType": {
       "name": "ReturnKeyType",
       "items": {
@@ -44891,6 +45305,14 @@
         "Poison": 0
       }
     },
+    "StreamOutBehavior": {
+      "name": "StreamOutBehavior",
+      "items": {
+        "Default": 0,
+        "LowMemory": 1,
+        "Opportunistic": 2
+      }
+    },
     "StreamingPauseMode": {
       "name": "StreamingPauseMode",
       "items": {
@@ -44911,11 +45333,11 @@
       "name": "StudioDataModelType",
       "items": {
         "Edit": 0,
-        "None": 6,
-        "PlayClient": 2,
-        "PlayServer": 3,
-        "RobloxPlugin": 4,
-        "UserPlugin": 5
+        "None": 5,
+        "PlayClient": 1,
+        "PlayServer": 2,
+        "RobloxPlugin": 3,
+        "UserPlugin": 4
       }
     },
     "StudioScriptEditorColorCategories": {
@@ -45454,6 +45876,14 @@
         "VirtualThumbstick": 1
       }
     },
+    "VelocityConstraintMode": {
+      "name": "VelocityConstraintMode",
+      "items": {
+        "Line": 0,
+        "Plane": 1,
+        "Vector": 2
+      }
+    },
     "VerticalAlignment": {
       "name": "VerticalAlignment",
       "items": {
@@ -45494,6 +45924,18 @@
         "None": 0,
         "Playing": 2,
         "Recording": 1
+      }
+    },
+    "VoiceChatState": {
+      "name": "VoiceChatState",
+      "items": {
+        "Ended": 5,
+        "Failed": 6,
+        "Idle": 0,
+        "Joined": 3,
+        "Joining": 1,
+        "JoiningRetry": 2,
+        "Leaving": 4
       }
     },
     "WaterDirection": {
