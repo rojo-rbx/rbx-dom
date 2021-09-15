@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/serializer.rs
 expression: decoded
+
 ---
 num_types: 1
 num_instances: 1
@@ -23,3 +24,4 @@ chunks:
         - - 0
           - -1
   - End
+

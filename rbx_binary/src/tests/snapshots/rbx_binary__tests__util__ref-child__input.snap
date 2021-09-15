@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
+
 ---
 num_types: 2
 num_instances: 2
@@ -71,3 +72,4 @@ chunks:
         - - 0
           - -1
   - End
+

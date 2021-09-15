@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_roundtrip
+
 ---
 num_types: 1
 num_instances: 1
@@ -63,3 +64,4 @@ chunks:
         - - 0
           - -1
   - End
+
