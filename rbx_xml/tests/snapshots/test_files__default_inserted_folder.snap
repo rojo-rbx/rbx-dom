@@ -1,0 +1,15 @@
+---
+source: rbx_xml/tests/test-files.rs
+expression: viewer.view_children(&dom)
+
+---
+- referent: referent-0
+  name: Folder
+  class: Folder
+  properties:
+    AttributesSerialize:
+      BinaryString: ""
+    Tags:
+      BinaryString: ""
+  children: []
+

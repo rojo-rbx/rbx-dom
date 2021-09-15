@@ -1,0 +1,14 @@
+---
+source: rbx_dom_weak/src/dom.rs
+expression: viewer.view_children(&dest)
+---
+- referent: referent-0
+  name: Target
+  class: Folder
+  properties: {}
+  children:
+    - referent: referent-1
+      name: Some Child
+      class: Part
+      properties: {}
+      children: []
