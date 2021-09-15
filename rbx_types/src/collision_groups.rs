@@ -101,6 +101,10 @@ mod serde_impl {
             let mut state = serializer.serialize_seq(Some(self.groups.len()))?;
 
             for group in self.groups.iter() {
+                if group.name == "Default" {
+                    continue;
+                }
+
                 let not_collidable_with = (0..31)
                     .filter(|id| (group.mask & (1 << id) == 0))
                     .filter_map(|id| {
@@ -274,7 +278,7 @@ mod serde_test {
     }
 
     #[test]
-    fn empty_non_collidable_json() {
+    fn empty_collisiongroups() {
         let mut groups = BTreeSet::new();
 
         groups.insert(CollisionGroup {
@@ -287,7 +291,7 @@ mod serde_test {
         let serialized = serde_json::to_string(&collision_groups).unwrap();
         let round_tripped: CollisionGroups = serde_json::from_str(&serialized).unwrap();
 
-        assert_eq!(serialized, "[{\"name\":\"Default\",\"id\":0}]");
+        assert_eq!(serialized, "[]");
         assert_eq!(round_tripped, collision_groups);
     }
 }
