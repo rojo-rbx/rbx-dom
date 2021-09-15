@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
+
 ---
 num_types: 1
 num_instances: 1
@@ -32,7 +33,7 @@ chunks:
       prop_name: Intensity
       prop_type: Float32
       values:
-        - 0.44999998807907107
+        - 0.45
   - Prop:
       type_id: 0
       prop_name: Name
@@ -44,7 +45,7 @@ chunks:
       prop_name: Size
       prop_type: Float32
       values:
-        - 24.700000762939454
+        - 24.7
   - Prop:
       type_id: 0
       prop_name: Tags
@@ -56,10 +57,11 @@ chunks:
       prop_name: Threshold
       prop_type: Float32
       values:
-        - 2.2850000858306886
+        - 2.285
   - Prnt:
       version: 0
       links:
         - - 0
           - -1
   - End
+

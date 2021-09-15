@@ -18,7 +18,7 @@ expression: viewer.view_children(&dom)
     LimitsEnabled:
       Bool: false
     Radius:
-      Float32: 0.15000000596046449
+      Float32: 0.15
     Restitution:
       Float32: 0.0
     SourceAssetId:

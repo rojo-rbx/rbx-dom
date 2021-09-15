@@ -35,8 +35,8 @@ expression: decoded_viewed
       Bool: true
     Lifetime:
       NumberRange:
-        - -20.200000762939454
-        - 10.100000381469727
+        - -20.2
+        - 10.1
     LightEmission:
       Float32: 0.0
     LightInfluence:
@@ -51,21 +51,21 @@ expression: decoded_viewed
         - 46.0
     Rotation:
       NumberRange:
-        - -6.659999847412109
-        - 6.659999847412109
+        - -6.66
+        - 6.66
     Size:
       NumberSequence:
         keypoints:
           - time: 0.0
             value: 1.0
             envelope: 0.0
-          - time: 0.08036739379167557
-            value: 0.5624997615814209
+          - time: 0.080367394
+            value: 0.56249976
             envelope: 0.0
-          - time: 0.12169919162988663
-            value: 1.9374996423721314
+          - time: 0.12169919
+            value: 1.9374996
             envelope: 0.0
-          - time: 0.14351320266723634
+          - time: 0.1435132
             value: 3.75
             envelope: 0.0
           - time: 1.0
@@ -131,8 +131,8 @@ expression: decoded_viewed
       Bool: true
     Lifetime:
       NumberRange:
-        - -20.200000762939454
-        - 10.100000381469727
+        - -20.2
+        - 10.1
     LightEmission:
       Float32: 0.0
     LightInfluence:
@@ -147,21 +147,21 @@ expression: decoded_viewed
         - 46.0
     Rotation:
       NumberRange:
-        - -6.659999847412109
-        - 6.659999847412109
+        - -6.66
+        - 6.66
     Size:
       NumberSequence:
         keypoints:
           - time: 0.0
             value: 1.0
             envelope: 0.0
-          - time: 0.08036739379167557
-            value: 0.5624997615814209
+          - time: 0.080367394
+            value: 0.56249976
             envelope: 0.0
-          - time: 0.12169919162988663
-            value: 1.9374996423721314
+          - time: 0.12169919
+            value: 1.9374996
             envelope: 0.0
-          - time: 0.14351320266723634
+          - time: 0.1435132
             value: 3.75
             envelope: 0.0
           - time: 1.0
