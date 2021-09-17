@@ -14,9 +14,9 @@ expression: decoded_viewed
       Axes: []
     Color3:
       Color3:
-        - 0.05098039656877518
-        - 0.4117647409439087
-        - 0.6745098233222961
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
     Tags:
       BinaryString: ""
     Transparency:
@@ -36,9 +36,9 @@ expression: decoded_viewed
         - X
     Color3:
       Color3:
-        - 0.05098039656877518
-        - 0.4117647409439087
-        - 0.6745098233222961
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
     Tags:
       BinaryString: ""
     Transparency:
@@ -59,9 +59,9 @@ expression: decoded_viewed
         - Y
     Color3:
       Color3:
-        - 0.05098039656877518
-        - 0.4117647409439087
-        - 0.6745098233222961
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
     Tags:
       BinaryString: ""
     Transparency:
@@ -83,9 +83,9 @@ expression: decoded_viewed
         - Z
     Color3:
       Color3:
-        - 0.05098039656877518
-        - 0.4117647409439087
-        - 0.6745098233222961
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
     Tags:
       BinaryString: ""
     Transparency:
@@ -106,9 +106,9 @@ expression: decoded_viewed
         - Z
     Color3:
       Color3:
-        - 0.05098039656877518
-        - 0.4117647409439087
-        - 0.6745098233222961
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
     Tags:
       BinaryString: ""
     Transparency:
@@ -128,9 +128,9 @@ expression: decoded_viewed
         - Y
     Color3:
       Color3:
-        - 0.05098039656877518
-        - 0.4117647409439087
-        - 0.6745098233222961
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
     Tags:
       BinaryString: ""
     Transparency:
@@ -151,9 +151,9 @@ expression: decoded_viewed
         - Z
     Color3:
       Color3:
-        - 0.05098039656877518
-        - 0.4117647409439087
-        - 0.6745098233222961
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
     Tags:
       BinaryString: ""
     Transparency:
@@ -173,9 +173,9 @@ expression: decoded_viewed
         - Z
     Color3:
       Color3:
-        - 0.05098039656877518
-        - 0.4117647409439087
-        - 0.6745098233222961
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
     Tags:
       BinaryString: ""
     Transparency:
