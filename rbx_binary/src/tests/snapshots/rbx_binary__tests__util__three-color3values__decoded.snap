@@ -14,8 +14,8 @@ expression: decoded_viewed
     Value:
       Color3:
         - 0.0
-        - 0.3137255
-        - 0.49803922
+        - 0.3137255012989044
+        - 0.49803921580314639
   children: []
 - referent: referent-1
   name: Value
@@ -28,8 +28,8 @@ expression: decoded_viewed
     Value:
       Color3:
         - 1.0
-        - 0.70588237
-        - 0.078431375
+        - 0.7058823704719544
+        - 0.0784313753247261
   children: []
 - referent: referent-2
   name: Value
@@ -41,8 +41,8 @@ expression: decoded_viewed
       BinaryString: ""
     Value:
       Color3:
-        - 2.0078433
-        - 1.0196079
-        - 0.039215688
+        - 2.007843255996704
+        - 1.0196079015731812
+        - 0.03921568766236305
   children: []
 

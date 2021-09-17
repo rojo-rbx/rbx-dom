@@ -30,9 +30,9 @@ expression: decoded_viewed
       Float32: 0.0
     BorderColor3:
       Color3:
-        - 0.10588236
-        - 0.16470589
-        - 0.20784315
+        - 0.10588236153125763
+        - 0.16470588743686677
+        - 0.20784315466880799
     BorderMode:
       Enum: 0
     BorderSizePixel:
@@ -146,9 +146,9 @@ expression: decoded_viewed
       Float32: 0.0
     BorderColor3:
       Color3:
-        - 0.10588236
-        - 0.16470589
-        - 0.20784315
+        - 0.10588236153125763
+        - 0.16470588743686677
+        - 0.20784315466880799
     BorderMode:
       Enum: 0
     BorderSizePixel:

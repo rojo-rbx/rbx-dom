@@ -65,7 +65,7 @@ chunks:
           direction:
             - 0.5
             - 0.15625
-            - 0.1
+            - 0.10000000149011612
   - Prnt:
       version: 0
       links:

@@ -13,13 +13,13 @@ expression: decoded_viewed
       UDim2:
         - - 0.0
           - 0
-        - - -0.1
+        - - -0.10000000149011612
           - 100
     CellSize:
       UDim2:
-        - - 0.2
+        - - 0.20000000298023225
           - -150
-        - - -0.3
+        - - -0.30000001192092898
           - 300
     FillDirection:
       Enum: 0
@@ -44,15 +44,15 @@ expression: decoded_viewed
       BinaryString: ""
     CellPadding:
       UDim2:
-        - - 0.4
+        - - 0.4000000059604645
           - -500
         - - -0.5
           - 600
     CellSize:
       UDim2:
-        - - 0.6
+        - - 0.6000000238418579
           - -1200
-        - - -0.7
+        - - -0.699999988079071
           - 1000
     FillDirection:
       Enum: 0
@@ -77,15 +77,15 @@ expression: decoded_viewed
       BinaryString: ""
     CellPadding:
       UDim2:
-        - - 0.8
+        - - 0.800000011920929
           - -200
-        - - -0.9
+        - - -0.8999999761581421
           - 250
     CellSize:
       UDim2:
         - - 1.0
           - -300
-        - - -1.1
+        - - -1.100000023841858
           - 1200
     FillDirection:
       Enum: 0

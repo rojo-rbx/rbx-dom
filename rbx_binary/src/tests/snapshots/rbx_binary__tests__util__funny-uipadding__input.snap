@@ -1,7 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
-
 ---
 num_types: 1
 num_instances: 1
@@ -33,28 +32,28 @@ chunks:
       prop_name: PaddingBottom
       prop_type: UDim
       values:
-        - - 13.37
+        - - 13.369999885559082
           - 42
   - Prop:
       type_id: 0
       prop_name: PaddingLeft
       prop_type: UDim
       values:
-        - - -13.37
+        - - -13.369999885559082
           - 42
   - Prop:
       type_id: 0
       prop_name: PaddingRight
       prop_type: UDim
       values:
-        - - 13.37
+        - - 13.369999885559082
           - -42
   - Prop:
       type_id: 0
       prop_name: PaddingTop
       prop_type: UDim
       values:
-        - - -13.37
+        - - -13.369999885559082
           - -42
   - Prop:
       type_id: 0
@@ -68,4 +67,3 @@ chunks:
         - - 0
           - -1
   - End
-

@@ -11,8 +11,8 @@ expression: decoded_viewed
       Bool: false
     AnchorPoint:
       Vector2:
-        - 0.1
-        - 0.2
+        - 0.10000000149011612
+        - 0.20000000298023225
     AttributesSerialize:
       BinaryString: ""
     AutoLocalize:
@@ -20,7 +20,7 @@ expression: decoded_viewed
     BackgroundColor3:
       Color3:
         - 1.0
-        - 0.49803922
+        - 0.49803921580314639
         - 0.0
     BackgroundTransparency:
       Float32: 0.0
@@ -28,7 +28,7 @@ expression: decoded_viewed
       Color3:
         - 1.0
         - 0.0
-        - 0.49803922
+        - 0.49803921580314639
     BorderMode:
       Enum: 0
     BorderSizePixel:
@@ -45,9 +45,9 @@ expression: decoded_viewed
     NextSelectionUp: "null"
     Position:
       UDim2:
-        - - 0.1
+        - - 0.10000000149011612
           - 2
-        - - 0.2
+        - - 0.20000000298023225
           - 4
     RootLocalizationTable: "null"
     Rotation:
@@ -57,9 +57,9 @@ expression: decoded_viewed
     SelectionImageObject: "null"
     Size:
       UDim2:
-        - - 0.1
+        - - 0.10000000149011612
           - 2
-        - - 0.2
+        - - 0.20000000298023225
           - 4
     SizeConstraint:
       Enum: 1
@@ -80,8 +80,8 @@ expression: decoded_viewed
       Bool: false
     AnchorPoint:
       Vector2:
-        - 0.3
-        - 0.4
+        - 0.30000001192092898
+        - 0.4000000059604645
     AttributesSerialize:
       BinaryString: ""
     AutoLocalize:
@@ -92,7 +92,7 @@ expression: decoded_viewed
         - 1.0
         - 0.0
     BackgroundTransparency:
-      Float32: 0.1
+      Float32: 0.10000000149011612
     BorderColor3:
       Color3:
         - 0.0
@@ -114,9 +114,9 @@ expression: decoded_viewed
     NextSelectionUp: "null"
     Position:
       UDim2:
-        - - 0.3
+        - - 0.30000001192092898
           - 16
-        - - 0.4
+        - - 0.4000000059604645
           - 32
     RootLocalizationTable: "null"
     Rotation:
@@ -126,9 +126,9 @@ expression: decoded_viewed
     SelectionImageObject: "null"
     Size:
       UDim2:
-        - - 0.3
+        - - 0.30000001192092898
           - 16
-        - - 0.4
+        - - 0.4000000059604645
           - 32
     SizeConstraint:
       Enum: 0
@@ -150,7 +150,7 @@ expression: decoded_viewed
     AnchorPoint:
       Vector2:
         - 0.5
-        - 0.6
+        - 0.6000000238418579
     AttributesSerialize:
       BinaryString: ""
     AutoLocalize:
@@ -161,7 +161,7 @@ expression: decoded_viewed
         - 0.0
         - 1.0
     BackgroundTransparency:
-      Float32: 0.2
+      Float32: 0.20000000298023225
     BorderColor3:
       Color3:
         - 1.0
@@ -185,7 +185,7 @@ expression: decoded_viewed
       UDim2:
         - - 0.5
           - 64
-        - - 0.6
+        - - 0.6000000238418579
           - 128
     RootLocalizationTable: "null"
     Rotation:
@@ -197,7 +197,7 @@ expression: decoded_viewed
       UDim2:
         - - 0.5
           - 64
-        - - 0.6
+        - - 0.6000000238418579
           - 128
     SizeConstraint:
       Enum: 2

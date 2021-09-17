@@ -11,19 +11,19 @@ expression: decoded_viewed
       BinaryString: ""
     PaddingBottom:
       UDim:
-        - 13.37
+        - 13.369999885559082
         - 42
     PaddingLeft:
       UDim:
-        - -13.37
+        - -13.369999885559082
         - 42
     PaddingRight:
       UDim:
-        - 13.37
+        - 13.369999885559082
         - -42
     PaddingTop:
       UDim:
-        - -13.37
+        - -13.369999885559082
         - -42
     Tags:
       BinaryString: ""

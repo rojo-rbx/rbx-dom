@@ -12,9 +12,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces: []
     Style:
@@ -35,9 +35,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -59,9 +59,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -84,9 +84,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -110,9 +110,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -137,9 +137,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -165,9 +165,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -194,9 +194,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -222,9 +222,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -249,9 +249,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -277,9 +277,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -304,9 +304,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -330,9 +330,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -357,9 +357,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -385,9 +385,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -412,9 +412,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -438,9 +438,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -465,9 +465,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -491,9 +491,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -516,9 +516,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -542,9 +542,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -569,9 +569,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -597,9 +597,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -624,9 +624,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -650,9 +650,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -677,9 +677,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -703,9 +703,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -728,9 +728,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -754,9 +754,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -781,9 +781,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -807,9 +807,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -832,9 +832,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -858,9 +858,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Right
@@ -883,9 +883,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -907,9 +907,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -932,9 +932,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -958,9 +958,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -985,9 +985,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1013,9 +1013,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1040,9 +1040,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1066,9 +1066,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1093,9 +1093,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1119,9 +1119,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1144,9 +1144,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1170,9 +1170,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1197,9 +1197,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1223,9 +1223,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1248,9 +1248,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1274,9 +1274,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Top
@@ -1299,9 +1299,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Back
@@ -1323,9 +1323,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Back
@@ -1348,9 +1348,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Back
@@ -1374,9 +1374,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Back
@@ -1401,9 +1401,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Back
@@ -1427,9 +1427,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Back
@@ -1452,9 +1452,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Back
@@ -1478,9 +1478,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Back
@@ -1503,9 +1503,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Left
@@ -1527,9 +1527,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Left
@@ -1552,9 +1552,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Left
@@ -1578,9 +1578,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Left
@@ -1603,9 +1603,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Bottom
@@ -1627,9 +1627,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Bottom
@@ -1652,9 +1652,9 @@ expression: decoded_viewed
       BinaryString: ""
     Color3:
       Color3:
-        - 0.050980397
-        - 0.41176474
-        - 0.6745098
+        - 0.05098039656877518
+        - 0.4117647409439087
+        - 0.6745098233222961
     Faces:
       Faces:
         - Front

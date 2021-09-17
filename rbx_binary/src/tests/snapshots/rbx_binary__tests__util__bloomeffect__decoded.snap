@@ -12,12 +12,12 @@ expression: decoded_viewed
     Enabled:
       Bool: true
     Intensity:
-      Float32: 0.45
+      Float32: 0.44999998807907107
     Size:
-      Float32: 24.7
+      Float32: 24.700000762939454
     Tags:
       BinaryString: ""
     Threshold:
-      Float32: 2.285
+      Float32: 2.2850000858306886
   children: []
 

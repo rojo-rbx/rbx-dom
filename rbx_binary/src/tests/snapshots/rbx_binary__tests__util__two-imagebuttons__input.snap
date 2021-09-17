@@ -1,7 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
-
 ---
 num_types: 1
 num_instances: 2
@@ -84,12 +83,12 @@ chunks:
       prop_name: BorderColor3
       prop_type: Color3
       values:
-        - - 0.10588236
-          - 0.16470589
-          - 0.20784315
-        - - 0.10588236
-          - 0.16470589
-          - 0.20784315
+        - - 0.10588236153125763
+          - 0.16470588743686677
+          - 0.20784315466880799
+        - - 0.10588236153125763
+          - 0.16470588743686677
+          - 0.20784315466880799
   - Prop:
       type_id: 0
       prop_name: BorderMode
@@ -375,4 +374,3 @@ chunks:
         - - 1
           - -1
   - End
-
