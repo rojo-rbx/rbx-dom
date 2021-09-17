@@ -20,7 +20,10 @@ local function set(container, key, value)
 end
 
 function PropertyDescriptor.fromRaw(data, className, propertyName)
+	local dataType, ty = next(data.DataType)
+
 	return setmetatable({
+		dataType = dataType == "Enum" and dataType or ty,
 		scriptability = data.Scriptability,
 		className = className,
 		name = propertyName,
