@@ -119,7 +119,7 @@ chunks:
               - 1.0
         - position:
             - -11.5
-            - -0.4999929964542389
+            - -0.499993
             - -17.5
           orientation:
             - - 1.0
@@ -189,14 +189,14 @@ chunks:
       prop_type: PhysicalProperties
       values:
         - Default
-        - density: 0.699999988079071
-          friction: 0.30000001192092898
+        - density: 0.7
+          friction: 0.3
           elasticity: 0.5
           frictionWeight: 1.0
           elasticityWeight: 1.0
-        - density: 90.66000366210938
-          friction: 1.440000057220459
-          elasticity: 0.6499999761581421
+        - density: 90.66
+          friction: 1.44
+          elasticity: 0.65
           frictionWeight: 50.5
           elasticityWeight: 40.5
   - Prop:
