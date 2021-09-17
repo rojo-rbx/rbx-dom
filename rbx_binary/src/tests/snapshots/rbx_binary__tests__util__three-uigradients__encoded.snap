@@ -120,14 +120,14 @@ chunks:
             - time: 0.0
               value: 0.5
               envelope: 0.0
-            - time: 0.20000000298023225
+            - time: 0.2
               value: 0.75
               envelope: 0.0
             - time: 0.5
               value: 0.0
               envelope: 0.0
-            - time: 0.6000000238418579
-              value: 0.800000011920929
+            - time: 0.6
+              value: 0.8
               envelope: 0.0
             - time: 1.0
               value: 1.0

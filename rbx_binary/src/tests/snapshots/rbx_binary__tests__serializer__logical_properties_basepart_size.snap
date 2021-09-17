@@ -1,6 +1,7 @@
 ---
 source: rbx_binary/src/tests/serializer.rs
 expression: decoded
+
 ---
 num_types: 1
 num_instances: 3
@@ -33,7 +34,7 @@ chunks:
           - 5.0
           - 6.0
         - - 4.0
-          - 1.2000000476837159
+          - 1.2
           - 2.0
   - Prnt:
       version: 0
@@ -45,3 +46,4 @@ chunks:
         - - 2
           - -1
   - End
+
