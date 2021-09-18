@@ -20,10 +20,21 @@ local function set(container, key, value)
 end
 
 function PropertyDescriptor.fromRaw(data, className, propertyName)
-	local dataType, ty = next(data.DataType)
+	local key, value = next(data.DataType)
 
 	return setmetatable({
-		dataType = dataType == "Enum" and dataType or ty,
+		-- The meanings of the key and value in DataType differ when the type of
+		-- the property is Enum. When the property is of type Enum, the key is
+		-- the name of the type:
+		--
+		-- { Enum = "<name of enum>" }
+		--
+		-- When the property is not of type Enum, the value is the name of the
+		-- type:
+		--
+		-- { Value = "<data type>" }
+		dataType = key == "Enum" and key or value,
+
 		scriptability = data.Scriptability,
 		className = className,
 		name = propertyName,
