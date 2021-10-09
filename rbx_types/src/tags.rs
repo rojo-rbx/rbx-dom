@@ -58,6 +58,7 @@ impl From<Vec<String>> for Tags {
     }
 }
 
+/// See [`Tags::iter`].
 pub struct TagsIter<'a> {
     internal: std::slice::Iter<'a, String>,
 }
