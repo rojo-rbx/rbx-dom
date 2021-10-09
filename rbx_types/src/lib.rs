@@ -2,9 +2,6 @@
 #[macro_use]
 mod serde_util;
 
-#[cfg(feature = "legacy-compat")]
-mod legacy_compat;
-
 mod attributes;
 mod axes;
 mod basic_types;
