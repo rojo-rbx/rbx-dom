@@ -1,5 +1,3 @@
-// Thanks to Anaminus! https://github.com/RobloxAPI/rbxattr/blob/master/spec.md
-
 use std::{
     collections::HashMap,
     io::{self, Read},
