@@ -21,4 +21,4 @@ xml-rs = "0.8.4"
 
 [dev-dependencies]
 env_logger = "0.7.1"
-insta = "0.16.1"
+insta = "1.8.0"

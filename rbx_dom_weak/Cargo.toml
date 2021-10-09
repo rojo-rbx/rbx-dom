@@ -16,4 +16,4 @@ rbx_types = { version = "1.2.0", path = "../rbx_types", features = ["serde"] }
 serde = "1.0.130"
 
 [dev-dependencies]
-insta = "0.16.1"
+insta = "1.8.0"
