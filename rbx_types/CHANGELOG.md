@@ -10,7 +10,6 @@
 * Implemented `From<Color3>` for `Color3uint8` and `From<Color3uint8>` for `Color3`. ([#198][#198])
 
 [#198]: https://github.com/rojo-rbx/rbx-dom/pull/198
->>>>>>> master
 
 ## 1.1.0 (2021-07-02)
 * Critical fix: changed serde serialization of fields from PascalCase to camelCase. ([#191][#191])
