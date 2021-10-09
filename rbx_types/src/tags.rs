@@ -71,4 +71,13 @@ mod test {
 
         assert_eq!(Tags::decode(value).unwrap().as_slice(), &["ez", "pz"])
     }
+
+    #[test]
+    fn decode_empty() {
+        let input = b"";
+        let expected: &[String] = &[];
+        let result = Tags::decode(input).unwrap();
+
+        assert_eq!(result.as_slice(), expected);
+    }
 }
