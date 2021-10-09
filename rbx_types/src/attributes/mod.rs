@@ -1,108 +1,26 @@
+mod error;
+mod reader;
+mod type_id;
+mod writer;
+
 use std::{
     borrow::Borrow,
     collections::HashMap,
-    convert::TryFrom,
     hash::Hash,
-    io::{self, Read, Write},
+    io::{Read, Write},
     iter::FromIterator,
-    string::FromUtf8Error,
 };
 
-use crate::{
-    error::Error,
-    variant::{self, VariantType},
-};
+use crate::{Error, Variant};
 
-use thiserror::Error;
+use self::reader::read_attributes;
+use self::writer::write_attributes;
 
-use variant::Variant;
-
-mod reader;
-mod writer;
-
-use reader::read_attributes;
-
-use writer::write_attributes;
-
-pub(crate) type AttributeData = HashMap<String, Variant>;
-
-macro_rules! create_attribute_type {
-    ({
-        $(
-            $key:ident = $number:literal,
-        )+
-    }) => {
-        #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-        pub(crate) enum AttributeType {
-            $(
-                $key = $number,
-            )+
-        }
-
-        impl TryFrom<VariantType> for AttributeType {
-            type Error = AttributeError;
-
-            fn try_from(variant_type: VariantType) -> Result<Self, Self::Error> {
-                match variant_type {
-                    $(
-                        VariantType::$key => Ok(AttributeType::$key),
-                    )+
-
-                    _ => Err(AttributeError::InvalidVariantType),
-                }
-            }
-        }
-
-        impl TryFrom<u8> for AttributeType {
-            type Error = AttributeError;
-
-            fn try_from(byte: u8) -> Result<Self, Self::Error> {
-                match byte {
-                    $(
-                        $number => Ok(Self::$key),
-                    )+
-
-                    other => Err(AttributeError::InvalidValueType(other))
-                }
-            }
-        }
-    };
-}
-
-create_attribute_type!({
-    // ??? = 0x01,
-    BinaryString = 0x02,
-    Bool = 0x03,
-    // ??? = 0x04,
-    Float32 = 0x05,
-    Float64 = 0x06,
-    // ??? = 0x07,
-    // ??? = 0x08,
-    UDim = 0x09,
-    UDim2 = 0x0A,
-    // ??? = 0x0B,
-    // ??? = 0x0C,
-    // ??? = 0x0D,
-    BrickColor = 0x0E,
-    Color3 = 0x0F,
-    Vector2 = 0x10,
-    Vector3 = 0x11,
-    // ??? = 0x12,
-    // ??? = 0x13,
-    // ??? = 0x14,
-    // ??? = 0x15,
-    // ??? = 0x16,
-    NumberSequence = 0x17,
-    // ??? = 0x18,
-    ColorSequence = 0x19,
-    // ??? = 0x1A,
-    NumberRange = 0x1B,
-    Rect = 0x1C,
-});
+pub(crate) use self::error::AttributeError;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct Attributes {
-    data: AttributeData,
+    data: HashMap<String, Variant>,
 }
 
 impl Attributes {
@@ -177,40 +95,6 @@ impl Iterator for AttributesIntoIter {
     fn next(&mut self) -> Option<Self::Item> {
         self.iter.next()
     }
-}
-
-#[derive(Debug, Error)]
-pub(crate) enum AttributeError {
-    #[error("invalid value type: {0}")]
-    InvalidValueType(u8),
-
-    #[error("invalid brick color: {0}")]
-    InvalidBrickColor(u32),
-
-    #[error("invalid name")]
-    InvalidName,
-
-    #[error("invalid size")]
-    InvalidSize,
-
-    #[error("invalid variant type passed")]
-    InvalidVariantType,
-
-    #[error("no value type was found")]
-    NoValueType,
-
-    #[error("malformed attribute key")]
-    MalformedEntryKey(FromUtf8Error),
-
-    #[error("couldn't write to writer")]
-    ToWriterFail(
-        #[from]
-        #[source]
-        io::Error,
-    ),
-
-    #[error("couldn't read bytes to deserialize {0}")]
-    Other(&'static str),
 }
 
 #[cfg(test)]

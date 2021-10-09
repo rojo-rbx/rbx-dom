@@ -6,16 +6,148 @@ use std::{
 };
 
 use crate::{
-    basic_types::{
-        Color3, ColorSequence, ColorSequenceKeypoint, NumberRange, NumberSequence,
-        NumberSequenceKeypoint, Rect, UDim, UDim2, Vector2, Vector3,
-    },
-    brick_color::BrickColor,
-    variant::Variant,
-    BinaryString,
+    BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint, NumberRange,
+    NumberSequence, NumberSequenceKeypoint, Rect, UDim, UDim2, Variant, VariantType, Vector2,
+    Vector3,
 };
 
-use super::*;
+use super::{type_id, AttributeError};
+
+/// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
+pub(crate) fn read_attributes<R: Read>(
+    mut value: R,
+) -> Result<HashMap<String, Variant>, AttributeError> {
+    let len = read_u32(&mut value).map_err(|_| AttributeError::InvalidLength)?;
+    let mut attributes = HashMap::with_capacity(len as usize);
+
+    for _ in 0..len {
+        let key_buf = read_string(&mut value).map_err(|_| AttributeError::NoKey)?;
+        let key = String::from_utf8(key_buf).map_err(AttributeError::KeyBadUnicode)?;
+
+        let type_id = read_u8(&mut value).map_err(|_| AttributeError::NoValueType)?;
+        let ty = type_id::to_variant_type(type_id)
+            .ok_or_else(|| AttributeError::InvalidValueType(type_id))?;
+
+        let value = match ty {
+            VariantType::BrickColor => {
+                let color =
+                    read_u32(&mut value).map_err(|_| AttributeError::ReadType("BrickColor"))?;
+
+                BrickColor::from_number(color as u16)
+                    .ok_or_else(|| AttributeError::InvalidBrickColor(color))?
+                    .into()
+            }
+
+            VariantType::Bool => {
+                (read_u8(&mut value).map_err(|_| AttributeError::ReadType("bool"))? != 0).into()
+            }
+
+            VariantType::Color3 => read_color3(&mut value)
+                .map_err(|_| AttributeError::ReadType("Color3"))?
+                .into(),
+
+            VariantType::ColorSequence => {
+                let size = read_u32(&mut value)
+                    .map_err(|_| AttributeError::ReadType("ColorSequence length"))?;
+                let mut keypoints = Vec::with_capacity(size as usize);
+
+                for _ in 0..size {
+                    // `envelope` is always zero and can be ignored.
+                    let _envelope = read_f32(&mut value)
+                        .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint envelope"))?;
+
+                    let time = read_f32(&mut value)
+                        .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint time"))?;
+
+                    let color = read_color3(&mut value)
+                        .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint color"))?;
+
+                    keypoints.push(ColorSequenceKeypoint::new(time, color));
+                }
+
+                ColorSequence { keypoints }.into()
+            }
+
+            VariantType::Float32 => read_f32(&mut value)
+                .map_err(|_| AttributeError::ReadType("float32"))?
+                .into(),
+
+            VariantType::Float64 => read_f64(&mut value)
+                .map_err(|_| AttributeError::ReadType("float64"))?
+                .into(),
+
+            VariantType::NumberRange => NumberRange::new(
+                read_f32(&mut value).map_err(|_| AttributeError::ReadType("NumberRange min"))?,
+                read_f32(&mut value).map_err(|_| AttributeError::ReadType("NumberRange max"))?,
+            )
+            .into(),
+
+            VariantType::NumberSequence => {
+                let size = read_u32(&mut value)
+                    .map_err(|_| AttributeError::ReadType("NumberSequence length"))?;
+
+                let mut keypoints = Vec::with_capacity(size as usize);
+
+                for _ in 0..size {
+                    let envelope = read_f32(&mut value)
+                        .map_err(|_| AttributeError::ReadType("NumberSequence envelope"))?;
+
+                    let time = read_f32(&mut value)
+                        .map_err(|_| AttributeError::ReadType("NumberSequence time"))?;
+
+                    let value = read_f32(&mut value)
+                        .map_err(|_| AttributeError::ReadType("NumberSequence value"))?;
+
+                    keypoints.push(NumberSequenceKeypoint::new(time, value, envelope));
+                }
+
+                NumberSequence { keypoints }.into()
+            }
+
+            VariantType::Rect => Rect::new(
+                read_vector2(&mut value).map_err(|_| AttributeError::ReadType("Rect min"))?,
+                read_vector2(&mut value).map_err(|_| AttributeError::ReadType("Rect max"))?,
+            )
+            .into(),
+
+            VariantType::BinaryString => {
+                let binary_string: BinaryString = read_string(&mut value)
+                    .map_err(|_| AttributeError::ReadType("string"))?
+                    .into();
+                binary_string.into()
+            }
+
+            VariantType::UDim => read_udim(&mut value)
+                .map_err(|_| AttributeError::ReadType("UDim"))?
+                .into(),
+
+            VariantType::UDim2 => UDim2::new(
+                read_udim(&mut value).map_err(|_| AttributeError::ReadType("UDim2 X"))?,
+                read_udim(&mut value).map_err(|_| AttributeError::ReadType("UDim2 Y"))?,
+            )
+            .into(),
+
+            VariantType::Vector2 => Vector2::new(
+                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector2 X"))?,
+                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector2 Y"))?,
+            )
+            .into(),
+
+            VariantType::Vector3 => Vector3::new(
+                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 X"))?,
+                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 Y"))?,
+                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 Z"))?,
+            )
+            .into(),
+
+            other => return Err(AttributeError::UnsupportedVariantType(other)),
+        };
+
+        attributes.insert(key, value);
+    }
+
+    Ok(attributes)
+}
 
 fn read_u8<R: Read>(mut reader: R) -> io::Result<u8> {
     let mut bytes = [0u8; 1];
@@ -68,136 +200,4 @@ fn read_udim<R: Read>(mut reader: R) -> io::Result<UDim> {
 
 fn read_vector2<R: Read>(mut reader: R) -> io::Result<Vector2> {
     Ok(Vector2::new(read_f32(&mut reader)?, read_f32(&mut reader)?))
-}
-
-/// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
-pub(crate) fn read_attributes<R: Read>(
-    mut value: R,
-) -> Result<HashMap<String, Variant>, AttributeError> {
-    let size = read_u32(&mut value).map_err(|_| AttributeError::InvalidSize)?;
-    let mut attributes = HashMap::with_capacity(size as usize);
-
-    for _ in 0..size {
-        let name =
-            String::from_utf8(read_string(&mut value).map_err(|_| AttributeError::InvalidName)?)
-                .map_err(AttributeError::MalformedEntryKey)?;
-
-        let attribute_type =
-            AttributeType::try_from(read_u8(&mut value).map_err(|_| AttributeError::NoValueType)?)?;
-
-        let value = match attribute_type {
-            AttributeType::BrickColor => {
-                let color =
-                    read_u32(&mut value).map_err(|_| AttributeError::Other("BrickColor"))?;
-
-                BrickColor::from_number(color as u16)
-                    .ok_or(AttributeError::InvalidBrickColor(color))?
-                    .into()
-            }
-
-            AttributeType::Bool => {
-                (read_u8(&mut value).map_err(|_| AttributeError::Other("bool"))? != 0).into()
-            }
-
-            AttributeType::Color3 => read_color3(&mut value)
-                .map_err(|_| AttributeError::Other("Color3"))?
-                .into(),
-
-            AttributeType::ColorSequence => {
-                let size = read_u32(&mut value).map_err(|_| AttributeError::InvalidSize)?;
-                let mut keypoints = Vec::with_capacity(size as usize);
-
-                for _ in 0..size {
-                    // `envelope` is always zero and can be ignored.
-                    let _envelope = read_f32(&mut value)
-                        .map_err(|_| AttributeError::Other("ColorSequenceKeypoint envelope"))?;
-
-                    let time = read_f32(&mut value)
-                        .map_err(|_| AttributeError::Other("ColorSequenceKeypoint time"))?;
-
-                    let color = read_color3(&mut value)
-                        .map_err(|_| AttributeError::Other("ColorSequenceKeypoint color"))?;
-
-                    keypoints.push(ColorSequenceKeypoint::new(time, color));
-                }
-
-                ColorSequence { keypoints }.into()
-            }
-
-            AttributeType::Float32 => read_f32(&mut value)
-                .map_err(|_| AttributeError::Other("float32"))?
-                .into(),
-
-            AttributeType::Float64 => read_f64(&mut value)
-                .map_err(|_| AttributeError::Other("float64"))?
-                .into(),
-
-            AttributeType::NumberRange => NumberRange::new(
-                read_f32(&mut value).map_err(|_| AttributeError::Other("NumberRange min"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::Other("NumberRange max"))?,
-            )
-            .into(),
-
-            AttributeType::NumberSequence => {
-                let size = read_u32(&mut value).map_err(|_| AttributeError::InvalidSize)?;
-
-                let mut keypoints = Vec::with_capacity(size as usize);
-
-                for _ in 0..size {
-                    let envelope = read_f32(&mut value)
-                        .map_err(|_| AttributeError::Other("NumberSequence envelope"))?;
-
-                    let time = read_f32(&mut value)
-                        .map_err(|_| AttributeError::Other("NumberSequence time"))?;
-
-                    let value = read_f32(&mut value)
-                        .map_err(|_| AttributeError::Other("NumberSequence value"))?;
-
-                    keypoints.push(NumberSequenceKeypoint::new(time, value, envelope));
-                }
-
-                NumberSequence { keypoints }.into()
-            }
-
-            AttributeType::Rect => Rect::new(
-                read_vector2(&mut value).map_err(|_| AttributeError::Other("Rect min"))?,
-                read_vector2(&mut value).map_err(|_| AttributeError::Other("Rect max"))?,
-            )
-            .into(),
-
-            AttributeType::BinaryString => {
-                let binary_string: BinaryString = read_string(&mut value)
-                    .map_err(|_| AttributeError::Other("string"))?
-                    .into();
-                binary_string.into()
-            }
-
-            AttributeType::UDim => read_udim(&mut value)
-                .map_err(|_| AttributeError::Other("UDim"))?
-                .into(),
-
-            AttributeType::UDim2 => UDim2::new(
-                read_udim(&mut value).map_err(|_| AttributeError::Other("UDim2 X"))?,
-                read_udim(&mut value).map_err(|_| AttributeError::Other("UDim2 Y"))?,
-            )
-            .into(),
-
-            AttributeType::Vector2 => Vector2::new(
-                read_f32(&mut value).map_err(|_| AttributeError::Other("Vector2 X"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::Other("Vector2 Y"))?,
-            )
-            .into(),
-
-            AttributeType::Vector3 => Vector3::new(
-                read_f32(&mut value).map_err(|_| AttributeError::Other("Vector3 X"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::Other("Vector3 Y"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::Other("Vector3 Z"))?,
-            )
-            .into(),
-        };
-
-        attributes.insert(name, value);
-    }
-
-    Ok(attributes)
 }
